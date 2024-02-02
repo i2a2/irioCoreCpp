@@ -1,0 +1,9 @@
+.project
+.settings/
+.cproject
+target/
+.pydevproject
+*.gcno
+*.gcda
+*.depend
+*.obj
