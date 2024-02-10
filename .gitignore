@@ -7,3 +7,4 @@ target/
 *.gcda
 *.depend
 *.obj
+.vscode/
