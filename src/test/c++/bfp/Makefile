@@ -36,7 +36,7 @@ run: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	mkdir -p $(BINARY_DIR)
-	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJECTS) -o $@
+	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJECTS) -o $@ $(LDLIBS)
 
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	mkdir -p $(OBJECT_DIR)
