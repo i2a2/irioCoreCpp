@@ -4,7 +4,6 @@
 #include <vector>
 #include <unordered_map>
 
-#include "resource.h"
 #include "register.h"
 #include "dma.h"
 

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <iostream>
-#include "../../../main/c++/include/bfp.h"
+#include "bfp.h"
 
 
 using namespace bfp;
