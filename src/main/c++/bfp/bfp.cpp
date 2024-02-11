@@ -8,7 +8,9 @@ std::unordered_map<std::string, bfp::DMA> parseDMA(const pugi::xml_node& node);
 
 namespace bfp{
 
-BFP::BFP(const std::string& bitfile){
+BFP::BFP(const std::string& bitfile):
+	m_bitfilePath(bitfile)
+{
 	pugi::xml_document doc;
 	pugi::xml_parse_result resParse = doc.load_file(bitfile.c_str());
 
@@ -28,6 +30,10 @@ BFP::BFP(const std::string& bitfile){
 		const std::string msg = "Problem while parsing bitfile '" + bitfile + "'";
 		throw std::runtime_error(msg);
 	}
+}
+
+std::string BFP::getBitfilePath() const{
+	return m_bitfilePath;
 }
 
 std::unordered_map<std::string, Register> BFP::getRegisters() const{

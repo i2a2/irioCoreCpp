@@ -13,6 +13,8 @@ class BFP{
 public:
 	BFP(const std::string& bitfile);
 
+	std::string getBitfilePath() const;
+
 	std::string getSignature() const;
 	std::uint32_t getBaseAddress() const;
 
@@ -22,6 +24,8 @@ public:
 	DMA getDMA(const std::string& dmaName) const;
 
 private:
+	const std::string m_bitfilePath;
+
 	std::string m_signature;
 	std::uint32_t m_baseAddress;
 
