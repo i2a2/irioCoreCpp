@@ -4,6 +4,7 @@
 #include "bfp.h"
 #include "platforms.h"
 #include <NiFpga.h>
+#include <memory>
 
 namespace iriov2{
 
@@ -33,7 +34,7 @@ private:
     void searchPlatform();
 
     bfp::BFP m_bfp;
-    Platform m_platform;
+    std::unique_ptr<Platform> m_platform;
     NiFpga_Session m_session;
     std::string m_resourceName;
     

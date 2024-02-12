@@ -35,10 +35,20 @@ void IrioV2::searchPlatform(){
     std::uint8_t platform;
     NiFpga_Status status = NiFpga_ReadU8(m_session, platform_addr, &platform);
     throwIfNotSuccessNiFpga(status, "Error reading Platform");
-    if(platform > Platform::MAX_VALUE){
-        throw std::runtime_error("Platform specified is not supported");
+
+    switch(platform){
+    case FLEXRIO_PLATFORM_VALUE:
+    	m_platform.reset(new FlexRIO());
+    	break;
+    case CRIO_PLATFORM_VALUE:
+    	m_platform.reset(new CRIO());
+    	break;
+    case RSERIES_PLATFORM_VALUE:
+    	m_platform.reset(new RSeries());
+    	break;
+    default:
+    	throw std::runtime_error("Platform specified is not supported");
     }
-    m_platform = static_cast<Platform>(platform);
 }
 
 }
