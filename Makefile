@@ -1,8 +1,8 @@
 BOLD=\e[1m
 NC=\e[0m
 
-SOURCE_DIR := src
-COPY_DIR := target
+SOURCE_DIR := src/
+COPY_DIR := target/
 LIB_MAKEFILE_DIR := target/main/c++
 TEST_MAKEFILE_DIR := target/test/c++
 
@@ -12,7 +12,7 @@ all: copy_and_make
 
 copy_and_make:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
-	cp -r $(SOURCE_DIR) $(COPY_DIR)
+	rsync -a --inplace $(SOURCE_DIR) $(COPY_DIR)
 	@echo "Copying complete."
 	@echo -e "\n$(BOLD)Building libs...$(NC)"
 	@echo "Entering $(LIB_MAKEFILE_DIR) and executing make..."
@@ -23,6 +23,8 @@ copy_and_make:
 	@echo "Entering $(TEST_MAKEFILE_DIR) and executing make..."
 	$(MAKE) -C $(TEST_MAKEFILE_DIR) $(DEBUG)
 	@echo "Make in $(TEST_MAKEFILE_DIR) complete."
+	
+	@echo -e "$(BOLD)COMPILATION SUCCESSFUL!$(NC)"
 
 clean:
 	@echo -e "$(BOLD)Cleaning \"$(COPY_DIR)\"...$(NC)"
