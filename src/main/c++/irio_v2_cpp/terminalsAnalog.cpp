@@ -4,35 +4,19 @@
 
 namespace iriov2{
 
-void findAnalog(const bfp::BFP &parsedBitfile,
-		const std::string& terminalName,
-		const size_t max,
-		std::unordered_map<std::uint8_t, const std::uint32_t> &mapInsert)
-{
-	const auto&& mapTerminals = parsedBitfile.getRegisters();
-
-	for(std::uint8_t i = 0; i < max; ++i){
-		auto it = mapTerminals.find(terminalName+std::to_string(i));
-		if(it != mapTerminals.end()){
-			mapInsert.insert({i, it->second.address});
-		}
-	}
-}
-
-
 TerminalsAnalog::TerminalsAnalog(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		Platform& platform):
 		m_session(session)
 {
 	//Find AI
-	findAnalog(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);
+	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);
 
 	//Find AO
-	findAnalog(parsedBitfile, TERMINAL_AO, platform.maxAO, m_mapAO);
+	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AO, platform.maxAO, m_mapAO);
 
 	//Find AOEnable
-	findAnalog(parsedBitfile, TERMINAL_AOENABLE, platform.maxAO, m_mapAOEnable);
+	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AOENABLE, platform.maxAO, m_mapAOEnable);
 
 	if(m_mapAO.size() != m_mapAOEnable.size()){
 		throw std::runtime_error("Mismatch in number of AO and AOEnable terminals");
