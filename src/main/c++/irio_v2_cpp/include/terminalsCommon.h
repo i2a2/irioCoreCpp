@@ -5,10 +5,10 @@
 #include <bfp.h>
 
 namespace iriov2{
-class Profile
+class TerminalsCommon
 {
 public:
-    Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+    TerminalsCommon(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 
     std::pair<std::uint8_t, std::uint8_t> getFPGAVIversion() const;
     bool getInitDone() const;

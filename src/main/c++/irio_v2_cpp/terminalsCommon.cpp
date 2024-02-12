@@ -1,9 +1,10 @@
-#include "profile.h"
-#include "terminals/commonTerminals.h"
+#include "terminalsCommon.h"
+
+#include "terminals/namesTerminalsCommon.h"
 #include "utils.h"
 
 namespace iriov2{
-Profile::Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session):
+TerminalsCommon::TerminalsCommon(const bfp::BFP &parsedBitfile, const NiFpga_Session &session):
     m_session(session)    
 {
     NiFpga_Status status;
@@ -27,63 +28,63 @@ Profile::Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session):
     m_debugmode_addr = parsedBitfile.getRegister(TERMINAL_DEBUGMODE).address;
 }
 
-std::pair<std::uint8_t, std::uint8_t> Profile::getFPGAVIversion() const{
+std::pair<std::uint8_t, std::uint8_t> TerminalsCommon::getFPGAVIversion() const{
     return m_fpgaviversion;
 }
 
-std::uint32_t Profile::getFref() const{
+std::uint32_t TerminalsCommon::getFref() const{
     return m_fref;
 }
 
-bool Profile::getInitDone() const{
+bool TerminalsCommon::getInitDone() const{
     std::uint8_t aux;
     auto status = NiFpga_ReadBool(m_session, m_initdone_addr, &aux);
     throwIfNotSuccessNiFpga(status, "Error reading InitDone");
     return static_cast<bool>(aux);
 }
 
-std::uint8_t Profile::getDevQualityStatus() const{
+std::uint8_t TerminalsCommon::getDevQualityStatus() const{
     std::uint8_t aux;
     auto status = NiFpga_ReadU8(m_session, m_devqualitystatus_addr, &aux);
     throwIfNotSuccessNiFpga(status, "Error reading DevQualityStatus");
     return aux;
 }
 
-std::int16_t Profile::getDevTemp() const{
+std::int16_t TerminalsCommon::getDevTemp() const{
     std::int16_t aux;
     auto status = NiFpga_ReadI16(m_session, m_devtemp_addr, &aux);
     throwIfNotSuccessNiFpga(status, "Error reading DevTemp");
     return aux;
 }
 
-bool Profile::getDAQStartStop() const{
+bool TerminalsCommon::getDAQStartStop() const{
     std::uint8_t aux;
     auto status = NiFpga_ReadU8(m_session, m_daqstartstop_addr, &aux);
     throwIfNotSuccessNiFpga(status, "Error reading DAQStartStop");
     return static_cast<bool>(aux);
 }
 
-bool Profile::getDebugMode() const{
+bool TerminalsCommon::getDebugMode() const{
     std::uint8_t aux;
     auto status = NiFpga_ReadU8(m_session, m_debugmode_addr, &aux);
     throwIfNotSuccessNiFpga(status, "Error reading DebugMode");
     return static_cast<bool>(aux);
 }
 
-void Profile::setDAQStart() const{
+void TerminalsCommon::setDAQStart() const{
     setDAQStartStop(true);
 }
 
-void Profile::setDAQStop() const{
+void TerminalsCommon::setDAQStop() const{
     setDAQStartStop(false);
 }
 
-void Profile::setDAQStartStop(const bool &start) const{
+void TerminalsCommon::setDAQStartStop(const bool &start) const{
     auto status = NiFpga_WriteBool(m_session, m_daqstartstop_addr, static_cast<std::uint8_t>(start));
     throwIfNotSuccessNiFpga(status, "Error writing DAQStartStop");
 }
 
-void Profile::setDebugMode(const bool &debug) const{
+void TerminalsCommon::setDebugMode(const bool &debug) const{
     auto status = NiFpga_WriteBool(m_session, m_debugmode_addr, static_cast<std::uint8_t>(debug));
     throwIfNotSuccessNiFpga(status, "Error writing DebugMode");
 }

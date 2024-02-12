@@ -1,5 +1,6 @@
 #include "irio_v2.h"
-#include "terminals/commonTerminals.h"
+
+#include "terminals/namesTerminalsCommon.h"
 #include "utils.h"
 
 namespace iriov2{
