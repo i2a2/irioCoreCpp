@@ -1,5 +1,5 @@
 #include <profile.h>
-#include "terminals/namesTerminalsCommon.h"
+#include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 
 namespace iriov2{

@@ -1,5 +1,5 @@
 #include <terminalsAuxAnalog.h>
-#include <terminals/namesTerminalsAuxAnalog.h>
+#include <terminals/names/namesTerminalsAuxAnalog.h>
 #include <utils.h>
 
 namespace iriov2{

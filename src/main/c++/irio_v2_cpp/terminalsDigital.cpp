@@ -1,5 +1,5 @@
 #include <terminalsDigital.h>
-#include <terminals/namesTerminalsDigital.h>
+#include <terminals/names/namesTerminalsDigital.h>
 #include <utils.h>
 
 namespace iriov2{
