@@ -5,10 +5,10 @@
 #include <bfp.h>
 
 namespace iriov2{
-class Profile
+class ProfileBase
 {
 public:
-    Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+    ProfileBase(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 
     std::pair<std::uint8_t, std::uint8_t> getFPGAVIversion() const;
     bool getInitDone() const;
@@ -23,9 +23,10 @@ public:
     void setDAQStartStop(const bool &start) const;
     void setDebugMode(const bool &debug) const;
 
-private:
+protected:
     const NiFpga_Session m_session;
 
+private:
     std::pair<std::uint8_t, std::uint8_t> m_fpgaviversion;
     std::uint32_t m_fref;
 
