@@ -6,7 +6,7 @@ namespace iriov2{
 
 TerminalsAnalog::TerminalsAnalog(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
-		Platform& platform):
+		const Platform& platform):
 		TerminalsBase(session)
 {
 	//Find AI
