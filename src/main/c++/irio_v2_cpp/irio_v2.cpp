@@ -2,31 +2,37 @@
 
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
+#include "profileDAQ.h"
 
 namespace iriov2{
-
-IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::pair<std::uint8_t, std::uint8_t> &FPGAversion, const std::string &appCallID, const bool verbose):
-    m_bfp(bitfilePath)
-{
-    initDriver();
-}
 
 IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::string &FPGAversion, const std::string &appCallID, const bool verbose):
     m_bfp(bitfilePath)
 {
     initDriver();
+    openSession();
+    searchPlatform();
+
+    m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get()));
+}
+
+IrioV2::~IrioV2(){
+    finalizeDriver();
+}
+
+void IrioV2::finalizeDriver(){
+    const auto status = NiFpga_Finalize();
+    throwIfNotSuccessNiFpga(status, "Error finalizing NiFpga library");
 }
 
 void IrioV2::initDriver(){
-    openSession();
-    searchPlatform();
+    const auto status = NiFpga_Initialize();
+    throwIfNotSuccessNiFpga(status, "Error initilizing NiFpga library");
 }
 
 void IrioV2::openSession(){
-    NiFpga_Status status;
-
-    status = NiFpga_Open(m_bfp.getBitfilePath().c_str(), m_bfp.getSignature().c_str(), m_resourceName.c_str(), NiFpga_OpenAttribute_NoRun, &m_session);
-    throwIfNotSuccessNiFpga(status, "Error opening bitfile");
+    const auto status = NiFpga_Open(m_bfp.getBitfilePath().c_str(), m_bfp.getSignature().c_str(), m_resourceName.c_str(), NiFpga_OpenAttribute_NoRun, &m_session);
+    throwIfNotSuccessNiFpga(status, "Error opening bitfile " + m_bfp.getBitfilePath());
 }
 
 void IrioV2::searchPlatform(){
