@@ -1,4 +1,4 @@
-SUBDIRS=bfp
+SUBDIRS=$(dir $(wildcard */Makefile))
 
 BOLD=\e[1m
 NC=\e[0m

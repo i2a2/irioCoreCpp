@@ -2,9 +2,13 @@ PROGNAME=test_iriov2cpp
 
 TARGET=../../../../target
 
-LIBRARIES=gtest bfp
+LIBRARIES=gtest bfp pugixml
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=$(TARGET)/main/c++/bfp/include $(TARGET)/main/c++/irio_c2_cpp/include
+INCLUDE_DIRS=$(TARGET)/main/c++/bfp/include $(TARGET)/main/c++/irio_v2_cpp/include
+
+ifndef $(CODAC_ROOT)
+	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
+endif
 
 BINARY_DIR=.
 SOURCE_DIR=.
