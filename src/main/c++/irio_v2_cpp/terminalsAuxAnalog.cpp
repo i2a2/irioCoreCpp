@@ -5,7 +5,7 @@
 namespace iriov2{
 
 TerminalsAuxAnalog::TerminalsAuxAnalog(const bfp::BFP &parsedBitfile, 
-		const NiFpga_Session &session, Platform& platform):
+		const NiFpga_Session &session, const Platform& platform):
 				TerminalsBase(session)
 {
     //Find AuxAI

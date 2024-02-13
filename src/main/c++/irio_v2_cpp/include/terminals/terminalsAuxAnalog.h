@@ -11,7 +11,7 @@ class TerminalsAuxAnalog: public TerminalsBase
 {
 public:
 	TerminalsAuxAnalog() = default;
-    TerminalsAuxAnalog(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, Platform& platform);
+    TerminalsAuxAnalog(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
 
     std::int32_t getAuxAI(const std::uint32_t n) const;
     std::int16_t getAuxAO(const std::uint32_t n) const;

@@ -4,7 +4,7 @@
 
 namespace iriov2{
 
-    TerminalsAuxDigital::TerminalsAuxDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, Platform &platform):
+    TerminalsAuxDigital::TerminalsAuxDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform &platform):
         TerminalsBase(session)
     {
         //Find DI

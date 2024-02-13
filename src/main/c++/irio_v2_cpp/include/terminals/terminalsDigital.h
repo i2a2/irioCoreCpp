@@ -10,7 +10,7 @@ class TerminalsDigital: public TerminalsBase
 {
 public:
 	TerminalsDigital() = default;
-    TerminalsDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, Platform& platform);
+    TerminalsDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
 
     bool getDI(const std::uint32_t n) const;
     bool getD0(const std::uint32_t n) const;

@@ -10,7 +10,7 @@ class TerminalsAuxDigital: public TerminalsBase
 {
 public:
 	TerminalsAuxDigital() = default;
-    TerminalsAuxDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, Platform& platform);
+    TerminalsAuxDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
 
     bool getAuxDI(const std::uint32_t n) const;
     bool getAuxD0(const std::uint32_t n) const;
