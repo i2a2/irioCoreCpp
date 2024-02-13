@@ -5,7 +5,7 @@
 #include <NiFpga.h>
 #include <unordered_map>
 
-void throwIfNotSuccessNiFpga(NiFpga_Status& status, const std::string& errMsg = "");
+void throwIfNotSuccessNiFpga(const NiFpga_Status& status, const std::string& errMsg = "");
 
 template<typename T>
 void findAndInsertEnumResources(const std::unordered_map<std::string, T> &mapSearch,

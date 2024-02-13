@@ -1,7 +1,7 @@
 #include "utils.h"
 #include <stdexcept>
 
-void throwIfNotSuccessNiFpga(NiFpga_Status& status, const std::string& errMsg){
+void throwIfNotSuccessNiFpga(const NiFpga_Status& status, const std::string& errMsg){
     if(status != NiFpga_Status_Success){
         const std::string err = errMsg 
             + std::string("(Code: ")
