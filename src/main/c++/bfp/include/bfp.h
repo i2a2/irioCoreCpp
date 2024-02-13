@@ -28,6 +28,8 @@ private:
 	std::string m_signature;
 	std::uint32_t m_baseAddress;
 
+	std::string m_bitfileVersion;
+
 	std::unordered_map<std::string, Register> m_regMap;
 	std::unordered_map<std::string, DMA> m_dmaMap;
 };

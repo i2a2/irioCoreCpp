@@ -23,6 +23,7 @@ BFP::BFP(const std::string& bitfile):
 	try{
 		m_signature = doc.select_node("/Bitfile/SignatureRegister").node().text().as_string();
 		m_baseAddress = doc.select_node("//NiFpga/BaseAddressOnDevice").node().text().as_uint();
+		m_bitfileVersion = doc.select_node("/Bitfile/BitfileVersion").node().text().as_string();
 
 		m_regMap = parseRegisters(doc.select_node("/Bitfile/VI/RegisterList").node(), m_baseAddress);
 		m_dmaMap = parseDMA(doc.select_node("/Bitfile/Project//DmaChannelAllocationList").node());
