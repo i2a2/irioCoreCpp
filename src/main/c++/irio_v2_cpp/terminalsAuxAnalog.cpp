@@ -5,9 +5,8 @@
 namespace iriov2{
 
 TerminalsAuxAnalog::TerminalsAuxAnalog(const bfp::BFP &parsedBitfile, 
-                                        const NiFpga_Session &session, 
-                                        Platform& platform):
-                                        m_session(session)
+		const NiFpga_Session &session, Platform& platform):
+				TerminalsBase(session)
 {
     //Find AuxAI
     findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXAI, platform.maxAuxAI, m_mapAuxAI);

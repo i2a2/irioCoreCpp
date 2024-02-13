@@ -1,14 +1,15 @@
 #pragma once
 
-#include <NiFpga.h>
+#include <terminals/terminalsBase.h>
 #include <bfp.h>
 #include <platforms.h>
 
 namespace iriov2{
 
-class TerminalsDigital
+class TerminalsDigital: public TerminalsBase
 {
 public:
+	TerminalsDigital() = default;
     TerminalsDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, Platform& platform);
 
     bool getDI(const std::uint32_t n) const;
@@ -17,8 +18,6 @@ public:
     void setDO(const std::uint32_t n, const bool value) const;
 
 private:
-    NiFpga_Session m_session;
-
     std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDI;
     std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDO;
     

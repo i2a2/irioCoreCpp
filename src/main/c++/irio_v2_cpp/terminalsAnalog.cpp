@@ -7,7 +7,7 @@ namespace iriov2{
 TerminalsAnalog::TerminalsAnalog(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		Platform& platform):
-		m_session(session)
+		TerminalsBase(session)
 {
 	//Find AI
 	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);

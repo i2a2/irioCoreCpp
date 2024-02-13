@@ -5,7 +5,7 @@
 namespace iriov2{
 
     TerminalsAuxDigital::TerminalsAuxDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, Platform &platform):
-        m_session(session)
+        TerminalsBase(session)
     {
         //Find DI
         findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDI, platform.maxDigital, m_mapAuxDI);
