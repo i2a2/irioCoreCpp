@@ -5,6 +5,7 @@
 #include "platforms.h"
 #include <NiFpga.h>
 #include <memory>
+#include "terminals/terminalsAnalog.h"
 
 namespace iriov2{
 
@@ -37,7 +38,7 @@ private:
     std::unique_ptr<Platform> m_platform;
     NiFpga_Session m_session;
     std::string m_resourceName;
-    
+    std::shared_ptr<TerminalsAnalog> a;
 };
 
 }

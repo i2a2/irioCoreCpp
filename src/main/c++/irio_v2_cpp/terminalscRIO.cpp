@@ -1,10 +1,11 @@
-#include "profileBasecRIO.h"
+#include "terminals/terminalscRIO.h"
 #include "terminals/names/namesTerminalscRIO.h"
 #include "utils.h"
 
+
 namespace iriov2{
-    ProfileBasecRIO::ProfileBasecRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session):
-        ProfileBase(parsedBitfile, session)
+	TerminalscRIO::TerminalscRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session):
+        TerminalsBase(session)
     {
         m_criomodulesok_addr = parsedBitfile.getRegister(TERMINAL_CRIOMODULESOK).address;
         const auto regModulesID = parsedBitfile.getRegister(TERMINAL_INSERTEDIOMODULESID);
@@ -12,7 +13,7 @@ namespace iriov2{
         m_numModules = regModulesID.numElem;
     }
 
-    bool ProfileBasecRIO::getcRIOModulesOk() const
+    bool TerminalscRIO::getcRIOModulesOk() const
     {
         NiFpga_Bool aux;
         auto status = NiFpga_ReadBool(m_session, m_criomodulesok_addr, &aux);
@@ -20,7 +21,7 @@ namespace iriov2{
         return static_cast<bool>(aux);
     }
 
-    std::vector<std::uint16_t> ProfileBasecRIO::getInsertedIOModulesID() const
+    std::vector<std::uint16_t> TerminalscRIO::getInsertedIOModulesID() const
     {
         static std::vector<std::uint16_t> ret(m_numModules);
         auto status = NiFpga_ReadArrayU16(m_session, m_insertediomodulesid_addr, ret.data(), m_numModules);
