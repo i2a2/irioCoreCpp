@@ -6,8 +6,13 @@ LIBRARIES=bfp
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include
 
-ifndef $(CODAC_ROOT)
-	INCLUDE_DIRS+=./NiFpga_CD
+
+ifdef CODAC_ROOT
+	LIBRARIES+=NiFpga
+	INCLUDE_DIRS+=$(CODAC_ROOT)/include
+	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
+else
+	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
 endif
 
 LIBRARY_DIR=$(TARGET)/lib
