@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdint.h>
 
 #define FLEXRIO_PLATFORM_VALUE 0
 #define CRIO_PLATFORM_VALUE 1
