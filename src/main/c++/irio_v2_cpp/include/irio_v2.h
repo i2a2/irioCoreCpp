@@ -6,6 +6,7 @@
 #include <profiles.h>
 #include <bfp.h>
 #include <NiFpga.h>
+#include <terminals/terminals.h>
 
 namespace iriov2{
 
@@ -22,6 +23,10 @@ public:
         );
 
     ~IrioV2();
+
+    const std::shared_ptr<const TerminalsAnalog> analog();
+    const std::shared_ptr<const TerminalsDigital> digital();
+
 private:
     void initDriver();
     void finalizeDriver();

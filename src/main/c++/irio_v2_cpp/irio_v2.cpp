@@ -9,6 +9,8 @@ namespace iriov2{
 IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::string &FPGAversion, const std::string &appCallID, const bool verbose):
     m_bfp(bitfilePath)
 {
+	m_resourceName = RIODeviceModel; //TODO: Just for testing purposes, this shouldn't be the resource model...
+
     initDriver();
     openSession();
     searchPlatform();
@@ -27,7 +29,7 @@ void IrioV2::finalizeDriver(){
 
 void IrioV2::initDriver(){
     const auto status = NiFpga_Initialize();
-    throwIfNotSuccessNiFpga(status, "Error initilizing NiFpga library");
+    throwIfNotSuccessNiFpga(status, "Error initializing NiFpga library");
 }
 
 void IrioV2::openSession(){
@@ -55,6 +57,19 @@ void IrioV2::searchPlatform(){
     default:
     	throw std::runtime_error("Platform specified is not supported");
     }
+}
+
+void IrioV2::searchDevProfile() {
+	//TODO
+}
+
+
+const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() {
+	return m_profile->analog();
+}
+
+const std::shared_ptr<const TerminalsDigital> IrioV2::digital() {
+	return m_profile->digital();
 }
 
 }
