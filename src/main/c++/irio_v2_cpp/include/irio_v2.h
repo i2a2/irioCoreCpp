@@ -88,19 +88,19 @@ private:
 
     /**
      * Opens a session to the FPGA, downloading the bitfile if necessary.
-     * It does not run the VI, until @startFPGA has been called
+     * It does not run the VI, until @ref startFPGA has been called
      */
     void openSession();
 
     /**
-     * Searches for the @TERMINAL_PLATFORM terminal and reads its value.\n
+     * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.\n
      * Checks that is a valid value and assigns the equivalent
      * Platform to a variable.
      */
     void searchPlatform();
 
     /**
-     * Searches for the @TERMINAL_DEVPROFILE terminals and
+     * Searches for the @ref TERMINAL_DEVPROFILE terminals and
      * reads its value.\n
      * Checks that is a valid value for the selected platform and assigns
      * the corresponding profile to a variable.
