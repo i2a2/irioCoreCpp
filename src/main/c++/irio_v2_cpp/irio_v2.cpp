@@ -89,17 +89,17 @@ void IrioV2::searchPlatform(){
 void IrioV2::searchDevProfile() {
 	static const std::unordered_map<std::uint8_t, const std::unordered_map<std::uint8_t, std::uint8_t>> validProfileByPlatform =
 	{
-			{FLEXRIO_PLATFORM_VALUE, {	{Profile::PROFILE_VALUE_DAQ, Profile::PROFILE_ID_DAQ},
-										{Profile::PROFILE_VALUE_IMAQ, Profile::PROFILE_ID_IMAQ},
-										{Profile::PROFILE_VALUE_DAQGPU,Profile::PROFILE_ID_DAQGPU},
-										{Profile::PROFILE_VALUE_IMAQGPU, Profile::PROFILE_ID_IMAQGPU}
+			{FLEXRIO_PLATFORM_VALUE, {	{Profile::PROFILE_VALUE_DAQ, Profile::FLEXRIO_DAQ},
+										{Profile::PROFILE_VALUE_IMAQ, Profile::FLEXRIO_IMAQ},
+										{Profile::PROFILE_VALUE_DAQGPU,Profile::FLEXRIO_GPUDAQ},
+										{Profile::PROFILE_VALUE_IMAQGPU, Profile::FLEXRIO_GPUIMAQ}
 									}},
 
-			{CRIO_PLATFORM_VALUE, {		{Profile::PROFILE_VALUE_DAQ, Profile::PROFILE_ID_DAQ},
-										{Profile::PROFILE_VALUE_IO, Profile::PROFILE_ID_IO}
+			{CRIO_PLATFORM_VALUE, {		{Profile::PROFILE_VALUE_DAQ, Profile::CRIO_DAQ},
+										{Profile::PROFILE_VALUE_IO, Profile::CRIO_IO}
 									}},
 
-			{RSERIES_PLATFORM_VALUE, {	{Profile::PROFILE_VALUE_DAQ, Profile::PROFILE_ID_DAQ}}}
+			{RSERIES_PLATFORM_VALUE, {	{Profile::PROFILE_VALUE_DAQ, Profile::R_DAQ}}}
 	};
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
@@ -115,16 +115,21 @@ void IrioV2::searchDevProfile() {
 
 	//TODO: Finish
 	switch(it->second){
-	case Profile::PROFILE_ID_DAQ:
-		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get()));
+	case Profile::FLEXRIO_DAQ:
+		//TODO: Replace with one with the FlexRIO registers
+		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get(), Profile::FLEXRIO_DAQ));
 		break;
-	case Profile::PROFILE_ID_IMAQ:
+	case Profile::FLEXRIO_IMAQ:
 		break;
-	case Profile::PROFILE_ID_DAQGPU:
+	case Profile::FLEXRIO_GPUDAQ:
 		break;
-	case Profile::PROFILE_ID_IMAQGPU:
+	case Profile::FLEXRIO_GPUIMAQ:
 		break;
-	case Profile::PROFILE_ID_IO:
+	case Profile::CRIO_DAQ:
+		break;
+	case Profile::CRIO_IO:
+		break;
+	case Profile::R_DAQ:
 		break;
 	}
 

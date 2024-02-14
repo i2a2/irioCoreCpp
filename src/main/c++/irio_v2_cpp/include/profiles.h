@@ -14,11 +14,15 @@ namespace iriov2{
 class Profile: public TerminalsCommon
 {
 public:
-	static const std::uint8_t PROFILE_ID_DAQ = 0;
-	static const std::uint8_t PROFILE_ID_IMAQ = 1;
-	static const std::uint8_t PROFILE_ID_DAQGPU = 2;
-	static const std::uint8_t PROFILE_ID_IMAQGPU = 3;
-	static const std::uint8_t PROFILE_ID_IO = 4;
+	enum PROFILE_ID{
+		FLEXRIO_DAQ = 0,
+		FLEXRIO_IMAQ,
+		FLEXRIO_GPUDAQ,
+		FLEXRIO_GPUIMAQ,
+		CRIO_DAQ,
+		CRIO_IO,
+		R_DAQ
+	};
 
 	static const std::uint8_t PROFILE_VALUE_DAQ = 0;
 	static const std::uint8_t PROFILE_VALUE_IMAQ = 1;

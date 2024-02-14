@@ -8,7 +8,7 @@ namespace iriov2{
 class ProfileDAQ: public Profile
 {
 public:
-    ProfileDAQ(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform &platform);
+    ProfileDAQ(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform &platform, const Profile::PROFILE_ID& id);
 };
 
 }
