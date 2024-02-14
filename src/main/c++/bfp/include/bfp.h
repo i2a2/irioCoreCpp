@@ -13,6 +13,7 @@ public:
 	BFP(const std::string& bitfile);
 
 	std::string getBitfilePath() const;
+	std::string getBitfileVersion() const;
 
 	std::string getSignature() const;
 	std::uint32_t getBaseAddress() const;

@@ -37,6 +37,10 @@ std::string BFP::getBitfilePath() const{
 	return m_bitfilePath;
 }
 
+std::string BFP::getBitfileVersion() const{
+	return m_bitfileVersion;
+}
+
 std::unordered_map<std::string, Register> BFP::getRegisters() const{
 	return m_regMap;
 }
