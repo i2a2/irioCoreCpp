@@ -13,10 +13,10 @@ class Platform
 public:
 	Platform(size_t ai, size_t auxAI, size_t ao, size_t auxAO,
 	             size_t digital, size_t auxDigital, size_t dma,
-	             size_t sg, size_t modules)
+	             size_t sg, size_t modules, std::uint8_t id)
 	        : maxAI(ai), maxAuxAI(auxAI), maxAO(ao), maxAuxAO(auxAO),
 	          maxDigital(digital), maxAuxDigital(auxDigital),
-	          maxDMA(dma), maxSG(sg), maxModules(modules) {}
+	          maxDMA(dma), maxSG(sg), maxModules(modules), platformID(id) {}
 
 	const size_t maxAI;
 	const size_t maxAuxAI;
@@ -27,6 +27,8 @@ public:
 	const size_t maxDMA;
 	const size_t maxSG;
 	const size_t maxModules;
+
+	const std::uint8_t platformID = -1;
 };
 
 class FlexRIO: public Platform
@@ -44,7 +46,9 @@ private:
 
 public:
 	FlexRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
-			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES){}
+			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
+			FLEXRIO_PLATFORM_VALUE){}
+
 };
 
 class CRIO: public Platform
@@ -62,7 +66,9 @@ private:
 
 public:
 	CRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
-			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES){}
+			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
+			CRIO_PLATFORM_VALUE){}
+
 };
 
 class RSeries: public Platform
@@ -80,7 +86,9 @@ private:
 
 public:
 	RSeries(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
-			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES){}
+			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
+			RSERIES_PLATFORM_VALUE){}
+
 };
 
 }
