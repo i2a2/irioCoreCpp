@@ -28,7 +28,7 @@ public:
 	const size_t maxSG;
 	const size_t maxModules;
 
-	const std::uint8_t platformID = -1;
+	const std::uint8_t platformID;
 };
 
 class FlexRIO: public Platform

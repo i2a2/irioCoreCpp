@@ -1,9 +1,10 @@
 #include "profiles.h"
 
+
 namespace iriov2
 {
-    Profile::Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session):
-        TerminalsCommon(parsedBitfile, session)
+    Profile::Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const std::uint8_t id):
+        TerminalsCommon(parsedBitfile, session), profileID(id)
     { }
     
     const std::shared_ptr<const TerminalsAnalog> Profile::analog(){

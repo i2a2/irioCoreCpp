@@ -24,11 +24,14 @@ public:
 
     ~IrioV2();
 
+    //void startFPGA();
+
     const std::shared_ptr<const TerminalsAnalog> analog();
     const std::shared_ptr<const TerminalsDigital> digital();
 
 private:
     void initDriver();
+    void closeDriver();
     void finalizeDriver();
     void openSession();
     void searchPlatform();

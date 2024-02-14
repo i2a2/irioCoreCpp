@@ -3,8 +3,14 @@
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 #include "profileDAQ.h"
+#include <set>
 
 namespace iriov2{
+
+
+/*********************************************
+ * PUBLIC METHODS
+ *********************************************/
 
 IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::string &FPGAversion, const std::string &appCallID, const bool verbose):
     m_bfp(bitfilePath)
@@ -14,19 +20,36 @@ IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel
     initDriver();
     openSession();
     searchPlatform();
-
-    m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get()));
+    searchDevProfile();
 }
 
 IrioV2::~IrioV2(){
+	closeDriver();
     finalizeDriver();
 }
+
+const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() {
+	return m_profile->analog();
+}
+
+const std::shared_ptr<const TerminalsDigital> IrioV2::digital() {
+	return m_profile->digital();
+}
+
+
+/*********************************************
+ * PRIVATE METHODS
+ *********************************************/
 
 void IrioV2::finalizeDriver(){
 #ifndef CCS_VERSION
     const auto status = NiFpga_Finalize();
     throwIfNotSuccessNiFpga(status, "Error finalizing NiFpga library");
 #endif
+}
+
+void IrioV2::closeDriver(){
+	NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
 }
 
 void IrioV2::initDriver(){
@@ -45,7 +68,7 @@ void IrioV2::searchPlatform(){
     //Read Platform
     auto platform_addr = m_bfp.getRegister(TERMINAL_PLATFORM).address;
     std::uint8_t platform;
-    NiFpga_Status status = NiFpga_ReadU8(m_session, platform_addr, &platform);
+    const auto status = NiFpga_ReadU8(m_session, platform_addr, &platform);
     throwIfNotSuccessNiFpga(status, "Error reading Platform");
 
     switch(platform){
@@ -64,16 +87,51 @@ void IrioV2::searchPlatform(){
 }
 
 void IrioV2::searchDevProfile() {
-	//TODO
+	static const std::unordered_map<std::uint8_t, const std::unordered_map<std::uint8_t, std::uint8_t>> validProfileByPlatform =
+	{
+			{FLEXRIO_PLATFORM_VALUE, {	{Profile::PROFILE_VALUE_DAQ, Profile::PROFILE_ID_DAQ},
+										{Profile::PROFILE_VALUE_IMAQ, Profile::PROFILE_ID_IMAQ},
+										{Profile::PROFILE_VALUE_DAQGPU,Profile::PROFILE_ID_DAQGPU},
+										{Profile::PROFILE_VALUE_IMAQGPU, Profile::PROFILE_ID_IMAQGPU}
+									}},
+
+			{CRIO_PLATFORM_VALUE, {		{Profile::PROFILE_VALUE_DAQ, Profile::PROFILE_ID_DAQ},
+										{Profile::PROFILE_VALUE_IO, Profile::PROFILE_ID_IO}
+									}},
+
+			{RSERIES_PLATFORM_VALUE, {	{Profile::PROFILE_VALUE_DAQ, Profile::PROFILE_ID_DAQ}}}
+	};
+
+	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
+	std::uint8_t profile;
+	const auto status = NiFpga_ReadU8(m_session, profile_addr, &profile);
+	throwIfNotSuccessNiFpga(status, "Error reading DevProfile");
+
+	const auto validValues = validProfileByPlatform.find(m_platform->platformID)->second;
+	const auto it = validValues.find(profile);
+	if(it == validValues.end()){
+		throw std::runtime_error("DevProfile "+ std::to_string(profile) + " is not valid for the platform " + std::to_string(m_platform->platformID));
+	}
+
+	//TODO: Finish
+	switch(it->second){
+	case Profile::PROFILE_ID_DAQ:
+		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get()));
+		break;
+	case Profile::PROFILE_ID_IMAQ:
+		break;
+	case Profile::PROFILE_ID_DAQGPU:
+		break;
+	case Profile::PROFILE_ID_IMAQGPU:
+		break;
+	case Profile::PROFILE_ID_IO:
+		break;
+	}
+
 }
 
 
-const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() {
-	return m_profile->analog();
-}
 
-const std::shared_ptr<const TerminalsDigital> IrioV2::digital() {
-	return m_profile->digital();
-}
+
 
 }
