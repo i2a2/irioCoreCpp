@@ -6,6 +6,6 @@
 #define TERMINAL_FREF "Fref"
 #define TERMINAL_DEVQUALITYSTATUS "DevQualityStatus"
 #define TERMINAL_DEVTEMP "DevTemp"
-#define TERMINAL_DEVPROFILE "Devprofile"
+#define TERMINAL_DEVPROFILE "DevProfile"
 #define TERMINAL_DAQSTARTSTOP "DAQStartStop"
 #define TERMINAL_DEBUGMODE "DebugMode"
