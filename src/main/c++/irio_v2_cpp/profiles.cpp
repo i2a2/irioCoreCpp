@@ -3,7 +3,7 @@
 
 namespace iriov2
 {
-    Profile::Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const std::uint8_t id):
+    Profile::Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Profile::PROFILE_ID &id):
         TerminalsCommon(parsedBitfile, session), profileID(id)
     { }
     

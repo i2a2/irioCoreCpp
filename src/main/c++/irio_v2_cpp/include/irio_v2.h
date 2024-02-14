@@ -43,19 +43,69 @@ public:
         const bool verbose = false
         );
 
+    /**
+     * Destructor.\n
+     * Closes the session if there is one open and finalizes
+     * the low level library.
+     */
     ~IrioV2();
 
     //void startFPGA();
 
+    /**
+     * Returns a pointer to the analog terminals.
+     * The user must call it to be able to read/write analog
+     * related terminals
+     *
+     * @return Pointer to the analog terminals
+     */
     const std::shared_ptr<const TerminalsAnalog> analog();
+
+    /**
+	* Returns a pointer to the digital terminals.
+	* The user must call it to be able to read/write digital
+	* related terminals
+	*
+	* @return Pointer to the digital terminals
+	*/
     const std::shared_ptr<const TerminalsDigital> digital();
 
 private:
+    /**
+     * Initializes the low level library. If system is CCS, does nothing.
+     */
     void initDriver();
+
+    /**
+     * Closes the session if it has been opened.
+     */
     void closeDriver();
+
+    /**
+     * Finalizes the low level library. If system is CCS, does nothing.
+     */
     void finalizeDriver();
+
+    /**
+     * Opens a session to the FPGA, downloading the bitfile if necessary.
+     * It does not run the VI, until @startFPGA has been called
+     */
     void openSession();
+
+    /**
+     * Searches for the @TERMINAL_PLATFORM terminal and reads its value.\n
+     * Checks that is a valid value and assigns the equivalent
+     * Platform to a variable.
+     */
     void searchPlatform();
+
+    /**
+     * Searches for the @TERMINAL_DEVPROFILE terminals and
+     * reads its value.\n
+     * Checks that is a valid value for the selected platform and assigns
+     * the corresponding profile to a variable.
+     * This determines which terminals can the user access.
+     */
     void searchDevProfile();
 
     std::unique_ptr<Platform> m_platform;
