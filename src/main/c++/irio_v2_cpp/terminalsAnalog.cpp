@@ -21,6 +21,9 @@ TerminalsAnalog::TerminalsAnalog(const bfp::BFP &parsedBitfile,
 	if(m_mapAO.size() != m_mapAOEnable.size()){
 		throw std::runtime_error("Mismatch in number of AO and AOEnable terminals");
 	}
+
+	numAI = m_mapAI.size();
+	numAO = m_mapAO.size();
 }
 
 std::int32_t getAnalog(
@@ -49,6 +52,14 @@ std::int32_t TerminalsAnalog::getAO(const std::uint32_t n) const {
 
 std::int32_t TerminalsAnalog::getAOEnable(std::uint32_t n) const {
 	return getAnalog(m_session, n, m_mapAOEnable, TERMINAL_AOENABLE);
+}
+
+size_t TerminalsAnalog::getNumAI() const{
+	return numAI;
+}
+
+size_t TerminalsAnalog::getNumAO() const{
+	return numAO;
 }
 
 void setAnalog(
