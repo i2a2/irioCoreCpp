@@ -13,7 +13,7 @@ namespace iriov2{
  *********************************************/
 
 IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::string &FPGAVIversion, const std::string &appCallID, const bool verbose):
-    m_bfp(bitfilePath)
+    m_bfp(bitfilePath), m_session(0)
 {
 	m_resourceName = RIODeviceModel; //TODO: Just for testing purposes, this shouldn't be the resource model...
 
@@ -55,7 +55,9 @@ void IrioV2::finalizeDriver(){
 }
 
 void IrioV2::closeDriver(){
-	NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
+	if(m_session!=0)
+		NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
+	m_session = 0;
 }
 
 void IrioV2::initDriver(){
