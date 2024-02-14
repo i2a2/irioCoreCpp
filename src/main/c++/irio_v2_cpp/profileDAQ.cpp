@@ -6,6 +6,8 @@ namespace iriov2{
         Profile(parsedBitfile, session)
     {
         m_analog.reset(new TerminalsAnalog(parsedBitfile, session, platform));
+
+        m_digital.reset(new TerminalsDigital());
     }
 
 }
