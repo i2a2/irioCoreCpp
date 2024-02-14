@@ -65,11 +65,15 @@
                         <package name="bfp">
                             <include name="bfp" type="library" />
                         </package>
-                        <package develof="bfp" />
-                        <package name="irio_v2">
-                            <include name="irio_v2" type="library" />
+                        <package develof="bfp">
+                        	<include type="file" source="main/c++/bfp/include" target="include/iriov2cpp/bfp" />
                         </package>
-                        <package develof="irio_v2" />
+                        <package name="irio_v2_cpp">
+                            <include name="irio_v2_cpp" type="library" />
+                        </package>
+                        <package develof="irio_v2_cpp">
+                        	<include type="file" source="main/c++/irio_v2_cpp/include" target="include/iriov2cpp" />
+                        </package>
                     </packaging>
                 </configuration>
             </plugin>
