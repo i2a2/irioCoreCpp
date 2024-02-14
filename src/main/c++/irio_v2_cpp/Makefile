@@ -6,15 +6,6 @@ LIBRARIES=bfp
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include
 
-
-ifdef CODAC_ROOT
-	LIBRARIES+=NiFpga
-	INCLUDE_DIRS+=$(CODAC_ROOT)/include
-	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
-else
-	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
-endif
-
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_DIR=.
 OBJECT_DIR = $(SOURCE_DIR)/.obj
@@ -42,6 +33,18 @@ else
 	CFLAGS+= -O3
 	CCFLAGS+= -O3
 endif
+
+ifdef CODAC_ROOT
+	LIBRARIES+=NiFpga
+	INCLUDE_DIRS+=$(CODAC_ROOT)/include
+	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
+	CFLAGS+= -DCCS_VERSION
+	CCFLAGS+= -DCCS_VERSION
+else
+	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
+endif
+
+
 
 .PHONY: all clean run 
 

@@ -23,13 +23,17 @@ IrioV2::~IrioV2(){
 }
 
 void IrioV2::finalizeDriver(){
+#ifndef CCS_VERSION
     const auto status = NiFpga_Finalize();
     throwIfNotSuccessNiFpga(status, "Error finalizing NiFpga library");
+#endif
 }
 
 void IrioV2::initDriver(){
+#ifndef CCS_VERSION
     const auto status = NiFpga_Initialize();
     throwIfNotSuccessNiFpga(status, "Error initializing NiFpga library");
+#endif
 }
 
 void IrioV2::openSession(){
