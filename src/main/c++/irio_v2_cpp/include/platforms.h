@@ -51,7 +51,7 @@ public:
 /**
  * Specific implementation for the FlexRIO platform
  */
-class FlexRIO: public Platform
+class PlatformFlexRIO: public Platform
 {
 private:
 	static const size_t MAX_AI = 4;
@@ -68,7 +68,7 @@ public:
 	/**
 	 * Specific implementation for the FlexRIO platform
 	 */
-	FlexRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
+	PlatformFlexRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
 			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
 			FLEXRIO_PLATFORM_VALUE){}
 
@@ -77,7 +77,7 @@ public:
 /**
  * Specific implementation for the cRIO platform
  */
-class CRIO: public Platform
+class PlatformCRIO: public Platform
 {
 private:
 	static const size_t MAX_AI = 256;
@@ -94,7 +94,7 @@ public:
 	/**
 	 * Specific implementation for the cRIO platform
 	 */
-	CRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
+	PlatformCRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
 			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
 			CRIO_PLATFORM_VALUE){}
 
@@ -103,7 +103,7 @@ public:
 /**
  * Specific implementation for the RSeries platform
  */
-class RSeries: public Platform
+class PlatformRSeries: public Platform
 {
 private:
 	static const size_t MAX_AI = 8;
@@ -120,7 +120,7 @@ public:
 	/**
 	 * Specific implementation for the RSeries platform
 	 */
-	RSeries(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
+	PlatformRSeries(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
 			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
 			RSERIES_PLATFORM_VALUE){}
 

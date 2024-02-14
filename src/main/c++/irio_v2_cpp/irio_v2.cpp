@@ -81,13 +81,13 @@ void IrioV2::searchPlatform(){
 
     switch(platform){
     case FLEXRIO_PLATFORM_VALUE:
-    	m_platform.reset(new FlexRIO());
+    	m_platform.reset(new PlatformFlexRIO());
     	break;
     case CRIO_PLATFORM_VALUE:
-    	m_platform.reset(new CRIO());
+    	m_platform.reset(new PlatformCRIO());
     	break;
     case RSERIES_PLATFORM_VALUE:
-    	m_platform.reset(new RSeries());
+    	m_platform.reset(new PlatformRSeries());
     	break;
     default:
     	throw std::runtime_error("Platform specified is not supported");
