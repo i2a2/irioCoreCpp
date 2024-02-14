@@ -12,10 +12,16 @@ namespace iriov2{
  * PUBLIC METHODS
  *********************************************/
 
-IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::string &FPGAversion, const std::string &appCallID, const bool verbose):
+IrioV2::IrioV2(const std::string &bitfilePath, const std::string &RIODeviceModel, const std::string &RIOSerialNumber, const std::string &FPGAVIversion, const std::string &appCallID, const bool verbose):
     m_bfp(bitfilePath)
 {
 	m_resourceName = RIODeviceModel; //TODO: Just for testing purposes, this shouldn't be the resource model...
+
+	if(m_bfp.getBitfileVersion() != FPGAVIversion){
+		throw std::runtime_error("FPGAVIVserion mismatch ("
+				+ FPGAVIversion + " != "
+				+ m_bfp.getBitfileVersion() + ")");
+	}
 
     initDriver();
     openSession();
@@ -110,7 +116,8 @@ void IrioV2::searchDevProfile() {
 	const auto validValues = validProfileByPlatform.find(m_platform->platformID)->second;
 	const auto it = validValues.find(profile);
 	if(it == validValues.end()){
-		throw std::runtime_error("DevProfile "+ std::to_string(profile) + " is not valid for the platform " + std::to_string(m_platform->platformID));
+		throw std::runtime_error("DevProfile "+ std::to_string(profile)
+				+ " is not valid for the platform " + std::to_string(m_platform->platformID));
 	}
 
 	//TODO: Finish
