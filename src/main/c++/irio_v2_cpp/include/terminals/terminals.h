@@ -1,6 +1,5 @@
 #pragma once
 
-#include <terminals/terminalsCommon.h>
 #include <terminals/terminalsAnalog.h>
 #include <terminals/terminalsAuxAnalog.h>
 #include <terminals/terminalsDigital.h>

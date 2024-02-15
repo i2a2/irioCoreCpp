@@ -5,24 +5,70 @@
 #include <NiFpga.h>
 #include <unordered_map>
 
+/**
+ * Throws a runtime error if the NiFpga_Status is not success.\n
+ * The exception message includes the specified text along with the error code
+ * @param status	Status to check
+ * @param errMsg	Error message to use in the exception if there has been an error
+ */
 void throwIfNotSuccessNiFpga(const NiFpga_Status& status, const std::string& errMsg = "");
 
+/**
+ * Find resources in an specified map that follow the structure name<n>, where n is a number,
+ * and insert them in a new map.
+ *
+ * The function will search maxElem resources, if one is not found, it will continue.
+ * For example:\n
+ * Given the resourceName "AI" and maxElem 3, if there is AI0 and AI2, although
+ * AI1 would not be found, the function will insert AI2 anyway.
+ *
+ * @tparam T			bfp::Register or bfp::DMA
+ * @param mapSearch		Map with the resources to find
+ * @param resourceName	Base name of the resource
+ * @param maxElem		Maximum number of elements that could be found
+ * @param mapInsert		Map on which to insert the address of found resources
+ */
 template<typename T>
 void findAndInsertEnumResources(const std::unordered_map<std::string, T> &mapSearch,
                                 const std::string &resourceName,
                                 const size_t maxElem,
                                 std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert);
 
+/**
+ * Wrapper function for \ref findAndInsertEnumResources specific for Registers
+ *
+ * @param parsedBitfile		Parsed bitfile with the Registers to search
+ * @param terminalName		Base name of the register
+ * @param maxElem			Maximum number of Registers that could be found
+ * @param mapInsert			Map on which to insert the address of the Registers found
+ */
 void findAndInsertEnumRegisters(const bfp::BFP &parsedBitfile,
                                 const std::string &terminalName,
                                 const size_t maxElem,
                                 std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert);
 
+/**
+ * Wrapper function for \ref findAndInsertEnumResources specific for DMAs
+ *
+ * @param parsedBitfile		Parsed bitfile with the DMA to search
+ * @param dmaName			Base name of the DMA
+ * @param maxElem			Maximum number of DMAs that could be found
+ * @param mapInsert			Map on which to insert the address of the DMAs found
+ */
 void findAndInsertEnumDMAs(const bfp::BFP &parsedBitfile,
                             const std::string &dmaName,
                             const size_t maxElem,
                             std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert);
 
+/**
+ * Searches a map with identifiers as keys and addresses as values and check if the specified identifier (n) exists.
+ * Throws a runtime_error if is not found.
+ *
+ * @param mapResource	Map with the identifiers as keys and addresses as values
+ * @param n				Identifier to find in map
+ * @param resourceName	Name of the resource to find
+ * @return
+ */
 std::uint32_t getAddressEnumResource(const std::unordered_map<std::uint32_t, const std::uint32_t> &mapResource, 
                                         const std::uint32_t n,
                                         const std::string &resourceName);

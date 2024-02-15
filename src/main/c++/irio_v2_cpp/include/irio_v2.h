@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include <platforms.h>
-#include <profiles.h>
+#include <profileBase.h>
 #include <bfp.h>
 #include <NiFpga.h>
 #include <terminals/terminals.h>
@@ -109,7 +109,7 @@ private:
     void searchDevProfile();
 
     std::unique_ptr<Platform> m_platform;
-    std::unique_ptr<Profile> m_profile;
+    std::unique_ptr<ProfileBase> m_profile;
 
     bfp::BFP m_bfp;
 

@@ -3,6 +3,7 @@
 #include <memory>
 #include <bfp.h>
 #include <terminals/terminals.h>
+#include <profileBaseTerminals.h>
 
 
 namespace iriov2{
@@ -12,7 +13,7 @@ namespace iriov2{
  * Allows the user to access terminals for read/write operations.\n
  * If a terminal group is not in the profile, an exception will be thrown.
  */
-class Profile: public TerminalsCommon
+class ProfileBase: public ProfileBaseTerminals
 {
 public:
 	/**
@@ -56,7 +57,7 @@ public:
 	 * @param session			Session for operations with the FPGA
 	 * @param id				Identification of the profile
 	 */
-    Profile(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Profile::PROFILE_ID &id);
+	ProfileBase(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const ProfileBase::PROFILE_ID &id);
     
     /**
      * Access to the analog group terminals.\n
@@ -76,7 +77,7 @@ public:
     /**
      * Profile type
      */
-    const Profile::PROFILE_ID profileID;
+    const ProfileBase::PROFILE_ID profileID;
 
 protected:
     std::shared_ptr<const TerminalsAnalog> m_analog;

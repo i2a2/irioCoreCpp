@@ -1,16 +1,15 @@
 #pragma once
 
-#include "terminals/terminalsBase.h"
 #include <bfp.h>
 #include <NiFpga.h>
 
 
 namespace iriov2{
 
-class TerminalsCommon: public TerminalsBase
+class ProfileBaseTerminals
 {
 public:
-	TerminalsCommon(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+	ProfileBaseTerminals(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 
 	std::pair<std::uint8_t, std::uint8_t> getFPGAVIversion() const;
 	bool getInitDone() const;
@@ -35,6 +34,7 @@ private:
 	std::uint32_t m_daqstartstop_addr;
 	std::uint32_t m_debugmode_addr;
 
+	NiFpga_Session m_session;
 };
 
 }
