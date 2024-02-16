@@ -68,6 +68,7 @@ public:
      * @return Pointer to the analog terminals
      */
     virtual const std::shared_ptr<const TerminalsAnalog> analog();
+
     /**
 	 * Access to the digital group terminals.\n
 	 * If the profile does not have them, an exception will be thrown.
@@ -75,6 +76,46 @@ public:
 	 * @return Pointer to the digital terminals
 	 */
     virtual const std::shared_ptr<const TerminalsDigital> digital();
+
+    /**
+	 * Access to the aux analog group terminals.\n
+	 * If the profile does not have them, an exception will be thrown.
+	 *
+	 * @return Pointer to the aux analog terminals
+	 */
+    virtual const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog();
+
+    /**
+	 * Access to the aux digital group terminals.\n
+	 * If the profile does not have them, an exception will be thrown.
+	 *
+	 * @return Pointer to the aux digital terminals
+	 */
+    virtual const std::shared_ptr<const TerminalsAuxDigital> auxDigital();
+
+    /**
+	 * Access to the cRIO group terminals.\n
+	 * If the profile does not have them, an exception will be thrown.
+	 *
+	 * @return Pointer to the cRIO terminals
+	 */
+	virtual const std::shared_ptr<const TerminalscRIO> cRIO();
+
+	/**
+	 * Access to the FlexRIO group terminals.\n
+	 * If the profile does not have them, an exception will be thrown.
+	 *
+	 * @return Pointer to the FlexRIO terminals
+	 */
+	virtual const std::shared_ptr<const TerminalsFlexRIO> flexRIO();
+
+	/**
+	 * Access to the Signal Generation group terminals.\n
+	 * If the profile does not have them, an exception will be thrown.
+	 *
+	 * @return Pointer to the Signal Generation terminals
+	 */
+	virtual const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration();
 
     /**
      * Profile type
