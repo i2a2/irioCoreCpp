@@ -1,10 +1,10 @@
 #include <profiles/profileBase.h>
 
-
-namespace iriov2
-{
-ProfileBase::ProfileBase(const bfp::BFP &parsedBitfile,
-		const NiFpga_Session &session, const ProfileBase::PROFILE_ID &id) :
+namespace iriov2 {
+ProfileBase::ProfileBase(
+		const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const ProfileBase::PROFILE_ID &id) :
 		ProfileBaseTerminals(parsedBitfile, session), profileID(id) {
 }
 

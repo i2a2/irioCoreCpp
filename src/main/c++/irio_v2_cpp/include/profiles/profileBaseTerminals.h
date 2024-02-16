@@ -3,11 +3,9 @@
 #include <bfp.h>
 #include <NiFpga.h>
 
+namespace iriov2 {
 
-namespace iriov2{
-
-class ProfileBaseTerminals
-{
+class ProfileBaseTerminals {
 public:
 	ProfileBaseTerminals(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 
