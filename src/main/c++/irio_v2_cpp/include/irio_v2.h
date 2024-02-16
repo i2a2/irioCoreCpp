@@ -8,7 +8,7 @@
 #include <NiFpga.h>
 #include <terminals/terminals.h>
 
-namespace iriov2{
+namespace iriov2 {
 
 /**
  * irio-v2 main class.
@@ -16,8 +16,7 @@ namespace iriov2{
  * It parses the specified bitfile and downloads it to the selected RIO device. It also provides the user function to
  * access the terminals and perform read/write operations.
  */
-class IrioV2
-{
+class IrioV2 {
 public:
 	/**
 	 * Constructor.\n
@@ -34,88 +33,87 @@ public:
 	 * @param appCallID			Identifier for log messages
 	 * @param verbose			Verbose
 	 */
-    IrioV2(
-        const std::string& bitfilePath,
-        const std::string& RIODeviceModel,
-        const std::string& RIOSerialNumber,
-        const std::string& FPGAVIversion,
-        const std::string& appCallID = "",
-        const bool verbose = false
-        );
+	IrioV2(
+			const std::string &bitfilePath,
+			const std::string &RIODeviceModel,
+			const std::string &RIOSerialNumber,
+			const std::string &FPGAVIversion,
+			const std::string &appCallID = "",
+			const bool verbose = false);
 
-    /**
-     * Destructor.\n
-     * Closes the session if there is one open and finalizes
-     * the low level library.
-     */
-    ~IrioV2();
+	/**
+	 * Destructor.\n
+	 * Closes the session if there is one open and finalizes
+	 * the low level library.
+	 */
+	~IrioV2();
 
-    //void startFPGA();
+	//void startFPGA();
 
-    /**
-     * Returns a pointer to the analog terminals.
-     * The user must call it to be able to read/write analog
-     * related terminals
-     *
-     * @return Pointer to the analog terminals
-     */
-    const std::shared_ptr<const TerminalsAnalog> analog();
+	/**
+	 * Returns a pointer to the analog terminals.
+	 * The user must call it to be able to read/write analog
+	 * related terminals
+	 *
+	 * @return Pointer to the analog terminals
+	 */
+	const std::shared_ptr<const TerminalsAnalog> analog();
 
-    /**
-	* Returns a pointer to the digital terminals.
-	* The user must call it to be able to read/write digital
-	* related terminals
-	*
-	* @return Pointer to the digital terminals
-	*/
-    const std::shared_ptr<const TerminalsDigital> digital();
+	/**
+	 * Returns a pointer to the digital terminals.
+	 * The user must call it to be able to read/write digital
+	 * related terminals
+	 *
+	 * @return Pointer to the digital terminals
+	 */
+	const std::shared_ptr<const TerminalsDigital> digital();
 
 private:
-    /**
-     * Initializes the low level library. If system is CCS, does nothing.
-     */
-    void initDriver();
+	/**
+	 * Initializes the low level library. If system is CCS, does nothing.
+	 */
+	void initDriver();
 
-    /**
-     * Closes the session if it has been opened.
-     */
-    void closeDriver();
+	/**
+	 * Closes the session if it has been opened.
+	 */
+	void closeDriver();
 
-    /**
-     * Finalizes the low level library. If system is CCS, does nothing.
-     */
-    void finalizeDriver();
+	/**
+	 * Finalizes the low level library. If system is CCS, does nothing.
+	 */
+	void finalizeDriver();
 
-    /**
-     * Opens a session to the FPGA, downloading the bitfile if necessary.
-     * It does not run the VI, until @ref startFPGA has been called
-     */
-    void openSession();
+	/**
+	 * Opens a session to the FPGA, downloading the bitfile if necessary.
+	 * It does not run the VI, until @ref startFPGA has been called
+	 */
+	void openSession();
 
-    /**
-     * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.\n
-     * Checks that is a valid value and assigns the equivalent
-     * Platform to a variable.
-     */
-    void searchPlatform();
+	/**
+	 * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.\n
+	 * Checks that is a valid value and assigns the equivalent
+	 * Platform to a variable.
+	 */
+	void searchPlatform();
 
-    /**
-     * Searches for the @ref TERMINAL_DEVPROFILE terminals and
-     * reads its value.\n
-     * Checks that is a valid value for the selected platform and assigns
-     * the corresponding profile to a variable.
-     * This determines which terminals can the user access.
-     */
-    void searchDevProfile();
+	/**
+	 * Searches for the @ref TERMINAL_DEVPROFILE terminals and
+	 * reads its value.\n
+	 * Checks that is a valid value for the selected platform and assigns
+	 * the corresponding profile to a variable.
+	 * This determines which terminals can the user access.
+	 */
+	void searchDevProfile();
 
-    std::unique_ptr<Platform> m_platform;
-    std::unique_ptr<ProfileBase> m_profile;
+	std::unique_ptr<Platform> m_platform;
+	std::unique_ptr<ProfileBase> m_profile;
 
-    bfp::BFP m_bfp;
+	bfp::BFP m_bfp;
 
-    std::string m_resourceName;
+	std::string m_resourceName;
 
-    NiFpga_Session m_session;
+	NiFpga_Session m_session;
 
 };
 
