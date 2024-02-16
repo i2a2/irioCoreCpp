@@ -13,8 +13,8 @@ public:
 			const Platform &platform,
 			const ProfileBase::PROFILE_ID &id);
 
-	const std::shared_ptr<const TerminalsAnalog> analog();
-	const std::shared_ptr<const TerminalsDigital> digital();
+	const std::shared_ptr<const TerminalsAnalog> analog() override;
+	const std::shared_ptr<const TerminalsDigital> digital() override;
 private:
 	std::shared_ptr<const TerminalsAnalog> m_analog;
 	std::shared_ptr<const TerminalsDigital> m_digital;
