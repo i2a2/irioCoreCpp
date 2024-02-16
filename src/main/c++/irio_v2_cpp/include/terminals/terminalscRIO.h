@@ -4,11 +4,9 @@
 #include <bfp.h>
 #include <NiFpga.h>
 
+namespace iriov2 {
 
-namespace iriov2{
-
-class TerminalscRIO: public TerminalsBase
-{
+class TerminalscRIO: public TerminalsBase {
 public:
 	TerminalscRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 

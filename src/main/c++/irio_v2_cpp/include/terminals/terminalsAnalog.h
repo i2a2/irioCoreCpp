@@ -5,11 +5,13 @@
 #include <platforms.h>
 #include <unordered_map>
 
-namespace iriov2{
-class TerminalsAnalog: public TerminalsBase
-{
+namespace iriov2 {
+class TerminalsAnalog: public TerminalsBase {
 public:
-	TerminalsAnalog(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
+	TerminalsAnalog(
+			const bfp::BFP &parsedBitfile,
+			const NiFpga_Session &session,
+			const Platform &platform);
 
 	std::int32_t getAI(const std::uint32_t n) const;
 	std::int32_t getAO(const std::uint32_t n) const;

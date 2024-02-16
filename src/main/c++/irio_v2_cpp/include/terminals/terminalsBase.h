@@ -2,10 +2,9 @@
 
 #include <NiFpga.h>
 
-namespace iriov2{
+namespace iriov2 {
 
-class TerminalsBase
-{
+class TerminalsBase {
 public:
 	TerminalsBase(const NiFpga_Session &session);
 
@@ -15,5 +14,4 @@ protected:
 };
 
 }
-
 

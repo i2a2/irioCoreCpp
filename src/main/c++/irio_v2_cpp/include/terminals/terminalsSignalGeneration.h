@@ -5,14 +5,14 @@
 #include "platforms.h"
 #include <NiFpga.h>
 
-namespace iriov2{
+namespace iriov2 {
 
-class TerminalsSignalGeneration: public TerminalsBase
-{
+class TerminalsSignalGeneration: public TerminalsBase {
 public:
-	TerminalsSignalGeneration(const bfp::BFP &parsedBitfile,
+	TerminalsSignalGeneration(
+			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
-			const Platform& platform);
+			const Platform &platform);
 
 	std::uint8_t getSGNo() const;
 	std::uint32_t getSGFref(const std::uint32_t n) const;
@@ -38,9 +38,7 @@ private:
 	std::uint8_t m_numSG = 0;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFref;
 
-
 };
 
 }
-
 
