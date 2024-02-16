@@ -5,7 +5,7 @@
 
 namespace iriov2 {
 
-class ProfileDAQ: public ProfileBase {
+class ProfileDAQ: virtual public ProfileBase {
 public:
 	ProfileDAQ(
 			const bfp::BFP &parsedBitfile,

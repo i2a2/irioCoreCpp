@@ -7,12 +7,9 @@ ProfileDAQFlexRIO::ProfileDAQFlexRIO(
 		const NiFpga_Session &session,
 		const Platform &platform,
 		const ProfileBase::PROFILE_ID &id) :
-		ProfileDAQ(parsedBitfile, session, platform, id), m_flexRIO(
-				new TerminalsFlexRIO(parsedBitfile, session)) {
-}
-
-const std::shared_ptr<const TerminalsFlexRIO> ProfileDAQFlexRIO::flexRIO() const {
-	return m_flexRIO;
+				ProfileBase(parsedBitfile, session, id),
+				ProfileDAQ(parsedBitfile, session, platform, id),
+				ProfileFlexRIO(parsedBitfile, session, id){
 }
 
 }
