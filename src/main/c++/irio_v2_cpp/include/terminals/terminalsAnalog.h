@@ -9,7 +9,6 @@ namespace iriov2{
 class TerminalsAnalog: public TerminalsBase
 {
 public:
-	TerminalsAnalog() = default;
 	TerminalsAnalog(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
 
 	std::int32_t getAI(const std::uint32_t n) const;

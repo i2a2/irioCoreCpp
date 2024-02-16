@@ -9,7 +9,6 @@ namespace iriov2{
 class TerminalsAuxDigital: public TerminalsBase
 {
 public:
-	TerminalsAuxDigital() = default;
     TerminalsAuxDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
 
     bool getAuxDI(const std::uint32_t n) const;

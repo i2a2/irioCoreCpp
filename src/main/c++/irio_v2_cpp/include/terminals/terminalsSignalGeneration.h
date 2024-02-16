@@ -10,7 +10,6 @@ namespace iriov2{
 class TerminalsSignalGeneration: public TerminalsBase
 {
 public:
-	TerminalsSignalGeneration() = default;
 	TerminalsSignalGeneration(const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform& platform);

@@ -9,7 +9,6 @@ namespace iriov2{
 class TerminalsDigital: public TerminalsBase
 {
 public:
-	TerminalsDigital() = default;
     TerminalsDigital(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const Platform& platform);
 
     bool getDI(const std::uint32_t n) const;
