@@ -7,17 +7,18 @@ LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include
 
 LIBRARY_DIR=$(TARGET)/lib
-SOURCE_DIR=.
-OBJECT_DIR = $(SOURCE_DIR)/.obj
+SOURCE_BASE_DIR=.
+SOURCES_DIR=$(SOURCE_BASE_DIR) $(SOURCE_BASE_DIR)/profiles $(SOURCE_BASE_DIR)/terminals
+OBJECT_DIR = $(SOURCE_BASE_DIR)/.obj
 
 SHAREDLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).so
 STATICLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).a
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
 LDLIBS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) $(foreach libs,$(LIBRARIES),-l$(libs))
-SOURCES=$(SOURCE_DIR)/$(wildcard *.cpp)
+SOURCES= $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
 HFILES=$(wildcard *.h)
-HTARGETS=$(addprefix $(TARGET)/include/, $(HFILES))
+HTARGETS=$(addprefix $(TARGET)/include/,$(HFILES))
 
 C=gcc
 CC=g++
@@ -42,9 +43,10 @@ ifdef CODAC_ROOT
 	CCFLAGS+= -DCCS_VERSION
 else
 	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
-	SOURCES+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD/NiFpga.c
+	SOURCES_DIR+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
 endif
 
+VPATH=$(SOURCES_DIR)
 
 
 .PHONY: all clean run 
@@ -69,11 +71,10 @@ $(STATICLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
 	$(AR) rcs $@ $^
 	
-$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
-	@echo $(SOURCES)
+$(OBJECT_DIR)/%.o: %.cpp
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 
-$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
+$(OBJECT_DIR)/%.o: %.c
 	mkdir -p $(OBJECT_DIR)
 	$(C) $(CFLAGS) $(INCLUDES) $< -o $@
