@@ -68,7 +68,7 @@ public:
 	 *
 	 * @return Pointer to the analog terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsAnalog> analog();
+	virtual const std::shared_ptr<const TerminalsAnalog> analog() const;
 
 	/**
 	 * Access to the digital group terminals.\n
@@ -76,7 +76,7 @@ public:
 	 *
 	 * @return Pointer to the digital terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsDigital> digital();
+	virtual const std::shared_ptr<const TerminalsDigital> digital() const;
 
 	/**
 	 * Access to the aux analog group terminals.\n
@@ -84,7 +84,7 @@ public:
 	 *
 	 * @return Pointer to the aux analog terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog();
+	virtual const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
 
 	/**
 	 * Access to the aux digital group terminals.\n
@@ -92,7 +92,7 @@ public:
 	 *
 	 * @return Pointer to the aux digital terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsAuxDigital> auxDigital();
+	virtual const std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
 
 	/**
 	 * Access to the cRIO group terminals.\n
@@ -100,7 +100,7 @@ public:
 	 *
 	 * @return Pointer to the cRIO terminals
 	 */
-	virtual const std::shared_ptr<const TerminalscRIO> cRIO();
+	virtual const std::shared_ptr<const TerminalscRIO> cRIO() const;
 
 	/**
 	 * Access to the FlexRIO group terminals.\n
@@ -108,7 +108,7 @@ public:
 	 *
 	 * @return Pointer to the FlexRIO terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsFlexRIO> flexRIO();
+	virtual const std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
 
 	/**
 	 * Access to the Signal Generation group terminals.\n
@@ -116,7 +116,7 @@ public:
 	 *
 	 * @return Pointer to the Signal Generation terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration();
+	virtual const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
 
 	/**
 	 * Profile type

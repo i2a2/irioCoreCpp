@@ -12,11 +12,11 @@ ProfileDAQ::ProfileDAQ(
 	m_digital.reset(new TerminalsDigital(parsedBitfile, session, platform));
 }
 
-const std::shared_ptr<const TerminalsAnalog> ProfileDAQ::analog() {
+const std::shared_ptr<const TerminalsAnalog> ProfileDAQ::analog() const {
 	return m_analog;
 }
 
-const std::shared_ptr<const TerminalsDigital> ProfileDAQ::digital() {
+const std::shared_ptr<const TerminalsDigital> ProfileDAQ::digital() const {
 	return m_digital;
 }
 }
