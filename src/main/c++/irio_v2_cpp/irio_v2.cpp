@@ -2,7 +2,7 @@
 
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
-#include "profiles/profileDAQ.h"
+#include "profiles/profiles.h"
 
 namespace iriov2 {
 
@@ -100,20 +100,16 @@ void IrioV2::searchPlatform() {
 
 void IrioV2::searchDevProfile() {
 	static const std::unordered_map<std::uint8_t,
-			const std::unordered_map<std::uint8_t, std::uint8_t>> validProfileByPlatform =
-	{
-			{FLEXRIO_PLATFORM_VALUE, {	{ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::FLEXRIO_DAQ},
-										{ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::FLEXRIO_IMAQ},
-										{ProfileBase::PROFILE_VALUE_DAQGPU,ProfileBase::FLEXRIO_GPUDAQ},
-										{ProfileBase::PROFILE_VALUE_IMAQGPU, ProfileBase::FLEXRIO_GPUIMAQ}
-									}},
+			const std::unordered_map<std::uint8_t, std::uint8_t>> validProfileByPlatform = { {
+			FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::FLEXRIO_DAQ },
+					{ ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::FLEXRIO_IMAQ }, {
+							ProfileBase::PROFILE_VALUE_DAQGPU, ProfileBase::FLEXRIO_GPUDAQ }, {
+							ProfileBase::PROFILE_VALUE_IMAQGPU, ProfileBase::FLEXRIO_GPUIMAQ } } },
 
-			{CRIO_PLATFORM_VALUE, {		{ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::CRIO_DAQ},
-										{ProfileBase::PROFILE_VALUE_IO, ProfileBase::CRIO_IO}
-									}},
+	{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::CRIO_DAQ }, {
+			ProfileBase::PROFILE_VALUE_IO, ProfileBase::CRIO_IO } } },
 
-			{RSERIES_PLATFORM_VALUE, {	{ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::R_DAQ}}}
-	};
+	{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::R_DAQ } } } };
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
 	std::uint8_t profile;
@@ -132,21 +128,27 @@ void IrioV2::searchDevProfile() {
 	//TODO: Finish
 	switch (it->second) {
 	case ProfileBase::FLEXRIO_DAQ:
-		//TODO: Replace with one with the FlexRIO registers
 		m_profile.reset(
-				new ProfileDAQ(m_bfp, m_session, *m_platform.get(), ProfileBase::FLEXRIO_DAQ));
+				new ProfileDAQFlexRIO(m_bfp, m_session, *m_platform.get(),
+						ProfileBase::FLEXRIO_DAQ));
 		break;
 	case ProfileBase::FLEXRIO_IMAQ:
+		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::FLEXRIO_GPUDAQ:
+		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::FLEXRIO_GPUIMAQ:
+		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::CRIO_DAQ:
+		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::CRIO_IO:
+		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::R_DAQ:
+		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get(), ProfileBase::R_DAQ));
 		break;
 	}
 }
