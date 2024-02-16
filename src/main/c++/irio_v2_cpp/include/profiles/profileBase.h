@@ -3,7 +3,7 @@
 #include <memory>
 #include <bfp.h>
 #include <terminals/terminals.h>
-#include <profileBaseTerminals.h>
+#include <profiles/profileBaseTerminals.h>
 
 
 namespace iriov2{
@@ -59,29 +59,27 @@ public:
 	 */
 	ProfileBase(const bfp::BFP &parsedBitfile, const NiFpga_Session &session, const ProfileBase::PROFILE_ID &id);
     
+	virtual ~ProfileBase() = default;
+
     /**
      * Access to the analog group terminals.\n
      * If the profile does not have them, an exception will be thrown.
      *
      * @return Pointer to the analog terminals
      */
-    const std::shared_ptr<const TerminalsAnalog> analog();
+    virtual const std::shared_ptr<const TerminalsAnalog> analog();
     /**
 	 * Access to the digital group terminals.\n
 	 * If the profile does not have them, an exception will be thrown.
 	 *
 	 * @return Pointer to the digital terminals
 	 */
-    const std::shared_ptr<const TerminalsDigital> digital();
+    virtual const std::shared_ptr<const TerminalsDigital> digital();
 
     /**
      * Profile type
      */
     const ProfileBase::PROFILE_ID profileID;
-
-protected:
-    std::shared_ptr<const TerminalsAnalog> m_analog;
-    std::shared_ptr<const TerminalsDigital> m_digital;
 };
 
 }

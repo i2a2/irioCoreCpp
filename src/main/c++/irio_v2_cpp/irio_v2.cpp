@@ -2,8 +2,7 @@
 
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
-#include "profileDAQ.h"
-#include <set>
+#include "profiles/profileDAQ.h"
 
 namespace iriov2{
 

@@ -1,4 +1,4 @@
-#include <profileBaseTerminals.h>
+#include <profiles/profileBaseTerminals.h>
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 

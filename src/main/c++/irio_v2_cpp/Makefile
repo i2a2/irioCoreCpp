@@ -42,6 +42,7 @@ ifdef CODAC_ROOT
 	CCFLAGS+= -DCCS_VERSION
 else
 	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
+	SOURCES+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD/NiFpga.c
 endif
 
 
@@ -69,6 +70,7 @@ $(STATICLIBRARY): $(OBJECTS)
 	$(AR) rcs $@ $^
 	
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
+	@echo $(SOURCES)
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 

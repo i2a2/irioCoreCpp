@@ -1,4 +1,4 @@
-#include <profileBase.h>
+#include <profiles/profileBase.h>
 
 
 namespace iriov2
@@ -8,16 +8,10 @@ namespace iriov2
     { }
     
     const std::shared_ptr<const TerminalsAnalog> ProfileBase::analog(){
-        if(!m_analog->activeInProfile){
-            throw std::runtime_error("Analog not enabled for this profile");
-        }
-        return m_analog;
+    	throw std::runtime_error("Analog not enabled for this profile");
     }
 
     const std::shared_ptr<const TerminalsDigital> ProfileBase::digital(){
-        if(!m_digital->activeInProfile){
-            throw std::runtime_error("Digital not enabled for this profile");
-        }
-        return m_digital;
+    	throw std::runtime_error("Digital not enabled for this profile");
     }
 }

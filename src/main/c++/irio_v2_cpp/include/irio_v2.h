@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include <platforms.h>
-#include <profileBase.h>
+#include <profiles/profileBase.h>
 #include <bfp.h>
 #include <NiFpga.h>
 #include <terminals/terminals.h>

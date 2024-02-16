@@ -1,4 +1,4 @@
-#include <profileDAQ.h>
+#include <profiles/profileDAQ.h>
 
 namespace iriov2{
 
@@ -9,4 +9,11 @@ namespace iriov2{
         m_digital.reset(new TerminalsDigital(parsedBitfile, session, platform));
     }
 
+    const std::shared_ptr<const TerminalsAnalog> ProfileDAQ::analog(){
+    	return m_analog;
+    }
+
+    const std::shared_ptr<const TerminalsDigital> ProfileDAQ::digital(){
+    	return m_digital;
+    }
 }
