@@ -7,13 +7,12 @@
 #define CRIO_PLATFORM_VALUE 1
 #define RSERIES_PLATFORM_VALUE 2
 
-namespace iriov2{
+namespace iriov2 {
 
 /**
  * Generic Platform class. Stores maximum number of resources.
  */
-class Platform
-{
+class Platform {
 public:
 	/**
 	 * Stores maximum number of resources.
@@ -28,12 +27,20 @@ public:
 	 * @param modules		Max number of modules
 	 * @param id			Platform identifier
 	 */
-	Platform(size_t ai, size_t auxAI, size_t ao, size_t auxAO,
-	             size_t digital, size_t auxDigital, size_t dma,
-	             size_t sg, size_t modules, std::uint8_t id)
-	        : maxAI(ai), maxAuxAI(auxAI), maxAO(ao), maxAuxAO(auxAO),
-	          maxDigital(digital), maxAuxDigital(auxDigital),
-	          maxDMA(dma), maxSG(sg), maxModules(modules), platformID(id) {}
+	Platform(
+			size_t ai,
+			size_t auxAI,
+			size_t ao,
+			size_t auxAO,
+			size_t digital,
+			size_t auxDigital,
+			size_t dma,
+			size_t sg,
+			size_t modules,
+			std::uint8_t id) :
+			maxAI(ai), maxAuxAI(auxAI), maxAO(ao), maxAuxAO(auxAO), maxDigital(digital), maxAuxDigital(
+					auxDigital), maxDMA(dma), maxSG(sg), maxModules(modules), platformID(id) {
+	}
 
 	const size_t maxAI;
 	const size_t maxAuxAI;
@@ -51,8 +58,7 @@ public:
 /**
  * Specific implementation for the FlexRIO platform
  */
-class PlatformFlexRIO: public Platform
-{
+class PlatformFlexRIO: public Platform {
 private:
 	static const size_t MAX_AI = 4;
 	static const size_t MAX_AUX_AI = 16;
@@ -68,17 +74,18 @@ public:
 	/**
 	 * Specific implementation for the FlexRIO platform
 	 */
-	PlatformFlexRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
-			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
-			FLEXRIO_PLATFORM_VALUE){}
+	PlatformFlexRIO() :
+			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA,
+					MAX_SG, MAX_MODULES,
+					FLEXRIO_PLATFORM_VALUE) {
+	}
 
 };
 
 /**
  * Specific implementation for the cRIO platform
  */
-class PlatformCRIO: public Platform
-{
+class PlatformCRIO: public Platform {
 private:
 	static const size_t MAX_AI = 256;
 	static const size_t MAX_AUX_AI = 256;
@@ -94,17 +101,18 @@ public:
 	/**
 	 * Specific implementation for the cRIO platform
 	 */
-	PlatformCRIO(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
-			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
-			CRIO_PLATFORM_VALUE){}
+	PlatformCRIO() :
+			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA,
+					MAX_SG, MAX_MODULES,
+					CRIO_PLATFORM_VALUE) {
+	}
 
 };
 
 /**
  * Specific implementation for the RSeries platform
  */
-class PlatformRSeries: public Platform
-{
+class PlatformRSeries: public Platform {
 private:
 	static const size_t MAX_AI = 8;
 	static const size_t MAX_AUX_AI = 16;
@@ -120,9 +128,11 @@ public:
 	/**
 	 * Specific implementation for the RSeries platform
 	 */
-	PlatformRSeries(): Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO,
-			MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
-			RSERIES_PLATFORM_VALUE){}
+	PlatformRSeries() :
+			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA,
+					MAX_SG, MAX_MODULES,
+					RSERIES_PLATFORM_VALUE) {
+	}
 
 };
 
