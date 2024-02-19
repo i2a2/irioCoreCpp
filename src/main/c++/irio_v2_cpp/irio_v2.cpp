@@ -18,8 +18,7 @@ IrioV2::IrioV2(
 		const std::string &appCallID,
 		const bool verbose) :
 		m_bfp(bitfilePath), m_session(0) {
-	//TODO: Just for testing purposes, this shouldn't be the resource model...
-	m_resourceName = RIODeviceModel;
+	m_resourceName = getRIODevice(RIOSerialNumber);
 
 	if (m_bfp.getBitfileVersion() != FPGAVIversion) {
 		throw std::runtime_error(

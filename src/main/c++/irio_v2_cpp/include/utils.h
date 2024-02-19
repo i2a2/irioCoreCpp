@@ -76,3 +76,11 @@ std::uint32_t getAddressEnumResource(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapResource,
 		const std::uint32_t n,
 		const std::string &resourceName);
+
+/**
+ * Searches for RIO devices and returns its name if any matches the
+ * specified serial number
+ * @param serialNumber	Serial number to search
+ * @return	Name of the RIO device
+ */
+std::string getRIODevice(const std::string &serialNumber);
