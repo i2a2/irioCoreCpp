@@ -48,7 +48,17 @@ public:
 	 */
 	~IrioV2();
 
-	//void startFPGA();
+	/**
+	 * Starts the VI downloaded in the FPGA.
+	 * If an error occurs, throws a std::runtime_error exception
+	 */
+	void startFPGA();
+
+	/**
+	 * Stops the VI running in the FPGA
+	 * If an error occurs, throws a std::runtime_error exception
+	 */
+	void stopFPGA();
 
 	/**
 	 * Returns a pointer to the analog terminals.

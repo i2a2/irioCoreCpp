@@ -38,6 +38,16 @@ IrioV2::~IrioV2() {
 	finalizeDriver();
 }
 
+void IrioV2::startFPGA() {
+	const auto status = NiFpga_Run(m_session, 0);
+	throwIfNotSuccessNiFpga(status, "Error starting the VI");
+}
+
+void IrioV2::stopFPGA() {
+	const auto status = NiFpga_Abort(m_session);
+	throwIfNotSuccessNiFpga(status, "Error stopping the VI");
+}
+
 const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
 	return m_profile->analog();
 }
