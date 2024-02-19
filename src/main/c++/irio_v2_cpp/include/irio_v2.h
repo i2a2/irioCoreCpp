@@ -77,7 +77,7 @@ private:
 	/**
 	 * Closes the session if it has been opened.
 	 */
-	void closeDriver();
+	void closeSession();
 
 	/**
 	 * Finalizes the low level library. If system is CCS, does nothing.

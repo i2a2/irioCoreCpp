@@ -34,7 +34,7 @@ IrioV2::IrioV2(
 }
 
 IrioV2::~IrioV2() {
-	closeDriver();
+	closeSession();
 	finalizeDriver();
 }
 
@@ -57,7 +57,7 @@ void IrioV2::finalizeDriver() {
 #endif
 }
 
-void IrioV2::closeDriver() {
+void IrioV2::closeSession() {
 	if (m_session != 0)
 		NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
 	m_session = 0;
