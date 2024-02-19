@@ -36,6 +36,14 @@ std::int16_t TerminalsAuxAnalog::getAuxAO(const std::uint32_t n) const {
 	return aux;
 }
 
+size_t TerminalsAuxAnalog::getNumAuxAI() const {
+	return m_mapAuxAI.size();
+}
+
+size_t TerminalsAuxAnalog::getNumAuxAO() const {
+	return m_mapAuxAO.size();
+}
+
 void TerminalsAuxAnalog::setAuxAO(const std::uint32_t n, const std::int16_t value) const {
 	const std::uint32_t add = getAddressEnumResource(m_mapAuxAO, n, TERMINAL_AUXAO);
 	auto status = NiFpga_WriteI16(m_session, add, value);

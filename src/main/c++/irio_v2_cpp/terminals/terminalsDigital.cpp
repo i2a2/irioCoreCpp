@@ -42,6 +42,14 @@ bool TerminalsDigital::getD0(const std::uint32_t n) const {
 	return getDigital(m_session, n, m_mapDO, TERMINAL_DO);
 }
 
+size_t TerminalsDigital::getNumDI() const {
+	return m_mapDI.size();
+}
+
+size_t TerminalsDigital::getNumDO() const {
+	return m_mapDO.size();
+}
+
 void TerminalsDigital::setDO(const std::uint32_t n, const bool value) const {
 	const auto addr = getAddressEnumResource(m_mapDO, n, TERMINAL_DO);
 

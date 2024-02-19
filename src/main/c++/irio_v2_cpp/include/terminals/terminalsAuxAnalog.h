@@ -17,6 +17,9 @@ public:
 	std::int32_t getAuxAI(const std::uint32_t n) const;
 	std::int16_t getAuxAO(const std::uint32_t n) const;
 
+	size_t getNumAuxAI() const;
+	size_t getNumAuxAO() const;
+
 	void setAuxAO(const std::uint32_t n, const std::int16_t value) const;
 
 private:

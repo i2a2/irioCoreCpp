@@ -16,6 +16,9 @@ public:
 	bool getDI(const std::uint32_t n) const;
 	bool getD0(const std::uint32_t n) const;
 
+	size_t getNumDI() const;
+	size_t getNumDO() const;
+
 	void setDO(const std::uint32_t n, const bool value) const;
 
 private:

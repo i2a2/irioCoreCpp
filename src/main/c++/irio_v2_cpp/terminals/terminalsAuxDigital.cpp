@@ -42,6 +42,14 @@ bool TerminalsAuxDigital::getAuxD0(const std::uint32_t n) const {
 	return getAuxDigital(m_session, n, m_mapAuxDO, TERMINAL_AUXDO);
 }
 
+size_t TerminalsAuxDigital::getNumAuxDI() const {
+	return m_mapAuxDI.size();
+}
+
+size_t TerminalsAuxDigital::getNumAuxDO() const {
+	return m_mapAuxDO.size();
+}
+
 void TerminalsAuxDigital::setAuxDO(const std::uint32_t n, const bool value) const {
 	const auto addr = getAddressEnumResource(m_mapAuxDO, n, TERMINAL_AUXDO);
 
