@@ -15,9 +15,21 @@ public:
 
 	const std::shared_ptr<const TerminalsAnalog> analog() const override;
 	const std::shared_ptr<const TerminalsDigital> digital() const override;
+
+	const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const override;
+	const std::shared_ptr<const TerminalsAuxDigital> auxDigital() const override;
+
+	const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const override;
+
 private:
 	std::shared_ptr<const TerminalsAnalog> m_analog;
 	std::shared_ptr<const TerminalsDigital> m_digital;
+
+	std::shared_ptr<const TerminalsAuxAnalog> m_auxAnalog;
+	std::shared_ptr<const TerminalsAuxDigital> m_auxDigital;
+
+	std::shared_ptr<const TerminalsSignalGeneration> m_signalGeneration;
+
 };
 
 }
