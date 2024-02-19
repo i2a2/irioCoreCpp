@@ -3,6 +3,7 @@
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 #include "profiles/profiles.h"
+#include "rioDiscovery.h"
 
 namespace iriov2 {
 
@@ -18,7 +19,7 @@ IrioV2::IrioV2(
 		const std::string &appCallID,
 		const bool verbose) :
 		m_bfp(bitfilePath), m_session(0) {
-	m_resourceName = getRIODevice(RIOSerialNumber);
+	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
 
 	if (m_bfp.getBitfileVersion() != FPGAVIversion) {
 		throw std::runtime_error(
