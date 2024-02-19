@@ -7,7 +7,7 @@ using namespace iriov2;
 TEST(FlexRIO, ResourcesCPUDAQ){
    std::string bitfile = "../../resources/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx";
 
-   IrioV2 irio(bitfile, "", "0x0177A2AD", "4.0", "TEST", true); //TODO: Fix this with actual values
+   IrioV2 irio(bitfile, "0x0177A2AD", "4.0");
 
    EXPECT_EQ(irio.analog()->getNumAI(), 2) << "Unexpected number of analog inputs";
    EXPECT_EQ(irio.analog()->getNumAO(), 2) << "Unexpected number of analog outputs";

@@ -13,11 +13,8 @@ namespace iriov2 {
 
 IrioV2::IrioV2(
 		const std::string &bitfilePath,
-		const std::string &RIODeviceModel,
 		const std::string &RIOSerialNumber,
-		const std::string &FPGAVIversion,
-		const std::string &appCallID,
-		const bool verbose) :
+		const std::string &FPGAVIversion) :
 		m_bfp(bitfilePath), m_session(0) {
 	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
 
