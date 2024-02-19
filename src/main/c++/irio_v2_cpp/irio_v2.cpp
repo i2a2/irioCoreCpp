@@ -38,12 +38,33 @@ IrioV2::~IrioV2() {
 	finalizeDriver();
 }
 
-const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() {
+const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
 	return m_profile->analog();
 }
 
-const std::shared_ptr<const TerminalsDigital> IrioV2::digital() {
+const std::shared_ptr<const TerminalsDigital> IrioV2::digital() const {
 	return m_profile->digital();
+}
+
+
+const std::shared_ptr<const TerminalsAuxAnalog> IrioV2::auxAnalog() const {
+	return m_profile->auxAnalog();
+}
+
+const std::shared_ptr<const TerminalsAuxDigital> IrioV2::auxDigital() const {
+	return m_profile->auxDigital();
+}
+
+const std::shared_ptr<const TerminalscRIO> IrioV2::cRIO() const {
+	return m_profile->cRIO();
+}
+
+const std::shared_ptr<const TerminalsFlexRIO> IrioV2::flexRIO() const {
+	return m_profile->flexRIO();
+}
+
+const std::shared_ptr<const TerminalsSignalGeneration> IrioV2::signalGeneration() const {
+	return m_profile->signalGeneration();
 }
 
 /*********************************************
