@@ -1,10 +1,19 @@
 BOLD=\e[1m
 NC=\e[0m
 
+VERSION=0.5
+
 SOURCE_DIR := src/
 COPY_DIR := target/
 LIB_MAKEFILE_DIR := target/main/c++
 TEST_MAKEFILE_DIR := target/test/c++
+
+LIB_INSTALL_DIR := /usr/local/lib
+
+ifeq ($(PREFIX),)
+    PREFIX := /usr/local
+endif
+
 
 .PHONY: all debug clean compile coverage
 
@@ -35,6 +44,17 @@ debug:
 	@echo -e "$(BOLD)Compiling with symbols...$(NC)"
 	$(MAKE) all DEBUG="COVERAGE=true"
 
+package: all
+	mkdir -p $(COPY_DIR)/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+	mkdir -p $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp/$(LIB_INSTALL_DIR)
+	cp $(COPY_DIR)/lib/*.so $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp/$(LIB_INSTALL_DIR)
+	cp rpmspecs/iriov2cpp.spec $(COPY_DIR)/rpmbuild/SPECS/
+	sed -i 's/{VERSION}/$(VERSION)/g' $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp.spec
+	sed -i 's/{BUILDROOT}/$(shell echo "$(PWD)/$(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp" | sed 's/\//\\\//g')/g' $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp.spec
+	sed -i 's/{LIB_INSTALL_DIR}/$(shell echo "$(LIB_INSTALL_DIR)" | sed 's/\//\\\//g')/g' $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp.spec
+	rpmbuild --nodebuginfo --define "_rpmdir $(PWD)/$(COPY_DIR)" --buildroot $(PWD)/$(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp -bb $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp.spec 
+	
+	
 #Targets to imitate mvn commands
 coverage: debug
 compile: all
