@@ -3,8 +3,14 @@ LIBNAME=irio_v2_cpp
 TARGET=../../../../target
 
 LIBRARIES=bfp
+
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include
+
+ifndef CODAC_ROOT
+	LIBRARIES+= nisyscfg
+	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
+endif
 
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_BASE_DIR=.
