@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "profiles/profiles.h"
 #include "rioDiscovery.h"
+#include <unistd.h>
 
 namespace iriov2 {
 
@@ -36,8 +37,35 @@ IrioV2::~IrioV2() {
 }
 
 void IrioV2::startFPGA() {
-	const auto status = NiFpga_Run(m_session, 0);
+	const unsigned int MAX_TRIES = 50;
+	const unsigned int SLEEP_INTERVAL_US = 100000;
+
+	auto status = NiFpga_Run(m_session, 0);
 	throwIfNotSuccessNiFpga(status, "Error starting the VI");
+
+	unsigned int tries = 0;
+	while (!m_profile->getInitDone() && tries < MAX_TRIES) {
+		usleep(SLEEP_INTERVAL_US);
+		tries++;
+	}
+
+	switch (m_platform->platformID) {
+	case FLEXRIO_PLATFORM_VALUE:
+		if (m_profile->flexRIO()->getInsertedIOModuleID() != 0
+				&& !m_profile->flexRIO()->getRIOAdapterCorrect()) {
+			throw std::runtime_error("FlexRIO IO Module check failed");
+		}
+		break;
+	case CRIO_PLATFORM_VALUE:
+		if (!m_profile->cRIO()->getcRIOModulesOk()) {
+			throw std::runtime_error("cRIO IO Modules check failed");
+		}
+		break;
+	default:
+		break;
+	}
+
+	m_profile->setDAQStop();
 }
 
 void IrioV2::stopFPGA() {
@@ -156,8 +184,7 @@ void IrioV2::searchDevProfile() {
 	switch (it->second) {
 	case ProfileBase::FLEXRIO_DAQ:
 		m_profile.reset(
-				new ProfileDAQFlexRIO(m_bfp, m_session, *m_platform.get(),
-						ProfileBase::FLEXRIO_DAQ));
+				new ProfileDAQFlexRIO(m_bfp, m_session, *m_platform, ProfileBase::FLEXRIO_DAQ));
 		break;
 	case ProfileBase::FLEXRIO_IMAQ:
 		throw std::runtime_error("Profile not implemented");
@@ -175,7 +202,7 @@ void IrioV2::searchDevProfile() {
 		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::R_DAQ:
-		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform.get(), ProfileBase::R_DAQ));
+		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform, ProfileBase::R_DAQ));
 		break;
 	}
 }
