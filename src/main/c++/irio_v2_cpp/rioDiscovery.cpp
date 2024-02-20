@@ -160,11 +160,11 @@ std::string getRIODeviceAux(const std::string &serialNumber) {
 
 
 std::string RIODiscovery::searchRIODevice(const std::string &serialNumber) {
-	std::string sn = getRIODeviceAux(serialNumber);
-	if(sn.empty()){
+	std::string deviceName = getRIODeviceAux(serialNumber);
+	if(deviceName.empty()){
 		throw std::runtime_error("No RIO device with serial number " + serialNumber);
 	}
-	return sn;
+	return deviceName;
 }
 
 }

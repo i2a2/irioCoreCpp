@@ -48,7 +48,11 @@ std::unordered_map<std::string, Register> BFP::getRegisters() const{
 }
 
 Register BFP::getRegister(const std::string& registerName) const{
-	return m_regMap.at(registerName);
+	try{
+		return m_regMap.at(registerName);
+	}catch(std::out_of_range&){
+		throw std::runtime_error(registerName + " not found");
+	}
 }
 
 std::unordered_map<std::string, DMA> BFP::getDMAs() const{
@@ -56,15 +60,15 @@ std::unordered_map<std::string, DMA> BFP::getDMAs() const{
 }
 
 DMA BFP::getDMA(const std::string& dmaName) const{
-	return m_dmaMap.at(dmaName);
+	try{
+		return m_dmaMap.at(dmaName);
+	}catch(std::out_of_range&){
+		throw std::runtime_error(dmaName + " not found");
+	}
 }
 
 std::string BFP::getSignature() const{
 	return m_signature;
-}
-
-std::uint32_t BFP::getBaseAddress() const{
-	return m_baseAddress;
 }
 
 }

@@ -53,7 +53,6 @@ const std::shared_ptr<const TerminalsDigital> IrioV2::digital() const {
 	return m_profile->digital();
 }
 
-
 const std::shared_ptr<const TerminalsAuxAnalog> IrioV2::auxAnalog() const {
 	return m_profile->auxAnalog();
 }
