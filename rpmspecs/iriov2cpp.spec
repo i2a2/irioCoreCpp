@@ -8,7 +8,7 @@ License:	GPL
 URL:		https://github.com/i2a2/irio-v2-cpp
 
 %description
-TEST
+IRIO V2 CPP
 
 %postun
 [ $1 == 0 ] && /sbin/ldconfig
