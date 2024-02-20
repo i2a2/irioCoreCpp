@@ -11,14 +11,10 @@ URL:		https://github.com/i2a2/irio-v2-cpp
 TEST
 
 %postun
-%beginlog_postun
 [ $1 == 0 ] && /sbin/ldconfig
-%endlog
 
 %posttrans
-%beginlog_posttrans
 /sbin/ldconfig
-%endlog
 
 %files
 "{LIB_INSTALL_DIR}/libbfp.so"
