@@ -10,7 +10,8 @@ namespace iriov2 {
 /**
  * Base profile class.\n
  * Allows the user to access terminals for read/write operations.\n
- * If a terminal group is not in the profile, an exception will be thrown.
+ * If a terminal group is not in the profile,
+ * an \ref iriov2::errors::TerminalNotImplementedError exception will be thrown.
  */
 class ProfileBase: public ProfileBaseTerminals {
 public:
@@ -51,6 +52,8 @@ public:
 	/**
 	 * Allows the user to access terminals for read/write operations.\n
 	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 *
 	 * @param parsedBitfile		Parsed bitfile to extract the information for the terminals
 	 * @param session			Session for operations with the FPGA
 	 * @param id				Identification of the profile
@@ -63,56 +66,62 @@ public:
 	virtual ~ProfileBase() = default;
 
 	/**
-	 * Access to the analog group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the analog group terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
 	 * @return Pointer to the analog terminals
 	 */
 	virtual const std::shared_ptr<const TerminalsAnalog> analog() const;
 
 	/**
-	 * Access to the digital group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the digital group terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
 	 * @return Pointer to the digital terminals
 	 */
 	virtual const std::shared_ptr<const TerminalsDigital> digital() const;
 
 	/**
-	 * Access to the aux analog group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the aux analog group terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
 	 * @return Pointer to the aux analog terminals
 	 */
 	virtual const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
 
 	/**
-	 * Access to the aux digital group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the aux digital group terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
 	 * @return Pointer to the aux digital terminals
 	 */
 	virtual const std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
 
 	/**
-	 * Access to the cRIO group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the cRIO group terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
 	 * @return Pointer to the cRIO terminals
 	 */
 	virtual const std::shared_ptr<const TerminalscRIO> cRIO() const;
 
 	/**
-	 * Access to the FlexRIO group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the FlexRIO group terminals.
 	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 * @return Pointer to the FlexRIO terminals
 	 */
 	virtual const std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
 
 	/**
-	 * Access to the Signal Generation group terminals.\n
-	 * If the profile does not have them, an exception will be thrown.
+	 * Access to the Signal Generation group terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
 	 * @return Pointer to the Signal Generation terminals
 	 */

@@ -1,6 +1,7 @@
 #include "terminals/terminalsSignalGeneration.h"
 #include "terminals/names/namesTerminalsSignalGeneration.h"
 #include "utils.h"
+#include "errorsIrio.h"
 
 namespace iriov2 {
 
@@ -65,7 +66,11 @@ std::uint8_t TerminalsSignalGeneration::getSGNo() const {
 }
 
 std::uint32_t TerminalsSignalGeneration::getSGFref(const std::uint32_t n) const {
-	return m_mapFref.at(n);
+	const auto it = m_mapFref.find(n);
+	if(it == m_mapFref.end()){
+		throw errors::ResourceNotFoundError(n, TERMINAL_SGFREF);
+	}
+	return it->second;
 }
 
 std::uint8_t TerminalsSignalGeneration::getSGSignalType(const std::uint32_t n) const {
@@ -112,14 +117,10 @@ std::uint32_t TerminalsSignalGeneration::getSGUpdateRate(const std::uint32_t n) 
 void TerminalsSignalGeneration::setSGSignalType(
 		const std::uint32_t n,
 		const std::uint8_t value) const {
-	const auto it = m_mapSignalType_addr.find(n);
-	if (it == m_mapSignalType_addr.end()) {
-		throw std::runtime_error(
-				std::to_string(n) + " is not a valid " + std::string(TERMINAL_SGSIGNALTYPE)
-						+ " terminal");
-	}
 
-	auto status = NiFpga_WriteU8(m_session, it->second, value);
+	const auto addr = getAddressEnumResource(m_mapSignalType_addr, n, TERMINAL_SGSIGNALTYPE);
+
+	auto status = NiFpga_WriteU8(m_session, addr, value);
 	throwIfNotSuccessNiFpga(status,
 			"Error reading terminal " + std::string(TERMINAL_SGSIGNALTYPE) + std::to_string(n));
 }
@@ -130,13 +131,10 @@ void setValue(
 		const std::int32_t value,
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
-	auto it = mapTerminals.find(n);
-	if (it == mapTerminals.end()) {
-		throw std::runtime_error(
-				std::to_string(n) + " is not a valid " + terminalName + " terminal");
-	}
 
-	auto status = NiFpga_WriteI32(session, it->second, value);
+	const auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+
+	auto status = NiFpga_WriteI32(session, addr, value);
 	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 }
 

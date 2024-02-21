@@ -6,8 +6,11 @@
 #include <unordered_map>
 
 /**
- * Throws a runtime error if the NiFpga_Status is not success.\n
+ * Throws an exception if the NiFpga_Status is not success.\n
  * The exception message includes the specified text along with the error code
+ *
+ * @throw iriov2::errors::NiFpgaError	Status is not NiFpga_Status_Success
+ *
  * @param status	Status to check
  * @param errMsg	Error message to use in the exception if there has been an error
  */
@@ -65,12 +68,13 @@ void findAndInsertEnumDMAs(
 
 /**
  * Searches a map with identifiers as keys and addresses as values and check if the specified identifier (n) exists.
- * Throws a runtime_error if is not found.
+ *
+ * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
  *
  * @param mapResource	Map with the identifiers as keys and addresses as values
  * @param n				Identifier to find in map
  * @param resourceName	Name of the resource to find
- * @return
+ * @return	Address of the specified enum resource
  */
 std::uint32_t getAddressEnumResource(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapResource,

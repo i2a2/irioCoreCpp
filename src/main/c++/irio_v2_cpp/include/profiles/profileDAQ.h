@@ -7,6 +7,15 @@ namespace iriov2 {
 
 class ProfileDAQ: virtual public ProfileBase {
 public:
+	/**
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 *
+	 * @param parsedBitfile
+	 * @param session
+	 * @param platform
+	 * @param id
+	 */
 	ProfileDAQ(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,

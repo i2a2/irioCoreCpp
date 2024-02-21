@@ -1,12 +1,12 @@
 #include "utils.h"
-#include <stdexcept>
+#include "errorsIrio.h"
 
 
 void throwIfNotSuccessNiFpga(const NiFpga_Status &status, const std::string &errMsg) {
 	if (status != NiFpga_Status_Success) {
 		const std::string err = errMsg + std::string("(Code: ")
 				+ std::to_string(static_cast<std::int32_t>(status)) + std::string(")");
-		throw std::runtime_error(err);
+		throw iriov2::errors::NiFpgaError(err);
 	}
 }
 
@@ -48,8 +48,7 @@ std::uint32_t getAddressEnumResource(
 		const std::string &resourceName) {
 	auto it = mapResource.find(n);
 	if (it == mapResource.end()) {
-		throw std::runtime_error(
-				std::to_string(n) + " is not a valid " + resourceName + " terminal");
+		throw iriov2::errors::ResourceNotFoundError(n, resourceName);
 	}
 
 	return it->second;

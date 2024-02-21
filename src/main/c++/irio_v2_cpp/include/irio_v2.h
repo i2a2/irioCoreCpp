@@ -26,6 +26,11 @@ public:
 	 * - Applies the appropriate profile depending on the values specified in the LabVIEW project. This allows access to some terminals or others.
 	 * - Checks that the configured values and resources matches the design rules
 	 *
+	 * @throw iriov2::errors::FPGAVIVersionMismatchError	Parsed FPGAVIversion does not match the one specified
+	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
+	 * @throw iriov2::errors::UnsupportedPlatformError		The platform read does not match any of the supported platforms
+	 * @throw iriov2::errors::NiFpgaError					Error occurred in an FPGA operation
+	 *
 	 * @param bitfilePath		Bitfile to parse and download
 	 * @param RIOSerialNumber	RIO Serial Number of the device to use
 	 * @param FPGAVIversion		Version of the Bitfile. If it does not match the one parsed and exception will be thrown
@@ -44,13 +49,19 @@ public:
 
 	/**
 	 * Starts the VI downloaded in the FPGA.
-	 * If an error occurs, throws a std::runtime_error exception
+	 *
+	 * @throw iriov2::errors::InitializationTimeoutError	InitDone is not ready after a timeout
+	 * @throw iriov2::errors::ModulesNotOKError		At initialization, the modules are not ready
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 *
+	 * @param timeoutMs Max time to wait for InitDone to be ready
 	 */
-	void startFPGA();
+	void startFPGA(std::uint32_t timeoutMs=5000);
 
 	/**
 	 * Stops the VI running in the FPGA
-	 * If an error occurs, throws a std::runtime_error exception
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 */
 	void stopFPGA();
 
@@ -150,6 +161,9 @@ private:
 	/**
 	 * Opens a session to the FPGA, downloading the bitfile if necessary.
 	 * It does not run the VI, until @ref startFPGA has been called
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 *
 	 */
 	void openSession();
 
@@ -157,6 +171,9 @@ private:
 	 * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.\n
 	 * Checks that is a valid value and assigns the equivalent
 	 * Platform to a variable.
+	 *
+	 * @throw iriov2::errors::UnsupportedPlatformError	The platform read does not match any of the supported platforms
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 */
 	void searchPlatform();
 
@@ -166,6 +183,9 @@ private:
 	 * Checks that is a valid value for the selected platform and assigns
 	 * the corresponding profile to a variable.
 	 * This determines which terminals can the user access.
+	 *
+	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 */
 	void searchDevProfile();
 

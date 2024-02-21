@@ -2,6 +2,7 @@
 #include <vector>
 #include <dirent.h>
 #include <fstream>
+#include "errorsIrio.h"
 
 #ifndef CCS_VERSION
 #include <nisyscfg/nisyscfg.h>
@@ -17,7 +18,7 @@ std::vector<std::string> getListDevices(){
 
 	DIR* dir = opendir(interfacePath.c_str());
 	if(!dir){
-		throw std::runtime_error("Cannot discover resources because kernel module is not loaded, run 'modproble nirio' and try again");
+		throw errors::RIODiscoveryError("Cannot discover resources because kernel module is not loaded, run 'modproble nirio' and try again");
 	}
 	std::vector<std::string> devices;
 
@@ -57,6 +58,10 @@ std::string getRIODeviceCCS(const std::string &serialNumber) {
 		it++;
 	}
 
+	if(it==devices.end()){
+		throw errors::RIODeviceNotFoundError();
+	}
+
 	return name;
 }
 #else
@@ -64,8 +69,8 @@ std::string getRIODeviceCCS(const std::string &serialNumber) {
 void throwIfNiSysCfgError(const NISysCfgStatus &status, const std::string &errMsg){
 	if(status != NISysCfg_OK){
 		const std::string err = errMsg + std::string("(Code: ")
-						+ std::to_string(static_cast<std::int32_t>(status)) + std::string(")");
-		throw std::runtime_error(err);
+								+ std::to_string(static_cast<std::int32_t>(status)) + std::string(")");
+		throw errors::RIODiscoveryError(err);
 	}
 }
 
@@ -123,7 +128,7 @@ private:
 		}
 
 		if(isPresent != NISysCfgIsPresentTypePresent){
-			throw std::runtime_error("Resource not found");
+			throw errors::RIODeviceNotFoundError();
 		}
 	}
 
@@ -156,15 +161,17 @@ std::string getRIODeviceAux(const std::string &serialNumber) {
 #else
 	return getRIODevicesNI(serialNumber);
 #endif
+
 }
 
 
 std::string RIODiscovery::searchRIODevice(const std::string &serialNumber) {
-	std::string deviceName = getRIODeviceAux(serialNumber);
-	if(deviceName.empty()){
-		throw std::runtime_error("No RIO device with serial number " + serialNumber);
+	try {
+		std::string deviceName = getRIODeviceAux(serialNumber);
+		return deviceName;
+	} catch (errors::RIODeviceNotFoundError &e) {
+		throw errors::RIODeviceNotFoundError(serialNumber);
 	}
-	return deviceName;
 }
 
 }

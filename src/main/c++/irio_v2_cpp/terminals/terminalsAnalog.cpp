@@ -1,6 +1,7 @@
 #include <terminals/terminalsAnalog.h>
 #include <terminals/names/namesTerminalsAnalog.h>
 #include <utils.h>
+#include <errorsIrio.h>
 
 namespace iriov2 {
 
@@ -67,13 +68,10 @@ void setAnalog(
 		const std::int32_t value,
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
-	auto it = mapTerminals.find(n);
-	if (it == mapTerminals.end()) {
-		throw std::runtime_error(
-				std::to_string(n) + " is not a valid " + terminalName + " terminal");
-	}
 
-	auto status = NiFpga_WriteI32(session, it->second, value);
+	auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+
+	auto status = NiFpga_WriteI32(session, addr, value);
 	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 }
 

@@ -4,7 +4,9 @@
 #include "utils.h"
 #include "profiles/profiles.h"
 #include "rioDiscovery.h"
+#include "errorsIrio.h"
 #include <unistd.h>
+#include <math.h>
 
 namespace iriov2 {
 
@@ -20,9 +22,7 @@ IrioV2::IrioV2(
 	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
 
 	if (m_bfp.getBitfileVersion() != FPGAVIversion) {
-		throw std::runtime_error(
-				"FPGAVIVserion mismatch (" + FPGAVIversion + " != " + m_bfp.getBitfileVersion()
-						+ ")");
+		throw errors::FPGAVIVersionMismatchError(m_bfp.getBitfileVersion(), FPGAVIversion);
 	}
 
 	initDriver();
@@ -36,29 +36,33 @@ IrioV2::~IrioV2() {
 	finalizeDriver();
 }
 
-void IrioV2::startFPGA() {
-	const unsigned int MAX_TRIES = 50;
+void IrioV2::startFPGA(std::uint32_t timeoutMs) {
 	const unsigned int SLEEP_INTERVAL_US = 100000;
 
+	std::uint32_t maxTries = std::ceil(timeoutMs/SLEEP_INTERVAL_US);
 	auto status = NiFpga_Run(m_session, 0);
 	throwIfNotSuccessNiFpga(status, "Error starting the VI");
 
 	unsigned int tries = 0;
-	while (!m_profile->getInitDone() && tries < MAX_TRIES) {
+	while (!m_profile->getInitDone() && tries < maxTries) {
 		usleep(SLEEP_INTERVAL_US);
 		tries++;
+	}
+
+	if(!m_profile->getInitDone()){
+		throw errors::InitializationTimeoutError();
 	}
 
 	switch (m_platform->platformID) {
 	case FLEXRIO_PLATFORM_VALUE:
 		if (m_profile->flexRIO()->getInsertedIOModuleID() != 0
 				&& !m_profile->flexRIO()->getRIOAdapterCorrect()) {
-			throw std::runtime_error("FlexRIO IO Module check failed");
+			throw errors::ModulesNotOKError("FlexRIO IO Module check failed");
 		}
 		break;
 	case CRIO_PLATFORM_VALUE:
 		if (!m_profile->cRIO()->getcRIOModulesOk()) {
-			throw std::runtime_error("cRIO IO Modules check failed");
+			throw errors::ModulesNotOKError("cRIO IO Module check failed");
 		}
 		break;
 	default:
@@ -149,7 +153,7 @@ void IrioV2::searchPlatform() {
 		m_platform.reset(new PlatformRSeries());
 		break;
 	default:
-		throw std::runtime_error("Platform specified is not supported");
+		throw errors::UnsupportedPlatformError(platform);
 	}
 }
 
@@ -175,9 +179,7 @@ void IrioV2::searchDevProfile() {
 	const auto validValues = validProfileByPlatform.find(platform)->second;
 	const auto it = validValues.find(profile);
 	if (it == validValues.end()) {
-		throw std::runtime_error(
-				"DevProfile " + std::to_string(profile) + " is not valid for the platform "
-						+ std::to_string(platform));
+		throw errors::UnsupportedDevProfileError(profile, platform);
 	}
 
 	//TODO: Finish

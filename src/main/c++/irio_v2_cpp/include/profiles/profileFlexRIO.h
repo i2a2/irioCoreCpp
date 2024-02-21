@@ -7,6 +7,13 @@ namespace iriov2 {
 
 class ProfileFlexRIO: virtual public ProfileBase {
 public:
+	/**
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 *
+	 * @param parsedBitfile
+	 * @param session
+	 * @param id
+	 */
 	ProfileFlexRIO(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,

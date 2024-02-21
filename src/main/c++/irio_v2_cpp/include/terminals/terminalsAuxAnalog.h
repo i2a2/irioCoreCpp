@@ -14,12 +14,37 @@ public:
 			const NiFpga_Session &session,
 			const Platform &platform);
 
+	/**
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 *
+	 * @param n
+	 * @return
+	 */
 	std::int32_t getAuxAI(const std::uint32_t n) const;
+
+	/**
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 *
+	 * @param n
+	 * @return
+	 */
 	std::int16_t getAuxAO(const std::uint32_t n) const;
 
 	size_t getNumAuxAI() const;
 	size_t getNumAuxAO() const;
 
+	/**
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 *
+	 * @param n
+	 * @param value
+	 */
 	void setAuxAO(const std::uint32_t n, const std::int16_t value) const;
 
 private:
