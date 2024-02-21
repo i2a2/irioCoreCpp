@@ -6,6 +6,8 @@ namespace bfp{
 
 /**
  * Supported types for the elements of the different Resources in the Bitfile
+ *
+ * @ingroup BFP
  */
 enum ElemTypes{
 	Bool,      /**< Bool */
@@ -20,6 +22,15 @@ enum ElemTypes{
 	Unsupported/**< Unsupported */
 };
 
+/**
+ * Parses a string and outputs a ElemType if exists an equivalence.
+ * If it does not match, return ElemTypes::Unsupported
+ *
+ * @param typeName	String with the type
+ * @return ElemTypes
+ *
+ * @ingroup BFP
+ */
 ElemTypes getElemTypeFromStr(const std::string &typeName);
 
 }

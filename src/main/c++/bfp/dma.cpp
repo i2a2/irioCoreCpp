@@ -24,7 +24,7 @@ bool DMA::isHostToTarget() const {
 	return !m_isTargetToHost;
 }
 
-DMA processDMA(const pugi::xml_node &dmaNode){
+DMA DMA::processDMA(const pugi::xml_node &dmaNode) {
 	std::string name;
 	FpgaTypes fpgaType;
 	ElemTypes elemType;
@@ -47,7 +47,6 @@ DMA processDMA(const pugi::xml_node &dmaNode){
 
 	return DMA(name, fpgaType, elemType, address, numElem);
 }
-
 
 }
 

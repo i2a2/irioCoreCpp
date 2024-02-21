@@ -13,6 +13,8 @@ namespace bfp{
  *
  * Manages parsing a bitfile and extracting the Registers and DMAs on it.
  * It also extracts the signature and Bitfile version.
+ *
+ * @ingroup BFP
  */
 class BFP{
 public:

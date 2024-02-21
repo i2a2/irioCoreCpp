@@ -4,6 +4,8 @@ namespace bfp{
 
 /**
  * Type of Resource possible in the Bitfile
+ *
+ * @ingroup BFP
  */
 enum FpgaTypes {
 	FpgaType_Control,       /**< FpgaType_Control */

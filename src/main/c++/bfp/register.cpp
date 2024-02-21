@@ -23,7 +23,7 @@ bool Register::isIndicator() const {
 	return !m_isControl;
 }
 
-Register processRegister(const pugi::xml_node &registerNode, const std::uint32_t &baseAddress) {
+Register Register::processRegister(const pugi::xml_node &registerNode, const std::uint32_t &baseAddress) {
 	std::string name;
 	FpgaTypes fpgaType;
 	ElemTypes elemType;

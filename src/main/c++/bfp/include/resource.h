@@ -7,6 +7,11 @@
 
 namespace bfp{
 
+/**
+ * Class holding information about one resource (Register or DMA)
+ *
+ * @ingroup BFP
+ */
 class Resource
 {
 public:

@@ -85,7 +85,7 @@ std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_no
 		if(regNode.child("Internal").text().as_bool())
 			continue;
 
-		bfp::Register aux = bfp::processRegister(regNode, baseAddress);
+		bfp::Register aux = bfp::Register::processRegister(regNode, baseAddress);
 		//Skip unsupported types
 		if(aux.elemType != bfp::ElemTypes::Unsupported){
 			std::string name = aux.name;
@@ -104,7 +104,7 @@ std::unordered_map<std::string, bfp::DMA> parseDMA(const pugi::xml_node& node){
 	std::unordered_map<std::string, bfp::DMA> mapRet;
 
 	for(const auto& dmaNode: node.children("Channel")){
-		bfp::DMA aux = bfp::processDMA(dmaNode);
+		bfp::DMA aux = bfp::DMA::processDMA(dmaNode);
 		std::string name = aux.name;
 		removeSpaces(name);
 		mapRet.insert({name, aux});
