@@ -111,10 +111,10 @@
                                     <UML_LOOK>YES</UML_LOOK>
                                     <UML_LIMIT_NUM_FIELDS>50</UML_LIMIT_NUM_FIELDS>
                                     <HAVE_DOT>YES</HAVE_DOT>
-                                    <TEMPLATE_RELATION>YES</TEMPLATE_RELATION>
                                     <DOT_GRAPH_MAX_NODES>100</DOT_GRAPH_MAX_NODES>
                                     <MAX_DOT_GRAPH_DEPTH>0</MAX_DOT_GRAPH_DEPTH>
                                     <DOT_TRANSPARENT>YES</DOT_TRANSPARENT>
+                                    <INTERACTIVE_SVG>NO</INTERACTIVE_SVG>
                                 </properties>
                             </include>
                         </package>
