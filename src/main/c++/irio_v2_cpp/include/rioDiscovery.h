@@ -3,6 +3,11 @@
 
 namespace iriov2{
 
+/**
+ * Manages searching for RIO devices
+ *
+ * @ingroup IrioV2
+ */
 class RIODiscovery{
 public:
 	/**

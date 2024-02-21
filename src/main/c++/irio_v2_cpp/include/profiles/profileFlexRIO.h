@@ -8,6 +8,10 @@ namespace iriov2 {
  * Profile with the terminals specific to FlexRIO devices.
  * This class must be a extended by other profile classes,
  * should not be used by itself.
+ *
+ * @ingroup Profiles
+ * @ingroup ProfilesFlexRIO
+ * @ingroup FlexRIO
  */
 class ProfileFlexRIO: virtual public ProfileBase {
 public:

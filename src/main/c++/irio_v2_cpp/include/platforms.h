@@ -11,6 +11,8 @@ namespace iriov2 {
 
 /**
  * Generic Platform class. Stores maximum number of resources.
+ *
+ * @ingroup Platforms
  */
 class Platform {
 public:
@@ -57,6 +59,7 @@ public:
 
 /**
  * Specific implementation for the FlexRIO platform
+ * @ingroup Platforms
  */
 class PlatformFlexRIO: public Platform {
 private:
@@ -84,6 +87,7 @@ public:
 
 /**
  * Specific implementation for the cRIO platform
+ * @ingroup Platforms
  */
 class PlatformCRIO: public Platform {
 private:
@@ -110,7 +114,8 @@ public:
 };
 
 /**
- * Specific implementation for the RSeries platform
+ * Specific implementation for the R Series platform
+ * @ingroup Platforms
  */
 class PlatformRSeries: public Platform {
 private:

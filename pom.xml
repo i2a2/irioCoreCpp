@@ -88,7 +88,7 @@
                                 <imagepath>images</imagepath>
                                 <properties>
                                     <SORT_MEMBER_DOCS>NO</SORT_MEMBER_DOCS> 
-                                    <HIDE_UNDOC_CLASSES>YES</HIDE_UNDOC_CLASSES>
+                                    <HIDE_UNDOC_CLASSES>NO</HIDE_UNDOC_CLASSES>
                                     <RECURSIVE>YES</RECURSIVE>
                                     <EXTRACT_ALL>YES</EXTRACT_ALL>
 									<HIDE_UNDOC_MEMBERS>NO</HIDE_UNDOC_MEMBERS>
@@ -96,6 +96,7 @@
                                     <SOURCE_BROWSER>YES</SOURCE_BROWSER>
                 					<DOT_FONTSIZE>10</DOT_FONTSIZE>
                                     <CLASS_GRAPH>YES</CLASS_GRAPH>
+                                    <CLASS_DIAGRAMS>YES</CLASS_DIAGRAMS>
                                     <COLLABORATION_GRAPH>YES</COLLABORATION_GRAPH>
                                     <GROUP_GRAPHS>YES</GROUP_GRAPHS>
                                     <INCLUDE_GRAPH>YES</INCLUDE_GRAPH>
@@ -104,9 +105,16 @@
                                     <CALLER_GRAPH>YES</CALLER_GRAPH>
                                     <GRAPHICAL_HIERARCHY>YES</GRAPHICAL_HIERARCHY>
                                     <DIRECTORY_GRAPH>YES</DIRECTORY_GRAPH>
-                                    <DOT_IMAGE_FORMAT>png</DOT_IMAGE_FORMAT>
+                                    <DOT_IMAGE_FORMAT>svg</DOT_IMAGE_FORMAT>
                                     <GENERATE_TREEVIEW>YES</GENERATE_TREEVIEW>
                                     <EXTRACT_STATIC>YES</EXTRACT_STATIC>
+                                    <UML_LOOK>YES</UML_LOOK>
+                                    <UML_LIMIT_NUM_FIELDS>50</UML_LIMIT_NUM_FIELDS>
+                                    <HAVE_DOT>YES</HAVE_DOT>
+                                    <TEMPLATE_RELATION>YES</TEMPLATE_RELATION>
+                                    <DOT_GRAPH_MAX_NODES>100</DOT_GRAPH_MAX_NODES>
+                                    <MAX_DOT_GRAPH_DEPTH>0</MAX_DOT_GRAPH_DEPTH>
+                                    <DOT_TRANSPARENT>YES</DOT_TRANSPARENT>
                                 </properties>
                             </include>
                         </package>

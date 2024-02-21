@@ -8,6 +8,9 @@ namespace iriov2 {
 /**
  * Class managing all terminals specific to
  * cRIO devices
+ *
+ * @ingroup Terminals
+ * @ingroup cRIO
  */
 class TerminalscRIO: public TerminalsBase {
 public:

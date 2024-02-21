@@ -1,24 +1,62 @@
 /**
 
-@defgroup BFP Bitfile Parsing
+@defgroup BFP Bitfile 		Parsing
+
+@defgroup IrioV2 			IrioV2
 
 
-@defgroup IrioV2 IrioV2
 
-@defgroup Profiles IrioV2 profiles
+@defgroup Platforms			Platforms
 @ingroup IrioV2
 
-@defgroup Terminals IrioV2 terminals
+
+
+@defgroup Terminals 		IrioV2 Terminals
 @ingroup IrioV2
 
-@defgroup FlexRIO IrioV2 Specific classes/functions to FlexRIO
+@defgroup DMATerminals 		DMA Terminals
+@ingroup Terminals
+
+@defgroup DMACPUTerminals 	DMA CPU Terminals
+@ingroup DMATerminals
+
+@defgroup DMAGPUTerminals	DMA GPU Terminals
+@ingroup DMATerminals
+
+
+
+@defgroup FlexRIO 			Specific Classes/Functions to FlexRIO
 @ingroup IrioV2
 
-@defgroup cRIO IrioV2 Specific classes/functions to cRIO
+@defgroup cRIO 				Specific Classes/Functions to cRIO
 @ingroup IrioV2
 
-@defgroup RSeries IrioV2 Specific classes/functions to R Series
+@defgroup RSeries 			Specific Classes/Functions to R Series
 @ingroup IrioV2
 
+
+
+@defgroup Profiles 			IrioV2 Profiles
+@ingroup IrioV2
+
+@defgroup ProfilesDAQ 		Data Acquisition Profiles
+@ingroup Profiles
+
+@defgroup ProfilesIMAQ 		Image Acquisition Profiles
+@ingroup Profiles
+
+@defgroup ProfilesGPU 		GPU related Acquisition Profiles
+@ingroup Profiles
+
+@defgroup ProfilesIO 		Point by Point Profiles
+@ingroup Profiles
+
+@defgroup ProfilesFlexRIO	FlexRIO Profiles
+@ingroup Profiles
+
+
+
+@defgroup Errors			Error Management
+@ingroup IrioV2
 
 */

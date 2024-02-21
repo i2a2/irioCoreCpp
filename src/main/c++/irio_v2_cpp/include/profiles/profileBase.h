@@ -12,6 +12,8 @@ namespace iriov2 {
  * Allows the user to access terminals for read/write operations.
  * If a terminal group is not in the profile,
  * an \ref iriov2::errors::TerminalNotImplementedError exception will be thrown.
+ *
+ * @ingroup Profiles
  */
 class ProfileBase: public ProfileBaseTerminals {
 public:

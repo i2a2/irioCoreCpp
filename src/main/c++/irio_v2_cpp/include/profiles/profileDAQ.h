@@ -7,6 +7,9 @@ namespace iriov2 {
 /**
  * Profile with the terminals
  * specific to data acquisition functionality.
+ *
+ * @ingroup Profiles
+ * @ingroup ProfilesDAQ
  */
 class ProfileDAQ: virtual public ProfileBase {
 public:

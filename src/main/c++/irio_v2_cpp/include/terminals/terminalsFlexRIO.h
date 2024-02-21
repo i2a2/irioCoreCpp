@@ -8,6 +8,9 @@ namespace iriov2 {
 /**
  * Class managing all terminals specific to
  * FlexRIO devices
+ *
+ * @ingroup Terminals
+ * @ingroup FlexRIO
  */
 class TerminalsFlexRIO: public TerminalsBase {
 public:

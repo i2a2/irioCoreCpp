@@ -6,6 +6,8 @@
 namespace iriov2 {
 /**
  * Base profile with the common terminals shared with all profiles
+ *
+ * @ingroup Profiles
  */
 class ProfileBaseTerminals {
 public:

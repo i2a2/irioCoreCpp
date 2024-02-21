@@ -10,6 +10,11 @@ namespace iriov2 {
  * specific to data acquisition functionality
  * and the ones specific to FlexRIO devices.
  * See \ref ProfileDAQ and \ref ProfileFlexRIO
+ *
+ * @ingroup Profiles
+ * @ingroup ProfilesDAQ
+ * @ingroup ProfilesFlexRIO
+ * @ingroup FlexRIO
  */
 class ProfileDAQFlexRIO: public ProfileDAQ, ProfileFlexRIO {
 public:

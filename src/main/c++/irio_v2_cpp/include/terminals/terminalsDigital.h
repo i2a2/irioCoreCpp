@@ -8,6 +8,8 @@ namespace iriov2 {
 /**
  * Class managing all terminals related to the
  * digital functionality of the RIO device
+ *
+ * @ingroup Terminals
  */
 class TerminalsDigital: public TerminalsBase {
 public:

@@ -9,6 +9,8 @@ namespace iriov2 {
 /**
  * Class managing all terminals related to the
  * analog functionality of the RIO device
+ *
+ * @ingroup Terminals
  */
 class TerminalsAnalog: public TerminalsBase {
 public:

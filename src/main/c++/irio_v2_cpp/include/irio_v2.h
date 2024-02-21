@@ -15,6 +15,8 @@ namespace iriov2 {
  * Hides the complexity of using the National Instruments low level driver by abstracting several elements from the user.
  * It parses the specified Bitfile and downloads it to the selected RIO device. It also provides the user function to
  * access the terminals and perform read/write operations.
+ *
+ * @ingroup IrioV2
  */
 class IrioV2 {
 public:

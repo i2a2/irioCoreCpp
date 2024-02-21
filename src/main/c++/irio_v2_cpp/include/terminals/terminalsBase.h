@@ -6,6 +6,8 @@ namespace iriov2 {
 
 /**
  * Base class for terminals
+ *
+ * @ingroup Terminals
  */
 class TerminalsBase {
 public:
