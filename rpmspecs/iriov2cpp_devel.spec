@@ -58,3 +58,4 @@ IRIO V2 CPP devel package
 "{INC_INSTALL_DIR}/iriov2cpp/terminals/terminalsSignalGeneration.h"
 "{INC_INSTALL_DIR}/iriov2cpp/terminals/terminalscRIO.h"
 "{INC_INSTALL_DIR}/iriov2cpp/utils.h"
+"{INC_INSTALL_DIR}/iriov2cpp/errorsIrio.h"
