@@ -19,13 +19,13 @@ public:
 	 * All possible types of profiles
 	 */
 	enum PROFILE_ID {
-		FLEXRIO_DAQ = 0,/**< FLEXRIO_DAQ */
-		FLEXRIO_IMAQ, /**< FLEXRIO_IMAQ */
-		FLEXRIO_GPUDAQ, /**< FLEXRIO_GPUDAQ */
-		FLEXRIO_GPUIMAQ,/**< FLEXRIO_GPUIMAQ */
-		CRIO_DAQ, /**< CRIO_DAQ */
-		CRIO_IO, /**< CRIO_IO */
-		R_DAQ /**< R_DAQ */
+		FLEXRIO_DAQ = 0,/**< Data acquisition profile for FlexRIO devices */
+		FLEXRIO_IMAQ, /**< Image acquisition profile for FlexRIO devices */
+		FLEXRIO_GPUDAQ, /**< Data acquisition in GPU profile for FlexRIO devices */
+		FLEXRIO_GPUIMAQ,/**< Image acquisition in GPU profile for FlexRIO devices */
+		CRIO_DAQ, /**< Data acquisition profile for cRIO devices */
+		CRIO_IO, /**< Point by Point profile for cRIO devices */
+		R_DAQ /**< Data acquisition profile for R Series devices */
 	};
 
 	/**
