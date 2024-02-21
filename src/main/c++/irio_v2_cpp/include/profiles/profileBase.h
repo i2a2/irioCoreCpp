@@ -8,8 +8,8 @@
 namespace iriov2 {
 
 /**
- * Base profile class.\n
- * Allows the user to access terminals for read/write operations.\n
+ * Base profile class.
+ * Allows the user to access terminals for read/write operations.
  * If a terminal group is not in the profile,
  * an \ref iriov2::errors::TerminalNotImplementedError exception will be thrown.
  */
@@ -50,7 +50,7 @@ public:
 	static const std::uint8_t PROFILE_VALUE_IO = 1;
 
 	/**
-	 * Allows the user to access terminals for read/write operations.\n
+	 * Allows the user to access terminals for read/write operations.
 	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 *

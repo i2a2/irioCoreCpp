@@ -9,9 +9,10 @@
 
 namespace bfp{
 /**
- * BitFile Parser\n
+ * BitFile Parser.
+ *
  * Manages parsing a bitfile and extracting the Registers and DMAs on it.
- * It also extracts the signature and Bitfile version.\n
+ * It also extracts the signature and Bitfile version.
  */
 class BFP{
 public:

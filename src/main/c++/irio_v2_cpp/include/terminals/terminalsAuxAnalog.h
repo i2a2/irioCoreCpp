@@ -14,7 +14,7 @@ namespace iriov2 {
 class TerminalsAuxAnalog: public TerminalsBase {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 * Manages finding the related auxiliary analog terminals
 	 * in the parsed bitfile and reading their values
 	 * from the FPGA if required

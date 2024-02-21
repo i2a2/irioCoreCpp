@@ -11,7 +11,7 @@ namespace iriov2 {
 class ProfileDAQ: virtual public ProfileBase {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 *
 	 * Manages creating the required terminals for data acquisition functionality, which are:
 	 * -\ref TerminalsAnalog

@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 /**
- * Throws an exception if the NiFpga_Status is not success.\n
+ * Throws an exception if the NiFpga_Status is not success.
  * The exception message includes the specified text along with the error code
  *
  * @throw iriov2::errors::NiFpgaError	Status is not NiFpga_Status_Success
@@ -21,6 +21,7 @@ void throwIfNotSuccessNiFpga(const NiFpga_Status &status, const std::string &err
  * and insert them in a new map.
  *
  * The function will search maxElem resources, if one is not found, it will continue.
+ *
  * For example:\n
  * Given the resourceName "AI" and maxElem 3, if there is AI0 and AI2, although
  * AI1 would not be found, the function will insert AI2 anyway.

@@ -13,7 +13,7 @@ namespace iriov2 {
 class TerminalsSignalGeneration: public TerminalsBase {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 * Manages finding the related signal generation terminals
 	 * in the parsed bitfile and reading their values
 	 * from the FPGA if required

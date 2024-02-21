@@ -12,7 +12,7 @@ namespace iriov2 {
 class TerminalscRIO: public TerminalsBase {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 * Manages finding the related terminals specific to cRIO devices.
 	 *
 	 * @param parsedBitfile Parsed bitfile with the cRIO specific terminals

@@ -12,14 +12,14 @@ namespace iriov2 {
 
 /**
  * irio-v2 main class.
- * Hides the complexity of using the National Instruments low level driver by abstracting several elements from the user.\n
+ * Hides the complexity of using the National Instruments low level driver by abstracting several elements from the user.
  * It parses the specified Bitfile and downloads it to the selected RIO device. It also provides the user function to
  * access the terminals and perform read/write operations.
  */
 class IrioV2 {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 * - Parses and extract all the resources in the specified Bitfile
 	 * - Initializes the low level library
 	 * - Downloads the Bitfile to the specified device
@@ -41,7 +41,7 @@ public:
 			const std::string &FPGAVIversion);
 
 	/**
-	 * Destructor.\n
+	 * Destructor.
 	 * Closes the session if there is one open and finalizes
 	 * the low level library.
 	 */
@@ -68,7 +68,7 @@ public:
 	/**
 	 * Returns a pointer to the analog terminals.
 	 * The user must call it to be able to read/write analog
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -79,7 +79,7 @@ public:
 	/**
 	 * Returns a pointer to the digital terminals.
 	 * The user must call it to be able to read/write digital
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -90,7 +90,7 @@ public:
 	/**
 	 * Returns a pointer to the aux analog terminals.
 	 * The user must call it to be able to read/write digital
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -101,7 +101,7 @@ public:
 	/**
 	 * Returns a pointer to the aux digital terminals.
 	 * The user must call it to be able to read/write digital
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -112,7 +112,7 @@ public:
 	/**
 	 * Returns a pointer to the cRIO specific terminals.
 	 * The user must call it to be able to read/write digital
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -123,7 +123,7 @@ public:
 	/**
 	 * Returns a pointer to the FlexRIO specific terminals.
 	 * The user must call it to be able to read/write digital
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -134,7 +134,7 @@ public:
 	/**
 	 * Returns a pointer to the Signal Generation terminals.
 	 * The user must call it to be able to read/write digital
-	 * related terminals.\n
+	 * related terminals.
 	 * If the profile does not have them, an exception will
 	 * be thrown
 	 *
@@ -168,7 +168,7 @@ private:
 	void openSession();
 
 	/**
-	 * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.\n
+	 * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.
 	 * Checks that is a valid value and assigns the equivalent
 	 * Platform to a variable.
 	 *
@@ -179,7 +179,7 @@ private:
 
 	/**
 	 * Searches for the @ref TERMINAL_DEVPROFILE terminals and
-	 * reads its value.\n
+	 * reads its value.
 	 * Checks that is a valid value for the selected platform and assigns
 	 * the corresponding profile to a variable.
 	 * This determines which terminals can the user access.

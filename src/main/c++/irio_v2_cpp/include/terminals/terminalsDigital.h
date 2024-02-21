@@ -12,7 +12,7 @@ namespace iriov2 {
 class TerminalsDigital: public TerminalsBase {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 * Manages finding the related digital terminals in the parsed bitfile
 	 * and reading their values from the FPGA if required
 	 *

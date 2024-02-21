@@ -12,7 +12,7 @@ namespace iriov2 {
 class TerminalsFlexRIO: public TerminalsBase {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 * Manages finding the related terminals specific to FlexRIO devices.
 	 *
 	 * @param parsedBitfile Parsed bitfile with the FlexRIO specific terminals

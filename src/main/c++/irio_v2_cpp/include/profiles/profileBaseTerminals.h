@@ -10,7 +10,7 @@ namespace iriov2 {
 class ProfileBaseTerminals {
 public:
 	/**
-	 * Constructor.\n
+	 * Constructor.
 	 *
 	 * Manages finding the common terminals in the parsed bitfile
 	 * and reading their values from the FPGA if required
