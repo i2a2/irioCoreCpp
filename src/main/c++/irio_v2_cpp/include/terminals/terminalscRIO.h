@@ -5,24 +5,34 @@
 #include <NiFpga.h>
 
 namespace iriov2 {
-
+/**
+ * Class managing all terminals specific to
+ * cRIO devices
+ */
 class TerminalscRIO: public TerminalsBase {
 public:
+	/**
+	 * Constructor.\n
+	 * Manages finding the related terminals specific to cRIO devices.
+	 *
+	 * @param parsedBitfile Parsed bitfile with the cRIO specific terminals
+	 * @param session		NiFpga_Session to be used in NiFpga related functions
+	 */
 	TerminalscRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 
 	/**
-	 *
+	 * Returns whether the modules connected to the cRIO are ok
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 *
-	 * @return
+	 * @return true if no problem found, false otherwise
 	 */
 	bool getcRIOModulesOk() const;
 
 	/**
-	 *
+	 * Returns a vector with all the modules in the cRIO device
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 *
-	 * @return
+	 * @return Vector with the ID of the modules in the cRIO device
 	 */
 	std::vector<std::uint16_t> getInsertedIOModulesID() const;
 
