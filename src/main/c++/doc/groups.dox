@@ -1,0 +1,24 @@
+/**
+
+@defgroup BFP Bitfile Parsing
+
+
+@defgroup IrioV2 IrioV2
+
+@defgroup Profiles IrioV2 profiles
+@ingroup IrioV2
+
+@defgroup Terminals IrioV2 terminals
+@ingroup IrioV2
+
+@defgroup FlexRIO IrioV2 Specific classes/functions to FlexRIO
+@ingroup IrioV2
+
+@defgroup cRIO IrioV2 Specific classes/functions to cRIO
+@ingroup IrioV2
+
+@defgroup RSeries IrioV2 Specific classes/functions to R Series
+@ingroup IrioV2
+
+
+*/
