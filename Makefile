@@ -16,14 +16,16 @@ ifeq ($(PREFIX),)
 endif
 
 
-.PHONY: all debug clean compile coverage package
+.PHONY: all debug clean compile coverage package doc
 
-all: copy_and_make
+all: copy build
 
-copy_and_make:
+copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
 	rsync -a --inplace $(SOURCE_DIR) $(COPY_DIR)
 	@echo "Copying complete."
+
+build:
 	@echo -e "\n$(BOLD)Building libs...$(NC)"
 	@echo "Entering $(LIB_MAKEFILE_DIR) and executing make..."
 	$(MAKE) -C $(LIB_MAKEFILE_DIR) $(DEBUG)
@@ -71,7 +73,12 @@ package_lib_devel:
 	rpmbuild --define "_rpmdir $(PWD)/$(COPY_DIR)" --buildroot $(PWD)/$(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel -bb $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp_devel.spec 
 	@echo -e "$(BOLD)iriov2cpp_devel package generated...$(NC)"
 	
-package: all gen_rpmbuild package_lib package_lib_devel
+doc: copy
+	@echo -e "$(BOLD)Generating documentation...$(NC)"
+	@mkdir -p $(COPY_DIR)/doc
+	$(MAKE) -C $(COPY_DIR)/main/c++/doc all	
+
+package: all gen_rpmbuild package_lib package_lib_devel doc
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
 		
 		
