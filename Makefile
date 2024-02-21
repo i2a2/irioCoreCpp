@@ -76,6 +76,7 @@ package_lib_devel:
 doc: copy
 	@echo -e "$(BOLD)Generating documentation...$(NC)"
 	@mkdir -p $(COPY_DIR)/doc
+	@sed -i 's/{VERSION_DOXYGEN}/$(VERSION)/g' $(COPY_DIR)/main/c++/doc/Doxyfile
 	$(MAKE) -C $(COPY_DIR)/main/c++/doc all	
 
 package: all gen_rpmbuild package_lib package_lib_devel doc
