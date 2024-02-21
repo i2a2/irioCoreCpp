@@ -4,17 +4,28 @@
 #include <platforms.h>
 
 namespace iriov2 {
-
+/**
+ * Profile with the terminals
+ * specific to data acquisition functionality.
+ */
 class ProfileDAQ: virtual public ProfileBase {
 public:
 	/**
+	 * Constructor.\n
+	 *
+	 * Manages creating the required terminals for data acquisition functionality, which are:
+	 * -\ref TerminalsAnalog
+	 * -\ref TerminalsDigital
+	 * -\ref TerminalsAuxAnalog
+	 * -\ref TerminalsAuxDigital
+	 * -\ref TerminalsSignalGeneration
 	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 *
-	 * @param parsedBitfile
-	 * @param session
-	 * @param platform
-	 * @param id
+	 * @param parsedBitfile 	Parsed bitfile
+	 * @param session			NiFpga_Session to be used in NiFpga related functions
+	 * @param platform			Platform used
+	 * @param id				Profile used
 	 */
 	ProfileDAQ(
 			const bfp::BFP &parsedBitfile,

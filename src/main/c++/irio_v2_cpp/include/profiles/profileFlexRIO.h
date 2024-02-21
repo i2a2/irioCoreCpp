@@ -4,15 +4,23 @@
 
 
 namespace iriov2 {
-
+/**
+ * Profile with the terminals specific to FlexRIO devices.
+ * This class must be a extended by other profile classes,
+ * should not be used by itself.
+ */
 class ProfileFlexRIO: virtual public ProfileBase {
 public:
 	/**
+	 * Constructor.
+	 *
+	 * Initializes terminals specific to FlexRIO
+	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 *
-	 * @param parsedBitfile
-	 * @param session
-	 * @param id
+	 * @param parsedBitfile	Parsed bitfile
+	 * @param session		NiFpga_Session to be used in NiFpga related functions
+	 * @param id			Profile used
 	 */
 	ProfileFlexRIO(
 			const bfp::BFP &parsedBitfile,
