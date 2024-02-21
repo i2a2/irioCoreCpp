@@ -82,7 +82,8 @@
                 				<filepattern>*.cpp</filepattern>
                                 <outputformat>html</outputformat>
                                 <outputformat>pdf</outputformat>
-                                <input>main/c++/irio_v2_cpp/doc</input>
+                                <input>main/c++/doc</input>
+                                <input>main/c++/bfp/include</input>
                                 <input>main/c++/irio_v2_cpp/include</input>
                                 <imagepath>images</imagepath>
                                 <properties>
