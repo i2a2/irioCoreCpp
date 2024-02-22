@@ -97,7 +97,7 @@
                 					<DOT_FONTSIZE>10</DOT_FONTSIZE>
                                     <CLASS_GRAPH>YES</CLASS_GRAPH>
                                     <CLASS_DIAGRAMS>YES</CLASS_DIAGRAMS>
-                                    <COLLABORATION_GRAPH>YES</COLLABORATION_GRAPH>
+                                    <COLLABORATION_GRAPH>NO</COLLABORATION_GRAPH>
                                     <GROUP_GRAPHS>YES</GROUP_GRAPHS>
                                     <INCLUDE_GRAPH>YES</INCLUDE_GRAPH>
                                     <INCLUDED_BY_GRAPH>YES</INCLUDED_BY_GRAPH>
