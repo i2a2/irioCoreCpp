@@ -10,10 +10,10 @@ TerminalsDigital::TerminalsDigital(
 		const Platform &platform) :
 		TerminalsBase(session) {
 	//Find DI
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_DI, platform.maxDigital, m_mapDI);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_DI, platform.maxDigital, m_mapDI);
 
 	//Find DO
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_DO, platform.maxDigital, m_mapDO);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_DO, platform.maxDigital, m_mapDO);
 
 	if ((m_mapDI.size() + m_mapDO.size()) > platform.maxDigital) {
 		throw std::runtime_error("More Digital terminals than supported");
@@ -25,11 +25,11 @@ bool getDigital(
 		const std::uint32_t n,
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
-	const auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+	const auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	std::uint8_t aux;
 	auto status = NiFpga_ReadBool(session, addr, &aux);
-	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 
 	return static_cast<bool>(aux);
 }
@@ -51,10 +51,10 @@ size_t TerminalsDigital::getNumDO() const {
 }
 
 void TerminalsDigital::setDO(const std::uint32_t n, const bool value) const {
-	const auto addr = getAddressEnumResource(m_mapDO, n, TERMINAL_DO);
+	const auto addr = utils::getAddressEnumResource(m_mapDO, n, TERMINAL_DO);
 
 	auto status = NiFpga_WriteBool(m_session, addr, static_cast<NiFpga_Bool>(value));
-	throwIfNotSuccessNiFpga(status,
+	utils::throwIfNotSuccessNiFpga(status,
 			"Error writing terminal " + std::string(TERMINAL_DO) + std::to_string(n));
 }
 }

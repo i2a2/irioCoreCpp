@@ -5,6 +5,10 @@
 #include <NiFpga.h>
 #include <unordered_map>
 
+
+namespace iriov2{
+
+namespace utils{
 /**
  * Throws an exception if the NiFpga_Status is not success.
  * The exception message includes the specified text along with the error code
@@ -81,3 +85,6 @@ std::uint32_t getAddressEnumResource(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapResource,
 		const std::uint32_t n,
 		const std::string &resourceName);
+
+}
+}

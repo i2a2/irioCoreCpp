@@ -14,7 +14,7 @@ TerminalscRIO::TerminalscRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session
 bool TerminalscRIO::getcRIOModulesOk() const {
 	NiFpga_Bool aux;
 	auto status = NiFpga_ReadBool(m_session, m_criomodulesok_addr, &aux);
-	throwIfNotSuccessNiFpga(status, "Error reading " + std::string(TERMINAL_CRIOMODULESOK));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading " + std::string(TERMINAL_CRIOMODULESOK));
 	return static_cast<bool>(aux);
 }
 
@@ -22,7 +22,7 @@ std::vector<std::uint16_t> TerminalscRIO::getInsertedIOModulesID() const {
 	static std::vector<std::uint16_t> ret(m_numModules);
 	auto status = NiFpga_ReadArrayU16(m_session, m_insertediomodulesid_addr, ret.data(),
 			m_numModules);
-	throwIfNotSuccessNiFpga(status, "Error reading " + std::string(TERMINAL_INSERTEDIOMODULESID));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading " + std::string(TERMINAL_INSERTEDIOMODULESID));
 	return ret;
 }
 }

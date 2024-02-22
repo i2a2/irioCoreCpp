@@ -2,6 +2,10 @@
 #include "errorsIrio.h"
 
 
+namespace iriov2{
+
+namespace utils{
+
 void throwIfNotSuccessNiFpga(const NiFpga_Status &status, const std::string &errMsg) {
 	if (status != NiFpga_Status_Success) {
 		const std::string err = errMsg + std::string("(Code: ")
@@ -52,4 +56,7 @@ std::uint32_t getAddressEnumResource(
 	}
 
 	return it->second;
+}
+
+}
 }

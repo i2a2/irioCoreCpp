@@ -41,7 +41,7 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) {
 
 	std::uint32_t maxTries = std::ceil(timeoutMs/SLEEP_INTERVAL_US);
 	auto status = NiFpga_Run(m_session, 0);
-	throwIfNotSuccessNiFpga(status, "Error starting the VI");
+	utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
 
 	unsigned int tries = 0;
 	while (!m_profile->getInitDone() && tries < maxTries) {
@@ -74,7 +74,7 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) {
 
 void IrioV2::stopFPGA() {
 	const auto status = NiFpga_Abort(m_session);
-	throwIfNotSuccessNiFpga(status, "Error stopping the VI");
+	utils::throwIfNotSuccessNiFpga(status, "Error stopping the VI");
 }
 
 const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
@@ -112,7 +112,7 @@ const std::shared_ptr<const TerminalsSignalGeneration> IrioV2::signalGeneration(
 void IrioV2::finalizeDriver() {
 #ifndef CCS_VERSION
 	const auto status = NiFpga_Finalize();
-	throwIfNotSuccessNiFpga(status, "Error finalizing NiFpga library");
+	utils::throwIfNotSuccessNiFpga(status, "Error finalizing NiFpga library");
 #endif
 }
 
@@ -125,14 +125,14 @@ void IrioV2::closeSession() {
 void IrioV2::initDriver() {
 #ifndef CCS_VERSION
 	const auto status = NiFpga_Initialize();
-	throwIfNotSuccessNiFpga(status, "Error initializing NiFpga library");
+	utils::throwIfNotSuccessNiFpga(status, "Error initializing NiFpga library");
 #endif
 }
 
 void IrioV2::openSession() {
 	const auto status = NiFpga_Open(m_bfp.getBitfilePath().c_str(), m_bfp.getSignature().c_str(),
 			m_resourceName.c_str(), NiFpga_OpenAttribute_NoRun, &m_session);
-	throwIfNotSuccessNiFpga(status, "Error opening bitfile " + m_bfp.getBitfilePath());
+	utils::throwIfNotSuccessNiFpga(status, "Error opening bitfile " + m_bfp.getBitfilePath());
 }
 
 void IrioV2::searchPlatform() {
@@ -140,7 +140,7 @@ void IrioV2::searchPlatform() {
 	auto platform_addr = m_bfp.getRegister(TERMINAL_PLATFORM).address;
 	std::uint8_t platform;
 	const auto status = NiFpga_ReadU8(m_session, platform_addr, &platform);
-	throwIfNotSuccessNiFpga(status, "Error reading Platform");
+	utils::throwIfNotSuccessNiFpga(status, "Error reading Platform");
 
 	switch (platform) {
 	case FLEXRIO_PLATFORM_VALUE:
@@ -173,7 +173,7 @@ void IrioV2::searchDevProfile() {
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
 	std::uint8_t profile;
 	const auto status = NiFpga_ReadU8(m_session, profile_addr, &profile);
-	throwIfNotSuccessNiFpga(status, "Error reading DevProfile");
+	utils::throwIfNotSuccessNiFpga(status, "Error reading DevProfile");
 
 	const std::uint8_t platform = m_platform->platformID;
 	const auto validValues = validProfileByPlatform.find(platform)->second;

@@ -11,13 +11,13 @@ TerminalsAnalog::TerminalsAnalog(
 		const Platform &platform) :
 		TerminalsBase(session) {
 	//Find AI
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);
 
 	//Find AO
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AO, platform.maxAO, m_mapAO);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AO, platform.maxAO, m_mapAO);
 
 	//Find AOEnable
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AOENABLE, platform.maxAO, m_mapAOEnable);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AOENABLE, platform.maxAO, m_mapAOEnable);
 
 	if (m_mapAO.size() != m_mapAOEnable.size()) {
 		throw std::runtime_error("Mismatch in number of AO and AOEnable terminals");
@@ -33,11 +33,11 @@ std::int32_t getAnalog(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
 
-	auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	std::int32_t aux;
 	auto status = NiFpga_ReadI32(session, addr, &aux);
-	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 
 	return aux;
 }
@@ -69,10 +69,10 @@ void setAnalog(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
 
-	auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	auto status = NiFpga_WriteI32(session, addr, value);
-	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 }
 
 void TerminalsAnalog::setAO(const std::uint32_t n, const std::int32_t value) const {

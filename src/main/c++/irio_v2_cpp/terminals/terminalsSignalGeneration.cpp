@@ -12,7 +12,7 @@ void findAndCheck(
 		const size_t expectedNum,
 		std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert) {
 
-	findAndInsertEnumResources(mapReg, terminalName, maxNum, mapInsert);
+	utils::findAndInsertEnumResources(mapReg, terminalName, maxNum, mapInsert);
 	if (mapInsert.size() != expectedNum) {
 		throw std::runtime_error("Mismatch between SGNo and number of found " + terminalName);
 	}
@@ -31,7 +31,7 @@ TerminalsSignalGeneration::TerminalsSignalGeneration(
 		return;
 	}
 	status = NiFpga_ReadU8(m_session, it->second.address, &m_numSG);
-	throwIfNotSuccessNiFpga(status, "Error reading " + std::string(TERMINAL_SGNO));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading " + std::string(TERMINAL_SGNO));
 
 	//Find SignalType
 	findAndCheck(mapReg, TERMINAL_SGSIGNALTYPE, platform.maxSG, m_numSG, m_mapSignalType_addr);
@@ -54,7 +54,7 @@ TerminalsSignalGeneration::TerminalsSignalGeneration(
 	for (const auto pair : mapFrefAux) {
 		std::uint32_t aux;
 		status = NiFpga_ReadU32(m_session, pair.second, &aux);
-		throwIfNotSuccessNiFpga(status,
+		utils::throwIfNotSuccessNiFpga(status,
 				"Error reading " + std::string(TERMINAL_SGFREF) + std::to_string(pair.first));
 
 		m_mapFref.insert(pair);
@@ -74,11 +74,11 @@ std::uint32_t TerminalsSignalGeneration::getSGFref(const std::uint32_t n) const 
 }
 
 std::uint8_t TerminalsSignalGeneration::getSGSignalType(const std::uint32_t n) const {
-	auto addr = getAddressEnumResource(m_mapSignalType_addr, n, TERMINAL_SGSIGNALTYPE);
+	auto addr = utils::getAddressEnumResource(m_mapSignalType_addr, n, TERMINAL_SGSIGNALTYPE);
 
 	std::uint8_t aux;
 	auto status = NiFpga_ReadU8(m_session, addr, &aux);
-	throwIfNotSuccessNiFpga(status,
+	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading terminal " + std::string(TERMINAL_SGSIGNALTYPE) + std::to_string(n));
 
 	return aux;
@@ -89,11 +89,11 @@ std::uint32_t getValue(
 		const std::uint32_t n,
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
-	auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	std::int32_t aux;
 	auto status = NiFpga_ReadI32(session, addr, &aux);
-	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 
 	return aux;
 }
@@ -118,10 +118,10 @@ void TerminalsSignalGeneration::setSGSignalType(
 		const std::uint32_t n,
 		const std::uint8_t value) const {
 
-	const auto addr = getAddressEnumResource(m_mapSignalType_addr, n, TERMINAL_SGSIGNALTYPE);
+	const auto addr = utils::getAddressEnumResource(m_mapSignalType_addr, n, TERMINAL_SGSIGNALTYPE);
 
 	auto status = NiFpga_WriteU8(m_session, addr, value);
-	throwIfNotSuccessNiFpga(status,
+	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading terminal " + std::string(TERMINAL_SGSIGNALTYPE) + std::to_string(n));
 }
 
@@ -132,10 +132,10 @@ void setValue(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
 
-	const auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+	const auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	auto status = NiFpga_WriteI32(session, addr, value);
-	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 }
 
 void TerminalsSignalGeneration::setSGAmp(const std::uint32_t n, const std::uint32_t value) const {

@@ -10,10 +10,10 @@ TerminalsAuxDigital::TerminalsAuxDigital(
 		const Platform &platform) :
 		TerminalsBase(session) {
 	//Find DI
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDI, platform.maxDigital, m_mapAuxDI);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDI, platform.maxDigital, m_mapAuxDI);
 
 	//Find DO
-	findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDO, platform.maxDigital, m_mapAuxDO);
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDO, platform.maxDigital, m_mapAuxDO);
 
 	if ((m_mapAuxDI.size() + m_mapAuxDO.size()) > platform.maxDigital) {
 		throw std::runtime_error("More Aux Digital terminals than supported");
@@ -25,11 +25,11 @@ bool getAuxDigital(
 		const std::uint32_t n,
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
-	const auto addr = getAddressEnumResource(mapTerminals, n, terminalName);
+	const auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	std::uint8_t aux;
 	auto status = NiFpga_ReadBool(session, addr, &aux);
-	throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 
 	return static_cast<bool>(aux);
 }
@@ -51,10 +51,10 @@ size_t TerminalsAuxDigital::getNumAuxDO() const {
 }
 
 void TerminalsAuxDigital::setAuxDO(const std::uint32_t n, const bool value) const {
-	const auto addr = getAddressEnumResource(m_mapAuxDO, n, TERMINAL_AUXDO);
+	const auto addr = utils::getAddressEnumResource(m_mapAuxDO, n, TERMINAL_AUXDO);
 
 	auto status = NiFpga_WriteBool(m_session, addr, static_cast<NiFpga_Bool>(value));
-	throwIfNotSuccessNiFpga(status,
+	utils::throwIfNotSuccessNiFpga(status,
 			"Error writing terminal " + std::string(TERMINAL_AUXDO) + std::to_string(n));
 }
 }
