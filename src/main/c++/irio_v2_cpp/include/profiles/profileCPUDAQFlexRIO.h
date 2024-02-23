@@ -1,6 +1,6 @@
 #pragma once
 
-#include <profiles/profileDAQ.h>
+#include <profiles/profileCPUDAQ.h>
 #include <profiles/profileFlexRIO.h>
 
 namespace iriov2 {
@@ -9,19 +9,18 @@ namespace iriov2 {
  * Profile with the terminals
  * specific to data acquisition functionality
  * and the ones specific to FlexRIO devices.
- * See \ref ProfileDAQ and \ref ProfileFlexRIO
  *
  * @ingroup Profiles
  * @ingroup ProfilesDAQ
  * @ingroup ProfilesFlexRIO
  * @ingroup FlexRIO
  */
-class ProfileDAQFlexRIO: public ProfileDAQ, ProfileFlexRIO {
+class ProfileCPUDAQFlexRIO: public ProfileCPUDAQ, ProfileFlexRIO {
 public:
 	/**
 	 * Constructor.
 	 *
-	 * See \ref ProfileDAQ and \ref ProfileFlexRIO for more
+	 * See the parent classes for more
 	 * information about the terminals created
 	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
@@ -31,7 +30,7 @@ public:
 	 * @param platform			Platform used
 	 * @param id				Profile used
 	 */
-	ProfileDAQFlexRIO(
+	ProfileCPUDAQFlexRIO(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform,

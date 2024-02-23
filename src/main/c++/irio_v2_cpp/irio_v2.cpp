@@ -186,7 +186,7 @@ void IrioV2::searchDevProfile() {
 	switch (it->second) {
 	case ProfileBase::FLEXRIO_DAQ:
 		m_profile.reset(
-				new ProfileDAQFlexRIO(m_bfp, m_session, *m_platform, ProfileBase::FLEXRIO_DAQ));
+				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform, ProfileBase::FLEXRIO_DAQ));
 		break;
 	case ProfileBase::FLEXRIO_IMAQ:
 		throw std::runtime_error("Profile not implemented");
@@ -204,7 +204,7 @@ void IrioV2::searchDevProfile() {
 		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::R_DAQ:
-		m_profile.reset(new ProfileDAQ(m_bfp, m_session, *m_platform, ProfileBase::R_DAQ));
+		m_profile.reset(new ProfileCPUDAQ(m_bfp, m_session, *m_platform, ProfileBase::R_DAQ));
 		break;
 	}
 }

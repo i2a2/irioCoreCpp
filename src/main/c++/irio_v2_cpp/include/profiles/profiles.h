@@ -1,6 +1,6 @@
 #pragma once
 
-#include <profiles/profileDAQ.h>
-#include <profiles/profileDAQFlexRIO.h>
+#include <profiles/profileCPUDAQ.h>
+#include <profiles/profileCPUDAQFlexRIO.h>
 
 

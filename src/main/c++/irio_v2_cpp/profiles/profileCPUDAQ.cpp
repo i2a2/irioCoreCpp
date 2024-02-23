@@ -1,8 +1,8 @@
-#include <profiles/profileDAQ.h>
+#include <profiles/profileCPUDAQ.h>
 
 namespace iriov2 {
 
-ProfileDAQ::ProfileDAQ(
+ProfileCPUDAQ::ProfileCPUDAQ(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const Platform &platform,
@@ -17,23 +17,23 @@ ProfileDAQ::ProfileDAQ(
 	m_signalGeneration.reset(new TerminalsSignalGeneration(parsedBitfile, session, platform));
 }
 
-const std::shared_ptr<const TerminalsAnalog> ProfileDAQ::analog() const {
+const std::shared_ptr<const TerminalsAnalog> ProfileCPUDAQ::analog() const {
 	return m_analog;
 }
 
-const std::shared_ptr<const TerminalsDigital> ProfileDAQ::digital() const {
+const std::shared_ptr<const TerminalsDigital> ProfileCPUDAQ::digital() const {
 	return m_digital;
 }
 
-const std::shared_ptr<const TerminalsAuxAnalog> ProfileDAQ::auxAnalog() const {
+const std::shared_ptr<const TerminalsAuxAnalog> ProfileCPUDAQ::auxAnalog() const {
 	return m_auxAnalog;
 }
 
-const std::shared_ptr<const TerminalsAuxDigital> ProfileDAQ::auxDigital() const {
+const std::shared_ptr<const TerminalsAuxDigital> ProfileCPUDAQ::auxDigital() const {
 	return m_auxDigital;
 }
 
-const std::shared_ptr<const TerminalsSignalGeneration> ProfileDAQ::signalGeneration() const {
+const std::shared_ptr<const TerminalsSignalGeneration> ProfileCPUDAQ::signalGeneration() const {
 	return m_signalGeneration;
 }
 

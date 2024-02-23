@@ -11,7 +11,7 @@ namespace iriov2 {
  * @ingroup Profiles
  * @ingroup ProfilesDAQ
  */
-class ProfileDAQ: virtual public ProfileBase {
+class ProfileCPUDAQ: virtual public ProfileBase {
 public:
 	/**
 	 * Constructor.
@@ -30,7 +30,7 @@ public:
 	 * @param platform			Platform used
 	 * @param id				Profile used
 	 */
-	ProfileDAQ(
+	ProfileCPUDAQ(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform,
