@@ -72,7 +72,7 @@ void setAnalog(
 	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
 	auto status = NiFpga_WriteI32(session, addr, value);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
+	utils::throwIfNotSuccessNiFpga(status, "Error writing terminal " + terminalName + std::to_string(n));
 }
 
 void TerminalsAnalog::setAO(const std::uint32_t n, const std::int32_t value) const {
