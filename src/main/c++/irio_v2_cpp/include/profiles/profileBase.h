@@ -21,8 +21,8 @@ public:
 	 * All possible types of profiles
 	 */
 	enum PROFILE_ID {
-		FLEXRIO_DAQ = 0,/**< Data acquisition profile for FlexRIO devices */
-		FLEXRIO_IMAQ, /**< Image acquisition profile for FlexRIO devices */
+		FLEXRIO_CPUDAQ = 0,/**< Data acquisition in CPU profile for FlexRIO devices */
+		FLEXRIO_CPUIMAQ, /**< Image acquisition in CPU profile for FlexRIO devices */
 		FLEXRIO_GPUDAQ, /**< Data acquisition in GPU profile for FlexRIO devices */
 		FLEXRIO_GPUIMAQ,/**< Image acquisition in GPU profile for FlexRIO devices */
 		CRIO_DAQ, /**< Data acquisition profile for cRIO devices */
@@ -128,6 +128,16 @@ public:
 	 * @return Pointer to the Signal Generation terminals
 	 */
 	virtual const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
+
+	/**
+	 * Access to the DMA DAQ group terminals. Depending on the profile configured, this can be terminals
+	 * for CPU DAQ or GPU DAQ. The methods and functionality implemented for each case behaves the same.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
+	 *
+	 * @return Pointer to the DMA DAQ terminals
+	 */
+	virtual const std::shared_ptr<const TerminalsDMADAQ> daq() const;
 
 	/**
 	 * Profile type

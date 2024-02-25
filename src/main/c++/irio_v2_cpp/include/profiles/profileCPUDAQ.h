@@ -44,6 +44,8 @@ public:
 
 	const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const override;
 
+	const std::shared_ptr<const TerminalsDMADAQ> daq() const override;
+
 private:
 	std::shared_ptr<const TerminalsAnalog> m_analog;
 	std::shared_ptr<const TerminalsDigital> m_digital;
@@ -52,6 +54,8 @@ private:
 	std::shared_ptr<const TerminalsAuxDigital> m_auxDigital;
 
 	std::shared_ptr<const TerminalsSignalGeneration> m_signalGeneration;
+
+	std::shared_ptr<const TerminalsDMADAQ> m_daq;
 
 };
 

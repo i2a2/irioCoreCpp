@@ -1,9 +1,6 @@
 #pragma once
 
 #include <terminals/terminalsBase.h>
-#include <bfp.h>
-#include <unordered_map>
-#include <platforms.h>
 
 namespace iriov2{
 

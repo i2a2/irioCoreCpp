@@ -1,6 +1,9 @@
 #pragma once
 
+#include <unordered_map>
 #include <NiFpga.h>
+#include <bfp.h>
+#include "platforms.h"
 
 namespace iriov2 {
 

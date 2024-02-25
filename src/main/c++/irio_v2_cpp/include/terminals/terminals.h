@@ -7,3 +7,4 @@
 #include <terminals/terminalsSignalGeneration.h>
 #include <terminals/terminalsFlexRIO.h>
 #include <terminals/terminalscRIO.h>
+#include <terminals/terminalsDMADAQCPU.h>

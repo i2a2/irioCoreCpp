@@ -160,8 +160,8 @@ void IrioV2::searchPlatform() {
 void IrioV2::searchDevProfile() {
 	static const std::unordered_map<std::uint8_t,
 			const std::unordered_map<std::uint8_t, std::uint8_t>> validProfileByPlatform = { {
-			FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::FLEXRIO_DAQ },
-					{ ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::FLEXRIO_IMAQ }, {
+			FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::FLEXRIO_CPUDAQ },
+					{ ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::FLEXRIO_CPUIMAQ }, {
 							ProfileBase::PROFILE_VALUE_DAQGPU, ProfileBase::FLEXRIO_GPUDAQ }, {
 							ProfileBase::PROFILE_VALUE_IMAQGPU, ProfileBase::FLEXRIO_GPUIMAQ } } },
 
@@ -184,11 +184,11 @@ void IrioV2::searchDevProfile() {
 
 	//TODO: Finish
 	switch (it->second) {
-	case ProfileBase::FLEXRIO_DAQ:
+	case ProfileBase::FLEXRIO_CPUDAQ:
 		m_profile.reset(
-				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform, ProfileBase::FLEXRIO_DAQ));
+				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
 		break;
-	case ProfileBase::FLEXRIO_IMAQ:
+	case ProfileBase::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
 		break;
 	case ProfileBase::FLEXRIO_GPUDAQ:

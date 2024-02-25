@@ -15,6 +15,8 @@ ProfileCPUDAQ::ProfileCPUDAQ(
 	m_auxDigital.reset(new TerminalsAuxDigital(parsedBitfile, session, platform));
 
 	m_signalGeneration.reset(new TerminalsSignalGeneration(parsedBitfile, session, platform));
+
+	m_daq.reset(new TerminalsDMADAQCPU(parsedBitfile, session, platform));
 }
 
 const std::shared_ptr<const TerminalsAnalog> ProfileCPUDAQ::analog() const {
@@ -35,6 +37,10 @@ const std::shared_ptr<const TerminalsAuxDigital> ProfileCPUDAQ::auxDigital() con
 
 const std::shared_ptr<const TerminalsSignalGeneration> ProfileCPUDAQ::signalGeneration() const {
 	return m_signalGeneration;
+}
+
+const std::shared_ptr<const TerminalsDMADAQ> ProfileCPUDAQ::daq() const {
+	return m_daq;
 }
 
 }

@@ -1,8 +1,6 @@
 #pragma once
 
 #include "terminals/terminalsBase.h"
-#include <bfp.h>
-#include <NiFpga.h>
 
 namespace iriov2 {
 /**

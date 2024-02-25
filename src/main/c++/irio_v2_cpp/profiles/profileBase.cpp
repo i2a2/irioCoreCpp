@@ -37,4 +37,8 @@ const std::shared_ptr<const TerminalsSignalGeneration> ProfileBase::signalGenera
 	throw errors::TerminalNotImplementedError("Signal Generation terminals not enabled for this profile");
 }
 
+const std::shared_ptr<const TerminalsDMADAQ> ProfileBase::daq() const {
+	throw errors::TerminalNotImplementedError("DMA DAQ terminals not enabled for this profile");
+}
+
 }

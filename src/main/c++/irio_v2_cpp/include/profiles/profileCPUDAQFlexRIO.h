@@ -28,13 +28,11 @@ public:
 	 * @param parsedBitfile 	Parsed bitfile
 	 * @param session			NiFpga_Session to be used in NiFpga related functions
 	 * @param platform			Platform used
-	 * @param id				Profile used
 	 */
 	ProfileCPUDAQFlexRIO(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
-			const Platform &platform,
-			const ProfileBase::PROFILE_ID &id);
+			const Platform &platform);
 };
 
 }
