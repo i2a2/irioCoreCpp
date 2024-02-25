@@ -3,7 +3,9 @@
 #include <terminals/terminalsBase.h>
 
 namespace iriov2{
-
+/**
+ * @ingroup DMATerminals
+ */
 class TerminalsDMACommon: public TerminalsBase{
 public:
 	enum FrameType{

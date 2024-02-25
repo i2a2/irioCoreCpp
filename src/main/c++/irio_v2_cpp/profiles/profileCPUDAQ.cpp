@@ -1,4 +1,5 @@
 #include <profiles/profileCPUDAQ.h>
+#include <terminals/terminalsDMADAQCPU.h>
 
 namespace iriov2 {
 
