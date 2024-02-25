@@ -78,7 +78,6 @@ public:
 	size_t getNumDMA() const;
 
 protected:
-	bool isValidDMA(const std::uint32_t &dma) const;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDMA;
 
 private:

@@ -121,10 +121,6 @@ void TerminalsDMACommon::stopAllDMAs() const {
 	}
 }
 
-bool TerminalsDMACommon::isValidDMA(const std::uint32_t &dma) const {
-	return m_mapDMA.find(dma) == m_mapDMA.end();
-}
-
 size_t TerminalsDMACommon::getNumDMA() const {
 	return m_mapDMA.size();
 }
