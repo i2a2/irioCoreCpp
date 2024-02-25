@@ -125,5 +125,16 @@ public:
 	NiFpgaError(const std::string &errMsg): std::runtime_error(errMsg){}
 };
 
+/**
+ * Exception when a timeout expires while trying to read a DMA
+ *
+ * @ingroup Errors
+ */
+class DMAReadTimeout: public std::runtime_error{
+public:
+	DMAReadTimeout(const std::string &nameTermDMA, const std::uint32_t &n):
+		std::runtime_error("Timeout reading " + nameTermDMA + std::to_string(n)){}
+};
+
 }
 }

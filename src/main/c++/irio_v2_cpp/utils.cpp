@@ -7,7 +7,7 @@ namespace iriov2{
 namespace utils{
 
 void throwIfNotSuccessNiFpga(const NiFpga_Status &status, const std::string &errMsg) {
-	if (status != NiFpga_Status_Success) {
+	if (NiFpga_IsError(status)) {
 		const std::string err = errMsg + std::string("(Code: ")
 				+ std::to_string(static_cast<std::int32_t>(status)) + std::string(")");
 		throw iriov2::errors::NiFpgaError(err);
