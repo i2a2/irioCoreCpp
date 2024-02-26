@@ -25,6 +25,14 @@ public:
 /// OnlyResources Tests
 ////////////////////////////////////////////////////////////
 
+TEST_F(FlexRIOOnlyResources, InitClose){
+	try{
+		IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	}catch(std::exception &e){
+		FAIL() << "Error at IrioV2's constructor (" + std::string(e.what()) + ")";
+	}
+}
+
 TEST_F(FlexRIOOnlyResources, ResourcesMAXIO){
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 
@@ -53,9 +61,11 @@ TEST_F(FlexRIOOnlyResources, ResourcesMAXIO){
  * - Find platform and profile
  */
 TEST_F(FlexRIOCPUDAQ, InitClose){
-	EXPECT_NO_THROW(// @suppress("Goto statement used")
-			IrioV2 irio(bitfilePath, serialNumber, "4.0");
-	) << "Error at IrioV2's constructor";
+	try{
+		IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	}catch(std::exception &e){
+		FAIL() << "Error at IrioV2's constructor (" + std::string(e.what()) + ")";
+	}
 }
 
 /**
