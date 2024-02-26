@@ -27,8 +27,16 @@ IrioV2::IrioV2(
 
 	initDriver();
 	openSession();
-	searchPlatform();
-	searchDevProfile();
+	try{
+		searchPlatform();
+		searchDevProfile();
+	}catch(...){
+		// Must close the session, the destructor will not
+		// be called if exception occurs in the constructor
+		closeSession();
+		finalizeDriver();
+		throw;
+	}
 }
 
 IrioV2::~IrioV2() {
