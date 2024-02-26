@@ -3,6 +3,7 @@
 #include <pugixml.hpp>
 #include <iostream>
 #include <algorithm>
+#include <errorsIrio.h>
 
 namespace iriov2{
 namespace bfp{
@@ -54,9 +55,7 @@ BFP::BFP(const std::string& bitfile):
 	pugi::xml_parse_result resParse = doc.load_file(bitfile.c_str());
 
 	if(resParse.status != 0){
-		const std::string msg = "Unable to parse '" + bitfile + "' ("
-				+ std::string(resParse.description()) + ")";
-		throw std::runtime_error(msg);
+		throw errors::BFPParseBitfileError(bitfile, resParse.description());
 	}
 
 	try{
@@ -66,9 +65,8 @@ BFP::BFP(const std::string& bitfile):
 
 		m_regMap = parseRegisters(doc.select_node("/Bitfile/VI/RegisterList").node(), m_baseAddress);
 		m_dmaMap = parseDMA(doc.select_node("/Bitfile/Project//DmaChannelAllocationList").node());
-	}catch(pugi::xpath_exception&){
-		const std::string msg = "Problem while parsing bitfile '" + bitfile + "'";
-		throw std::runtime_error(msg);
+	}catch(pugi::xpath_exception &e){
+		throw errors::BFPParseBitfileError(bitfile, e.what());
 	}
 }
 
@@ -88,7 +86,7 @@ Register BFP::getRegister(const std::string& registerName) const{
 	try{
 		return m_regMap.at(registerName);
 	}catch(std::out_of_range&){
-		throw std::runtime_error(registerName + " not found");
+		throw errors::ResourceNotFoundError(registerName + " not found");
 	}
 }
 
@@ -100,7 +98,7 @@ DMA BFP::getDMA(const std::string& dmaName) const{
 	try{
 		return m_dmaMap.at(dmaName);
 	}catch(std::out_of_range&){
-		throw std::runtime_error(dmaName + " not found");
+		throw errors::ResourceNotFoundError(dmaName + " not found");
 	}
 }
 

@@ -22,12 +22,14 @@ class IrioV2 {
 public:
 	/**
 	 * Constructor.
-	 * - Parses and extract all the resources in the specified Bitfile
+	 * - Parses and extract all the resources in the specified Bitfile (\p bitfilePath)
 	 * - Initializes the low level library
-	 * - Downloads the Bitfile to the specified device
+	 * - Downloads the Bitfile to the specified device (\p RIOSerialNumber)
 	 * - Applies the appropriate profile depending on the values specified in the LabVIEW project. This allows access to some terminals or others.
 	 * - Checks that the configured values and resources matches the design rules
 	 *
+	 * @throw iriov2::errors::BFPParseBitfileError			Unable to parse \p bitfilePath
+	 * @throw iriov2::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
 	 * @throw iriov2::errors::FPGAVIVersionMismatchError	Parsed FPGAVIversion does not match the one specified
 	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
 	 * @throw iriov2::errors::UnsupportedPlatformError		The platform read does not match any of the supported platforms
@@ -199,8 +201,9 @@ private:
 	 * the corresponding profile to a variable.
 	 * This determines which terminals can the user access.
 	 *
+	 * @throw iriov2::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
 	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
-	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::NiFpgaError					Error occurred in an FPGA operation
 	 */
 	void searchDevProfile();
 

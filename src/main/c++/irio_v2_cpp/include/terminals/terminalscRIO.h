@@ -16,6 +16,8 @@ public:
 	 * Constructor.
 	 * Manages finding the related terminals specific to cRIO devices.
 	 *
+	 * @throw iriov2::errors::ResourceNotFoundError		Some of the necessary resources were not found in the bitfile
+	 *
 	 * @param parsedBitfile Parsed bitfile with the cRIO specific terminals
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 */

@@ -136,5 +136,19 @@ public:
 		std::runtime_error("Timeout reading " + nameTermDMA + std::to_string(n)){}
 };
 
+/**
+ * Exception when an error occurs while parsing the bitfile
+ *
+ * @ingroup Errors
+ */
+class BFPParseBitfileError: public std::runtime_error{
+public:
+	BFPParseBitfileError(const std::string &bitfile): std::runtime_error("Error parsing " + bitfile){}
+
+	BFPParseBitfileError(const std::string &bitfile,
+						 const std::string &errDescription):
+		std::runtime_error("Error parsing " + bitfile + ". Error: " + errDescription){}
+};
+
 }
 }

@@ -58,5 +58,57 @@ std::uint32_t getAddressEnumResource(
 	return it->second;
 }
 
+template<typename T>
+void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<T> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, T*, size_t)> readFunc){
+	const auto reg = parsedBitfile.getRegister(nameReg);
+	vec.resize(reg.numElem);
+	const auto status = readFunc(session, reg.address, vec.data(), vec.size());
+	utils::throwIfNotSuccessNiFpga(status, "Error reading " + nameReg);
+}
+
+template void findArrayRegReadToVector<std::uint8_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::uint8_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::uint8_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::uint16_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::uint16_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::uint16_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::uint32_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::uint32_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::uint32_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::uint64_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::uint64_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::uint64_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::int8_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::int8_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::int8_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::int16_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::int16_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::int16_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::int32_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::int32_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::int32_t*, size_t)> readFunc);
+
+template void findArrayRegReadToVector<std::int64_t>(const bfp::BFP &parsedBitfile,
+		const NiFpga_Session &session,
+		const std::string &nameReg, std::vector<std::int64_t> &vec,
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, std::int64_t*, size_t)> readFunc);
+
+
 }
 }

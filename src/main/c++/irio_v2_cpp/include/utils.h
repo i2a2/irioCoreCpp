@@ -105,18 +105,7 @@ template<typename T>
 void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const std::string &nameReg, std::vector<T> &vec,
-		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, T*, size_t)> readFunc){
-	const auto auxMap = parsedBitfile.getRegisters();
-	const auto it = auxMap.find(nameReg);
-	if(it == auxMap.end()){
-		throw errors::ResourceNotFoundError(nameReg + " not found");
-	}
-
-	const auto reg = parsedBitfile.getRegister(nameReg);
-	vec.resize(reg.numElem);
-	const auto status = readFunc(session, reg.address, vec.data(), vec.size());
-	utils::throwIfNotSuccessNiFpga(status, "Error reading " + nameReg);
-}
+		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, T*, size_t)> readFunc);
 
 }
 }

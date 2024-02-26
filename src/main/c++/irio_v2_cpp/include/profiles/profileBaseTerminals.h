@@ -17,7 +17,8 @@ public:
 	 * Manages finding the common terminals in the parsed bitfile
 	 * and reading their values from the FPGA if required
 	 *
-	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError		Some of the necessary resources were not found in the bitfile
+	 * @throw iriov2::errors::NiFpgaError				Error occurred in an FPGA operation
 	 *
 	 * @param parsedBitfile	Parsed bitfile with the common terminals
 	 * @param session		NiFpga_Session to be used in NiFpga related functions

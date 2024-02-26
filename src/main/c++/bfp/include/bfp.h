@@ -21,6 +21,9 @@ class BFP{
 public:
 	/**
 	 * Parse the specified bitfile
+	 *
+	 * @throw iriov2::errors::BFPParseBitfileError Unable to parse \p bitfile
+	 *
 	 * @param bitfile	Bitfile to parse
 	 */
 	BFP(const std::string& bitfile);
@@ -51,6 +54,9 @@ public:
 
 	/**
 	 * Get specific register. Throws a runtime exception if not found.
+	 *
+	 * @throw iriov2::errors::ResourceNotFoundError	Specified \p registerName not found
+	 *
 	 * @param registerName	Register name to get
 	 * @return	Register found
 	 */
@@ -58,12 +64,16 @@ public:
 
 	/**
 	 * Get map with all the DMAs parsed, the key if the DMA name (without spaces)
+	 *
 	 * @return Map with the DMAs
 	 */
 	std::unordered_map<std::string, DMA> getDMAs() const;
 
 	/**
 	 * Get specific DMA. Throws a runtime exception if not found.
+	 *
+	 * @throw iriov2::errors::ResourceNotFoundError	Specified \p dmaName not found
+	 *
 	 * @param dmaName	DMA name to get
 	 * @return	DMA found
 	 */

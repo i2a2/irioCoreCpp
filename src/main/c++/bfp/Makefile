@@ -2,7 +2,7 @@ LIBNAME=bfp
 
 LIBRARIES=pugixml
 LIBRARY_DIRS=
-INCLUDE_DIRS=. ./include ../include
+INCLUDE_DIRS=. ./include ../include ../irio_v2_cpp/include
 
 TARGET=../../../../target
 LIBRARY_DIR=$(TARGET)/lib
