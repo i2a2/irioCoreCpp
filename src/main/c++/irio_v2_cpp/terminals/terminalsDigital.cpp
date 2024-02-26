@@ -15,9 +15,9 @@ TerminalsDigital::TerminalsDigital(
 	//Find DO
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_DO, platform.maxDigital, m_mapDO);
 
-	if ((m_mapDI.size() + m_mapDO.size()) > platform.maxDigital) {
-		throw std::runtime_error("More Digital terminals than supported");
-	}
+//	if ((m_mapDI.size() + m_mapDO.size()) > platform.maxDigital) {
+//		throw std::runtime_error("More Digital terminals than supported");
+//	}
 }
 
 bool getDigital(

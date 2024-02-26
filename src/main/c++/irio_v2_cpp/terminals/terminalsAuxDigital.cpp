@@ -15,9 +15,9 @@ TerminalsAuxDigital::TerminalsAuxDigital(
 	//Find DO
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDO, platform.maxDigital, m_mapAuxDO);
 
-	if ((m_mapAuxDI.size() + m_mapAuxDO.size()) > platform.maxDigital) {
-		throw std::runtime_error("More Aux Digital terminals than supported");
-	}
+//	if ((m_mapAuxDI.size() + m_mapAuxDO.size()) > platform.maxDigital) {
+//		throw std::runtime_error("More Aux Digital terminals than supported");
+//	}
 }
 
 bool getAuxDigital(
