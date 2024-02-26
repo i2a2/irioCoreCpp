@@ -48,7 +48,7 @@ TerminalsDMACommon::TerminalsDMACommon(
 	utils::findAndInsertEnumRegisters(parsedBitfile, nameTermDMAEnable, platform.maxDMA, m_mapEnable);
 
 	if(m_mapDMA.size() != m_mapEnable.size()){
-		throw std::runtime_error(
+		throw errors::ResourceNotFoundError(
 				"Mismatch in number of " + nameTermDMA + " and " + nameTermDMAEnable
 						+ " terminals");
 	}

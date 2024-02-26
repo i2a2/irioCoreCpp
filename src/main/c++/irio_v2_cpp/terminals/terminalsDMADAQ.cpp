@@ -27,7 +27,7 @@ TerminalsDMADAQ::TerminalsDMADAQ(
 			m_lengthBlocks, &NiFpga_ReadArrayU16);
 
 	if (numDMAs != m_lengthBlocks.size()) {
-		throw std::runtime_error(
+		throw errors::ResourceNotFoundError(
 				"Mismatch in number of " + nameTermDMA + " and " + nameTermBlockNWords
 						+ " terminals");
 	}
@@ -37,7 +37,7 @@ TerminalsDMADAQ::TerminalsDMADAQ(
 			m_samplingRate_addr);
 
 	if (numDMAs != m_samplingRate_addr.size()) {
-		throw std::runtime_error(
+		throw errors::ResourceNotFoundError(
 				"Mismatch in number of " + nameTermDMA + " and " + nameTermSamplingRate
 						+ " terminals");
 	}

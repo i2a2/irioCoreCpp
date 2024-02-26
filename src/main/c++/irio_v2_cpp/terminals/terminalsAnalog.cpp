@@ -20,7 +20,7 @@ TerminalsAnalog::TerminalsAnalog(
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AOENABLE, platform.maxAO, m_mapAOEnable);
 
 	if (m_mapAO.size() != m_mapAOEnable.size()) {
-		throw std::runtime_error("Mismatch in number of AO and AOEnable terminals");
+		throw errors::ResourceNotFoundError("Mismatch in number of AO and AOEnable terminals");
 	}
 
 	numAI = m_mapAI.size();

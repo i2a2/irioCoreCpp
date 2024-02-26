@@ -14,7 +14,7 @@ void findAndCheck(
 
 	utils::findAndInsertEnumResources(mapReg, terminalName, maxNum, mapInsert);
 	if (mapInsert.size() != expectedNum) {
-		throw std::runtime_error("Mismatch between SGNo and number of found " + terminalName);
+		throw errors::ResourceNotFoundError("Mismatch between SGNo and number of found " + terminalName);
 	}
 }
 
