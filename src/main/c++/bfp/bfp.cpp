@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 
+namespace iriov2{
 namespace bfp{
 
 inline void removeSpaces(std::string &s) {
@@ -108,5 +109,4 @@ std::string BFP::getSignature() const{
 }
 
 }
-
-
+}

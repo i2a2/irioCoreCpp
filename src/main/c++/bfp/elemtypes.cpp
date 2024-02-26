@@ -1,5 +1,6 @@
 #include "elemtypes.h"
 
+namespace iriov2{
 namespace bfp{
 
 ElemTypes getElemTypeFromStr(const std::string &typeName) {
@@ -27,5 +28,6 @@ ElemTypes getElemTypeFromStr(const std::string &typeName) {
 		// didn't expect is an error.
 		return ElemTypes::Unsupported;
 	}
+}
 }
 }

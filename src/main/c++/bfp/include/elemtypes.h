@@ -2,6 +2,7 @@
 
 #include <string>
 
+namespace iriov2{
 namespace bfp{
 
 /**
@@ -33,6 +34,7 @@ enum ElemTypes{
  */
 ElemTypes getElemTypeFromStr(const std::string &typeName);
 
+}
 }
 
 

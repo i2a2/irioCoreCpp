@@ -5,6 +5,7 @@
 #include "fpgatypes.h"
 #include "elemtypes.h"
 
+namespace iriov2{
 namespace bfp{
 
 /**
@@ -36,7 +37,5 @@ public:
 				const size_t &_numElem = 1);
 
 };
-
 }
-
-
+}

@@ -1,5 +1,6 @@
 #pragma once
 
+namespace iriov2{
 namespace bfp{
 
 /**
@@ -16,5 +17,4 @@ enum FpgaTypes {
 	FpgaType_DMAHtT         /**< FpgaType_DMAHtT */
 };
 }
-
-
+}

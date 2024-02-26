@@ -1,6 +1,7 @@
 #include "register.h"
 #include <exception>
 
+namespace iriov2{
 namespace bfp {
 
 Register::Register(	const std::string &_name,
@@ -52,5 +53,6 @@ Register Register::processRegister(const pugi::xml_node &registerNode, const std
 	elemType = getElemTypeFromStr(typeName);
 
 	return Register(name, fpgaType, elemType, address, numElem);
+}
 }
 }

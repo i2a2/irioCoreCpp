@@ -1,10 +1,9 @@
 /**
 
-@defgroup BFP Bitfile 		Parsing
-
 @defgroup IrioV2 			IrioV2
 
-
+@defgroup BFP 				Bitfile Parsing
+@ingroup IrioV2
 
 @defgroup Platforms			Platforms
 @ingroup IrioV2

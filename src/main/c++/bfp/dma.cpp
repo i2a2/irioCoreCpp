@@ -1,6 +1,6 @@
 #include "dma.h"
 
-
+namespace iriov2{
 namespace bfp{
 
 DMA::DMA(	const std::string &_name,
@@ -49,5 +49,4 @@ DMA DMA::processDMA(const pugi::xml_node &dmaNode) {
 }
 
 }
-
-
+}

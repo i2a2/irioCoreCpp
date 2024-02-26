@@ -3,6 +3,7 @@
 #include "resource.h"
 #include <pugixml.hpp>
 
+namespace iriov2{
 namespace bfp {
 
 /**
@@ -58,6 +59,5 @@ private:
 	bool m_isControl;
 	bool m_isArray;
 };
-
 }
-
+}

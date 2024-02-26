@@ -1,6 +1,6 @@
 #include "resource.h"
 
-
+namespace iriov2{
 namespace bfp{
 
 Resource::Resource(	const std::string &_name,
@@ -12,5 +12,5 @@ Resource::Resource(	const std::string &_name,
 		address(_address), numElem(_numElem) {
 
 }
-
+}
 }

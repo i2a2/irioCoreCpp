@@ -7,6 +7,7 @@
 #include "register.h"
 #include "dma.h"
 
+namespace iriov2{
 namespace bfp{
 /**
  * BitFile Parser.
@@ -79,4 +80,5 @@ private:
 	std::unordered_map<std::string, Register> m_regMap;
 	std::unordered_map<std::string, DMA> m_dmaMap;
 };
+}
 }

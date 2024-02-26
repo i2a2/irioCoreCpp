@@ -3,7 +3,7 @@
 #include "bfp.h"
 
 
-using namespace bfp;
+using namespace iriov2::bfp;
 
 std::map<ElemTypes, std::string> t = {
 		{ElemTypes::Bool, "Bool"},
