@@ -5,7 +5,7 @@
 #include <NiFpga.h>
 #include <unordered_map>
 #include <functional>
-
+#include <errorsIrio.h>
 
 namespace iriov2{
 
@@ -87,12 +87,31 @@ std::uint32_t getAddressEnumResource(
 		const std::uint32_t n,
 		const std::string &resourceName);
 
-
+/**
+ * Searches for an array register and reads its contents to a vector
+ *
+ * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+ * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+ *
+ * @tparam T	The type of the array elements
+ * @param parsedBitfile	Parsed bitfile with the array register to search
+ * @param session		NiFpga_Session to be used in NiFpga
+ *  					related functions
+ * @param nameReg		Name of the array register
+ * @param vec			Vector to write the elements
+ * @param readFunc		NiFpga_ReadArray* function to be used for reading the register
+ */
 template<typename T>
 void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const std::string &nameReg, std::vector<T> &vec,
 		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, T*, size_t)> readFunc){
+	const auto auxMap = parsedBitfile.getRegisters();
+	const auto it = auxMap.find(nameReg);
+	if(it == auxMap.end()){
+		throw errors::ResourceNotFoundError(nameReg + " not found");
+	}
+
 	const auto reg = parsedBitfile.getRegister(nameReg);
 	vec.resize(reg.numElem);
 	const auto status = readFunc(session, reg.address, vec.data(), vec.size());

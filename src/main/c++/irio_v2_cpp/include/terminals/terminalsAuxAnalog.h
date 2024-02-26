@@ -64,7 +64,7 @@ public:
 	size_t getNumAuxAO() const;
 
 	/**
-	 * Writes to an specific auxAO terminal a value
+	 * Writes to a specific auxAO terminal a value
 	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found

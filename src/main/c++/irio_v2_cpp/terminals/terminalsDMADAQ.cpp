@@ -20,7 +20,7 @@ TerminalsDMADAQ::TerminalsDMADAQ(
 						nameTermSampleSize, nameTermOverflows, nameTermDMA, nameTermDMAEnable),
 				m_nameTermSamplingRate(nameTermSamplingRate) {
 
-	const size_t numDMAs = getNumDMA();
+	const size_t numDMAs = countDMAs();
 
 	//Find BlockNWords. Get initial values and store them, no need to read them each time.
 	utils::findArrayRegReadToVector<std::uint16_t>(parsedBitfile, m_session, nameTermBlockNWords,

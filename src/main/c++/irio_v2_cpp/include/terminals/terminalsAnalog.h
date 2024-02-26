@@ -75,7 +75,7 @@ public:
 	size_t getNumAO() const;
 
 	/**
-	 * Writes to an specific AO terminal a value
+	 * Writes to a specific AO terminal a value
 	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found

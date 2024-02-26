@@ -66,7 +66,7 @@ public:
 	size_t getNumDO() const;
 
 	/**
-	 * Writes to an specific DO terminal a value
+	 * Writes to a specific DO terminal a value
 	 *
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found

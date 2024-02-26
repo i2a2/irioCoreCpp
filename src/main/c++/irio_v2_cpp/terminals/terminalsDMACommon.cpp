@@ -121,7 +121,7 @@ void TerminalsDMACommon::stopAllDMAs() const {
 	}
 }
 
-size_t TerminalsDMACommon::getNumDMA() const {
+size_t TerminalsDMACommon::countDMAs() const {
 	return m_mapDMA.size();
 }
 
@@ -183,8 +183,8 @@ void TerminalsDMACommon::enaDisDMA(const std::uint32_t n, bool enaDis) const {
 	utils::throwIfNotSuccessNiFpga(status, "Error writing " +  m_nameTermDMAEnable + std::to_string(n));
 }
 
-bool TerminalsDMACommon::getDMAOverflow(const std::uint16_t mask) const {
-	return static_cast<bool>(getAllDMAOverflows() & mask);
+bool TerminalsDMACommon::getDMAOverflow(const std::uint16_t n) const {
+	return static_cast<bool>(getAllDMAOverflows() & (1<<n));
 }
 
 std::uint16_t TerminalsDMACommon::getAllDMAOverflows() const {
@@ -221,14 +221,14 @@ std::vector<std::uint8_t> TerminalsDMACommon::getAllSampleSizes() const {
 	return m_sampleSize;
 }
 
-size_t TerminalsDMACommon::readDataNoBlock(
+size_t TerminalsDMACommon::readDataNonBlocking(
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data) {
 	return readData(n, elementsToRead, data, false);
 }
 
-size_t TerminalsDMACommon::readDataBlock(
+size_t TerminalsDMACommon::readDataBlocking(
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data,
