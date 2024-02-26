@@ -71,8 +71,8 @@ public:
 	 * Returns a pointer to the analog terminals.
 	 * The user must call it to be able to read/write analog
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the analog terminals
 	 */
@@ -82,8 +82,8 @@ public:
 	 * Returns a pointer to the digital terminals.
 	 * The user must call it to be able to read/write digital
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the digital terminals
 	 */
@@ -93,8 +93,8 @@ public:
 	 * Returns a pointer to the aux analog terminals.
 	 * The user must call it to be able to read/write digital
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the aux analog terminals
 	 */
@@ -104,8 +104,8 @@ public:
 	 * Returns a pointer to the aux digital terminals.
 	 * The user must call it to be able to read/write digital
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the aux digital terminals
 	 */
@@ -115,8 +115,8 @@ public:
 	 * Returns a pointer to the cRIO specific terminals.
 	 * The user must call it to be able to read/write digital
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the cRIO specific terminals
 	 */
@@ -126,8 +126,8 @@ public:
 	 * Returns a pointer to the FlexRIO specific terminals.
 	 * The user must call it to be able to read/write digital
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the FlexRIO specific terminals
 	 */
@@ -137,12 +137,25 @@ public:
 	 * Returns a pointer to the Signal Generation terminals.
 	 * The user must call it to be able to read/write digital
 	 * related terminals.
-	 * If the profile does not have them, an exception will
-	 * be thrown
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
 	 * @return Pointer to the Signal Generation terminals
 	 */
 	const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
+
+	/**
+	 * Returns a pointer to the DAQ terminals.
+	 * This can be for CPU or GPU DAQ functionality depending
+	 * on the profile selected.
+	 * The user must call it to be able to read/write digital
+	 * related terminals.
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
+	 *
+	 * @return Pointer to the DAQ terminals
+	 */
+	const std::shared_ptr<const TerminalsDMADAQ> daq() const;
 
 private:
 	/**

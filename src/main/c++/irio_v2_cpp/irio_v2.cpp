@@ -105,6 +105,10 @@ const std::shared_ptr<const TerminalsSignalGeneration> IrioV2::signalGeneration(
 	return m_profile->signalGeneration();
 }
 
+const std::shared_ptr<const TerminalsDMADAQ> IrioV2::daq() const {
+	return m_profile->daq();
+}
+
 /*********************************************
  * PRIVATE METHODS
  *********************************************/
