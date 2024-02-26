@@ -132,8 +132,8 @@ void TerminalsDMACommon::cleanDMAImpl(
 	status = NiFpga_ReadFifoU64(m_session, dma, nullptr, 0, 0, &elementsRemaining);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading " + m_nameTermDMA + std::to_string(dma));
 
-	//TODO: THIS IS BAD. DO NOT USE CONSTANTS. FIND ANOTHER WAY
-	size_t sizeCleanBuffer = 20000;
+	//TODO: Find better way?
+	static const size_t sizeCleanBuffer = SIZE_HOST_DMAS;
 	std::unique_ptr<std::uint64_t> buffer(new std::uint64_t[sizeCleanBuffer]);
 
 	size_t elementsToRead;
