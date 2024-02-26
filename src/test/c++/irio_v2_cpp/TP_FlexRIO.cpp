@@ -1,30 +1,71 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include "irioFixture.h"
 #include "irio_v2.h"
 
 using namespace iriov2;
 
-class FlexRIOFixture: public ::testing::Test {
-private:
-	const std::string ENV_SERIAL_NUMBER = "RIOSerial";
-protected:
-	std::string serialNumber;
+class FlexRIOFixture: public IrioFixture {
+public:
+	FlexRIOFixture(const std::string &typeBitfile): IrioFixture("FlexRIO", typeBitfile){ }
+};
 
-	FlexRIOFixture(){
-		auto aux = std::getenv(ENV_SERIAL_NUMBER.c_str());
-		if(!aux){
-			throw std::runtime_error("Environment variable '" + ENV_SERIAL_NUMBER + "' not defined");
-		}
-		serialNumber = std::string(aux);
-	}
+class FlexRIOCPUDAQ: public ::testing::Test, public FlexRIOFixture {
+public:
+	FlexRIOCPUDAQ(): FlexRIOFixture("CPUDAQ"){};
+};
+
+class FlexRIOOnlyResources: public ::testing::Test, public FlexRIOFixture {
+public:
+	FlexRIOOnlyResources(): FlexRIOFixture("OnlyResources"){};
 };
 
 
-TEST_F(FlexRIOFixture, ResourcesCPUDAQ){
-	std::string bitfile = "../../resources/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx";
+/////////////////////////////////////////////////////////////
+/// OnlyResources Tests
+////////////////////////////////////////////////////////////
 
-	IrioV2 irio(bitfile, serialNumber, "4.0");
+TEST_F(FlexRIOOnlyResources, ResourcesMAXIO){
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 
+	EXPECT_EQ(irio.daq()->countDMAs(), 1) << "Unexpected number of DMAs";
+	EXPECT_EQ(irio.analog()->getNumAI(), 0) << "Unexpected number of analog inputs";
+	EXPECT_EQ(irio.analog()->getNumAO(), 2) << "Unexpected number of analog outputs";
+	EXPECT_EQ(irio.digital()->getNumDI(), 54) << "Unexpected number of digital inputs";
+	EXPECT_EQ(irio.digital()->getNumDO(), 54) << "Unexpected number of digital outputs";
+	EXPECT_EQ(irio.auxAnalog()->getNumAuxAI(), 16) << "Unexpected number of aux analog inputs";
+	EXPECT_EQ(irio.auxAnalog()->getNumAuxAO(), 16) << "Unexpected number of aux analog outputs";
+	EXPECT_EQ(irio.auxDigital()->getNumAuxDI(), 16) << "Unexpected number of aux digital inputs";
+	EXPECT_EQ(irio.auxDigital()->getNumAuxDO(), 16) << "Unexpected number of aux digital outputs";
+	EXPECT_EQ(irio.signalGeneration()->getSGNo(), 2) << "Unexpected number of signal generators";
+}
+
+
+/////////////////////////////////////////////////////////////
+/// FlexRIOCPUDAQ Tests
+////////////////////////////////////////////////////////////
+
+/**
+ * This test the cover IrioV2 constructor, which:
+ * - Initializes low level driver
+ * - Parse resources
+ * - Download bitfile to FPGA and open session
+ * - Find platform and profile
+ */
+TEST_F(FlexRIOCPUDAQ, InitClose){
+	EXPECT_NO_THROW(// @suppress("Goto statement used")
+			IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	) << "Error at IrioV2's constructor";
+}
+
+/**
+ * Test checks that all terminals are identified correctly
+ * at driver initialization
+ */
+TEST_F(FlexRIOCPUDAQ, Resources){
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	EXPECT_EQ(irio.daq()->countDMAs(), 2) << "Unexpected number of DMAs";
 	EXPECT_EQ(irio.analog()->getNumAI(), 2) << "Unexpected number of analog inputs";
 	EXPECT_EQ(irio.analog()->getNumAO(), 2) << "Unexpected number of analog outputs";
 	EXPECT_EQ(irio.digital()->getNumDI(), 2) << "Unexpected number of digital inputs";
@@ -35,4 +76,6 @@ TEST_F(FlexRIOFixture, ResourcesCPUDAQ){
 	EXPECT_EQ(irio.auxDigital()->getNumAuxDO(), 2) << "Unexpected number of aux digital outputs";
 	EXPECT_EQ(irio.signalGeneration()->getSGNo(), 2) << "Unexpected number of signal generators";
 }
+
+
 
