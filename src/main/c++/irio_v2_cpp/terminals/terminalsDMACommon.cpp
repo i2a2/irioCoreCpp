@@ -100,7 +100,7 @@ void TerminalsDMACommon::startAllDMAs() const {
 		startDMAImpl(values.second);
 	}
 
-	cleanALLDMAs();
+	cleanAllDMAs();
 }
 
 void TerminalsDMACommon::stopDMA(const std::uint32_t n) const {
