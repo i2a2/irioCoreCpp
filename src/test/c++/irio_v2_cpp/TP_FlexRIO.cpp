@@ -27,6 +27,10 @@ public:
 	FlexRIOCPUDAQ(): FlexRIOFixture("CPUDAQ"){};
 };
 
+class FlexRIOMod5761: public ::testing::Test, public FlexRIOFixture {
+public:
+	FlexRIOMod5761(): FlexRIOFixture("Mod5761"){};
+};
 
 
 /////////////////////////////////////////////////////////////
@@ -257,13 +261,7 @@ TEST_F(FlexRIONoModule, DevTemp){
 
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 
-	try{
-		irio.getDevTemp();
-	}catch(std::exception &e){
-		FAIL() << "An unexpected exception was raised. " + std::string(e.what());
-	}catch(...){
-		FAIL() << "An unexpected exception was raised.";
-	}
+	irio.getDevTemp();
 }
 
 TEST_F(FlexRIONoModule, DebugMode){
@@ -276,6 +274,21 @@ TEST_F(FlexRIONoModule, DebugMode){
 
 	irio.setDebugMode(true);
 	EXPECT_TRUE(irio.getDebugMode());
+}
+
+TEST_F(FlexRIONoModule, SGSignalType){
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto sg = irio.signalGeneration();
+
+	ASSERT_GE(sg->getSGNo(), 1);
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	const auto st = sg->getSGSignalType(0);
+	EXPECT_EQ(st, 0);
 }
 
 
@@ -305,4 +318,57 @@ TEST_F(FlexRIOCPUDAQ, Resources){
 }
 
 
+/////////////////////////////////////////////////////////////
+/// FlexRIOMod5761 Tests
+/////////////////////////////////////////////////////////////
+
+TEST_F(FlexRIOMod5761, AOEnable){
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	const auto analog = irio.analog();
+	ASSERT_GE(analog->getNumAO(), 1);
+	bool aux;
+
+	irio.startFPGA();
+
+	analog->setAOEnable(0, false);
+	aux = analog->getAOEnable(0);
+	EXPECT_FALSE(aux);
+	analog->setAOEnable(0, true);
+	aux = analog->getAOEnable(0);
+	EXPECT_TRUE(aux);
+	analog->setAOEnable(0, false);
+	aux = analog->getAOEnable(0);
+	EXPECT_FALSE(aux);
+}
+
+TEST_F(FlexRIOMod5761, AO){
+	const std::string bitfilePath = getBitfilePath();
+	const size_t numTests = 100;
+	IntUniformDistribution<std::int32_t> rnd(0,1);
+	const std::uint32_t idAO = 0;
+	const std::uint32_t idAuxAI = 9;
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	const auto analog = irio.analog();
+	const auto auxAnalog = irio.auxAnalog();
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	std::int32_t valueWrite;
+	std::int32_t valueRead;
+
+	analog->setAOEnable(0, true);
+	for(size_t i = 0; i < numTests; ++i){
+		valueWrite = rnd.getRandom();
+		analog->setAO(idAO, valueWrite);
+		valueRead = analog->getAO(idAO);
+		EXPECT_EQ(valueWrite, valueRead) << "The value was not written in AO0";
+
+		valueRead = auxAnalog->getAuxAI(idAuxAI);
+		EXPECT_EQ(valueWrite, valueRead) << "The value written in AO0 was not read in auxAI9";
+	}
+
+}
 
