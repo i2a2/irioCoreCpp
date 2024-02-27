@@ -345,7 +345,7 @@ TEST_F(FlexRIOMod5761, AOEnable){
 TEST_F(FlexRIOMod5761, AO){
 	const std::string bitfilePath = getBitfilePath();
 	const size_t numTests = 100;
-	IntUniformDistribution<std::int32_t> rnd(0,1);
+	IntUniformDistribution<std::int32_t> rnd;
 	const std::uint32_t idAO = 0;
 	const std::uint32_t idAuxAI = 9;
 
@@ -370,5 +370,44 @@ TEST_F(FlexRIOMod5761, AO){
 		EXPECT_EQ(valueWrite, valueRead) << "The value written in AO0 was not read in auxAI9";
 	}
 
+}
+
+TEST_F(FlexRIOMod5761, DMAClean){
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+	irio.daq()->cleanDMA(0);
+	irio.daq()->cleanAllDMAs();
+}
+
+TEST_F(FlexRIOMod5761, DMAStartStop){
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	irio.daq()->startAllDMAs();
+	irio.daq()->stopAllDMAs();
+
+	irio.daq()->startDMA(0);
+	irio.daq()->stopDMA(0);
+}
+
+TEST_F(FlexRIOMod5761, DMASamplingRate){
+	const std::uint32_t samplingRate = 500000;
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	const std::uint32_t fref = irio.getFref();
+	const std::uint32_t decimation = fref / samplingRate;
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	irio.daq()->setSamplingRate(0, decimation);
+	const auto readDecimation = irio.daq()->getSamplingRate(0);
+	EXPECT_EQ(samplingRate, fref/readDecimation) << "Unable to configure sampling rate";
 }
 
