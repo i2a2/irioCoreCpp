@@ -47,7 +47,7 @@ public:
 	 * @param n	Number of the auxAO terminal to read
 	 * @return	Value read from the auxAO terminal
 	 */
-	std::int16_t getAuxAO(const std::uint32_t n) const;
+	std::int32_t getAuxAO(const std::uint32_t n) const;
 
 	/**
 	 * Returns number of auxAI terminals found
@@ -72,7 +72,7 @@ public:
 	 * @param n	Number of the auxAO terminal to write
 	 * @param value	Value to write to the terminal
 	 */
-	void setAuxAO(const std::uint32_t n, const std::int16_t value) const;
+	void setAuxAO(const std::uint32_t n, const std::int32_t value) const;
 
 private:
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAI;
