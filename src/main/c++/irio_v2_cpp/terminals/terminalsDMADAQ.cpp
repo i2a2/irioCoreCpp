@@ -66,7 +66,7 @@ std::uint16_t TerminalsDMADAQ::getSamplingRate(const std::uint32_t &n) const {
 
 void TerminalsDMADAQ::setSamplingRate(
 		const std::uint32_t &n,
-		std::uint16_t &samplingRate) const {
+		const std::uint16_t &samplingRate) const {
 
 	const auto addr = utils::getAddressEnumResource(m_samplingRate_addr, n, m_nameTermSamplingRate);
 

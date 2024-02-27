@@ -88,7 +88,7 @@ public:
 	 * @param n	Number of DMA group
 	 * @param samplingRate	Sampling rate to configure
 	 */
-	void setSamplingRate(const std::uint32_t &n, std::uint16_t &samplingRate) const;
+	void setSamplingRate(const std::uint32_t &n, const std::uint16_t &samplingRate) const;
 
 private:
 	const std::string m_nameTermSamplingRate;
