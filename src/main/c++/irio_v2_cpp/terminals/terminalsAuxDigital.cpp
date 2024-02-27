@@ -38,7 +38,7 @@ bool TerminalsAuxDigital::getAuxDI(const std::uint32_t n) const {
 	return getAuxDigital(m_session, n, m_mapAuxDI, TERMINAL_AUXDI);
 }
 
-bool TerminalsAuxDigital::getAuxD0(const std::uint32_t n) const {
+bool TerminalsAuxDigital::getAuxDO(const std::uint32_t n) const {
 	return getAuxDigital(m_session, n, m_mapAuxDO, TERMINAL_AUXDO);
 }
 

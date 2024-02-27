@@ -50,7 +50,7 @@ public:
 	 * @param n	Number of the auxDO terminal to read
 	 * @return	Value read from the auxDO terminal
 	 */
-	bool getAuxD0(const std::uint32_t n) const;
+	bool getAuxDO(const std::uint32_t n) const;
 
 	/**
 	 * Returns number of auxDI terminals found
