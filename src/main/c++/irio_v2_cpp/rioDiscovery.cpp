@@ -54,8 +54,9 @@ std::string getRIODeviceCCS(const std::string &serialNumber) {
 			auto slashPos = it->rfind('/');
 			auto boardPos = it->rfind('!');
 			name = it->substr(slashPos+1, boardPos-slashPos-1);
+		}else{
+			it++;
 		}
-		it++;
 	}
 
 	if(it==devices.end()){
