@@ -268,12 +268,12 @@ private:
 	/**
 	 * Closes the session if it has been opened.
 	 */
-	void closeSession();
+	void closeSession() noexcept;
 
 	/**
 	 * Finalizes the low level library. If system is CCS, does nothing.
 	 */
-	void finalizeDriver();
+	void finalizeDriver() noexcept;
 
 	/**
 	 * Opens a session to the FPGA, downloading the bitfile if necessary.

@@ -204,14 +204,13 @@ const std::shared_ptr<const TerminalsDMADAQ> IrioV2::daq() const {
  * PRIVATE METHODS
  *********************************************/
 
-void IrioV2::finalizeDriver() {
+void IrioV2::finalizeDriver() noexcept {
 #ifndef CCS_VERSION
-	const auto status = NiFpga_Finalize();
-	utils::throwIfNotSuccessNiFpga(status, "Error finalizing NiFpga library");
+	NiFpga_Finalize();
 #endif
 }
 
-void IrioV2::closeSession() {
+void IrioV2::closeSession() noexcept{
 	if (m_session != 0)
 		NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
 	m_session = 0;
