@@ -129,7 +129,8 @@ void TerminalsDMACommon::cleanDMAImpl(
 		const std::uint32_t &dma) const {
 	NiFpga_Status status;
 	size_t elementsRemaining;
-	status = NiFpga_ReadFifoU64(m_session, dma, nullptr, 0, 0, &elementsRemaining);
+	std::uint64_t aux;
+	status = NiFpga_ReadFifoU64(m_session, dma, &aux, 0, 0, &elementsRemaining);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading " + m_nameTermDMA + std::to_string(dma));
 
 	//TODO: Find better way?
