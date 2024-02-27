@@ -2,11 +2,9 @@
 #include <errorsIrio.h>
 
 namespace iriov2 {
-ProfileBase::ProfileBase(
-		const bfp::BFP &parsedBitfile,
-		const NiFpga_Session &session,
-		const ProfileBase::PROFILE_ID &id) :
-		ProfileBaseTerminals(parsedBitfile, session), profileID(id) {
+
+ProfileBase::ProfileBase(const ProfileBase::PROFILE_ID &id) :
+		profileID(id) {
 }
 
 const std::shared_ptr<const TerminalsAnalog> ProfileBase::analog() const {

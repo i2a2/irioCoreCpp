@@ -3,7 +3,6 @@
 #include <memory>
 #include <bfp.h>
 #include <terminals/terminals.h>
-#include <profiles/profileBaseTerminals.h>
 
 namespace iriov2 {
 
@@ -15,7 +14,7 @@ namespace iriov2 {
  *
  * @ingroup Profiles
  */
-class ProfileBase: public ProfileBaseTerminals {
+class ProfileBase {
 public:
 	/**
 	 * All possible types of profiles
@@ -54,16 +53,9 @@ public:
 	/**
 	 * Allows the user to access terminals for read/write operations.
 	 *
-	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-	 *
-	 * @param parsedBitfile		Parsed bitfile to extract the information for the terminals
-	 * @param session			Session for operations with the FPGA
-	 * @param id				Identification of the profile
+	 * @param id	Identification of the profile
 	 */
-	ProfileBase(
-			const bfp::BFP &parsedBitfile,
-			const NiFpga_Session &session,
-			const ProfileBase::PROFILE_ID &id);
+	ProfileBase(const ProfileBase::PROFILE_ID &id);
 
 	virtual ~ProfileBase() = default;
 
