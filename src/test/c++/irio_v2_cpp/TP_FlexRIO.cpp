@@ -3,6 +3,7 @@
 #include "errorsIrio.h"
 #include "irioFixture.h"
 #include "irio_v2.h"
+#include "irioUtils.h"
 
 using namespace iriov2;
 
@@ -11,20 +12,26 @@ public:
 	FlexRIOFixture(const std::string &typeBitfile): IrioFixture("FlexRIO", typeBitfile){ }
 };
 
-class FlexRIOCPUDAQ: public ::testing::Test, public FlexRIOFixture {
-public:
-	FlexRIOCPUDAQ(): FlexRIOFixture("CPUDAQ"){};
-};
-
 class FlexRIOOnlyResources: public ::testing::Test, public FlexRIOFixture {
 public:
 	FlexRIOOnlyResources(): FlexRIOFixture("OnlyResources"){};
 };
 
+class FlexRIONoModule: public ::testing::Test, public FlexRIOFixture {
+public:
+	FlexRIONoModule(): FlexRIOFixture("NoModule"){};
+};
+
+class FlexRIOCPUDAQ: public ::testing::Test, public FlexRIOFixture {
+public:
+	FlexRIOCPUDAQ(): FlexRIOFixture("CPUDAQ"){};
+};
+
+
 
 /////////////////////////////////////////////////////////////
 /// OnlyResources Tests
-////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
 /**
  * Test verifies correct initialization with OnlyResources bitfile
@@ -136,10 +143,62 @@ TEST_F(FlexRIOOnlyResources, cRIOTerminalsNotAvailable){
 	}
 }
 
+/////////////////////////////////////////////////////////////
+/// FlexRIONoModule Tests
+/////////////////////////////////////////////////////////////
+
+TEST_F(FlexRIONoModule, StartFPGA){
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	try{
+		irio.startFPGA();
+	}catch(errors::InitializationTimeoutError &e){
+		FAIL() << e.what();
+	}catch(errors::ModulesNotOKError &e){
+		FAIL() << e.what();
+	}catch(std::exception &e){
+		FAIL() << "An unexpected exception was raised. " + std::string(e.what());
+	}catch(...){
+		FAIL() << "An unexpected exception was raised.";
+	}
+}
+
+TEST_F(FlexRIONoModule, GetSetAuxAnalog){
+	const std::string bitfilePath = getBitfilePath();
+	const size_t numAuxAnalog = 6;
+	const size_t numTests = 100;
+	IntUniformDistribution<std::int32_t> rnd;
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto auxAnalog = irio.auxAnalog();
+
+	irio.startFPGA();
+	ASSERT_GE(auxAnalog->getNumAuxAI(), numAuxAnalog) << "Insufficient number of AI";
+	ASSERT_GE(auxAnalog->getNumAuxAO(), numAuxAnalog) << "Insufficient number of AO";
+
+	std::int32_t valueWrite;
+	std::int32_t valueRead;
+	for(size_t n = 0; n < numAuxAnalog; ++n){
+		for(size_t t = 0; t < numTests; ++t){
+			valueWrite = rnd.getRandom();
+			auxAnalog->setAuxAO(n, valueWrite);
+			valueRead = auxAnalog->getAuxAO(n);
+			EXPECT_EQ(valueWrite, valueRead) << "The value was not written in auxAO" << n;
+
+			valueRead = auxAnalog->getAuxAI(n);
+			EXPECT_EQ(valueWrite, valueRead) << "The value written in auxAO" << n
+					<< " was not read in auxAI" << n;
+		}
+	}
+}
+
+
 
 /////////////////////////////////////////////////////////////
 /// FlexRIOCPUDAQ Tests
-////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
 /**
  * Test checks that all CPUDAQ terminals are identified
