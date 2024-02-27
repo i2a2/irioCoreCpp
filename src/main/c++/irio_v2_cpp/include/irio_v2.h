@@ -62,13 +62,6 @@ public:
 	 */
 	void startFPGA(std::uint32_t timeoutMs=5000);
 
-//	/**
-//	 * Stops the VI running in the FPGA
-//	 *
-//	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-//	 */
-//	void stopFPGA();
-
 	/**
 	 * Returns a pointer to the analog terminals.
 	 * The user must call it to be able to read/write analog

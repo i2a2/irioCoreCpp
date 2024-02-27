@@ -14,6 +14,12 @@ TerminalsAuxAnalog::TerminalsAuxAnalog(
 
 	//Find AuxAO
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXAO, platform.maxAuxAO, m_mapAuxAO);
+
+	//Find Aux64AI
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUX64AI, platform.maxAuxAI, m_mapAuxAI64);
+
+	//Find Aux64AO
+	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUX64AO, platform.maxAuxAO, m_mapAuxAO64);
 }
 
 std::int32_t TerminalsAuxAnalog::getAuxAI(const std::uint32_t n) const {
@@ -44,11 +50,47 @@ size_t TerminalsAuxAnalog::getNumAuxAO() const {
 	return m_mapAuxAO.size();
 }
 
+std::int64_t TerminalsAuxAnalog::getAuxAI64(const std::uint32_t n) const {
+	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAI64, n, TERMINAL_AUX64AO);
+	std::int64_t aux;
+	auto status = NiFpga_ReadI64(m_session, add, &aux);
+	utils::throwIfNotSuccessNiFpga(status,
+			"Error reading terminal " + std::string(TERMINAL_AUX64AI) + std::to_string(n));
+
+	return aux;
+}
+
+std::int64_t TerminalsAuxAnalog::getAuxAO64(const std::uint32_t n) const {
+	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO64, n, TERMINAL_AUX64AI);
+	std::int64_t aux;
+	auto status = NiFpga_ReadI64(m_session, add, &aux);
+	utils::throwIfNotSuccessNiFpga(status,
+			"Error reading terminal " + std::string(TERMINAL_AUX64AO) + std::to_string(n));
+
+	return aux;
+}
+
+size_t TerminalsAuxAnalog::getNumAuxAI64() const {
+	return m_mapAuxAI64.size();
+}
+
+size_t TerminalsAuxAnalog::getNumAuxAO64() const {
+	return m_mapAuxAO64.size();
+}
+
 void TerminalsAuxAnalog::setAuxAO(const std::uint32_t n, const std::int32_t value) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO, n, TERMINAL_AUXAO);
 	auto status = NiFpga_WriteI32(m_session, add, value);
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading terminal " + std::string(TERMINAL_AUXAO) + std::to_string(n));
+}
+
+void TerminalsAuxAnalog::setAuxAO64(const std::uint32_t n, const std::int64_t value) const {
+	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO64, n, TERMINAL_AUX64AO);
+	auto status = NiFpga_WriteI64(m_session, add, value);
+	utils::throwIfNotSuccessNiFpga(status,
+			"Error reading terminal " + std::string(TERMINAL_AUX64AO) + std::to_string(n));
+
 }
 
 }

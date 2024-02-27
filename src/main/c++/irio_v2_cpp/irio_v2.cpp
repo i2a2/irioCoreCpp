@@ -80,11 +80,6 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) {
 	m_profile->setDAQStop();
 }
 
-//void IrioV2::stopFPGA() {
-//	const auto status = NiFpga_Abort(m_session);
-//	utils::throwIfNotSuccessNiFpga(status, "Error stopping the VI");
-//}
-
 const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
 	return m_profile->analog();
 }

@@ -74,9 +74,59 @@ public:
 	 */
 	void setAuxAO(const std::uint32_t n, const std::int32_t value) const;
 
+	/**
+	 * Returns the value of an auxAI64 terminal.
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 *
+	 * @param n	Number of the auxAI64 terminal to read
+	 * @return	Value read from the auxAI64 terminal
+	 */
+	std::int64_t getAuxAI64(const std::uint32_t n) const;
+
+	/**
+	 * Returns the value of an auxAO64 terminal.
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 *
+	 * @param n	Number of the auxAO64 terminal to read
+	 * @return	Value read from the auxAO64 terminal
+	 */
+	std::int64_t getAuxAO64(const std::uint32_t n) const;
+
+	/**
+	 * Returns number of auxAI64 terminals found
+	 *
+	 * @return Number of auxAI64 terminals found
+	 */
+	size_t getNumAuxAI64() const;
+
+	/**
+	 * Returns number of auxAO64 terminals found
+	 *
+	 * @return Number of auxAO64 terminals found
+	 */
+	size_t getNumAuxAO64() const;
+
+	/**
+	 * Writes to a specific auxAO64 terminal a value
+	 *
+	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 *
+	 * @param n	Number of the auxAO64 terminal to write
+	 * @param value	Value to write to the terminal
+	 */
+	void setAuxAO64(const std::uint32_t n, const std::int64_t value) const;
+
+
 private:
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAI;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAO;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAI64;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAO64;
 };
 
 }
