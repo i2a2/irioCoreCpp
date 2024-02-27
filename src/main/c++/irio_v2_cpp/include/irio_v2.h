@@ -307,6 +307,11 @@ private:
 	 */
 	void searchDevProfile();
 
+	/**
+	 * Searches for the common resources used in all profiles.
+	 * It reads some of the resources with their initials values,
+	 * so it must be called after a NiFpga_session has been obtained.
+	 */
 	void findCommonResources();
 
 	std::unique_ptr<Platform> m_platform;
