@@ -6,30 +6,36 @@ namespace iriov2{
 
 namespace errors{
 
+
+class IrioV2Error: public std::runtime_error{
+public:
+	IrioV2Error(const std::string& err): std::runtime_error(err){}
+};
+
 /**
  * Exception when terminal has not been implemented in the profile
  *
  * @ingroup Errors
  */
-class TerminalNotImplementedError: public std::runtime_error{
+class TerminalNotImplementedError: public IrioV2Error{
 public:
-	TerminalNotImplementedError(): std::runtime_error("Terminal not implemented in the profile"){}
+	TerminalNotImplementedError(): IrioV2Error("Terminal not implemented in the profile"){}
 
-	TerminalNotImplementedError(const std::string& err): std::runtime_error(err){}
+	TerminalNotImplementedError(const std::string& err): IrioV2Error(err){}
 };
 
 /**
  * Exception when resource (Register/DMA) is not found
  * @ingroup Errors
  */
-class ResourceNotFoundError: public std::runtime_error{
+class ResourceNotFoundError: public IrioV2Error{
 public:
-	ResourceNotFoundError(): std::runtime_error("Resource not found"){}
+	ResourceNotFoundError(): IrioV2Error("Resource not found"){}
 
-	ResourceNotFoundError(const std::string& err): std::runtime_error(err){}
+	ResourceNotFoundError(const std::string& err): IrioV2Error(err){}
 
 	ResourceNotFoundError(const std::uint32_t resourceNumber, const std::string &resourceName) :
-					std::runtime_error(
+					IrioV2Error(
 							std::to_string(resourceNumber) + " is not a valid " + resourceName
 									+ " resource") { }
 };
@@ -38,11 +44,11 @@ public:
  * Exception when FPGAVIVersion is not the one expected
  * @ingroup Errors
  */
-class FPGAVIVersionMismatchError: public std::runtime_error{
+class FPGAVIVersionMismatchError: public IrioV2Error{
 public:
-	FPGAVIVersionMismatchError(): std::runtime_error("FPGAVIversion mismatch"){}
+	FPGAVIVersionMismatchError(): IrioV2Error("FPGAVIversion mismatch"){}
 	FPGAVIVersionMismatchError(const std::string &foundVersion, const std::string &expectedVersion) :
-					std::runtime_error(
+					IrioV2Error(
 							"FPGAVIVserion mismatch (" + foundVersion + " != " + expectedVersion
 									+ ")") { }
 };
@@ -51,11 +57,11 @@ public:
  * Exception when the platform read from the FPGA does not match any of the supported ones (See \ref platforms.h)
  * @ingroup Errors
  */
-class UnsupportedPlatformError: public std::runtime_error{
+class UnsupportedPlatformError: public IrioV2Error{
 public:
-	UnsupportedPlatformError(): std::runtime_error("Platform specified is not supported"){}
+	UnsupportedPlatformError(): IrioV2Error("Platform specified is not supported"){}
 	UnsupportedPlatformError(const std::uint8_t platform):
-		std::runtime_error(std::to_string(platform) + "is not a supported platform value") {}
+		IrioV2Error(std::to_string(platform) + "is not a supported platform value") {}
 };
 
 /**
@@ -64,11 +70,11 @@ public:
  *
  * @ingroup Errors
  */
-class UnsupportedDevProfileError: public std::runtime_error{
+class UnsupportedDevProfileError: public IrioV2Error{
 public:
-	UnsupportedDevProfileError(): std::runtime_error("DevProfile specified is not supported"){}
+	UnsupportedDevProfileError(): IrioV2Error("DevProfile specified is not supported"){}
 	UnsupportedDevProfileError(const std::uint8_t devProfile, const std::uint8_t platform):
-		std::runtime_error("DevProfile " + std::to_string(devProfile) +
+		IrioV2Error("DevProfile " + std::to_string(devProfile) +
 				" is not valid for the platform " + std::to_string(platform)){}
 };
 
@@ -77,9 +83,9 @@ public:
  *
  * @ingroup Errors
  */
-class InitializationTimeoutError: public std::runtime_error{
+class InitializationTimeoutError: public IrioV2Error{
 public:
-	InitializationTimeoutError(): std::runtime_error("InitDone not ready in time"){}
+	InitializationTimeoutError(): IrioV2Error("InitDone not ready in time"){}
 };
 
 /**
@@ -88,9 +94,9 @@ public:
  *
  * @ingroup Errors
  */
-class ModulesNotOKError: public std::runtime_error{
+class ModulesNotOKError: public IrioV2Error{
 public:
-	ModulesNotOKError(const std::string &err): std::runtime_error(err){}
+	ModulesNotOKError(const std::string &err): IrioV2Error(err){}
 };
 
 /**
@@ -98,9 +104,9 @@ public:
  *
  * @ingroup Errors
  */
-class RIODiscoveryError: public std::runtime_error{
+class RIODiscoveryError: public IrioV2Error{
 public:
-	RIODiscoveryError(const std::string &err): std::runtime_error(err){}
+	RIODiscoveryError(const std::string &err): IrioV2Error(err){}
 };
 
 /**
@@ -108,11 +114,11 @@ public:
  *
  * @ingroup Errors
  */
-class RIODeviceNotFoundError: public std::runtime_error{
+class RIODeviceNotFoundError: public IrioV2Error{
 public:
-	RIODeviceNotFoundError(): std::runtime_error(""){}
+	RIODeviceNotFoundError(): IrioV2Error(""){}
 	RIODeviceNotFoundError(const std::string &serialNumber):
-		std::runtime_error("No RIO device with serial number " + serialNumber){}
+		IrioV2Error("No RIO device with serial number " + serialNumber){}
 };
 
 /**
@@ -120,9 +126,9 @@ public:
  *
  * @ingroup Errors
  */
-class NiFpgaError: public std::runtime_error{
+class NiFpgaError: public IrioV2Error{
 public:
-	NiFpgaError(const std::string &errMsg): std::runtime_error(errMsg){}
+	NiFpgaError(const std::string &errMsg): IrioV2Error(errMsg){}
 };
 
 /**
@@ -130,10 +136,10 @@ public:
  *
  * @ingroup Errors
  */
-class DMAReadTimeout: public std::runtime_error{
+class DMAReadTimeout: public IrioV2Error{
 public:
 	DMAReadTimeout(const std::string &nameTermDMA, const std::uint32_t &n):
-		std::runtime_error("Timeout reading " + nameTermDMA + std::to_string(n)){}
+		IrioV2Error("Timeout reading " + nameTermDMA + std::to_string(n)){}
 };
 
 /**
@@ -141,13 +147,13 @@ public:
  *
  * @ingroup Errors
  */
-class BFPParseBitfileError: public std::runtime_error{
+class BFPParseBitfileError: public IrioV2Error{
 public:
-	BFPParseBitfileError(const std::string &bitfile): std::runtime_error("Error parsing " + bitfile){}
+	BFPParseBitfileError(const std::string &bitfile): IrioV2Error("Error parsing " + bitfile){}
 
 	BFPParseBitfileError(const std::string &bitfile,
 						 const std::string &errDescription):
-		std::runtime_error("Error parsing " + bitfile + ". Error: " + errDescription){}
+		IrioV2Error("Error parsing " + bitfile + ". Error: " + errDescription){}
 };
 
 }
