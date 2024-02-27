@@ -223,7 +223,34 @@ TEST_F(FlexRIONoModule, GetSetAuxAnalog64){
 	}
 }
 
+TEST_F(FlexRIONoModule, GetSetAuxDigital){
+	const std::string bitfilePath = getBitfilePath();
+	const size_t numAuxDigital = 6;
+	const size_t numTests = 100;
+	IntUniformDistribution<bool> rnd;
 
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto auxDigital = irio.auxDigital();
+
+	irio.startFPGA();
+	ASSERT_GE(auxDigital->getNumAuxDI(), numAuxDigital) << "Insufficient number of auxDI";
+	ASSERT_GE(auxDigital->getNumAuxDO(), numAuxDigital) << "Insufficient number of auxDO";
+
+	std::int64_t valueWrite;
+	std::int64_t valueRead;
+	for(size_t n = 0; n < numAuxDigital; ++n){
+		for(size_t t = 0; t < numTests; ++t){
+			valueWrite = rnd.getRandom();
+			auxDigital->setAuxDO(n, valueWrite);
+			valueRead = auxDigital->getAuxDO(n);
+			EXPECT_EQ(valueWrite, valueRead) << "The value was not written in auxDO" << n;
+
+			valueRead = auxDigital->getAuxDI(n);
+			EXPECT_EQ(valueWrite, valueRead) << "The value written in auxDO" << n
+					<< " was not read in auxDI" << n;
+		}
+	}
+}
 
 /////////////////////////////////////////////////////////////
 /// FlexRIOCPUDAQ Tests
