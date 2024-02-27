@@ -192,7 +192,7 @@ public:
 	 *
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 */
-	void cleanALLDMAs() const;
+	void cleanAllDMAs() const;
 
 	/**
 	 * Returns if a DMA group is enabled or not

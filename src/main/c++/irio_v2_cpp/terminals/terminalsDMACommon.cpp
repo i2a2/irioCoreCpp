@@ -151,7 +151,7 @@ void TerminalsDMACommon::cleanDMA(const std::uint32_t n) const {
 	cleanDMAImpl(dmaNum);
 }
 
-void TerminalsDMACommon::cleanALLDMAs() const {
+void TerminalsDMACommon::cleanAllDMAs() const {
 	for(const auto& values:m_mapDMA){
 		cleanDMA(values.second);
 	}
