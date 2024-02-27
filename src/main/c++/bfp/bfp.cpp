@@ -12,7 +12,8 @@ inline void removeSpaces(std::string &s) {
 	s.erase(remove_if(s.begin(), s.end(), isspace), s.end());
 }
 
-std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_node& node, const std::uint32_t& baseAddress){
+std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_node& node, const std::uint32_t& baseAddress,
+		const bool warnUnsupported){
 	std::unordered_map<std::string, bfp::Register> mapRet;
 
 	for(const auto& regNode: node.children("Register")){
@@ -26,7 +27,7 @@ std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_no
 			std::string name = aux.name;
 			removeSpaces(name);
 			mapRet.insert({name, aux});
-		}else{
+		}else if(warnUnsupported){
 			std::cerr << "WARNING: Skipping register " << aux.name << ". Unsupported type." << std::endl;
 		}
 	}
@@ -48,7 +49,7 @@ std::unordered_map<std::string, bfp::DMA> parseDMA(const pugi::xml_node& node){
 	return mapRet;
 }
 
-BFP::BFP(const std::string& bitfile):
+BFP::BFP(const std::string& bitfile, const bool warnUnsupported):
 	m_bitfilePath(bitfile)
 {
 	pugi::xml_document doc;
@@ -63,7 +64,7 @@ BFP::BFP(const std::string& bitfile):
 		m_baseAddress = doc.select_node("//NiFpga/BaseAddressOnDevice").node().text().as_uint();
 		m_bitfileVersion = doc.select_node("/Bitfile/BitfileVersion").node().text().as_string();
 
-		m_regMap = parseRegisters(doc.select_node("/Bitfile/VI/RegisterList").node(), m_baseAddress);
+		m_regMap = parseRegisters(doc.select_node("/Bitfile/VI/RegisterList").node(), m_baseAddress, warnUnsupported);
 		m_dmaMap = parseDMA(doc.select_node("/Bitfile/Project//DmaChannelAllocationList").node());
 	}catch(pugi::xpath_exception &e){
 		throw errors::BFPParseBitfileError(bitfile, e.what());

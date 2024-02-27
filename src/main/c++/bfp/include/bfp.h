@@ -24,9 +24,11 @@ public:
 	 *
 	 * @throw iriov2::errors::BFPParseBitfileError Unable to parse \p bitfile
 	 *
-	 * @param bitfile	Bitfile to parse
+	 * @param bitfile			Bitfile to parse
+	 * @param warnUnsupported	If true, a message will be printed by std::cerr
+	 * 							informing of the registers found with an unsupported type
 	 */
-	BFP(const std::string& bitfile);
+	BFP(const std::string& bitfile, const bool warnUnsupported=true);
 
 	/**
 	 * Return the path of the parsed Bitfile
