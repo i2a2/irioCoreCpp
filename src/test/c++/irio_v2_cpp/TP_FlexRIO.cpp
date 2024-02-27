@@ -165,7 +165,7 @@ TEST_F(FlexRIONoModule, StartFPGA){
 	}
 }
 
-TEST_F(FlexRIONoModule, GetSetAuxAnalog){
+TEST_F(FlexRIONoModule, AuxAnalog){
 	const std::string bitfilePath = getBitfilePath();
 	const size_t numAuxAnalog = 6;
 	const size_t numTests = 100;
@@ -194,7 +194,7 @@ TEST_F(FlexRIONoModule, GetSetAuxAnalog){
 	}
 }
 
-TEST_F(FlexRIONoModule, GetSetAuxAnalog64){
+TEST_F(FlexRIONoModule, AuxAnalog64){
 	const std::string bitfilePath = getBitfilePath();
 	const size_t numAuxAnalog = 6;
 	const size_t numTests = 100;
@@ -223,11 +223,11 @@ TEST_F(FlexRIONoModule, GetSetAuxAnalog64){
 	}
 }
 
-TEST_F(FlexRIONoModule, GetSetAuxDigital){
+TEST_F(FlexRIONoModule, AuxDigital){
 	const std::string bitfilePath = getBitfilePath();
 	const size_t numAuxDigital = 6;
 	const size_t numTests = 100;
-	IntUniformDistribution<bool> rnd;
+	IntUniformDistribution<std::uint8_t> rnd(0,1);
 
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 	auto auxDigital = irio.auxDigital();
@@ -236,8 +236,8 @@ TEST_F(FlexRIONoModule, GetSetAuxDigital){
 	ASSERT_GE(auxDigital->getNumAuxDI(), numAuxDigital) << "Insufficient number of auxDI";
 	ASSERT_GE(auxDigital->getNumAuxDO(), numAuxDigital) << "Insufficient number of auxDO";
 
-	std::int64_t valueWrite;
-	std::int64_t valueRead;
+	bool valueWrite;
+	bool valueRead;
 	for(size_t n = 0; n < numAuxDigital; ++n){
 		for(size_t t = 0; t < numTests; ++t){
 			valueWrite = rnd.getRandom();
@@ -252,10 +252,38 @@ TEST_F(FlexRIONoModule, GetSetAuxDigital){
 	}
 }
 
+TEST_F(FlexRIONoModule, DevTemp){
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	try{
+		irio.getDevTemp();
+	}catch(std::exception &e){
+		FAIL() << "An unexpected exception was raised. " + std::string(e.what());
+	}catch(...){
+		FAIL() << "An unexpected exception was raised.";
+	}
+}
+
+TEST_F(FlexRIONoModule, DebugMode){
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	irio.startFPGA();
+	irio.setDebugMode(false);
+	EXPECT_FALSE(irio.getDebugMode());
+
+	irio.setDebugMode(true);
+	EXPECT_TRUE(irio.getDebugMode());
+}
+
+
 /////////////////////////////////////////////////////////////
 /// FlexRIOCPUDAQ Tests
 /////////////////////////////////////////////////////////////
 
+//TODO: Is this test necessary? It is already covered in the NoModule one
 /**
  * Test checks that all CPUDAQ terminals are identified
  * correctly at driver initialization
