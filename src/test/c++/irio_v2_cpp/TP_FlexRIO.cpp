@@ -175,8 +175,8 @@ TEST_F(FlexRIONoModule, GetSetAuxAnalog){
 	auto auxAnalog = irio.auxAnalog();
 
 	irio.startFPGA();
-	ASSERT_GE(auxAnalog->getNumAuxAI(), numAuxAnalog) << "Insufficient number of AI";
-	ASSERT_GE(auxAnalog->getNumAuxAO(), numAuxAnalog) << "Insufficient number of AO";
+	ASSERT_GE(auxAnalog->getNumAuxAI(), numAuxAnalog) << "Insufficient number of auxAI";
+	ASSERT_GE(auxAnalog->getNumAuxAO(), numAuxAnalog) << "Insufficient number of auxAO";
 
 	std::int32_t valueWrite;
 	std::int32_t valueRead;
@@ -190,6 +190,35 @@ TEST_F(FlexRIONoModule, GetSetAuxAnalog){
 			valueRead = auxAnalog->getAuxAI(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value written in auxAO" << n
 					<< " was not read in auxAI" << n;
+		}
+	}
+}
+
+TEST_F(FlexRIONoModule, GetSetAuxAnalog64){
+	const std::string bitfilePath = getBitfilePath();
+	const size_t numAuxAnalog = 6;
+	const size_t numTests = 100;
+	IntUniformDistribution<std::int64_t> rnd;
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto auxAnalog = irio.auxAnalog();
+
+	irio.startFPGA();
+	ASSERT_GE(auxAnalog->getNumAuxAI64(), numAuxAnalog) << "Insufficient number of auxAI64";
+	ASSERT_GE(auxAnalog->getNumAuxAO64(), numAuxAnalog) << "Insufficient number of auxAO64";
+
+	std::int64_t valueWrite;
+	std::int64_t valueRead;
+	for(size_t n = 0; n < numAuxAnalog; ++n){
+		for(size_t t = 0; t < numTests; ++t){
+			valueWrite = rnd.getRandom();
+			auxAnalog->setAuxAO64(n, valueWrite);
+			valueRead = auxAnalog->getAuxAO64(n);
+			EXPECT_EQ(valueWrite, valueRead) << "The value was not written in auxAO64" << n;
+
+			valueRead = auxAnalog->getAuxAI64(n);
+			EXPECT_EQ(valueWrite, valueRead) << "The value written in aux64AO" << n
+					<< " was not read in aux64AI" << n;
 		}
 	}
 }
