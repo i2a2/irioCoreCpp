@@ -70,7 +70,7 @@ void IrioV2::findCommonResources(){
 void IrioV2::startFPGA(std::uint32_t timeoutMs) {
 	const unsigned int SLEEP_INTERVAL_US = 100000;
 
-	std::uint32_t maxTries = std::ceil(timeoutMs/SLEEP_INTERVAL_US);
+	std::uint32_t maxTries = std::ceil((timeoutMs*1000)/SLEEP_INTERVAL_US);
 	auto status = NiFpga_Run(m_session, 0);
 	utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
 
