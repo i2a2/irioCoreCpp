@@ -8,8 +8,7 @@ namespace errors{
 
 
 class IrioV2Error: public std::runtime_error{
-public:
-	IrioV2Error(const std::string& err): std::runtime_error(err){}
+	using std::runtime_error::runtime_error;
 };
 
 /**
@@ -18,10 +17,9 @@ public:
  * @ingroup Errors
  */
 class TerminalNotImplementedError: public IrioV2Error{
+	using IrioV2Error::IrioV2Error;
 public:
 	TerminalNotImplementedError(): IrioV2Error("Terminal not implemented in the profile"){}
-
-	TerminalNotImplementedError(const std::string& err): IrioV2Error(err){}
 };
 
 /**
@@ -29,10 +27,9 @@ public:
  * @ingroup Errors
  */
 class ResourceNotFoundError: public IrioV2Error{
+	using IrioV2Error::IrioV2Error;
 public:
 	ResourceNotFoundError(): IrioV2Error("Resource not found"){}
-
-	ResourceNotFoundError(const std::string& err): IrioV2Error(err){}
 
 	ResourceNotFoundError(const std::uint32_t resourceNumber, const std::string &resourceName) :
 					IrioV2Error(
@@ -60,7 +57,7 @@ public:
 class UnsupportedPlatformError: public IrioV2Error{
 public:
 	UnsupportedPlatformError(): IrioV2Error("Platform specified is not supported"){}
-	UnsupportedPlatformError(const std::uint8_t platform):
+	explicit UnsupportedPlatformError(const std::uint8_t platform):
 		IrioV2Error(std::to_string(platform) + "is not a supported platform value") {}
 };
 
@@ -95,8 +92,7 @@ public:
  * @ingroup Errors
  */
 class ModulesNotOKError: public IrioV2Error{
-public:
-	ModulesNotOKError(const std::string &err): IrioV2Error(err){}
+	using IrioV2Error::IrioV2Error;
 };
 
 /**
@@ -105,8 +101,7 @@ public:
  * @ingroup Errors
  */
 class RIODiscoveryError: public IrioV2Error{
-public:
-	RIODiscoveryError(const std::string &err): IrioV2Error(err){}
+	using IrioV2Error::IrioV2Error;
 };
 
 /**
@@ -117,7 +112,7 @@ public:
 class RIODeviceNotFoundError: public IrioV2Error{
 public:
 	RIODeviceNotFoundError(): IrioV2Error(""){}
-	RIODeviceNotFoundError(const std::string &serialNumber):
+	explicit RIODeviceNotFoundError(const std::string &serialNumber):
 		IrioV2Error("No RIO device with serial number " + serialNumber){}
 };
 
@@ -127,8 +122,7 @@ public:
  * @ingroup Errors
  */
 class NiFpgaError: public IrioV2Error{
-public:
-	NiFpgaError(const std::string &errMsg): IrioV2Error(errMsg){}
+	using IrioV2Error::IrioV2Error;
 };
 
 /**
@@ -149,7 +143,7 @@ public:
  */
 class BFPParseBitfileError: public IrioV2Error{
 public:
-	BFPParseBitfileError(const std::string &bitfile): IrioV2Error("Error parsing " + bitfile){}
+	explicit BFPParseBitfileError(const std::string &bitfile): IrioV2Error("Error parsing " + bitfile){}
 
 	BFPParseBitfileError(const std::string &bitfile,
 						 const std::string &errDescription):
