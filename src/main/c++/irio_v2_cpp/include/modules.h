@@ -13,7 +13,7 @@ namespace iriov2{
  *
  * @ingroup Modules
  */
-enum class ModulesType{
+enum class ModulesType: std::uint32_t{
 	NoModule = 0,                /**< No module connected or the board */
     FlexRIO_NI5761=0x109374C6,/**< FlexRIO_NI5761 */
     FlexRIO_NI5781=0x1093748A,/**< FlexRIO_NI5781 */
@@ -27,7 +27,7 @@ enum class ModulesType{
  *
  * @ingroup Modules
  */
-enum class CouplingMode{
+enum class CouplingMode: std::uint8_t{
     None = 0,/**< None */
     AC,      /**< AC */
     DC       /**< DC */
