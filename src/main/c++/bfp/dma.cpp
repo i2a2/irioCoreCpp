@@ -9,7 +9,7 @@ DMA::DMA(	const std::string &_name,
 			const std::uint32_t &_address,
 			const size_t &_numElem) :
 		Resource(_name, _fpgaType, _elemType, _address, _numElem) {
-	m_isTargetToHost = fpgaType == FpgaType_DMATtH;
+	m_isTargetToHost = fpgaType == FpgaTypes::FpgaType_DMATtH;
 }
 
 std::uint32_t DMA::getDMANumber() const{
@@ -41,7 +41,7 @@ DMA DMA::processDMA(const pugi::xml_node &dmaNode) {
 	elemType = getElemTypeFromStr(typeName);
 
 	isTtH = dmaNode.child("Direction").text().as_string() == std::string("TargetToHost");
-	fpgaType = isTtH ? FpgaType_DMATtH : FpgaType_DMAHtT;
+	fpgaType = isTtH ? FpgaTypes::FpgaType_DMATtH : FpgaTypes::FpgaType_DMAHtT;
 
 	numElem = dmaNode.child("NumberOfElements").text().as_uint();
 

@@ -10,7 +10,7 @@ namespace bfp{
  *
  * @ingroup BFP
  */
-enum ElemTypes{
+enum class ElemTypes{
 	Bool,      /**< Bool */
 	I8,        /**< I8 */
 	U8,        /**< U8 */
@@ -28,7 +28,7 @@ enum ElemTypes{
  * If it does not match, return ElemTypes::Unsupported
  *
  * @param typeName	String with the type
- * @return ElemTypes
+ * @return The equivalent ElemTypes
  *
  * @ingroup BFP
  */

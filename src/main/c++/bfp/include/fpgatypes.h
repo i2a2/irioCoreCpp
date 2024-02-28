@@ -8,7 +8,7 @@ namespace bfp{
  *
  * @ingroup BFP
  */
-enum FpgaTypes {
+enum class FpgaTypes {
 	FpgaType_Control,       /**< FpgaType_Control */
 	FpgaType_Indicator,     /**< FpgaType_Indicator */
 	FpgaType_ArrayControl,  /**< FpgaType_ArrayControl */
