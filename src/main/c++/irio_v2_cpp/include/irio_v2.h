@@ -312,7 +312,7 @@ private:
 	 * It reads some of the resources with their initials values,
 	 * so it must be called after a NiFpga_session has been obtained.
 	 */
-	void findCommonResources();
+	void searchCommonResources();
 
 	std::unique_ptr<Platform> m_platform;
 	std::unique_ptr<ProfileBase> m_profile;
