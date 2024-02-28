@@ -18,13 +18,14 @@ IrioV2::IrioV2(
 		const std::string &bitfilePath,
 		const std::string &RIOSerialNumber,
 		const std::string &FPGAVIversion) :
-		m_bfp(bitfilePath, false), m_session(0) {
+		m_bfp(bitfilePath, false) {
 	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
 
 	if (m_bfp.getBitfileVersion() != FPGAVIversion) {
 		throw errors::FPGAVIVersionMismatchError(m_bfp.getBitfileVersion(), FPGAVIversion);
 	}
 
+	m_session = 0;
 	initDriver();
 	openSession();
 	try{
@@ -45,7 +46,7 @@ IrioV2::~IrioV2() {
 	finalizeDriver();
 }
 
-void IrioV2::startFPGA(std::uint32_t timeoutMs) {
+void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	const unsigned int SLEEP_INTERVAL_US = 100000;
 
 	std::uint32_t maxTries = std::ceil((timeoutMs*1000)/SLEEP_INTERVAL_US);

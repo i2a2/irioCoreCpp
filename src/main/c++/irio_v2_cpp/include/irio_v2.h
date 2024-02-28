@@ -60,7 +60,7 @@ public:
 	 *
 	 * @param timeoutMs Max time to wait for InitDone to be ready
 	 */
-	void startFPGA(std::uint32_t timeoutMs=5000);
+	void startFPGA(std::uint32_t timeoutMs=5000) const;
 
 	/**
 	 * Returns the parsed \ref TERMINAL_FPGAVIVERSION read from the FPGA
