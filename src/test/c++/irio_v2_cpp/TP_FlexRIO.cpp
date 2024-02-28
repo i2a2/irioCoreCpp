@@ -3,6 +3,7 @@
 #include "errorsIrio.h"
 #include "irioFixture.h"
 #include "irio_v2.h"
+#include "modules.h"
 #include "irioUtils.h"
 
 using namespace iriov2;
@@ -322,6 +323,16 @@ TEST_F(FlexRIOCPUDAQ, Resources){
 /// FlexRIOMod5761 Tests
 /////////////////////////////////////////////////////////////
 
+TEST_F(FlexRIOMod5761, CheckModule){
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	const auto analog = irio.analog();
+
+	const auto module = analog->getModuleConnected();
+	ASSERT_EQ(module, ModulesType::FlexRIO_NI5761) << "The connected module is not a NI5761";
+}
+
 TEST_F(FlexRIOMod5761, AOEnable){
 	const std::string bitfilePath = getBitfilePath();
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
@@ -410,4 +421,43 @@ TEST_F(FlexRIOMod5761, DMASamplingRate){
 	const auto readDecimation = irio.daq()->getSamplingRate(0);
 	EXPECT_EQ(samplingRate, fref/readDecimation) << "Unable to configure sampling rate";
 }
+
+TEST_F(FlexRIOMod5761, AICoupling){
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	const auto analog = irio.analog();
+
+	ASSERT_EQ(analog->getAICouplingMode(), CouplingMode::AC);
+	EXPECT_DOUBLE_EQ(analog->getCVADC(), 1.035/8191) << "Incorrect CVADC in AC";
+	EXPECT_DOUBLE_EQ(analog->getCVDAC(), 8191/1.035) << "Incorrect CVDAC in AC";
+	EXPECT_DOUBLE_EQ(analog->getMaxValAO(), 1.0) << "Incorrect maxAO in AC";
+	EXPECT_DOUBLE_EQ(analog->getMinValAO(), -1.0) << "Incorrect minAO in AC";
+
+	analog->setAICouplingMode(CouplingMode::DC);
+	ASSERT_EQ(analog->getAICouplingMode(), CouplingMode::DC);
+	EXPECT_DOUBLE_EQ(analog->getCVADC(), 0.635/8191) << "Incorrect CVADC in DC";
+	EXPECT_DOUBLE_EQ(analog->getCVDAC(), 8191/0.635) << "Incorrect CVDAC in DC";
+	EXPECT_DOUBLE_EQ(analog->getMaxValAO(), 0.635) << "Incorrect maxAO in DC";
+	EXPECT_DOUBLE_EQ(analog->getMinValAO(), -0.635) << "Incorrect minAO in DC";
+
+	EXPECT_THROW(analog->setAICouplingMode(CouplingMode::None), // @suppress("Goto statement used")
+			errors::UnsupportedAICouplingForModule);
+}
+
+TEST_F(FlexRIOMod5761, DAQStartStop){
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	EXPECT_FALSE(irio.getDAQStartStop());
+
+	irio.setDAQStart();
+	EXPECT_TRUE(irio.getDAQStartStop());
+
+	irio.setDAQStop();
+	EXPECT_FALSE(irio.getDAQStartStop());
+}
+
 
