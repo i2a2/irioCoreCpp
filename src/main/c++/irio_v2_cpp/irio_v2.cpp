@@ -50,7 +50,7 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	const unsigned int SLEEP_INTERVAL_NS = 1e8;
 	const timespec ts{0, SLEEP_INTERVAL_NS};
 
-	std::uint32_t maxTries = static_cast<std::uint32_t>(std::ceil(
+	const auto maxTries = static_cast<std::uint32_t>(std::ceil(
 			(timeoutMs * 1e6) / SLEEP_INTERVAL_NS));
 	auto status = NiFpga_Run(m_session, 0);
 	utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
@@ -185,19 +185,19 @@ std::shared_ptr<const TerminalsDMADAQ> IrioV2::daq() const {
  * PRIVATE METHODS
  *********************************************/
 
-void IrioV2::finalizeDriver() noexcept {
+void IrioV2::finalizeDriver() const noexcept{
 #ifndef CCS_VERSION
 	NiFpga_Finalize();
 #endif
 }
 
-void IrioV2::closeSession() noexcept{
+void IrioV2::closeSession() noexcept {
 	if (m_session != 0)
 		NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
 	m_session = 0;
 }
 
-void IrioV2::initDriver() {
+void IrioV2::initDriver() const {
 #ifndef CCS_VERSION
 	const auto status = NiFpga_Initialize();
 	utils::throwIfNotSuccessNiFpga(status, "Error initializing NiFpga library");
@@ -215,8 +215,8 @@ void IrioV2::searchCommonResources(){
 
 	//Read FPGAVIversion
 	auto fpgaviversion_addr = m_bfp.getRegister(TERMINAL_FPGAVIVERSION).address;
-	std::uint8_t fpgaviversion[2];
-	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr, fpgaviversion, 2);
+	std::array<std::uint8_t, 2> fpgaviversion;
+	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr, fpgaviversion.data(), 2);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
 	m_fpgaviversion = std::make_pair(fpgaviversion[0], fpgaviversion[1]);
 

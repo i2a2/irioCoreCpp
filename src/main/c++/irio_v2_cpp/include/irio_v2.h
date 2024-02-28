@@ -263,7 +263,7 @@ private:
 	/**
 	 * Initializes the low level library. If system is CCS, does nothing.
 	 */
-	void initDriver();
+	void initDriver() const;
 
 	/**
 	 * Closes the session if it has been opened.
@@ -273,7 +273,7 @@ private:
 	/**
 	 * Finalizes the low level library. If system is CCS, does nothing.
 	 */
-	void finalizeDriver() noexcept;
+	void finalizeDriver() const noexcept;
 
 	/**
 	 * Opens a session to the FPGA, downloading the bitfile if necessary.
