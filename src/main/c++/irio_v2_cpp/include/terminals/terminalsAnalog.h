@@ -108,7 +108,9 @@ public:
 
 	double getMinValAO() const;
 
-	void setAICouplingMode(const CouplingMode &mode);
+	CouplingMode getAICouplingMode() const;
+
+	void setAICouplingMode(const CouplingMode &mode) const;
 
 private:
 

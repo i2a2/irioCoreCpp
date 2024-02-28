@@ -106,7 +106,11 @@ double TerminalsAnalog::getMinValAO() const {
 	return m_module->getMinValAO();
 }
 
-void TerminalsAnalog::setAICouplingMode(const CouplingMode &mode) {
+CouplingMode TerminalsAnalog::getAICouplingMode() const {
+	return m_module->getCouplingMode();
+}
+
+void TerminalsAnalog::setAICouplingMode(const CouplingMode &mode) const {
 	m_module->setCouplingMode(mode);
 }
 
@@ -124,7 +128,6 @@ void TerminalsAnalog::searchModule(const Platform& platform) {
 		break;
 	default:
 		m_module.reset(new Module());
-		break;
 	}
 }
 
@@ -132,22 +135,21 @@ void TerminalsAnalog::searchFlexRIOModule() {
 	std::uint32_t module;
 	NiFlexRio_GetAttribute(m_session, NIFLEXRIO_Attr_InsertedFamID,
 			NIFLEXRIO_ValueType_U32, &module);
-	switch(module){
-	case FlexRIO_NI5761:
+	switch(static_cast<ModulesType>(module)){
+	case ModulesType::FlexRIO_NI5761:
 		m_module.reset(new ModuleNI5761());
 		break;
-	case FlexRIO_NI5781:
+	case ModulesType::FlexRIO_NI5781:
 		m_module.reset(new ModuleNI5781());
 		break;
-	case FlexRIO_NI6581:
+	case ModulesType::FlexRIO_NI6581:
 		m_module.reset(new ModuleNI6581());
 		break;
-	case FlexRIO_NI5734:
+	case ModulesType::FlexRIO_NI5734:
 		m_module.reset(new ModuleNI5734());
 		break;
 	default:
 		m_module.reset(new Module());
-		break;
 	}
 }
 
