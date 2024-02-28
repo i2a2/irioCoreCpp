@@ -66,7 +66,7 @@ public:
 	 *
 	 * @return Pointer to the analog terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsAnalog> analog() const;
+	virtual std::shared_ptr<const TerminalsAnalog> analog() const;
 
 	/**
 	 * Access to the digital group terminals.
@@ -75,7 +75,7 @@ public:
 	 *
 	 * @return Pointer to the digital terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsDigital> digital() const;
+	virtual std::shared_ptr<const TerminalsDigital> digital() const;
 
 	/**
 	 * Access to the aux analog group terminals.
@@ -84,7 +84,7 @@ public:
 	 *
 	 * @return Pointer to the aux analog terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
+	virtual std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
 
 	/**
 	 * Access to the aux digital group terminals.
@@ -93,7 +93,7 @@ public:
 	 *
 	 * @return Pointer to the aux digital terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
+	virtual std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
 
 	/**
 	 * Access to the cRIO group terminals.
@@ -102,7 +102,7 @@ public:
 	 *
 	 * @return Pointer to the cRIO terminals
 	 */
-	virtual const std::shared_ptr<const TerminalscRIO> cRIO() const;
+	virtual std::shared_ptr<const TerminalscRIO> cRIO() const;
 
 	/**
 	 * Access to the FlexRIO group terminals.
@@ -110,7 +110,7 @@ public:
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 * @return Pointer to the FlexRIO terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
+	virtual std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
 
 	/**
 	 * Access to the Signal Generation group terminals.
@@ -119,7 +119,7 @@ public:
 	 *
 	 * @return Pointer to the Signal Generation terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
+	virtual std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
 
 	/**
 	 * Access to the DMA DAQ group terminals. Depending on the profile configured, this can be terminals
@@ -129,7 +129,7 @@ public:
 	 *
 	 * @return Pointer to the DMA DAQ terminals
 	 */
-	virtual const std::shared_ptr<const TerminalsDMADAQ> daq() const;
+	virtual std::shared_ptr<const TerminalsDMADAQ> daq() const;
 
 	/**
 	 * Profile type
