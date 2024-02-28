@@ -31,7 +31,7 @@ public:
 			const NiFpga_Session &session,
 			const ProfileBase::PROFILE_ID &id);
 
-	const std::shared_ptr<const TerminalsFlexRIO> flexRIO() const override;
+	std::shared_ptr<const TerminalsFlexRIO> flexRIO() const override;
 
 private:
 	std::shared_ptr<const TerminalsFlexRIO> m_flexRIO;

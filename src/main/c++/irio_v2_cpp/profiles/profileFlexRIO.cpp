@@ -10,7 +10,7 @@ ProfileFlexRIO::ProfileFlexRIO(
 			m_flexRIO(new TerminalsFlexRIO(parsedBitfile, session)){
 }
 
-const std::shared_ptr<const TerminalsFlexRIO> ProfileFlexRIO::flexRIO() const {
+std::shared_ptr<const TerminalsFlexRIO> ProfileFlexRIO::flexRIO() const {
 	return m_flexRIO;
 }
 

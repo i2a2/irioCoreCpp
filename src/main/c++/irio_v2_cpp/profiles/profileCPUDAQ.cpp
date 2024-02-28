@@ -20,27 +20,27 @@ ProfileCPUDAQ::ProfileCPUDAQ(
 	m_daq.reset(new TerminalsDMADAQCPU(parsedBitfile, session, platform));
 }
 
-const std::shared_ptr<const TerminalsAnalog> ProfileCPUDAQ::analog() const {
+std::shared_ptr<const TerminalsAnalog> ProfileCPUDAQ::analog() const {
 	return m_analog;
 }
 
-const std::shared_ptr<const TerminalsDigital> ProfileCPUDAQ::digital() const {
+std::shared_ptr<const TerminalsDigital> ProfileCPUDAQ::digital() const {
 	return m_digital;
 }
 
-const std::shared_ptr<const TerminalsAuxAnalog> ProfileCPUDAQ::auxAnalog() const {
+std::shared_ptr<const TerminalsAuxAnalog> ProfileCPUDAQ::auxAnalog() const {
 	return m_auxAnalog;
 }
 
-const std::shared_ptr<const TerminalsAuxDigital> ProfileCPUDAQ::auxDigital() const {
+std::shared_ptr<const TerminalsAuxDigital> ProfileCPUDAQ::auxDigital() const {
 	return m_auxDigital;
 }
 
-const std::shared_ptr<const TerminalsSignalGeneration> ProfileCPUDAQ::signalGeneration() const {
+std::shared_ptr<const TerminalsSignalGeneration> ProfileCPUDAQ::signalGeneration() const {
 	return m_signalGeneration;
 }
 
-const std::shared_ptr<const TerminalsDMADAQ> ProfileCPUDAQ::daq() const {
+std::shared_ptr<const TerminalsDMADAQ> ProfileCPUDAQ::daq() const {
 	return m_daq;
 }
 
