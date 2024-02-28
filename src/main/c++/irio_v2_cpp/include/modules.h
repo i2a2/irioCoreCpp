@@ -13,7 +13,7 @@ namespace iriov2{
  *
  * @ingroup Modules
  */
-enum ModulesType{
+enum class ModulesType{
 	NoModule = 0,                /**< No module connected or the board */
     FlexRIO_NI5761=0x109374C6,/**< FlexRIO_NI5761 */
     FlexRIO_NI5781=0x1093748A,/**< FlexRIO_NI5781 */
@@ -27,7 +27,7 @@ enum ModulesType{
  *
  * @ingroup Modules
  */
-enum CouplingMode{
+enum class CouplingMode{
     None = 0,/**< None */
     AC,      /**< AC */
     DC       /**< DC */
@@ -214,7 +214,7 @@ public:
     ModuleNI5781();
 
 private:
-    const ConfigParams m_configDC{2.0/16384, 16384/2.0, 0.5, -0.5};
+    const ConfigParams m_configDC{2.0/16384, 65536.0, 0.5, -0.5};
 };
 
 /**
