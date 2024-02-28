@@ -47,15 +47,17 @@ IrioV2::~IrioV2() {
 }
 
 void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
-	const unsigned int SLEEP_INTERVAL_US = 100000;
+	const unsigned int SLEEP_INTERVAL_NS = 1e8;
+	const timespec ts{0, SLEEP_INTERVAL_NS};
 
-	std::uint32_t maxTries = std::ceil((timeoutMs*1000)/SLEEP_INTERVAL_US);
+	std::uint32_t maxTries = static_cast<std::uint32_t>(std::ceil(
+			(timeoutMs * 1e6) / SLEEP_INTERVAL_NS));
 	auto status = NiFpga_Run(m_session, 0);
 	utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
 
 	unsigned int tries = 0;
 	while (!getInitDone() && tries < maxTries) {
-		usleep(SLEEP_INTERVAL_US);
+		nanosleep(&ts, nullptr);
 		tries++;
 	}
 
@@ -147,35 +149,35 @@ void IrioV2::setDebugMode(const bool &debug) const {
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
-const std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
+std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
 	return m_profile->analog();
 }
 
-const std::shared_ptr<const TerminalsDigital> IrioV2::digital() const {
+std::shared_ptr<const TerminalsDigital> IrioV2::digital() const {
 	return m_profile->digital();
 }
 
-const std::shared_ptr<const TerminalsAuxAnalog> IrioV2::auxAnalog() const {
+std::shared_ptr<const TerminalsAuxAnalog> IrioV2::auxAnalog() const {
 	return m_profile->auxAnalog();
 }
 
-const std::shared_ptr<const TerminalsAuxDigital> IrioV2::auxDigital() const {
+std::shared_ptr<const TerminalsAuxDigital> IrioV2::auxDigital() const {
 	return m_profile->auxDigital();
 }
 
-const std::shared_ptr<const TerminalscRIO> IrioV2::cRIO() const {
+std::shared_ptr<const TerminalscRIO> IrioV2::cRIO() const {
 	return m_profile->cRIO();
 }
 
-const std::shared_ptr<const TerminalsFlexRIO> IrioV2::flexRIO() const {
+std::shared_ptr<const TerminalsFlexRIO> IrioV2::flexRIO() const {
 	return m_profile->flexRIO();
 }
 
-const std::shared_ptr<const TerminalsSignalGeneration> IrioV2::signalGeneration() const {
+std::shared_ptr<const TerminalsSignalGeneration> IrioV2::signalGeneration() const {
 	return m_profile->signalGeneration();
 }
 
-const std::shared_ptr<const TerminalsDMADAQ> IrioV2::daq() const {
+std::shared_ptr<const TerminalsDMADAQ> IrioV2::daq() const {
 	return m_profile->daq();
 }
 

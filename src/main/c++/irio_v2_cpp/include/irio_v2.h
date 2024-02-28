@@ -178,7 +178,7 @@ public:
 	 *
 	 * @return Pointer to the analog terminals
 	 */
-	const std::shared_ptr<const TerminalsAnalog> analog() const;
+	std::shared_ptr<const TerminalsAnalog> analog() const;
 
 	/**
 	 * Returns a pointer to the digital terminals.
@@ -189,7 +189,7 @@ public:
 	 *
 	 * @return Pointer to the digital terminals
 	 */
-	const std::shared_ptr<const TerminalsDigital> digital() const;
+	std::shared_ptr<const TerminalsDigital> digital() const;
 
 	/**
 	 * Returns a pointer to the aux analog terminals.
@@ -200,7 +200,7 @@ public:
 	 *
 	 * @return Pointer to the aux analog terminals
 	 */
-	const std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
+	std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
 
 	/**
 	 * Returns a pointer to the aux digital terminals.
@@ -211,7 +211,7 @@ public:
 	 *
 	 * @return Pointer to the aux digital terminals
 	 */
-	const std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
+	std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
 
 	/**
 	 * Returns a pointer to the cRIO specific terminals.
@@ -222,7 +222,7 @@ public:
 	 *
 	 * @return Pointer to the cRIO specific terminals
 	 */
-	const std::shared_ptr<const TerminalscRIO> cRIO() const;
+	std::shared_ptr<const TerminalscRIO> cRIO() const;
 
 	/**
 	 * Returns a pointer to the FlexRIO specific terminals.
@@ -233,7 +233,7 @@ public:
 	 *
 	 * @return Pointer to the FlexRIO specific terminals
 	 */
-	const std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
+	std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
 
 	/**
 	 * Returns a pointer to the Signal Generation terminals.
@@ -244,7 +244,7 @@ public:
 	 *
 	 * @return Pointer to the Signal Generation terminals
 	 */
-	const std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
+	std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
 
 	/**
 	 * Returns a pointer to the DAQ terminals.
@@ -257,7 +257,7 @@ public:
 	 *
 	 * @return Pointer to the DAQ terminals
 	 */
-	const std::shared_ptr<const TerminalsDMADAQ> daq() const;
+	std::shared_ptr<const TerminalsDMADAQ> daq() const;
 
 private:
 	/**
