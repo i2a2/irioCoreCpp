@@ -15,7 +15,7 @@ namespace iriov2 {
  * @ingroup ProfilesFlexRIO
  * @ingroup FlexRIO
  */
-class ProfileCPUDAQFlexRIO: public ProfileCPUDAQ, ProfileFlexRIO {
+class ProfileCPUDAQFlexRIO: public ProfileCPUDAQ, public ProfileFlexRIO {
 public:
 	/**
 	 * Constructor.
