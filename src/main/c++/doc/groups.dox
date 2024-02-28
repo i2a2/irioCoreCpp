@@ -55,6 +55,19 @@
 
 
 
+@defgroup Modules			Modules types
+@ingroup IrioV2
+
+@defgroup ModulesFlexRIO	Modules specific to FlexRIO
+@ingroup Modules
+@ingroup FlexRIO
+
+@defgroup ModulesCRIO		Modules specific to cRIO
+@ingroup Modules
+@ingroup cRIO
+
+
+
 @defgroup Errors			Error Management
 @ingroup IrioV2
 

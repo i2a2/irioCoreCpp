@@ -1,6 +1,8 @@
 #pragma once
 
 #include <terminals/terminalsBase.h>
+#include <modules.h>
+#include <memory>
 
 namespace iriov2 {
 /**
@@ -96,12 +98,31 @@ public:
 	 */
 	void setAOEnable(const std::uint32_t n, const bool value) const;
 
+	ModulesType getModuleConnected() const;
+
+	double getCVADC() const;
+
+	double getCVDAC() const;
+
+	double getMaxValAO() const;
+
+	double getMinValAO() const;
+
+	void setAICouplingMode(const CouplingMode &mode);
+
 private:
+
+	void searchModule(const Platform &platform);
+
+	void searchFlexRIOModule();
+
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAI;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAO;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAOEnable;
 
 	size_t numAI = 0;
 	size_t numAO = 0;
+
+	std::unique_ptr<Module> m_module;
 };
 }

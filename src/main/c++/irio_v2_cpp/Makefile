@@ -2,7 +2,7 @@ LIBNAME=irio_v2_cpp
 
 TARGET=../../../../target
 
-LIBRARIES=bfp
+LIBRARIES=bfp niflexrio
 
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include

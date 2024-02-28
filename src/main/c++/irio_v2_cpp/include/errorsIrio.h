@@ -156,5 +156,16 @@ public:
 		IrioV2Error("Error parsing " + bitfile + ". Error: " + errDescription){}
 };
 
+/**
+ * Exception when trying to set an invalid AI coupling mode for
+ * a module
+ *
+ * @ingroup Errors
+ */
+class UnsupportedAICouplingForModule: public IrioV2Error{
+public:
+	UnsupportedAICouplingForModule(): IrioV2Error("Unsupported AI coupling mode for module"){};
+};
+
 }
 }

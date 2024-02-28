@@ -2,6 +2,7 @@
 #include <terminals/names/namesTerminalsAnalog.h>
 #include <utils.h>
 #include <errorsIrio.h>
+#include <niflexrio.h>
 
 namespace iriov2 {
 
@@ -25,6 +26,8 @@ TerminalsAnalog::TerminalsAnalog(
 
 	numAI = m_mapAI.size();
 	numAO = m_mapAO.size();
+
+	searchModule(platform);
 }
 
 std::int32_t getAnalog(
@@ -81,6 +84,71 @@ void TerminalsAnalog::setAO(const std::uint32_t n, const std::int32_t value) con
 
 void TerminalsAnalog::setAOEnable(std::uint32_t n, bool value) const {
 	setAnalog(m_session, n, static_cast<std::uint32_t>(value), m_mapAOEnable, TERMINAL_AOENABLE);
+}
+
+ModulesType TerminalsAnalog::getModuleConnected() const {
+	return m_module->moduleID;
+}
+
+double TerminalsAnalog::getCVADC() const {
+	return m_module->getCVADC();
+}
+
+double TerminalsAnalog::getCVDAC() const {
+	return m_module->getCVDAC();
+}
+
+double TerminalsAnalog::getMaxValAO() const {
+	return m_module->getMaxValAO();
+}
+
+double TerminalsAnalog::getMinValAO() const {
+	return m_module->getMinValAO();
+}
+
+void TerminalsAnalog::setAICouplingMode(const CouplingMode &mode) {
+	m_module->setCouplingMode(mode);
+}
+
+void TerminalsAnalog::searchModule(const Platform& platform) {
+	switch(platform.platformID){
+	case FLEXRIO_PLATFORM_VALUE:
+		searchFlexRIOModule();
+		break;
+	case CRIO_PLATFORM_VALUE:
+		//TODO: How to support more modules in cRIO?
+		m_module.reset(new ModuleNI92xx());
+		break;
+	case RSERIES_PLATFORM_VALUE:
+		//TODO: Constants depend on the board model; make list
+		break;
+	default:
+		m_module.reset(new Module());
+		break;
+	}
+}
+
+void TerminalsAnalog::searchFlexRIOModule() {
+	std::uint32_t module;
+	NiFlexRio_GetAttribute(m_session, NIFLEXRIO_Attr_InsertedFamID,
+			NIFLEXRIO_ValueType_U32, &module);
+	switch(module){
+	case FlexRIO_NI5761:
+		m_module.reset(new ModuleNI5761());
+		break;
+	case FlexRIO_NI5781:
+		m_module.reset(new ModuleNI5781());
+		break;
+	case FlexRIO_NI6581:
+		m_module.reset(new ModuleNI6581());
+		break;
+	case FlexRIO_NI5734:
+		m_module.reset(new ModuleNI5734());
+		break;
+	default:
+		m_module.reset(new Module());
+		break;
+	}
 }
 
 }
