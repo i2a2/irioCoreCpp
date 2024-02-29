@@ -218,15 +218,15 @@ std::vector<std::uint8_t> TerminalsDMACommonImpl::getAllSampleSizesImpl() const 
 size_t TerminalsDMACommonImpl::readDataNonBlockingImpl(
 		const std::uint32_t n,
 		size_t elementsToRead,
-		std::uint64_t *data) {
+		std::uint64_t *data) const {
 	return readDataImpl(n, elementsToRead, data, false);
 }
 
-size_t TerminalsDMACommonImpl::readDataBlockingImpl(
+size_t TerminalsDMACommonImpl::readDataBlockingImpl (
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data,
-		std::uint32_t timeout) {
+		std::uint32_t timeout) const {
 	return readDataImpl(n, elementsToRead, data, true, timeout);
 }
 

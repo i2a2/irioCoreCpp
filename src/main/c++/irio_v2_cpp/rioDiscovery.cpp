@@ -23,7 +23,7 @@ std::vector<std::string> getListDevices(){
 	std::vector<std::string> devices;
 
 	try{
-		struct dirent* entry = readdir(dir);
+		const struct dirent* entry = readdir(dir);
 
 		while(entry){
 			std::string name = entry->d_name;
@@ -170,7 +170,7 @@ std::string RIODiscovery::searchRIODevice(const std::string &serialNumber) {
 	try {
 		std::string deviceName = getRIODeviceAux(serialNumber);
 		return deviceName;
-	} catch (errors::RIODeviceNotFoundError &e) {
+	} catch (errors::RIODeviceNotFoundError&) {
 		throw errors::RIODeviceNotFoundError(serialNumber);
 	}
 }

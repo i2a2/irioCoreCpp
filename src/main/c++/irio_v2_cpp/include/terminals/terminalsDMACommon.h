@@ -20,7 +20,7 @@ public:
 	 *
 	 * @param impl Shared pointer to the class that implements the functionality
 	 */
-	TerminalsDMACommon(
+	explicit TerminalsDMACommon(
 			std::shared_ptr<TerminalsDMACommonImpl> impl);
 
 	/**
@@ -89,11 +89,6 @@ public:
 	 * @return Vector of sample sizes (in bytes), the position corresponds to the number of DMA
 	 */
 	std::vector<std::uint8_t> getAllSampleSizes() const;
-
-	/*TODO: Ask, should we allow use to configure the fifo? or just
-	give a lot of memory to each? as the original lib did*/
-//	void configureDMA(const std::uint32_t n, const size_t depth) const;
-//	void configureAllDMAs(const size_t depth) const;
 
 	/**
 	 * Configure a specified DMA, start it and clean its contents.

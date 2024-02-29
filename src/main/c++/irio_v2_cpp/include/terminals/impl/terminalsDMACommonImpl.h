@@ -88,13 +88,13 @@ public:
 
 	void enaDisDMAImpl(const std::uint32_t n, bool enaDis) const;
 
-	size_t readDataNonBlockingImpl(const std::uint32_t n, size_t elementsToRead, std::uint64_t *data);
+	size_t readDataNonBlockingImpl(const std::uint32_t n, size_t elementsToRead, std::uint64_t *data) const;
 
 	size_t readDataBlockingImpl(
 			const std::uint32_t n,
 			size_t elementsToRead,
 			std::uint64_t *data,
-			std::uint32_t timeout = 0);
+			std::uint32_t timeout = 0) const;
 
 	size_t readDataImpl(
 			const std::uint32_t n,
