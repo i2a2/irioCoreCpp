@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/terminalsSignalGenerationImpl.h"
+#include "terminals/impl/terminalsSignalGenerationImpl.h"
 
 namespace iriov2 {
 /**

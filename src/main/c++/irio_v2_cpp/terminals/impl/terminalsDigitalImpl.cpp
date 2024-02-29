@@ -1,4 +1,4 @@
-#include <terminals/terminalsDigital.h>
+#include <terminals/impl/terminalsDigitalImpl.h>
 #include <terminals/names/namesTerminalsDigital.h>
 #include <utils.h>
 

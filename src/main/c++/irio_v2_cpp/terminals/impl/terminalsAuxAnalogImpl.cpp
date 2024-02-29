@@ -1,4 +1,4 @@
-#include <terminals/terminalsAuxAnalogImpl.h>
+#include <terminals/impl/terminalsAuxAnalogImpl.h>
 #include <terminals/names/namesTerminalsAuxAnalog.h>
 #include <utils.h>
 

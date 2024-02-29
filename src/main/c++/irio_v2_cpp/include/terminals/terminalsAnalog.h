@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsAnalogImpl.h>
+#include <terminals/impl/terminalsAnalogImpl.h>
 #include <modules.h>
 #include <memory>
 

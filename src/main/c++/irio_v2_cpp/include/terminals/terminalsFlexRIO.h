@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/terminalsFlexRIOImpl.h"
+#include "terminals/impl/terminalsFlexRIOImpl.h"
 
 namespace iriov2 {
 /**

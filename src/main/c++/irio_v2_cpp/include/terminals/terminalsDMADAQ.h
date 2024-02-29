@@ -1,7 +1,7 @@
 #pragma once
 
 #include <terminals/terminalsDMACommon.h>
-#include <terminals/terminalsDMADAQImpl.h>
+#include <terminals/impl/terminalsDMADAQImpl.h>
 
 namespace iriov2{
 

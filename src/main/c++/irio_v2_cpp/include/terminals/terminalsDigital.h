@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsDigitalImpl.h>
+#include <terminals/impl/terminalsDigitalImpl.h>
 
 namespace iriov2 {
 /**

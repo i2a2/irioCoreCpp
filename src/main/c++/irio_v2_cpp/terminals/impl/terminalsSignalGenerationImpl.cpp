@@ -1,4 +1,4 @@
-#include "terminals/terminalsSignalGenerationImpl.h"
+#include "terminals/impl/terminalsSignalGenerationImpl.h"
 #include "terminals/names/namesTerminalsSignalGeneration.h"
 #include "utils.h"
 #include "errorsIrio.h"

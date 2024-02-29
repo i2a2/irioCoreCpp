@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsDMACommonImpl.h>
+#include <terminals/impl/terminalsDMACommonImpl.h>
 #include <frameTypes.h>
 
 namespace iriov2{

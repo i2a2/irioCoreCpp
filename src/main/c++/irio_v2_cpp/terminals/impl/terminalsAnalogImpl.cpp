@@ -1,4 +1,4 @@
-#include <terminals/terminalsAnalogImpl.h>
+#include <terminals/impl/terminalsAnalogImpl.h>
 #include <terminals/names/namesTerminalsAnalog.h>
 #include <utils.h>
 #include <errorsIrio.h>

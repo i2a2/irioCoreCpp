@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/terminalscRIOImpl.h"
+#include "terminals/impl/terminalscRIOImpl.h"
 
 namespace iriov2 {
 /**
