@@ -8,7 +8,7 @@ TerminalsAuxAnalogImpl::TerminalsAuxAnalogImpl(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const Platform &platform) :
-		TerminalsBase(session) {
+		TerminalsBaseImpl(session) {
 	//Find AuxAI
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXAI, platform.maxAuxAI, m_mapAuxAI);
 

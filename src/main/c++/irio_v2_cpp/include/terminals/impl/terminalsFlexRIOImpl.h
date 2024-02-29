@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/terminalsBase.h"
+#include "terminals/impl/terminalsBaseImpl.h"
 
 namespace iriov2 {
 /**
@@ -10,7 +10,7 @@ namespace iriov2 {
  * @ingroup Terminals
  * @ingroup FlexRIO
  */
-class TerminalsFlexRIOImpl: public TerminalsBase {
+class TerminalsFlexRIOImpl: public TerminalsBaseImpl {
 public:
 	/**
 	 * Constructor.

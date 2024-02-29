@@ -22,7 +22,7 @@ TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const Platform &platform) :
-		TerminalsBase(session) {
+		TerminalsBaseImpl(session) {
 	NiFpga_Status status;
 	const auto mapReg = parsedBitfile.getRegisters();
 	const auto it = mapReg.find(TERMINAL_SGNO);

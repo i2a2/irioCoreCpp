@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsBase.h>
+#include <terminals/impl/terminalsBaseImpl.h>
 #include <frameTypes.h>
 
 namespace iriov2{
@@ -10,7 +10,7 @@ namespace iriov2{
  *
  * @ingroup DMATerminals
  */
-class TerminalsDMACommonImpl: public TerminalsBase{
+class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 public:
 	/**
 	 * Constructor.

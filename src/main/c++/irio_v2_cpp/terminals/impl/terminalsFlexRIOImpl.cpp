@@ -4,7 +4,7 @@
 
 namespace iriov2 {
 TerminalsFlexRIOImpl::TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile, const NiFpga_Session &session) :
-		TerminalsBase(session) {
+		TerminalsBaseImpl(session) {
 	m_rioadaptercorrect_addr = parsedBitfile.getRegister(TERMINAL_RIOADAPTERCORRECT).address;
 	m_insertediomoduleid_addr = parsedBitfile.getRegister(TERMINAL_INSERTEDIOMODULEID).address;
 }

@@ -1,8 +1,8 @@
-#include "terminals/terminalsBase.h"
+#include "terminals/impl/terminalsBaseImpl.h"
 
 namespace iriov2 {
 
-TerminalsBase::TerminalsBase(const NiFpga_Session &session) :
+TerminalsBaseImpl::TerminalsBaseImpl(const NiFpga_Session &session) :
 		m_session(session) {
 }
 

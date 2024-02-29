@@ -10,7 +10,7 @@ TerminalsAnalogImpl::TerminalsAnalogImpl(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const Platform &platform) :
-		TerminalsBase(session) {
+		TerminalsBaseImpl(session) {
 	//Find AI
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);
 

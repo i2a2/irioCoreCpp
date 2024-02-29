@@ -16,7 +16,7 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(
 			const std::string &nameTermOverflows,
 			const std::string &nameTermDMA,
 			const std::string &nameTermDMAEnable):
-				TerminalsBase(session),
+				TerminalsBaseImpl(session),
 				m_nameTermOverflows(nameTermOverflows),
 				m_nameTermDMA(nameTermDMA),
 				m_nameTermDMAEnable(nameTermDMAEnable){

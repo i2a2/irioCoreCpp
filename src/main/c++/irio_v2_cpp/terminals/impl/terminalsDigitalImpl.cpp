@@ -8,7 +8,7 @@ TerminalsDigitalImpl::TerminalsDigitalImpl(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const Platform &platform) :
-		TerminalsBase(session) {
+		TerminalsBaseImpl(session) {
 	//Find DI
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_DI, platform.maxDigital, m_mapDI);
 

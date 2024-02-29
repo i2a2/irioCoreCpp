@@ -4,7 +4,7 @@
 
 namespace iriov2 {
 TerminalscRIOImpl::TerminalscRIOImpl(const bfp::BFP &parsedBitfile, const NiFpga_Session &session) :
-		TerminalsBase(session) {
+		TerminalsBaseImpl(session) {
 	m_criomodulesok_addr = parsedBitfile.getRegister(TERMINAL_CRIOMODULESOK).address;
 	const auto regModulesID = parsedBitfile.getRegister(TERMINAL_INSERTEDIOMODULESID);
 	m_insertediomodulesid_addr = regModulesID.address;
