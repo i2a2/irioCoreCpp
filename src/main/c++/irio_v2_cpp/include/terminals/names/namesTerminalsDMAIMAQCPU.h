@@ -1,22 +1,22 @@
 #pragma once
 
-#define TERMINAL_SIGNALMAPPING "SignalMapping"
-#define TERMINAL_CONFIGURATION "Configuration"
-#define TERMINAL_LINESCAN "LineScan"
-#define TERMINAL_FVALHIGH "FVALHigh"
-#define TERMINAL_LVALHIGH "LVALHigh"
-#define TERMINAL_DVALHIGH "DVALHigh"
-#define TERMINAL_SPAREHIGH "SpareHigh"
-#define TERMINAL_CONTROLENABLE "ControlEnable"
-#define TERMINAL_UARTTRANSMIT "uartTransmit"
-#define TERMINAL_UARTRECEIVE "uartReceive"
-#define TERMINAL_UARTSETBAUDRATE "uartSetBaudRate"
-#define TERMINAL_UARTBAUDRATE "uartBaudRate"
-#define TERMINAL_UARTBYTEMODE "uartByteMode"
-#define TERMINAL_UARTTXBYTE "uartTxByte"
-#define TERMINAL_UARTRXBYTEA "uartRxBytea"
-#define TERMINAL_UARTTXREADY "uartTxReady"
-#define TERMINAL_UARTRXREADY "uartRxReady"
-#define TERMINAL_UARTBREAKINDICATOR "uartBreakIndicator"
-#define TERMINAL_UARTFRAMMINGERROR "uartFrammingError"
-#define TERMINAL_UARTOVERRUNERROR "uartOverrunError"
+constexpr char TERMINAL_SIGNALMAPPING[] = "SignalMapping";
+constexpr char TERMINAL_CONFIGURATION[] = "Configuration";
+constexpr char TERMINAL_LINESCAN[] = "LineScan";
+constexpr char TERMINAL_FVALHIGH[] = "FVALHigh";
+constexpr char TERMINAL_LVALHIGH[] = "LVALHigh";
+constexpr char TERMINAL_DVALHIGH[] = "DVALHigh";
+constexpr char TERMINAL_SPAREHIGH[] = "SpareHigh";
+constexpr char TERMINAL_CONTROLENABLE[] = "ControlEnable";
+constexpr char TERMINAL_UARTTRANSMIT[] = "uartTransmit";
+constexpr char TERMINAL_UARTRECEIVE[] = "uartReceive";
+constexpr char TERMINAL_UARTSETBAUDRATE[] = "uartSetBaudRate";
+constexpr char TERMINAL_UARTBAUDRATE[] = "uartBaudRate";
+constexpr char TERMINAL_UARTBYTEMODE[] = "uartByteMode";
+constexpr char TERMINAL_UARTTXBYTE[] = "uartTxByte";
+constexpr char TERMINAL_UARTRXBYTEA[] = "uartRxBytea";
+constexpr char TERMINAL_UARTTXREADY[] = "uartTxReady";
+constexpr char TERMINAL_UARTRXREADY[] = "uartRxReady";
+constexpr char TERMINAL_UARTBREAKINDICATOR[] = "uartBreakIndicator";
+constexpr char TERMINAL_UARTFRAMMINGERROR[] = "uartFrammingError";
+constexpr char TERMINAL_UARTOVERRUNERROR[] = "uartOverrunError";

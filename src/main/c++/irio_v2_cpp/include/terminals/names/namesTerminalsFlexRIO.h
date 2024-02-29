@@ -1,4 +1,4 @@
 #pragma once
 
-#define TERMINAL_RIOADAPTERCORRECT "RIOAdapterCorrect"
-#define TERMINAL_INSERTEDIOMODULEID "InsertedIOModuleID"
+constexpr char TERMINAL_RIOADAPTERCORRECT[] = "RIOAdapterCorrect";
+constexpr char TERMINAL_INSERTEDIOMODULEID[] = "InsertedIOModuleID";

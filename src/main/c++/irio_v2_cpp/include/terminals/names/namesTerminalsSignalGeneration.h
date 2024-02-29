@@ -1,9 +1,9 @@
 #pragma once
 
-#define TERMINAL_SGNO "SGNo"
-#define TERMINAL_SGSIGNALTYPE "SGSignalType"
-#define TERMINAL_SGAMP "SGAmp"
-#define TERMINAL_SGFREQ "SGFreq"
-#define TERMINAL_SGPHASE "SGPhase"
-#define TERMINAL_SGUPDATERATE "SGUpdateRate"
-#define TERMINAL_SGFREF "SGFref"
+constexpr char TERMINAL_SGNO[] = "SGNo";
+constexpr char TERMINAL_SGSIGNALTYPE[] = "SGSignalType";
+constexpr char TERMINAL_SGAMP[] = "SGAmp";
+constexpr char TERMINAL_SGFREQ[] = "SGFreq";
+constexpr char TERMINAL_SGPHASE[] = "SGPhase";
+constexpr char TERMINAL_SGUPDATERATE[] = "SGUpdateRate";
+constexpr char TERMINAL_SGFREF[] = "SGFref";

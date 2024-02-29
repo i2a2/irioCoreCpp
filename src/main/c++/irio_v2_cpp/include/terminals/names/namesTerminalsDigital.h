@@ -1,4 +1,4 @@
 #pragma once
 
-#define TERMINAL_DI "DI"
-#define TERMINAL_DO "DO"
+constexpr char TERMINAL_DI[] = "DI";
+constexpr char TERMINAL_DO[] = "DO";

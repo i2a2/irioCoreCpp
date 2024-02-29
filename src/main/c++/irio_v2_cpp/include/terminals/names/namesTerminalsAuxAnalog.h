@@ -1,6 +1,6 @@
 #pragma once
 
-#define TERMINAL_AUXAI "auxAI"
-#define TERMINAL_AUXAO "auxAO"
-#define TERMINAL_AUX64AI "aux64AI"
-#define TERMINAL_AUX64AO "aux64AO"
+constexpr char TERMINAL_AUXAI[] = "auxAI";
+constexpr char TERMINAL_AUXAO[] = "auxAO";
+constexpr char TERMINAL_AUX64AI[] = "aux64AI";
+constexpr char TERMINAL_AUX64AO[] = "aux64AO";

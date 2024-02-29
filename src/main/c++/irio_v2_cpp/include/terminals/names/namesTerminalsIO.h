@@ -1,3 +1,3 @@
 #pragma once
 
-#define TERMINAL_SAMPLINGRATE "SamplingRate"
+constexpr char TERMINAL_SAMPLINGRATE[] = "SamplingRate";

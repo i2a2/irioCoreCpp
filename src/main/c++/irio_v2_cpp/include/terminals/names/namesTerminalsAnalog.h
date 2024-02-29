@@ -1,5 +1,5 @@
 #pragma once
 
-#define TERMINAL_AI "AI"
-#define TERMINAL_AO "AO"
-#define TERMINAL_AOENABLE "AOEnable"
+constexpr char TERMINAL_AI[] = "AI";
+constexpr char TERMINAL_AO[] = "AO";
+constexpr char TERMINAL_AOENABLE[] = "AOEnable";

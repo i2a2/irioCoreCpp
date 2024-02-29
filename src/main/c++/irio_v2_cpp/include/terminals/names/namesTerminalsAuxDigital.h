@@ -1,4 +1,4 @@
 #pragma once
 
-#define TERMINAL_AUXDI "auxDI"
-#define TERMINAL_AUXDO "auxDO"
+constexpr char TERMINAL_AUXDI[] = "auxDI";
+constexpr char TERMINAL_AUXDO[] = "auxDO";

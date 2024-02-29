@@ -3,9 +3,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define FLEXRIO_PLATFORM_VALUE 0
-#define CRIO_PLATFORM_VALUE 1
-#define RSERIES_PLATFORM_VALUE 2
+constexpr std::uint8_t FLEXRIO_PLATFORM_VALUE = 0;
+constexpr std::uint8_t CRIO_PLATFORM_VALUE = 1;
+constexpr std::uint8_t RSERIES_PLATFORM_VALUE = 2;
 
 namespace iriov2 {
 

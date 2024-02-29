@@ -1,4 +1,4 @@
 #pragma once
 
-#define TERMINAL_CRIOMODULESOK "cRIOModulesOk"
-#define TERMINAL_INSERTEDIOMODULESID "InsertedIOModulesID"
+constexpr char TERMINAL_CRIOMODULESOK[] = "cRIOModulesOk";
+constexpr char TERMINAL_INSERTEDIOMODULESID[] = "InsertedIOModulesID";
