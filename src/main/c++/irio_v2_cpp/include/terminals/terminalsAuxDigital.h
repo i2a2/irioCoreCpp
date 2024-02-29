@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/impl/terminalsAuxDigitalImpl.h>
+#include <terminals/terminalsBase.h>
 
 namespace iriov2 {
 /**
@@ -9,7 +9,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsAuxDigital {
+class TerminalsAuxDigital: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -29,8 +29,6 @@ public:
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
-
-	TerminalsAuxDigital(const TerminalsAuxDigital &other);
 
 	/**
 	 * Returns the value of an auxDI terminal.
@@ -79,8 +77,6 @@ public:
 	 */
 	void setAuxDO(const std::uint32_t n, const bool value) const;
 
-private:
-	std::shared_ptr<TerminalsAuxDigitalImpl> m_impl;
 };
 
 }

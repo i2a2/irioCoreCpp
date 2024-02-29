@@ -1,6 +1,7 @@
 #pragma once
 
 #include <terminals/impl/terminalsDMACommonImpl.h>
+#include <terminals/terminalsBase.h>
 #include <frameTypes.h>
 
 namespace iriov2{
@@ -10,7 +11,7 @@ namespace iriov2{
  *
  * @ingroup DMATerminals
  */
-class TerminalsDMACommon{
+class TerminalsDMACommon: public TerminalsBase{
 public:
 	/**
 	 * Constructor.
@@ -300,8 +301,5 @@ public:
 	 * @return Number of found DMAs
 	 */
 	size_t countDMAs() const;
-
-protected:
-	std::shared_ptr<TerminalsDMACommonImpl> m_impl;
 };
 }

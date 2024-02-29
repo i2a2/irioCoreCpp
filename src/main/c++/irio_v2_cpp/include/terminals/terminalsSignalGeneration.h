@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/impl/terminalsSignalGenerationImpl.h"
+#include "terminals/terminalsBase.h"
 
 namespace iriov2 {
 /**
@@ -9,7 +9,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsSignalGeneration {
+class TerminalsSignalGeneration: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -28,8 +28,6 @@ public:
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
-
-	TerminalsSignalGeneration(const TerminalsSignalGeneration &other);
 
 	/**
 	 * Returns the number of signal generators in the FPGA implementation
@@ -160,9 +158,6 @@ public:
 	 * @param value		Update rate to configure
 	 */
 	void setSGUpdateRate(const std::uint32_t n, const std::uint32_t value) const;
-
-private:
-	std::shared_ptr<TerminalsSignalGenerationImpl> m_impl;
 
 };
 

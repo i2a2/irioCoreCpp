@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/impl/terminalsDigitalImpl.h>
+#include <terminals/terminalsBase.h>
 
 namespace iriov2 {
 /**
@@ -9,7 +9,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsDigital{
+class TerminalsDigital: public TerminalsBase{
 public:
 	/**
 	 * Constructor.
@@ -75,10 +75,6 @@ public:
 	 * @param value	Value to write to the terminal
 	 */
 	void setDO(const std::uint32_t n, const bool value) const;
-
-private:
-	std::shared_ptr<TerminalsDigitalImpl> m_impl;
-
 };
 
 }

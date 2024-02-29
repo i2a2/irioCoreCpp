@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/impl/terminalsAnalogImpl.h>
+#include <terminals/terminalsBase.h>
 #include <modules.h>
 #include <memory>
 
@@ -11,7 +11,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsAnalog {
+class TerminalsAnalog: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -28,8 +28,6 @@ public:
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
-
-	TerminalsAnalog(const TerminalsAnalog& other);
 
 	/**
 	 * Returns the value of an AI terminal.
@@ -114,7 +112,5 @@ public:
 
 	void setAICouplingMode(const CouplingMode &mode) const;
 
-private:
-	std::shared_ptr<TerminalsAnalogImpl> m_impl;
 };
 }

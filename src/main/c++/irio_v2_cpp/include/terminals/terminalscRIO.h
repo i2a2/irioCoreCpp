@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/impl/terminalscRIOImpl.h"
+#include "terminals/terminalsBase.h"
 
 namespace iriov2 {
 /**
@@ -10,7 +10,7 @@ namespace iriov2 {
  * @ingroup Terminals
  * @ingroup cRIO
  */
-class TerminalscRIO {
+class TerminalscRIO: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -22,8 +22,6 @@ public:
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 */
 	TerminalscRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
-
-	TerminalscRIO(const TerminalscRIO &other);
 
 	/**
 	 * Returns whether the modules connected to the cRIO are ok
@@ -40,10 +38,6 @@ public:
 	 * @return Vector with the ID of the modules in the cRIO device
 	 */
 	std::vector<std::uint16_t> getInsertedIOModulesID() const;
-
-private:
-	std::shared_ptr<TerminalscRIOImpl> m_impl;
-
 };
 
 }
