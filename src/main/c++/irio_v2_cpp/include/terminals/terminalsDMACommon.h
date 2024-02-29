@@ -2,7 +2,6 @@
 
 #include <terminals/impl/terminalsDMACommonImpl.h>
 #include <terminals/terminalsBase.h>
-#include <frameTypes.h>
 
 namespace iriov2{
 /**
