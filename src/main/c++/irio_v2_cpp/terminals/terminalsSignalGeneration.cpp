@@ -12,55 +12,55 @@ TerminalsSignalGeneration::TerminalsSignalGeneration(
 }
 
 std::uint8_t TerminalsSignalGeneration::getSGNo() const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGNo();
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGNoImpl();
 }
 
 std::uint32_t TerminalsSignalGeneration::getSGFref(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGFref(n);
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGFrefImpl(n);
 }
 
 std::uint8_t TerminalsSignalGeneration::getSGSignalType(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGSignalType(n);
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGSignalTypeImpl(n);
 }
 
 std::uint32_t TerminalsSignalGeneration::getSGAmp(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGAmp(n);
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGAmpImpl(n);
 }
 
 std::uint32_t TerminalsSignalGeneration::getSGFreq(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGFreq(n);
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGFreqImpl(n);
 }
 
 std::uint32_t TerminalsSignalGeneration::getSGPhase(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGPhase(n);
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGPhaseImpl(n);
 }
 
 std::uint32_t TerminalsSignalGeneration::getSGUpdateRate(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGUpdateRate(n);
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->getSGUpdateRateImpl(n);
 }
 
 void TerminalsSignalGeneration::setSGSignalType(
 		const std::uint32_t n,
 		const std::uint8_t value) const {
-	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGSignalType(n, value);
+	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGSignalTypeImpl(n, value);
 }
 
 void TerminalsSignalGeneration::setSGAmp(const std::uint32_t n, const std::uint32_t value) const {
-	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGAmp(n, value);
+	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGAmpImpl(n, value);
 }
 
 void TerminalsSignalGeneration::setSGFreq(const std::uint32_t n, const std::uint32_t value) const {
-	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGFreq(n, value);
+	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGFreqImpl(n, value);
 }
 
 void TerminalsSignalGeneration::setSGPhase(const std::uint32_t n, const std::uint32_t value) const {
-	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGPhase(n, value);
+	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGPhaseImpl(n, value);
 }
 
 void TerminalsSignalGeneration::setSGUpdateRate(
 		const std::uint32_t n,
 		const std::uint32_t value) const {
-	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGUpdateRate(n, value);
+	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)->setSGUpdateRateImpl(n, value);
 }
 
 }

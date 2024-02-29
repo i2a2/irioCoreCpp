@@ -45,23 +45,23 @@ std::int32_t getAnalog(
 	return aux;
 }
 
-std::int32_t TerminalsAnalogImpl::getAI(const std::uint32_t n) const {
+std::int32_t TerminalsAnalogImpl::getAIImpl(const std::uint32_t n) const {
 	return getAnalog(m_session, n, m_mapAI, TERMINAL_AI);
 }
 
-std::int32_t TerminalsAnalogImpl::getAO(const std::uint32_t n) const {
+std::int32_t TerminalsAnalogImpl::getAOImpl(const std::uint32_t n) const {
 	return getAnalog(m_session, n, m_mapAO, TERMINAL_AO);
 }
 
-std::int32_t TerminalsAnalogImpl::getAOEnable(std::uint32_t n) const {
+std::int32_t TerminalsAnalogImpl::getAOEnableImpl(std::uint32_t n) const {
 	return getAnalog(m_session, n, m_mapAOEnable, TERMINAL_AOENABLE);
 }
 
-size_t TerminalsAnalogImpl::getNumAI() const {
+size_t TerminalsAnalogImpl::getNumAIImpl() const {
 	return numAI;
 }
 
-size_t TerminalsAnalogImpl::getNumAO() const {
+size_t TerminalsAnalogImpl::getNumAOImpl() const {
 	return numAO;
 }
 
@@ -78,39 +78,39 @@ void setAnalog(
 	utils::throwIfNotSuccessNiFpga(status, "Error writing terminal " + terminalName + std::to_string(n));
 }
 
-void TerminalsAnalogImpl::setAO(const std::uint32_t n, const std::int32_t value) const {
+void TerminalsAnalogImpl::setAOImpl(const std::uint32_t n, const std::int32_t value) const {
 	setAnalog(m_session, n, value, m_mapAO, TERMINAL_AO);
 }
 
-void TerminalsAnalogImpl::setAOEnable(std::uint32_t n, bool value) const {
+void TerminalsAnalogImpl::setAOEnableImpl(std::uint32_t n, bool value) const {
 	setAnalog(m_session, n, static_cast<std::uint32_t>(value), m_mapAOEnable, TERMINAL_AOENABLE);
 }
 
-ModulesType TerminalsAnalogImpl::getModuleConnected() const {
+ModulesType TerminalsAnalogImpl::getModuleConnectedImpl() const {
 	return m_module->moduleID;
 }
 
-double TerminalsAnalogImpl::getCVADC() const {
+double TerminalsAnalogImpl::getCVADCImpl() const {
 	return m_module->getCVADC();
 }
 
-double TerminalsAnalogImpl::getCVDAC() const {
+double TerminalsAnalogImpl::getCVDACImpl() const {
 	return m_module->getCVDAC();
 }
 
-double TerminalsAnalogImpl::getMaxValAO() const {
+double TerminalsAnalogImpl::getMaxValAOImpl() const {
 	return m_module->getMaxValAO();
 }
 
-double TerminalsAnalogImpl::getMinValAO() const {
+double TerminalsAnalogImpl::getMinValAOImpl() const {
 	return m_module->getMinValAO();
 }
 
-CouplingMode TerminalsAnalogImpl::getAICouplingMode() const {
+CouplingMode TerminalsAnalogImpl::getAICouplingModeImpl() const {
 	return m_module->getCouplingMode();
 }
 
-void TerminalsAnalogImpl::setAICouplingMode(const CouplingMode &mode) const {
+void TerminalsAnalogImpl::setAICouplingModeImpl(const CouplingMode &mode) const {
 	m_module->setCouplingMode(mode);
 }
 

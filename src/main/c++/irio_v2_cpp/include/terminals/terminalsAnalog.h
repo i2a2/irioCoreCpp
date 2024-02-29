@@ -98,18 +98,63 @@ public:
 	 */
 	void setAOEnable(const std::uint32_t n, const bool value) const;
 
+	/**
+	 * Returns the module connected to the device
+	 *
+	 * It will return a value even if there is no module connected,
+	 * in this case it will be a value indicating there is no module
+	 *
+	 * @return	Module connected
+	 */
 	ModulesType getModuleConnected() const;
 
+	/**
+	 * Module's conversion value to Volts of analog inputs for the
+	 * coupling selected
+	 *
+	 * @return Constant for Conversion to Volts of analog inputs
+	 */
 	double getCVADC() const;
 
+	/**
+	 * Module's conversion value from Volts for analog inputs for the
+	 * coupling selected
+	 *
+	 * @return Constant for conversion from Volts for analog outputs
+	 */
 	double getCVDAC() const;
 
+	/**
+	 * Module's maximum value to be written in an analog output
+	 * for the coupling selected
+	 *
+	 * @return Maximum value to be written in an analog output
+	 */
 	double getMaxValAO() const;
 
+	/**
+	 * Module's minimum value to be written in an analog output
+	 * for the coupling selected
+	 *
+	 * @return minimum value to be written in an analog output
+	 */
 	double getMinValAO() const;
 
+	/**
+	 * Module's configured coupling mode
+	 *
+	 * @return Actual coupling mode
+	 */
 	CouplingMode getAICouplingMode() const;
 
+	/**
+	 * Sets a new coupling mode, changing the conversion constants
+     * accordingly
+     *
+     * @throw iriov2::errors::UnsupportedAICouplingForModule	The \p mode is not supported by the module
+     *
+	 * @param mode New mode to configure
+	 */
 	void setAICouplingMode(const CouplingMode &mode) const;
 
 };

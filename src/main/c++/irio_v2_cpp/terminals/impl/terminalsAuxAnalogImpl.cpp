@@ -22,7 +22,7 @@ TerminalsAuxAnalogImpl::TerminalsAuxAnalogImpl(
 	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUX64AO, platform.maxAuxAO, m_mapAuxAO64);
 }
 
-std::int32_t TerminalsAuxAnalogImpl::getAuxAI(const std::uint32_t n) const {
+std::int32_t TerminalsAuxAnalogImpl::getAuxAIImpl(const std::uint32_t n) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAI, n, TERMINAL_AUXAI);
 	std::int32_t aux;
 	auto status = NiFpga_ReadI32(m_session, add, &aux);
@@ -32,7 +32,7 @@ std::int32_t TerminalsAuxAnalogImpl::getAuxAI(const std::uint32_t n) const {
 	return aux;
 }
 
-std::int32_t TerminalsAuxAnalogImpl::getAuxAO(const std::uint32_t n) const {
+std::int32_t TerminalsAuxAnalogImpl::getAuxAOImpl(const std::uint32_t n) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO, n, TERMINAL_AUXAO);
 	std::int32_t aux;
 	auto status = NiFpga_ReadI32(m_session, add, &aux);
@@ -42,15 +42,15 @@ std::int32_t TerminalsAuxAnalogImpl::getAuxAO(const std::uint32_t n) const {
 	return aux;
 }
 
-size_t TerminalsAuxAnalogImpl::getNumAuxAI() const {
+size_t TerminalsAuxAnalogImpl::getNumAuxAIImpl() const {
 	return m_mapAuxAI.size();
 }
 
-size_t TerminalsAuxAnalogImpl::getNumAuxAO() const {
+size_t TerminalsAuxAnalogImpl::getNumAuxAOImpl() const {
 	return m_mapAuxAO.size();
 }
 
-std::int64_t TerminalsAuxAnalogImpl::getAuxAI64(const std::uint32_t n) const {
+std::int64_t TerminalsAuxAnalogImpl::getAuxAI64Impl(const std::uint32_t n) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAI64, n, TERMINAL_AUX64AO);
 	std::int64_t aux;
 	auto status = NiFpga_ReadI64(m_session, add, &aux);
@@ -60,7 +60,7 @@ std::int64_t TerminalsAuxAnalogImpl::getAuxAI64(const std::uint32_t n) const {
 	return aux;
 }
 
-std::int64_t TerminalsAuxAnalogImpl::getAuxAO64(const std::uint32_t n) const {
+std::int64_t TerminalsAuxAnalogImpl::getAuxAO64Impl(const std::uint32_t n) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO64, n, TERMINAL_AUX64AI);
 	std::int64_t aux;
 	auto status = NiFpga_ReadI64(m_session, add, &aux);
@@ -70,22 +70,22 @@ std::int64_t TerminalsAuxAnalogImpl::getAuxAO64(const std::uint32_t n) const {
 	return aux;
 }
 
-size_t TerminalsAuxAnalogImpl::getNumAuxAI64() const {
+size_t TerminalsAuxAnalogImpl::getNumAuxAI64Impl() const {
 	return m_mapAuxAI64.size();
 }
 
-size_t TerminalsAuxAnalogImpl::getNumAuxAO64() const {
+size_t TerminalsAuxAnalogImpl::getNumAuxAO64Impl() const {
 	return m_mapAuxAO64.size();
 }
 
-void TerminalsAuxAnalogImpl::setAuxAO(const std::uint32_t n, const std::int32_t value) const {
+void TerminalsAuxAnalogImpl::setAuxAOImpl(const std::uint32_t n, const std::int32_t value) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO, n, TERMINAL_AUXAO);
 	auto status = NiFpga_WriteI32(m_session, add, value);
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading terminal " + std::string(TERMINAL_AUXAO) + std::to_string(n));
 }
 
-void TerminalsAuxAnalogImpl::setAuxAO64(const std::uint32_t n, const std::int64_t value) const {
+void TerminalsAuxAnalogImpl::setAuxAO64Impl(const std::uint32_t n, const std::int64_t value) const {
 	const std::uint32_t add = utils::getAddressEnumResource(m_mapAuxAO64, n, TERMINAL_AUX64AO);
 	auto status = NiFpga_WriteI64(m_session, add, value);
 	utils::throwIfNotSuccessNiFpga(status,

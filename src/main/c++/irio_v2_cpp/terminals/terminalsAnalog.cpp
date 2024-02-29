@@ -12,59 +12,59 @@ TerminalsAnalog::TerminalsAnalog(
 }
 
 std::int32_t TerminalsAnalog::getAI(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAI(n);
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAIImpl(n);
 }
 
 std::int32_t TerminalsAnalog::getAO(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAO(n);
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAOImpl(n);
 }
 
 std::int32_t TerminalsAnalog::getAOEnable(const std::uint32_t n) const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAOEnable(n);
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAOEnableImpl(n);
 }
 
 size_t TerminalsAnalog::getNumAI() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getNumAI();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getNumAIImpl();
 }
 
 size_t TerminalsAnalog::getNumAO() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getNumAO();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getNumAOImpl();
 }
 
 void TerminalsAnalog::setAO(const std::uint32_t n, const std::int32_t value) const {
-	std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->setAO(n, value);
+	std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->setAOImpl(n, value);
 }
 
 void TerminalsAnalog::setAOEnable(const std::uint32_t n, const bool value) const {
-	std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->setAOEnable(n, value);
+	std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->setAOEnableImpl(n, value);
 }
 
 ModulesType TerminalsAnalog::getModuleConnected() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getModuleConnected();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getModuleConnectedImpl();
 }
 
 double TerminalsAnalog::getCVADC() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getCVADC();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getCVADCImpl();
 }
 
 double TerminalsAnalog::getCVDAC() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getCVDAC();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getCVDACImpl();
 }
 
 double TerminalsAnalog::getMaxValAO() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getMaxValAO();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getMaxValAOImpl();
 }
 
 double TerminalsAnalog::getMinValAO() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getMinValAO();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getMinValAOImpl();
 }
 
 CouplingMode TerminalsAnalog::getAICouplingMode() const {
-	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAICouplingMode();
+	return std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->getAICouplingModeImpl();
 }
 
 void TerminalsAnalog::setAICouplingMode(const CouplingMode &mode) const {
-	std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->setAICouplingMode(mode);
+	std::static_pointer_cast<TerminalsAnalogImpl>(m_impl)->setAICouplingModeImpl(mode);
 }
 
 }

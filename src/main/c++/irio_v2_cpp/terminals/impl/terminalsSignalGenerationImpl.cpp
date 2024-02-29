@@ -61,11 +61,11 @@ TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
 	}
 }
 
-std::uint8_t TerminalsSignalGenerationImpl::getSGNo() const {
+std::uint8_t TerminalsSignalGenerationImpl::getSGNoImpl() const {
 	return m_numSG;
 }
 
-std::uint32_t TerminalsSignalGenerationImpl::getSGFref(const std::uint32_t n) const {
+std::uint32_t TerminalsSignalGenerationImpl::getSGFrefImpl(const std::uint32_t n) const {
 	const auto it = m_mapFref.find(n);
 	if(it == m_mapFref.end()){
 		throw errors::ResourceNotFoundError(n, TERMINAL_SGFREF);
@@ -73,7 +73,7 @@ std::uint32_t TerminalsSignalGenerationImpl::getSGFref(const std::uint32_t n) co
 	return it->second;
 }
 
-std::uint8_t TerminalsSignalGenerationImpl::getSGSignalType(const std::uint32_t n) const {
+std::uint8_t TerminalsSignalGenerationImpl::getSGSignalTypeImpl(const std::uint32_t n) const {
 	auto addr = utils::getAddressEnumResource(m_mapSignalType_addr, n, TERMINAL_SGSIGNALTYPE);
 
 	std::uint8_t aux;
@@ -98,23 +98,23 @@ std::uint32_t getValue(
 	return aux;
 }
 
-std::uint32_t TerminalsSignalGenerationImpl::getSGAmp(const std::uint32_t n) const {
+std::uint32_t TerminalsSignalGenerationImpl::getSGAmpImpl(const std::uint32_t n) const {
 	return getValue(m_session, n, m_mapAmp_addr, TERMINAL_SGAMP);
 }
 
-std::uint32_t TerminalsSignalGenerationImpl::getSGFreq(const std::uint32_t n) const {
+std::uint32_t TerminalsSignalGenerationImpl::getSGFreqImpl(const std::uint32_t n) const {
 	return getValue(m_session, n, m_mapFreq_addr, TERMINAL_SGFREQ);
 }
 
-std::uint32_t TerminalsSignalGenerationImpl::getSGPhase(const std::uint32_t n) const {
+std::uint32_t TerminalsSignalGenerationImpl::getSGPhaseImpl(const std::uint32_t n) const {
 	return getValue(m_session, n, m_mapPhase_addr, TERMINAL_SGPHASE);
 }
 
-std::uint32_t TerminalsSignalGenerationImpl::getSGUpdateRate(const std::uint32_t n) const {
+std::uint32_t TerminalsSignalGenerationImpl::getSGUpdateRateImpl(const std::uint32_t n) const {
 	return getValue(m_session, n, m_mapUpdateRate_addr, TERMINAL_SGUPDATERATE);
 }
 
-void TerminalsSignalGenerationImpl::setSGSignalType(
+void TerminalsSignalGenerationImpl::setSGSignalTypeImpl(
 		const std::uint32_t n,
 		const std::uint8_t value) const {
 
@@ -138,19 +138,19 @@ void setValue(
 	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 }
 
-void TerminalsSignalGenerationImpl::setSGAmp(const std::uint32_t n, const std::uint32_t value) const {
+void TerminalsSignalGenerationImpl::setSGAmpImpl(const std::uint32_t n, const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapAmp_addr, TERMINAL_SGAMP);
 }
 
-void TerminalsSignalGenerationImpl::setSGFreq(const std::uint32_t n, const std::uint32_t value) const {
+void TerminalsSignalGenerationImpl::setSGFreqImpl(const std::uint32_t n, const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapFreq_addr, TERMINAL_SGFREQ);
 }
 
-void TerminalsSignalGenerationImpl::setSGPhase(const std::uint32_t n, const std::uint32_t value) const {
+void TerminalsSignalGenerationImpl::setSGPhaseImpl(const std::uint32_t n, const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapPhase_addr, TERMINAL_SGPHASE);
 }
 
-void TerminalsSignalGenerationImpl::setSGUpdateRate(
+void TerminalsSignalGenerationImpl::setSGUpdateRateImpl(
 		const std::uint32_t n,
 		const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapUpdateRate_addr, TERMINAL_SGUPDATERATE);

@@ -6,6 +6,11 @@
 
 namespace iriov2{
 
+/**
+ * Base class for all terminals
+ *
+ * @ingroup Terminals
+ */
 class TerminalsBase {
 public:
 	TerminalsBase(std::shared_ptr<TerminalsBaseImpl> impl);

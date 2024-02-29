@@ -88,9 +88,9 @@ public:
     double getMaxValAO() const;
 
     /**
-     * Maximum value to be written in an analog output
+     * Minimum value to be written in an analog output
      *
-     * @return Maximum value to be written in an analog output
+     * @return Minimum value to be written in an analog output
      */
     double getMinValAO() const;
 

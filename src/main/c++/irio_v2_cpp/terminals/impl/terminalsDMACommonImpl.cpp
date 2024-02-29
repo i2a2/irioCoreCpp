@@ -56,7 +56,7 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(
 	}
 }
 
-std::uint16_t TerminalsDMACommonImpl::getNCh(const std::uint32_t n) const {
+std::uint16_t TerminalsDMACommonImpl::getNChImpl(const std::uint32_t n) const {
 	if(n >= m_nCh.size()){
 		const std::string err = std::to_string(n) + " is not a valid DMA ID";
 		throw errors::ResourceNotFoundError(err);
@@ -65,7 +65,7 @@ std::uint16_t TerminalsDMACommonImpl::getNCh(const std::uint32_t n) const {
 	return m_nCh.at(n);
 }
 
-void TerminalsDMACommonImpl::startDMAImpl(
+void TerminalsDMACommonImpl::startDMACommon(
 		const std::uint32_t &dma) const{
 	//TODO: For the moment, do the same as in the old lib, configure the DMA to a lot of space
 	auto status = NiFpga_ConfigureFifo(m_session, dma, SIZE_HOST_DMAS);
@@ -76,27 +76,27 @@ void TerminalsDMACommonImpl::startDMAImpl(
 			"Error starting " + m_nameTermDMA + std::to_string(dma));
 }
 
-void TerminalsDMACommonImpl::startDMA(const std::uint32_t n) const {
+void TerminalsDMACommonImpl::startDMAImpl(const std::uint32_t n) const {
 	const auto it = m_mapDMA.find(n);
 	if(it == m_mapDMA.end()){
 		const std::string err = std::to_string(n) + " is not a valid DMA";
 		throw errors::ResourceNotFoundError(err);
 	}
 
-	startDMAImpl(it->second);
+	startDMACommon(it->second);
 
-	cleanDMA(n);
+	cleanDMACommon(n);
 }
 
-void TerminalsDMACommonImpl::startAllDMAs() const {
+void TerminalsDMACommonImpl::startAllDMAsImpl() const {
 	for(const auto& values:m_mapDMA){
-		startDMAImpl(values.second);
+		startDMACommon(values.second);
 	}
 
-	cleanAllDMAs();
+	cleanAllDMAsImpl();
 }
 
-void TerminalsDMACommonImpl::stopDMA(const std::uint32_t n) const {
+void TerminalsDMACommonImpl::stopDMAImpl(const std::uint32_t n) const {
 	const auto it = m_mapDMA.find(n);
 	if(it == m_mapDMA.end()){
 		const std::string err = std::to_string(n) + " is not a valid DMA";
@@ -107,18 +107,18 @@ void TerminalsDMACommonImpl::stopDMA(const std::uint32_t n) const {
 	utils::throwIfNotSuccessNiFpga(status, "Error stopping " + m_nameTermDMA + std::to_string(n));
 }
 
-void TerminalsDMACommonImpl::stopAllDMAs() const {
+void TerminalsDMACommonImpl::stopAllDMAsImpl() const {
 	for(const auto& values:m_mapDMA){
 		const auto status = NiFpga_StopFifo(m_session, values.second);
 		utils::throwIfNotSuccessNiFpga(status, "Error stopping " + m_nameTermDMA + std::to_string(values.first));
 	}
 }
 
-size_t TerminalsDMACommonImpl::countDMAs() const {
+size_t TerminalsDMACommonImpl::countDMAsImpl() const {
 	return m_mapDMA.size();
 }
 
-void TerminalsDMACommonImpl::cleanDMAImpl(
+void TerminalsDMACommonImpl::cleanDMACommon(
 		const std::uint32_t &dma) const {
 	NiFpga_Status status;
 	size_t elementsRemaining;
@@ -139,19 +139,19 @@ void TerminalsDMACommonImpl::cleanDMAImpl(
 	}
 }
 
-void TerminalsDMACommonImpl::cleanDMA(const std::uint32_t n) const {
+void TerminalsDMACommonImpl::cleanDMAImpl(const std::uint32_t n) const {
 	const auto dmaNum = utils::getAddressEnumResource(m_mapDMA, n, m_nameTermDMA);
 
-	cleanDMAImpl(dmaNum);
+	cleanDMACommon(dmaNum);
 }
 
-void TerminalsDMACommonImpl::cleanAllDMAs() const {
+void TerminalsDMACommonImpl::cleanAllDMAsImpl() const {
 	for(const auto& values:m_mapDMA){
-		cleanDMA(values.second);
+		cleanDMAImpl(values.second);
 	}
 }
 
-bool TerminalsDMACommonImpl::isDMAEnable(const std::uint32_t n) const {
+bool TerminalsDMACommonImpl::isDMAEnableImpl(const std::uint32_t n) const {
 	const auto addr = utils::getAddressEnumResource(m_mapEnable, n, m_nameTermDMAEnable);
 
 	NiFpga_Bool val;
@@ -162,26 +162,26 @@ bool TerminalsDMACommonImpl::isDMAEnable(const std::uint32_t n) const {
 	return static_cast<bool>(val);
 }
 
-void TerminalsDMACommonImpl::enableDMA(const std::uint32_t n) const {
-	enaDisDMA(n, true);
+void TerminalsDMACommonImpl::enableDMAImpl(const std::uint32_t n) const {
+	enaDisDMAImpl(n, true);
 }
 
-void TerminalsDMACommonImpl::disableDMA(const std::uint32_t n) const {
-	enaDisDMA(n, false);
+void TerminalsDMACommonImpl::disableDMAImpl(const std::uint32_t n) const {
+	enaDisDMAImpl(n, false);
 }
 
-void TerminalsDMACommonImpl::enaDisDMA(const std::uint32_t n, bool enaDis) const {
+void TerminalsDMACommonImpl::enaDisDMAImpl(const std::uint32_t n, bool enaDis) const {
 	const auto addr = utils::getAddressEnumResource(m_mapEnable, n, m_nameTermDMAEnable);
 
 	const auto status = NiFpga_WriteBool(m_session, addr, static_cast<NiFpga_Bool>(enaDis));
 	utils::throwIfNotSuccessNiFpga(status, "Error writing " +  m_nameTermDMAEnable + std::to_string(n));
 }
 
-bool TerminalsDMACommonImpl::getDMAOverflow(const std::uint16_t n) const {
-	return static_cast<bool>(getAllDMAOverflows() & (1<<n));
+bool TerminalsDMACommonImpl::getDMAOverflowImpl(const std::uint16_t n) const {
+	return static_cast<bool>(getAllDMAOverflowsImpl() & (1<<n));
 }
 
-std::uint16_t TerminalsDMACommonImpl::getAllDMAOverflows() const {
+std::uint16_t TerminalsDMACommonImpl::getAllDMAOverflowsImpl() const {
 	std::uint16_t overflows;
 	const auto status = NiFpga_ReadU16(m_session, m_overflowsAddr, &overflows);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading " + m_nameTermOverflows);
@@ -189,7 +189,7 @@ std::uint16_t TerminalsDMACommonImpl::getAllDMAOverflows() const {
 	return overflows;
 }
 
-FrameType TerminalsDMACommonImpl::getFrameType(const std::uint32_t n) const {
+FrameType TerminalsDMACommonImpl::getFrameTypeImpl(const std::uint32_t n) const {
 	if(n >= m_frameType.size()){
 		const std::string err = std::to_string(n) + " is not a valid DMA ID";
 		throw errors::ResourceNotFoundError(err);
@@ -198,11 +198,11 @@ FrameType TerminalsDMACommonImpl::getFrameType(const std::uint32_t n) const {
 	return m_frameType.at(n);
 }
 
-std::vector<FrameType> TerminalsDMACommonImpl::getAllFrameType() const {
+std::vector<FrameType> TerminalsDMACommonImpl::getAllFrameTypeImpl() const {
 	return m_frameType;
 }
 
-std::uint8_t TerminalsDMACommonImpl::getSampleSize(const std::uint32_t n) const {
+std::uint8_t TerminalsDMACommonImpl::getSampleSizeImpl(const std::uint32_t n) const {
 	if(n >= m_sampleSize.size()){
 		const std::string err = std::to_string(n) + " is not a valid DMA ID";
 		throw errors::ResourceNotFoundError(err);
@@ -211,26 +211,26 @@ std::uint8_t TerminalsDMACommonImpl::getSampleSize(const std::uint32_t n) const 
 	return m_sampleSize.at(n);
 }
 
-std::vector<std::uint8_t> TerminalsDMACommonImpl::getAllSampleSizes() const {
+std::vector<std::uint8_t> TerminalsDMACommonImpl::getAllSampleSizesImpl() const {
 	return m_sampleSize;
 }
 
-size_t TerminalsDMACommonImpl::readDataNonBlocking(
+size_t TerminalsDMACommonImpl::readDataNonBlockingImpl(
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data) {
-	return readData(n, elementsToRead, data, false);
+	return readDataImpl(n, elementsToRead, data, false);
 }
 
-size_t TerminalsDMACommonImpl::readDataBlocking(
+size_t TerminalsDMACommonImpl::readDataBlockingImpl(
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data,
 		std::uint32_t timeout) {
-	return readData(n, elementsToRead, data, true, timeout);
+	return readDataImpl(n, elementsToRead, data, true, timeout);
 }
 
-size_t TerminalsDMACommonImpl::readData(
+size_t TerminalsDMACommonImpl::readDataImpl(
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data,

@@ -15,38 +15,14 @@ class TerminalsDMACommon: public TerminalsBase{
 public:
 	/**
 	 * Constructor.
+	 *
 	 * Manages finding DMA resources common to all terminals
-	 * that use them, DAQ/IMAQ. The name of these terminals
-	 * are set by the constructor parameters, to allow reusing
-	 * code when terminal functionality is the same but name
-	 * changes (such is the case for CPU and GPU)
+	 * that use them, DAQ/IMAQ.
 	 *
-	 * @throw std::runtime_error	Size mismatch between \p nameTermDMA
-	 * 								and \p nameTermDMAEnable
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
-	 *
-	 * @param parsedBitfile			Parsed bitfile with the terminals
-	 * @param session				NiFpga_Session to be used in NiFpga
-	 * 								related functions
-	 * @param platform				Platform that is using the terminals.
-	 * 								Used to know the maximum number of terminals
-	 * 								that can be found
-	 * @param nameTermNCh			Name of the terminal that describes the number
-	 * 								of DMAs implemented in the FPGA
-	 * @param nameTermFrameType		Name of the terminal that describes the
-	 * 								frame type used in the DMA frame
-	 * @param nameTermSampleSize	Name of the terminal with the size in bytes
-	 * 								for the channel sample
-	 * @param nameTermOverflows		Name of the terminal with the status of the
-	 * 								different DMA FIFO
-	 * @param nameTermDMA			Name of the DMAs
-	 * @param nameTermDMAEnable		Name of the terminals that enable or disable
-	 * 								write to DMA
+	 * @param impl Shared pointer to the class that implements the functionality
 	 */
 	TerminalsDMACommon(
 			std::shared_ptr<TerminalsDMACommonImpl> impl);
-
 
 	/**
 	 * Returns number of channels in specific DMA
