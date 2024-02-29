@@ -1,8 +1,7 @@
 #pragma once
 
-#include <terminals/terminalsAnalogImpl.h>
+#include <terminals/terminalsBase.h>
 #include <modules.h>
-#include <memory>
 
 namespace iriov2 {
 /**
@@ -11,7 +10,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsAnalog {
+class TerminalsAnalogImpl: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -24,12 +23,10 @@ public:
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 * @param platform		Platform that is using the terminals. Used to know the maximum number of terminals that can be found.
 	 */
-	TerminalsAnalog(
+	TerminalsAnalogImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
-
-	TerminalsAnalog(const TerminalsAnalog& other);
 
 	/**
 	 * Returns the value of an AI terminal.
@@ -115,6 +112,18 @@ public:
 	void setAICouplingMode(const CouplingMode &mode) const;
 
 private:
-	std::shared_ptr<TerminalsAnalogImpl> m_impl;
+
+	void searchModule(const Platform &platform);
+
+	void searchFlexRIOModule();
+
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAI;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAO;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAOEnable;
+
+	size_t numAI = 0;
+	size_t numAO = 0;
+
+	std::unique_ptr<Module> m_module;
 };
 }

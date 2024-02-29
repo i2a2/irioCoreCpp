@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsAuxDigitalImpl.h>
+#include <terminals/terminalsBase.h>
 
 namespace iriov2 {
 /**
@@ -9,7 +9,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsAuxDigital {
+class TerminalsAuxDigitalImpl: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -25,12 +25,10 @@ public:
 	 * @param session		NiFpga_Session to be used in NiFpga related functions.
 	 * @param platform		Platform that is using the terminals. Used to know the maximum number of terminals that can be found.
 	 */
-	TerminalsAuxDigital(
+	TerminalsAuxDigitalImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
-
-	TerminalsAuxDigital(const TerminalsAuxDigital &other);
 
 	/**
 	 * Returns the value of an auxDI terminal.
@@ -80,7 +78,9 @@ public:
 	void setAuxDO(const std::uint32_t n, const bool value) const;
 
 private:
-	std::shared_ptr<TerminalsAuxDigitalImpl> m_impl;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxDI;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxDO;
+
 };
 
 }

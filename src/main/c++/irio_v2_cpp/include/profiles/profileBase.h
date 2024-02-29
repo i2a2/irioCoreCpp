@@ -66,7 +66,7 @@ public:
 	 *
 	 * @return Pointer to the analog terminals
 	 */
-	virtual std::shared_ptr<const TerminalsAnalog> analog() const;
+	virtual TerminalsAnalog analog() const;
 
 	/**
 	 * Access to the digital group terminals.
@@ -75,7 +75,7 @@ public:
 	 *
 	 * @return Pointer to the digital terminals
 	 */
-	virtual std::shared_ptr<const TerminalsDigital> digital() const;
+	virtual TerminalsDigital digital() const;
 
 	/**
 	 * Access to the aux analog group terminals.
@@ -84,7 +84,7 @@ public:
 	 *
 	 * @return Pointer to the aux analog terminals
 	 */
-	virtual std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const;
+	virtual TerminalsAuxAnalog auxAnalog() const;
 
 	/**
 	 * Access to the aux digital group terminals.
@@ -93,7 +93,7 @@ public:
 	 *
 	 * @return Pointer to the aux digital terminals
 	 */
-	virtual std::shared_ptr<const TerminalsAuxDigital> auxDigital() const;
+	virtual TerminalsAuxDigital auxDigital() const;
 
 	/**
 	 * Access to the cRIO group terminals.
@@ -102,7 +102,7 @@ public:
 	 *
 	 * @return Pointer to the cRIO terminals
 	 */
-	virtual std::shared_ptr<const TerminalscRIO> cRIO() const;
+	virtual TerminalscRIO cRIO() const;
 
 	/**
 	 * Access to the FlexRIO group terminals.
@@ -110,7 +110,7 @@ public:
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 * @return Pointer to the FlexRIO terminals
 	 */
-	virtual std::shared_ptr<const TerminalsFlexRIO> flexRIO() const;
+	virtual TerminalsFlexRIO flexRIO() const;
 
 	/**
 	 * Access to the Signal Generation group terminals.
@@ -119,7 +119,7 @@ public:
 	 *
 	 * @return Pointer to the Signal Generation terminals
 	 */
-	virtual std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const;
+	virtual TerminalsSignalGeneration signalGeneration() const;
 
 	/**
 	 * Access to the DMA DAQ group terminals. Depending on the profile configured, this can be terminals
@@ -129,7 +129,7 @@ public:
 	 *
 	 * @return Pointer to the DMA DAQ terminals
 	 */
-	virtual std::shared_ptr<const TerminalsDMADAQ> daq() const;
+	virtual TerminalsDMADAQ daq() const;
 
 	/**
 	 * Profile type

@@ -8,39 +8,37 @@ ProfileCPUDAQ::ProfileCPUDAQ(
 		const NiFpga_Session &session,
 		const Platform &platform,
 		const ProfileBase::PROFILE_ID &id) :
-		ProfileBase(id) {
-	m_analog.reset(new TerminalsAnalog(parsedBitfile, session, platform));
-	m_digital.reset(new TerminalsDigital(parsedBitfile, session, platform));
-
-	m_auxAnalog.reset(new TerminalsAuxAnalog(parsedBitfile, session, platform));
-	m_auxDigital.reset(new TerminalsAuxDigital(parsedBitfile, session, platform));
-
-	m_signalGeneration.reset(new TerminalsSignalGeneration(parsedBitfile, session, platform));
-
-	m_daq.reset(new TerminalsDMADAQCPU(parsedBitfile, session, platform));
+		ProfileBase(id),
+		m_analog(parsedBitfile, session, platform),
+		m_digital(parsedBitfile, session, platform),
+		m_auxAnalog(parsedBitfile, session, platform),
+		m_auxDigital(parsedBitfile, session, platform),
+		m_signalGeneration(parsedBitfile, session, platform),
+		m_daq(parsedBitfile, session, platform)
+{
 }
 
-std::shared_ptr<const TerminalsAnalog> ProfileCPUDAQ::analog() const {
+TerminalsAnalog ProfileCPUDAQ::analog() const {
 	return m_analog;
 }
 
-std::shared_ptr<const TerminalsDigital> ProfileCPUDAQ::digital() const {
+TerminalsDigital ProfileCPUDAQ::digital() const {
 	return m_digital;
 }
 
-std::shared_ptr<const TerminalsAuxAnalog> ProfileCPUDAQ::auxAnalog() const {
+TerminalsAuxAnalog ProfileCPUDAQ::auxAnalog() const {
 	return m_auxAnalog;
 }
 
-std::shared_ptr<const TerminalsAuxDigital> ProfileCPUDAQ::auxDigital() const {
+TerminalsAuxDigital ProfileCPUDAQ::auxDigital() const {
 	return m_auxDigital;
 }
 
-std::shared_ptr<const TerminalsSignalGeneration> ProfileCPUDAQ::signalGeneration() const {
+TerminalsSignalGeneration ProfileCPUDAQ::signalGeneration() const {
 	return m_signalGeneration;
 }
 
-std::shared_ptr<const TerminalsDMADAQ> ProfileCPUDAQ::daq() const {
+TerminalsDMADAQ ProfileCPUDAQ::daq() const {
 	return m_daq;
 }
 

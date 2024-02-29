@@ -1,156 +1,72 @@
 #include <terminals/terminalsAnalog.h>
-#include <terminals/names/namesTerminalsAnalog.h>
-#include <utils.h>
-#include <errorsIrio.h>
-#include <niflexrio.h>
 
-namespace iriov2 {
+namespace iriov2{
 
 TerminalsAnalog::TerminalsAnalog(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
-		const Platform &platform) :
-		TerminalsBase(session) {
-	//Find AI
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI, platform.maxAI, m_mapAI);
-
-	//Find AO
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AO, platform.maxAO, m_mapAO);
-
-	//Find AOEnable
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AOENABLE, platform.maxAO, m_mapAOEnable);
-
-	if (m_mapAO.size() != m_mapAOEnable.size()) {
-		throw errors::ResourceNotFoundError("Mismatch in number of AO and AOEnable terminals");
-	}
-
-	numAI = m_mapAI.size();
-	numAO = m_mapAO.size();
-
-	searchModule(platform);
+		const Platform &platform):
+			m_impl(new TerminalsAnalogImpl(parsedBitfile, session, platform)){
 }
 
-std::int32_t getAnalog(
-		const NiFpga_Session &session,
-		const std::uint32_t n,
-		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
-		const std::string &terminalName) {
-
-	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
-
-	std::int32_t aux;
-	auto status = NiFpga_ReadI32(session, addr, &aux);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
-
-	return aux;
+TerminalsAnalog::TerminalsAnalog(const TerminalsAnalog &other) {
+	m_impl = other.m_impl;
 }
 
 std::int32_t TerminalsAnalog::getAI(const std::uint32_t n) const {
-	return getAnalog(m_session, n, m_mapAI, TERMINAL_AI);
+	return m_impl->getAI(n);
 }
 
 std::int32_t TerminalsAnalog::getAO(const std::uint32_t n) const {
-	return getAnalog(m_session, n, m_mapAO, TERMINAL_AO);
+	return m_impl->getAO(n);
 }
 
-std::int32_t TerminalsAnalog::getAOEnable(std::uint32_t n) const {
-	return getAnalog(m_session, n, m_mapAOEnable, TERMINAL_AOENABLE);
+std::int32_t TerminalsAnalog::getAOEnable(const std::uint32_t n) const {
+	return m_impl->getAOEnable(n);
 }
 
 size_t TerminalsAnalog::getNumAI() const {
-	return numAI;
+	return m_impl->getNumAI();
 }
 
 size_t TerminalsAnalog::getNumAO() const {
-	return numAO;
-}
-
-void setAnalog(
-		const NiFpga_Session &session,
-		const std::uint32_t n,
-		const std::int32_t value,
-		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
-		const std::string &terminalName) {
-
-	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
-
-	auto status = NiFpga_WriteI32(session, addr, value);
-	utils::throwIfNotSuccessNiFpga(status, "Error writing terminal " + terminalName + std::to_string(n));
+	return m_impl->getNumAO();
 }
 
 void TerminalsAnalog::setAO(const std::uint32_t n, const std::int32_t value) const {
-	setAnalog(m_session, n, value, m_mapAO, TERMINAL_AO);
+	m_impl->setAO(n, value);
 }
 
-void TerminalsAnalog::setAOEnable(std::uint32_t n, bool value) const {
-	setAnalog(m_session, n, static_cast<std::uint32_t>(value), m_mapAOEnable, TERMINAL_AOENABLE);
+void TerminalsAnalog::setAOEnable(const std::uint32_t n, const bool value) const {
+	m_impl->setAOEnable(n, value);
 }
 
 ModulesType TerminalsAnalog::getModuleConnected() const {
-	return m_module->moduleID;
+	return m_impl->getModuleConnected();
 }
 
 double TerminalsAnalog::getCVADC() const {
-	return m_module->getCVADC();
+	return m_impl->getCVADC();
 }
 
 double TerminalsAnalog::getCVDAC() const {
-	return m_module->getCVDAC();
+	return m_impl->getCVDAC();
 }
 
 double TerminalsAnalog::getMaxValAO() const {
-	return m_module->getMaxValAO();
+	return m_impl->getMaxValAO();
 }
 
 double TerminalsAnalog::getMinValAO() const {
-	return m_module->getMinValAO();
+	return m_impl->getMinValAO();
 }
 
 CouplingMode TerminalsAnalog::getAICouplingMode() const {
-	return m_module->getCouplingMode();
+	return m_impl->getAICouplingMode();
 }
 
 void TerminalsAnalog::setAICouplingMode(const CouplingMode &mode) const {
-	m_module->setCouplingMode(mode);
-}
-
-void TerminalsAnalog::searchModule(const Platform& platform) {
-	switch(platform.platformID){
-	case FLEXRIO_PLATFORM_VALUE:
-		searchFlexRIOModule();
-		break;
-	case CRIO_PLATFORM_VALUE:
-		//TODO: How to support more modules in cRIO?
-		m_module.reset(new ModuleNI92xx());
-		break;
-	case RSERIES_PLATFORM_VALUE:
-		//TODO: Constants depend on the board model; make list
-		break;
-	default:
-		m_module.reset(new Module());
-	}
-}
-
-void TerminalsAnalog::searchFlexRIOModule() {
-	std::uint32_t module;
-	NiFlexRio_GetAttribute(m_session, NIFLEXRIO_Attr_InsertedFamID,
-			NIFLEXRIO_ValueType_U32, &module);
-	switch(static_cast<ModulesType>(module)){
-	case ModulesType::FlexRIO_NI5761:
-		m_module.reset(new ModuleNI5761());
-		break;
-	case ModulesType::FlexRIO_NI5781:
-		m_module.reset(new ModuleNI5781());
-		break;
-	case ModulesType::FlexRIO_NI6581:
-		m_module.reset(new ModuleNI6581());
-		break;
-	case ModulesType::FlexRIO_NI5734:
-		m_module.reset(new ModuleNI5734());
-		break;
-	default:
-		m_module.reset(new Module());
-	}
+	m_impl->setAICouplingMode(mode);
 }
 
 }

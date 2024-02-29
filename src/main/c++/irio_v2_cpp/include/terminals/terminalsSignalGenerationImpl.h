@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/terminalsSignalGenerationImpl.h"
+#include "terminals/terminalsBase.h"
 
 namespace iriov2 {
 /**
@@ -9,7 +9,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsSignalGeneration {
+class TerminalsSignalGenerationImpl: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -24,12 +24,10 @@ public:
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 * @param platform		Platform that is using the terminals. Used to know the maximum number of terminals that can be found.
 	 */
-	TerminalsSignalGeneration(
+	TerminalsSignalGenerationImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
-
-	TerminalsSignalGeneration(const TerminalsSignalGeneration &other);
 
 	/**
 	 * Returns the number of signal generators in the FPGA implementation
@@ -162,7 +160,14 @@ public:
 	void setSGUpdateRate(const std::uint32_t n, const std::uint32_t value) const;
 
 private:
-	std::shared_ptr<TerminalsSignalGenerationImpl> m_impl;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapSignalType_addr;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAmp_addr;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFreq_addr;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapPhase_addr;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapUpdateRate_addr;
+
+	std::uint8_t m_numSG = 0;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFref;
 
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terminals/terminalsFlexRIOImpl.h"
+#include "terminals/terminalsBase.h"
 
 namespace iriov2 {
 /**
@@ -10,7 +10,7 @@ namespace iriov2 {
  * @ingroup Terminals
  * @ingroup FlexRIO
  */
-class TerminalsFlexRIO{
+class TerminalsFlexRIOImpl: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -21,9 +21,7 @@ public:
 	 * @param parsedBitfile Parsed bitfile with the FlexRIO specific terminals
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 */
-	TerminalsFlexRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
-
-	TerminalsFlexRIO(const TerminalsFlexRIO &other);
+	TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
 
 	/**
 	 * Returns whether the adapter connected in the FPGA is correct
@@ -42,8 +40,8 @@ public:
 	std::uint32_t getInsertedIOModuleID() const;
 
 private:
-	std::shared_ptr<TerminalsFlexRIOImpl> m_impl;
-
+	std::uint32_t m_rioadaptercorrect_addr;
+	std::uint32_t m_insertediomoduleid_addr;
 };
 
 }

@@ -7,10 +7,10 @@ ProfileFlexRIO::ProfileFlexRIO(
 		const NiFpga_Session &session,
 		const ProfileBase::PROFILE_ID &id):
 			ProfileBase(id),
-			m_flexRIO(new TerminalsFlexRIO(parsedBitfile, session)){
+			m_flexRIO(parsedBitfile, session){
 }
 
-std::shared_ptr<const TerminalsFlexRIO> ProfileFlexRIO::flexRIO() const {
+TerminalsFlexRIO ProfileFlexRIO::flexRIO() const {
 	return m_flexRIO;
 }
 

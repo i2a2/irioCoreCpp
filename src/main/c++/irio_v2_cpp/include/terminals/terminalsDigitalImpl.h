@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsDigitalImpl.h>
+#include <terminals/terminalsBase.h>
 
 namespace iriov2 {
 /**
@@ -9,7 +9,7 @@ namespace iriov2 {
  *
  * @ingroup Terminals
  */
-class TerminalsDigital{
+class TerminalsDigitalImpl: public TerminalsBase {
 public:
 	/**
 	 * Constructor.
@@ -24,7 +24,7 @@ public:
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 * @param platform		Platform that is using the terminals. Used to know the maximum number of terminals that can be found.
 	 */
-	TerminalsDigital(
+	TerminalsDigitalImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform);
@@ -77,7 +77,8 @@ public:
 	void setDO(const std::uint32_t n, const bool value) const;
 
 private:
-	std::shared_ptr<TerminalsDigitalImpl> m_impl;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDI;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDO;
 
 };
 

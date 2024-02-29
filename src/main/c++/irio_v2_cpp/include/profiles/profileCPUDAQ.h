@@ -36,26 +36,26 @@ public:
 			const Platform &platform,
 			const ProfileBase::PROFILE_ID &id);
 
-	std::shared_ptr<const TerminalsAnalog> analog() const override;
-	std::shared_ptr<const TerminalsDigital> digital() const override;
+	TerminalsAnalog analog() const override;
+	TerminalsDigital digital() const override;
 
-	std::shared_ptr<const TerminalsAuxAnalog> auxAnalog() const override;
-	std::shared_ptr<const TerminalsAuxDigital> auxDigital() const override;
+	TerminalsAuxAnalog auxAnalog() const override;
+	TerminalsAuxDigital auxDigital() const override;
 
-	std::shared_ptr<const TerminalsSignalGeneration> signalGeneration() const override;
+	TerminalsSignalGeneration signalGeneration() const override;
 
-	std::shared_ptr<const TerminalsDMADAQ> daq() const override;
+	TerminalsDMADAQ daq() const override;
 
 private:
-	std::shared_ptr<const TerminalsAnalog> m_analog;
-	std::shared_ptr<const TerminalsDigital> m_digital;
+	TerminalsAnalog m_analog;
+	TerminalsDigital m_digital;
 
-	std::shared_ptr<const TerminalsAuxAnalog> m_auxAnalog;
-	std::shared_ptr<const TerminalsAuxDigital> m_auxDigital;
+	TerminalsAuxAnalog m_auxAnalog;
+	TerminalsAuxDigital m_auxDigital;
 
-	std::shared_ptr<const TerminalsSignalGeneration> m_signalGeneration;
+	TerminalsSignalGeneration m_signalGeneration;
 
-	std::shared_ptr<const TerminalsDMADAQ> m_daq;
+	TerminalsDMADAQCPU m_daq;
 
 };
 

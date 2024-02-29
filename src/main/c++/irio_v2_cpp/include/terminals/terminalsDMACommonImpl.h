@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsDMACommonImpl.h>
+#include <terminals/terminalsBase.h>
 #include <frameTypes.h>
 
 namespace iriov2{
@@ -10,7 +10,7 @@ namespace iriov2{
  *
  * @ingroup DMATerminals
  */
-class TerminalsDMACommon{
+class TerminalsDMACommonImpl: public TerminalsBase{
 public:
 	/**
 	 * Constructor.
@@ -43,8 +43,16 @@ public:
 	 * @param nameTermDMAEnable		Name of the terminals that enable or disable
 	 * 								write to DMA
 	 */
-	TerminalsDMACommon(
-			std::shared_ptr<TerminalsDMACommonImpl> impl);
+	TerminalsDMACommonImpl(
+			const bfp::BFP &parsedBitfile,
+			const NiFpga_Session &session,
+			const Platform &platform,
+			const std::string &nameTermNCh,
+			const std::string &nameTermFrameType,
+			const std::string &nameTermSampleSize,
+			const std::string &nameTermOverflows,
+			const std::string &nameTermDMA,
+			const std::string &nameTermDMAEnable);
 
 
 	/**
@@ -302,6 +310,25 @@ public:
 	size_t countDMAs() const;
 
 protected:
-	std::shared_ptr<TerminalsDMACommonImpl> m_impl;
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDMA;
+
+private:
+	static const size_t SIZE_HOST_DMAS = 2048000; //TODO: Why this number?
+
+	void startDMAImpl(const std::uint32_t &dma) const;
+	void cleanDMAImpl(const std::uint32_t &dma) const;
+
+	std::uint32_t m_overflowsAddr;
+
+	std::vector<std::uint16_t> m_nCh;
+	std::vector<FrameType> m_frameType;
+	std::vector<std::uint8_t> m_sampleSize;
+
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapEnable;
+
+	const std::string m_nameTermOverflows;
+	const std::string m_nameTermDMA;
+	const std::string m_nameTermDMAEnable;
+
 };
 }

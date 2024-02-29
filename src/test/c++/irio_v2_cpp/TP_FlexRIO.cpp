@@ -76,16 +76,16 @@ TEST_F(FlexRIOOnlyResources, Resources){
 	const std::string bitfilePath = getBitfilePath();
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 
-	EXPECT_EQ(irio.daq()->countDMAs(), 1) << "Unexpected number of DMAs";
-	EXPECT_EQ(irio.analog()->getNumAI(), 0) << "Unexpected number of analog inputs";
-	EXPECT_EQ(irio.analog()->getNumAO(), 2) << "Unexpected number of analog outputs";
-	EXPECT_EQ(irio.digital()->getNumDI(), 54) << "Unexpected number of digital inputs";
-	EXPECT_EQ(irio.digital()->getNumDO(), 54) << "Unexpected number of digital outputs";
-	EXPECT_EQ(irio.auxAnalog()->getNumAuxAI(), 16) << "Unexpected number of aux analog inputs";
-	EXPECT_EQ(irio.auxAnalog()->getNumAuxAO(), 16) << "Unexpected number of aux analog outputs";
-	EXPECT_EQ(irio.auxDigital()->getNumAuxDI(), 16) << "Unexpected number of aux digital inputs";
-	EXPECT_EQ(irio.auxDigital()->getNumAuxDO(), 16) << "Unexpected number of aux digital outputs";
-	EXPECT_EQ(irio.signalGeneration()->getSGNo(), 2) << "Unexpected number of signal generators";
+	EXPECT_EQ(irio.daq().countDMAs(), 1) << "Unexpected number of DMAs";
+	EXPECT_EQ(irio.analog().getNumAI(), 0) << "Unexpected number of analog inputs";
+	EXPECT_EQ(irio.analog().getNumAO(), 2) << "Unexpected number of analog outputs";
+	EXPECT_EQ(irio.digital().getNumDI(), 54) << "Unexpected number of digital inputs";
+	EXPECT_EQ(irio.digital().getNumDO(), 54) << "Unexpected number of digital outputs";
+	EXPECT_EQ(irio.auxAnalog().getNumAuxAI(), 16) << "Unexpected number of aux analog inputs";
+	EXPECT_EQ(irio.auxAnalog().getNumAuxAO(), 16) << "Unexpected number of aux analog outputs";
+	EXPECT_EQ(irio.auxDigital().getNumAuxDI(), 16) << "Unexpected number of aux digital inputs";
+	EXPECT_EQ(irio.auxDigital().getNumAuxDO(), 16) << "Unexpected number of aux digital outputs";
+	EXPECT_EQ(irio.signalGeneration().getSGNo(), 2) << "Unexpected number of signal generators";
 }
 
 /**
@@ -180,19 +180,19 @@ TEST_F(FlexRIONoModule, AuxAnalog){
 	auto auxAnalog = irio.auxAnalog();
 
 	irio.startFPGA();
-	ASSERT_GE(auxAnalog->getNumAuxAI(), numAuxAnalog) << "Insufficient number of auxAI";
-	ASSERT_GE(auxAnalog->getNumAuxAO(), numAuxAnalog) << "Insufficient number of auxAO";
+	ASSERT_GE(auxAnalog.getNumAuxAI(), numAuxAnalog) << "Insufficient number of auxAI";
+	ASSERT_GE(auxAnalog.getNumAuxAO(), numAuxAnalog) << "Insufficient number of auxAO";
 
 	std::int32_t valueWrite;
 	std::int32_t valueRead;
 	for(size_t n = 0; n < numAuxAnalog; ++n){
 		for(size_t t = 0; t < numTests; ++t){
 			valueWrite = rnd.getRandom();
-			auxAnalog->setAuxAO(n, valueWrite);
-			valueRead = auxAnalog->getAuxAO(n);
+			auxAnalog.setAuxAO(n, valueWrite);
+			valueRead = auxAnalog.getAuxAO(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value was not written in auxAO" << n;
 
-			valueRead = auxAnalog->getAuxAI(n);
+			valueRead = auxAnalog.getAuxAI(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value written in auxAO" << n
 					<< " was not read in auxAI" << n;
 		}
@@ -209,19 +209,19 @@ TEST_F(FlexRIONoModule, AuxAnalog64){
 	auto auxAnalog = irio.auxAnalog();
 
 	irio.startFPGA();
-	ASSERT_GE(auxAnalog->getNumAuxAI64(), numAuxAnalog) << "Insufficient number of auxAI64";
-	ASSERT_GE(auxAnalog->getNumAuxAO64(), numAuxAnalog) << "Insufficient number of auxAO64";
+	ASSERT_GE(auxAnalog.getNumAuxAI64(), numAuxAnalog) << "Insufficient number of auxAI64";
+	ASSERT_GE(auxAnalog.getNumAuxAO64(), numAuxAnalog) << "Insufficient number of auxAO64";
 
 	std::int64_t valueWrite;
 	std::int64_t valueRead;
 	for(size_t n = 0; n < numAuxAnalog; ++n){
 		for(size_t t = 0; t < numTests; ++t){
 			valueWrite = rnd.getRandom();
-			auxAnalog->setAuxAO64(n, valueWrite);
-			valueRead = auxAnalog->getAuxAO64(n);
+			auxAnalog.setAuxAO64(n, valueWrite);
+			valueRead = auxAnalog.getAuxAO64(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value was not written in auxAO64" << n;
 
-			valueRead = auxAnalog->getAuxAI64(n);
+			valueRead = auxAnalog.getAuxAI64(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value written in aux64AO" << n
 					<< " was not read in aux64AI" << n;
 		}
@@ -238,19 +238,19 @@ TEST_F(FlexRIONoModule, AuxDigital){
 	auto auxDigital = irio.auxDigital();
 
 	irio.startFPGA();
-	ASSERT_GE(auxDigital->getNumAuxDI(), numAuxDigital) << "Insufficient number of auxDI";
-	ASSERT_GE(auxDigital->getNumAuxDO(), numAuxDigital) << "Insufficient number of auxDO";
+	ASSERT_GE(auxDigital.getNumAuxDI(), numAuxDigital) << "Insufficient number of auxDI";
+	ASSERT_GE(auxDigital.getNumAuxDO(), numAuxDigital) << "Insufficient number of auxDO";
 
 	bool valueWrite;
 	bool valueRead;
 	for(size_t n = 0; n < numAuxDigital; ++n){
 		for(size_t t = 0; t < numTests; ++t){
 			valueWrite = rnd.getRandom();
-			auxDigital->setAuxDO(n, valueWrite);
-			valueRead = auxDigital->getAuxDO(n);
+			auxDigital.setAuxDO(n, valueWrite);
+			valueRead = auxDigital.getAuxDO(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value was not written in auxDO" << n;
 
-			valueRead = auxDigital->getAuxDI(n);
+			valueRead = auxDigital.getAuxDI(n);
 			EXPECT_EQ(valueWrite, valueRead) << "The value written in auxDO" << n
 					<< " was not read in auxDI" << n;
 		}
@@ -283,12 +283,12 @@ TEST_F(FlexRIONoModule, SGSignalType){
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 	auto sg = irio.signalGeneration();
 
-	ASSERT_GE(sg->getSGNo(), 1);
+	ASSERT_GE(sg.getSGNo(), 1);
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
-	const auto st = sg->getSGSignalType(0);
+	const auto st = sg.getSGSignalType(0);
 	EXPECT_EQ(st, 0);
 }
 
@@ -306,16 +306,16 @@ TEST_F(FlexRIOCPUDAQ, Resources){
 	const std::string bitfilePath = getBitfilePath();
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 
-	EXPECT_EQ(irio.daq()->countDMAs(), 2) << "Unexpected number of DMAs";
-	EXPECT_EQ(irio.analog()->getNumAI(), 2) << "Unexpected number of analog inputs";
-	EXPECT_EQ(irio.analog()->getNumAO(), 2) << "Unexpected number of analog outputs";
-	EXPECT_EQ(irio.digital()->getNumDI(), 2) << "Unexpected number of digital inputs";
-	EXPECT_EQ(irio.digital()->getNumDO(), 2) << "Unexpected number of digital outputs";
-	EXPECT_EQ(irio.auxAnalog()->getNumAuxAI(), 2) << "Unexpected number of aux analog inputs";
-	EXPECT_EQ(irio.auxAnalog()->getNumAuxAO(), 2) << "Unexpected number of aux analog outputs";
-	EXPECT_EQ(irio.auxDigital()->getNumAuxDI(), 2) << "Unexpected number of aux digital inputs";
-	EXPECT_EQ(irio.auxDigital()->getNumAuxDO(), 2) << "Unexpected number of aux digital outputs";
-	EXPECT_EQ(irio.signalGeneration()->getSGNo(), 2) << "Unexpected number of signal generators";
+	EXPECT_EQ(irio.daq().countDMAs(), 2) << "Unexpected number of DMAs";
+	EXPECT_EQ(irio.analog().getNumAI(), 2) << "Unexpected number of analog inputs";
+	EXPECT_EQ(irio.analog().getNumAO(), 2) << "Unexpected number of analog outputs";
+	EXPECT_EQ(irio.digital().getNumDI(), 2) << "Unexpected number of digital inputs";
+	EXPECT_EQ(irio.digital().getNumDO(), 2) << "Unexpected number of digital outputs";
+	EXPECT_EQ(irio.auxAnalog().getNumAuxAI(), 2) << "Unexpected number of aux analog inputs";
+	EXPECT_EQ(irio.auxAnalog().getNumAuxAO(), 2) << "Unexpected number of aux analog outputs";
+	EXPECT_EQ(irio.auxDigital().getNumAuxDI(), 2) << "Unexpected number of aux digital inputs";
+	EXPECT_EQ(irio.auxDigital().getNumAuxDO(), 2) << "Unexpected number of aux digital outputs";
+	EXPECT_EQ(irio.signalGeneration().getSGNo(), 2) << "Unexpected number of signal generators";
 }
 
 
@@ -329,7 +329,7 @@ TEST_F(FlexRIOMod5761, CheckModule){
 
 	const auto analog = irio.analog();
 
-	const auto module = analog->getModuleConnected();
+	const auto module = analog.getModuleConnected();
 	ASSERT_EQ(module, ModulesType::FlexRIO_NI5761) << "The connected module is not a NI5761";
 }
 
@@ -337,19 +337,19 @@ TEST_F(FlexRIOMod5761, AOEnable){
 	const std::string bitfilePath = getBitfilePath();
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 	const auto analog = irio.analog();
-	ASSERT_GE(analog->getNumAO(), 1);
+	ASSERT_GE(analog.getNumAO(), 1);
 	bool aux;
 
 	irio.startFPGA();
 
-	analog->setAOEnable(0, false);
-	aux = analog->getAOEnable(0);
+	analog.setAOEnable(0, false);
+	aux = analog.getAOEnable(0);
 	EXPECT_FALSE(aux);
-	analog->setAOEnable(0, true);
-	aux = analog->getAOEnable(0);
+	analog.setAOEnable(0, true);
+	aux = analog.getAOEnable(0);
 	EXPECT_TRUE(aux);
-	analog->setAOEnable(0, false);
-	aux = analog->getAOEnable(0);
+	analog.setAOEnable(0, false);
+	aux = analog.getAOEnable(0);
 	EXPECT_FALSE(aux);
 }
 
@@ -370,14 +370,14 @@ TEST_F(FlexRIOMod5761, AO){
 	std::int32_t valueWrite;
 	std::int32_t valueRead;
 
-	analog->setAOEnable(0, true);
+	analog.setAOEnable(0, true);
 	for(size_t i = 0; i < numTests; ++i){
 		valueWrite = rnd.getRandom();
-		analog->setAO(idAO, valueWrite);
-		valueRead = analog->getAO(idAO);
+		analog.setAO(idAO, valueWrite);
+		valueRead = analog.getAO(idAO);
 		EXPECT_EQ(valueWrite, valueRead) << "The value was not written in AO0";
 
-		valueRead = auxAnalog->getAuxAI(idAuxAI);
+		valueRead = auxAnalog.getAuxAI(idAuxAI);
 		EXPECT_EQ(valueWrite, valueRead) << "The value written in AO0 was not read in auxAI9";
 	}
 
@@ -389,8 +389,8 @@ TEST_F(FlexRIOMod5761, DMAClean){
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
-	irio.daq()->cleanDMA(0);
-	irio.daq()->cleanAllDMAs();
+	irio.daq().cleanDMA(0);
+	irio.daq().cleanAllDMAs();
 }
 
 TEST_F(FlexRIOMod5761, DMAStartStop){
@@ -400,11 +400,11 @@ TEST_F(FlexRIOMod5761, DMAStartStop){
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
-	irio.daq()->startAllDMAs();
-	irio.daq()->stopAllDMAs();
+	irio.daq().startAllDMAs();
+	irio.daq().stopAllDMAs();
 
-	irio.daq()->startDMA(0);
-	irio.daq()->stopDMA(0);
+	irio.daq().startDMA(0);
+	irio.daq().stopDMA(0);
 }
 
 TEST_F(FlexRIOMod5761, DMASamplingRate){
@@ -417,8 +417,8 @@ TEST_F(FlexRIOMod5761, DMASamplingRate){
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
-	irio.daq()->setSamplingRate(0, decimation);
-	const auto readDecimation = irio.daq()->getSamplingRate(0);
+	irio.daq().setSamplingRate(0, decimation);
+	const auto readDecimation = irio.daq().getSamplingRate(0);
 	EXPECT_EQ(samplingRate, fref/readDecimation) << "Unable to configure sampling rate";
 }
 
@@ -427,20 +427,21 @@ TEST_F(FlexRIOMod5761, AICoupling){
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
 	const auto analog = irio.analog();
 
-	ASSERT_EQ(analog->getAICouplingMode(), CouplingMode::AC);
-	EXPECT_DOUBLE_EQ(analog->getCVADC(), 1.035/8191) << "Incorrect CVADC in AC";
-	EXPECT_DOUBLE_EQ(analog->getCVDAC(), 8191/1.035) << "Incorrect CVDAC in AC";
-	EXPECT_DOUBLE_EQ(analog->getMaxValAO(), 1.0) << "Incorrect maxAO in AC";
-	EXPECT_DOUBLE_EQ(analog->getMinValAO(), -1.0) << "Incorrect minAO in AC";
+	ASSERT_EQ(analog.getAICouplingMode(), CouplingMode::AC);
+	EXPECT_DOUBLE_EQ(analog.getCVADC(), 1.035/8191) << "Incorrect CVADC in AC";
+	EXPECT_DOUBLE_EQ(analog.getCVDAC(), 8191/1.035) << "Incorrect CVDAC in AC";
+	EXPECT_DOUBLE_EQ(analog.getMaxValAO(), 1.0) << "Incorrect maxAO in AC";
+	EXPECT_DOUBLE_EQ(analog.getMinValAO(), -1.0) << "Incorrect minAO in AC";
 
-	analog->setAICouplingMode(CouplingMode::DC);
-	ASSERT_EQ(analog->getAICouplingMode(), CouplingMode::DC);
-	EXPECT_DOUBLE_EQ(analog->getCVADC(), 0.635/8191) << "Incorrect CVADC in DC";
-	EXPECT_DOUBLE_EQ(analog->getCVDAC(), 8191/0.635) << "Incorrect CVDAC in DC";
-	EXPECT_DOUBLE_EQ(analog->getMaxValAO(), 0.635) << "Incorrect maxAO in DC";
-	EXPECT_DOUBLE_EQ(analog->getMinValAO(), -0.635) << "Incorrect minAO in DC";
+	analog.setAICouplingMode(CouplingMode::DC);
+	ASSERT_EQ(analog.getAICouplingMode(), CouplingMode::DC);
+	ASSERT_EQ(irio.analog().getAICouplingMode(), CouplingMode::DC);
+	EXPECT_DOUBLE_EQ(analog.getCVADC(), 0.635/8191) << "Incorrect CVADC in DC";
+	EXPECT_DOUBLE_EQ(analog.getCVDAC(), 8191/0.635) << "Incorrect CVDAC in DC";
+	EXPECT_DOUBLE_EQ(analog.getMaxValAO(), 0.635) << "Incorrect maxAO in DC";
+	EXPECT_DOUBLE_EQ(analog.getMinValAO(), -0.635) << "Incorrect minAO in DC";
 
-	EXPECT_THROW(analog->setAICouplingMode(CouplingMode::None), // @suppress("Goto statement used")
+	EXPECT_THROW(analog.setAICouplingMode(CouplingMode::None), // @suppress("Goto statement used")
 			errors::UnsupportedAICouplingForModule);
 }
 

@@ -67,13 +67,13 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 
 	switch (m_platform->platformID) {
 	case FLEXRIO_PLATFORM_VALUE:
-		if (m_profile->flexRIO()->getInsertedIOModuleID() != 0
-				&& !m_profile->flexRIO()->getRIOAdapterCorrect()) {
+		if (m_profile->flexRIO().getInsertedIOModuleID() != 0
+				&& !m_profile->flexRIO().getRIOAdapterCorrect()) {
 			throw errors::ModulesNotOKError("FlexRIO IO Module check failed");
 		}
 		break;
 	case CRIO_PLATFORM_VALUE:
-		if (!m_profile->cRIO()->getcRIOModulesOk()) {
+		if (!m_profile->cRIO().getcRIOModulesOk()) {
 			throw errors::ModulesNotOKError("cRIO IO Module check failed");
 		}
 		break;
@@ -149,35 +149,35 @@ void IrioV2::setDebugMode(const bool &debug) const {
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
-std::shared_ptr<const TerminalsAnalog> IrioV2::analog() const {
+TerminalsAnalog IrioV2::analog() const {
 	return m_profile->analog();
 }
 
-std::shared_ptr<const TerminalsDigital> IrioV2::digital() const {
+TerminalsDigital IrioV2::digital() const {
 	return m_profile->digital();
 }
 
-std::shared_ptr<const TerminalsAuxAnalog> IrioV2::auxAnalog() const {
+TerminalsAuxAnalog IrioV2::auxAnalog() const {
 	return m_profile->auxAnalog();
 }
 
-std::shared_ptr<const TerminalsAuxDigital> IrioV2::auxDigital() const {
+TerminalsAuxDigital IrioV2::auxDigital() const {
 	return m_profile->auxDigital();
 }
 
-std::shared_ptr<const TerminalscRIO> IrioV2::cRIO() const {
+TerminalscRIO IrioV2::cRIO() const {
 	return m_profile->cRIO();
 }
 
-std::shared_ptr<const TerminalsFlexRIO> IrioV2::flexRIO() const {
+TerminalsFlexRIO IrioV2::flexRIO() const {
 	return m_profile->flexRIO();
 }
 
-std::shared_ptr<const TerminalsSignalGeneration> IrioV2::signalGeneration() const {
+TerminalsSignalGeneration IrioV2::signalGeneration() const {
 	return m_profile->signalGeneration();
 }
 
-std::shared_ptr<const TerminalsDMADAQ> IrioV2::daq() const {
+TerminalsDMADAQ IrioV2::daq() const {
 	return m_profile->daq();
 }
 
