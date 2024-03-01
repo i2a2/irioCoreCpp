@@ -261,6 +261,7 @@ TEST_F(FlexRIONoModule, DevTemp){
 	const std::string bitfilePath = getBitfilePath();
 
 	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	irio.startFPGA();
 
 	irio.getDevTemp();
 }
