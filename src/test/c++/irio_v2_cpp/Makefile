@@ -21,7 +21,8 @@ OBJECT_DIR = $(SOURCE_DIR)/.obj
 EXECUTABLE=$(BINARY_DIR)/$(PROGNAME)
 BASE_INCLUDES=. ../include $(TARGET)/main/c++/include
 INCLUDES=$(foreach inc,$(BASE_INCLUDES),-I$(inc)) $(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDLIBS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) $(foreach libs,$(LIBRARIES),-l$(libs))
+LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs))
+LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(wildcard $(SOURCE_DIR)/*.cpp)
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
 
@@ -44,7 +45,7 @@ run: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	mkdir -p $(BINARY_DIR)
-	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJECTS) -o $@ $(LDLIBS)
+	$(CC) $(LDFLAGS) $(LDPATHS) $(OBJECTS) -o $@ $(LDLIBS)
 
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	mkdir -p $(OBJECT_DIR)
