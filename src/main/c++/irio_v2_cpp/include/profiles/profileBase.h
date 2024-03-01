@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-#include <bfp.h>
 #include <terminals/terminals.h>
 
 namespace iriov2 {

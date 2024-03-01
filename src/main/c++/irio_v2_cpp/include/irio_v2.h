@@ -1,12 +1,6 @@
 #pragma once
 
-#include <string>
-#include <memory>
-#include <platforms.h>
 #include <profiles/profileBase.h>
-#include <bfp.h>
-#include <NiFpga.h>
-#include <terminals/terminals.h>
 
 namespace iriov2 {
 

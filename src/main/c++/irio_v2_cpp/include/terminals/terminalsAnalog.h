@@ -2,7 +2,6 @@
 
 #include <terminals/terminalsBase.h>
 #include <modules.h>
-#include <memory>
 
 namespace iriov2 {
 /**
