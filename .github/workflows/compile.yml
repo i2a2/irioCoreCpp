@@ -12,18 +12,18 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install Dependencies
       run: |
-        apt install -y unzip
-        apt install -y wget
-        apt install -y rsync
+        sudo apt install -y unzip
+        sudo apt install -y wget
+        sudo apt install -y rsync
         wget https://download.ni.com/support/softlib/MasterRepository/LinuxDrivers2023Q4/NILinux2023Q4DeviceDrivers.zip
         unzip NILinux2023Q4DeviceDrivers.zip
         cd NILinux2023Q4DeviceDrivers
-        apt install -y ni-ubuntu*
-        apt update
-        apt install -y ni-syscfg-devel
-        apt install -y ni-flexrio-modulario-libs-devel
-        apt install -y libpugixml-dev
-        apt install -y libgtest-dev       
+        sudo apt install -y ni-ubuntu*
+        sudo apt update
+        sudo apt install -y ni-syscfg-devel
+        sudo apt install -y ni-flexrio-modulario-libs-devel
+        sudo apt install -y libpugixml-dev
+        sudo apt install -y libgtest-dev       
     - name: configure
       run: ./configure
     - name: make
