@@ -91,7 +91,6 @@ public:
 	 * and identifies the module
 	 *
 	 * @param id		Module identifier
-	 * @param configs 	Available coupling modes with their respective conversion values
 	 */
     explicit Module(const ModulesType &id = ModulesType::NoModule);
 
