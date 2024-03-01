@@ -24,7 +24,5 @@ jobs:
         sudo apt install -y ni-flexrio-modulario-libs-devel
         sudo apt install -y libpugixml-dev
         sudo apt install -y libgtest-dev       
-    - name: configure
-      run: ./configure
     - name: make
       run: make
