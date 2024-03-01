@@ -1,4 +1,4 @@
-SUBDIRS=$(dir $(wildcard */Makefile))
+SUBDIRS=bfp irio_v2_cpp
 
 BOLD=\e[1m
 NC=\e[0m

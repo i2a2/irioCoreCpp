@@ -65,11 +65,59 @@
                         <package name="bfp">
                             <include name="bfp" type="library" />
                         </package>
-                        <package develof="bfp" />
-                        <package name="irio_v2">
-                            <include name="irio_v2" type="library" />
+                        <package develof="bfp">
+                        	<include type="file" source="main/c++/bfp/include" target="include/iriov2cpp/bfp" />
                         </package>
-                        <package develof="irio_v2" />
+                        <package name="irio_v2_cpp">
+                            <include name="irio_v2_cpp" type="library" />
+                        </package>
+                        <package develof="irio_v2_cpp">
+                        	<include type="file" source="main/c++/irio_v2_cpp/include" target="include/iriov2cpp" />
+                        </package>
+                        
+                        <package name="doc">
+                            <include type="doxygen" name="iriov2cpp" project="${project.name}" version="${project.version}" optimize="cpp">
+                                <filepattern>*.dox</filepattern>
+                				<filepattern>*.h</filepattern>
+                				<filepattern>*.cpp</filepattern>
+                                <outputformat>html</outputformat>
+                                <outputformat>pdf</outputformat>
+                                <input>main/c++/doc</input>
+                                <input>main/c++/bfp/include</input>
+                                <input>main/c++/irio_v2_cpp/include</input>
+                                <imagepath>images</imagepath>
+                                <properties>
+                                    <SORT_MEMBER_DOCS>NO</SORT_MEMBER_DOCS> 
+                                    <HIDE_UNDOC_CLASSES>NO</HIDE_UNDOC_CLASSES>
+                                    <RECURSIVE>YES</RECURSIVE>
+                                    <EXTRACT_ALL>YES</EXTRACT_ALL>
+									<HIDE_UNDOC_MEMBERS>NO</HIDE_UNDOC_MEMBERS>
+                                    <EXTRACT_PRIVATE>YES</EXTRACT_PRIVATE>
+                                    <SOURCE_BROWSER>YES</SOURCE_BROWSER>
+                					<DOT_FONTSIZE>10</DOT_FONTSIZE>
+                                    <CLASS_GRAPH>YES</CLASS_GRAPH>
+                                    <CLASS_DIAGRAMS>YES</CLASS_DIAGRAMS>
+                                    <COLLABORATION_GRAPH>NO</COLLABORATION_GRAPH>
+                                    <GROUP_GRAPHS>YES</GROUP_GRAPHS>
+                                    <INCLUDE_GRAPH>YES</INCLUDE_GRAPH>
+                                    <INCLUDED_BY_GRAPH>YES</INCLUDED_BY_GRAPH>
+                                    <CALL_GRAPH>YES</CALL_GRAPH>
+                                    <CALLER_GRAPH>YES</CALLER_GRAPH>
+                                    <GRAPHICAL_HIERARCHY>YES</GRAPHICAL_HIERARCHY>
+                                    <DIRECTORY_GRAPH>YES</DIRECTORY_GRAPH>
+                                    <DOT_IMAGE_FORMAT>svg</DOT_IMAGE_FORMAT>
+                                    <GENERATE_TREEVIEW>YES</GENERATE_TREEVIEW>
+                                    <EXTRACT_STATIC>YES</EXTRACT_STATIC>
+                                    <UML_LOOK>YES</UML_LOOK>
+                                    <UML_LIMIT_NUM_FIELDS>50</UML_LIMIT_NUM_FIELDS>
+                                    <HAVE_DOT>YES</HAVE_DOT>
+                                    <DOT_GRAPH_MAX_NODES>100</DOT_GRAPH_MAX_NODES>
+                                    <MAX_DOT_GRAPH_DEPTH>0</MAX_DOT_GRAPH_DEPTH>
+                                    <DOT_TRANSPARENT>YES</DOT_TRANSPARENT>
+                                    <INTERACTIVE_SVG>YES</INTERACTIVE_SVG>
+                                </properties>
+                            </include>
+                        </package>
                     </packaging>
                 </configuration>
             </plugin>

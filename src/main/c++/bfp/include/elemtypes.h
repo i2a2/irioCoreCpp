@@ -2,12 +2,15 @@
 
 #include <string>
 
+namespace iriov2{
 namespace bfp{
 
 /**
  * Supported types for the elements of the different Resources in the Bitfile
+ *
+ * @ingroup BFP
  */
-enum ElemTypes{
+enum class ElemTypes{
 	Bool,      /**< Bool */
 	I8,        /**< I8 */
 	U8,        /**< U8 */
@@ -20,8 +23,18 @@ enum ElemTypes{
 	Unsupported/**< Unsupported */
 };
 
+/**
+ * Parses a string and outputs a ElemType if exists an equivalence.
+ * If it does not match, return ElemTypes::Unsupported
+ *
+ * @param typeName	String with the type
+ * @return The equivalent ElemTypes
+ *
+ * @ingroup BFP
+ */
 ElemTypes getElemTypeFromStr(const std::string &typeName);
 
+}
 }
 
 

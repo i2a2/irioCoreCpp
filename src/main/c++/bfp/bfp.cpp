@@ -2,62 +2,18 @@
 
 #include <pugixml.hpp>
 #include <iostream>
+#include <algorithm>
+#include <errorsIrio.h>
 
-std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_node& node, const std::uint32_t& baseAddress);
-std::unordered_map<std::string, bfp::DMA> parseDMA(const pugi::xml_node& node);
-
+namespace iriov2{
 namespace bfp{
 
-BFP::BFP(const std::string& bitfile){
-	pugi::xml_document doc;
-	pugi::xml_parse_result resParse = doc.load_file(bitfile.c_str());
-
-	if(resParse.status != 0){
-		const std::string msg = "Unable to parse '" + bitfile + "' ("
-				+ std::string(resParse.description()) + ")";
-		throw std::runtime_error(msg);
-	}
-
-	try{
-		m_signature = doc.select_node("/Bitfile/SignatureRegister").node().text().as_string();
-		m_baseAddress = doc.select_node("//NiFpga/BaseAddressOnDevice").node().text().as_uint();
-
-		m_regMap = parseRegisters(doc.select_node("/Bitfile/VI/RegisterList").node(), m_baseAddress);
-		m_dmaMap = parseDMA(doc.select_node("/Bitfile/Project//DmaChannelAllocationList").node());
-	}catch(pugi::xpath_exception&){
-		const std::string msg = "Problem while parsing bitfile '" + bitfile + "'";
-		throw std::runtime_error(msg);
-	}
+inline void removeSpaces(std::string &s) {
+	s.erase(remove_if(s.begin(), s.end(), isspace), s.end());
 }
 
-std::unordered_map<std::string, Register> BFP::getRegisters() const{
-	return m_regMap;
-}
-
-Register BFP::getRegister(const std::string& registerName) const{
-	return m_regMap.at(registerName);
-}
-
-std::unordered_map<std::string, DMA> BFP::getDMAs() const{
-	return m_dmaMap;
-}
-
-DMA BFP::getDMA(const std::string& dmaName) const{
-	return m_dmaMap.at(dmaName);
-}
-
-std::string BFP::getSignature() const{
-	return m_signature;
-}
-
-std::uint32_t BFP::getBaseAddress() const{
-	return m_baseAddress;
-}
-
-}
-
-
-std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_node& node, const std::uint32_t& baseAddress){
+std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_node& node, const std::uint32_t& baseAddress,
+		const bool warnUnsupported){
 	std::unordered_map<std::string, bfp::Register> mapRet;
 
 	for(const auto& regNode: node.children("Register")){
@@ -65,11 +21,13 @@ std::unordered_map<std::string, bfp::Register> parseRegisters(const pugi::xml_no
 		if(regNode.child("Internal").text().as_bool())
 			continue;
 
-		bfp::Register aux = bfp::processRegister(regNode, baseAddress);
+		bfp::Register aux = bfp::Register::processRegister(regNode, baseAddress);
 		//Skip unsupported types
 		if(aux.elemType != bfp::ElemTypes::Unsupported){
-			mapRet.insert({aux.name, aux});
-		}else{
+			std::string name = aux.name;
+			removeSpaces(name);
+			mapRet.insert({name, aux});
+		}else if(warnUnsupported){
 			std::cerr << "WARNING: Skipping register " << aux.name << ". Unsupported type." << std::endl;
 		}
 	}
@@ -82,9 +40,72 @@ std::unordered_map<std::string, bfp::DMA> parseDMA(const pugi::xml_node& node){
 	std::unordered_map<std::string, bfp::DMA> mapRet;
 
 	for(const auto& dmaNode: node.children("Channel")){
-		bfp::DMA aux = bfp::processDMA(dmaNode);
-		mapRet.insert({aux.name, aux});
+		bfp::DMA aux = bfp::DMA::processDMA(dmaNode);
+		std::string name = aux.name;
+		removeSpaces(name);
+		mapRet.insert({name, aux});
 	}
 
 	return mapRet;
+}
+
+BFP::BFP(const std::string& bitfile, const bool warnUnsupported):
+	m_bitfilePath(bitfile)
+{
+	pugi::xml_document doc;
+	pugi::xml_parse_result resParse = doc.load_file(bitfile.c_str());
+
+	if(resParse.status != 0){
+		throw errors::BFPParseBitfileError(bitfile, resParse.description());
+	}
+
+	try{
+		m_signature = doc.select_node("/Bitfile/SignatureRegister").node().text().as_string();
+		m_baseAddress = doc.select_node("//NiFpga/BaseAddressOnDevice").node().text().as_uint();
+		m_bitfileVersion = doc.select_node("/Bitfile/BitfileVersion").node().text().as_string();
+
+		m_regMap = parseRegisters(doc.select_node("/Bitfile/VI/RegisterList").node(), m_baseAddress, warnUnsupported);
+		m_dmaMap = parseDMA(doc.select_node("/Bitfile/Project//DmaChannelAllocationList").node());
+	}catch(pugi::xpath_exception &e){
+		throw errors::BFPParseBitfileError(bitfile, e.what());
+	}
+}
+
+std::string BFP::getBitfilePath() const{
+	return m_bitfilePath;
+}
+
+std::string BFP::getBitfileVersion() const{
+	return m_bitfileVersion;
+}
+
+std::unordered_map<std::string, Register> BFP::getRegisters() const{
+	return m_regMap;
+}
+
+Register BFP::getRegister(const std::string& registerName) const{
+	try{
+		return m_regMap.at(registerName);
+	}catch(std::out_of_range&){
+		throw errors::ResourceNotFoundError(registerName + " not found");
+	}
+}
+
+std::unordered_map<std::string, DMA> BFP::getDMAs() const{
+	return m_dmaMap;
+}
+
+DMA BFP::getDMA(const std::string& dmaName) const{
+	try{
+		return m_dmaMap.at(dmaName);
+	}catch(std::out_of_range&){
+		throw errors::ResourceNotFoundError(dmaName + " not found");
+	}
+}
+
+std::string BFP::getSignature() const{
+	return m_signature;
+}
+
+}
 }

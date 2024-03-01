@@ -7,3 +7,5 @@ target/
 *.gcda
 *.depend
 *.obj
+.vscode/
+bw-output/

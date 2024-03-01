@@ -1,12 +1,16 @@
 #pragma once
 
-#include <string>
-
 #include "fpgatypes.h"
 #include "elemtypes.h"
 
+namespace iriov2{
 namespace bfp{
 
+/**
+ * Class holding information about one resource (Register or DMA)
+ *
+ * @ingroup BFP
+ */
 class Resource
 {
 public:
@@ -31,7 +35,5 @@ public:
 				const size_t &_numElem = 1);
 
 };
-
 }
-
-
+}

@@ -1,11 +1,14 @@
 #pragma once
 
+namespace iriov2{
 namespace bfp{
 
 /**
  * Type of Resource possible in the Bitfile
+ *
+ * @ingroup BFP
  */
-enum FpgaTypes {
+enum class FpgaTypes {
 	FpgaType_Control,       /**< FpgaType_Control */
 	FpgaType_Indicator,     /**< FpgaType_Indicator */
 	FpgaType_ArrayControl,  /**< FpgaType_ArrayControl */
@@ -14,5 +17,4 @@ enum FpgaTypes {
 	FpgaType_DMAHtT         /**< FpgaType_DMAHtT */
 };
 }
-
-
+}
