@@ -18,7 +18,7 @@ jobs:
         wget https://download.ni.com/support/softlib/MasterRepository/LinuxDrivers2023Q4/NILinux2023Q4DeviceDrivers.zip
         unzip NILinux2023Q4DeviceDrivers.zip
         cd NILinux2023Q4DeviceDrivers
-        sudo dpkg -i -y ni-ubuntu*
+        sudo dpkg -i ni-ubuntu*
         sudo apt update
         sudo apt install -y ni-syscfg-devel
         sudo apt install -y ni-flexrio-modulario-libs-devel
