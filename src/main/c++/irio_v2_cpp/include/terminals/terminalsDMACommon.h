@@ -133,6 +133,7 @@ public:
 
 	/**
 	 * Cleans the contents of a specified DMA group.
+	 *
 	 * Warning: If the DMA is running, it may lead to a situation
 	 * where more data is read that is possible to clean, which
 	 * may lead to a infinite loop
@@ -145,6 +146,7 @@ public:
 
 	/**
 	 * Cleans the contents of all DMAs in the FPGA
+	 *
 	 * Warning: If the DMA is running, it may lead to a situation
 	 * where more data is read that is possible to clean, which
 	 * may lead to a infinite loop
@@ -197,14 +199,16 @@ public:
 
 	/**
 	 * Tries to read an specified number of elements from a DMA group.
+	 *
 	 * If there are less elements than requested nothing is read.
 	 *
 	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
-	 * @param n	Number of DMA group
+	 * @param n					Number of DMA group
 	 * @param elementsToRead	Number of elements to read from the DMA
-	 * @param data	Buffer to write the read data. Allocation and deallocation of data is user responsibility
+	 * @param data				Buffer to write the read data.
+	 * 							Allocation and deallocation of data is user responsibility
 	 *
 	 * @return	Number of elements read. 0 if they were not enough,
 	 * 			the number specified in \p elementsToRead it they were.
@@ -224,12 +228,12 @@ public:
 	 * 											and the timeout expires waiting for enough data to be read
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
-	 * @param n	Number of DMA group
-	 * @param elementsToRead	NUmber of elements to read from the DMA
-	 * @param data	Buffer to write the read data. Allocation and deallocation
-	 * 				of data is user responsibility
-	 * @param timeout	Max time in milliseconds to wait for the \p elementsToRead to
-	 * 					be available, 0 means wait indefinitely.
+	 * @param n					Number of DMA group
+	 * @param elementsToRead	Number of elements to read from the DMA
+	 * @param data				Buffer to write the read data. Allocation and deallocation
+	 * 							of data is user responsibility
+	 * @param timeout			Max time in milliseconds to wait for the \p elementsToRead to
+	 * 							be available, 0 to wait indefinitely.
 	 * @return 	Unless the timeout expires, this function will always
 	 * 			return the specified \p elementsToRead
 	 */
