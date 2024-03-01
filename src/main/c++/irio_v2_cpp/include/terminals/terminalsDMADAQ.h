@@ -1,9 +1,10 @@
 #pragma once
 
 #include <terminals/terminalsDMACommon.h>
-#include <terminals/impl/terminalsDMADAQImpl.h>
 
 namespace iriov2{
+
+class TerminalsDMADAQImpl;
 
 /**
  * Class managing the terminals used for DMA DAQ operations

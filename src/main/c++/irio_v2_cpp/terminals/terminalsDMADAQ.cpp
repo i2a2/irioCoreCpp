@@ -1,4 +1,5 @@
 #include <terminals/terminalsDMADAQ.h>
+#include <terminals/impl/terminalsDMADAQImpl.h>
 #include <utils.h>
 #include <errorsIrio.h>
 

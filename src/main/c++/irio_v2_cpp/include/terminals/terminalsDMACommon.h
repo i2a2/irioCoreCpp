@@ -1,9 +1,12 @@
 #pragma once
 
-#include <terminals/impl/terminalsDMACommonImpl.h>
 #include <terminals/terminalsBase.h>
+#include <frameTypes.h>
 
 namespace iriov2{
+
+class TerminalsDMACommonImpl;
+
 /**
  * Class managing the terminals common to all other
  * terminals that use DMAs in the RIO device

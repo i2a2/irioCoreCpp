@@ -1,4 +1,5 @@
 #include <terminals/terminalsDMACommon.h>
+#include <terminals/impl/terminalsDMACommonImpl.h>
 #include <errorsIrio.h>
 #include <utils.h>
 #include <memory>

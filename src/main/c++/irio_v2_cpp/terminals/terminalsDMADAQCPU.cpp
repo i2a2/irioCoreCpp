@@ -1,6 +1,7 @@
 #include <terminals/terminalsDMADAQCPU.h>
 #include <terminals/names/namesTerminalsDMACPUCommon.h>
 #include <terminals/names/namesTerminalsDMADAQCPU.h>
+#include <terminals/impl/terminalsDMADAQImpl.h>
 
 namespace iriov2{
 

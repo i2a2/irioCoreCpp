@@ -1,4 +1,5 @@
 #include <terminals/terminalsBase.h>
+#include <terminals/impl/terminalsBaseImpl.h>
 
 namespace iriov2{
 

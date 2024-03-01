@@ -1,10 +1,13 @@
 #pragma once
 
 #include <memory>
-
-#include <terminals/impl/terminalsBaseImpl.h>
+#include <NiFpga.h>
+#include "bfp.h"
+#include "platforms.h"
 
 namespace iriov2{
+
+class TerminalsBaseImpl;
 
 /**
  * Base class for all terminals
