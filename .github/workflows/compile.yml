@@ -1,0 +1,30 @@
+name: C/C++ CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: |
+        apt install -y unzip
+        apt install -y wget
+        apt install -y rsync
+        wget https://download.ni.com/support/softlib/MasterRepository/LinuxDrivers2023Q4/NILinux2023Q4DeviceDrivers.zip
+        unzip NILinux2023Q4DeviceDrivers.zip
+        cd NILinux2023Q4DeviceDrivers
+        apt install -y ni-ubuntu*
+        apt update
+        apt install -y ni-syscfg-devel
+        apt install -y ni-flexrio-modulario-libs-devel
+        apt install -y libpugixml-dev
+        apt install -y libgtest-dev       
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make
