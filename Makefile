@@ -18,7 +18,7 @@ endif
 
 .PHONY: all debug clean compile coverage package doc
 
-.NOTPARALLEL: copy
+.NOTPARALLEL: copy clean
 
 all: copy build
 
