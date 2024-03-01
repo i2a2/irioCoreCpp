@@ -12,7 +12,8 @@ OBJECT_DIR = $(SOURCE_DIR)/.obj
 SHAREDLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).so
 STATICLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).a
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDLIBS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) $(foreach libs,$(LIBRARIES),-l$(libs))
+LDPATHS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) 
+LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(SOURCE_DIR)/$(wildcard *.cpp)
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
 HFILES=$(wildcard *.h)
@@ -49,7 +50,7 @@ run: $(SOURCES) $(SHAREDLIBRARY)
 
 $(SHAREDLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
-	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJECTS) -o $(SHAREDLIBRARY) 
+	$(CC) $(LDFLAGS) $(LDPATHS) $(OBJECTS) -o $(SHAREDLIBRARY) $(LDLIBS)
 
 $(STATICLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
