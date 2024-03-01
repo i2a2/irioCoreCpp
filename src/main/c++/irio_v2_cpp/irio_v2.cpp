@@ -256,16 +256,16 @@ void IrioV2::searchPlatform() {
 
 void IrioV2::searchDevProfile() {
 	static const std::unordered_map<std::uint8_t,
-			const std::unordered_map<std::uint8_t, std::uint8_t>> validProfileByPlatform = { {
-			FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::FLEXRIO_CPUDAQ },
-					{ ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::FLEXRIO_CPUIMAQ }, {
-							ProfileBase::PROFILE_VALUE_DAQGPU, ProfileBase::FLEXRIO_GPUDAQ }, {
-							ProfileBase::PROFILE_VALUE_IMAQGPU, ProfileBase::FLEXRIO_GPUIMAQ } } },
+			const std::unordered_map<std::uint8_t, ProfileBase::PROFILE_ID>> validProfileByPlatform = { {
+			FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ },
+					{ ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ }, {
+							ProfileBase::PROFILE_VALUE_DAQGPU, ProfileBase::PROFILE_ID::FLEXRIO_GPUDAQ }, {
+							ProfileBase::PROFILE_VALUE_IMAQGPU, ProfileBase::PROFILE_ID::FLEXRIO_GPUIMAQ } } },
 
-	{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::CRIO_DAQ }, {
-			ProfileBase::PROFILE_VALUE_IO, ProfileBase::CRIO_IO } } },
+	{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::PROFILE_ID::CRIO_DAQ }, {
+			ProfileBase::PROFILE_VALUE_IO, ProfileBase::PROFILE_ID::CRIO_IO } } },
 
-	{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::R_DAQ } } } };
+	{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::PROFILE_ID::R_DAQ } } } };
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
 	std::uint8_t profile;
@@ -288,21 +288,16 @@ void IrioV2::searchDevProfile() {
 		break;
 	case ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
-		break;
 	case ProfileBase::PROFILE_ID::FLEXRIO_GPUDAQ:
 		throw std::runtime_error("Profile not implemented");
-		break;
 	case ProfileBase::PROFILE_ID::FLEXRIO_GPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
-		break;
 	case ProfileBase::PROFILE_ID::CRIO_DAQ:
 		throw std::runtime_error("Profile not implemented");
-		break;
 	case ProfileBase::PROFILE_ID::CRIO_IO:
 		throw std::runtime_error("Profile not implemented");
-		break;
 	case ProfileBase::PROFILE_ID::R_DAQ:
-		m_profile.reset(new ProfileCPUDAQ(m_bfp, m_session, *m_platform, ProfileBase::R_DAQ));
+		m_profile.reset(new ProfileCPUDAQ(m_bfp, m_session, *m_platform, ProfileBase::PROFILE_ID::R_DAQ));
 		break;
 	}
 }

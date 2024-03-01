@@ -132,10 +132,10 @@ void TerminalsAnalogImpl::searchModule(const Platform& platform) {
 }
 
 void TerminalsAnalogImpl::searchFlexRIOModule() {
-	std::uint32_t module;
+	std::uint32_t moduleID;
 	NiFlexRio_GetAttribute(m_session, NIFLEXRIO_Attr_InsertedFamID,
-			NIFLEXRIO_ValueType_U32, &module);
-	switch(static_cast<ModulesType>(module)){
+			NIFLEXRIO_ValueType_U32, &moduleID);
+	switch(static_cast<ModulesType>(moduleID)){
 	case ModulesType::FlexRIO_NI5761:
 		m_module.reset(new ModuleNI5761());
 		break;

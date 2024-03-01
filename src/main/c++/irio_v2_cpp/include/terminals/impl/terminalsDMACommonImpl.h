@@ -105,11 +105,10 @@ public:
 
 	size_t countDMAsImpl() const;
 
-protected:
-	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDMA;
-
 private:
 	static const size_t SIZE_HOST_DMAS = 2048000; //TODO: Why this number?
+
+	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDMA;
 
 	void startDMACommon(const std::uint32_t &dma) const;
 	void cleanDMACommon(const std::uint32_t &dma) const;

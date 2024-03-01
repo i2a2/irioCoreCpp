@@ -9,6 +9,51 @@
 namespace iriov2{
 
 /**
+ * Parameters for conversion
+ */
+struct ConfigParams
+{
+	/**
+	 * Conversion to Volts of analog inputs
+	 */
+	double CVADC = 0;
+	/**
+	 * Conversion from Volts for analog outputs
+	 */
+	double CVDAC = 0;
+	/**
+	 * Maximum value to be written in an analog output
+	 */
+	double maxValAO = 0;
+	/**
+	 * Minimum value to be written in an analog output
+	 */
+	double minValAO = 0;
+
+	/**
+	 * Default constructor. Sets all values to 0
+	 */
+	ConfigParams() = default;
+
+	/**
+	 * Initializes conversion parameters
+	 *
+	 * @param cvadc	Conversion to Volts of analog inputs
+	 * @param cvdac	Conversion from Volts for analog outputs
+	 * @param maxAO	Maximum value to be written in an analog output
+	 * @param minAO	Minimum value to be written in an analog output
+	 */
+	ConfigParams(
+			const double &cvadc,
+			const double &cvdac,
+			const double &maxAO,
+			const double &minAO) :
+			CVADC(cvadc), CVDAC(cvdac),
+			maxValAO(maxAO),minValAO(minAO) {
+	}
+};
+
+/**
  * Possible types of modules
  *
  * @ingroup Modules
@@ -45,9 +90,10 @@ public:
 	 * Set parameters for all supported coupling modes
 	 * and identifies the module
 	 *
-	 * @param id	Module identifier
+	 * @param id		Module identifier
+	 * @param configs 	Available coupling modes with their respective conversion values
 	 */
-    Module(const ModulesType &id = ModulesType::NoModule);
+    explicit Module(const ModulesType &id = ModulesType::NoModule);
 
     /**
      * Sets a new coupling mode, changing the conversion constants
@@ -100,55 +146,11 @@ public:
     const ModulesType moduleID;
 
 protected:
-    /**
-     * Parameters for conversion
-     */
-    struct ConfigParams
-    {
-    	/**
-    	 * Conversion to Volts of analog inputs
-    	 */
-        double CVADC = 0;
-        /**
-         * Conversion from Volts for analog outputs
-         */
-        double CVDAC = 0;
-        /**
-         * Maximum value to be written in an analog output
-         */
-        double maxValAO = 0;
-        /**
-         * Minimum value to be written in an analog output
-         */
-        double minValAO = 0;
-
-        /**
-         * Default constructor. Sets all values to 0
-         */
-        ConfigParams() = default;
-
-        /**
-         * Initializes conversion parameters
-         *
-         * @param cvadc	Conversion to Volts of analog inputs
-         * @param cvdac	Conversion from Volts for analog outputs
-         * @param maxAO	Maximum value to be written in an analog output
-         * @param minAO	Minimum value to be written in an analog output
-         */
-		ConfigParams(
-				const double &cvadc,
-				const double &cvdac,
-				const double &maxAO,
-				const double &minAO) :
-				CVADC(cvadc), CVDAC(cvdac),
-				maxValAO(maxAO),minValAO(minAO) {
-		}
-    };
-
-    std::unordered_map<CouplingMode, const ConfigParams> availableConfigs;
+    void addConfig(const CouplingMode& mode, const ConfigParams& config);
 
 private:
-    CouplingMode m_couplingMode;
+    std::unordered_map<CouplingMode, const ConfigParams> m_availableConfigs;
+    CouplingMode m_couplingMode = CouplingMode::None;
     ConfigParams m_currentConfig;
 };
 

@@ -209,7 +209,7 @@ public:
 	size_t readDataNonBlocking(
 			const std::uint32_t n,
 			size_t elementsToRead,
-			std::uint64_t *data);
+			std::uint64_t *data) const;
 
 	/**
 	 * Waits to read an specified number of elements from a DMA group.
@@ -234,7 +234,7 @@ public:
 			const std::uint32_t n,
 			size_t elementsToRead,
 			std::uint64_t *data,
-			std::uint32_t timeout = 0);
+			std::uint32_t timeout = 0) const;
 
 	/**
 	 * Reads an specified number of elements from a DMA group.

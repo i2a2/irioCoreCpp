@@ -19,7 +19,7 @@ public:
 	/**
 	 * All possible types of profiles
 	 */
-	enum PROFILE_ID {
+	enum class PROFILE_ID {
 		FLEXRIO_CPUDAQ = 0,/**< Data acquisition in CPU profile for FlexRIO devices */
 		FLEXRIO_CPUIMAQ, /**< Image acquisition in CPU profile for FlexRIO devices */
 		FLEXRIO_GPUDAQ, /**< Data acquisition in GPU profile for FlexRIO devices */
@@ -55,7 +55,7 @@ public:
 	 *
 	 * @param id	Identification of the profile
 	 */
-	ProfileBase(const ProfileBase::PROFILE_ID &id);
+	explicit ProfileBase(const ProfileBase::PROFILE_ID &id);
 
 	virtual ~ProfileBase() = default;
 

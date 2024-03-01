@@ -18,7 +18,7 @@ public:
 	 * Base class for terminals
 	 * @param session	NiFpga_Session to be used in NiFpga related functions. Must be a valid one.
 	 */
-	TerminalsBaseImpl(const NiFpga_Session &session);
+	explicit TerminalsBaseImpl(const NiFpga_Session &session);
 
 protected:
 	const NiFpga_Session m_session;

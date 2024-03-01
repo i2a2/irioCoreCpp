@@ -3,12 +3,16 @@
 namespace iriov2{
 
 Module::Module(const ModulesType &id) :
-		moduleID(id), m_couplingMode(CouplingMode::None) {
+		moduleID(id) {
+}
+
+void Module::addConfig(const CouplingMode& mode, const ConfigParams& config){
+	m_availableConfigs.emplace(mode, config);
 }
 
 void Module::setCouplingMode(const CouplingMode &mode) {
-	const auto it = availableConfigs.find(mode);
-	if (it == availableConfigs.end()) {
+	const auto it = m_availableConfigs.find(mode);
+	if (it == m_availableConfigs.end()) {
 		throw errors::UnsupportedAICouplingForModule();
 	}
 	m_couplingMode = mode;
@@ -37,32 +41,32 @@ double Module::getMinValAO() const {
 
 ModuleNI5761::ModuleNI5761() :
 		Module(ModulesType::FlexRIO_NI5761) {
-	availableConfigs.emplace(CouplingMode::AC, m_configAC);
-	availableConfigs.emplace(CouplingMode::DC, m_configDC);
+	addConfig(CouplingMode::AC, m_configAC);
+	addConfig(CouplingMode::DC, m_configDC);
 	setCouplingMode(CouplingMode::AC);
 }
 
 ModuleNI6581::ModuleNI6581() :
 		Module(ModulesType::FlexRIO_NI6581) {
-	availableConfigs.emplace(CouplingMode::None, m_configNone);
+	addConfig(CouplingMode::None, m_configNone);
 	setCouplingMode(CouplingMode::None);
 }
 
 ModuleNI5734::ModuleNI5734() :
 		Module(ModulesType::FlexRIO_NI5734) {
-	availableConfigs.emplace(CouplingMode::None, m_configNone);
+	addConfig(CouplingMode::None, m_configNone);
 	setCouplingMode(CouplingMode::None);
 }
 
 ModuleNI5781::ModuleNI5781() :
 		Module(ModulesType::FlexRIO_NI5781) {
-	availableConfigs.emplace(CouplingMode::DC, m_configDC);
+	addConfig(CouplingMode::DC, m_configDC);
 	setCouplingMode(CouplingMode::DC);
 }
 
 ModuleNI92xx::ModuleNI92xx() :
 		Module(ModulesType::cRIO_NI92xx) {
-	availableConfigs.emplace(CouplingMode::DC, m_configDC);
+	addConfig(CouplingMode::DC, m_configDC);
 	setCouplingMode(CouplingMode::DC);
 }
 

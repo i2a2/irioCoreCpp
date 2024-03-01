@@ -84,7 +84,7 @@ std::vector<std::uint8_t> TerminalsDMACommon::getAllSampleSizes() const {
 size_t TerminalsDMACommon::readDataNonBlocking(
 		const std::uint32_t n,
 		size_t elementsToRead,
-		std::uint64_t *data) {
+		std::uint64_t *data) const {
 	return std::static_pointer_cast<TerminalsDMACommonImpl>(m_impl)->readDataNonBlockingImpl(n, elementsToRead, data);
 }
 
@@ -92,7 +92,7 @@ size_t TerminalsDMACommon::readDataBlocking(
 		const std::uint32_t n,
 		size_t elementsToRead,
 		std::uint64_t *data,
-		std::uint32_t timeout) {
+		std::uint32_t timeout) const {
 	return std::static_pointer_cast<TerminalsDMACommonImpl>(m_impl)->readDataBlockingImpl(n, elementsToRead, data, timeout);
 }
 

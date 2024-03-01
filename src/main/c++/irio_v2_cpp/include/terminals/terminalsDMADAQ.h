@@ -18,8 +18,8 @@ public:
 	 *
 	 * @param impl Shared pointer to the class that implements the functionality
 	 */
-	TerminalsDMADAQ(
-			std::shared_ptr<TerminalsDMADAQImpl> impl);
+	explicit TerminalsDMADAQ(
+				std::shared_ptr<TerminalsDMADAQImpl> impl);
 
 	/**
 	 * Returns the block length of a specific DMA group
