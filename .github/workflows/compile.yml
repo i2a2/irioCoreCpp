@@ -1,12 +1,17 @@
-name: C/C++ CI
+name: C/C++ CI - Compilation
 
 on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
+    paths:
+      - '**.cpp'
+      - '**.h'
   pull_request:
     branches: [ "main" ]
-
+    paths:
+      - '**.cpp'
+      - '**.h'
 jobs:
   build:
 
