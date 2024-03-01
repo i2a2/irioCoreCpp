@@ -18,6 +18,8 @@ endif
 
 .PHONY: all debug clean compile coverage package doc
 
+.NOTPARALLEL: copy
+
 all: copy build
 
 copy:
