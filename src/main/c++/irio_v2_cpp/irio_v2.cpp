@@ -7,6 +7,7 @@
 #include "errorsIrio.h"
 #include <unistd.h>
 #include <math.h>
+#include <limits>
 
 namespace iriov2 {
 
@@ -146,6 +147,15 @@ void IrioV2::setDebugMode(const bool &debug) const {
 	utils::throwIfNotSuccessNiFpga(status, "Error writing DebugMode");
 }
 
+double IrioV2::getMinSamplingRate() const {
+	return m_minSamplingRate;
+}
+
+double IrioV2::getMaxSamplingRate() const {
+	return m_maxSamplingRate;
+}
+
+
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
@@ -230,6 +240,9 @@ void IrioV2::searchCommonResources(){
 	m_devtemp_addr = m_bfp.getRegister(TERMINAL_DEVTEMP).address;
 	m_daqstartstop_addr = m_bfp.getRegister(TERMINAL_DAQSTARTSTOP).address;
 	m_debugmode_addr = m_bfp.getRegister(TERMINAL_DEBUGMODE).address;
+
+	m_minSamplingRate = 1.0 * m_fref / std::numeric_limits<std::uint16_t>::max();
+	m_maxSamplingRate = m_fref;
 }
 
 void IrioV2::searchPlatform() {

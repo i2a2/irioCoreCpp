@@ -159,6 +159,20 @@ public:
 	 */
 	void setDebugMode(const bool &debug) const;
 
+	/**
+	 * Returns the minimum valid value for the FPGA sampling rate
+	 *
+	 * @return Minimum valid sampling rate
+	 */
+	double getMinSamplingRate() const;
+
+	/**
+	 * Returns the maximum valid value for the FPGA sampling rate
+	 *
+	 * @return Maximum valid sampling rate
+	 */
+	double getMaxSamplingRate() const;
+
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
@@ -325,6 +339,9 @@ private:
 	std::uint32_t m_devtemp_addr;
 	std::uint32_t m_daqstartstop_addr;
 	std::uint32_t m_debugmode_addr;
+
+	double m_minSamplingRate;
+	double m_maxSamplingRate;
 };
 
 }
