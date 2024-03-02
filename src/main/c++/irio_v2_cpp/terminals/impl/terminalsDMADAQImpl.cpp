@@ -53,7 +53,7 @@ std::uint16_t TerminalsDMADAQImpl::getLengthBlock(const std::uint32_t &n) const 
 	return m_lengthBlocks.at(n);
 }
 
-std::uint16_t TerminalsDMADAQImpl::getSamplingRate(const std::uint32_t &n) const {
+std::uint16_t TerminalsDMADAQImpl::getSamplingRateDecimation(const std::uint32_t &n) const {
 	const auto addr = utils::getAddressEnumResource(m_samplingRate_addr, n, m_nameTermSamplingRate);
 
 	std::uint16_t value;
@@ -64,13 +64,13 @@ std::uint16_t TerminalsDMADAQImpl::getSamplingRate(const std::uint32_t &n) const
 	return value;
 }
 
-void TerminalsDMADAQImpl::setSamplingRate(
+void TerminalsDMADAQImpl::setSamplingRateDecimation(
 		const std::uint32_t &n,
-		const std::uint16_t &samplingRate) const {
+		const std::uint16_t &decimation) const {
 
 	const auto addr = utils::getAddressEnumResource(m_samplingRate_addr, n, m_nameTermSamplingRate);
 
-	const auto status = NiFpga_WriteU16(m_session, addr, samplingRate);
+	const auto status = NiFpga_WriteU16(m_session, addr, decimation);
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error writing " + m_nameTermSamplingRate + std::to_string(n));
 }

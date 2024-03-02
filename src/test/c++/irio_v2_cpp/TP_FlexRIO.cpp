@@ -418,8 +418,8 @@ TEST_F(FlexRIOMod5761, DMASamplingRate){
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
-	irio.daq().setSamplingRate(0, decimation);
-	const auto readDecimation = irio.daq().getSamplingRate(0);
+	irio.daq().setSamplingRateDecimation(0, decimation);
+	const auto readDecimation = irio.daq().getSamplingRateDecimation(0);
 	EXPECT_EQ(samplingRate, fref/readDecimation) << "Unable to configure sampling rate";
 }
 

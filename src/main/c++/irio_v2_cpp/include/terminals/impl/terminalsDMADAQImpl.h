@@ -60,9 +60,9 @@ public:
 
 	std::uint16_t getLengthBlock(const std::uint32_t &n) const;
 
-	std::uint16_t getSamplingRate(const std::uint32_t &n) const;
+	std::uint16_t getSamplingRateDecimation(const std::uint32_t &n) const;
 
-	void setSamplingRate(const std::uint32_t &n, const std::uint16_t &samplingRate) const;
+	void setSamplingRateDecimation(const std::uint32_t &n, const std::uint16_t &decimation) const;
 
 private:
 	const std::string m_nameTermSamplingRate;

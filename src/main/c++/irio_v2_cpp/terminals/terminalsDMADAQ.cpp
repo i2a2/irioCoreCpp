@@ -14,14 +14,14 @@ std::uint16_t TerminalsDMADAQ::getLengthBlock(const std::uint32_t &n) const {
 
 }
 
-std::uint16_t TerminalsDMADAQ::getSamplingRate(const std::uint32_t &n) const {
-	return std::static_pointer_cast<TerminalsDMADAQImpl>(m_impl)->getSamplingRate(n);
+std::uint16_t TerminalsDMADAQ::getSamplingRateDecimation(const std::uint32_t &n) const {
+	return std::static_pointer_cast<TerminalsDMADAQImpl>(m_impl)->getSamplingRateDecimation(n);
 }
 
-void TerminalsDMADAQ::setSamplingRate(
+void TerminalsDMADAQ::setSamplingRateDecimation(
 		const std::uint32_t &n,
-		const std::uint16_t &samplingRate) const {
+		const std::uint16_t &decimation) const {
 
-	std::static_pointer_cast<TerminalsDMADAQImpl>(m_impl)->setSamplingRate(n, samplingRate);
+	std::static_pointer_cast<TerminalsDMADAQImpl>(m_impl)->setSamplingRateDecimation(n, decimation);
 }
 }
