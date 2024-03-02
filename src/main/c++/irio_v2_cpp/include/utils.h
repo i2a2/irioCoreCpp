@@ -107,5 +107,21 @@ void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
 		const std::string &nameReg, std::vector<T> &vec,
 		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, T*, size_t)> readFunc);
 
+/**
+ * Converts an enum class to its underlying type.
+ *
+ * Helpful for switches when the value
+ * may not be inside the valid values for the enum
+ *
+ * @tparam E Enum class
+ * @param e	Enum class attribute to convert
+ * @return	Converted value to underlying type
+ */
+template<typename E>
+constexpr auto enum2underlying(E e) -> typename std::underlying_type<E>::type
+{
+   return static_cast<typename std::underlying_type<E>::type>(e);
+}
+
 }
 }

@@ -131,29 +131,21 @@ void TerminalsAnalogImpl::searchModule(const Platform& platform) {
 	}
 }
 
-template<typename E>
-constexpr std::uint32_t enum2underlying(E e) -> typename std::underlying_type<E>::type
-{
-   return static_cast<typename std::underlying_type<E>::type>(e);
-}
-
 void TerminalsAnalogImpl::searchFlexRIOModule() {
-	typedef std::underlying_type<ModulesType>::type utype;
-
 	std::uint32_t moduleID;
 	NiFlexRio_GetAttribute(m_session, NIFLEXRIO_Attr_InsertedFamID,
 			NIFLEXRIO_ValueType_U32, &moduleID);
 	switch(moduleID){
-	case enum2underlying(ModulesType::FlexRIO_NI5761):
+	case utils::enum2underlying(ModulesType::FlexRIO_NI5761):
 		m_module.reset(new ModuleNI5761());
 		break;
-	case enum2underlying(ModulesType::FlexRIO_NI5781):
+	case utils::enum2underlying(ModulesType::FlexRIO_NI5781):
 		m_module.reset(new ModuleNI5781());
 		break;
-	case enum2underlying(ModulesType::FlexRIO_NI6581):
+	case utils::enum2underlying(ModulesType::FlexRIO_NI6581):
 		m_module.reset(new ModuleNI6581());
 		break;
-	case enum2underlying(ModulesType::FlexRIO_NI5734):
+	case utils::enum2underlying(ModulesType::FlexRIO_NI5734):
 		m_module.reset(new ModuleNI5734());
 		break;
 	default:
