@@ -291,13 +291,11 @@ void IrioV2::searchDevProfile() {
 	if (it == validValues.end()) {
 		throw errors::UnsupportedDevProfileError(profile, platform);
 	}
-	const auto profileEnum = static_cast<ProfileBase::PROFILE_ID>(profile);
 
 	//TODO: Finish
-	switch (profileEnum) {
+	switch (it->second) {
 	case ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ:
-		m_profile.reset(
-				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
+		m_profile.reset(new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
 		break;
 	case ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
@@ -310,7 +308,8 @@ void IrioV2::searchDevProfile() {
 	case ProfileBase::PROFILE_ID::CRIO_IO:
 		throw std::runtime_error("Profile not implemented");
 	case ProfileBase::PROFILE_ID::R_DAQ:
-		m_profile.reset(new ProfileCPUDAQ(m_bfp, m_session, *m_platform, ProfileBase::PROFILE_ID::R_DAQ));
+		m_profile.reset(
+				new ProfileCPUDAQ(m_bfp, m_session, *m_platform, ProfileBase::PROFILE_ID::R_DAQ));
 		break;
 	}
 }
