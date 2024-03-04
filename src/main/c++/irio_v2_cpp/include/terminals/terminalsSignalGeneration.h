@@ -104,6 +104,7 @@ public:
 	 */
 	std::uint32_t getSGUpdateRate(const std::uint32_t n) const;
 
+	//TODO: Change this to accept enum
 	/**
 	 * Configures the signal type for a specific signal generator
 	 *
