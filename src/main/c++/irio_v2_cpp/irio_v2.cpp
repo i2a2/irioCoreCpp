@@ -159,35 +159,35 @@ double IrioV2::getMaxSamplingRate() const {
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
-TerminalsAnalog IrioV2::analog() const {
+TerminalsAnalog IrioV2::getTerminalsAnalog() const {
 	return m_profile->analog();
 }
 
-TerminalsDigital IrioV2::digital() const {
+TerminalsDigital IrioV2::getTerminalsDigital() const {
 	return m_profile->digital();
 }
 
-TerminalsAuxAnalog IrioV2::auxAnalog() const {
+TerminalsAuxAnalog IrioV2::getTerminalsAuxAnalog() const {
 	return m_profile->auxAnalog();
 }
 
-TerminalsAuxDigital IrioV2::auxDigital() const {
+TerminalsAuxDigital IrioV2::getTerminalsAuxDigital() const {
 	return m_profile->auxDigital();
 }
 
-TerminalscRIO IrioV2::cRIO() const {
+TerminalscRIO IrioV2::getTerminalsCRIO() const {
 	return m_profile->cRIO();
 }
 
-TerminalsFlexRIO IrioV2::flexRIO() const {
+TerminalsFlexRIO IrioV2::getTerminalsFlexRIO() const {
 	return m_profile->flexRIO();
 }
 
-TerminalsSignalGeneration IrioV2::signalGeneration() const {
+TerminalsSignalGeneration IrioV2::getTerminalsSignalGeneration() const {
 	return m_profile->signalGeneration();
 }
 
-TerminalsDMADAQ IrioV2::daq() const {
+TerminalsDMADAQ IrioV2::getTerminalsDAQ() const {
 	return m_profile->daq();
 }
 

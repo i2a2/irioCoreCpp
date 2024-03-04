@@ -62,7 +62,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the analog terminals
+	 * @return Analog terminals
 	 */
 	virtual TerminalsAnalog analog() const;
 
@@ -71,7 +71,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the digital terminals
+	 * @return Digital terminals
 	 */
 	virtual TerminalsDigital digital() const;
 
@@ -80,7 +80,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the aux analog terminals
+	 * @return Aux analog terminals
 	 */
 	virtual TerminalsAuxAnalog auxAnalog() const;
 
@@ -89,7 +89,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the aux digital terminals
+	 * @return Aux digital terminals
 	 */
 	virtual TerminalsAuxDigital auxDigital() const;
 
@@ -98,7 +98,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the cRIO terminals
+	 * @return cRIO terminals
 	 */
 	virtual TerminalscRIO cRIO() const;
 
@@ -106,7 +106,7 @@ public:
 	 * Access to the FlexRIO group terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 * @return Pointer to the FlexRIO terminals
+	 * @return FlexRIO terminals
 	 */
 	virtual TerminalsFlexRIO flexRIO() const;
 
@@ -115,7 +115,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the Signal Generation terminals
+	 * @return Signal Generation terminals
 	 */
 	virtual TerminalsSignalGeneration signalGeneration() const;
 
@@ -125,7 +125,7 @@ public:
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
 	 *
-	 * @return Pointer to the DMA DAQ terminals
+	 * @return DMA DAQ terminals
 	 */
 	virtual TerminalsDMADAQ daq() const;
 

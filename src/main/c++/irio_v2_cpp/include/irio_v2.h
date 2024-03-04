@@ -178,94 +178,100 @@ public:
 ///////////////////////////////////////////////
 
 	/**
-	 * Returns a pointer to the analog terminals.
-	 * The user must call it to be able to read/write analog
+	 * Access to the analog group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the analog terminals
+	 * @return Analog terminals
 	 */
-	TerminalsAnalog analog() const;
+	TerminalsAnalog getTerminalsAnalog() const;
 
 	/**
-	 * Returns a pointer to the digital terminals.
-	 * The user must call it to be able to read/write digital
+	 * Access to the digital group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the digital terminals
+	 * @return Digital terminals
 	 */
-	TerminalsDigital digital() const;
+	TerminalsDigital getTerminalsDigital() const;
 
 	/**
-	 * Returns a pointer to the aux analog terminals.
-	 * The user must call it to be able to read/write digital
+	 * Access to the aux analog group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the aux analog terminals
+	 * @return Aux analog terminals
 	 */
-	TerminalsAuxAnalog auxAnalog() const;
+	TerminalsAuxAnalog getTerminalsAuxAnalog() const;
 
 	/**
-	 * Returns a pointer to the aux digital terminals.
-	 * The user must call it to be able to read/write digital
+	 * Access to the aux digital group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the aux digital terminals
+	 * @return Aux digital terminals
 	 */
-	TerminalsAuxDigital auxDigital() const;
+	TerminalsAuxDigital getTerminalsAuxDigital() const;
 
 	/**
-	 * Returns a pointer to the cRIO specific terminals.
-	 * The user must call it to be able to read/write digital
+	 * Access to the cRIO group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the cRIO specific terminals
+	 * @return cRIO terminals
 	 */
-	TerminalscRIO cRIO() const;
+	TerminalscRIO getTerminalsCRIO() const;
 
 	/**
-	 * Returns a pointer to the FlexRIO specific terminals.
-	 * The user must call it to be able to read/write digital
+	 * Access to the FlexRIO group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the FlexRIO specific terminals
+	 * @return FlexRIO terminals
 	 */
-	TerminalsFlexRIO flexRIO() const;
+	TerminalsFlexRIO getTerminalsFlexRIO() const;
 
 	/**
-	 * Returns a pointer to the Signal Generation terminals.
-	 * The user must call it to be able to read/write digital
+	 * Access to the signal generation group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the Signal Generation terminals
+	 * @return Signal generation terminals
 	 */
-	TerminalsSignalGeneration signalGeneration() const;
+	TerminalsSignalGeneration getTerminalsSignalGeneration() const;
 
 	/**
-	 * Returns a pointer to the DAQ terminals.
-	 * This can be for CPU or GPU DAQ functionality depending
-	 * on the profile selected.
-	 * The user must call it to be able to read/write digital
+	 * Access to the DAQ group terminals
+	 *
+	 * The user must call it to be able to read/write the
 	 * related terminals.
 	 *
 	 * @throw iriov2::errors::TerminalNotImplementedError The selected profile does not have the terminals
 	 *
-	 * @return Pointer to the DAQ terminals
+	 * @return DAQ terminals
 	 */
-	TerminalsDMADAQ daq() const;
+	TerminalsDMADAQ getTerminalsDAQ() const;
 
 private:
 	/**
