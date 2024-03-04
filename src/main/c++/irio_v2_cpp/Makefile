@@ -49,8 +49,8 @@ ifdef CODAC_ROOT
 	CFLAGS+= -DCCS_VERSION
 	CCFLAGS+= -DCCS_VERSION
 else
-	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
-	SOURCES_DIR+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
+	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
+	SOURCES_DIR+=$(TARGET)/main/c++/NiFpga_CD
 endif
 
 VPATH=$(SOURCES_DIR)
