@@ -91,8 +91,8 @@ std::uint32_t getValue(
 		const std::string &terminalName) {
 	auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
-	std::int32_t aux;
-	auto status = NiFpga_ReadI32(session, addr, &aux);
+	std::uint32_t aux;
+	auto status = NiFpga_ReadU32(session, addr, &aux);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 
 	return aux;
@@ -128,13 +128,13 @@ void TerminalsSignalGenerationImpl::setSGSignalTypeImpl(
 void setValue(
 		const NiFpga_Session &session,
 		const std::uint32_t n,
-		const std::int32_t value,
+		const std::uint32_t value,
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapTerminals,
 		const std::string &terminalName) {
 
 	const auto addr = utils::getAddressEnumResource(mapTerminals, n, terminalName);
 
-	auto status = NiFpga_WriteI32(session, addr, value);
+	auto status = NiFpga_WriteU32(session, addr, value);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading terminal " + terminalName + std::to_string(n));
 }
 
