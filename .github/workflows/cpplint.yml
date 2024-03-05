@@ -1,0 +1,19 @@
+name: cpplint
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.cpp'
+      - '**.h'
+  pull_request:
+    paths:
+      - '**.cpp'
+      - '**.h'
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
+    - run: pip install cpplint
+    - run: cpplint --filter=-whitespace/tab,-build/include_subdir,-legal/copyright,-readability/todo --recursive --exclude=src/main/c++/NiFpga_CD/** --exclude=src/test/** src/
