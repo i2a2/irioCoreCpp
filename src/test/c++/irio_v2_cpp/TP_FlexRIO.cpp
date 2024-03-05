@@ -280,56 +280,51 @@ TEST_F(FlexRIONoModule, DebugMode){
 }
 
 //TODO: Check how the SG works, decimation?
-//TEST_F(FlexRIONoModule, SGSignalType){
-//	const std::string bitfilePath = getBitfilePath();
-//
-//	IrioV2 irio(bitfilePath, serialNumber, "4.0");
-//	auto sg = irio.getTerminalsSignalGeneration();
-//
-//	ASSERT_GE(sg.getSGNo(), 1);
-//
-//	irio.startFPGA();
-//	irio.setDebugMode(false);
-//
-//	const auto st = sg.getSGSignalType(0);
-//	EXPECT_EQ(st, 0);
-//}
-//
-//TEST_F(FlexRIONoModule, SGUpdateRate){
-//	const std::uint32_t channel = 0;
-//	const std::uint32_t updateRate = 10000000;
-//
-//	const std::string bitfilePath = getBitfilePath();
-//	IrioV2 irio(bitfilePath, serialNumber, "4.0");
-//	const auto sg = irio.getTerminalsSignalGeneration();
-//
-//	irio.startFPGA();
-//	irio.setDebugMode(false);
-//
-//	sg.setSGUpdateRate(channel, updateRate);
-//	EXPECT_EQ(sg.getSGUpdateRate(channel), updateRate) << "SGUpdateRate was not configured properly";
-//}
-//
-//TEST_F(FlexRIONoModule, SGSignalFreq){
-//	const std::uint32_t channel = 0;
-//	const std::uint32_t signalFreq = 10000;
-//
-//	const std::string bitfilePath = getBitfilePath();
-//	IrioV2 irio(bitfilePath, serialNumber, "4.0");
-//	const auto sg = irio.getTerminalsSignalGeneration();
-//
-//	irio.startFPGA();
-//	irio.setDebugMode(false);
-//
-//
-//	auto fref = irio.getFref();
-//	auto a = sg.getSGFref(channel);
-//	auto b = sg.getSGUpdateRate(channel);
-//
-//	sg.setSGFreq(channel, signalFreq);
-//	EXPECT_EQ(sg.getSGFreq(channel), signalFreq) << "SGSignalFreq was not configured properly";
-//}
-//
+TEST_F(FlexRIONoModule, SGSignalType){
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto sg = irio.getTerminalsSignalGeneration();
+
+	ASSERT_GE(sg.getSGNo(), 1);
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	const auto st = sg.getSGSignalType(0);
+	EXPECT_EQ(st, 0);
+}
+
+TEST_F(FlexRIONoModule, SGUpdateRate){
+	const std::uint32_t channel = 0;
+	const std::uint32_t updateRate = 72;
+
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	const auto sg = irio.getTerminalsSignalGeneration();
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	sg.setSGUpdateRate(channel, updateRate);
+	EXPECT_EQ(sg.getSGUpdateRate(channel), updateRate) << "SGUpdateRate was not configured properly";
+}
+
+TEST_F(FlexRIONoModule, SGSignalFreq){
+	const std::uint32_t channel = 0;
+	const std::uint32_t signalFreq = 40;
+
+	const std::string bitfilePath = getBitfilePath();
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	const auto sg = irio.getTerminalsSignalGeneration();
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	sg.setSGFreq(channel, signalFreq);
+	EXPECT_EQ(sg.getSGFreq(channel), signalFreq) << "SGSignalFreq was not configured properly";
+}
+
 TEST_F(FlexRIONoModule, SGSignalAmp){
 	const std::uint32_t channel = 0;
 	const std::uint32_t signalAmp = 4096;
@@ -340,6 +335,8 @@ TEST_F(FlexRIONoModule, SGSignalAmp){
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
+
+	//auto a = sg.getSGFref(channel);
 
 	sg.setSGAmp(channel, signalAmp);
 	EXPECT_EQ(sg.getSGAmp(channel), signalAmp) << "SGAmp was not configured properly";
@@ -672,7 +669,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeout){
 	// Setup DMAQ
 	const std::uint16_t decimation = irio.getFref()/samplingRate;
 	std::unique_ptr<std::uint64_t> data(new std::uint64_t[lengthBlock*blocksToRead]);
-	const auto timeout = static_cast<std::uint32_t>(std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
+	const auto timeout = static_cast<std::uint32_t>(1.1*std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
 
 	daq.startDMA(DMANum);
 	daq.setSamplingRateDecimation(DMANum, decimation);
