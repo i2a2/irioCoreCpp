@@ -4,7 +4,7 @@ TARGET=../../../../target
 
 LIBRARIES=gtest bfp
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=$(TARGET)/main/c++/bfp/include
+INCLUDE_DIRS=$(TARGET)/main/c++/bfp/include $(TARGET)/main/c++/irio_v2_cpp/include
 
 BINARY_DIR=.
 SOURCE_DIR=.
