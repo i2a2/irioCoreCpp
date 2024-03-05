@@ -295,6 +295,36 @@ TEST_F(FlexRIONoModule, SGSignalType){
 	EXPECT_EQ(st, 0);
 }
 
+TEST_F(FlexRIONoModule, SGFref){
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto sg = irio.getTerminalsSignalGeneration();
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	const auto fref = sg.getSGFref(0);
+	EXPECT_EQ(fref, 100e6);
+}
+
+TEST_F(FlexRIONoModule, SGPhase){
+	const std::uint32_t numSG = 0;
+	const std::uint32_t phase = 10;
+
+	const std::string bitfilePath = getBitfilePath();
+
+	IrioV2 irio(bitfilePath, serialNumber, "4.0");
+	auto sg = irio.getTerminalsSignalGeneration();
+
+	irio.startFPGA();
+	irio.setDebugMode(false);
+
+	sg.setSGPhase(numSG, phase);
+	const auto phaseRead = sg.getSGPhase(numSG);
+	EXPECT_EQ(phaseRead, phase);
+}
+
 TEST_F(FlexRIONoModule, SGUpdateRate){
 	const std::uint32_t channel = 0;
 	const std::uint32_t updateRate = 72;
