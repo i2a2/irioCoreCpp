@@ -11,7 +11,7 @@ ifdef CODAC_ROOT
 	INCLUDE_DIRS+=$(CODAC_ROOT)/include
 	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
 else
-	INCLUDE_DIRS+=$(TARGET)/main/c++/irio_v2_cpp/NiFpga_CD
+	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
 endif
 
 BINARY_DIR=.
