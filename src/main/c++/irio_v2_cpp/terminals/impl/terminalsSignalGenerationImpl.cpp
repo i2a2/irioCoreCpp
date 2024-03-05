@@ -57,7 +57,7 @@ TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
 		utils::throwIfNotSuccessNiFpga(status,
 				"Error reading " + std::string(TERMINAL_SGFREF) + std::to_string(pair.first));
 
-		m_mapFref.insert(pair);
+		m_mapFref.insert({pair.first, aux});
 	}
 }
 
