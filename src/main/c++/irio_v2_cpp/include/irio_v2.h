@@ -61,9 +61,9 @@ class IrioV2 {
 	/**
 	 * Returns the parsed \ref TERMINAL_FPGAVIVERSION read from the FPGA
 	 *
-	 * @return Pair with the FPGAVIVersion. First element is the major version, second the minor version
+	 * @return String with the FPGAVIversion as (M.m). First element is the major version, second the minor version
 	 */
-	std::pair<std::uint8_t, std::uint8_t> getFPGAVIversion() const;
+	std::string getFPGAVIversion() const;
 
 	/**
 	 * Reads the \ref TERMINAL_INITDONE terminal from the FPGA and return its value.
@@ -339,7 +339,7 @@ class IrioV2 {
 
 	NiFpga_Session m_session;
 
-	std::pair<std::uint8_t, std::uint8_t> m_fpgaviversion;
+	std::string m_fpgaviversion;
 	std::uint32_t m_fref;
 
 	std::uint32_t m_initdone_addr;

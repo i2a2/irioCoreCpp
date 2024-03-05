@@ -21,16 +21,17 @@ IrioV2::IrioV2(const std::string &bitfilePath,
 		m_bfp(bitfilePath, false) {
 	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
 
-	if (m_bfp.getBitfileVersion() != FPGAVIversion) {
-		throw errors::FPGAVIVersionMismatchError(m_bfp.getBitfileVersion(),
-				FPGAVIversion);
-	}
-
 	m_session = 0;
 	initDriver();
 	openSession();
 	try {
 		searchCommonResources();
+
+		if(getFPGAVIversion() != FPGAVIversion) {
+			throw errors::FPGAVIVersionMismatchError(getFPGAVIversion(),
+							FPGAVIversion);
+		}
+
 		searchPlatform();
 		searchDevProfile();
 	} catch (...) {
@@ -85,7 +86,7 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	setDAQStop();
 }
 
-std::pair<std::uint8_t, std::uint8_t> IrioV2::getFPGAVIversion() const {
+std::string IrioV2::getFPGAVIversion() const {
 	return m_fpgaviversion;
 }
 
@@ -231,7 +232,8 @@ void IrioV2::searchCommonResources() {
 	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
 			fpgaviversion.data(), 2);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
-	m_fpgaviversion = std::make_pair(fpgaviversion[0], fpgaviversion[1]);
+	m_fpgaviversion = std::to_string(fpgaviversion[0])
+			+"."+std::to_string(fpgaviversion[1]);
 
 	// Read Fref
 	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).address;
