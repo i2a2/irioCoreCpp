@@ -6,6 +6,11 @@
 namespace iriov2 {
 namespace errors {
 
+/**
+ * Base IrioV2 error
+ *
+ * @ingroup Errors
+ */
 class IrioV2Error: public std::runtime_error {
 	using std::runtime_error::runtime_error;
 };
