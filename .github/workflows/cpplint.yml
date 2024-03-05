@@ -1,5 +1,14 @@
 name: cpplint
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.cpp'
+      - '**.h'
+  pull_request:
+    paths:
+      - '**.cpp'
+      - '**.h'
 jobs:
   cpplint:
     runs-on: ubuntu-latest
