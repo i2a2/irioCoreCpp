@@ -14,7 +14,7 @@ namespace iriov2 {
  * @ingroup FlexRIO
  */
 class ProfileFlexRIO: virtual public ProfileBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 *
@@ -33,9 +33,9 @@ public:
 
 	TerminalsFlexRIO flexRIO() const override;
 
-private:
+ private:
 	TerminalsFlexRIO m_flexRIO;
 };
 
-}
+}  // namespace iriov2
 

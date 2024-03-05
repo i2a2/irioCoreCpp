@@ -15,7 +15,7 @@ namespace iriov2 {
  * @ingroup Platforms
  */
 class Platform {
-public:
+ public:
 	/**
 	 * Stores maximum number of resources.
 	 * @param ai			Max number of AI terminals
@@ -29,19 +29,12 @@ public:
 	 * @param modules		Max number of modules
 	 * @param id			Platform identifier
 	 */
-	Platform(
-			size_t ai,
-			size_t auxAI,
-			size_t ao,
-			size_t auxAO,
-			size_t digital,
-			size_t auxDigital,
-			size_t dma,
-			size_t sg,
-			size_t modules,
+	Platform(size_t ai, size_t auxAI, size_t ao, size_t auxAO, size_t digital,
+			size_t auxDigital, size_t dma, size_t sg, size_t modules,
 			std::uint8_t id) :
-			maxAI(ai), maxAuxAI(auxAI), maxAO(ao), maxAuxAO(auxAO), maxDigital(digital), maxAuxDigital(
-					auxDigital), maxDMA(dma), maxSG(sg), maxModules(modules), platformID(id) {
+			maxAI(ai), maxAuxAI(auxAI), maxAO(ao), maxAuxAO(auxAO), maxDigital(
+					digital), maxAuxDigital(auxDigital), maxDMA(dma), maxSG(sg), maxModules(
+					modules), platformID(id) {
 	}
 
 	const size_t maxAI;
@@ -62,7 +55,7 @@ public:
  * @ingroup Platforms
  */
 class PlatformFlexRIO: public Platform {
-private:
+ private:
 	static const size_t MAX_AI = 4;
 	static const size_t MAX_AUX_AI = 16;
 	static const size_t MAX_AO = 2;
@@ -73,16 +66,15 @@ private:
 	static const size_t MAX_SG = 2;
 	static const size_t MAX_MODULES = 1;
 
-public:
+ public:
 	/**
 	 * Specific implementation for the FlexRIO platform
 	 */
 	PlatformFlexRIO() :
-			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA,
-					MAX_SG, MAX_MODULES,
+			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL,
+					MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
 					FLEXRIO_PLATFORM_VALUE) {
 	}
-
 };
 
 /**
@@ -90,7 +82,7 @@ public:
  * @ingroup Platforms
  */
 class PlatformCRIO: public Platform {
-private:
+ private:
 	static const size_t MAX_AI = 256;
 	static const size_t MAX_AUX_AI = 256;
 	static const size_t MAX_AO = 256;
@@ -101,16 +93,15 @@ private:
 	static const size_t MAX_SG = 256;
 	static const size_t MAX_MODULES = 16;
 
-public:
+ public:
 	/**
 	 * Specific implementation for the cRIO platform
 	 */
 	PlatformCRIO() :
-			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA,
-					MAX_SG, MAX_MODULES,
+			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL,
+					MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
 					CRIO_PLATFORM_VALUE) {
 	}
-
 };
 
 /**
@@ -118,7 +109,7 @@ public:
  * @ingroup Platforms
  */
 class PlatformRSeries: public Platform {
-private:
+ private:
 	static const size_t MAX_AI = 8;
 	static const size_t MAX_AUX_AI = 16;
 	static const size_t MAX_AO = 8;
@@ -129,16 +120,15 @@ private:
 	static const size_t MAX_SG = 2;
 	static const size_t MAX_MODULES = 1;
 
-public:
+ public:
 	/**
 	 * Specific implementation for the RSeries platform
 	 */
 	PlatformRSeries() :
-			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL, MAX_AUX_DIGITAL, MAX_DMA,
-					MAX_SG, MAX_MODULES,
+			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL,
+					MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
 					RSERIES_PLATFORM_VALUE) {
 	}
-
 };
 
-}
+}  // namespace iriov2

@@ -1,12 +1,12 @@
 #include <modules.h>
 
-namespace iriov2{
+namespace iriov2 {
 
 Module::Module(const ModulesType &id) :
 		moduleID(id) {
 }
 
-void Module::addConfig(const CouplingMode& mode, const ConfigParams& config){
+void Module::addConfig(const CouplingMode &mode, const ConfigParams &config) {
 	m_availableConfigs.emplace(mode, config);
 }
 
@@ -70,4 +70,4 @@ ModuleNI92xx::ModuleNI92xx() :
 	setCouplingMode(CouplingMode::DC);
 }
 
-}
+}  // namespace iriov2

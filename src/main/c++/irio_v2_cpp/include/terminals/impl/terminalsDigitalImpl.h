@@ -1,6 +1,8 @@
 #pragma once
 
-#include <terminals/impl/terminalsBaseImpl.h>
+#include <unordered_map>
+
+#include "terminals/impl/terminalsBaseImpl.h"
 
 namespace iriov2 {
 /**
@@ -9,7 +11,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsDigitalImpl: public TerminalsBaseImpl {
-public:
+ public:
 	TerminalsDigitalImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
@@ -25,10 +27,9 @@ public:
 
 	void setDO(const std::uint32_t n, const bool value) const;
 
-private:
+ private:
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDI;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDO;
-
 };
 
-}
+}  // namespace iriov2

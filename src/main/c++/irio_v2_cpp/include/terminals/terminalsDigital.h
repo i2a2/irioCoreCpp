@@ -1,6 +1,6 @@
 #pragma once
 
-#include <terminals/terminalsBase.h>
+#include "terminals/terminalsBase.h"
 
 namespace iriov2 {
 /**
@@ -10,7 +10,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsDigital: public TerminalsBase{
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related digital terminals in the parsed bitfile
@@ -77,4 +77,4 @@ public:
 	void setDO(const std::uint32_t n, const bool value) const;
 };
 
-}
+}  // namespace iriov2

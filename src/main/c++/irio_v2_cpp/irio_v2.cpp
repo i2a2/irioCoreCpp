@@ -1,13 +1,14 @@
 #include "irio_v2.h"
 
+#include <unistd.h>
+#include <math.h>
+#include <limits>
+
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 #include "profiles/profiles.h"
 #include "rioDiscovery.h"
 #include "errorsIrio.h"
-#include <unistd.h>
-#include <math.h>
-#include <limits>
 
 namespace iriov2 {
 
@@ -15,25 +16,24 @@ namespace iriov2 {
  * PUBLIC METHODS
  *********************************************/
 
-IrioV2::IrioV2(
-		const std::string &bitfilePath,
-		const std::string &RIOSerialNumber,
-		const std::string &FPGAVIversion) :
+IrioV2::IrioV2(const std::string &bitfilePath,
+		const std::string &RIOSerialNumber, const std::string &FPGAVIversion) :
 		m_bfp(bitfilePath, false) {
 	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
 
 	if (m_bfp.getBitfileVersion() != FPGAVIversion) {
-		throw errors::FPGAVIVersionMismatchError(m_bfp.getBitfileVersion(), FPGAVIversion);
+		throw errors::FPGAVIVersionMismatchError(m_bfp.getBitfileVersion(),
+				FPGAVIversion);
 	}
 
 	m_session = 0;
 	initDriver();
 	openSession();
-	try{
+	try {
 		searchCommonResources();
 		searchPlatform();
 		searchDevProfile();
-	}catch(...){
+	} catch (...) {
 		// Must close the session, the destructor will not
 		// be called if exception occurs in the constructor
 		closeSession();
@@ -49,7 +49,7 @@ IrioV2::~IrioV2() {
 
 void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	const unsigned int SLEEP_INTERVAL_NS = 1e8;
-	const timespec ts{0, SLEEP_INTERVAL_NS};
+	const timespec ts { 0, SLEEP_INTERVAL_NS };
 
 	const auto maxTries = static_cast<std::uint32_t>(std::ceil(
 			(timeoutMs * 1e6) / SLEEP_INTERVAL_NS));
@@ -62,7 +62,7 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 		tries++;
 	}
 
-	if(!getInitDone()){
+	if (!getInitDone()) {
 		throw errors::InitializationTimeoutError();
 	}
 
@@ -143,7 +143,8 @@ void IrioV2::setDAQStartStop(const bool &start) const {
 }
 
 void IrioV2::setDebugMode(const bool &debug) const {
-	auto status = NiFpga_WriteBool(m_session, m_debugmode_addr, static_cast<std::uint8_t>(debug));
+	auto status = NiFpga_WriteBool(m_session, m_debugmode_addr,
+			static_cast<std::uint8_t>(debug));
 	utils::throwIfNotSuccessNiFpga(status, "Error writing DebugMode");
 }
 
@@ -154,7 +155,6 @@ double IrioV2::getMinSamplingRate() const {
 double IrioV2::getMaxSamplingRate() const {
 	return m_maxSamplingRate;
 }
-
 
 ///////////////////////////////////////////////
 /// Terminals
@@ -195,7 +195,7 @@ TerminalsDMADAQ IrioV2::getTerminalsDAQ() const {
  * PRIVATE METHODS
  *********************************************/
 
-void IrioV2::finalizeDriver() const noexcept{
+void IrioV2::finalizeDriver() const noexcept {
 #ifndef CCS_VERSION
 	NiFpga_Finalize();
 #endif
@@ -203,7 +203,7 @@ void IrioV2::finalizeDriver() const noexcept{
 
 void IrioV2::closeSession() noexcept {
 	if (m_session != 0)
-		NiFpga_Close(m_session, 0); //TODO: Should it accept different close attributes?
+		NiFpga_Close(m_session, 0);
 	m_session = 0;
 }
 
@@ -215,38 +215,43 @@ void IrioV2::initDriver() const {
 }
 
 void IrioV2::openSession() {
-	const auto status = NiFpga_Open(m_bfp.getBitfilePath().c_str(), m_bfp.getSignature().c_str(),
-			m_resourceName.c_str(), NiFpga_OpenAttribute_NoRun, &m_session);
-	utils::throwIfNotSuccessNiFpga(status, "Error opening bitfile " + m_bfp.getBitfilePath());
+	const auto status = NiFpga_Open(m_bfp.getBitfilePath().c_str(),
+			m_bfp.getSignature().c_str(), m_resourceName.c_str(),
+			NiFpga_OpenAttribute_NoRun, &m_session);
+	utils::throwIfNotSuccessNiFpga(status,
+			"Error opening bitfile " + m_bfp.getBitfilePath());
 }
 
-void IrioV2::searchCommonResources(){
+void IrioV2::searchCommonResources() {
 	NiFpga_Status status;
 
-	//Read FPGAVIversion
+	// Read FPGAVIversion
 	auto fpgaviversion_addr = m_bfp.getRegister(TERMINAL_FPGAVIVERSION).address;
 	std::array<std::uint8_t, 2> fpgaviversion;
-	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr, fpgaviversion.data(), 2);
+	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
+			fpgaviversion.data(), 2);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
 	m_fpgaviversion = std::make_pair(fpgaviversion[0], fpgaviversion[1]);
 
-	//Read Fref
+	// Read Fref
 	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).address;
 	status = NiFpga_ReadU32(m_session, fref_addr, &m_fref);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading Fref");
 
 	m_initdone_addr = m_bfp.getRegister(TERMINAL_INITDONE).address;
-	m_devqualitystatus_addr = m_bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).address;
+	m_devqualitystatus_addr =
+			m_bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).address;
 	m_devtemp_addr = m_bfp.getRegister(TERMINAL_DEVTEMP).address;
 	m_daqstartstop_addr = m_bfp.getRegister(TERMINAL_DAQSTARTSTOP).address;
 	m_debugmode_addr = m_bfp.getRegister(TERMINAL_DEBUGMODE).address;
 
-	m_minSamplingRate = 1.0 * m_fref / std::numeric_limits<std::uint16_t>::max();
+	m_minSamplingRate = 1.0 * m_fref
+			/ std::numeric_limits<std::uint16_t>::max();
 	m_maxSamplingRate = m_fref;
 }
 
 void IrioV2::searchPlatform() {
-	//Read Platform
+	// Read Platform
 	auto platform_addr = m_bfp.getRegister(TERMINAL_PLATFORM).address;
 	std::uint8_t platform;
 	const auto status = NiFpga_ReadU8(m_session, platform_addr, &platform);
@@ -269,16 +274,24 @@ void IrioV2::searchPlatform() {
 
 void IrioV2::searchDevProfile() {
 	static const std::unordered_map<std::uint8_t,
-			const std::unordered_map<std::uint8_t, ProfileBase::PROFILE_ID>> validProfileByPlatform = { {
-			FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ },
-					{ ProfileBase::PROFILE_VALUE_IMAQ, ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ }, {
-							ProfileBase::PROFILE_VALUE_DAQGPU, ProfileBase::PROFILE_ID::FLEXRIO_GPUDAQ }, {
-							ProfileBase::PROFILE_VALUE_IMAQGPU, ProfileBase::PROFILE_ID::FLEXRIO_GPUIMAQ } } },
+			const std::unordered_map<std::uint8_t,
+				ProfileBase::PROFILE_ID>> validProfileByPlatform =
+				{ { FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
+						ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ }, {
+						ProfileBase::PROFILE_VALUE_IMAQ,
+						ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ }, {
+						ProfileBase::PROFILE_VALUE_DAQGPU,
+						ProfileBase::PROFILE_ID::FLEXRIO_GPUDAQ }, {
+						ProfileBase::PROFILE_VALUE_IMAQGPU,
+						ProfileBase::PROFILE_ID::FLEXRIO_GPUIMAQ } } },
 
-	{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::PROFILE_ID::CRIO_DAQ }, {
-			ProfileBase::PROFILE_VALUE_IO, ProfileBase::PROFILE_ID::CRIO_IO } } },
+				{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
+						ProfileBase::PROFILE_ID::CRIO_DAQ }, {
+						ProfileBase::PROFILE_VALUE_IO,
+						ProfileBase::PROFILE_ID::CRIO_IO } } },
 
-	{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ, ProfileBase::PROFILE_ID::R_DAQ } } } };
+				{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
+						ProfileBase::PROFILE_ID::R_DAQ } } } };
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
 	std::uint8_t profile;
@@ -292,10 +305,11 @@ void IrioV2::searchDevProfile() {
 		throw errors::UnsupportedDevProfileError(profile, platform);
 	}
 
-	//TODO: Finish
+	// TODO: Finish
 	switch (it->second) {
 	case ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ:
-		m_profile.reset(new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
+		m_profile.reset(
+				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
 		break;
 	case ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
@@ -309,9 +323,10 @@ void IrioV2::searchDevProfile() {
 		throw std::runtime_error("Profile not implemented");
 	case ProfileBase::PROFILE_ID::R_DAQ:
 		m_profile.reset(
-				new ProfileCPUDAQ(m_bfp, m_session, *m_platform, ProfileBase::PROFILE_ID::R_DAQ));
+				new ProfileCPUDAQ(m_bfp, m_session, *m_platform,
+						ProfileBase::PROFILE_ID::R_DAQ));
 		break;
 	}
 }
 
-}
+}  // namespace iriov2

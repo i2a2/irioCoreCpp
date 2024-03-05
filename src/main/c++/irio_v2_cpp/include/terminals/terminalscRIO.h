@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "terminals/terminalsBase.h"
 
 namespace iriov2 {
@@ -11,7 +13,7 @@ namespace iriov2 {
  * @ingroup cRIO
  */
 class TerminalscRIO: public TerminalsBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related terminals specific to cRIO devices.
@@ -40,5 +42,5 @@ public:
 	std::vector<std::uint16_t> getInsertedIOModulesID() const;
 };
 
-}
+}  // namespace iriov2
 

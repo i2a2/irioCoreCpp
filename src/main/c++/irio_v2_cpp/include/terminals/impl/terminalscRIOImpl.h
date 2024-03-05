@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "terminals/impl/terminalsBaseImpl.h"
 
 namespace iriov2 {
@@ -11,18 +13,18 @@ namespace iriov2 {
  * @ingroup cRIO
  */
 class TerminalscRIOImpl: public TerminalsBaseImpl {
-public:
-	TerminalscRIOImpl(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+ public:
+	TerminalscRIOImpl(const bfp::BFP &parsedBitfile,
+			const NiFpga_Session &session);
 
 	bool getcRIOModulesOk() const;
 
 	std::vector<std::uint16_t> getInsertedIOModulesID() const;
 
-private:
+ private:
 	std::uint32_t m_criomodulesok_addr;
 	std::uint32_t m_insertediomodulesid_addr;
 	size_t m_numModules;
 };
-
-}
+}  // namespace iriov2
 

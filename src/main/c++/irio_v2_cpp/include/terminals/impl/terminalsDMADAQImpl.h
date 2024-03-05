@@ -1,8 +1,13 @@
 #pragma once
 
-#include <terminals/impl/terminalsDMACommonImpl.h>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <memory>
 
-namespace iriov2{
+#include "terminals/impl/terminalsDMACommonImpl.h"
+
+namespace iriov2 {
 
 /**
  * Class implementing the DMA DAQ functionality
@@ -10,7 +15,7 @@ namespace iriov2{
  * @ingroup DMATerminals
  */
 class TerminalsDMADAQImpl: public TerminalsDMACommonImpl{
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding DMA DAQ resources.
@@ -62,9 +67,10 @@ public:
 
 	std::uint16_t getSamplingRateDecimation(const std::uint32_t &n) const;
 
-	void setSamplingRateDecimation(const std::uint32_t &n, const std::uint16_t &decimation) const;
+	void setSamplingRateDecimation(const std::uint32_t &n,
+			const std::uint16_t &decimation) const;
 
-private:
+ private:
 	const std::string m_nameTermSamplingRate;
 
 	std::vector<std::uint16_t> m_lengthBlocks;
@@ -72,6 +78,6 @@ private:
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_samplingRate_addr;
 };
 
-}
+}  // namespace iriov2
 
 

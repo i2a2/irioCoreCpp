@@ -2,12 +2,13 @@
 
 #include <vector>
 #include <unordered_map>
+#include <string>
 
 #include "register.h"
 #include "dma.h"
 
-namespace iriov2{
-namespace bfp{
+namespace iriov2 {
+namespace bfp {
 /**
  * BitFile Parser.
  *
@@ -16,8 +17,8 @@ namespace bfp{
  *
  * @ingroup BFP
  */
-class BFP{
-public:
+class BFP {
+ public:
 	/**
 	 * Parse the specified bitfile
 	 *
@@ -27,7 +28,7 @@ public:
 	 * @param warnUnsupported	If true, a message will be printed by std::cerr
 	 * 							informing of the registers found with an unsupported type
 	 */
-	BFP(const std::string& bitfile, const bool warnUnsupported=true);
+	explicit BFP(const std::string &bitfile, const bool warnUnsupported = true);
 
 	/**
 	 * Return the path of the parsed Bitfile
@@ -61,7 +62,7 @@ public:
 	 * @param registerName	Register name to get
 	 * @return	Register found
 	 */
-	Register getRegister(const std::string& registerName) const;
+	Register getRegister(const std::string &registerName) const;
 
 	/**
 	 * Get map with all the DMAs parsed, the key if the DMA name (without spaces)
@@ -78,9 +79,9 @@ public:
 	 * @param dmaName	DMA name to get
 	 * @return	DMA found
 	 */
-	DMA getDMA(const std::string& dmaName) const;
+	DMA getDMA(const std::string &dmaName) const;
 
-private:
+ private:
 	const std::string m_bitfilePath;
 
 	std::string m_signature;
@@ -91,5 +92,5 @@ private:
 	std::unordered_map<std::string, Register> m_regMap;
 	std::unordered_map<std::string, DMA> m_dmaMap;
 };
-}
-}
+}  // namespace bfp
+}  // namespace iriov2

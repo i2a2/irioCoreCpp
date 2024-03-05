@@ -11,16 +11,17 @@ namespace iriov2 {
  * @ingroup FlexRIO
  */
 class TerminalsFlexRIOImpl: public TerminalsBaseImpl {
-public:
-	TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+ public:
+	TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile,
+						const NiFpga_Session &session);
 
 	bool getRIOAdapterCorrect() const;
 
 	std::uint32_t getInsertedIOModuleID() const;
 
-private:
+ private:
 	std::uint32_t m_rioadaptercorrect_addr;
 	std::uint32_t m_insertediomoduleid_addr;
 };
 
-}
+}  // namespace iriov2

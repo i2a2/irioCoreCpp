@@ -1,6 +1,6 @@
 #pragma once
 
-namespace iriov2{
+namespace iriov2 {
 
 /**
  * Data format of the data read
@@ -12,4 +12,4 @@ enum class FrameType {
 	FormatB = 1 /**< Not yet defined */
 };
 
-}
+}  // namespace iriov2

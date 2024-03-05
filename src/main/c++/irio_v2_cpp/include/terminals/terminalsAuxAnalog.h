@@ -11,7 +11,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsAuxAnalog: public TerminalsBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related auxiliary analog terminals
@@ -122,4 +122,4 @@ public:
 	void setAuxAO64(const std::uint32_t n, const std::int64_t value) const;
 };
 
-}
+}  // namespace iriov2

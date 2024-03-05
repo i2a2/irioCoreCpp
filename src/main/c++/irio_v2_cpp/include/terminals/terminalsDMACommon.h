@@ -1,9 +1,12 @@
 #pragma once
 
-#include <terminals/terminalsBase.h>
-#include <frameTypes.h>
+#include <vector>
+#include <memory>
 
-namespace iriov2{
+#include "terminals/terminalsBase.h"
+#include "frameTypes.h"
+
+namespace iriov2 {
 
 class TerminalsDMACommonImpl;
 
@@ -14,7 +17,7 @@ class TerminalsDMACommonImpl;
  * @ingroup DMATerminals
  */
 class TerminalsDMACommon: public TerminalsBase{
-public:
+ public:
 	/**
 	 * Constructor.
 	 *
@@ -279,4 +282,4 @@ public:
 	 */
 	size_t countDMAs() const;
 };
-}
+}  // namespace iriov2

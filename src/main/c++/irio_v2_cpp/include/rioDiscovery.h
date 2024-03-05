@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace iriov2{
+namespace iriov2 {
 
 /**
  * Manages searching for RIO devices
@@ -9,7 +9,7 @@ namespace iriov2{
  * @ingroup IrioV2
  */
 class RIODiscovery{
-public:
+ public:
 	/**
 	 * Searches for RIO devices and returns its name if any matches the
 	 * specified serial number
@@ -23,6 +23,6 @@ public:
 	static std::string searchRIODevice(const std::string &serialNumber);
 };
 
-}
+}  // namespace iriov2
 
 

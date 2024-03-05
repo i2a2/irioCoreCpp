@@ -1,8 +1,10 @@
 #pragma once
 
-#include <terminals/terminalsDMACommon.h>
+#include <memory>
 
-namespace iriov2{
+#include "terminals/terminalsDMACommon.h"
+
+namespace iriov2 {
 
 class TerminalsDMADAQImpl;
 
@@ -12,7 +14,7 @@ class TerminalsDMADAQImpl;
  * @ingroup DMATerminals
  */
 class TerminalsDMADAQ: public TerminalsDMACommon{
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding DMA DAQ resources.
@@ -57,9 +59,10 @@ public:
 	 * @param n	Number of DMA group
 	 * @param decimation	Decimation to apply to the Fref
 	 */
-	void setSamplingRateDecimation(const std::uint32_t &n, const std::uint16_t &decimation) const;
+	void setSamplingRateDecimation(const std::uint32_t &n,
+			const std::uint16_t &decimation) const;
 };
 
-}
+}  // namespace iriov2
 
 

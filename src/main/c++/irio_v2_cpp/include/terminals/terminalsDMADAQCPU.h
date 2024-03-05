@@ -1,8 +1,8 @@
 #pragma once
 
-#include <terminals/terminalsDMADAQ.h>
+#include "terminals/terminalsDMADAQ.h"
 
-namespace iriov2{
+namespace iriov2 {
 
 /**
  * Class managing the terminals used for DMA CPU DAQ operations
@@ -10,7 +10,7 @@ namespace iriov2{
  * @ingroup DMACPUTerminals
  */
 class TerminalsDMADAQCPU: public TerminalsDMADAQ{
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding all the required
@@ -32,6 +32,6 @@ public:
 			const Platform &platform);
 };
 
-}
+}  // namespace iriov2
 
 

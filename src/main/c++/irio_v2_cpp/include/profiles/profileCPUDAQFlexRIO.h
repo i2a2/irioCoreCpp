@@ -16,7 +16,7 @@ namespace iriov2 {
  * @ingroup FlexRIO
  */
 class ProfileCPUDAQFlexRIO: public ProfileCPUDAQ, public ProfileFlexRIO {
-public:
+ public:
 	/**
 	 * Constructor.
 	 *
@@ -35,5 +35,5 @@ public:
 			const Platform &platform);
 };
 
-}
+}  // namespace iriov2
 

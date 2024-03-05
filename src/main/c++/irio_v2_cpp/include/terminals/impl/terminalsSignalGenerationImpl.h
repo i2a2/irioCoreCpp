@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 #include "terminals/impl/terminalsBaseImpl.h"
 
 namespace iriov2 {
@@ -10,7 +12,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
-public:
+ public:
 	TerminalsSignalGenerationImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
@@ -30,7 +32,8 @@ public:
 
 	std::uint32_t getSGUpdateRateImpl(const std::uint32_t n) const;
 
-	void setSGSignalTypeImpl(const std::uint32_t n, const std::uint8_t value) const;
+	void setSGSignalTypeImpl(const std::uint32_t n,
+							const std::uint8_t value) const;
 
 	void setSGAmpImpl(const std::uint32_t n, const std::uint32_t value) const;
 
@@ -38,9 +41,10 @@ public:
 
 	void setSGPhaseImpl(const std::uint32_t n, const std::uint32_t value) const;
 
-	void setSGUpdateRateImpl(const std::uint32_t n, const std::uint32_t value) const;
+	void setSGUpdateRateImpl(const std::uint32_t n,
+							const std::uint32_t value) const;
 
-private:
+ private:
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapSignalType_addr;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAmp_addr;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFreq_addr;
@@ -49,8 +53,7 @@ private:
 
 	std::uint8_t m_numSG = 0;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFref;
-
 };
 
-}
+}  // namespace iriov2
 

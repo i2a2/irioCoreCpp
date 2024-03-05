@@ -12,7 +12,7 @@ namespace iriov2 {
  * @ingroup ProfilesDAQ
  */
 class ProfileCPUDAQ: virtual public ProfileBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 *
@@ -46,7 +46,7 @@ public:
 
 	TerminalsDMADAQ daq() const override;
 
-private:
+ private:
 	TerminalsAnalog m_analog;
 	TerminalsDigital m_digital;
 
@@ -56,7 +56,6 @@ private:
 	TerminalsSignalGeneration m_signalGeneration;
 
 	TerminalsDMADAQCPU m_daq;
-
 };
 
-}
+}  // namespace iriov2

@@ -11,7 +11,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsAnalog: public TerminalsBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related analog terminals in the parsed bitfile
@@ -155,6 +155,5 @@ public:
 	 * @param mode New mode to configure
 	 */
 	void setAICouplingMode(const CouplingMode &mode) const;
-
 };
-}
+}  // namespace iriov2

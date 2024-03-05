@@ -11,7 +11,7 @@ namespace iriov2 {
  * @ingroup FlexRIO
  */
 class TerminalsFlexRIO: public TerminalsBase{
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related terminals specific to FlexRIO devices.
@@ -40,4 +40,4 @@ public:
 	std::uint32_t getInsertedIOModuleID() const;
 };
 
-}
+}  // namespace iriov2

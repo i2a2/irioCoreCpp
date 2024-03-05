@@ -1,38 +1,39 @@
-#include <rioDiscovery.h>
-#include <vector>
 #include <dirent.h>
+#include <vector>
 #include <fstream>
+
+#include "rioDiscovery.h"
 #include "errorsIrio.h"
 
 #ifndef CCS_VERSION
 #include <nisyscfg/nisyscfg.h>
 #endif
 
-namespace iriov2{
+namespace iriov2 {
 
-
-//TODO: Make this cleaner. Maybe separate each version into separate headers, and just make conditional the include?
 #ifdef CCS_VERSION
-std::vector<std::string> getListDevices(){
+std::vector<std::string> getListDevices() {
 	static const std::string interfacePath = "/sys/class/nirio";
 
-	DIR* dir = opendir(interfacePath.c_str());
-	if(!dir){
-		throw errors::RIODiscoveryError("Cannot discover resources because kernel module is not loaded, run 'modproble nirio' and try again");
+	DIR *dir = opendir(interfacePath.c_str());
+	if (!dir) {
+		throw errors::RIODiscoveryError(
+				"Cannot discover resources because kernel module "
+				"is not loaded, run 'modproble nirio' and try again");
 	}
 	std::vector<std::string> devices;
 
-	try{
-		const struct dirent* entry = readdir(dir);
+	try {
+		const struct dirent *entry = readdir(dir);
 
-		while(entry){
+		while (entry) {
 			std::string name = entry->d_name;
-			if(name.find("board") != std::string::npos){
+			if (name.find("board") != std::string::npos) {
 				devices.push_back(interfacePath + "/" + name);
 			}
 			entry = readdir(dir);
 		}
-	}catch(std::exception& ){
+	} catch (std::exception&) {
 		closedir(dir);
 		throw;
 	}
@@ -40,7 +41,6 @@ std::vector<std::string> getListDevices(){
 
 	return devices;
 }
-
 
 std::string getRIODeviceCCS(const std::string &serialNumber) {
 	auto devices = getListDevices();
@@ -50,16 +50,16 @@ std::string getRIODeviceCCS(const std::string &serialNumber) {
 
 	while (it != devices.end() && name.empty()) {
 		std::ifstream snFile(*it + std::string("/nirio_serial_number"));
-		if(snFile.is_open() && getline(snFile, sn) && sn == serialNumber){
+		if (snFile.is_open() && getline(snFile, sn) && sn == serialNumber) {
 			auto slashPos = it->rfind('/');
 			auto boardPos = it->rfind('!');
-			name = it->substr(slashPos+1, boardPos-slashPos-1);
-		}else{
+			name = it->substr(slashPos + 1, boardPos - slashPos - 1);
+		} else {
 			it++;
 		}
 	}
 
-	if(it==devices.end()){
+	if (it == devices.end()) {
 		throw errors::RIODeviceNotFoundError();
 	}
 
@@ -67,8 +67,9 @@ std::string getRIODeviceCCS(const std::string &serialNumber) {
 }
 #else
 
-void throwIfNiSysCfgError(const NISysCfgStatus &status, const std::string &errMsg){
-	if(status != NISysCfg_OK){
+void throwIfNiSysCfgError(const NISysCfgStatus &status,
+		const std::string &errMsg) {
+	if(status != NISysCfg_OK) {
 		const std::string err = errMsg + std::string("(Code: ")
 								+ std::to_string(static_cast<std::int32_t>(status)) + std::string(")");
 		throw errors::RIODiscoveryError(err);
@@ -77,21 +78,22 @@ void throwIfNiSysCfgError(const NISysCfgStatus &status, const std::string &errMs
 
 
 class NISysCfg{
-public:
-	NISysCfg(const std::string &targetName, unsigned int timeout=5000):
+ public:
+	explicit NISysCfg(const std::string &targetName, unsigned int timeout = 5000):
 			m_filter(), m_resource() {
-		auto status = NISysCfgInitializeSession(targetName.c_str(), NULL, NULL, NISysCfgLocaleEnglish, NISysCfgBoolTrue,
+		auto status = NISysCfgInitializeSession(targetName.c_str(), NULL,
+				NULL, NISysCfgLocaleEnglish, NISysCfgBoolTrue,
 				timeout, NULL, &m_session);
 		throwIfNiSysCfgError(status, "Unable to initialize NISysCfg");
 	}
 
-	~NISysCfg(){
+	~NISysCfg() {
 		NISysCfgCloseHandle(m_filter);
 		NISysCfgCloseHandle(m_resource);
 		NISysCfgCloseHandle(m_session);
 	}
 
-	std::string getDeviceFromSerialNumber(const std::string &serialNumber){
+	std::string getDeviceFromSerialNumber(const std::string &serialNumber) {
 		char resourceName[NISYSCFG_SIMPLE_STRING_LENGTH];
 
 		createFilter(NISysCfgFilterPropertySerialNumber, serialNumber.c_str());
@@ -101,8 +103,8 @@ public:
 		return resourceName;
 	}
 
-private:
-	void createFilter(NISysCfgFilterProperty property, const void* value){
+ private:
+	void createFilter(NISysCfgFilterProperty property, const void* value) {
 		NISysCfgCloseHandle(m_filter);
 
 		auto status = NISysCfgCreateFilter(m_session, &m_filter);
@@ -111,35 +113,40 @@ private:
 		throwIfNiSysCfgError(status, "Unable to configure NISysCfg filter");
 	}
 
-	void findResource(){
+	void findResource() {
 		NISysCfgCloseHandle(m_resource);
 
 		NISysCfgEnumResourceHandle resourceEnum;
-		auto status = NISysCfgFindHardware(m_session, NISysCfgFilterModeMatchValuesAll,
+		auto status = NISysCfgFindHardware(m_session,
+				NISysCfgFilterModeMatchValuesAll,
 				m_filter, NULL, &resourceEnum);
 		throwIfNiSysCfgError(status, "Unable to find NISysCfg hardware");
 
 		NISysCfgIsPresentType isPresent = NISysCfgIsPresentTypeNotPresent;
 		while (isPresent != NISysCfgIsPresentTypePresent
-				&& NISysCfgNextResource(m_session, resourceEnum, &m_resource) == NISysCfg_OK) {
-			NISysCfgGetResourceProperty(m_resource, NISysCfgResourcePropertyIsPresent, &isPresent);
-			if(isPresent != NISysCfgIsPresentTypePresent){
+				&& NISysCfgNextResource(m_session, resourceEnum,
+						&m_resource) == NISysCfg_OK) {
+			NISysCfgGetResourceProperty(m_resource,
+					NISysCfgResourcePropertyIsPresent, &isPresent);
+			if(isPresent != NISysCfgIsPresentTypePresent) {
 				NISysCfgCloseHandle(m_resource);
 			}
 		}
 
-		if(isPresent != NISysCfgIsPresentTypePresent){
+		if(isPresent != NISysCfgIsPresentTypePresent) {
 			throw errors::RIODeviceNotFoundError();
 		}
 	}
 
-	void getProperty(NISysCfgResourceProperty property, void* val){
+	void getProperty(NISysCfgResourceProperty property, void* val) {
 		auto status = NISysCfgGetResourceProperty(m_resource, property, val);
-		throwIfNiSysCfgError(status, "Unable to get NISysCfg property " + std::to_string(property));
+		throwIfNiSysCfgError(status, "Unable to get NISysCfg property "
+				+ std::to_string(property));
 	}
 
-	void getIndexedProperty(NISysCfgIndexedProperty property, void* val){
-		auto status = NISysCfgGetResourceIndexedProperty(m_resource, property, 0, val);
+	void getIndexedProperty(NISysCfgIndexedProperty property, void* val) {
+		auto status = NISysCfgGetResourceIndexedProperty(m_resource,
+				property, 0, val);
 		throwIfNiSysCfgError(status, "");
 	}
 
@@ -162,9 +169,7 @@ std::string getRIODeviceAux(const std::string &serialNumber) {
 #else
 	return getRIODevicesNI(serialNumber);
 #endif
-
 }
-
 
 std::string RIODiscovery::searchRIODevice(const std::string &serialNumber) {
 	try {
@@ -175,5 +180,5 @@ std::string RIODiscovery::searchRIODevice(const std::string &serialNumber) {
 	}
 }
 
-}
+}  // namespace iriov2
 

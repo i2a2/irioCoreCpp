@@ -1,6 +1,10 @@
 #pragma once
 
-#include <profiles/profileBase.h>
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "profiles/profileBase.h"
 
 namespace iriov2 {
 
@@ -13,7 +17,7 @@ namespace iriov2 {
  * @ingroup IrioV2
  */
 class IrioV2 {
-public:
+ public:
 	/**
 	 * Constructor.
 	 * - Parses and extract all the resources in the specified Bitfile (\p bitfilePath)
@@ -33,9 +37,7 @@ public:
 	 * @param RIOSerialNumber	RIO Serial Number of the device to use
 	 * @param FPGAVIversion		Version of the Bitfile. If it does not match the one parsed and exception will be thrown
 	 */
-	IrioV2(
-			const std::string &bitfilePath,
-			const std::string &RIOSerialNumber,
+	IrioV2(const std::string &bitfilePath, const std::string &RIOSerialNumber,
 			const std::string &FPGAVIversion);
 
 	/**
@@ -54,7 +56,7 @@ public:
 	 *
 	 * @param timeoutMs Max time to wait for InitDone to be ready
 	 */
-	void startFPGA(std::uint32_t timeoutMs=5000) const;
+	void startFPGA(std::uint32_t timeoutMs = 5000) const;
 
 	/**
 	 * Returns the parsed \ref TERMINAL_FPGAVIVERSION read from the FPGA
@@ -273,7 +275,7 @@ public:
 	 */
 	TerminalsDMADAQ getTerminalsDAQ() const;
 
-private:
+ private:
 	/**
 	 * Initializes the low level library. If system is CCS, does nothing.
 	 */
@@ -350,4 +352,4 @@ private:
 	double m_maxSamplingRate;
 };
 
-}
+}  // namespace iriov2

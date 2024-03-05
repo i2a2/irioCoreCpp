@@ -2,7 +2,8 @@
 
 #include <memory>
 #include <NiFpga.h>
-#include <bfp.h>
+
+#include "bfp.h"
 #include "platforms.h"
 
 namespace iriov2 {
@@ -13,17 +14,16 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsBaseImpl {
-public:
+ public:
 	/**
 	 * Base class for terminals
 	 * @param session	NiFpga_Session to be used in NiFpga related functions. Must be a valid one.
 	 */
 	explicit TerminalsBaseImpl(const NiFpga_Session &session);
 
-protected:
+ protected:
 	const NiFpga_Session m_session;
-
 };
 
-}
+}  // namespace iriov2
 

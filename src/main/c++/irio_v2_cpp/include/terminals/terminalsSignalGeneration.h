@@ -10,7 +10,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsSignalGeneration: public TerminalsBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related signal generation terminals
@@ -104,7 +104,7 @@ public:
 	 */
 	std::uint32_t getSGUpdateRate(const std::uint32_t n) const;
 
-	//TODO: Change this to accept enum
+	// TODO: Change this to accept enum
 	/**
 	 * Configures the signal type for a specific signal generator
 	 *
@@ -159,8 +159,7 @@ public:
 	 * @param value		Update rate to configure
 	 */
 	void setSGUpdateRate(const std::uint32_t n, const std::uint32_t value) const;
-
 };
 
-}
+}  // namespace iriov2
 

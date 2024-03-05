@@ -1,15 +1,17 @@
 #pragma once
 
+#include <vector>
 #include <string>
-#include <bfp.h>
-#include <NiFpga.h>
 #include <unordered_map>
 #include <functional>
-#include <errorsIrio.h>
+#include <NiFpga.h>
 
-namespace iriov2{
+#include "bfp.h"
+#include "errorsIrio.h"
 
-namespace utils{
+namespace iriov2 {
+
+namespace utils {
 /**
  * Throws an exception if the NiFpga_Status is not success.
  * The exception message includes the specified text along with the error code
@@ -19,7 +21,8 @@ namespace utils{
  * @param status	Status to check
  * @param errMsg	Error message to use in the exception if there has been an error
  */
-void throwIfNotSuccessNiFpga(const NiFpga_Status &status, const std::string &errMsg = "");
+void throwIfNotSuccessNiFpga(const NiFpga_Status &status,
+		const std::string &errMsg = "");
 
 /**
  * Find resources in an specified map that follow the structure name<n>, where n is a number,
@@ -40,9 +43,8 @@ void throwIfNotSuccessNiFpga(const NiFpga_Status &status, const std::string &err
 template<typename T>
 void findAndInsertEnumResources(
 		const std::unordered_map<std::string, T> &mapSearch,
-		const std::string &resourceName,
-		const size_t maxElem,
-		std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert);
+		const std::string &resourceName, const size_t maxElem,
+		std::unordered_map<std::uint32_t, const std::uint32_t> *mapInsert);
 
 /**
  * Wrapper function for \ref findAndInsertEnumResources specific for Registers
@@ -52,11 +54,9 @@ void findAndInsertEnumResources(
  * @param maxElem			Maximum number of Registers that could be found
  * @param mapInsert			Map on which to insert the address of the Registers found
  */
-void findAndInsertEnumRegisters(
-		const bfp::BFP &parsedBitfile,
-		const std::string &terminalName,
-		const size_t maxElem,
-		std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert);
+void findAndInsertEnumRegisters(const bfp::BFP &parsedBitfile,
+		const std::string &terminalName, const size_t maxElem,
+		std::unordered_map<std::uint32_t, const std::uint32_t> *mapInsert);
 
 /**
  * Wrapper function for \ref findAndInsertEnumResources specific for DMAs
@@ -66,11 +66,9 @@ void findAndInsertEnumRegisters(
  * @param maxElem			Maximum number of DMAs that could be found
  * @param mapInsert			Map on which to insert the address of the DMAs found
  */
-void findAndInsertEnumDMAs(
-		const bfp::BFP &parsedBitfile,
-		const std::string &dmaName,
-		const size_t maxElem,
-		std::unordered_map<std::uint32_t, const std::uint32_t> &mapInsert);
+void findAndInsertEnumDMAs(const bfp::BFP &parsedBitfile,
+		const std::string &dmaName, const size_t maxElem,
+		std::unordered_map<std::uint32_t, const std::uint32_t> *mapInsert);
 
 /**
  * Searches a map with identifiers as keys and addresses as values and check if the specified identifier (n) exists.
@@ -84,8 +82,7 @@ void findAndInsertEnumDMAs(
  */
 std::uint32_t getAddressEnumResource(
 		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapResource,
-		const std::uint32_t n,
-		const std::string &resourceName);
+		const std::uint32_t n, const std::string &resourceName);
 
 /**
  * Searches for an array register and reads its contents to a vector
@@ -103,9 +100,10 @@ std::uint32_t getAddressEnumResource(
  */
 template<typename T>
 void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
-		const NiFpga_Session &session,
-		const std::string &nameReg, std::vector<T> &vec,
-		std::function<NiFpga_Status(NiFpga_Session, std::uint32_t, T*, size_t)> readFunc);
+		const NiFpga_Session &session, const std::string &nameReg,
+		std::vector<T> *vec,
+		std::function<NiFpga_Status(NiFpga_Session,
+				std::uint32_t, T*, size_t)> readFunc);
 
 /**
  * Converts an enum class to its underlying type.
@@ -118,10 +116,9 @@ void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
  * @return	Converted value to underlying type
  */
 template<typename E>
-constexpr auto enum2underlying(E e) -> typename std::underlying_type<E>::type
-{
-   return static_cast<typename std::underlying_type<E>::type>(e);
+constexpr auto enum2underlying(E e) -> typename std::underlying_type<E>::type {
+	return static_cast<typename std::underlying_type<E>::type>(e);
 }
 
-}
-}
+}  // namespace utils
+}  // namespace iriov2

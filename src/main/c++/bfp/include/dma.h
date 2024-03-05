@@ -1,18 +1,20 @@
 #pragma once
 
-#include "resource.h"
+#include <string>
 #include <pugixml.hpp>
+#include "resource.h"
 
-namespace iriov2{
-namespace bfp{
+
+namespace iriov2 {
+namespace bfp {
 
 /**
  * Class holding information about one DMA
  *
  * @ingroup BFP
  */
-class DMA: public Resource{
-public:
+class DMA: public Resource {
+ public:
 	/**
 	 * Contructor.
 	 *
@@ -24,11 +26,9 @@ public:
 	 * @param _address		Address/Number of the DMA
 	 * @param _numElem		Number of the elements in the DMA
 	 */
-	DMA(const std::string &_name,
-		const FpgaTypes &_fpgaType,
-		const ElemTypes &_elemType,
-		const std::uint32_t &_address,
-		const size_t &_numElem = 1);
+	DMA(const std::string &_name, const FpgaTypes &_fpgaType,
+			const ElemTypes &_elemType, const std::uint32_t &_address,
+			const size_t &_numElem = 1);
 
 	/**
 	 * Creates a DMA object from an XML node
@@ -57,11 +57,10 @@ public:
 	 */
 	bool isHostToTarget() const;
 
-private:
+ private:
 	bool m_isTargetToHost;
 };
 
-}
-}
-
+}  // namespace bfp
+}  // namespace iriov2
 

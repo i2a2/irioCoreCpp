@@ -10,7 +10,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsAuxDigital: public TerminalsBase {
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding the related auxiliary digital terminals
@@ -76,7 +76,6 @@ public:
 	 * @param value	Value to write to the terminal
 	 */
 	void setAuxDO(const std::uint32_t n, const bool value) const;
-
 };
 
-}
+}  // namespace iriov2

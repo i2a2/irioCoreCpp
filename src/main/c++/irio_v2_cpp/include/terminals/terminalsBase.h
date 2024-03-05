@@ -5,20 +5,19 @@
 #include "bfp.h"
 #include "platforms.h"
 
-namespace iriov2{
+namespace iriov2 {
 
 class TerminalsBaseImpl;
-
 /**
  * Base class for all terminals
  *
  * @ingroup Terminals
  */
 class TerminalsBase {
-public:
+ public:
 	explicit TerminalsBase(std::shared_ptr<TerminalsBaseImpl> impl);
 
-protected:
+ protected:
 	std::shared_ptr<TerminalsBaseImpl> m_impl;
 };
-}
+}  // namespace iriov2

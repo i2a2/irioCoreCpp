@@ -1,9 +1,13 @@
 #pragma once
 
-#include <terminals/impl/terminalsBaseImpl.h>
-#include <frameTypes.h>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
-namespace iriov2{
+#include "terminals/impl/terminalsBaseImpl.h"
+#include "frameTypes.h"
+
+namespace iriov2 {
 /**
  * Class implementing the DMA functionality common
  * to the terminals with DMA
@@ -11,7 +15,7 @@ namespace iriov2{
  * @ingroup DMATerminals
  */
 class TerminalsDMACommonImpl: public TerminalsBaseImpl{
-public:
+ public:
 	/**
 	 * Constructor.
 	 * Manages finding DMA resources common to all terminals
@@ -88,7 +92,8 @@ public:
 
 	void enaDisDMAImpl(const std::uint32_t n, bool enaDis) const;
 
-	size_t readDataNonBlockingImpl(const std::uint32_t n, size_t elementsToRead, std::uint64_t *data) const;
+	size_t readDataNonBlockingImpl(const std::uint32_t n,
+			size_t elementsToRead, std::uint64_t *data) const;
 
 	size_t readDataBlockingImpl(
 			const std::uint32_t n,
@@ -105,8 +110,8 @@ public:
 
 	size_t countDMAsImpl() const;
 
-private:
-	static const size_t SIZE_HOST_DMAS = 2048000; //TODO: Why this number?
+ private:
+	static const size_t SIZE_HOST_DMAS = 2048000;  // TODO: Why this number?
 
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapDMA;
 
@@ -124,6 +129,5 @@ private:
 	const std::string m_nameTermOverflows;
 	const std::string m_nameTermDMA;
 	const std::string m_nameTermDMAEnable;
-
 };
-}
+}  // namespace iriov2

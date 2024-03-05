@@ -1,7 +1,10 @@
 #pragma once
 
-#include <terminals/impl/terminalsBaseImpl.h>
-#include <modules.h>
+#include <memory>
+#include <unordered_map>
+
+#include "terminals/impl/terminalsBaseImpl.h"
+#include "modules.h"
 
 namespace iriov2 {
 /**
@@ -10,7 +13,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsAnalogImpl: public TerminalsBaseImpl {
-public:
+ public:
 	TerminalsAnalogImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
@@ -44,8 +47,7 @@ public:
 
 	void setAICouplingModeImpl(const CouplingMode &mode) const;
 
-private:
-
+ private:
 	void searchModule(const Platform &platform);
 
 	void searchFlexRIOModule();
@@ -59,4 +61,4 @@ private:
 
 	std::unique_ptr<Module> m_module;
 };
-}
+}  // namespace iriov2

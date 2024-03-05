@@ -13,7 +13,7 @@ namespace iriov2 {
  * @ingroup Profiles
  */
 class ProfileBase {
-public:
+ public:
 	/**
 	 * All possible types of profiles
 	 */
@@ -135,4 +135,4 @@ public:
 	const ProfileBase::PROFILE_ID profileID;
 };
 
-}
+}  // namespace iriov2

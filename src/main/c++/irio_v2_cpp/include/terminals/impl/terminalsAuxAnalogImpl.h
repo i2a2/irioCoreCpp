@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 #include "terminals/impl/terminalsBaseImpl.h"
 
 namespace iriov2 {
@@ -11,7 +13,7 @@ namespace iriov2 {
  * @ingroup Terminals
  */
 class TerminalsAuxAnalogImpl: public TerminalsBaseImpl {
-public:
+ public:
 	TerminalsAuxAnalogImpl(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
@@ -37,11 +39,11 @@ public:
 
 	void setAuxAO64Impl(const std::uint32_t n, const std::int64_t value) const;
 
-private:
+ private:
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAI;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAO;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAI64;
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAO64;
 };
 
-}
+}  // namespace iriov2
