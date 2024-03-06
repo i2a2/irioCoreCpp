@@ -19,7 +19,7 @@ namespace iriov2 {
 IrioV2::IrioV2(const std::string &bitfilePath,
 		const std::string &RIOSerialNumber, const std::string &FPGAVIversion) :
 		m_bfp(bitfilePath, false) {
-	m_resourceName = RIODiscovery::searchRIODevice(RIOSerialNumber);
+	m_resourceName = searchRIODevice(RIOSerialNumber);
 
 	m_session = 0;
 	initDriver();
