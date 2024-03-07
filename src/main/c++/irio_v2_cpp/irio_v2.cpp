@@ -69,8 +69,7 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 
 	switch (m_platform->platformID) {
 	case FLEXRIO_PLATFORM_VALUE:
-		if (m_profile->flexRIO().getInsertedIOModuleID() != 0
-				&& !m_profile->flexRIO().getRIOAdapterCorrect()) {
+		if (!m_profile->flexRIO().getRIOAdapterCorrect()) {
 			throw errors::ModulesNotOKError("FlexRIO IO Module check failed");
 		}
 		break;
