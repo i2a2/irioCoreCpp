@@ -171,7 +171,7 @@ std::string getRIODeviceAux(const std::string &serialNumber) {
 #endif
 }
 
-std::string searchRIODevice(const std::string &serialNumber) {
+std::string searchRIODevice(const std::string serialNumber) {
 	try {
 		std::string deviceName = getRIODeviceAux(serialNumber);
 		return deviceName;

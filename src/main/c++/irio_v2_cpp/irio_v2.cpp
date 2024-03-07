@@ -138,13 +138,13 @@ void IrioV2::setDAQStop() const {
 }
 
 void IrioV2::setDAQStartStop(const bool &start) const {
-	auto status = NiFpga_WriteBool(m_session, m_daqstartstop_addr,
+	auto status = NiFpga_WriteU8(m_session, m_daqstartstop_addr,
 			static_cast<std::uint8_t>(start));
 	utils::throwIfNotSuccessNiFpga(status, "Error writing DAQStartStop");
 }
 
 void IrioV2::setDebugMode(const bool &debug) const {
-	auto status = NiFpga_WriteBool(m_session, m_debugmode_addr,
+	auto status = NiFpga_WriteU8(m_session, m_debugmode_addr,
 			static_cast<std::uint8_t>(debug));
 	utils::throwIfNotSuccessNiFpga(status, "Error writing DebugMode");
 }
