@@ -116,6 +116,7 @@ void TerminalsAnalogImpl::setAICouplingModeImpl(
 }
 
 void TerminalsAnalogImpl::searchModule(const Platform &platform) {
+	// TODO: Change platformID to an enumClass
 	switch (platform.platformID) {
 	case FLEXRIO_PLATFORM_VALUE:
 		searchFlexRIOModule();
@@ -126,6 +127,7 @@ void TerminalsAnalogImpl::searchModule(const Platform &platform) {
 		break;
 	case RSERIES_PLATFORM_VALUE:
 		// TODO: Constants depend on the board model; make list
+		m_module.reset(new Module());
 		break;
 	default:
 		m_module.reset(new Module());
