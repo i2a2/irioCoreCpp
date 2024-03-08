@@ -10,6 +10,7 @@
 #include "errorsIrio.h"
 
 #include "bfp.h"
+#include "profiles/profileCPUDAQFlexRIO.h"
 #include "terminals/names/namesTerminalsCommon.h"
 #include "terminals/names/namesTerminalsFlexRIO.h"
 

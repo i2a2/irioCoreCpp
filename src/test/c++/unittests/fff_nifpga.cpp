@@ -171,7 +171,8 @@ void init_ok_fff_nifpga(){
 	NiFpga_ReadFifoU64_fake.custom_fake = [](NiFpga_Session, uint32_t,
 			uint64_t* data, size_t numberOfElements, uint32_t, size_t* elementsRemaining) {
 		std::memset(data, numberOfElements, 7);
-		*elementsRemaining = 0;
+		if(elementsRemaining)
+			*elementsRemaining = 0;
 
 		return NiFpga_Status_Success;
 	};

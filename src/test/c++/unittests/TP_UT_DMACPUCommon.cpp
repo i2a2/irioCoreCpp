@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "fixtures.h"
 #include "fff_nifpga.h"
 
@@ -121,7 +123,8 @@ TEST_F(DMACPUCommonTests, isDMAEnable) {
 NiFpga_Status funcReturnElemRem(NiFpga_Session, uint32_t, uint64_t *data,
 		size_t numberOfElements, uint32_t, size_t *elementsRemaining) {
 	std::memset(data, numberOfElements, 7);
-	*elementsRemaining = 100;
+	if(elementsRemaining)
+		*elementsRemaining = 100;
 
 	return NiFpga_Status_Success;
 }
@@ -130,7 +133,8 @@ NiFpga_Status funcReturnNoElemRem(NiFpga_Session, uint32_t,
 			uint64_t *data,
 		size_t numberOfElements, uint32_t, size_t *elementsRemaining) {
 	std::memset(data, numberOfElements, 7);
-	*elementsRemaining = 0;
+	if(elementsRemaining)
+		*elementsRemaining = 0;
 
 	return NiFpga_Status_Success;
 }
@@ -170,14 +174,84 @@ TEST_F(DMACPUCommonTests, cleanAllDMAs) {
 	EXPECT_NO_THROW(irio.getTerminalsDAQ().cleanAllDMAs());
 }
 
+TEST_F(DMACPUCommonTests, readData) {
+	const size_t numElem = 10;
+	std::unique_ptr<std::uint64_t> data(new std::uint64_t[numElem]);
+
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_NO_THROW(irio.getTerminalsDAQ().readData(0, numElem, data.get(), true, 500));
+}
+
+TEST_F(DMACPUCommonTests, readDataBlocking) {
+	const size_t numElem = 10;
+	std::unique_ptr<std::uint64_t> data(new std::uint64_t[numElem]);
+
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_NO_THROW(irio.getTerminalsDAQ().readDataBlocking(0, numElem, data.get()));
+}
+
+TEST_F(DMACPUCommonTests, readDataNonBlocking) {
+	NiFpga_Status (*custom_fakes[])(NiFpga_Session, uint32_t, uint64_t*, size_t,
+			uint32_t, size_t*) -> NiFpga_Status = {funcReturnElemRem, funcReturnNoElemRem};
+
+	SET_CUSTOM_FAKE_SEQ(NiFpga_ReadFifoU64, custom_fakes, 2);
+
+	const size_t numElem = 10;
+	std::unique_ptr<std::uint64_t> data(new std::uint64_t[numElem]);
+
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_NO_THROW(irio.getTerminalsDAQ().readDataNonBlocking(0, numElem, data.get()));
+}
+
 ///////////////////////////////////////////////////////////////
 ///// Error DMACPU Common Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(ErrorDMACPUCommonTests, InvalidDMAIDNCh) {
-
-
 	IrioV2 irio(bitfilePath, "0", "9.9");
 	EXPECT_THROW(irio.getTerminalsDAQ().getNCh(10);,
 			errors::ResourceNotFoundError);
 }
 
+TEST_F(ErrorDMACPUCommonTests, DMAReadTimeout) {
+	const size_t numElem = 10;
+	std::unique_ptr<std::uint64_t> data(new std::uint64_t[numElem]);
+
+	NiFpga_ReadFifoU64_fake.custom_fake = [](NiFpga_Session, uint32_t,
+				uint64_t* data, size_t numberOfElements, uint32_t, size_t* elementsRemaining) {
+		return NiFpga_Status_FifoTimeout;
+	};
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.getTerminalsDAQ().readDataBlocking(0, numElem, data.get());,
+		errors::DMAReadTimeout);
+}
+
+TEST_F(ErrorDMACPUCommonTests, startDMAInvalidDMAID) {
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.getTerminalsDAQ().startDMA(10);,
+			errors::ResourceNotFoundError);
+}
+
+TEST_F(ErrorDMACPUCommonTests, stopDMAInvalidDMAID) {
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.getTerminalsDAQ().stopDMA(10);,
+			errors::ResourceNotFoundError);
+}
+
+TEST_F(ErrorDMACPUCommonTests, frameTypeInvalidDMAID) {
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.getTerminalsDAQ().getFrameType(10);,
+			errors::ResourceNotFoundError);
+}
+
+TEST_F(ErrorDMACPUCommonTests, sampleSizeInvalidDMAID) {
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.getTerminalsDAQ().getSampleSize(10);,
+			errors::ResourceNotFoundError);
+}
+
+TEST_F(ErrorDMACPUCommonTests, MistmatchDMADMAEnable) {
+	EXPECT_THROW(
+		IrioV2 irio("../../resources/failResources/7854/NiFpga_Rseries_MismatchDMADMAEnable_7854.lvbitx", "0", "9.9");,
+		errors::ResourceNotFoundError
+	);
+}
