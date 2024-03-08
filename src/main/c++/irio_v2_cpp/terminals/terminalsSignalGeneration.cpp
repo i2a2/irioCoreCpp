@@ -8,9 +8,8 @@ namespace iriov2 {
 TerminalsSignalGeneration::TerminalsSignalGeneration(
 		const bfp::BFP &parsedBitfile, const NiFpga_Session &session,
 		const Platform &platform) :
-		TerminalsBase(
-				std::make_shared<TerminalsSignalGenerationImpl>(
-						parsedBitfile, session, platform)) {
+		TerminalsBase(std::make_shared<TerminalsSignalGenerationImpl>
+						(parsedBitfile, session, platform)) {
 }
 
 std::uint8_t TerminalsSignalGeneration::getSGNo() const {

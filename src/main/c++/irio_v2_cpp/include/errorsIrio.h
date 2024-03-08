@@ -41,10 +41,8 @@ class ResourceNotFoundError: public IrioV2Error {
 
 	ResourceNotFoundError(const std::uint32_t resourceNumber,
 			const std::string &resourceName) :
-			IrioV2Error(
-					std::to_string(resourceNumber) + " is not a valid "
-							+ resourceName + " resource") {
-	}
+			IrioV2Error(std::to_string(resourceNumber)
+					+ " is not a valid " + resourceName + " resource") {	}
 };
 
 /**
@@ -74,9 +72,8 @@ class UnsupportedPlatformError: public IrioV2Error {
 			IrioV2Error("Platform specified is not supported") {
 	}
 	explicit UnsupportedPlatformError(const std::uint8_t platform) :
-			IrioV2Error(
-					std::to_string(platform)
-							+ "is not a supported platform value") {
+			IrioV2Error(std::to_string(platform)
+						+ "is not a supported platform value") {
 	}
 };
 
