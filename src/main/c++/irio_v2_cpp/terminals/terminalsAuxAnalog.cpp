@@ -6,9 +6,8 @@ namespace iriov2 {
 
 TerminalsAuxAnalog::TerminalsAuxAnalog(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session, const Platform &platform) :
-		TerminalsBase(
-				std::make_shared<TerminalsAuxAnalogImpl>(parsedBitfile, session,
-						platform)) {
+		TerminalsBase(std::make_shared<TerminalsAuxAnalogImpl>
+						(parsedBitfile, session, platform)) {
 }
 
 std::int32_t TerminalsAuxAnalog::getAuxAI(const std::uint32_t n) const {

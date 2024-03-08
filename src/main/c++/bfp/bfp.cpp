@@ -73,10 +73,8 @@ BFP::BFP(const std::string &bitfile, const bool warnUnsupported) :
 		m_regMap = parseRegisters(
 				doc.select_node("/Bitfile/VI/RegisterList").node(),
 				m_baseAddress, warnUnsupported);
-		m_dmaMap =
-				parseDMA(
-						doc.select_node(
-								"/Bitfile/Project//DmaChannelAllocationList").node());
+		m_dmaMap = parseDMA(
+				doc.select_node("/Bitfile/Project//DmaChannelAllocationList").node());
 	} catch (pugi::xpath_exception &e) {
 		throw errors::BFPParseBitfileError(bitfile, e.what());
 	}
