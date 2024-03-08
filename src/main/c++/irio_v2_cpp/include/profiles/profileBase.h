@@ -73,7 +73,7 @@ class ProfileBase {
 	 *
 	 * @return Digital terminals
 	 */
-	virtual TerminalsDigital digital() const;
+	virtual TerminalsDigital digital() const = 0;
 
 	/**
 	 * Access to the aux analog group terminals.
@@ -82,7 +82,7 @@ class ProfileBase {
 	 *
 	 * @return Aux analog terminals
 	 */
-	virtual TerminalsAuxAnalog auxAnalog() const;
+	virtual TerminalsAuxAnalog auxAnalog() const = 0;
 
 	/**
 	 * Access to the aux digital group terminals.
@@ -91,7 +91,7 @@ class ProfileBase {
 	 *
 	 * @return Aux digital terminals
 	 */
-	virtual TerminalsAuxDigital auxDigital() const;
+	virtual TerminalsAuxDigital auxDigital() const = 0;
 
 	/**
 	 * Access to the cRIO group terminals.
