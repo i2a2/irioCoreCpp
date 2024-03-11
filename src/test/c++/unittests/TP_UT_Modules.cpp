@@ -30,7 +30,7 @@ public:
 		BaseTests("../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
-						FLEXRIO_PLATFORM_VALUE);
+						PLATFORM_ID::FlexRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).address,
 						1);
@@ -44,7 +44,7 @@ public:
 		BaseTests("../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 								bfp.getRegister(TERMINAL_PLATFORM).address,
-								CRIO_PLATFORM_VALUE);
+								PLATFORM_ID::cRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_CRIOMODULESOK).address,
 						1);
@@ -63,7 +63,7 @@ public:
 		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 							bfp.getRegister(TERMINAL_PLATFORM).address,
-							RSERIES_PLATFORM_VALUE);
+							PLATFORM_ID::RSeries);
 	}
 };
 

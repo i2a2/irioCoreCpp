@@ -116,21 +116,18 @@ void TerminalsAnalogImpl::setAICouplingModeImpl(
 }
 
 void TerminalsAnalogImpl::searchModule(const Platform &platform) {
-	// TODO: Change platformID to an enumClass
 	switch (platform.platformID) {
-	case FLEXRIO_PLATFORM_VALUE:
+	case PLATFORM_ID::FlexRIO:
 		searchFlexRIOModule();
 		break;
-	case CRIO_PLATFORM_VALUE:
+	case PLATFORM_ID::cRIO:
 		// TODO: How to support more modules in cRIO?
 		m_module.reset(new ModuleNI92xx());
 		break;
-	case RSERIES_PLATFORM_VALUE:
+	case PLATFORM_ID::RSeries:
 		// TODO: Constants depend on the board model; make list
 		m_module.reset(new Module());
 		break;
-	default:
-		m_module.reset(new Module());
 	}
 }
 

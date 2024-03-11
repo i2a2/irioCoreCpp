@@ -14,7 +14,7 @@ public:
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
-						RSERIES_PLATFORM_VALUE);
+						PLATFORM_ID::RSeries);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_DI+std::to_string(0)).address,

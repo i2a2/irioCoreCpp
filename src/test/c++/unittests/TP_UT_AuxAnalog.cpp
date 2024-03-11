@@ -14,7 +14,7 @@ public:
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
-						RSERIES_PLATFORM_VALUE);
+						PLATFORM_ID::RSeries);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadI32,
 						bfp.getRegister(TERMINAL_AUXAI+std::to_string(0)).address,
@@ -36,7 +36,7 @@ public:
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
-						RSERIES_PLATFORM_VALUE);
+						PLATFORM_ID::RSeries);
 		setValueForReg(ReadFunctions::NiFpga_ReadI64,
 						bfp.getRegister(TERMINAL_AUX64AI+std::to_string(0)).address,
 						aux64AIFake);

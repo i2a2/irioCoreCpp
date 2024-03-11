@@ -16,7 +16,7 @@ public:
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
-						CRIO_PLATFORM_VALUE);
+						PLATFORM_ID::cRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_CRIOMODULESOK).address,
 						1);

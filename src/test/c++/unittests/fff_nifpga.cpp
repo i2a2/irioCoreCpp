@@ -1,5 +1,6 @@
 #include "fff_nifpga.h"
 #include <string>
+#include <platforms.h>
 
 DEFINE_FFF_GLOBALS
 
@@ -74,6 +75,11 @@ void setValueForReg(const ReadFunctions func, const uint32_t reg, const T value)
 	}
 	auto aux = it->second.find(reg)->second;
 	std::memcpy(aux.get(), &value, sizeof(T));
+}
+
+template<>
+void setValueForReg<PLATFORM_ID>(const ReadFunctions func, const uint32_t reg, const PLATFORM_ID value){
+	setValueForReg(func, reg, static_cast<std::uint8_t>(value));
 }
 template void setValueForReg<uint8_t>(const ReadFunctions func, const uint32_t reg, const uint8_t value);
 template void setValueForReg<uint16_t>(const ReadFunctions func, const uint32_t reg, const uint16_t value);

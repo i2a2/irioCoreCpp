@@ -25,7 +25,7 @@ public:
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
-						FLEXRIO_PLATFORM_VALUE);
+						PLATFORM_ID::FlexRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).address,
 						1);

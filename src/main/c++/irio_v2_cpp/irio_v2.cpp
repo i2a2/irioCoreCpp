@@ -67,12 +67,12 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	}
 
 	switch (m_platform->platformID) {
-	case FLEXRIO_PLATFORM_VALUE:
+	case PLATFORM_ID::FlexRIO:
 		if (!m_profile->flexRIO().getRIOAdapterCorrect()) {
 			throw errors::ModulesNotOKError("FlexRIO IO Module check failed");
 		}
 		break;
-	case CRIO_PLATFORM_VALUE:
+	case PLATFORM_ID::cRIO:
 		if (!m_profile->cRIO().getcRIOModulesOk()) {
 			throw errors::ModulesNotOKError("cRIO IO Module check failed");
 		}
@@ -258,13 +258,13 @@ void IrioV2::searchPlatform() {
 	utils::throwIfNotSuccessNiFpga(status, "Error reading Platform");
 
 	switch (platform) {
-	case FLEXRIO_PLATFORM_VALUE:
+	case static_cast<std::uint8_t>(PLATFORM_ID::FlexRIO):
 		m_platform.reset(new PlatformFlexRIO());
 		break;
-	case CRIO_PLATFORM_VALUE:
+	case static_cast<std::uint8_t>(PLATFORM_ID::cRIO):
 		m_platform.reset(new PlatformCRIO());
 		break;
-	case RSERIES_PLATFORM_VALUE:
+	case static_cast<std::uint8_t>(PLATFORM_ID::RSeries):
 		m_platform.reset(new PlatformRSeries());
 		break;
 	default:
@@ -273,10 +273,10 @@ void IrioV2::searchPlatform() {
 }
 
 void IrioV2::searchDevProfile() {
-	static const std::unordered_map<std::uint8_t,
+	static const std::unordered_map<PLATFORM_ID,
 			const std::unordered_map<std::uint8_t,
 				PROFILE_ID>> validProfileByPlatform =
-				{ { FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
+				{ { PLATFORM_ID::FlexRIO, { { ProfileBase::PROFILE_VALUE_DAQ,
 						PROFILE_ID::FLEXRIO_CPUDAQ }, {
 						ProfileBase::PROFILE_VALUE_IMAQ,
 						PROFILE_ID::FLEXRIO_CPUIMAQ }, {
@@ -285,12 +285,12 @@ void IrioV2::searchDevProfile() {
 						ProfileBase::PROFILE_VALUE_IMAQGPU,
 						PROFILE_ID::FLEXRIO_GPUIMAQ } } },
 
-				{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
+				{ PLATFORM_ID::cRIO, { { ProfileBase::PROFILE_VALUE_DAQ,
 						PROFILE_ID::CRIO_DAQ }, {
 						ProfileBase::PROFILE_VALUE_IO,
 						PROFILE_ID::CRIO_IO } } },
 
-				{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
+				{ PLATFORM_ID::RSeries, { { ProfileBase::PROFILE_VALUE_DAQ,
 						PROFILE_ID::R_DAQ } } } };
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
@@ -298,11 +298,12 @@ void IrioV2::searchDevProfile() {
 	const auto status = NiFpga_ReadU8(m_session, profile_addr, &profile);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DevProfile");
 
-	const std::uint8_t platform = m_platform->platformID;
+	const PLATFORM_ID platform = m_platform->platformID;
 	const auto validValues = validProfileByPlatform.find(platform)->second;
 	const auto it = validValues.find(profile);
 	if (it == validValues.end()) {
-		throw errors::UnsupportedDevProfileError(profile, platform);
+		throw errors::UnsupportedDevProfileError
+			(profile, static_cast<std::uint8_t>(platform));
 	}
 
 	// TODO: Finish

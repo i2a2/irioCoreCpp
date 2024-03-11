@@ -3,9 +3,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-constexpr std::uint8_t FLEXRIO_PLATFORM_VALUE = 0;
-constexpr std::uint8_t CRIO_PLATFORM_VALUE = 1;
-constexpr std::uint8_t RSERIES_PLATFORM_VALUE = 2;
+
+enum class PLATFORM_ID: std::uint8_t{
+	FlexRIO = 0,
+	cRIO = 1,
+	RSeries = 2
+};
 
 namespace iriov2 {
 
@@ -29,12 +32,13 @@ class Platform {
 	 * @param modules		Max number of modules
 	 * @param id			Platform identifier
 	 */
-	Platform(size_t ai, size_t auxAI, size_t ao, size_t auxAO, size_t digital,
-			size_t auxDigital, size_t dma, size_t sg, size_t modules,
-			std::uint8_t id) :
+	Platform(const size_t ai, const size_t auxAI, const size_t ao,
+			const size_t auxAO, const size_t digital, const size_t auxDigital,
+			const size_t dma, const size_t sg, const size_t modules,
+			const PLATFORM_ID id) :
 			maxAI(ai), maxAuxAI(auxAI), maxAO(ao), maxAuxAO(auxAO), maxDigital(
-					digital), maxAuxDigital(auxDigital), maxDMA(dma), maxSG(sg), maxModules(
-					modules), platformID(id) {
+					digital), maxAuxDigital(auxDigital), maxDMA(dma), maxSG(sg),
+					maxModules(modules), platformID(id) {
 	}
 
 	const size_t maxAI;
@@ -47,7 +51,7 @@ class Platform {
 	const size_t maxSG;
 	const size_t maxModules;
 
-	const std::uint8_t platformID;
+	const PLATFORM_ID platformID;
 };
 
 /**
@@ -73,7 +77,7 @@ class PlatformFlexRIO: public Platform {
 	PlatformFlexRIO() :
 			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL,
 					MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
-					FLEXRIO_PLATFORM_VALUE) {
+					PLATFORM_ID::FlexRIO) {
 	}
 };
 
@@ -100,7 +104,7 @@ class PlatformCRIO: public Platform {
 	PlatformCRIO() :
 			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL,
 					MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
-					CRIO_PLATFORM_VALUE) {
+					PLATFORM_ID::cRIO) {
 	}
 };
 
@@ -127,7 +131,7 @@ class PlatformRSeries: public Platform {
 	PlatformRSeries() :
 			Platform(MAX_AI, MAX_AUX_AI, MAX_AO, MAX_AUX_AO, MAX_DIGITAL,
 					MAX_AUX_DIGITAL, MAX_DMA, MAX_SG, MAX_MODULES,
-					RSERIES_PLATFORM_VALUE) {
+					PLATFORM_ID::RSeries) {
 	}
 };
 
