@@ -33,7 +33,7 @@ jobs:
         sudo apt install -y libgtest-dev
         
     - name: Compile Code
-      run: make
+      run: make compile -j
 
     - name: Run Unit Tests
       run: |
