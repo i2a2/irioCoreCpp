@@ -29,7 +29,7 @@ class ProfileFlexRIO: virtual public ProfileBase {
 	ProfileFlexRIO(
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
-			const ProfileBase::PROFILE_ID &id);
+			const PROFILE_ID &id);
 
 	TerminalsFlexRIO flexRIO() const override;
 

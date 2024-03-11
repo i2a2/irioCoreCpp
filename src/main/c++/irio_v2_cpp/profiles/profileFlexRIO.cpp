@@ -5,7 +5,7 @@ namespace iriov2 {
 ProfileFlexRIO::ProfileFlexRIO(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
-		const ProfileBase::PROFILE_ID &id):
+		const PROFILE_ID &id):
 			ProfileBase(id),
 			m_flexRIO(parsedBitfile, session) {
 }

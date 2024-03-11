@@ -5,7 +5,24 @@
 namespace iriov2 {
 
 /**
+ * All possible types of profiles
+ */
+enum class PROFILE_ID {
+	FLEXRIO_CPUDAQ = 0,/**< Data acquisition in CPU profile for FlexRIO devices */
+	FLEXRIO_CPUIMAQ, /**< Image acquisition in CPU profile for FlexRIO devices */
+	FLEXRIO_GPUDAQ, /**< Data acquisition in GPU profile for FlexRIO devices */
+	FLEXRIO_GPUIMAQ,/**< Image acquisition in GPU profile for FlexRIO devices */
+	CRIO_DAQ, /**< Data acquisition profile for cRIO devices */
+	CRIO_IO, /**< Point by Point profile for cRIO devices */
+	R_DAQ /**< Data acquisition profile for R Series devices */
+};
+
+
+
+
+/**
  * Base profile class.
+ *
  * Allows the user to access terminals for read/write operations.
  * If a terminal group is not in the profile,
  * an \ref iriov2::errors::TerminalNotImplementedError exception will be thrown.
@@ -14,19 +31,6 @@ namespace iriov2 {
  */
 class ProfileBase {
  public:
-	/**
-	 * All possible types of profiles
-	 */
-	enum class PROFILE_ID {
-		FLEXRIO_CPUDAQ = 0,/**< Data acquisition in CPU profile for FlexRIO devices */
-		FLEXRIO_CPUIMAQ, /**< Image acquisition in CPU profile for FlexRIO devices */
-		FLEXRIO_GPUDAQ, /**< Data acquisition in GPU profile for FlexRIO devices */
-		FLEXRIO_GPUIMAQ,/**< Image acquisition in GPU profile for FlexRIO devices */
-		CRIO_DAQ, /**< Data acquisition profile for cRIO devices */
-		CRIO_IO, /**< Point by Point profile for cRIO devices */
-		R_DAQ /**< Data acquisition profile for R Series devices */
-	};
-
 	/**
 	 * Value of DevProfile when DAQ
 	 */
@@ -53,7 +57,7 @@ class ProfileBase {
 	 *
 	 * @param id	Identification of the profile
 	 */
-	explicit ProfileBase(const ProfileBase::PROFILE_ID &id);
+	explicit ProfileBase(const PROFILE_ID &id);
 
 	virtual ~ProfileBase() = default;
 
@@ -132,7 +136,7 @@ class ProfileBase {
 	/**
 	 * Profile type
 	 */
-	const ProfileBase::PROFILE_ID profileID;
+	const PROFILE_ID profileID;
 };
 
 }  // namespace iriov2

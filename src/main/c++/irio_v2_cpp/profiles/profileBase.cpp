@@ -3,7 +3,7 @@
 
 namespace iriov2 {
 
-ProfileBase::ProfileBase(const ProfileBase::PROFILE_ID &id) :
+ProfileBase::ProfileBase(const PROFILE_ID &id) :
 		profileID(id) {
 }
 

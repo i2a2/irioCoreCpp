@@ -5,7 +5,7 @@ namespace iriov2 {
 
 ProfileCPUDAQ::ProfileCPUDAQ(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session, const Platform &platform,
-		const ProfileBase::PROFILE_ID &id) :
+		const PROFILE_ID &id) :
 		ProfileBase(id), m_analog(parsedBitfile, session, platform), m_digital(
 				parsedBitfile, session, platform), m_auxAnalog(parsedBitfile,
 				session, platform), m_auxDigital(parsedBitfile, session,

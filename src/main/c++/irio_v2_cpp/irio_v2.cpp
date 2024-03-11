@@ -18,10 +18,9 @@ namespace iriov2 {
 
 IrioV2::IrioV2(const std::string &bitfilePath,
 		const std::string &RIOSerialNumber, const std::string &FPGAVIversion) :
-		m_bfp(bitfilePath, false) {
+		m_bfp(bitfilePath, false), m_session(0) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
 
-	m_session = 0;
 	initDriver();
 	openSession();
 	try {
@@ -276,23 +275,23 @@ void IrioV2::searchPlatform() {
 void IrioV2::searchDevProfile() {
 	static const std::unordered_map<std::uint8_t,
 			const std::unordered_map<std::uint8_t,
-				ProfileBase::PROFILE_ID>> validProfileByPlatform =
+				PROFILE_ID>> validProfileByPlatform =
 				{ { FLEXRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
-						ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ }, {
+						PROFILE_ID::FLEXRIO_CPUDAQ }, {
 						ProfileBase::PROFILE_VALUE_IMAQ,
-						ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ }, {
+						PROFILE_ID::FLEXRIO_CPUIMAQ }, {
 						ProfileBase::PROFILE_VALUE_DAQGPU,
-						ProfileBase::PROFILE_ID::FLEXRIO_GPUDAQ }, {
+						PROFILE_ID::FLEXRIO_GPUDAQ }, {
 						ProfileBase::PROFILE_VALUE_IMAQGPU,
-						ProfileBase::PROFILE_ID::FLEXRIO_GPUIMAQ } } },
+						PROFILE_ID::FLEXRIO_GPUIMAQ } } },
 
 				{ CRIO_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
-						ProfileBase::PROFILE_ID::CRIO_DAQ }, {
+						PROFILE_ID::CRIO_DAQ }, {
 						ProfileBase::PROFILE_VALUE_IO,
-						ProfileBase::PROFILE_ID::CRIO_IO } } },
+						PROFILE_ID::CRIO_IO } } },
 
 				{ RSERIES_PLATFORM_VALUE, { { ProfileBase::PROFILE_VALUE_DAQ,
-						ProfileBase::PROFILE_ID::R_DAQ } } } };
+						PROFILE_ID::R_DAQ } } } };
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
 	std::uint8_t profile;
@@ -308,24 +307,24 @@ void IrioV2::searchDevProfile() {
 
 	// TODO: Finish
 	switch (it->second) {
-	case ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ:
+	case PROFILE_ID::FLEXRIO_CPUDAQ:
 		m_profile.reset(
 				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
 		break;
-	case ProfileBase::PROFILE_ID::FLEXRIO_CPUIMAQ:
+	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
-	case ProfileBase::PROFILE_ID::FLEXRIO_GPUDAQ:
+	case PROFILE_ID::FLEXRIO_GPUDAQ:
 		throw std::runtime_error("Profile not implemented");
-	case ProfileBase::PROFILE_ID::FLEXRIO_GPUIMAQ:
+	case PROFILE_ID::FLEXRIO_GPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
-	case ProfileBase::PROFILE_ID::CRIO_DAQ:
+	case PROFILE_ID::CRIO_DAQ:
 		throw std::runtime_error("Profile not implemented");
-	case ProfileBase::PROFILE_ID::CRIO_IO:
+	case PROFILE_ID::CRIO_IO:
 		throw std::runtime_error("Profile not implemented");
-	case ProfileBase::PROFILE_ID::R_DAQ:
+	case PROFILE_ID::R_DAQ:
 		m_profile.reset(
 				new ProfileCPUDAQ(m_bfp, m_session, *m_platform,
-						ProfileBase::PROFILE_ID::R_DAQ));
+						PROFILE_ID::R_DAQ));
 		break;
 	}
 }

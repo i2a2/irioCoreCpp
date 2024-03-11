@@ -34,7 +34,7 @@ class ProfileCPUDAQ: virtual public ProfileBase {
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const Platform &platform,
-			const ProfileBase::PROFILE_ID &id);
+			const PROFILE_ID &id);
 
 	TerminalsAnalog analog() const override;
 	TerminalsDigital digital() const override;

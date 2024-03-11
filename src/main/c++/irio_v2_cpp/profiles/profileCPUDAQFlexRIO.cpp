@@ -6,10 +6,10 @@ ProfileCPUDAQFlexRIO::ProfileCPUDAQFlexRIO(
 		const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session,
 		const Platform &platform) :
-				ProfileBase(ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ),
+				ProfileBase(PROFILE_ID::FLEXRIO_CPUDAQ),
 				ProfileCPUDAQ(parsedBitfile, session,
-						platform, ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ),
+						platform, PROFILE_ID::FLEXRIO_CPUDAQ),
 				ProfileFlexRIO(parsedBitfile, session,
-						ProfileBase::PROFILE_ID::FLEXRIO_CPUDAQ) {
+						PROFILE_ID::FLEXRIO_CPUDAQ) {
 }
 }  // namespace iriov2
