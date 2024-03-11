@@ -1,6 +1,11 @@
 #pragma once
 
-#include <terminals/terminals.h>
+#include <typeindex>
+#include <unordered_map>
+#include <memory>
+
+#include "terminals/terminals.h"
+
 
 namespace iriov2 {
 
@@ -59,82 +64,22 @@ class ProfileBase {
 
 	virtual ~ProfileBase() = default;
 
-	/**
-	 * Access to the analog group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return Analog terminals
-	 */
-	virtual TerminalsAnalog analog() const;
 
-	/**
-	 * Access to the digital group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return Digital terminals
-	 */
-	virtual TerminalsDigital digital() const = 0;
-
-	/**
-	 * Access to the aux analog group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return Aux analog terminals
-	 */
-	virtual TerminalsAuxAnalog auxAnalog() const = 0;
-
-	/**
-	 * Access to the aux digital group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return Aux digital terminals
-	 */
-	virtual TerminalsAuxDigital auxDigital() const = 0;
-
-	/**
-	 * Access to the cRIO group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return cRIO terminals
-	 */
-	virtual TerminalscRIO cRIO() const;
-
-	/**
-	 * Access to the FlexRIO group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 * @return FlexRIO terminals
-	 */
-	virtual TerminalsFlexRIO flexRIO() const;
-
-	/**
-	 * Access to the Signal Generation group terminals.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return Signal Generation terminals
-	 */
-	virtual TerminalsSignalGeneration signalGeneration() const;
-
-	/**
-	 * Access to the DMA DAQ group terminals. Depending on the profile configured, this can be terminals
-	 * for CPU DAQ or GPU DAQ. The methods and functionality implemented for each case behaves the same.
-	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not supported by the current profile
-	 *
-	 * @return DMA DAQ terminals
-	 */
-	virtual TerminalsDMADAQ daq() const;
+	template<typename T>
+	T getTerminal() const;
 
 	/**
 	 * Profile type
 	 */
 	const PROFILE_ID profileID;
+
+ protected:
+	template<typename T>
+	void addTerminal(T terminal);
+
+ private:
+	std::unordered_map<std::type_index,
+			std::unique_ptr<TerminalsBase>> m_mapTerminals;
 };
 
 }  // namespace iriov2

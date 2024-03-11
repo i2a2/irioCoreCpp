@@ -35,27 +35,6 @@ class ProfileCPUDAQ: virtual public ProfileBase {
 			const NiFpga_Session &session,
 			const Platform &platform,
 			const PROFILE_ID &id);
-
-	TerminalsAnalog analog() const override;
-	TerminalsDigital digital() const override;
-
-	TerminalsAuxAnalog auxAnalog() const override;
-	TerminalsAuxDigital auxDigital() const override;
-
-	TerminalsSignalGeneration signalGeneration() const override;
-
-	TerminalsDMADAQ daq() const override;
-
- private:
-	TerminalsAnalog m_analog;
-	TerminalsDigital m_digital;
-
-	TerminalsAuxAnalog m_auxAnalog;
-	TerminalsAuxDigital m_auxDigital;
-
-	TerminalsSignalGeneration m_signalGeneration;
-
-	TerminalsDMADAQCPU m_daq;
 };
 
 }  // namespace iriov2

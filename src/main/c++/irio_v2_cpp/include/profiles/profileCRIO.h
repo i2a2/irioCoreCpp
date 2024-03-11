@@ -31,11 +31,6 @@ class ProfileCRIO: virtual public ProfileBase {
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const PROFILE_ID &id);
-
-	TerminalscRIO cRIO() const override;
-
- private:
-	TerminalscRIO m_cRIO;
 };
 
 }  // namespace iriov2

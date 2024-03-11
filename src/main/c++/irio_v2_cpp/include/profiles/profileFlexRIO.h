@@ -30,11 +30,6 @@ class ProfileFlexRIO: virtual public ProfileBase {
 			const bfp::BFP &parsedBitfile,
 			const NiFpga_Session &session,
 			const PROFILE_ID &id);
-
-	TerminalsFlexRIO flexRIO() const override;
-
- private:
-	TerminalsFlexRIO m_flexRIO;
 };
 
 }  // namespace iriov2

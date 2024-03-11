@@ -68,12 +68,12 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 
 	switch (m_platform->platformID) {
 	case PLATFORM_ID::FlexRIO:
-		if (!m_profile->flexRIO().getRIOAdapterCorrect()) {
+		if (!getTerminalsFlexRIO().getRIOAdapterCorrect()) {
 			throw errors::ModulesNotOKError("FlexRIO IO Module check failed");
 		}
 		break;
 	case PLATFORM_ID::cRIO:
-		if (!m_profile->cRIO().getcRIOModulesOk()) {
+		if (!getTerminalsCRIO().getcRIOModulesOk()) {
 			throw errors::ModulesNotOKError("cRIO IO Module check failed");
 		}
 		break;
@@ -158,36 +158,37 @@ double IrioV2::getMaxSamplingRate() const {
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
+
 TerminalsAnalog IrioV2::getTerminalsAnalog() const {
-	return m_profile->analog();
+	return m_profile->getTerminal<TerminalsAnalog>();
 }
 
 TerminalsDigital IrioV2::getTerminalsDigital() const {
-	return m_profile->digital();
+	return m_profile->getTerminal<TerminalsDigital>();
 }
 
 TerminalsAuxAnalog IrioV2::getTerminalsAuxAnalog() const {
-	return m_profile->auxAnalog();
+	return m_profile->getTerminal<TerminalsAuxAnalog>();
 }
 
 TerminalsAuxDigital IrioV2::getTerminalsAuxDigital() const {
-	return m_profile->auxDigital();
+	return m_profile->getTerminal<TerminalsAuxDigital>();
 }
 
 TerminalscRIO IrioV2::getTerminalsCRIO() const {
-	return m_profile->cRIO();
+	return m_profile->getTerminal<TerminalscRIO>();
 }
 
 TerminalsFlexRIO IrioV2::getTerminalsFlexRIO() const {
-	return m_profile->flexRIO();
+	return m_profile->getTerminal<TerminalsFlexRIO>();
 }
 
 TerminalsSignalGeneration IrioV2::getTerminalsSignalGeneration() const {
-	return m_profile->signalGeneration();
+	return m_profile->getTerminal<TerminalsSignalGeneration>();
 }
 
 TerminalsDMADAQ IrioV2::getTerminalsDAQ() const {
-	return m_profile->daq();
+	return m_profile->getTerminal<TerminalsDMADAQ>();
 }
 
 /*********************************************
