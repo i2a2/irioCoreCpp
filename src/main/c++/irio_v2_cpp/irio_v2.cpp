@@ -319,7 +319,9 @@ void IrioV2::searchDevProfile() {
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::CRIO_DAQ:
-		throw std::runtime_error("Profile not implemented");
+		m_profile.reset(
+				new ProfileCPUDAQcRIO(m_bfp, m_session, *m_platform));
+		break;
 	case PROFILE_ID::CRIO_IO:
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::R_DAQ:

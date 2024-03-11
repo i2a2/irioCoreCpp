@@ -25,7 +25,7 @@ public:
 						insertedIOModulesIDFake, sizeof(insertedIOModulesIDFake)/sizeof(uint16_t));
 	}
 
-	const uint16_t insertedIOModulesIDFake[5] = {1,2,3,4,5};
+	const uint16_t insertedIOModulesIDFake[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 };
 
 class ErrorCRIOTests: public CRIOTests{};
@@ -48,7 +48,7 @@ TEST_F(CRIOTests, cRIOModulesOk){
 TEST_F(CRIOTests, InsertedIOModulesID){
 	IrioV2 irio(bitfilePath, "0", "9.9");
 	auto modules = irio.getTerminalsCRIO().getInsertedIOModulesID();
-	EXPECT_EQ(modules.size(), 5);
+	EXPECT_EQ(modules.size(), sizeof(insertedIOModulesIDFake)/sizeof(uint16_t));
 	for(size_t i = 0; i < modules.size(); ++i){
 		EXPECT_EQ(modules[i], insertedIOModulesIDFake[i]);
 	}
@@ -60,7 +60,7 @@ TEST_F(CRIOTests, InsertedIOModulesID){
 TEST_F(ErrorCRIOTests, ModulesNotOKError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_CRIOMODULESOK).address,
-						1);
+						0);
 	IrioV2 irio(bitfilePath, "0", "9.9");
 
 	EXPECT_THROW(irio.startFPGA(100);,

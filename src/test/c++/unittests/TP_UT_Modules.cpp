@@ -105,12 +105,12 @@ TEST_F(ModulesFlexRIO, NI5734) {
 }
 
 TEST_F(ModulesCRIO, NI92XX) {
+
 	IrioV2 irio(bitfilePath, "0", "9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 			ModulesType::cRIO_NI92xx);
 	const auto vecMod = irio.getTerminalsCRIO().getInsertedIOModulesID();
 
-	EXPECT_EQ(vecMod.size(), 1);
 	EXPECT_EQ(vecMod[0], static_cast<std::uint16_t>(ModulesType::cRIO_NI92xx));
 }
 

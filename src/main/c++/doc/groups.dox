@@ -53,6 +53,8 @@
 @defgroup ProfilesFlexRIO	FlexRIO Profiles
 @ingroup Profiles
 
+@defgroup ProfilesCRIO		cRIO Profiles
+@ingroup Profiles
 
 
 @defgroup Modules			Modules types
