@@ -37,5 +37,5 @@ jobs:
 
     - name: Run Unit Tests
       run: |
-        cd target/test/c++/unittest
+        cd target/test/c++/unittests
         ./test_ut_iriov2cpp
