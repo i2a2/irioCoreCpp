@@ -11,6 +11,12 @@ TEST_MAKEFILE_DIR := target/test/c++
 LIB_INSTALL_DIR := /usr/local/lib
 INC_INSTALL_DIR := /usr/local/include
 
+COVERAGE_DIR := $(COPY_DIR)/coverage
+COVERAGE_INITIAL_FILE := initial.coverage.info
+COVERAGE_MAIN_FILE := main.coverage.info
+COVERAGE_FILE := coverage.info
+COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
+
 ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
@@ -18,7 +24,7 @@ endif
 
 .PHONY: all debug clean compile coverage package doc
 
-.NOTPARALLEL: copy clean
+.NOTPARALLEL: copy clean test
 
 all: copy build
 
@@ -84,7 +90,15 @@ doc: copy
 package: all gen_rpmbuild package_lib package_lib_devel doc
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
 		
-		
-#Targets to imitate mvn commands
-coverage: debug
+test:
+	@cd $(COPY_DIR)/test; ./test.sh
+
+coverage: debug test
+	@mkdir -p $(COVERAGE_DIR)
+	lcov -q --capture --directory $(COPY_DIR)/main/c++ --no-external --initial -o $(COVERAGE_DIR)/$(COVERAGE_INITIAL_FILE)	
+	lcov -q --capture --directory $(COPY_DIR)/main/c++ --no-external -o $(COVERAGE_DIR)/$(COVERAGE_MAIN_FILE)	
+	lcov -q -a $(COVERAGE_DIR)/$(COVERAGE_INITIAL_FILE) -a $(COVERAGE_DIR)/$(COVERAGE_MAIN_FILE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE)
+	lcov -q -r $(COVERAGE_DIR)/$(COVERAGE_FILE) $(COVERAGE_EXCLUDE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE) 
+	genhtml $(COVERAGE_DIR)/$(COVERAGE_FILE) --function-coverage --output-directory $(COVERAGE_DIR)
+
 compile: all
