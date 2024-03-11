@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <cstring>
+#include <string>
 #include <memory>
 #include "fff.h"
 

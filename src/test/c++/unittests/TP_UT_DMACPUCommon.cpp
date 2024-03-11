@@ -140,7 +140,7 @@ NiFpga_Status funcReturnNoElemRem(NiFpga_Session, uint32_t,
 }
 
 TEST_F(DMACPUCommonTests, startDMA) {
-	NiFpga_Status (*custom_fakes[])(NiFpga_Session, uint32_t, uint64_t*, size_t,
+	auto (*custom_fakes[])(NiFpga_Session, uint32_t, uint64_t*, size_t,
 			uint32_t, size_t*) -> NiFpga_Status = {funcReturnElemRem, funcReturnNoElemRem};
 
     SET_CUSTOM_FAKE_SEQ(NiFpga_ReadFifoU64, custom_fakes, 2);
@@ -191,7 +191,7 @@ TEST_F(DMACPUCommonTests, readDataBlocking) {
 }
 
 TEST_F(DMACPUCommonTests, readDataNonBlocking) {
-	NiFpga_Status (*custom_fakes[])(NiFpga_Session, uint32_t, uint64_t*, size_t,
+	auto (*custom_fakes[])(NiFpga_Session, uint32_t, uint64_t*, size_t,
 			uint32_t, size_t*) -> NiFpga_Status = {funcReturnElemRem, funcReturnNoElemRem};
 
 	SET_CUSTOM_FAKE_SEQ(NiFpga_ReadFifoU64, custom_fakes, 2);

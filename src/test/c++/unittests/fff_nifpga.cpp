@@ -1,4 +1,5 @@
 #include "fff_nifpga.h"
+#include <string>
 
 DEFINE_FFF_GLOBALS
 
