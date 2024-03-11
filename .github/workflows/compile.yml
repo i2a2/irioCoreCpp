@@ -13,10 +13,8 @@ on:
       - '**.cpp'
       - '**.h'
 jobs:
-  build:
-
+  install_dependencies:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Install Dependencies
@@ -32,6 +30,20 @@ jobs:
         sudo apt install -y ni-syscfg-devel
         sudo apt install -y ni-flexrio-modulario-libs-devel
         sudo apt install -y libpugixml-dev
-        sudo apt install -y libgtest-dev       
-    - name: make
+        sudo apt install -y libgtest-dev
+
+  compile:
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+    steps:   
+    - name: Compile Code
       run: make
+
+  run_unittests:
+    runs-on:  ubuntu-lastest
+    needs:  compile
+    steps:
+    - name: Run Unit Tests
+      run: |
+        cd target/test/c++/unittest
+        ./test_ut_iriov2cpp
