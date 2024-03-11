@@ -24,7 +24,7 @@ BaseTests::BaseTests(const std::string bitfile):
 			fpgaVIversionFake, 2);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
 			bfp.getRegister(TERMINAL_DEVPROFILE).address,
-			ProfileBase::PROFILE_VALUE_DAQ);
+			PROFILE_VALUE_DAQ);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
 			bfp.getRegister(TERMINAL_PLATFORM).address,
 			PLATFORM_ID::FlexRIO);

@@ -276,21 +276,21 @@ void IrioV2::searchDevProfile() {
 	static const std::unordered_map<PLATFORM_ID,
 			const std::unordered_map<std::uint8_t,
 				PROFILE_ID>> validProfileByPlatform =
-				{ { PLATFORM_ID::FlexRIO, { { ProfileBase::PROFILE_VALUE_DAQ,
+				{ { PLATFORM_ID::FlexRIO, { { PROFILE_VALUE_DAQ,
 						PROFILE_ID::FLEXRIO_CPUDAQ }, {
-						ProfileBase::PROFILE_VALUE_IMAQ,
+						PROFILE_VALUE_IMAQ,
 						PROFILE_ID::FLEXRIO_CPUIMAQ }, {
-						ProfileBase::PROFILE_VALUE_DAQGPU,
+						PROFILE_VALUE_DAQGPU,
 						PROFILE_ID::FLEXRIO_GPUDAQ }, {
-						ProfileBase::PROFILE_VALUE_IMAQGPU,
+						PROFILE_VALUE_IMAQGPU,
 						PROFILE_ID::FLEXRIO_GPUIMAQ } } },
 
-				{ PLATFORM_ID::cRIO, { { ProfileBase::PROFILE_VALUE_DAQ,
+				{ PLATFORM_ID::cRIO, { { PROFILE_VALUE_DAQ,
 						PROFILE_ID::CRIO_DAQ }, {
-						ProfileBase::PROFILE_VALUE_IO,
+						PROFILE_VALUE_IO,
 						PROFILE_ID::CRIO_IO } } },
 
-				{ PLATFORM_ID::RSeries, { { ProfileBase::PROFILE_VALUE_DAQ,
+				{ PLATFORM_ID::RSeries, { { PROFILE_VALUE_DAQ,
 						PROFILE_ID::R_DAQ } } } };
 
 	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;

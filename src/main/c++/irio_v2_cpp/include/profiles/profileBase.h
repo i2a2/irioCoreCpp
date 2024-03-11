@@ -5,6 +5,28 @@
 namespace iriov2 {
 
 /**
+ * Value of DevProfile when DAQ
+ */
+constexpr std::uint8_t PROFILE_VALUE_DAQ = 0;
+/**
+ * Value of DevProfile when IMAQ
+ */
+constexpr std::uint8_t PROFILE_VALUE_IMAQ = 1;
+/**
+ * Value of DevProfile when DAQGPU
+ */
+constexpr std::uint8_t PROFILE_VALUE_DAQGPU = 2;
+/**
+ * Value of DevProfile when IMAQGPU
+ */
+constexpr std::uint8_t PROFILE_VALUE_IMAQGPU = 3;
+/**
+ * Value of DevProfile when IO
+ */
+constexpr std::uint8_t PROFILE_VALUE_IO = 1;
+
+
+/**
  * All possible types of profiles
  */
 enum class PROFILE_ID {
@@ -17,9 +39,6 @@ enum class PROFILE_ID {
 	R_DAQ /**< Data acquisition profile for R Series devices */
 };
 
-
-
-
 /**
  * Base profile class.
  *
@@ -31,27 +50,6 @@ enum class PROFILE_ID {
  */
 class ProfileBase {
  public:
-	/**
-	 * Value of DevProfile when DAQ
-	 */
-	static const std::uint8_t PROFILE_VALUE_DAQ = 0;
-	/**
-	 * Value of DevProfile when IMAQ
-	 */
-	static const std::uint8_t PROFILE_VALUE_IMAQ = 1;
-	/**
-	 * Value of DevProfile when DAQGPU
-	 */
-	static const std::uint8_t PROFILE_VALUE_DAQGPU = 2;
-	/**
-	 * Value of DevProfile when IMAQGPU
-	 */
-	static const std::uint8_t PROFILE_VALUE_IMAQGPU = 3;
-	/**
-	 * Value of DevProfile when IO
-	 */
-	static const std::uint8_t PROFILE_VALUE_IO = 1;
-
 	/**
 	 * Allows the user to access terminals for read/write operations.
 	 *
