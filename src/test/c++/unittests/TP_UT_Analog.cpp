@@ -163,3 +163,9 @@ TEST_F(ErrorAnalogTests, MismatchAOandAOEnable){
 			"0", "9.9");,
 			errors::ResourceNotFoundError);
 }
+
+TEST_F(ErrorAnalogTests, InvalidAnalogTerminal){
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.getTerminalsAnalog().getAI(99);,
+		errors::ResourceNotFoundError);
+}
