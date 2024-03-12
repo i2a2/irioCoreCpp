@@ -23,7 +23,7 @@
     <groupId>org.iter.codac.units</groupId>
     <artifactId>irio-v2-cpp</artifactId>
     <packaging>codac</packaging>
-    <version>0.1</version>
+    <version>0.5</version>
     <name>CODAC Core System irio-v2-cpp module</name>
     <description>CODAC Core System irio-v2-cpp module</description>
     <url>http://www.iter.org/</url>
