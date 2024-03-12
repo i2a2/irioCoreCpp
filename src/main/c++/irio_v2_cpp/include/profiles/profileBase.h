@@ -64,7 +64,14 @@ class ProfileBase {
 
 	virtual ~ProfileBase() = default;
 
-
+	/**
+	 * Returns the specified terminal if it is present in the current profile
+	 *
+	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not present for the current profile
+	 *
+	 * @tparam T	Terminals to get
+	 * @return		Requested terminals
+	 */
 	template<typename T>
 	T getTerminal() const;
 
