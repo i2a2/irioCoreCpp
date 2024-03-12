@@ -99,6 +99,6 @@ coverage: debug test
 	lcov -q --capture --directory $(COPY_DIR)/main/c++ --no-external -o $(COVERAGE_DIR)/$(COVERAGE_MAIN_FILE)	
 	lcov -q -a $(COVERAGE_DIR)/$(COVERAGE_INITIAL_FILE) -a $(COVERAGE_DIR)/$(COVERAGE_MAIN_FILE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE)
 	lcov -q -r $(COVERAGE_DIR)/$(COVERAGE_FILE) $(COVERAGE_EXCLUDE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE) 
-	genhtml $(COVERAGE_DIR)/$(COVERAGE_FILE) --function-coverage --output-directory $(COVERAGE_DIR)
+	genhtml $(COVERAGE_DIR)/$(COVERAGE_FILE) --function-coverage --demangle-cpp --output-directory $(COVERAGE_DIR)
 
 compile: all
