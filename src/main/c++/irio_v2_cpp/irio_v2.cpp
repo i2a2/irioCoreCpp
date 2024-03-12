@@ -155,6 +155,14 @@ double IrioV2::getMaxSamplingRate() const {
 	return m_maxSamplingRate;
 }
 
+Platform IrioV2::getPlatform() const {
+	return *m_platform.get();
+}
+
+PROFILE_ID IrioV2::getProfileID() const {
+	return m_profile->profileID;
+}
+
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////

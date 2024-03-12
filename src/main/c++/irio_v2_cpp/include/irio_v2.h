@@ -26,6 +26,7 @@ class IrioV2 {
 	 * - Applies the appropriate profile depending on the values specified in the LabVIEW project. This allows access to some terminals or others.
 	 * - Checks that the configured values and resources matches the design rules
 	 *
+	 * @throw iriov2::errors::RIODeviceNotFoundError		Unable to found a device with the specified \p RIOSerialNumber
 	 * @throw iriov2::errors::BFPParseBitfileError			Unable to parse \p bitfilePath
 	 * @throw iriov2::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
 	 * @throw iriov2::errors::FPGAVIVersionMismatchError	Parsed FPGAVIversion does not match the one specified
@@ -174,6 +175,23 @@ class IrioV2 {
 	 * @return Maximum valid sampling rate
 	 */
 	double getMaxSamplingRate() const;
+
+	/**
+	 * Returns the platform detected
+	 *
+	 * The object returned has information about the type of platform
+	 * along with the max number of resources for such platform
+	 *
+	 * @return Platform
+	 */
+	Platform getPlatform() const;
+
+	/**
+	 * Returns the selected profile's ID
+	 *
+	 * @return Profile ID
+	 */
+	PROFILE_ID getProfileID() const;
 
 ///////////////////////////////////////////////
 /// Terminals

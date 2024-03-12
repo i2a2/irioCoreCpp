@@ -34,7 +34,7 @@ constexpr std::uint8_t PROFILE_VALUE_IO = 1;
 /**
  * All possible types of profiles
  */
-enum class PROFILE_ID {
+enum class PROFILE_ID: std::uint8_t {
 	FLEXRIO_CPUDAQ = 0,/**< Data acquisition in CPU profile for FlexRIO devices */
 	FLEXRIO_CPUIMAQ, /**< Image acquisition in CPU profile for FlexRIO devices */
 	FLEXRIO_GPUDAQ, /**< Data acquisition in GPU profile for FlexRIO devices */
