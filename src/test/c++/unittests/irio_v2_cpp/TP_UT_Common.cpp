@@ -24,7 +24,7 @@ using namespace iriov2;
 class CommonTests: public BaseTests {
 public:
 	CommonTests():
-		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,

@@ -27,7 +27,7 @@ void setFlexRIOConnectedModule(const bfp::BFP &bfp){
 class ModulesFlexRIO: public BaseTests{
 public:
 	ModulesFlexRIO():
-		BaseTests("../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx") {
+		BaseTests("../../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
 						PLATFORM_ID::FlexRIO);
@@ -41,7 +41,7 @@ public:
 class ModulesCRIO: public BaseTests{
 public:
 	ModulesCRIO():
-		BaseTests("../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx") {
+		BaseTests("../../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 								bfp.getRegister(TERMINAL_PLATFORM).address,
 								PLATFORM_ID::cRIO);
@@ -60,7 +60,7 @@ public:
 class ModulesRSeries: public BaseTests{
 public:
 	ModulesRSeries():
-		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx") {
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 							bfp.getRegister(TERMINAL_PLATFORM).address,
 							PLATFORM_ID::RSeries);

@@ -1,57 +1,9 @@
-PROGNAME=test_ut_iriov2cpp
+SUBDIRS=$(dir $(wildcard */Makefile))
 
-TARGET=../../../../target
+BOLD=\e[1m
+NC=\e[0m
 
-LIBRARIES=gtest bfp irio_v2_cpp
-LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include $(TARGET)/main/c++/irio_v2_cpp/include
+all:
 
-ifdef CODAC_ROOT
-	LIBRARIES+=NiFpga 
-	INCLUDE_DIRS+=$(CODAC_ROOT)/include
-	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
-else
-	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
-	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
-endif
-
-BINARY_DIR=.
-SOURCE_DIR=.
-OBJECT_DIR = $(SOURCE_DIR)/.obj
-
-EXECUTABLE=$(BINARY_DIR)/$(PROGNAME)
-BASE_INCLUDES=. ../include $(TARGET)/main/c++/include
-INCLUDES=$(foreach inc,$(BASE_INCLUDES),-I$(inc)) $(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs))
-LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
-SOURCES=$(wildcard $(SOURCE_DIR)/*.cpp)
-OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
-
-C=gcc
-CC=g++
-CFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -O0 -g
-CCFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -std=c++11 -O0 -g
-LDFLAGS=
-
-
-.PHONY: all clean run
-
-all: $(SOURCES) $(EXECUTABLE)
-
-clean:
-	rm -rf "$(EXECUTABLE)" "$(OBJECT_DIR)"
-
-run: $(SOURCES) $(EXECUTABLE)
-	$(EXECUTABLE)
-
-$(EXECUTABLE): $(OBJECTS)
-	mkdir -p $(BINARY_DIR)
-	$(CC) $(LDFLAGS) $(LDPATHS) $(OBJECTS) -o $@ $(LDLIBS)
-
-$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
-	mkdir -p $(OBJECT_DIR)
-	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
-
-$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
-	mkdir -p $(OBJECT_DIR)
-	$(C) $(CFLAGS) $(INCLUDES) $< -o $@
+%:
+	@$(foreach dir, $(SUBDIRS), echo -e "$(BOLD)Building tests $(dir:/=)...$(NC)" && $(MAKE) -C $(dir) $@ &&) :

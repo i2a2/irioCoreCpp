@@ -12,7 +12,7 @@ using namespace iriov2;
 class CRIOTests: public BaseTests{
 public:
 	CRIOTests():
-			BaseTests("../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx")
+			BaseTests("../../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,

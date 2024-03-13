@@ -23,7 +23,7 @@ void setFlexRIOConnectedModule(){
 class AnalogTests: public BaseTests{
 public:
 	AnalogTests():
-			BaseTests("../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx")
+			BaseTests("../../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -159,7 +159,7 @@ TEST_F(ErrorAnalogTests, UnsupportedAICouplingForModule){
 
 TEST_F(ErrorAnalogTests, MismatchAOandAOEnable){
 	EXPECT_THROW(IrioV2 irio(
-			"../../resources/failResources/7966/NiFpga_FlexRIO_MismatchAOAOEnable_7966.lvbitx",
+			"../../../resources/failResources/7966/NiFpga_FlexRIO_MismatchAOAOEnable_7966.lvbitx",
 			"0", "9.9");,
 			errors::ResourceNotFoundError);
 }

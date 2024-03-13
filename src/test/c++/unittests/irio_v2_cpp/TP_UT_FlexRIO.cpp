@@ -21,7 +21,7 @@ using namespace iriov2;
 class FlexRIOTests: public BaseTests {
 public:
 	FlexRIOTests():
-			BaseTests("../../resources/7966/NiFpga_FlexRIO_OnlyResources_7966.lvbitx")
+			BaseTests("../../../resources/7966/NiFpga_FlexRIO_OnlyResources_7966.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,

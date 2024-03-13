@@ -13,7 +13,7 @@ using namespace iriov2;
 class DMACPUDAQTests: public BaseTests {
 public:
 	DMACPUDAQTests():
-		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -72,14 +72,14 @@ TEST_F(ErrorDMACPUDAQTests, LengthBlockInvalidDMAID){
 
 TEST_F(ErrorDMACPUDAQTests, MistmatchDMALengthBlock) {
 	EXPECT_THROW(
-		IrioV2 irio("../../resources/failResources/7854/NiFpga_Rseries_MismatchDMALengthBlock_7854.lvbitx", "0", "9.9");,
+		IrioV2 irio("../../../resources/failResources/7854/NiFpga_Rseries_MismatchDMALengthBlock_7854.lvbitx", "0", "9.9");,
 		errors::ResourceNotFoundError
 	);
 }
 
 TEST_F(ErrorDMACPUDAQTests, MistmatchDMASamplingRate) {
 	EXPECT_THROW(
-		IrioV2 irio("../../resources/failResources/7854/NiFpga_Rseries_MistmatchDMASamplingRate_7854.lvbitx", "0", "9.9");,
+		IrioV2 irio("../../../resources/failResources/7854/NiFpga_Rseries_MistmatchDMASamplingRate_7854.lvbitx", "0", "9.9");,
 		errors::ResourceNotFoundError
 	);
 }

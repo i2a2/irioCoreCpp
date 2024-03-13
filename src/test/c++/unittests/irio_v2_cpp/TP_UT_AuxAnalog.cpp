@@ -10,7 +10,7 @@ using namespace iriov2;
 class AuxAnalogTests: public BaseTests {
 public:
 	AuxAnalogTests():
-		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -32,7 +32,7 @@ class AuxAnalog64Test: public BaseTests {
 public:
 	AuxAnalog64Test() :
 		BaseTests(
-				"../../resources/7854/NiFpga_Rseries_OnlyResources_7854.lvbitx")
+				"../../../resources/7854/NiFpga_Rseries_OnlyResources_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,

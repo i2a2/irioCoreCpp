@@ -14,7 +14,7 @@ using namespace iriov2;
 class DMACPUCommonTests: public BaseTests {
 public:
 	DMACPUCommonTests():
-		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -251,7 +251,7 @@ TEST_F(ErrorDMACPUCommonTests, sampleSizeInvalidDMAID) {
 
 TEST_F(ErrorDMACPUCommonTests, MistmatchDMADMAEnable) {
 	EXPECT_THROW(
-		IrioV2 irio("../../resources/failResources/7854/NiFpga_Rseries_MismatchDMADMAEnable_7854.lvbitx", "0", "9.9");,
+		IrioV2 irio("../../../resources/failResources/7854/NiFpga_Rseries_MismatchDMADMAEnable_7854.lvbitx", "0", "9.9");,
 		errors::ResourceNotFoundError
 	);
 }

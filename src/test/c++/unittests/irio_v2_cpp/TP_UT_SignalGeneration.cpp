@@ -11,7 +11,7 @@ using namespace iriov2;
 class SignalGenerationTests: public BaseTests {
 public:
 	SignalGenerationTests():
-		BaseTests("../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -125,14 +125,14 @@ TEST_F(SignalGenerationTests, setSGUpdateRate){
 ///////////////////////////////////////////////////////////////
 TEST_F(ErrorSignalGenerationTests, MismatchSGTerminals){
 	EXPECT_THROW(IrioV2 irio(
-				"../../resources/failResources/7854/NiFpga_Rseries_MismatchSG_7854.lvbitx",
+				"../../../resources/failResources/7854/NiFpga_Rseries_MismatchSG_7854.lvbitx",
 				"0", "9.9");,
 				errors::ResourceNotFoundError);
 }
 
 TEST_F(ErrorSignalGenerationTests, NoSGNo){
 	IrioV2 irio(
-				"../../resources/failResources/7854/NiFpga_Rseries_NoSG_7854.lvbitx",
+				"../../../resources/failResources/7854/NiFpga_Rseries_NoSG_7854.lvbitx",
 				"0", "9.9");
 	EXPECT_EQ(irio.getTerminalsSignalGeneration().getSGNo(), 0);
 }
