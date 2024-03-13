@@ -54,7 +54,12 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	const auto maxTries = static_cast<std::uint32_t>(std::ceil(
 			(timeoutMs * 1e6) / SLEEP_INTERVAL_NS));
 	auto status = NiFpga_Run(m_session, 0);
-	utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
+	if(status == NiFpga_Status_FpgaAlreadyRunning) {
+		throw errors::NiFpgaFPGAAlreadyRunning(
+				"Bitfile is already running in the FPGA");
+	} else {
+		utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
+	}
 
 	unsigned int tries = 0;
 	while (!getInitDone() && tries < maxTries) {

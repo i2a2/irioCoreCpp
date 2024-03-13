@@ -161,6 +161,15 @@ class NiFpgaErrorDownloadingBitfile: public NiFpgaError {
 	using NiFpgaError::NiFpgaError;
 };
 
+/**
+ * Specific error when NiFpga_Run return that the FPGA VI is already running
+ *
+ * @ingroup Errors
+ */
+class NiFpgaFPGAAlreadyRunning: public NiFpgaError {
+	using NiFpgaError::NiFpgaError;
+};
+
 
 /**
  * Exception when a timeout expires while trying to read a DMA

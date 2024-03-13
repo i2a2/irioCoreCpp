@@ -156,6 +156,14 @@ TEST_F(ErrorCommonTests, InitializationTimeoutError) {
 		errors::InitializationTimeoutError);
 }
 
+TEST_F(ErrorCommonTests, NiFpgaError) {
+	NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t*) {
+		return NiFpga_Status_InternalError;
+	};
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
+		errors::NiFpgaError);
+}
+
 TEST_F(ErrorCommonTests, NiFpgaErrorDownloadingBitfile) {
 	NiFpga_Open_fake.custom_fake = [](const char*, const char*, const char*, uint32_t, NiFpga_Session* session){
 		return NiFpga_Status_InternalError;
@@ -164,11 +172,13 @@ TEST_F(ErrorCommonTests, NiFpgaErrorDownloadingBitfile) {
 		errors::NiFpgaErrorDownloadingBitfile);
 }
 
-TEST_F(ErrorCommonTests, NiFpgaError) {
-	NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t*) {
-		return NiFpga_Status_InternalError;
+TEST_F(ErrorCommonTests, NiFpgaFPGAAlreadyRunning) {
+	NiFpga_Run_fake.custom_fake = [](NiFpga_Session, uint32_t) {
+		return NiFpga_Status_FpgaAlreadyRunning;
 	};
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
-		errors::NiFpgaError);
+
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_THROW(irio.startFPGA();,
+		errors::NiFpgaFPGAAlreadyRunning);
 }
 
