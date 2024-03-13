@@ -31,13 +31,40 @@ std::unique_ptr<char> errorMsg_ptr;
 ////////////////////////////////////////////////////
 /// Local functions
 ////////////////////////////////////////////////////
-char* updateErrorMsg(const std::string& msg) {
-	errorMsg_ptr.reset(new char[msg.length()+1]);
-	auto ptr = errorMsg_ptr.get();
-	strncpy(ptr, msg.c_str(), msg.length());
 
-	return ptr;
+// Errors
+void mergeStatus(TStatus *status, const TErrorDetailCode detailCode,
+		const std::string &errorMsg, const bool verbose = false) {
+	if(detailCode < Success) {
+		status->code = IRIO_error;
+	} else if (detailCode > Success) {
+		status->code = IRIO_warning;
+	} else {
+		status->code = IRIO_success;
+	}
+	status->detailCode = detailCode;
+
+	if(verbose) {
+		std::cout << errorMsg << std::endl;
+	}
+
+	std::unique_ptr<char> aux;
+	if(!errorMsg_ptr.get()) {
+		size_t len = errorMsg.length() + 1;
+		aux.reset(new char[len]);
+		snprintf(aux.get(), len, "%s", errorMsg.c_str());
+	} else {
+		size_t len = strlen(errorMsg_ptr.get()) + 1 + errorMsg.length() + 1;
+		aux.reset(new char[len]);
+		snprintf(aux.get(), len, "%s\n%s", errorMsg_ptr.get(), errorMsg.c_str());
+	}
+
+	errorMsg_ptr.swap(aux);
+
+	status->msg = errorMsg_ptr.get();
 }
+
+// Other
 
 void initDrvPvt(irioDrv_t *p_DrvPvt, const char *appCallID,
 		const char *DeviceSerialNumber, const char *RIODeviceModel,
@@ -142,7 +169,7 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		const char *RIODeviceModel, const char *projectName,
 		const char *FPGAversion, int verbosity, const char *headerDir,
 		const char *bitfileDir, irioDrv_t *p_DrvPvt, TStatus *status) {
-	if (status == nullptr) {
+	if (!status) {
 		return IRIO_error;
 	}
 
@@ -160,37 +187,25 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		p_DrvPvt->session = 1;
 		fillDrvPvtData(irioV2ptr, p_DrvPvt);
 	} catch (BFPParseBitfileError &e) {
-		status->detailCode = BitfileNotFound_Error;
-		status->msg = updateErrorMsg(e.what());
+		mergeStatus(status, BitfileNotFound_Error, e.what(), p_DrvPvt->verbosity);
 	} catch (ResourceNotFoundError &e) {
-		status->detailCode = ResourceNotFound_Error;
-		status->msg = updateErrorMsg(e.what());
+		mergeStatus(status, ResourceNotFound_Error, e.what(), p_DrvPvt->verbosity);
 	} catch (FPGAVIVersionMismatchError &e) {
-		status->detailCode = NIRIO_API_Error;
-		status->msg = updateErrorMsg(e.what());
+		mergeStatus(status, NIRIO_API_Error, e.what(), p_DrvPvt->verbosity);
 	} catch (RIODeviceNotFoundError &e) {
-		status->detailCode = HardwareNotFound_Error;
-		status->msg = updateErrorMsg(e.what());
+		mergeStatus(status, HardwareNotFound_Error, e.what(), p_DrvPvt->verbosity);
 	} catch (IrioV2Error &e) {
-		status->detailCode = Generic_Error;
-		status->msg = updateErrorMsg(e.what());
+		mergeStatus(status, Generic_Error, e.what(), p_DrvPvt->verbosity);
 	}
 
-	if (status->detailCode != Success) {
-		status->code = IRIO_error;
-		return IRIO_error;
-	} else {
-		status->code = IRIO_success;
-		return IRIO_success;
-	}
+	return status->code;
 }
 
 int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 	const auto iriov2 = IrioV2InstanceManager::getInstance();
 	if(!iriov2) {
-		status->code = IRIO_error;
-		status->detailCode = Generic_Error;
-		status->msg = updateErrorMsg("Driver not initialized");
+		mergeStatus(status, Generic_Error, "Driver not initialized",
+				p_DrvPvt->verbosity);
 		return IRIO_error;
 	}
 

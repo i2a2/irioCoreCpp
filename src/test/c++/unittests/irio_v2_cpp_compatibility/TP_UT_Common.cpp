@@ -3,7 +3,7 @@
 #include <limits>
 #include <NiFpga.h>
 
-#include "fixtures.h"
+#include "fixtures_compatibility.h"
 #include "fff_nifpga.h"
 
 #include "bfp.h"
@@ -18,10 +18,10 @@
 using namespace iriov2;
 
 
-class CommonTests: public BaseTests {
+class CommonTests: public BaseTestsCompatibility {
 public:
 	CommonTests():
-		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+		BaseTestsCompatibility("../../../resources/7854", "Rseries_CPUDAQ_7854")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -35,18 +35,20 @@ class ErrorCommonTests: public CommonTests {};
 ///////////////////////////////////////////////////////////////
 ///// Common Tests
 ///////////////////////////////////////////////////////////////
-TEST_F(CommonTests, ConstructDestruct) {
+TEST_F(CommonTests, InitClose) {
 	TStatus status;
 	irioDrv_t p_DrvPvt;
-	irio_initDriver("test", "0", "DevModel",
-			"Rseries_CPUDAQ_7854", "9.9", true,
-			"", "../../../resources/7854/", &p_DrvPvt, &status);
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+
+	ret = irio_closeDriver(&p_DrvPvt, 0, &status);
 
 	EXPECT_EQ(status.code, Success) << status.msg;
-
-	irio_closeDriver(&p_DrvPvt, 0, &status);
-
-	EXPECT_EQ(status.code, Success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
 }
 
 //TEST_F(CommonTests, Fref) {
@@ -109,14 +111,94 @@ TEST_F(CommonTests, ConstructDestruct) {
 /////////////////////////////////////////////////////////////////
 /////// Error Common Tests
 /////////////////////////////////////////////////////////////////
-//TEST_F(ErrorCommonTests, FPGAVIVersionMismatchError) {
-//	const uint8_t incorrectfpgaviversion[2] = { 0, 0 };
-//	setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
-//			bfp.getRegister(TERMINAL_FPGAVIVERSION).address, incorrectfpgaviversion, 2);
-//
-//	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
-//		errors::FPGAVIVersionMismatchError);
-//}
+TEST_F(ErrorCommonTests, InitStatusNullptr) {
+	irioDrv_t p_DrvPvt;
+	TStatus status;
+	int ret;
+
+	ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "9.9", true,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, nullptr);
+
+	EXPECT_EQ(ret, IRIO_error) <<
+			"A nullptr was passed as argument to initDriver, but no error was returned";
+
+	irio_closeDriver(&p_DrvPvt, 0, &status);
+}
+
+TEST_F(ErrorCommonTests, CloseWhenNoInit) {
+	irioDrv_t p_DrvPvt;
+	TStatus status;
+	int ret;
+
+	ret = irio_closeDriver(&p_DrvPvt, 0, &status);
+
+	EXPECT_EQ(ret, IRIO_error) << "Expected error when close called before init";
+	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
+	EXPECT_EQ(status.detailCode, Generic_Error) << "Invalid detailed error code";
+	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
+}
+
+TEST_F(ErrorCommonTests, InvalidBitfile) {
+	irioDrv_t p_DrvPvt;
+	TStatus status;
+	int ret;
+
+	ret = irio_initDriver("test", "0", "TestModel",
+				"InvalidProjectName", "9.9", true,
+				nullptr, "InvalidBitfileDir", &p_DrvPvt, &status);
+
+	EXPECT_EQ(ret, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
+	EXPECT_EQ(status.detailCode, BitfileNotFound_Error) << "Invalid detailed error code";
+	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
+}
+
+TEST_F(ErrorCommonTests, InitResourceNotFoundError) {
+	irioDrv_t p_DrvPvt;
+	TStatus status;
+	int ret;
+
+	ret = irio_initDriver("test", "0", "TestModel",
+				"Rseries_MismatchSG_7854", "9.9", true,
+				nullptr, "../../../resources/failResources/7854", &p_DrvPvt, &status);
+
+	EXPECT_EQ(ret, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
+	EXPECT_EQ(status.detailCode, ResourceNotFound_Error) << "Invalid detailed error code";
+	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
+}
+
+TEST_F(ErrorCommonTests, FPGAVIVersionMismatchError) {
+	TStatus status;
+	irioDrv_t p_DrvPvt;
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "0.0", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+
+	EXPECT_EQ(ret, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
+	EXPECT_EQ(status.detailCode, NIRIO_API_Error) << "Invalid detailed error code";
+	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
+}
+
+TEST_F(ErrorCommonTests, NiFpgaError) {
+	NiFpga_Open_fake.custom_fake = [](const char*, const char*, const char*, uint32_t, NiFpga_Session* session){
+		*session = 42;
+		return NiFpga_Status_InternalError;
+	};
+	TStatus status;
+	irioDrv_t p_DrvPvt;
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+
+	EXPECT_EQ(ret, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
+	EXPECT_EQ(status.detailCode, Generic_Error) << "Invalid detailed error code";
+	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
+}
+
 //
 //TEST_F(ErrorCommonTests, UnsupportedDevProfileError) {
 //	const uint8_t invalidProfile = 99;

@@ -257,7 +257,7 @@ typedef struct irioDrv_t {
 	NiFpga_Session session; 	//!< Session obtained by C API to manage a FPGA
 	char *projectName;//!< Part of the name of the bitfile downloaded into the FPGA.
 	int NiFpgaDriverType; //!< 0 For privative driver, 1 for open source driver
-	int verbosity;//!< Indicates whether or not print trace messages in IRIO API methods
+	int verbosity = false;//!< Indicates whether or not print trace messages in IRIO API methods
 
 	//Mandatory resources
 	TResourcePort enumPlatform;						//!< Port for FPGA platform
