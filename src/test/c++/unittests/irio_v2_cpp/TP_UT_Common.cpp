@@ -98,6 +98,24 @@ TEST_F(CommonTests, startFPGA) {
 	EXPECT_NO_THROW(irio.startFPGA(););
 }
 
+TEST_F(CommonTests, getPlatform) {
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_NO_THROW(irio.getPlatform(););
+}
+
+TEST_F(CommonTests, getProfileID) {
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_NO_THROW(irio.getProfileID(););
+}
+
+TEST_F(CommonTests, closeAttribute) {
+	EXPECT_NO_THROW(
+	IrioV2 irio(bitfilePath, "0", "9.9");
+	EXPECT_EQ(irio.getCloseAttribute(), 0);
+	irio.setCloseAttribute(1);
+	EXPECT_EQ(irio.getCloseAttribute(), 1);
+	);
+}
 
 ///////////////////////////////////////////////////////////////
 ///// Error Common Tests
