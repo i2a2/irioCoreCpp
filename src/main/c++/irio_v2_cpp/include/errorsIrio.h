@@ -153,6 +153,16 @@ class NiFpgaError: public IrioV2Error {
 };
 
 /**
+ * Specific error when an error occurs while downloading the bitfile into the FPGA
+ *
+ * @ingroup Errors
+ */
+class NiFpgaErrorDownloadingBitfile: public NiFpgaError {
+	using NiFpgaError::NiFpgaError;
+};
+
+
+/**
  * Exception when a timeout expires while trying to read a DMA
  *
  * @ingroup Errors
