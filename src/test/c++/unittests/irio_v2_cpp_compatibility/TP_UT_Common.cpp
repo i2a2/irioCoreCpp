@@ -182,11 +182,27 @@ TEST_F(ErrorCommonTests, FPGAVIVersionMismatchError) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTests, NiFpgaError) {
+TEST_F(ErrorCommonTests, BitfileDownloadError) {
 	NiFpga_Open_fake.custom_fake = [](const char*, const char*, const char*, uint32_t, NiFpga_Session* session){
-		*session = 42;
 		return NiFpga_Status_InternalError;
 	};
+	TStatus status;
+	irioDrv_t p_DrvPvt;
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+
+	EXPECT_EQ(ret, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
+	EXPECT_EQ(status.detailCode, BitfileDownload_Error) << "Invalid detailed error code";
+	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
+}
+
+TEST_F(ErrorCommonTests, GenericError) {
+	NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t*) {
+		return NiFpga_Status_InternalError;
+	};
+
 	TStatus status;
 	irioDrv_t p_DrvPvt;
 	auto ret = irio_initDriver("test", "0", "TestModel",

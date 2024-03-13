@@ -21,6 +21,7 @@ using iriov2::errors::FPGAVIVersionMismatchError;
 using iriov2::errors::UnsupportedDevProfileError;
 using iriov2::errors::UnsupportedPlatformError;
 using iriov2::errors::NiFpgaError;
+using iriov2::errors::NiFpgaErrorDownloadingBitfile;
 using iriov2::errors::RIODeviceNotFoundError;
 
 
@@ -188,6 +189,8 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		fillDrvPvtData(irioV2ptr, p_DrvPvt);
 	} catch (BFPParseBitfileError &e) {
 		mergeStatus(status, BitfileNotFound_Error, e.what(), p_DrvPvt->verbosity);
+	} catch (NiFpgaErrorDownloadingBitfile &e) {
+		mergeStatus(status, BitfileDownload_Error, e.what(), p_DrvPvt->verbosity);
 	} catch (ResourceNotFoundError &e) {
 		mergeStatus(status, ResourceNotFound_Error, e.what(), p_DrvPvt->verbosity);
 	} catch (FPGAVIVersionMismatchError &e) {
