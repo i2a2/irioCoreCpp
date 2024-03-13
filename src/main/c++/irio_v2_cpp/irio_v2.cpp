@@ -18,7 +18,7 @@ namespace iriov2 {
 
 IrioV2::IrioV2(const std::string &bitfilePath,
 		const std::string &RIOSerialNumber, const std::string &FPGAVIversion) :
-		m_bfp(bitfilePath, false), m_session(0) {
+		m_bfp(bitfilePath, false), m_session(0), m_closeAttribute(0) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
 
 	initDriver();
@@ -163,6 +163,14 @@ PROFILE_ID IrioV2::getProfileID() const {
 	return m_profile->profileID;
 }
 
+void IrioV2::setCloseAttribute(std::uint32_t attribute) {
+	m_closeAttribute = attribute;
+}
+
+std::uint32_t IrioV2::getCloseAttribute() const {
+	return m_closeAttribute;
+}
+
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
@@ -211,7 +219,7 @@ void IrioV2::finalizeDriver() const noexcept {
 
 void IrioV2::closeSession() noexcept {
 	if (m_session != 0)
-		NiFpga_Close(m_session, 0);
+		NiFpga_Close(m_session, m_closeAttribute);
 	m_session = 0;
 }
 

@@ -3,6 +3,10 @@
 cd ./c++/bfp
 ./test_bfp
 
-cd ../irio_v2_cpp/
+
+cd ../unittests/irio_v2_cpp
+./test_ut_iriov2cpp
+
+cd ../../irio_v2_cpp/
 ./test_iriov2cpp
 

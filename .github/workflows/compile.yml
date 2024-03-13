@@ -35,7 +35,7 @@ jobs:
     - name: Compile Code
       run: make compile -j
 
-    - name: Run Unit Tests
+    - name: Run Unit Tests IrioV2Cpp
       run: |
-        cd target/test/c++/unittests
+        cd target/test/c++/unittests/irio_v2_cpp
         ./test_ut_iriov2cpp

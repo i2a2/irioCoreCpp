@@ -193,6 +193,27 @@ class IrioV2 {
 	 */
 	PROFILE_ID getProfileID() const;
 
+	/**
+	 * @brief Sets the attribute used when closing the FPGA session.
+	 *
+	 * This function sets the attribute used in the NiFpga_Close function.
+	 * This occurs at class destruction.
+	 *
+	 * @param attribute The attribute value to set.
+	 */
+	void setCloseAttribute(std::uint32_t attribute);
+
+	/**
+	 * @brief Gets the attribute used when closing the FPGA session.
+	 *
+	 * This function retrieves the attribute used in the NiFpga_Close function.
+	 * This occurs at class destruction.
+	 *
+	 * @return The attribute value used when closing the session.
+	 */
+	std::uint32_t getCloseAttribute() const;
+
+
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
@@ -368,6 +389,8 @@ class IrioV2 {
 
 	double m_minSamplingRate;
 	double m_maxSamplingRate;
+
+	std::uint32_t m_closeAttribute;
 };
 
 }  // namespace iriov2
