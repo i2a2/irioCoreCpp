@@ -234,8 +234,13 @@ void IrioV2::openSession() {
 	const auto status = NiFpga_Open(m_bfp.getBitfilePath().c_str(),
 			m_bfp.getSignature().c_str(), m_resourceName.c_str(),
 			NiFpga_OpenAttribute_NoRun, &m_session);
-	utils::throwIfNotSuccessNiFpga(status,
-			"Error opening bitfile " + m_bfp.getBitfilePath());
+
+	if (NiFpga_IsError(status)) {
+		const std::string err = "Error downloading bitfile to FPGA. "
+				+ std::string("(Code: ") + std::to_string(status) + std::string(")");
+
+		throw iriov2::errors::NiFpgaErrorDownloadingBitfile(err);
+	}
 }
 
 void IrioV2::searchCommonResources() {
