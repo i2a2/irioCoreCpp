@@ -53,6 +53,7 @@ class IrioV2 {
 	 *
 	 * @throw iriov2::errors::InitializationTimeoutError	InitDone is not ready after a timeout
 	 * @throw iriov2::errors::ModulesNotOKError		At initialization, the modules are not ready
+	 * @throw iriov2::errors::NiFpgaFPGAAlreadyRunning	Specified bitfile is already running in the FPGA
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 *
 	 * @param timeoutMs Max time to wait for InitDone to be ready
