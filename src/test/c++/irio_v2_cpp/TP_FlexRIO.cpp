@@ -402,6 +402,13 @@ TEST_F(FlexRIONoModule, SGSignalAmp){
 	EXPECT_EQ(sg.getSGAmp(channel), signalAmp) << "SGAmp was not configured properly";
 }
 
+
+TEST_F(FlexRIONoModule, RIODeviceNotFoundError){
+	const std::string bitfilePath = getBitfilePath();
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "1.2");,
+		errors::RIODeviceNotFoundError);
+}
+
 /////////////////////////////////////////////////////////////
 /// FlexRIOCPUDAQ Tests
 /////////////////////////////////////////////////////////////
