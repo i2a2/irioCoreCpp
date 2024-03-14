@@ -33,44 +33,12 @@ using iriov2::errors::ModulesNotOKError;
 
 std::unique_ptr<char> appCallID_ptr;
 std::unique_ptr<char> projectName_ptr;
-std::unique_ptr<char> errorMsg_ptr;
 
 ////////////////////////////////////////////////////
 /// Local functions
 ////////////////////////////////////////////////////
 
 // Errors
-void mergeStatus(TStatus *status, const TErrorDetailCode detailCode,
-		const std::string &errorMsg, const bool verbose = false) {
-	if (detailCode < Success) {
-		status->code = IRIO_error;
-	} else if (detailCode > Success) {
-		status->code = IRIO_warning;
-	} else {
-		status->code = IRIO_success;
-	}
-	status->detailCode = detailCode;
-
-	if (verbose) {
-		std::cout << errorMsg << std::endl;
-	}
-
-	std::unique_ptr<char> aux;
-	if (!errorMsg_ptr.get()) {
-		size_t len = errorMsg.length() + 1;
-		aux.reset(new char[len]);
-		snprintf(aux.get(), len, "%s", errorMsg.c_str());
-	} else {
-		size_t len = strlen(errorMsg_ptr.get()) + 1 + errorMsg.length() + 1;
-		aux.reset(new char[len]);
-		snprintf(aux.get(), len, "%s\n%s", errorMsg_ptr.get(),
-				errorMsg.c_str());
-	}
-
-	errorMsg_ptr.swap(aux);
-
-	status->msg = errorMsg_ptr.get();
-}
 
 // Other
 
@@ -151,7 +119,7 @@ void fillDrvPvtData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
 
 	p_DrvPvt->Fref = iriov2->getFref();
 	strncpy(p_DrvPvt->FPGAVIversion, iriov2->getFPGAVIversion().c_str(),
-			SHORT_CHAR_STRING);
+		SHORT_CHAR_STRING);
 
 	const auto profile = iriov2->getProfileID();
 	p_DrvPvt->devProfile = static_cast<std::uint8_t>(profile);
@@ -186,6 +154,8 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		return IRIO_error;
 	}
 
+	irio_initStatus(status);
+
 	initDrvPvt(p_DrvPvt, appCallID, DeviceSerialNumber, RIODeviceModel,
 			projectName, FPGAversion, verbosity);
 
@@ -201,21 +171,23 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		p_DrvPvt->session = 1;
 		fillDrvPvtData(irioV2ptr, p_DrvPvt);
 	} catch (BFPParseBitfileError &e) {
-		mergeStatus(status, BitfileNotFound_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, BitfileNotFound_Error, p_DrvPvt->verbosity,
+				"%s", e.what());
 	} catch (NiFpgaErrorDownloadingBitfile &e) {
-		mergeStatus(status, BitfileDownload_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, BitfileDownload_Error, p_DrvPvt->verbosity,
+				"%s", e.what());
 	} catch (ResourceNotFoundError &e) {
-		mergeStatus(status, ResourceNotFound_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
+				"%s", e.what());
 	} catch (FPGAVIVersionMismatchError &e) {
-		mergeStatus(status, NIRIO_API_Error, e.what(), p_DrvPvt->verbosity);
+		irio_mergeStatus(status, NIRIO_API_Error, p_DrvPvt->verbosity, "%s",
+				e.what());
 	} catch (RIODeviceNotFoundError &e) {
-		mergeStatus(status, HardwareNotFound_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, HardwareNotFound_Error, p_DrvPvt->verbosity,
+				"%s", e.what());
 	} catch (IrioV2Error &e) {
-		mergeStatus(status, Generic_Error, e.what(), p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+				e.what());
 	}
 
 	return status->code;
@@ -236,11 +208,12 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 		projectName_ptr.reset(nullptr);
 		p_DrvPvt->projectName = nullptr;
 	} catch (IrioV2NotInitializedError &e) {
-		mergeStatus(status, Generic_Error, e.what(),
-						p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Generic_Error,
+			p_DrvPvt->verbosity, "%s", e.what());
 		return IRIO_error;
 	}
-	errorMsg_ptr.reset(nullptr);
+	irio_resetStatus(status);
+
 	return IRIO_success;
 }
 
@@ -254,9 +227,9 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 	const auto it = couplingMap.find(value);
 
 	if (it == couplingMap.end()) {
-		mergeStatus(status, ValueOOB_Warning,
-				"Incorrect value for configuring AC/DC coupling mode",
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, ValueOOB_Warning,
+				p_DrvPvt->verbosity,
+				"Incorrect value for configuring AC/DC coupling mode");
 		return IRIO_error;
 	}
 
@@ -265,15 +238,16 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 
 		iriov2->getTerminalsAnalog().setAICouplingMode(it->second);
 	} catch (IrioV2NotInitializedError &e) {
-		mergeStatus(status, Generic_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+				e.what());
 		return IRIO_error;
 	} catch (TerminalNotImplementedError &e) {
-		mergeStatus(status, ResourceNotFound_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
+				"%s", e.what());
 		return IRIO_error;
 	} catch (UnsupportedAICouplingForModule &e) {
-		mergeStatus(status, ValueOOB_Warning, e.what(), p_DrvPvt->verbosity);
+		irio_mergeStatus(status, ValueOOB_Warning, p_DrvPvt->verbosity, "%s",
+				e.what());
 		return IRIO_warning;
 	}
 
@@ -288,15 +262,16 @@ int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		const auto auxCoup = iriov2->getTerminalsAnalog().getAICouplingMode();
 		*value = static_cast<TIRIOCouplingMode>(auxCoup);
 	} catch (IrioV2NotInitializedError &e) {
-		mergeStatus(status, Generic_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+				e.what());
 		return IRIO_error;
 	} catch (TerminalNotImplementedError &e) {
-		mergeStatus(status, ResourceNotFound_Error, e.what(),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
+				"%s", e.what());
 		return IRIO_error;
 	} catch (UnsupportedAICouplingForModule &e) {
-		mergeStatus(status, ValueOOB_Warning, e.what(), p_DrvPvt->verbosity);
+		irio_mergeStatus(status, ValueOOB_Warning, p_DrvPvt->verbosity, "%s",
+				e.what());
 		return IRIO_warning;
 	}
 
@@ -309,39 +284,38 @@ int irio_getVersion(char *version, TStatus*) {
 }
 
 int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	if(p_DrvPvt->fpgaStarted) {
-		mergeStatus(status, FPGAAlreadyRunning_Warning,
-				"FPGA status can not be changed after started",
-				p_DrvPvt->verbosity);
+	if (p_DrvPvt->fpgaStarted) {
+		irio_mergeStatus(status, FPGAAlreadyRunning_Warning,
+				p_DrvPvt->verbosity, "FPGA status can not be changed after started");
 		return IRIO_warning;
 	}
 
 	// Why even have the parameter then???
-	if(value) {
+	if (value) {
 		try {
 			const auto irio = IrioV2InstanceManager::getInstance();
 
 			irio->startFPGA();
 			p_DrvPvt->fpgaStarted = 1;
-		} catch(IrioV2NotInitializedError &e) {
-			mergeStatus(status, Generic_Error, e.what(),
-					p_DrvPvt->verbosity);
+		} catch (IrioV2NotInitializedError &e) {
+			irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+					e.what());
 			return IRIO_error;
-		} catch(NiFpgaFPGAAlreadyRunning &e) {
-			mergeStatus(status, FPGAAlreadyRunning_Warning, e.what(),
-					p_DrvPvt->verbosity);
+		} catch (NiFpgaFPGAAlreadyRunning &e) {
+			irio_mergeStatus(status, FPGAAlreadyRunning_Warning,
+					p_DrvPvt->verbosity, "%s", e.what());
 			return IRIO_warning;
-		} catch(NiFpgaError &e) {
-			mergeStatus(status, NIRIO_API_Error,
-					e.what(), p_DrvPvt->verbosity);
+		} catch (NiFpgaError &e) {
+			irio_mergeStatus(status, NIRIO_API_Error, p_DrvPvt->verbosity, "%s",
+					e.what());
 			return IRIO_error;
-		} catch(InitializationTimeoutError &e) {
-			mergeStatus(status, InitDone_Error,
-					e.what(), p_DrvPvt->verbosity);
+		} catch (InitializationTimeoutError &e) {
+			irio_mergeStatus(status, InitDone_Error, p_DrvPvt->verbosity, "%s",
+					e.what());
 			return IRIO_error;
-		} catch(ModulesNotOKError &e) {
-			mergeStatus(status, IOModule_Error,
-					e.what(), p_DrvPvt->verbosity);
+		} catch (ModulesNotOKError &e) {
+			irio_mergeStatus(status, IOModule_Error, p_DrvPvt->verbosity, "%s",
+					e.what());
 			return IRIO_error;
 		}
 	}
@@ -353,9 +327,9 @@ int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 		size_t *valueLength, TStatus *status) {
 	if (strlen(p_DrvPvt->FPGAVIStringversion) > maxLength) {
 		*valueLength = maxLength;
-		mergeStatus(status, Read_Resource_Warning,
-				"FPGAVIVersion did not fit in the given pointer. Will be truncated",
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Read_Resource_Warning,
+				p_DrvPvt->verbosity,
+				"FPGAVIVersion did not fit in the given pointer. Will be truncated");
 		return IRIO_warning;
 	} else {
 		*valueLength = strlen(p_DrvPvt->FPGAVIStringversion);
@@ -368,39 +342,39 @@ int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 
 template<typename T>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		T (iriov2::IrioV2::*funcGet)() const, const std::string& funcName) {
+		T (iriov2::IrioV2::*funcGet)() const, const std::string &funcName) {
 	try {
 		const auto irio = IrioV2InstanceManager::getInstance();
 
 		*value = (irio->*funcGet)();
-	} catch(IrioV2NotInitializedError &e) {
-		mergeStatus(status, Generic_Error, e.what(), p_DrvPvt->verbosity);
+	} catch (IrioV2NotInitializedError &e) {
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+				e.what());
 		return IRIO_error;
 	} catch (NiFpgaError &e) {
-		mergeStatus(status, Read_NIRIO_Warning,
-				funcName + " read error: " + std::string(e.what()),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Read_NIRIO_Warning,
+				p_DrvPvt->verbosity, "%s read error: ", funcName.c_str(), e.what());
 		return IRIO_warning;
 	}
 
 	return IRIO_success;
 }
 
-
 template<typename T>
 int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		void(iriov2::IrioV2::*funcSet)(const T&) const, const std::string& funcName) {
+		void (iriov2::IrioV2::*funcSet)(const T&) const,
+		const std::string &funcName) {
 	try {
 		const auto irio = IrioV2InstanceManager::getInstance();
 
 		(irio->*funcSet)(value);
-	} catch(IrioV2NotInitializedError &e) {
-		mergeStatus(status, Generic_Error, e.what(), p_DrvPvt->verbosity);
+	} catch (IrioV2NotInitializedError &e) {
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+				e.what());
 		return IRIO_error;
 	} catch (NiFpgaError &e) {
-		mergeStatus(status, Read_NIRIO_Warning,
-				funcName + " write error: " + std::string(e.what()),
-				p_DrvPvt->verbosity);
+		irio_mergeStatus(status, Read_NIRIO_Warning,
+				p_DrvPvt->verbosity, "%s set error: ", funcName.c_str(), e.what());
 		return IRIO_warning;
 	}
 
@@ -413,14 +387,12 @@ int irio_getDevQualityStatus(irioDrv_t *p_DrvPvt, int32_t *value,
 			&iriov2::IrioV2::getDevQualityStatus, "DevQualityStatus");
 }
 
-int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value,
-		TStatus *status) {
+int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &iriov2::IrioV2::getDevTemp,
 			"DevTemp");
 }
 
-int irio_getDevProfile(irioDrv_t *p_DrvPvt, int32_t *value,
-		TStatus *status) {
+int irio_getDevProfile(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	*value = p_DrvPvt->devProfile;
 	status->code = IRIO_success;
 
@@ -432,7 +404,7 @@ int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 			"DebugMode");
 }
 
-int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t* value, TStatus *status) {
+int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &iriov2::IrioV2::getDebugMode,
 			"DebugMode");
 }
@@ -442,17 +414,17 @@ int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 			"DAQStartStop");
 }
 
-int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t* value, TStatus *status) {
+int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &iriov2::IrioV2::getDAQStartStop,
 			"DAQStartStop");
 }
 
-int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n,
-		int32_t value, TStatus *status) {
+int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
+		TStatus *status) {
 	// TODO: SamplingRate IO Profile
 }
 
-int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n,
-		int32_t *value,	TStatus *status) {
+int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+		TStatus *status) {
 	// TODO: SamplingRate IO Profile
 }

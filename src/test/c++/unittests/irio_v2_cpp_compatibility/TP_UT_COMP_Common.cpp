@@ -15,6 +15,7 @@
 #include "modules.h"
 
 #include "irioDriver.h"
+#include "irioError.h"
 
 using namespace iriov2;
 
@@ -219,6 +220,13 @@ TEST_F(CommonTestsCompatibility, setDAQStartStop) {
 	EXPECT_EQ(ret, IRIO_success);
 	EXPECT_EQ(status.code, IRIO_success);
 	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsCompatibility, getErrorString) {
+	char* str;
+	irio_getErrorString(Success, &str);
+	EXPECT_EQ(std::string(str), "Device status is OK");
+	free(str);
 }
 
 /////////////////////////////////////////////////////////////////
@@ -474,4 +482,12 @@ TEST_F(ErrorCommonTestsCompatibility, setCommonReadNIRIOWarning) {
 	EXPECT_EQ(status.code, IRIO_warning);
 	EXPECT_EQ(status.detailCode, Read_NIRIO_Warning);
 }
+
+TEST_F(ErrorCommonTestsCompatibility, getErrorStringInvalidErrorCode) {
+	char* str;
+	irio_getErrorString(static_cast<TErrorDetailCode>(99999), &str);
+	EXPECT_EQ(std::string(str), "Error code not defined");
+	free(str);
+}
+
 
