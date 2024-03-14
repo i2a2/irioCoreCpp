@@ -38,12 +38,12 @@
  *
  * Specify the result of a method call
  */
-typedef enum{
+typedef enum {
 	CL_BASE,  //!< CameraLink Base mode
-	CL_MEDIUM,//!< CameraLink Medium mode
+	CL_MEDIUM,  //!< CameraLink Medium mode
 	CL_FULL   //!< CameraLink Full mode
-//	CL_DUAL_BASE, //!< CameraLink DualBase mode Not supported yet
-//	CL_EXTENDED //!< CameraLink extended mode Not supported yet
+/*	CL_DUAL_BASE, // !< CameraLink DualBase mode Not supported yet
+	CL_EXTENDED // !< CameraLink extended mode Not supported yet*/
 } CL_Config_T;
 
 /**
@@ -52,11 +52,11 @@ typedef enum{
  *
  * Specify the result of a method call
  */
-typedef enum{
+typedef enum {
 	CL_STANDARD,     //!< CameraLink Standard Mapping
 	CL_BASLER_10T,   //!< CameraLink Basler 10 Tap Mapping
-	CL_VOSSKUHLER_10T//!< CameraLink Vosskuhler 10 Tap Mapping
-}CL_SignalMapping_T;
+	CL_VOSSKUHLER_10T   //!< CameraLink Vosskuhler 10 Tap Mapping
+} CL_SignalMapping_T;
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,7 +88,10 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_configCL(irioDrv_t* p_DrvPvt,int32_t fvalHigh, int32_t lvalHigh, int32_t dvalHigh, int32_t spareHigh, int32_t controlEnable, int32_t linescan,CL_SignalMapping_T signalMapping, CL_Config_T configuration,TStatus* status);
+int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
+		int32_t dvalHigh, int32_t spareHigh, int32_t controlEnable,
+		int32_t linescan, CL_SignalMapping_T signalMapping,
+		CL_Config_T configuration, TStatus *status);
 
 /**
  * Sends a UART message to the CameraLink camera
@@ -102,7 +105,8 @@ int irio_configCL(irioDrv_t* p_DrvPvt,int32_t fvalHigh, int32_t lvalHigh, int32_
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_sendCLuart(irioDrv_t* p_DrvPvt, const char *msg, int msg_size,TStatus* status);
+int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
+		TStatus *status);
 
 /**
  * Reads a message from the CameraLink camera
@@ -121,7 +125,8 @@ int irio_sendCLuart(irioDrv_t* p_DrvPvt, const char *msg, int msg_size,TStatus* 
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getCLuart(irioDrv_t* p_DrvPvt, int data_size, char* data, int* msg_size,TStatus* status);
+int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
+		int *msg_size, TStatus *status);
 
 /**
  * Read UART Baud Rate
@@ -134,7 +139,7 @@ int irio_getCLuart(irioDrv_t* p_DrvPvt, int data_size, char* data, int* msg_size
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTBaudRate(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status);
+int irio_getUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Set UART Baud Rate
@@ -147,7 +152,7 @@ int irio_getUARTBaudRate(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setUARTBaudRate(irioDrv_t* p_DrvPvt,int32_t value,TStatus* status);
+int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
 
 /**
  * Read UART Break Indicator
@@ -160,7 +165,8 @@ int irio_setUARTBaudRate(irioDrv_t* p_DrvPvt,int32_t value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTBreakIndicator(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status);
+int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
+		TStatus *status);
 
 /**
  * Read UART Framing Error
@@ -173,7 +179,8 @@ int irio_getUARTBreakIndicator(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* statu
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTFrammingError(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status);
+int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
+		TStatus *status);
 
 /**
  * Read UART Overrun Error
@@ -186,7 +193,8 @@ int irio_getUARTFrammingError(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTOverrunError(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status);
+int irio_getUARTOverrunError(irioDrv_t *p_DrvPvt, int32_t *value,
+		TStatus *status);
 
 #ifdef __cplusplus
 }

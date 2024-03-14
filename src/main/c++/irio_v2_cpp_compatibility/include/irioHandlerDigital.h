@@ -49,7 +49,7 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDI(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
+int irio_getDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read an auxiliary digital input
@@ -63,7 +63,7 @@ int irio_getDI(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxDI(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
+int irio_getAuxDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Reads a digital output
@@ -77,7 +77,7 @@ int irio_getAuxDI(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDO(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
+int irio_getDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write a digital output
@@ -91,7 +91,7 @@ int irio_getDO(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setDO(irioDrv_t* p_DrvPvt,int n,int32_t value, TStatus* status);
+int irio_setDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
 /**
  * Read an auxiliary digital output
@@ -105,7 +105,7 @@ int irio_setDO(irioDrv_t* p_DrvPvt,int n,int32_t value, TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxDO(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
+int irio_getAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write an auxiliary digital output
@@ -119,7 +119,7 @@ int irio_getAuxDO(irioDrv_t* p_DrvPvt,int n,int32_t* value, TStatus* status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setAuxDO(irioDrv_t* p_DrvPvt,int n,int32_t value, TStatus* status);
+int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
 #ifdef __cplusplus
 }

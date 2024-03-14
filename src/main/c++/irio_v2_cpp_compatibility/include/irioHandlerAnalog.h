@@ -49,7 +49,7 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAI(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
+int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read an auxiliary analog input
@@ -63,7 +63,7 @@ int irio_getAI(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAI(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
+int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read a 64 bits auxiliary analog input
@@ -77,7 +77,8 @@ int irio_getAuxAI(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAI_64(irioDrv_t* p_DrvPvt,int n,int64_t* value,TStatus* status);
+int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
+		TStatus *status);
 
 /**
  * Read an analog output
@@ -91,7 +92,7 @@ int irio_getAuxAI_64(irioDrv_t* p_DrvPvt,int n,int64_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAO(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
+int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write an analog output
@@ -105,7 +106,7 @@ int irio_getAO(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setAO(irioDrv_t* p_DrvPvt,int n,int32_t value,TStatus* status);
+int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
 /**
  * Read an Analog Output Enable
@@ -119,7 +120,8 @@ int irio_setAO(irioDrv_t* p_DrvPvt,int n,int32_t value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAOEnable(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
+int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+		TStatus *status);
 
 /**
  * Enable or disable an analog output
@@ -133,7 +135,8 @@ int irio_getAOEnable(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setAOEnable(irioDrv_t* p_DrvPvt,int n,int32_t value,TStatus* status);
+int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
+		TStatus *status);
 
 /**
  * Read an auxiliary analog output
@@ -147,7 +150,7 @@ int irio_setAOEnable(irioDrv_t* p_DrvPvt,int n,int32_t value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAO(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
+int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read a 64 bits auxiliary analog output
@@ -161,7 +164,8 @@ int irio_getAuxAO(irioDrv_t* p_DrvPvt,int n,int32_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAO_64(irioDrv_t* p_DrvPvt,int n,int64_t* value,TStatus* status);
+int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
+		TStatus *status);
 
 /**
  * Write an auxiliary analog output
@@ -175,7 +179,7 @@ int irio_getAuxAO_64(irioDrv_t* p_DrvPvt,int n,int64_t* value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setAuxAO(irioDrv_t* p_DrvPvt,int n,int32_t value,TStatus* status);
+int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
 /**
  * Write a 64 bits auxiliary analog output
@@ -189,7 +193,8 @@ int irio_setAuxAO(irioDrv_t* p_DrvPvt,int n,int32_t value,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setAuxAO_64(irioDrv_t* p_DrvPvt,int n,int64_t value,TStatus* status);
+int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
+		TStatus *status);
 
 #ifdef __cplusplus
 }

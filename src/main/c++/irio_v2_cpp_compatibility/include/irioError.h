@@ -67,7 +67,8 @@ int irio_resetStatus(TStatus* status);
  * @param[in] ... Status message (according to format)
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_mergeStatus(TStatus* status,TErrorDetailCode code, int printMsg, const char *format, ...);
+int irio_mergeStatus(TStatus *status, TErrorDetailCode code, int printMsg,
+		const char *format, ...);
 
 /**
  * Get description of an error code

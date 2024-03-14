@@ -35,7 +35,7 @@
 
 #include <stdint.h>
 
-#define MAX_DMA_FLEXRIO 16 //!<Maximun number of DMA used in FlexRIO technology
+#define MAX_DMA_FLEXRIO 16  // Maximun number of DMA used in FlexRIO technology
 
 #ifdef __cplusplus
 extern "C" {
@@ -56,7 +56,7 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setUpDMAsTtoGPU(irioDrv_t* p_DrvPvt,int depth, TStatus* status);
+int irio_setUpDMAsTtoGPU(irioDrv_t *p_DrvPvt, int depth, TStatus *status);
 
 /**
  * Stops DMAs
@@ -67,7 +67,7 @@ int irio_setUpDMAsTtoGPU(irioDrv_t* p_DrvPvt,int depth, TStatus* status);
  * @param[out]    status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_closeDMAsTtoGPU(irioDrv_t* p_DrvPvt,TStatus* status);
+int irio_closeDMAsTtoGPU(irioDrv_t *p_DrvPvt, TStatus *status);
 
 /**
  * Clean DMA FIFOs
@@ -78,7 +78,7 @@ int irio_closeDMAsTtoGPU(irioDrv_t* p_DrvPvt,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_cleanDMAsTtoGPU(irioDrv_t* p_DrvPvt,TStatus* status);
+int irio_cleanDMAsTtoGPU(irioDrv_t *p_DrvPvt, TStatus *status);
 
 /**
  * Clean DMA FIFO
@@ -93,7 +93,8 @@ int irio_cleanDMAsTtoGPU(irioDrv_t* p_DrvPvt,TStatus* status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_cleanDMATtoGPU(irioDrv_t* p_DrvPvt, int n,uint64_t** cleanbuffer, size_t buffersize,TStatus* status);
+int irio_cleanDMATtoGPU(irioDrv_t *p_DrvPvt, int n, uint64_t **cleanbuffer,
+		size_t buffersize, TStatus *status);
 
 /**
  * Get DMA Overflow
@@ -107,7 +108,8 @@ int irio_cleanDMATtoGPU(irioDrv_t* p_DrvPvt, int n,uint64_t** cleanbuffer, size_
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDMATtoGPUOverflow(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status);
+int irio_getDMATtoGPUOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
+		TStatus *status);
 
 /**
  * Read the sampling rate of a DMA
@@ -121,7 +123,8 @@ int irio_getDMATtoGPUOverflow(irioDrv_t* p_DrvPvt,int32_t* value,TStatus* status
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDMATtoGPUSamplingRate(irioDrv_t* p_DrvPvt, int n,int32_t *value,TStatus* status);
+int irio_getDMATtoGPUSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+		TStatus *status);
 
 /**
  * Set the sampling rate of a DMA
@@ -137,7 +140,8 @@ int irio_getDMATtoGPUSamplingRate(irioDrv_t* p_DrvPvt, int n,int32_t *value,TSta
  * @return \ref TIRIOStatusCode result of the execution of this call.
  *
  */
-int irio_setDMATtoGPUSamplingRate(irioDrv_t* p_DrvPvt, int n,int32_t value,TStatus* status);
+int irio_setDMATtoGPUSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
+		TStatus *status);
 
 /**
  * Get DMA group enable
@@ -151,7 +155,8 @@ int irio_setDMATtoGPUSamplingRate(irioDrv_t* p_DrvPvt, int n,int32_t value,TStat
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDMATtoGPUEnable(irioDrv_t* p_DrvPvt, int n,int32_t* value,TStatus* status);
+int irio_getDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+		TStatus *status);
 
 /**
  * Enables or disables a DMA channel group
@@ -165,7 +170,8 @@ int irio_getDMATtoGPUEnable(irioDrv_t* p_DrvPvt, int n,int32_t* value,TStatus* s
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_setDMATtoGPUEnable(irioDrv_t* p_DrvPvt, int n,int32_t value,TStatus* status);
+int irio_setDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
+		TStatus *status);
 
 /**
  * Reads data from the DMA
@@ -184,7 +190,8 @@ int irio_setDMATtoGPUEnable(irioDrv_t* p_DrvPvt, int n,int32_t value,TStatus* st
 /**
  * Not implemented yet
  */
-int irio_getDMATtoGPUData(irioDrv_t* p_DrvPvt, int Nelements, int n, uint64_t **data, int* elementsRead,TStatus* status);
+int irio_getDMATtoGPUData(irioDrv_t *p_DrvPvt, int Nelements, int n,
+		uint64_t **data, int *elementsRead, TStatus *status);
 
 /**
  * This function allow to get a pointer point to GPU Memory where the data are available. This pointer points (double pointer)
@@ -198,7 +205,8 @@ int irio_getDMATtoGPUData(irioDrv_t* p_DrvPvt, int Nelements, int n, uint64_t **
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode
  */
-int irio_getDMATtoGPUImage(irioDrv_t* p_DrvPvt, int imageSize, int n, uint64_t **data, int* elementsRead, TStatus* status);
+int irio_getDMATtoGPUImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
+		uint64_t **data, int *elementsRead, TStatus *status);
 
 /**
  * Release the memory in the buffer
@@ -209,7 +217,8 @@ int irio_getDMATtoGPUImage(irioDrv_t* p_DrvPvt, int imageSize, int n, uint64_t *
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_releaseDMATtoGPUImage(irioDrv_t* p_DrvPvt, int n,int  elementstofree, TStatus* status);
+int irio_releaseDMATtoGPUImage(irioDrv_t *p_DrvPvt, int n, int elementstofree,
+		TStatus *status);
 
 #ifdef __cplusplus
 }
