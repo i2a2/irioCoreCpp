@@ -12,7 +12,6 @@
 #include "terminals/names/namesTerminalscRIO.h"
 #include "terminals/names/namesTerminalsFlexRIO.h"
 #include "platforms.h"
-#include "modules.h"
 
 #include "irioDriver.h"
 #include "irioError.h"
@@ -39,17 +38,6 @@ public:
 };
 
 class ErrorCommonTestsCompatibility: public CommonTestsCompatibility {};
-
-
-template<ModulesType M>
-void setFlexRIOConnectedModule(){
-	NiFlexRio_GetAttribute_fake.custom_fake =
-			[](NiFpga_Session, int32_t, int32_t, void *value) {
-		*reinterpret_cast<uint32_t*>(value) =
-				static_cast<std::uint32_t>(M);
-		return NiFpga_Status_Success;
-	};
-}
 
 ///////////////////////////////////////////////////////////////
 ///// Common Tests
@@ -220,6 +208,17 @@ TEST_F(CommonTestsCompatibility, setDAQStartStop) {
 	EXPECT_EQ(ret, IRIO_success);
 	EXPECT_EQ(status.code, IRIO_success);
 	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsCompatibility, mergeStatusSuccess) {
+	TStatus status;
+	const std::string testString = "Test okay";
+
+	const auto ret = irio_mergeStatus(&status, Success, 0, testString.c_str());
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+	EXPECT_EQ(std::string(status.msg), testString);
 }
 
 TEST_F(CommonTestsCompatibility, getErrorString) {

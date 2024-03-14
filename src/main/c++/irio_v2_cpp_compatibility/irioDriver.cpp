@@ -226,7 +226,7 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 		irio_mergeStatus(status, ValueOOB_Warning,
 				p_DrvPvt->verbosity,
 				"Incorrect value for configuring AC/DC coupling mode");
-		return IRIO_error;
+		return IRIO_warning;
 	}
 
 	try {
@@ -265,10 +265,6 @@ int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
 				"%s", e.what());
 		return IRIO_error;
-	} catch (UnsupportedAICouplingForModule &e) {
-		irio_mergeStatus(status, ValueOOB_Warning, p_DrvPvt->verbosity, "%s",
-				e.what());
-		return IRIO_warning;
 	}
 
 	return IRIO_success;
