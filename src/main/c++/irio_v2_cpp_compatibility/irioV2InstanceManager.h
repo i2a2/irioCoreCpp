@@ -6,6 +6,13 @@
 #include "irio_v2.h"
 
 
+class IrioV2NotInitializedError: public std::runtime_error {
+ public:
+	IrioV2NotInitializedError() :
+			std::runtime_error("IrioV2 driver not initialized") {
+	}
+};
+
 class IrioV2InstanceManager{
  protected:
 	IrioV2InstanceManager() = default;

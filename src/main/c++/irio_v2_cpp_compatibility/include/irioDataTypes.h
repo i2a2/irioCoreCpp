@@ -253,7 +253,7 @@ typedef struct irioDrv_t {
 	char fpgaRIO[FPGARIOLENGTH];				//!< NiFpga driver port (RIO0,RIO1,...)
 	char RIODeviceModel[RIODEVICEMODELLENGTH];		//!< Board Model (PXI-7965R,...)
 	char DeviceSerialNumber[DEVICESERIALNUMBERLENGTH]; 	//!< Board serial number
-	int fpgaStarted;	//!< Indicates whether or not the FPGA has been started
+	int fpgaStarted = 0;	//!< Indicates whether or not the FPGA has been started
 	NiFpga_Session session; 	//!< Session obtained by C API to manage a FPGA
 	char *projectName;//!< Part of the name of the bitfile downloaded into the FPGA.
 	int NiFpgaDriverType; //!< 0 For privative driver, 1 for open source driver

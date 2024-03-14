@@ -16,6 +16,9 @@ iriov2::IrioV2* IrioV2InstanceManager::getInstance(
 }
 
 iriov2::IrioV2* IrioV2InstanceManager::getInstance() {
+	if(!singleton) {
+		throw IrioV2NotInitializedError();
+	}
 	return singleton.get();
 }
 
