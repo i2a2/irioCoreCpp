@@ -38,10 +38,6 @@ std::unique_ptr<char> projectName_ptr;
 /// Local functions
 ////////////////////////////////////////////////////
 
-// Errors
-
-// Other
-
 void initDrvPvt(irioDrv_t *p_DrvPvt, const char *appCallID,
 		const char *DeviceSerialNumber, const char *RIODeviceModel,
 		const char *projectName, const char *FPGAversion, int verbosity) {

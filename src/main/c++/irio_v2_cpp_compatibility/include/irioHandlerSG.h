@@ -38,36 +38,6 @@ extern "C" {
 #endif
 
 /**
- * Search and map Signal Generators
- *
- * Searches for signal generators implemented for the current target.
- * Map ports found and signal generators information in:
- * 	\n irioDrv_t::enumSGNo
- * 	\n irioDrv_t::NoOfSG
- * 	\n irioDrv_t::enumSGFreq
- * 	\n irioDrv_t::enumSGAmp
- * 	\n irioDrv_t::enumSGPhase
- * 	\n irioDrv_t::enumSGSignalType
- * 	\n irioDrv_t::enumSGUpdateRate
- * 	\n irioDrv_t::enumSGFref
- *
- * Errors will be prompted if:
- * 	\n SGNo port is not found or while reading from the port
- *  \n If any of the resources associated with a signal generator
- *  (SGFreq, SGAmp, SGPhase, SGSignalType, SGUpdateRate, SGFref) were not found.
- *  \n Error occur while reading SGFref
- *  \n Not enough signal generators were found.
- *
- * NOTE: The value read from SGNo will determine the number of signal generators to search.
- * Signal Generators should be numbered consecutively starting from 0.
- *
- * @param[in,out] p_DrvPvt 	Pointer to the driver session structure
- * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
- * @return \ref TIRIOStatusCode result of the execution of this call.
- */
-int irio_findSGs(irioDrv_t* p_DrvPvt,TStatus* status);
-
-/**
  * Read signal generator signal type
  *
  * Reads the value from a signal generator signal type port.
