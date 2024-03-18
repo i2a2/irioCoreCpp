@@ -321,6 +321,10 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return IRIO_success;
 }
 
+int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+	return p_DrvPvt->fpgaStarted;
+}
+
 int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 		size_t *valueLength, TStatus *status) {
 	if (strlen(p_DrvPvt->FPGAVIStringversion) > maxLength) {
