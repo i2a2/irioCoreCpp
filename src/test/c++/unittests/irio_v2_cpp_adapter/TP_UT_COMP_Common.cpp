@@ -3,7 +3,7 @@
 #include <limits>
 #include <NiFpga.h>
 
-#include "fixtures_compatibility.h"
+#include "fixtures_adapter.h"
 #include "fff_nifpga.h"
 
 #include "bfp.h"
@@ -19,17 +19,17 @@
 using namespace iriov2;
 
 
-class CommonTestsCompatibility: public BaseTestsCompatibility {
+class CommonTestsAdapter: public BaseTestsAdapter {
 public:
-	CommonTestsCompatibility():
-		BaseTestsCompatibility("../../../resources/7854", "Rseries_CPUDAQ_7854")
+	CommonTestsAdapter():
+		BaseTestsAdapter("../../../resources/7854", "Rseries_CPUDAQ_7854")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
 						PLATFORM_ID::RSeries);
 	}
 
-	~CommonTestsCompatibility() {
+	~CommonTestsAdapter() {
 		TStatus status;
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
@@ -37,12 +37,12 @@ public:
 	irioDrv_t p_DrvPvt;
 };
 
-class ErrorCommonTestsCompatibility: public CommonTestsCompatibility {};
+class ErrorCommonTestsAdapter: public CommonTestsAdapter {};
 
 ///////////////////////////////////////////////////////////////
 ///// Common Tests
 ///////////////////////////////////////////////////////////////
-TEST_F(CommonTestsCompatibility, InitClose) {
+TEST_F(CommonTestsAdapter, InitClose) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -58,7 +58,7 @@ TEST_F(CommonTestsCompatibility, InitClose) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(CommonTestsCompatibility, getVersion) {
+TEST_F(CommonTestsAdapter, getVersion) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -73,7 +73,7 @@ TEST_F(CommonTestsCompatibility, getVersion) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, setFPGAStart) {
+TEST_F(CommonTestsAdapter, setFPGAStart) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -87,7 +87,7 @@ TEST_F(CommonTestsCompatibility, setFPGAStart) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, getFPGAVIVersion) {
+TEST_F(CommonTestsAdapter, getFPGAVIVersion) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -107,7 +107,7 @@ TEST_F(CommonTestsCompatibility, getFPGAVIVersion) {
 	EXPECT_EQ(std::string(version), "9.9");
 }
 
-TEST_F(CommonTestsCompatibility, getDevQualityStatus) {
+TEST_F(CommonTestsAdapter, getDevQualityStatus) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -122,7 +122,7 @@ TEST_F(CommonTestsCompatibility, getDevQualityStatus) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, getDevTemp) {
+TEST_F(CommonTestsAdapter, getDevTemp) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -137,7 +137,7 @@ TEST_F(CommonTestsCompatibility, getDevTemp) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, getProfile) {
+TEST_F(CommonTestsAdapter, getProfile) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -152,7 +152,7 @@ TEST_F(CommonTestsCompatibility, getProfile) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, getDebugMode) {
+TEST_F(CommonTestsAdapter, getDebugMode) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -167,7 +167,7 @@ TEST_F(CommonTestsCompatibility, getDebugMode) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, getDAQStartStop) {
+TEST_F(CommonTestsAdapter, getDAQStartStop) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -182,7 +182,7 @@ TEST_F(CommonTestsCompatibility, getDAQStartStop) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, setDebugMode) {
+TEST_F(CommonTestsAdapter, setDebugMode) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -196,7 +196,7 @@ TEST_F(CommonTestsCompatibility, setDebugMode) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, setDAQStartStop) {
+TEST_F(CommonTestsAdapter, setDAQStartStop) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -210,7 +210,7 @@ TEST_F(CommonTestsCompatibility, setDAQStartStop) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
-TEST_F(CommonTestsCompatibility, mergeStatusSuccess) {
+TEST_F(CommonTestsAdapter, mergeStatusSuccess) {
 	TStatus status;
 	const std::string testString = "Test okay";
 
@@ -221,7 +221,7 @@ TEST_F(CommonTestsCompatibility, mergeStatusSuccess) {
 	EXPECT_EQ(std::string(status.msg), testString);
 }
 
-TEST_F(CommonTestsCompatibility, getErrorString) {
+TEST_F(CommonTestsAdapter, getErrorString) {
 	char* str;
 	irio_getErrorString(Success, &str);
 	EXPECT_EQ(std::string(str), "Device status is OK");
@@ -231,7 +231,7 @@ TEST_F(CommonTestsCompatibility, getErrorString) {
 /////////////////////////////////////////////////////////////////
 /////// Error Common Tests
 /////////////////////////////////////////////////////////////////
-TEST_F(ErrorCommonTestsCompatibility, InitStatusNullptr) {
+TEST_F(ErrorCommonTestsAdapter, InitStatusNullptr) {
 	TStatus status;
 	int ret;
 
@@ -245,7 +245,7 @@ TEST_F(ErrorCommonTestsCompatibility, InitStatusNullptr) {
 	irio_closeDriver(&p_DrvPvt, 0, &status);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, IrioV2NotInitializedError) {
+TEST_F(ErrorCommonTestsAdapter, IrioV2NotInitializedError) {
 	TStatus status;
 	int ret;
 
@@ -257,7 +257,7 @@ TEST_F(ErrorCommonTestsCompatibility, IrioV2NotInitializedError) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTestsCompatibility, InvalidBitfile) {
+TEST_F(ErrorCommonTestsAdapter, InvalidBitfile) {
 	TStatus status;
 	int ret;
 
@@ -271,7 +271,7 @@ TEST_F(ErrorCommonTestsCompatibility, InvalidBitfile) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTestsCompatibility, InitResourceNotFoundError) {
+TEST_F(ErrorCommonTestsAdapter, InitResourceNotFoundError) {
 	TStatus status;
 	int ret;
 
@@ -285,7 +285,7 @@ TEST_F(ErrorCommonTestsCompatibility, InitResourceNotFoundError) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTestsCompatibility, FPGAVIVersionMismatchError) {
+TEST_F(ErrorCommonTestsAdapter, FPGAVIVersionMismatchError) {
 	TStatus status;
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "0.0", false,
@@ -297,7 +297,7 @@ TEST_F(ErrorCommonTestsCompatibility, FPGAVIVersionMismatchError) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTestsCompatibility, BitfileDownloadError) {
+TEST_F(ErrorCommonTestsAdapter, BitfileDownloadError) {
 	NiFpga_Open_fake.custom_fake = [](const char*, const char*, const char*, uint32_t, NiFpga_Session* session){
 		return NiFpga_Status_InternalError;
 	};
@@ -312,7 +312,7 @@ TEST_F(ErrorCommonTestsCompatibility, BitfileDownloadError) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTestsCompatibility, GenericError) {
+TEST_F(ErrorCommonTestsAdapter, GenericError) {
 	NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t*) {
 		return NiFpga_Status_InternalError;
 	};
@@ -328,7 +328,7 @@ TEST_F(ErrorCommonTestsCompatibility, GenericError) {
 	EXPECT_NE(status.msg, nullptr) << "No error message included with error";
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setFPGAStartWhenAlreadyStarted) {
+TEST_F(ErrorCommonTestsAdapter, setFPGAStartWhenAlreadyStarted) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -347,7 +347,7 @@ TEST_F(ErrorCommonTestsCompatibility, setFPGAStartWhenAlreadyStarted) {
 	EXPECT_EQ(status.detailCode, FPGAAlreadyRunning_Warning);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setFPGAStartDriverNoInit) {
+TEST_F(ErrorCommonTestsAdapter, setFPGAStartDriverNoInit) {
 	TStatus status;
 
 	auto ret = irio_setFPGAStart(&p_DrvPvt, 1, &status);
@@ -356,7 +356,7 @@ TEST_F(ErrorCommonTestsCompatibility, setFPGAStartDriverNoInit) {
 	EXPECT_EQ(status.detailCode, Generic_Error);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setFPGAStartNiFpgaFPGAAlreadyRunning) {
+TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaFPGAAlreadyRunning) {
 	NiFpga_Run_fake.custom_fake = [](NiFpga_Session, uint32_t) {
 		return NiFpga_Status_FpgaAlreadyRunning;
 	};
@@ -374,7 +374,7 @@ TEST_F(ErrorCommonTestsCompatibility, setFPGAStartNiFpgaFPGAAlreadyRunning) {
 	EXPECT_EQ(status.detailCode, FPGAAlreadyRunning_Warning);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setFPGAStartNiFpgaError) {
+TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaError) {
 	NiFpga_Run_fake.custom_fake = [](NiFpga_Session, uint32_t) {
 		return NiFpga_Status_SoftwareFault;
 	};
@@ -392,7 +392,7 @@ TEST_F(ErrorCommonTestsCompatibility, setFPGAStartNiFpgaError) {
 	EXPECT_EQ(status.detailCode, NIRIO_API_Error);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setFPGAStartInitDoneError) {
+TEST_F(ErrorCommonTestsAdapter, setFPGAStartInitDoneError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
 				bfp.getRegister(TERMINAL_INITDONE).address, 0);
 
@@ -409,7 +409,7 @@ TEST_F(ErrorCommonTestsCompatibility, setFPGAStartInitDoneError) {
 	EXPECT_EQ(status.detailCode, InitDone_Error);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, getFPGAVIVersionReadResourceWarning) {
+TEST_F(ErrorCommonTestsAdapter, getFPGAVIVersionReadResourceWarning) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -428,7 +428,7 @@ TEST_F(ErrorCommonTestsCompatibility, getFPGAVIVersionReadResourceWarning) {
 	EXPECT_EQ(valueLength, 1);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, getCommonNotInitError) {
+TEST_F(ErrorCommonTestsAdapter, getCommonNotInitError) {
 	TStatus status;
 	int32_t value;
 	auto ret = irio_getDAQStartStop(&p_DrvPvt, &value, &status);
@@ -437,7 +437,7 @@ TEST_F(ErrorCommonTestsCompatibility, getCommonNotInitError) {
 	EXPECT_EQ(status.detailCode, Generic_Error);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, getCommonReadNiRIOWarning) {
+TEST_F(ErrorCommonTestsAdapter, getCommonReadNiRIOWarning) {
 	TStatus status;
 	int32_t value;
 
@@ -456,7 +456,7 @@ TEST_F(ErrorCommonTestsCompatibility, getCommonReadNiRIOWarning) {
 	EXPECT_EQ(status.detailCode, Read_NIRIO_Warning);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setCommonNotInitError) {
+TEST_F(ErrorCommonTestsAdapter, setCommonNotInitError) {
 	TStatus status;
 	auto ret = irio_setDAQStartStop(&p_DrvPvt, 1, &status);
 	EXPECT_EQ(ret, IRIO_error);
@@ -464,7 +464,7 @@ TEST_F(ErrorCommonTestsCompatibility, setCommonNotInitError) {
 	EXPECT_EQ(status.detailCode, Generic_Error);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, setCommonReadNIRIOWarning) {
+TEST_F(ErrorCommonTestsAdapter, setCommonReadNIRIOWarning) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -482,7 +482,7 @@ TEST_F(ErrorCommonTestsCompatibility, setCommonReadNIRIOWarning) {
 	EXPECT_EQ(status.detailCode, Read_NIRIO_Warning);
 }
 
-TEST_F(ErrorCommonTestsCompatibility, getErrorStringInvalidErrorCode) {
+TEST_F(ErrorCommonTestsAdapter, getErrorStringInvalidErrorCode) {
 	char* str;
 	irio_getErrorString(static_cast<TErrorDetailCode>(99999), &str);
 	EXPECT_EQ(std::string(str), "Error code not defined");

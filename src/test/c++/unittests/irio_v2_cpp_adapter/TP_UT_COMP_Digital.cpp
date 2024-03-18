@@ -3,7 +3,7 @@
 #include <limits>
 #include <NiFpga.h>
 
-#include "fixtures_compatibility.h"
+#include "fixtures_adapter.h"
 #include "fff_nifpga.h"
 
 #include "bfp.h"
@@ -17,10 +17,10 @@
 using namespace iriov2;
 
 
-class DigitalTestsCompatibility: public BaseTestsCompatibility {
+class DigitalTestsAdapter: public BaseTestsAdapter {
 public:
-	DigitalTestsCompatibility():
-		BaseTestsCompatibility("../../../resources/7854", "Rseries_CPUDAQ_7854")
+	DigitalTestsAdapter():
+		BaseTestsAdapter("../../../resources/7854", "Rseries_CPUDAQ_7854")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -36,7 +36,7 @@ public:
 		irio_resetStatus(&status);
 	}
 
-	~DigitalTestsCompatibility() {
+	~DigitalTestsAdapter() {
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
@@ -47,7 +47,7 @@ public:
 ///////////////////////////////////////////////////////////////
 ///// Digital Tests
 ///////////////////////////////////////////////////////////////
-TEST_F(DigitalTestsCompatibility, getDI) {
+TEST_F(DigitalTestsAdapter, getDI) {
 	int32_t value;
 	const auto ret = irio_getDI(&p_DrvPvt, 0, &value, &status);
 
@@ -55,7 +55,7 @@ TEST_F(DigitalTestsCompatibility, getDI) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(DigitalTestsCompatibility, getAuxDI) {
+TEST_F(DigitalTestsAdapter, getAuxDI) {
 	int32_t value;
 	const auto ret = irio_getAuxDI(&p_DrvPvt, 0, &value, &status);
 
@@ -63,7 +63,7 @@ TEST_F(DigitalTestsCompatibility, getAuxDI) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(DigitalTestsCompatibility, getDO) {
+TEST_F(DigitalTestsAdapter, getDO) {
 	int32_t value;
 	const auto ret = irio_getDO(&p_DrvPvt, 0, &value, &status);
 
@@ -71,7 +71,7 @@ TEST_F(DigitalTestsCompatibility, getDO) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(DigitalTestsCompatibility, getAuxDO) {
+TEST_F(DigitalTestsAdapter, getAuxDO) {
 	int32_t value;
 	const auto ret = irio_getAuxDO(&p_DrvPvt, 0, &value, &status);
 
@@ -79,14 +79,14 @@ TEST_F(DigitalTestsCompatibility, getAuxDO) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(DigitalTestsCompatibility, setDO) {
+TEST_F(DigitalTestsAdapter, setDO) {
 	const auto ret = irio_setDO(&p_DrvPvt, 0, 1, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(DigitalTestsCompatibility, setAuxDO) {
+TEST_F(DigitalTestsAdapter, setAuxDO) {
 	const auto ret = irio_setAuxDO(&p_DrvPvt, 0, 1, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;

@@ -2,9 +2,9 @@
 
 #include "fixtures.h"
 
-class BaseTestsCompatibility: public BaseTests {
+class BaseTestsAdapter: public BaseTests {
  public:
-	BaseTestsCompatibility(const std::string &projectName,
+	BaseTestsAdapter(const std::string &projectName,
 			const std::string &bitfileDir);
 
 	const std::string projectName;

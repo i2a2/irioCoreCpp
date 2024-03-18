@@ -3,7 +3,7 @@
 #include <limits>
 #include <NiFpga.h>
 
-#include "fixtures_compatibility.h"
+#include "fixtures_adapter.h"
 #include "fff_nifpga.h"
 
 #include "bfp.h"
@@ -28,10 +28,10 @@ void setFlexRIOConnectedModule(){
 }
 
 
-class AnalogTestsCompatibility: public BaseTestsCompatibility {
+class AnalogTestsAdapter: public BaseTestsAdapter {
 public:
-	AnalogTestsCompatibility():
-		BaseTestsCompatibility("../../../resources/7966", "FlexRIO_CPUDAQ_7966")
+	AnalogTestsAdapter():
+		BaseTestsAdapter("../../../resources/7966", "FlexRIO_CPUDAQ_7966")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -47,7 +47,7 @@ public:
 		irio_resetStatus(&status);
 	}
 
-	~AnalogTestsCompatibility() {
+	~AnalogTestsAdapter() {
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
@@ -55,12 +55,12 @@ public:
 	irioDrv_t p_DrvPvt;
 };
 
-class ErrorAnalogTestsCompatibility: public AnalogTestsCompatibility {};
+class ErrorAnalogTestsAdapter: public AnalogTestsAdapter {};
 
-class Analog64TestsCompatibility: public BaseTestsCompatibility {
+class Analog64TestsAdapter: public BaseTestsAdapter {
 public:
-	Analog64TestsCompatibility():
-		BaseTestsCompatibility("../../../resources/7854", "Rseries_OnlyResources_7854")
+	Analog64TestsAdapter():
+		BaseTestsAdapter("../../../resources/7854", "Rseries_OnlyResources_7854")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_PLATFORM).address,
@@ -76,7 +76,7 @@ public:
 		irio_resetStatus(&status);
 	}
 
-	~Analog64TestsCompatibility() {
+	~Analog64TestsAdapter() {
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
@@ -84,10 +84,10 @@ public:
 	irioDrv_t p_DrvPvt;
 };
 
-class AnalogCouplingTestsCompatibility: public BaseTestsCompatibility {
+class AnalogCouplingTestsAdapter: public BaseTestsAdapter {
 public:
-	AnalogCouplingTestsCompatibility():
-		BaseTestsCompatibility("../../../resources/7966", "FlexRIO_CPUDAQ_7966")
+	AnalogCouplingTestsAdapter():
+		BaseTestsAdapter("../../../resources/7966", "FlexRIO_CPUDAQ_7966")
 	{
 		setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
@@ -105,7 +105,7 @@ public:
 		irio_resetStatus(&status);
 	}
 
-	~AnalogCouplingTestsCompatibility() {
+	~AnalogCouplingTestsAdapter() {
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
@@ -116,7 +116,7 @@ public:
 ///////////////////////////////////////////////////////////////
 ///// Analog Tests
 ///////////////////////////////////////////////////////////////
-TEST_F(AnalogTestsCompatibility, getAI) {
+TEST_F(AnalogTestsAdapter, getAI) {
 	int32_t value;
 	const auto ret = irio_getAI(&p_DrvPvt, 0, &value, &status);
 
@@ -124,7 +124,7 @@ TEST_F(AnalogTestsCompatibility, getAI) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, getAuxAI) {
+TEST_F(AnalogTestsAdapter, getAuxAI) {
 	int32_t value;
 	const auto ret = irio_getAuxAI(&p_DrvPvt, 0, &value, &status);
 
@@ -132,7 +132,7 @@ TEST_F(AnalogTestsCompatibility, getAuxAI) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(Analog64TestsCompatibility, getAuxAI_64) {
+TEST_F(Analog64TestsAdapter, getAuxAI_64) {
 	int64_t value;
 	const auto ret = irio_getAuxAI_64(&p_DrvPvt, 0, &value, &status);
 
@@ -140,7 +140,7 @@ TEST_F(Analog64TestsCompatibility, getAuxAI_64) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, getAO) {
+TEST_F(AnalogTestsAdapter, getAO) {
 	int32_t value;
 	const auto ret = irio_getAO(&p_DrvPvt, 0, &value, &status);
 
@@ -148,7 +148,7 @@ TEST_F(AnalogTestsCompatibility, getAO) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, getAuxAO) {
+TEST_F(AnalogTestsAdapter, getAuxAO) {
 	int32_t value;
 	const auto ret = irio_getAuxAO(&p_DrvPvt, 0, &value, &status);
 
@@ -156,7 +156,7 @@ TEST_F(AnalogTestsCompatibility, getAuxAO) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(Analog64TestsCompatibility, getAuxAO_64) {
+TEST_F(Analog64TestsAdapter, getAuxAO_64) {
 	int64_t value;
 	const auto ret = irio_getAuxAO_64(&p_DrvPvt, 0, &value, &status);
 
@@ -164,7 +164,7 @@ TEST_F(Analog64TestsCompatibility, getAuxAO_64) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, getAOEnable) {
+TEST_F(AnalogTestsAdapter, getAOEnable) {
 	int32_t value;
 	const auto ret = irio_getAOEnable(&p_DrvPvt, 0, &value, &status);
 
@@ -172,35 +172,35 @@ TEST_F(AnalogTestsCompatibility, getAOEnable) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, setAO) {
+TEST_F(AnalogTestsAdapter, setAO) {
 	const auto ret = irio_setAO(&p_DrvPvt, 0, 1, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, setAuxAO) {
+TEST_F(AnalogTestsAdapter, setAuxAO) {
 	const auto ret = irio_setAuxAO(&p_DrvPvt, 0, 1, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(Analog64TestsCompatibility, setAuxAO_64) {
+TEST_F(Analog64TestsAdapter, setAuxAO_64) {
 	const auto ret = irio_setAuxAO_64(&p_DrvPvt, 0, 1, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogTestsCompatibility, setAOEnable) {
+TEST_F(AnalogTestsAdapter, setAOEnable) {
 	const auto ret = irio_setAOEnable(&p_DrvPvt, 0, 1, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogCouplingTestsCompatibility, getAICoupling) {
+TEST_F(AnalogCouplingTestsAdapter, getAICoupling) {
 	TIRIOCouplingMode coupling;
 	const auto ret = irio_getAICoupling(&p_DrvPvt, &coupling, &status);
 
@@ -208,7 +208,7 @@ TEST_F(AnalogCouplingTestsCompatibility, getAICoupling) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
-TEST_F(AnalogCouplingTestsCompatibility, setAICoupling) {
+TEST_F(AnalogCouplingTestsAdapter, setAICoupling) {
 	TIRIOCouplingMode coupling = IRIO_coupling_DC;
 	const auto ret = irio_setAICoupling(&p_DrvPvt, coupling, &status);
 
@@ -221,7 +221,7 @@ TEST_F(AnalogCouplingTestsCompatibility, setAICoupling) {
 /////////////////////////////////////////////////////////////////
 
 
-TEST_F(AnalogCouplingTestsCompatibility, setAICouplingOOBWarning) {
+TEST_F(AnalogCouplingTestsAdapter, setAICouplingOOBWarning) {
 	TIRIOCouplingMode coupling = static_cast<TIRIOCouplingMode>(99);
 	const auto ret = irio_setAICoupling(&p_DrvPvt, coupling, &status);
 
@@ -230,7 +230,7 @@ TEST_F(AnalogCouplingTestsCompatibility, setAICouplingOOBWarning) {
 	EXPECT_EQ(ret, IRIO_warning);
 }
 
-TEST_F(AnalogCouplingTestsCompatibility, setAICouplingNotInitialized) {
+TEST_F(AnalogCouplingTestsAdapter, setAICouplingNotInitialized) {
 	TIRIOCouplingMode coupling = IRIO_coupling_DC;
 
 	irio_closeDriver(&p_DrvPvt, 0, &status);
@@ -242,7 +242,7 @@ TEST_F(AnalogCouplingTestsCompatibility, setAICouplingNotInitialized) {
 	EXPECT_EQ(ret, IRIO_error);
 }
 
-TEST_F(AnalogCouplingTestsCompatibility, setAICouplingUnsupportedCoupling) {
+TEST_F(AnalogCouplingTestsAdapter, setAICouplingUnsupportedCoupling) {
 	TIRIOCouplingMode coupling = IRIO_coupling_NULL;
 
 	const auto ret = irio_setAICoupling(&p_DrvPvt, coupling, &status);
@@ -252,7 +252,7 @@ TEST_F(AnalogCouplingTestsCompatibility, setAICouplingUnsupportedCoupling) {
 	EXPECT_EQ(ret, IRIO_warning);
 }
 
-TEST_F(AnalogCouplingTestsCompatibility, getAICouplingNotInitialized) {
+TEST_F(AnalogCouplingTestsAdapter, getAICouplingNotInitialized) {
 	TIRIOCouplingMode coupling;
 
 	irio_closeDriver(&p_DrvPvt, 0, &status);

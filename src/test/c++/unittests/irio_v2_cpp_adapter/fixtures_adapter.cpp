@@ -1,7 +1,7 @@
-#include "fixtures_compatibility.h"
+#include "fixtures_adapter.h"
 #include "irioResourceFinder.h"
 
-BaseTestsCompatibility::BaseTestsCompatibility
+BaseTestsAdapter::BaseTestsAdapter
 	(const std::string &bitfileDir, const std::string &projectName):
 		BaseTests(bitfileDir+"/"+STRINGNAME_PREFIX+
 				projectName+STRINGNAME_BITFILEEXT),
