@@ -47,6 +47,10 @@ IrioV2::~IrioV2() {
 	finalizeDriver();
 }
 
+std::uint32_t IrioV2::getID() const {
+	return m_session;
+}
+
 void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	const unsigned int SLEEP_INTERVAL_NS = 1e8;
 	const timespec ts { 0, SLEEP_INTERVAL_NS };

@@ -161,10 +161,11 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 	status->code = IRIO_success;
 	status->detailCode = Success;
 	try {
-		const auto irioV2ptr = IrioV2InstanceManager::getInstance(bitfilePath,
-				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->FPGAVIStringversion);
+		const auto pairAux = IrioV2InstanceManager::createInstance(bitfilePath,
+						p_DrvPvt->DeviceSerialNumber, p_DrvPvt->FPGAVIStringversion);
 
-		p_DrvPvt->session = 1;
+		const auto irioV2ptr = pairAux.first;
+		p_DrvPvt->session = pairAux.second;
 		fillDrvPvtData(irioV2ptr, p_DrvPvt);
 	} catch (BFPParseBitfileError &e) {
 		irio_mergeStatus(status, BitfileNotFound_Error, p_DrvPvt->verbosity,
@@ -191,10 +192,12 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 
 int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 	try {
-		const auto iriov2 = IrioV2InstanceManager::getInstance();
+		const auto iriov2 = IrioV2InstanceManager::getInstance(
+				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		iriov2->setCloseAttribute(mode);
-		IrioV2InstanceManager::destroyInstance();
+		IrioV2InstanceManager::destroyInstance(p_DrvPvt->DeviceSerialNumber,
+				p_DrvPvt->session);
 
 		// EPICS portName
 		appCallID_ptr.reset(nullptr);
@@ -230,7 +233,8 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 	}
 
 	try {
-		const auto iriov2 = IrioV2InstanceManager::getInstance();
+		const auto iriov2 = IrioV2InstanceManager::getInstance(
+				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		iriov2->getTerminalsAnalog().setAICouplingMode(it->second);
 	} catch (IrioV2NotInitializedError &e) {
@@ -253,7 +257,8 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		TStatus *status) {
 	try {
-		const auto iriov2 = IrioV2InstanceManager::getInstance();
+		const auto iriov2 = IrioV2InstanceManager::getInstance(
+				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		const auto auxCoup = iriov2->getTerminalsAnalog().getAICouplingMode();
 		*value = static_cast<TIRIOCouplingMode>(auxCoup);
@@ -285,7 +290,8 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	// Why even have the parameter then???
 	if (value) {
 		try {
-			const auto irio = IrioV2InstanceManager::getInstance();
+			const auto irio = IrioV2InstanceManager::getInstance(
+					p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 			irio->startFPGA();
 			p_DrvPvt->fpgaStarted = 1;
@@ -336,7 +342,8 @@ template<typename T>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
 		T (iriov2::IrioV2::*funcGet)() const, const std::string &funcName) {
 	try {
-		const auto irio = IrioV2InstanceManager::getInstance();
+		const auto irio = IrioV2InstanceManager::getInstance(
+				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		*value = (irio->*funcGet)();
 	} catch (IrioV2NotInitializedError &e) {
@@ -357,7 +364,8 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 		void (iriov2::IrioV2::*funcSet)(const T&) const,
 		const std::string &funcName) {
 	try {
-		const auto irio = IrioV2InstanceManager::getInstance();
+		const auto irio = IrioV2InstanceManager::getInstance(
+				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		(irio->*funcSet)(value);
 	} catch (IrioV2NotInitializedError &e) {

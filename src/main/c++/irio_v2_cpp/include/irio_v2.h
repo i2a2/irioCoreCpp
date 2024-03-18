@@ -49,6 +49,13 @@ class IrioV2 {
 	~IrioV2();
 
 	/**
+	 * Returns unique identifier
+	 *
+	 * @return Unique identifier
+	 */
+	std::uint32_t getID() const;
+
+	/**
 	 * Starts the VI downloaded in the FPGA.
 	 *
 	 * @throw iriov2::errors::InitializationTimeoutError	InitDone is not ready after a timeout
