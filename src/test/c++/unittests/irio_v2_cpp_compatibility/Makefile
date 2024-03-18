@@ -4,7 +4,7 @@ TARGET=../../../../../target
 
 LIBRARIES=gtest bfp irio_v2_cpp_compatibility
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/irio_v2_cpp_compatibility $(TARGET)/main/c++/irio_v2_cpp_compatibility/include $(TARGET)/main/c++/bfp/include $(TARGET)/main/c++/irio_v2_cpp/include
+INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/irio_v2_cpp_compatibility $(TARGET)/includes/bfp $(TARGET)/includes/irio_v2_cpp 
 
 ifdef CODAC_ROOT
 	LIBRARIES+=NiFpga 

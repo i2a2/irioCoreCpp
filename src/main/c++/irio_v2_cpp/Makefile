@@ -5,7 +5,7 @@ TARGET=../../../../target
 LIBRARIES=bfp niflexrio
 
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include ../include $(TARGET)/main/c++/bfp/include
+INCLUDE_DIRS=./include $(TARGET)/includes/bfp
 
 ifndef CODAC_ROOT
 	LIBRARIES+= nisyscfg
@@ -24,8 +24,7 @@ LDPATHS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.c, %.o,$(patsubst %.cpp,%.o,$(notdir $(SOURCES)))))
-HFILES=$(wildcard *.h)
-HTARGETS=$(addprefix $(TARGET)/include/,$(HFILES))
+HEADERSFILES = ./include
 
 C=gcc
 CC=g++
@@ -51,6 +50,7 @@ ifdef CODAC_ROOT
 else
 	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
 	SOURCES_DIR+=$(TARGET)/main/c++/NiFpga_CD
+	HEADERSFILES+=$(wildcard $(TARGET)/main/c++/NiFpga_CD/*.h)
 endif
 
 VPATH=$(SOURCES_DIR)
@@ -58,11 +58,11 @@ VPATH=$(SOURCES_DIR)
 
 .PHONY: all clean run 
 
-all: $(HTARGETS) $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
+all: copy_includes $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
-$(TARGET)/include/%.h: %.h
-	@mkdir -p $(TARGET)/include
-	cp $< $@
+copy_includes:
+	mkdir -p $(TARGET)/includes/
+	cp -R $(HEADERSFILES) $(TARGET)/includes/$(LIBNAME)
 
 clean:
 	rm -rf "$(SHAREDLIBRARY)" "$(STATICLIBRARY)" "$(OBJECT_DIR)" "$(HTARGETS)"
