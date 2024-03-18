@@ -41,10 +41,10 @@ std::unique_ptr<char> projectName_ptr;
 void initDrvPvt(irioDrv_t *p_DrvPvt, const char *appCallID,
 		const char *DeviceSerialNumber, const char *RIODeviceModel,
 		const char *projectName, const char *FPGAversion, int verbosity) {
+	// TODO: Fix this, use struct initialization instead
 	memset(p_DrvPvt, 0x00, sizeof(irioDrv_t));
 	// Driver struct initialization
 	p_DrvPvt->headerFile = NULL;
-	p_DrvPvt->fpgaStarted = 0;
 	memset(p_DrvPvt->FPGAVIversion, 0, SHORT_CHAR_STRING);
 
 	// EPICS portName

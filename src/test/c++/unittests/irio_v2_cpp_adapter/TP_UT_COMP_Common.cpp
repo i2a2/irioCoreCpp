@@ -46,7 +46,7 @@ TEST_F(CommonTestsAdapter, InitClose) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
@@ -62,7 +62,7 @@ TEST_F(CommonTestsAdapter, getVersion) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -77,7 +77,7 @@ TEST_F(CommonTestsAdapter, setFPGAStart) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -91,7 +91,7 @@ TEST_F(CommonTestsAdapter, getFPGAVIVersion) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -103,15 +103,15 @@ TEST_F(CommonTestsAdapter, getFPGAVIVersion) {
 	EXPECT_EQ(status.code, IRIO_success);
 	EXPECT_EQ(status.detailCode, Success);
 
-	EXPECT_EQ(valueLength, 3);
-	EXPECT_EQ(std::string(version), "9.9");
+	EXPECT_EQ(valueLength, 4);
+	EXPECT_EQ(std::string(version), "V9.9");
 }
 
 TEST_F(CommonTestsAdapter, getDevQualityStatus) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -126,7 +126,7 @@ TEST_F(CommonTestsAdapter, getDevTemp) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -141,7 +141,7 @@ TEST_F(CommonTestsAdapter, getProfile) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -156,7 +156,7 @@ TEST_F(CommonTestsAdapter, getDebugMode) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -171,7 +171,7 @@ TEST_F(CommonTestsAdapter, getDAQStartStop) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -186,7 +186,7 @@ TEST_F(CommonTestsAdapter, setDebugMode) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -200,7 +200,7 @@ TEST_F(CommonTestsAdapter, setDAQStartStop) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -236,7 +236,7 @@ TEST_F(ErrorCommonTestsAdapter, InitStatusNullptr) {
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", true,
+			projectName.c_str(), "V9.9", true,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, nullptr);
 
 	EXPECT_EQ(ret, IRIO_error) <<
@@ -262,7 +262,7 @@ TEST_F(ErrorCommonTestsAdapter, InvalidBitfile) {
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
-				"InvalidProjectName", "9.9", true,
+				"InvalidProjectName", "V9.9", true,
 				nullptr, "InvalidBitfileDir", &p_DrvPvt, &status);
 
 	EXPECT_EQ(ret, IRIO_error) << "Expected error";
@@ -276,7 +276,7 @@ TEST_F(ErrorCommonTestsAdapter, InitResourceNotFoundError) {
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
-				"Rseries_MismatchSG_7854", "9.9", true,
+				"Rseries_MismatchSG_7854", "V9.9", true,
 				nullptr, "../../../resources/failResources/7854", &p_DrvPvt, &status);
 
 	EXPECT_EQ(ret, IRIO_error) << "Expected error";
@@ -303,7 +303,7 @@ TEST_F(ErrorCommonTestsAdapter, BitfileDownloadError) {
 	};
 	TStatus status;
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 
 	EXPECT_EQ(ret, IRIO_error) << "Expected error";
@@ -319,7 +319,7 @@ TEST_F(ErrorCommonTestsAdapter, GenericError) {
 
 	TStatus status;
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 
 	EXPECT_EQ(ret, IRIO_error) << "Expected error";
@@ -332,7 +332,7 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartWhenAlreadyStarted) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -364,7 +364,7 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaFPGAAlreadyRunning) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -382,7 +382,7 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaError) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -399,7 +399,7 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartInitDoneError) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -413,7 +413,7 @@ TEST_F(ErrorCommonTestsAdapter, getFPGAVIVersionReadResourceWarning) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -442,7 +442,7 @@ TEST_F(ErrorCommonTestsAdapter, getCommonReadNiRIOWarning) {
 	int32_t value;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 
@@ -468,7 +468,7 @@ TEST_F(ErrorCommonTestsAdapter, setCommonReadNIRIOWarning) {
 	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "9.9", false,
+			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
 

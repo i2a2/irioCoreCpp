@@ -39,78 +39,78 @@ class ErrorCommonTests: public CommonTests {};
 ///// Common Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(CommonTests, ConstructDestruct) {
-	EXPECT_NO_THROW(IrioV2 irio(bitfilePath, "0", "9.9"););
+	EXPECT_NO_THROW(IrioV2 irio(bitfilePath, "0", "V9.9"););
 }
 
 TEST_F(CommonTests, Fref) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getFref(), frefFake);
 }
 
 TEST_F(CommonTests, DevQualityStatus) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getDevQualityStatus(), devQualityStatusFake);
 }
 
 TEST_F(CommonTests, DevTemp) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getDevTemp(), devTempFake);
 }
 
 TEST_F(CommonTests, MinSamplingRate) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_DOUBLE_EQ(irio.getMinSamplingRate(),
 			1.0 * frefFake / std::numeric_limits<std::uint16_t>::max());
 }
 
 TEST_F(CommonTests, MaxSamplingRate) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_DOUBLE_EQ(irio.getMaxSamplingRate(), 1.0 * frefFake);
 }
 
 TEST_F(CommonTests, DAQStartStopStatus) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getDAQStartStop(), daqStartStopFake);
 }
 
 TEST_F(CommonTests, DAQStart) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.setDAQStart(););
 }
 
 TEST_F(CommonTests, DAQStop) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.setDAQStop(););
 }
 
 TEST_F(CommonTests, getDebugMode) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getDebugMode(););
 }
 
 TEST_F(CommonTests, setDebugMode) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.setDebugMode(true););
 }
 
 TEST_F(CommonTests, startFPGA) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.startFPGA(););
 }
 
 TEST_F(CommonTests, getPlatform) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getPlatform(););
 }
 
 TEST_F(CommonTests, getProfileID) {
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getProfileID(););
 }
 
 TEST_F(CommonTests, closeAttribute) {
 	EXPECT_NO_THROW(
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getCloseAttribute(), 0);
 	irio.setCloseAttribute(1);
 	EXPECT_EQ(irio.getCloseAttribute(), 1);
@@ -125,7 +125,7 @@ TEST_F(ErrorCommonTests, FPGAVIVersionMismatchError) {
 	setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
 			bfp.getRegister(TERMINAL_FPGAVIVERSION).address, incorrectfpgaviversion, 2);
 
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::FPGAVIVersionMismatchError);
 }
 
@@ -134,7 +134,7 @@ TEST_F(ErrorCommonTests, UnsupportedDevProfileError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
 			bfp.getRegister(TERMINAL_DEVPROFILE).address, invalidProfile);
 
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::UnsupportedDevProfileError);
 }
 
@@ -143,14 +143,14 @@ TEST_F(ErrorCommonTests, UnsupportedPlatformError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
 			bfp.getRegister(TERMINAL_PLATFORM).address, invalidPlatform);
 
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::UnsupportedPlatformError);
 }
 
 TEST_F(ErrorCommonTests, InitializationTimeoutError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
 			bfp.getRegister(TERMINAL_INITDONE).address, 0);
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 
 	EXPECT_THROW(irio.startFPGA(100);,
 		errors::InitializationTimeoutError);
@@ -160,7 +160,7 @@ TEST_F(ErrorCommonTests, NiFpgaError) {
 	NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t*) {
 		return NiFpga_Status_InternalError;
 	};
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::NiFpgaError);
 }
 
@@ -168,7 +168,7 @@ TEST_F(ErrorCommonTests, NiFpgaErrorDownloadingBitfile) {
 	NiFpga_Open_fake.custom_fake = [](const char*, const char*, const char*, uint32_t, NiFpga_Session* session){
 		return NiFpga_Status_InternalError;
 	};
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "9.9");,
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::NiFpgaErrorDownloadingBitfile);
 }
 
@@ -177,7 +177,7 @@ TEST_F(ErrorCommonTests, NiFpgaFPGAAlreadyRunning) {
 		return NiFpga_Status_FpgaAlreadyRunning;
 	};
 
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_THROW(irio.startFPGA();,
 		errors::NiFpgaFPGAAlreadyRunning);
 }

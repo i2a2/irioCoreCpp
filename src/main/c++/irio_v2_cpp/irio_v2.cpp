@@ -261,8 +261,8 @@ void IrioV2::searchCommonResources() {
 	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
 			fpgaviversion.data(), 2);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
-	m_fpgaviversion = std::to_string(fpgaviversion[0])
-			+"."+std::to_string(fpgaviversion[1]);
+	m_fpgaviversion = "V" + std::to_string(fpgaviversion[0])
+			+ "." + std::to_string(fpgaviversion[1]);
 
 	// Read Fref
 	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).address;

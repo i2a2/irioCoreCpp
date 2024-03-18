@@ -27,7 +27,7 @@ public:
 						PLATFORM_ID::RSeries);
 
 		auto ret = irio_initDriver("test", "0", "TestModel",
-					projectName.c_str(), "9.9", false,
+					projectName.c_str(), "V9.9", false,
 					nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 
 		if(ret != IRIO_success) {

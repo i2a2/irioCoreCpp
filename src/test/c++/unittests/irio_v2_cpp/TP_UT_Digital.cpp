@@ -33,31 +33,31 @@ public:
 ///// Digital Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(DigitalTests, TerminalsDigital){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsDigital());
 }
 
 TEST_F(DigitalTests, NumDI){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDigital().getNumDI(), 2);
 }
 
 TEST_F(DigitalTests, NumDO){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDigital().getNumDO(), 2);
 }
 
 TEST_F(DigitalTests, getDI){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDigital().getDI(0), diFake);
 }
 
 TEST_F(DigitalTests, getDO){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDigital().getDO(0), doFake);
 }
 
 TEST_F(DigitalTests, setDO){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsDigital().setDO(0, true));
 }
