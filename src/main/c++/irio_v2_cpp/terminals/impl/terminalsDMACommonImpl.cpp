@@ -147,7 +147,7 @@ void TerminalsDMACommonImpl::cleanDMAImpl(const std::uint32_t n) const {
 
 void TerminalsDMACommonImpl::cleanAllDMAsImpl() const {
 	for (const auto &values : m_mapDMA) {
-		cleanDMAImpl(values.second);
+		cleanDMACommon(values.second);
 	}
 }
 
