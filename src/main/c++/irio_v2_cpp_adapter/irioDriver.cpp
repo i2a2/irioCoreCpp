@@ -256,12 +256,25 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 
 int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		TStatus *status) {
+	const std::unordered_map<iriov2::CouplingMode,
+							TIRIOCouplingMode> conversionTable = {
+			{iriov2::CouplingMode::AC, TIRIOCouplingMode::IRIO_coupling_AC},
+			{iriov2::CouplingMode::DC, TIRIOCouplingMode::IRIO_coupling_DC},
+			{iriov2::CouplingMode::None, TIRIOCouplingMode::IRIO_coupling_NULL},
+	};
+	const TIRIOCouplingMode valueNotFound = static_cast<TIRIOCouplingMode>(9);
+
 	try {
 		const auto iriov2 = IrioV2InstanceManager::getInstance(
 				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		const auto auxCoup = iriov2->getTerminalsAnalog().getAICouplingMode();
-		*value = static_cast<TIRIOCouplingMode>(auxCoup);
+		const auto it = conversionTable.find(auxCoup);
+		if(it == conversionTable.end()) {
+			*value = valueNotFound;
+		} else {
+			*value = it->second;
+		}
 	} catch (IrioV2NotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
 				e.what());
@@ -415,7 +428,7 @@ int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 }
 
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &iriov2::IrioV2::setDebugMode,
+	return setCommon(value, status, p_DrvPvt, &iriov2::IrioV2::setDAQStartStop,
 			"DAQStartStop");
 }
 
