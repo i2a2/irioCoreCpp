@@ -109,7 +109,6 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Configures and starts all DMAs in the FPGA
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 */
@@ -128,7 +127,6 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Stops all DMAs in the FPGA
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 */
@@ -141,6 +139,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * where more data is read that is possible to clean, which
 	 * may lead to a infinite loop
 	 *
+	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	DMA group to clean
