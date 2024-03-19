@@ -87,6 +87,15 @@ TEST_F(CommonTestsAdapter, setFPGAStart) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
+TEST_F(CommonTestsAdapter, getFPGAStart) {
+	TStatus status;
+	int32_t value;
+	const auto ret = irio_getFPGAStart(&p_DrvPvt, &value, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+}
+
 TEST_F(CommonTestsAdapter, getFPGAVIVersion) {
 	TStatus status;
 
