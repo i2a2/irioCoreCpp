@@ -5,7 +5,7 @@
 
 using iriov2::errors::ResourceNotFoundError;
 using iriov2::errors::NiFpgaError;
-
+using iriov2::errors::TerminalNotImplementedError;
 
 template<typename F, typename T>
 int getEnumTerminal(F func, T *value, TStatus *status,
@@ -16,6 +16,9 @@ int getEnumTerminal(F func, T *value, TStatus *status,
 		irio_mergeStatus(status, Generic_Error, verbosity, e.what());
 		return IRIO_error;
 	} catch (ResourceNotFoundError &e) {
+		irio_mergeStatus(status, Read_Resource_Warning, verbosity, e.what());
+		return IRIO_warning;
+	} catch (TerminalNotImplementedError &e) {
 		irio_mergeStatus(status, Read_Resource_Warning, verbosity, e.what());
 		return IRIO_warning;
 	} catch (NiFpgaError &e) {
@@ -34,10 +37,13 @@ int setEnumTerminal(F func, TStatus *status, bool verbosity) {
 		irio_mergeStatus(status, Generic_Error, verbosity, e.what());
 		return IRIO_error;
 	} catch (ResourceNotFoundError &e) {
-		irio_mergeStatus(status, Read_Resource_Warning, verbosity, e.what());
+		irio_mergeStatus(status, Write_Resource_Warning, verbosity, e.what());
+		return IRIO_warning;
+	} catch (TerminalNotImplementedError &e) {
+		irio_mergeStatus(status, Write_Resource_Warning, verbosity, e.what());
 		return IRIO_warning;
 	} catch (NiFpgaError &e) {
-		irio_mergeStatus(status, Read_NIRIO_Warning, verbosity, e.what());
+		irio_mergeStatus(status, Write_NIRIO_Warning, verbosity, e.what());
 		return IRIO_warning;
 	}
 
