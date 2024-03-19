@@ -20,7 +20,7 @@ int irio_getDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getDI(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
@@ -29,7 +29,7 @@ int irio_getAuxDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getAuxDI(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
@@ -38,7 +38,7 @@ int irio_getDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getDO(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_setDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
@@ -47,7 +47,7 @@ int irio_setDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 				p_DrvPvt->session).setDO(n, value);
 	};
 
-	return setEnumTerminal(f, status, p_DrvPvt->verbosity);
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
@@ -56,7 +56,7 @@ int irio_getAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getAuxDO(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
@@ -65,5 +65,5 @@ int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 				p_DrvPvt->session).setAuxDO(n, value);
 	};
 
-	return setEnumTerminal(f, status, p_DrvPvt->verbosity);
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }

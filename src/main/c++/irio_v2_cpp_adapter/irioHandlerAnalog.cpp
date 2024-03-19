@@ -23,7 +23,7 @@ int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getAI(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
@@ -32,7 +32,7 @@ int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getAuxAI(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
@@ -42,7 +42,7 @@ int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
 				p_DrvPvt->session).getAuxAI64(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
@@ -51,7 +51,7 @@ int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getAO(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
@@ -60,7 +60,7 @@ int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 				p_DrvPvt->session).getAuxAO(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
@@ -70,7 +70,7 @@ int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
 				p_DrvPvt->session).getAuxAO64(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
@@ -80,7 +80,7 @@ int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 				p_DrvPvt->session).getAOEnable(n);
 	};
 
-	return getEnumTerminal(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
 }
 
 int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
@@ -89,7 +89,7 @@ int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 				p_DrvPvt->session).setAO(n, value);
 	};
 
-	return setEnumTerminal(f, status, p_DrvPvt->verbosity);
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
@@ -98,7 +98,7 @@ int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 				p_DrvPvt->session).setAuxAO(n, value);
 	};
 
-	return setEnumTerminal(f, status, p_DrvPvt->verbosity);
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
@@ -108,7 +108,7 @@ int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
 				p_DrvPvt->session).setAuxAO64(n, value);
 	};
 
-	return setEnumTerminal(f, status, p_DrvPvt->verbosity);
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
@@ -118,6 +118,6 @@ int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 				p_DrvPvt->session).setAOEnable(n, value);
 	};
 
-	return setEnumTerminal(f, status, p_DrvPvt->verbosity);
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
