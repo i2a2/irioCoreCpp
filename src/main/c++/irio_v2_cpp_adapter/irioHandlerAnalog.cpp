@@ -85,7 +85,7 @@ int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 
 int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		return getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
+		getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).setAO(n, value);
 	};
 
@@ -94,7 +94,7 @@ int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 
 int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		return getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
+		getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).setAuxAO(n, value);
 	};
 
@@ -104,7 +104,7 @@ int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		return getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
+		getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).setAuxAO64(n, value);
 	};
 
@@ -114,7 +114,7 @@ int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
 int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		return getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
+		getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).setAOEnable(n, value);
 	};
 
