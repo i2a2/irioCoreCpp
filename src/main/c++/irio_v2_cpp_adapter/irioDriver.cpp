@@ -30,6 +30,8 @@ using iriov2::errors::TerminalNotImplementedError;
 using iriov2::errors::UnsupportedAICouplingForModule;
 using iriov2::errors::InitializationTimeoutError;
 using iriov2::errors::ModulesNotOKError;
+using iriov2::errors::UnsupportedPlatformError;
+using iriov2::errors::UnsupportedDevProfileError;
 
 std::unique_ptr<char> appCallID_ptr;
 std::unique_ptr<char> projectName_ptr;
@@ -182,9 +184,18 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 	} catch (RIODeviceNotFoundError &e) {
 		irio_mergeStatus(status, HardwareNotFound_Error, p_DrvPvt->verbosity,
 				"%s", e.what());
+	} catch (UnsupportedPlatformError &e) {
+		irio_mergeStatus(status, ResourceValueNotValid_Error, p_DrvPvt->verbosity,
+						"%s", e.what());
+	} catch (UnsupportedDevProfileError &e) {
+		irio_mergeStatus(status, ResourceValueNotValid_Error, p_DrvPvt->verbosity,
+						"%s", e.what());
 	} catch (IrioV2Error &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
 				e.what());
+	} catch (...) {
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity,
+				"Unknown exception caught");
 	}
 
 	return status->code;

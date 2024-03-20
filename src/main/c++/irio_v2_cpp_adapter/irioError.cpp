@@ -25,17 +25,25 @@ int irio_resetStatus(TStatus *status) {
 
 void mergeStatus(TStatus *status, const TErrorDetailCode detailCode,
 		const std::string &errorMsg, const bool verbose = false) {
+	std::string typeMsg;
+	std::ostream* output;
 	if (detailCode < Success) {
 		status->code = IRIO_error;
+		typeMsg = "[ERROR] ";
+		output = &std::cerr;
 	} else if (detailCode > Success) {
 		status->code = IRIO_warning;
+		typeMsg = "[WARN] ";
+		output = &std::cerr;
 	} else {
 		status->code = IRIO_success;
+		typeMsg = "[MSG] ";
+		output = &std::cout;
 	}
 	status->detailCode = detailCode;
 
 	if (verbose) {
-		std::cout << errorMsg << std::endl;
+		*output << typeMsg << errorMsg << std::endl;
 	}
 
 	std::unique_ptr<char> aux;
