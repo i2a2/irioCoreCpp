@@ -45,7 +45,7 @@ public:
 TEST_F(FlexRIOOnlyResources, InitClose){
 	const std::string bitfilePath = getBitfilePath();
 	try{
-		IrioV2 irio(bitfilePath, serialNumber, "1.2");
+		IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	}catch(std::exception &e){
 		FAIL() << "Error at IrioV2's constructor (" + std::string(e.what()) + ")";
 	}
@@ -53,21 +53,21 @@ TEST_F(FlexRIOOnlyResources, InitClose){
 
 TEST_F(FlexRIOOnlyResources, FPGAVIversion){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
-	EXPECT_EQ(irio.getFPGAVIversion(), "1.2");
+	EXPECT_EQ(irio.getFPGAVIversion(), "V1.2");
 }
 
 TEST_F(FlexRIOOnlyResources, DevQualityStatus){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	EXPECT_EQ(irio.getDevQualityStatus(), 0);
 }
 
 TEST_F(FlexRIOOnlyResources, GetMinSamplingRate){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	EXPECT_DOUBLE_EQ(irio.getMinSamplingRate(), 1525.9021896696422);
 }
@@ -75,7 +75,7 @@ TEST_F(FlexRIOOnlyResources, GetMinSamplingRate){
 
 TEST_F(FlexRIOOnlyResources, GetMaxSamplingRate){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	EXPECT_DOUBLE_EQ(irio.getMaxSamplingRate(), 100e6);
 }
@@ -88,7 +88,7 @@ TEST_F(FlexRIOOnlyResources, GetMaxSamplingRate){
 TEST_F(FlexRIOOnlyResources, FPGAVIversionMismatch){
 	const std::string bitfilePath = getBitfilePath();
 	try{
-		IrioV2 irio(bitfilePath, serialNumber, "0.0");
+		IrioV2 irio(bitfilePath, serialNumber, "V0.0");
 		FAIL() << "FPGAVIversion mismatch exception not thrown";
 	}catch(errors::FPGAVIVersionMismatchError&){
 		SUCCEED();
@@ -105,7 +105,7 @@ TEST_F(FlexRIOOnlyResources, FPGAVIversionMismatch){
  */
 TEST_F(FlexRIOOnlyResources, Resources){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	EXPECT_EQ(irio.getTerminalsDAQ().countDMAs(), 1) << "Unexpected number of DMAs";
 	EXPECT_EQ(irio.getTerminalsAnalog().getNumAI(), 0) << "Unexpected number of analog inputs";
@@ -127,7 +127,7 @@ TEST_F(FlexRIOOnlyResources, ResourcesMissing){
 	const std::string bitfilePath = getBitfilePath("failResources");
 
 	try{
-		IrioV2 irio(bitfilePath, serialNumber, "1.2");
+		IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 		FAIL() << "Missing resources not detected";
 	}catch(errors::ResourceNotFoundError&){
 		SUCCEED();
@@ -145,7 +145,7 @@ TEST_F(FlexRIOOnlyResources, ResourcesMissing){
 TEST_F(FlexRIOOnlyResources, flexRIOTerminalsAvailable){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	try{
 		irio.getTerminalsFlexRIO();
@@ -165,7 +165,7 @@ TEST_F(FlexRIOOnlyResources, flexRIOTerminalsAvailable){
 TEST_F(FlexRIOOnlyResources, cRIOTerminalsNotAvailable){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	try{
 		irio.getTerminalsCRIO();
@@ -186,7 +186,7 @@ TEST_F(FlexRIOOnlyResources, cRIOTerminalsNotAvailable){
 TEST_F(FlexRIONoModule, StartFPGA){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	try{
 		irio.startFPGA();
@@ -207,7 +207,7 @@ TEST_F(FlexRIONoModule, AuxAnalog){
 	const size_t numTests = 100;
 	IntUniformDistribution<std::int32_t> rnd;
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	auto auxAnalog = irio.getTerminalsAuxAnalog();
 
 	irio.startFPGA();
@@ -236,7 +236,7 @@ TEST_F(FlexRIONoModule, AuxAnalog64){
 	const size_t numTests = 100;
 	IntUniformDistribution<std::int64_t> rnd;
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	auto auxAnalog = irio.getTerminalsAuxAnalog();
 
 	irio.startFPGA();
@@ -265,7 +265,7 @@ TEST_F(FlexRIONoModule, AuxDigital){
 	const size_t numTests = 100;
 	IntUniformDistribution<std::uint8_t> rnd(0,1);
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	auto auxDigital = irio.getTerminalsAuxDigital();
 
 	irio.startFPGA();
@@ -291,7 +291,7 @@ TEST_F(FlexRIONoModule, AuxDigital){
 TEST_F(FlexRIONoModule, DevTemp){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 
 	irio.getDevTemp();
@@ -300,7 +300,7 @@ TEST_F(FlexRIONoModule, DevTemp){
 TEST_F(FlexRIONoModule, DebugMode){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 	irio.setDebugMode(false);
 	EXPECT_FALSE(irio.getDebugMode());
@@ -313,7 +313,7 @@ TEST_F(FlexRIONoModule, DebugMode){
 TEST_F(FlexRIONoModule, SGSignalType){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	auto sg = irio.getTerminalsSignalGeneration();
 
 	ASSERT_GE(sg.getSGNo(), 1);
@@ -328,7 +328,7 @@ TEST_F(FlexRIONoModule, SGSignalType){
 TEST_F(FlexRIONoModule, SGFref){
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
@@ -344,7 +344,7 @@ TEST_F(FlexRIONoModule, SGPhase){
 
 	const std::string bitfilePath = getBitfilePath();
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
@@ -360,7 +360,7 @@ TEST_F(FlexRIONoModule, SGUpdateRate){
 	const std::uint32_t updateRate = 72;
 
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
@@ -375,7 +375,7 @@ TEST_F(FlexRIONoModule, SGSignalFreq){
 	const std::uint32_t signalFreq = 40;
 
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
@@ -390,7 +390,7 @@ TEST_F(FlexRIONoModule, SGSignalAmp){
 	const std::uint32_t signalAmp = 4096;
 
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
@@ -405,7 +405,7 @@ TEST_F(FlexRIONoModule, SGSignalAmp){
 
 TEST_F(FlexRIONoModule, RIODeviceNotFoundError){
 	const std::string bitfilePath = getBitfilePath();
-	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "1.2");,
+	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V1.2");,
 		errors::RIODeviceNotFoundError);
 }
 
@@ -420,7 +420,7 @@ TEST_F(FlexRIONoModule, RIODeviceNotFoundError){
  */
 TEST_F(FlexRIOCPUDAQ, Resources){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	EXPECT_EQ(irio.getTerminalsDAQ().countDMAs(), 2) << "Unexpected number of DMAs";
 	EXPECT_EQ(irio.getTerminalsAnalog().getNumAI(), 2) << "Unexpected number of analog inputs";
@@ -441,7 +441,7 @@ TEST_F(FlexRIOCPUDAQ, Resources){
 
 TEST_F(FlexRIOMod5761, CheckModule){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	const auto analog = irio.getTerminalsAnalog();
 
@@ -451,7 +451,7 @@ TEST_F(FlexRIOMod5761, CheckModule){
 
 TEST_F(FlexRIOMod5761, AOEnable){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const auto analog = irio.getTerminalsAnalog();
 	ASSERT_GE(analog.getNumAO(), 1);
 	bool aux;
@@ -476,7 +476,7 @@ TEST_F(FlexRIOMod5761, AO){
 	const std::uint32_t idAO = 0;
 	const std::uint32_t idAuxAI = 9;
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const auto analog = irio.getTerminalsAnalog();
 	const auto auxAnalog = irio.getTerminalsAuxAnalog();
 
@@ -501,7 +501,7 @@ TEST_F(FlexRIOMod5761, AO){
 
 TEST_F(FlexRIOMod5761, DMAClean){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
@@ -511,7 +511,7 @@ TEST_F(FlexRIOMod5761, DMAClean){
 
 TEST_F(FlexRIOMod5761, DMAStartStop){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
@@ -525,7 +525,7 @@ TEST_F(FlexRIOMod5761, DMAStartStop){
 
 TEST_F(FlexRIOMod5761, DMAEnableDisable){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
@@ -545,7 +545,7 @@ TEST_F(FlexRIOMod5761, DMAEnableDisable){
 TEST_F(FlexRIOMod5761, DMASamplingRate){
 	const std::uint32_t samplingRate = 500000;
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const std::uint32_t fref = irio.getFref();
 	const std::uint32_t decimation = fref / samplingRate;
 
@@ -559,7 +559,7 @@ TEST_F(FlexRIOMod5761, DMASamplingRate){
 
 TEST_F(FlexRIOMod5761, AICoupling){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	const auto analog = irio.getTerminalsAnalog();
 
 	ASSERT_EQ(analog.getAICouplingMode(), CouplingMode::AC);
@@ -582,7 +582,7 @@ TEST_F(FlexRIOMod5761, AICoupling){
 
 TEST_F(FlexRIOMod5761, DAQStartStop){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
@@ -598,7 +598,7 @@ TEST_F(FlexRIOMod5761, DAQStartStop){
 
 TEST_F(FlexRIOMod5761, DMADAQParameters){
 	const std::string bitfilePath = getBitfilePath();
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 
 	irio.startFPGA();
 	irio.setDebugMode(false);
@@ -620,7 +620,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeout){
 	const std::uint32_t valDCSG = 2048;
 	const std::uint8_t signalType = 0; //DC
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
@@ -672,7 +672,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeoutNoData){
 	const std::uint32_t valDCSG = 2048;
 	const std::uint8_t signalType = 0; //DC
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
@@ -716,7 +716,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeout){
 	const std::uint32_t valDCSG = 2048;
 	const std::uint8_t signalType = 0; //DC
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 	irio.setDebugMode(false);
 
@@ -772,7 +772,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeoutNoData){
 	const std::uint32_t valDCSG = 2048;
 	const std::uint8_t signalType = 0; //DC
 
-	IrioV2 irio(bitfilePath, serialNumber, "1.2");
+	IrioV2 irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 	irio.setDebugMode(false);
 

@@ -47,6 +47,10 @@ IrioV2::~IrioV2() {
 	finalizeDriver();
 }
 
+std::uint32_t IrioV2::getID() const {
+	return m_session;
+}
+
 void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	const unsigned int SLEEP_INTERVAL_NS = 1e8;
 	const timespec ts { 0, SLEEP_INTERVAL_NS };
@@ -257,8 +261,8 @@ void IrioV2::searchCommonResources() {
 	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
 			fpgaviversion.data(), 2);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
-	m_fpgaviversion = std::to_string(fpgaviversion[0])
-			+"."+std::to_string(fpgaviversion[1]);
+	m_fpgaviversion = "V" + std::to_string(fpgaviversion[0])
+			+ "." + std::to_string(fpgaviversion[1]);
 
 	// Read Fref
 	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).address;

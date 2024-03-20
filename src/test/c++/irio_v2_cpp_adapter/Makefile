@@ -1,10 +1,19 @@
-PROGNAME=test_bfp
+PROGNAME=test_irio_v2_cpp_adapter
 
 TARGET=../../../../target
 
-LIBRARIES=gtest bfp
+LIBRARIES=gtest irio_v2_cpp_adapter
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=$(TARGET)/includes/bfp $(TARGET)/includes/irio_v2_cpp
+INCLUDE_DIRS=. $(TARGET)/includes/irio_v2_cpp_adapter
+
+ifdef CODAC_ROOT
+	LIBRARIES+=NiFpga 
+	INCLUDE_DIRS+=$(CODAC_ROOT)/include
+	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
+else
+	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
+	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
+endif
 
 BINARY_DIR=.
 SOURCE_DIR=.

@@ -53,56 +53,56 @@ public:
 ///// Aux Analog Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(AuxAnalogTests, TerminalsAuxAnalog){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAuxAnalog());
 }
 
 TEST_F(AuxAnalogTests, NumAuxAI){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAI(), 2);
 }
 
 TEST_F(AuxAnalogTests, NumAuxAO){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAO(), 2);
 }
 
 TEST_F(AuxAnalogTests, getAuxAI){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getAuxAI(0), auxAIFake);
 }
 
 TEST_F(AuxAnalogTests, getAuxAO){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getAuxAO(0), auxAOFake);
 }
 
 TEST_F(AuxAnalogTests, setAuxAO){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAuxAnalog().setAuxAO(0, auxAOFake));
 }
 
 TEST_F(AuxAnalog64Test, getAuxAI64){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getAuxAI64(0), aux64AIFake);
 }
 
 TEST_F(AuxAnalog64Test, getAuxAO64){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getAuxAO64(0), aux64AOFake);
 }
 
 TEST_F(AuxAnalog64Test, setAuxAO64){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAuxAnalog().setAuxAO64(0, aux64AOFake));
 }
 
 TEST_F(AuxAnalog64Test, NumAuxAI64){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAI64(), 16);
 }
 
 TEST_F(AuxAnalog64Test, NumAuxAO64){
-	IrioV2 irio(bitfilePath, "0", "9.9");
+	IrioV2 irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAO64(), 15);
 }

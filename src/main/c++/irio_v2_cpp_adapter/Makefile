@@ -1,20 +1,15 @@
-LIBNAME=irio_v2_cpp
+LIBNAME=irio_v2_cpp_adapter
 
 TARGET=../../../../target
 
-LIBRARIES=bfp niflexrio
+LIBRARIES=irio_v2_cpp
 
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=./include $(TARGET)/includes/bfp
-
-ifndef CODAC_ROOT
-	LIBRARIES+= nisyscfg
-	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
-endif
+INCLUDE_DIRS=. ./include $(TARGET)/includes/irio_v2_cpp $(TARGET)/includes/bfp
 
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_BASE_DIR=.
-SOURCES_DIR=$(SOURCE_BASE_DIR) $(SOURCE_BASE_DIR)/profiles $(SOURCE_BASE_DIR)/terminals $(SOURCE_BASE_DIR)/terminals/impl
+SOURCES_DIR=$(SOURCE_BASE_DIR)
 OBJECT_DIR = $(SOURCE_BASE_DIR)/.obj
 
 SHAREDLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).so
@@ -22,7 +17,7 @@ STATICLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).a
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
 LDPATHS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) 
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
-SOURCES=$(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
+SOURCES= $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.c, %.o,$(patsubst %.cpp,%.o,$(notdir $(SOURCES)))))
 HEADERSFILES = ./include
 
