@@ -18,69 +18,69 @@ iriov2::TerminalsAuxAnalog getTerminalsAuxAnalog(const std::string &rioSerial,
 }
 
 int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAI(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAuxAI(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAuxAI64(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAO(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAuxAO(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAuxAO64(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
-	const auto f = [n, p_DrvPvt] {
-		return getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
+	const auto f = [n, value, p_DrvPvt] {
+		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAOEnable(n);
 	};
 
-	return getOperationGeneric(f, value, status, p_DrvPvt->verbosity);
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
