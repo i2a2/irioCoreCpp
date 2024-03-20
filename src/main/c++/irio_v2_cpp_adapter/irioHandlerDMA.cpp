@@ -20,10 +20,11 @@ int irio_setUpDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 					p_DrvPvt->session).startAllDMAs();
 	};
 
-	const auto ret = operationGeneric(f, status, p_DrvPvt->verbosity);
-	if (status->detailCode == Read_NIRIO_Warning) {
-		status->detailCode = ConfigDMA_Warning;
-	}
+	const auto ret = operationGeneric<
+			decltype(f),
+			Read_Resource_Warning,
+			Read_Resource_Warning,
+			ConfigDMA_Warning>(f, status, p_DrvPvt->verbosity);
 
 	return ret;
 }
@@ -34,10 +35,11 @@ int irio_closeDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 					p_DrvPvt->session).stopAllDMAs();
 	};
 
-	const auto ret = operationGeneric(f, status, p_DrvPvt->verbosity);
-	if (status->detailCode == Read_NIRIO_Warning) {
-		status->detailCode = ConfigDMA_Warning;
-	}
+	const auto ret = operationGeneric<
+				decltype(f),
+				Read_Resource_Warning,
+				Read_Resource_Warning,
+				ConfigDMA_Warning>(f, status, p_DrvPvt->verbosity);
 
 	return ret;
 }
@@ -48,10 +50,11 @@ int irio_cleanDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 					p_DrvPvt->session).cleanAllDMAs();
 	};
 
-	const auto ret = operationGeneric(f, status, p_DrvPvt->verbosity);
-	if (status->detailCode == Read_NIRIO_Warning) {
-		status->detailCode = ConfigDMA_Warning;
-	}
+	const auto ret = operationGeneric<
+				decltype(f),
+				Read_Resource_Warning,
+				Read_Resource_Warning,
+				ConfigDMA_Warning>(f, status, p_DrvPvt->verbosity);
 
 	return ret;
 }
@@ -63,10 +66,11 @@ int irio_cleanDMATtoHost(irioDrv_t *p_DrvPvt, int n, uint64_t*,
 					p_DrvPvt->session).cleanDMA(n);
 	};
 
-	const auto ret = operationGeneric(f, status, p_DrvPvt->verbosity);
-	if (status->detailCode == Read_NIRIO_Warning) {
-		status->detailCode = ConfigDMA_Warning;
-	}
+	const auto ret = operationGeneric<
+				decltype(f),
+				Read_Resource_Warning,
+				Read_Resource_Warning,
+				ConfigDMA_Warning>(f, status, p_DrvPvt->verbosity);
 
 	return ret;
 }

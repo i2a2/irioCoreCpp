@@ -334,7 +334,7 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return IRIO_success;
 }
 
-int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, TStatus*) {
 	*value = p_DrvPvt->fpgaStarted;
 	return IRIO_success;
 }
