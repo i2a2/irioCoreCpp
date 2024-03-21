@@ -27,6 +27,8 @@ class Register: public Resource {
 			const ElemTypes &_elemType, const std::uint32_t &_address,
 			const size_t &_numElem = 1);
 
+	Register() = default;
+
 	/**
 	 * Creates a Register object from an XML node
 	 *
@@ -56,8 +58,8 @@ class Register: public Resource {
 	bool isArray() const;
 
  private:
-	bool m_isControl;
-	bool m_isArray;
+	bool m_isControl = false;
+	bool m_isArray = false;
 };
 }  // namespace bfp
 }  // namespace iriov2

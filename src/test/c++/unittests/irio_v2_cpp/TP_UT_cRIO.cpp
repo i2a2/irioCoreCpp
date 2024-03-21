@@ -15,13 +15,13 @@ public:
 			BaseTests("../../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::cRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_CRIOMODULESOK).address,
+						bfp.getRegister(TERMINAL_CRIOMODULESOK).getAddress(),
 						1);
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
-						bfp.getRegister(TERMINAL_INSERTEDIOMODULESID).address,
+						bfp.getRegister(TERMINAL_INSERTEDIOMODULESID).getAddress(),
 						insertedIOModulesIDFake, sizeof(insertedIOModulesIDFake)/sizeof(uint16_t));
 	}
 
@@ -59,7 +59,7 @@ TEST_F(CRIOTests, InsertedIOModulesID){
 ///////////////////////////////////////////////////////////////
 TEST_F(ErrorCRIOTests, ModulesNotOKError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_CRIOMODULESOK).address,
+						bfp.getRegister(TERMINAL_CRIOMODULESOK).getAddress(),
 						0);
 	IrioV2 irio(bitfilePath, "0", "V9.9");
 

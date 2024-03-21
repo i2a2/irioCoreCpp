@@ -15,12 +15,6 @@ namespace bfp {
  */
 class Resource {
  public:
-	const std::string name;
-	const FpgaTypes fpgaType;
-	const ElemTypes elemType;
-	const std::uint32_t address;
-	const size_t numElem;
-
 	/**
 	 * Stores information about the resource
 	 * @param _name	Resource name
@@ -32,6 +26,21 @@ class Resource {
 	Resource(const std::string &_name, const FpgaTypes &_fpgaType,
 			const ElemTypes &_elemType, const std::uint32_t &_address,
 			const size_t &_numElem = 1);
+
+	Resource() = default;
+
+	std::uint32_t getAddress() const;
+	ElemTypes getElemType() const;
+	FpgaTypes getFpgaType() const;
+	const std::string& getName() const;
+	size_t getNumElem() const;
+
+ private:
+	std::string name = "";
+	FpgaTypes fpgaType = FpgaTypes::FpgaType_Control;
+	ElemTypes elemType = ElemTypes::Bool;
+	std::uint32_t address = 0;
+	size_t numElem = 0;
 };
 }  // namespace bfp
 }  // namespace iriov2

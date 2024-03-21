@@ -24,13 +24,13 @@ public:
 			BaseTests("../../../resources/7966/NiFpga_FlexRIO_OnlyResources_7966.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::FlexRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).address,
+						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).getAddress(),
 						1);
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
-						bfp.getRegister(TERMINAL_INSERTEDIOMODULEID).address,
+						bfp.getRegister(TERMINAL_INSERTEDIOMODULEID).getAddress(),
 						insertedIOModuleIDFake);
 	}
 
@@ -63,7 +63,7 @@ TEST_F(FlexRIOTests, InsertedIOModuleID){
 ///////////////////////////////////////////////////////////////
 TEST_F(ErrorFlexRIOTests, ModuleNotOKError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
-			bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).address, 0);
+			bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).getAddress(), 0);
 	IrioV2 irio(bitfilePath, "0", "V9.9");
 
 	EXPECT_THROW(irio.startFPGA(100);,

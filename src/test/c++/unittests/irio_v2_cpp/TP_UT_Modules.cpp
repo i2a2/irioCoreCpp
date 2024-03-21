@@ -20,7 +20,7 @@ void setFlexRIOConnectedModule(const bfp::BFP &bfp){
 	};
 
 	setValueForReg(ReadFunctions::NiFpga_ReadU32,
-					bfp.getRegister(TERMINAL_INSERTEDIOMODULEID).address,
+					bfp.getRegister(TERMINAL_INSERTEDIOMODULEID).getAddress(),
 					static_cast<std::uint32_t>(M));
 }
 
@@ -29,10 +29,10 @@ public:
 	ModulesFlexRIO():
 		BaseTests("../../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::FlexRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).address,
+						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).getAddress(),
 						1);
 	}
 
@@ -43,13 +43,13 @@ public:
 	ModulesCRIO():
 		BaseTests("../../../resources/9159/NiFpga_cRIO_CPUDAQ_9159.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-								bfp.getRegister(TERMINAL_PLATFORM).address,
+								bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 								PLATFORM_ID::cRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_CRIOMODULESOK).address,
+						bfp.getRegister(TERMINAL_CRIOMODULESOK).getAddress(),
 						1);
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
-						bfp.getRegister(TERMINAL_INSERTEDIOMODULESID).address,
+						bfp.getRegister(TERMINAL_INSERTEDIOMODULESID).getAddress(),
 						insertedIOModulesIDFake, 1);
 	}
 
@@ -62,7 +62,7 @@ public:
 	ModulesRSeries():
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx") {
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-							bfp.getRegister(TERMINAL_PLATFORM).address,
+							bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 							PLATFORM_ID::RSeries);
 	}
 };

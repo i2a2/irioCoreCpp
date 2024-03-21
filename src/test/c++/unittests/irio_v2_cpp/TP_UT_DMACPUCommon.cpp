@@ -17,26 +17,26 @@ public:
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
-						bfp.getRegister(TERMINAL_DMATTOHOSTNCH).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTNCH).getAddress(),
 						nchFake, 2);
 
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
-						bfp.getRegister(TERMINAL_DMATTOHOSTFRAMETYPE).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTFRAMETYPE).getAddress(),
 						frameTypeFake, 2);
 
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
-						bfp.getRegister(TERMINAL_DMATTOHOSTSAMPLESIZE).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTSAMPLESIZE).getAddress(),
 						sampleSizeFake, 2);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU16,
-						bfp.getRegister(TERMINAL_DMATTOHOSTOVERFLOWS).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTOVERFLOWS).getAddress(),
 						overflowsFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_DMATTOHOSTENABLE+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTENABLE+std::to_string(0)).getAddress(),
 						1);
 	}
 

@@ -8,7 +8,7 @@ namespace bfp {
  *
  * @ingroup BFP
  */
-enum class FpgaTypes {
+enum class FpgaTypes : std::uint8_t {
 	FpgaType_Control, /**< FpgaType_Control */
 	FpgaType_Indicator, /**< FpgaType_Indicator */
 	FpgaType_ArrayControl, /**< FpgaType_ArrayControl */

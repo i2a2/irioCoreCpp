@@ -13,14 +13,14 @@ public:
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadI32,
-						bfp.getRegister(TERMINAL_AUXAI+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AUXAI+std::to_string(0)).getAddress(),
 						auxAIFake);
 		setValueForReg(ReadFunctions::NiFpga_ReadI32,
-						bfp.getRegister(TERMINAL_AUXAO+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AUXAO+std::to_string(0)).getAddress(),
 						auxAOFake);
 	}
 
@@ -35,13 +35,13 @@ public:
 				"../../../resources/7854/NiFpga_Rseries_OnlyResources_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 		setValueForReg(ReadFunctions::NiFpga_ReadI64,
-						bfp.getRegister(TERMINAL_AUX64AI+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AUX64AI+std::to_string(0)).getAddress(),
 						aux64AIFake);
 		setValueForReg(ReadFunctions::NiFpga_ReadI64,
-						bfp.getRegister(TERMINAL_AUX64AO+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AUX64AO+std::to_string(0)).getAddress(),
 						aux64AOFake);
 	}
 

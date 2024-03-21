@@ -7,11 +7,11 @@ DMA::DMA(const std::string &_name, const FpgaTypes &_fpgaType,
 		const ElemTypes &_elemType, const std::uint32_t &_address,
 		const size_t &_numElem) :
 		Resource(_name, _fpgaType, _elemType, _address, _numElem) {
-	m_isTargetToHost = fpgaType == FpgaTypes::FpgaType_DMATtH;
+	m_isTargetToHost = _fpgaType == FpgaTypes::FpgaType_DMATtH;
 }
 
 std::uint32_t DMA::getDMANumber() const {
-	return address;
+	return getAddress();
 }
 
 bool DMA::isTargetToHost() const {

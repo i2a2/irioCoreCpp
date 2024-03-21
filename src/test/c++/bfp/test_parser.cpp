@@ -41,34 +41,34 @@ TEST(BFP, Registers) {
 
 	{
 		auto reg = parsedBitfile.getRegister("AOEnable0");
-		EXPECT_EQ(reg.name, "AOEnable0") << "Incorrect register's name";
-		EXPECT_EQ(reg.address, 2) << "Incorrect register's address";
-		EXPECT_EQ(reg.elemType, ElemTypes::Bool) << "Incorrect register's element type";
-		EXPECT_EQ(reg.fpgaType, FpgaTypes::FpgaType_Control) << "Incorrect register's fpag type";
-		EXPECT_EQ(reg.numElem, 1) << "Incorrect register's number of elements";
+		EXPECT_EQ(reg.getName(), "AOEnable0") << "Incorrect register's name";
+		EXPECT_EQ(reg.getAddress(), 2) << "Incorrect register's address";
+		EXPECT_EQ(reg.getElemType(), ElemTypes::Bool) << "Incorrect register's element type";
+		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_Control) << "Incorrect register's fpag type";
+		EXPECT_EQ(reg.getNumElem(), 1) << "Incorrect register's number of elements";
 		EXPECT_FALSE(reg.isArray()) << "Register is an array when it should not be";
 		EXPECT_TRUE(reg.isControl()) << "Register is not a control register when it should";
 		EXPECT_FALSE(reg.isIndicator()) << "Register is an indicator register when it should not be";
 	}
 	{
 		auto reg = parsedBitfile.getRegister("DevTemp");
-		EXPECT_EQ(reg.name, "DevTemp") << "Incorrect register's name";
-		EXPECT_EQ(reg.address, 78) << "Incorrect register's address";
-		EXPECT_EQ(reg.elemType, ElemTypes::I16) << "Incorrect register's element type";
-		EXPECT_EQ(reg.fpgaType, FpgaTypes::FpgaType_Indicator) << "Incorrect register's fpag type";
-		EXPECT_EQ(reg.numElem, 1) << "Incorrect register's number of elements";
+		EXPECT_EQ(reg.getName(), "DevTemp") << "Incorrect register's name";
+		EXPECT_EQ(reg.getAddress(), 78) << "Incorrect register's address";
+		EXPECT_EQ(reg.getElemType(), ElemTypes::I16) << "Incorrect register's element type";
+		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_Indicator) << "Incorrect register's fpag type";
+		EXPECT_EQ(reg.getNumElem(), 1) << "Incorrect register's number of elements";
 		EXPECT_FALSE(reg.isArray()) << "Register is an array when it should not be";
 		EXPECT_FALSE(reg.isControl()) << "Register is a control register when it should not be";
 		EXPECT_TRUE(reg.isIndicator()) << "Register is not a indicator register";
 	}
 	{
 		auto reg = parsedBitfile.getRegister("FPGAVIversion");
-		EXPECT_EQ(reg.name, "FPGAVIversion") << "Incorrect register's name";
-		EXPECT_EQ(reg.address, 934) << "Incorrect register's address";
-		EXPECT_EQ(reg.elemType, ElemTypes::U8) << "Incorrect register's element type";
-		EXPECT_EQ(reg.fpgaType, FpgaTypes::FpgaType_ArrayIndicator)
+		EXPECT_EQ(reg.getName(), "FPGAVIversion") << "Incorrect register's name";
+		EXPECT_EQ(reg.getAddress(), 934) << "Incorrect register's address";
+		EXPECT_EQ(reg.getElemType(), ElemTypes::U8) << "Incorrect register's element type";
+		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_ArrayIndicator)
 				<< "Incorrect register's fpag type";
-		EXPECT_EQ(reg.numElem, 2) << "Incorrect register's number of elements";
+		EXPECT_EQ(reg.getNumElem(), 2) << "Incorrect register's number of elements";
 		EXPECT_TRUE(reg.isArray()) << "Register is not an array when it should";
 		EXPECT_FALSE(reg.isControl()) << "Register is a control register when it should not be";
 		EXPECT_TRUE(reg.isIndicator()) << "Register is not a indicator register";
@@ -91,11 +91,11 @@ TEST(BFP, DMAs){
 	EXPECT_EQ(dmas.size(), 1);
 
 	auto dma = parsedBitfile.getDMA("DMATtoHOST0");
-	EXPECT_EQ(dma.name, "DMATtoHOST0") << "Incorrect DMA's name";
+	EXPECT_EQ(dma.getName(), "DMATtoHOST0") << "Incorrect DMA's name";
 	EXPECT_EQ(dma.getDMANumber(), 0) << "Incorrect DMA's address";
-	EXPECT_EQ(dma.elemType, ElemTypes::U64) << "Incorrect DMA's element type";
-	EXPECT_EQ(dma.fpgaType, FpgaTypes::FpgaType_DMATtH) << "Incorrect DMA's fpag type";
-	EXPECT_EQ(dma.numElem, 1023) << "Incorrect DMA's number of elements";
+	EXPECT_EQ(dma.getElemType(), ElemTypes::U64) << "Incorrect DMA's element type";
+	EXPECT_EQ(dma.getFpgaType(), FpgaTypes::FpgaType_DMATtH) << "Incorrect DMA's fpag type";
+	EXPECT_EQ(dma.getNumElem(), 1023) << "Incorrect DMA's number of elements";
 
 	EXPECT_TRUE(dma.isTargetToHost());
 	EXPECT_FALSE(dma.isHostToTarget());

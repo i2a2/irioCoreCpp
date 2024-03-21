@@ -27,7 +27,7 @@ void findAndInsertEnumResources(
 	for (size_t i = 0; i < maxElem; ++i) {
 		const auto it = mapSearch.find(resourceName + std::to_string(i));
 		if (it != mapSearch.end()) {
-			mapInsert->insert({ i, it->second.address });
+			mapInsert->insert({ i, it->second.getAddress() });
 		}
 	}
 }
@@ -64,8 +64,8 @@ void findArrayRegReadToVector(const bfp::BFP &parsedBitfile,
 		std::function<NiFpga_Status(NiFpga_Session,
 				std::uint32_t, T*, size_t)> readFunc) {
 	const auto reg = parsedBitfile.getRegister(nameReg);
-	vec->resize(reg.numElem);
-	const auto status = readFunc(session, reg.address, vec->data(), vec->size());
+	vec->resize(reg.getNumElem());
+	const auto status = readFunc(session, reg.getAddress(), vec->data(), vec->size());
 	utils::throwIfNotSuccessNiFpga(status, "Error reading " + nameReg);
 }
 

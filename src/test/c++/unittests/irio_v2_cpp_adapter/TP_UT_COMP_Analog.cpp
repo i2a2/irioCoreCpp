@@ -34,7 +34,7 @@ public:
 		BaseTestsAdapter("../../../resources/7966", "FlexRIO_CPUDAQ_7966")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::FlexRIO);
 
 		auto ret = irio_initDriver("test", "0", "TestModel",
@@ -63,7 +63,7 @@ public:
 		BaseTestsAdapter("../../../resources/7854", "Rseries_OnlyResources_7854")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 
 		auto ret = irio_initDriver("test", "0", "TestModel",
@@ -92,7 +92,7 @@ public:
 		setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::FlexRIO);
 
 		auto ret = irio_initDriver("test", "0", "TestModel",

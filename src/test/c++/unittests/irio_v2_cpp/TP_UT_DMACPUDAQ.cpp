@@ -16,17 +16,17 @@ public:
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
-						bfp.getRegister(TERMINAL_DMATTOHOSTNCH).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTNCH).getAddress(),
 						nchFake, 2);
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
-						bfp.getRegister(TERMINAL_DMATTOHOSTBLOCKNWORDS).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTBLOCKNWORDS).getAddress(),
 						lengthBlockFake, 2);
 		setValueForReg(ReadFunctions::NiFpga_ReadU16,
 						bfp.getRegister(TERMINAL_DMATTOHOSTSAMPLINGRATE
-								+std::to_string(0)).address,
+								+std::to_string(0)).getAddress(),
 						samplingRateFake);
 	}
 

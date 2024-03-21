@@ -14,7 +14,7 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(const bfp::BFP &parsedBitfile,
 		TerminalsBaseImpl(session), m_nameTermOverflows(nameTermOverflows),
 		m_nameTermDMA(nameTermDMA), m_nameTermDMAEnable(nameTermDMAEnable) {
 	// Find Overflows (it is one uint16 where each bit is the status)
-	m_overflowsAddr = parsedBitfile.getRegister(nameTermOverflows).address;
+	m_overflowsAddr = parsedBitfile.getRegister(nameTermOverflows).getAddress();
 
 	// Find NCh
 	utils::findArrayRegReadToVector<std::uint16_t>(parsedBitfile, m_session,

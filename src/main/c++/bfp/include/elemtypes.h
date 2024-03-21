@@ -10,7 +10,7 @@ namespace bfp {
  *
  * @ingroup BFP
  */
-enum class ElemTypes {
+enum class ElemTypes : std::uint8_t {
 	Bool, /**< Bool */
 	I8, /**< I8 */
 	U8, /**< U8 */

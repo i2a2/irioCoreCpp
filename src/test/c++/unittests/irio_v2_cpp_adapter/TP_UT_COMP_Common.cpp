@@ -25,7 +25,7 @@ public:
 		BaseTestsAdapter("../../../resources/7854", "Rseries_CPUDAQ_7854")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 	}
 
@@ -403,7 +403,7 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaError) {
 
 TEST_F(ErrorCommonTestsAdapter, setFPGAStartInitDoneError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
-				bfp.getRegister(TERMINAL_INITDONE).address, 0);
+				bfp.getRegister(TERMINAL_INITDONE).getAddress(), 0);
 
 	TStatus status;
 

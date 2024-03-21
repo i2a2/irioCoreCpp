@@ -27,12 +27,12 @@ std::unordered_map<std::string, bfp::Register> parseRegisters(
 		bfp::Register aux = bfp::Register::processRegister(regNode,
 				baseAddress);
 		// Skip unsupported types
-		if (aux.elemType != bfp::ElemTypes::Unsupported) {
-			std::string name = aux.name;
+		if (aux.getElemType() != bfp::ElemTypes::Unsupported) {
+			std::string name = aux.getName();
 			name = removeSpaces(name);
 			mapRet.insert({ name, aux });
 		} else if (warnUnsupported) {
-			std::cerr << "WARNING: Skipping register " << aux.name
+			std::cerr << "WARNING: Skipping register " << aux.getName()
 					<< ". Unsupported type." << std::endl;
 		}
 	}
@@ -45,7 +45,7 @@ std::unordered_map<std::string, bfp::DMA> parseDMA(const pugi::xml_node &node) {
 
 	for (const auto &dmaNode : node.children("Channel")) {
 		bfp::DMA aux = bfp::DMA::processDMA(dmaNode);
-		std::string name = aux.name;
+		std::string name = aux.getName();
 		name = removeSpaces(name);
 		mapRet.insert({ name, aux });
 	}

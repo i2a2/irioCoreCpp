@@ -20,30 +20,30 @@ BaseTests::BaseTests(const std::string bitfile):
 
 	searchRIODevice_fake.return_val = "MockDevice";
 	setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
-			bfp.getRegister(TERMINAL_FPGAVIVERSION).address,
+			bfp.getRegister(TERMINAL_FPGAVIVERSION).getAddress(),
 			fpgaVIversionFake, 2);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_DEVPROFILE).address,
+			bfp.getRegister(TERMINAL_DEVPROFILE).getAddress(),
 			PROFILE_VALUE_DAQ);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_PLATFORM).address,
+			bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 			PLATFORM_ID::FlexRIO);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_SGNO).address, numSGFake);
+			bfp.getRegister(TERMINAL_SGNO).getAddress(), numSGFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadU32,
-			bfp.getRegister(TERMINAL_FREF).address, frefFake);
+			bfp.getRegister(TERMINAL_FREF).getAddress(), frefFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).address,
+			bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).getAddress(),
 			devQualityStatusFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadI16,
-			bfp.getRegister(TERMINAL_DEVTEMP).address, devTempFake);
+			bfp.getRegister(TERMINAL_DEVTEMP).getAddress(), devTempFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_DAQSTARTSTOP).address,
+			bfp.getRegister(TERMINAL_DAQSTARTSTOP).getAddress(),
 			daqStartStopFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_DEBUGMODE).address, debugModeFake);
+			bfp.getRegister(TERMINAL_DEBUGMODE).getAddress(), debugModeFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
-			bfp.getRegister(TERMINAL_INITDONE).address, 1);
+			bfp.getRegister(TERMINAL_INITDONE).getAddress(), 1);
 
 	NiFlexRio_GetAttribute_fake.custom_fake = [](NiFpga_Session, int32_t,
 			int32_t, void *value) {

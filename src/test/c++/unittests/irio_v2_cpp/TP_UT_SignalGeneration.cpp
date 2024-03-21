@@ -14,31 +14,31 @@ public:
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
-						bfp.getRegister(TERMINAL_SGFREF+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_SGFREF+std::to_string(0)).getAddress(),
 						frefFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_SGSIGNALTYPE+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_SGSIGNALTYPE+std::to_string(0)).getAddress(),
 						sigTypeFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
-						bfp.getRegister(TERMINAL_SGAMP+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_SGAMP+std::to_string(0)).getAddress(),
 						ampFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
-						bfp.getRegister(TERMINAL_SGPHASE+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_SGPHASE+std::to_string(0)).getAddress(),
 						phaseFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
-						bfp.getRegister(TERMINAL_SGUPDATERATE+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_SGUPDATERATE+std::to_string(0)).getAddress(),
 						updateRateFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
-						bfp.getRegister(TERMINAL_SGFREQ+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_SGFREQ+std::to_string(0)).getAddress(),
 						freqFake);
 	}
 

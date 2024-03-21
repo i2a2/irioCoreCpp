@@ -25,11 +25,11 @@ public:
 		BaseTestsAdapter("../../../resources/7966", "FlexRIO_CPUDAQ_7966")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::FlexRIO);
 
 		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
-						bfp.getRegister(TERMINAL_DMATTOHOSTBLOCKNWORDS).address,
+						bfp.getRegister(TERMINAL_DMATTOHOSTBLOCKNWORDS).getAddress(),
 						nwords, sizeof(nwords)/sizeof(std::uint16_t));
 
 		auto ret = irio_initDriver("test", "0", "TestModel",

@@ -7,9 +7,9 @@ TerminalsFlexRIOImpl::TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session) :
 		TerminalsBaseImpl(session) {
 	m_rioadaptercorrect_addr = parsedBitfile.getRegister(
-			TERMINAL_RIOADAPTERCORRECT).address;
+			TERMINAL_RIOADAPTERCORRECT).getAddress();
 	m_insertediomoduleid_addr = parsedBitfile.getRegister(
-			TERMINAL_INSERTEDIOMODULEID).address;
+			TERMINAL_INSERTEDIOMODULEID).getAddress();
 }
 
 bool TerminalsFlexRIOImpl::getRIOAdapterCorrect() const {

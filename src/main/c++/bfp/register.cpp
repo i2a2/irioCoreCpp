@@ -8,10 +8,10 @@ Register::Register(const std::string &_name, const FpgaTypes &_fpgaType,
 		const ElemTypes &_elemType, const std::uint32_t &_address,
 		const size_t &_numElem) :
 		Resource(_name, _fpgaType, _elemType, _address, _numElem) {
-	m_isArray = fpgaType == FpgaTypes::FpgaType_ArrayControl
-			|| fpgaType == FpgaTypes::FpgaType_ArrayIndicator;
-	m_isControl = fpgaType == FpgaTypes::FpgaType_ArrayControl
-			|| fpgaType == FpgaTypes::FpgaType_Control;
+	m_isArray = _fpgaType == FpgaTypes::FpgaType_ArrayControl
+			|| _fpgaType == FpgaTypes::FpgaType_ArrayIndicator;
+	m_isControl = _fpgaType == FpgaTypes::FpgaType_ArrayControl
+			|| _fpgaType == FpgaTypes::FpgaType_Control;
 }
 
 bool Register::isArray() const {

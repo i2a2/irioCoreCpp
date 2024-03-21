@@ -7,11 +7,11 @@ TerminalscRIOImpl::TerminalscRIOImpl(const bfp::BFP &parsedBitfile,
 		const NiFpga_Session &session) :
 		TerminalsBaseImpl(session) {
 	m_criomodulesok_addr =
-			parsedBitfile.getRegister(TERMINAL_CRIOMODULESOK).address;
+			parsedBitfile.getRegister(TERMINAL_CRIOMODULESOK).getAddress();
 	const auto regModulesID = parsedBitfile.getRegister(
 			TERMINAL_INSERTEDIOMODULESID);
-	m_insertediomodulesid_addr = regModulesID.address;
-	m_numModules = regModulesID.numElem;
+	m_insertediomodulesid_addr = regModulesID.getAddress();
+	m_numModules = regModulesID.getNumElem();
 }
 
 bool TerminalscRIOImpl::getcRIOModulesOk() const {

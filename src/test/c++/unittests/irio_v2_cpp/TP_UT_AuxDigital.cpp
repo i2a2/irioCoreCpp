@@ -13,14 +13,14 @@ public:
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_AUXDI+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AUXDI+std::to_string(0)).getAddress(),
 						auxDIFake);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_AUXDO+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AUXDO+std::to_string(0)).getAddress(),
 						auxDOFake);
 	}
 

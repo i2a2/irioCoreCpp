@@ -30,7 +30,7 @@ TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
 		// There are no signal generators, go back
 		return;
 	}
-	status = NiFpga_ReadU8(m_session, it->second.address, &m_numSG);
+	status = NiFpga_ReadU8(m_session, it->second.getAddress(), &m_numSG);
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading " + std::string(TERMINAL_SGNO));
 

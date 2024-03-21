@@ -26,22 +26,22 @@ public:
 			BaseTests("../../../resources/7966/NiFpga_FlexRIO_CPUDAQ_7966.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::FlexRIO);
 		setValueForReg(ReadFunctions::NiFpga_ReadBool,
-						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).address,
+						bfp.getRegister(TERMINAL_RIOADAPTERCORRECT).getAddress(),
 						1);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadI32,
-						bfp.getRegister(TERMINAL_AI+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AI+std::to_string(0)).getAddress(),
 						aiFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadI32,
-						bfp.getRegister(TERMINAL_AO+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AO+std::to_string(0)).getAddress(),
 						aoFake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadI32,
-						bfp.getRegister(TERMINAL_AOENABLE+std::to_string(0)).address,
+						bfp.getRegister(TERMINAL_AOENABLE+std::to_string(0)).getAddress(),
 						aoEnableFake);
 
 		setFlexRIOConnectedModule<ModulesType::NoModule>();

@@ -256,7 +256,7 @@ void IrioV2::searchCommonResources() {
 	NiFpga_Status status;
 
 	// Read FPGAVIversion
-	auto fpgaviversion_addr = m_bfp.getRegister(TERMINAL_FPGAVIVERSION).address;
+	auto fpgaviversion_addr = m_bfp.getRegister(TERMINAL_FPGAVIVERSION).getAddress();
 	std::array<std::uint8_t, 2> fpgaviversion;
 	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
 			fpgaviversion.data(), 2);
@@ -265,16 +265,16 @@ void IrioV2::searchCommonResources() {
 			+ "." + std::to_string(fpgaviversion[1]);
 
 	// Read Fref
-	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).address;
+	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).getAddress();
 	status = NiFpga_ReadU32(m_session, fref_addr, &m_fref);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading Fref");
 
-	m_initdone_addr = m_bfp.getRegister(TERMINAL_INITDONE).address;
+	m_initdone_addr = m_bfp.getRegister(TERMINAL_INITDONE).getAddress();
 	m_devqualitystatus_addr =
-			m_bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).address;
-	m_devtemp_addr = m_bfp.getRegister(TERMINAL_DEVTEMP).address;
-	m_daqstartstop_addr = m_bfp.getRegister(TERMINAL_DAQSTARTSTOP).address;
-	m_debugmode_addr = m_bfp.getRegister(TERMINAL_DEBUGMODE).address;
+			m_bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).getAddress();
+	m_devtemp_addr = m_bfp.getRegister(TERMINAL_DEVTEMP).getAddress();
+	m_daqstartstop_addr = m_bfp.getRegister(TERMINAL_DAQSTARTSTOP).getAddress();
+	m_debugmode_addr = m_bfp.getRegister(TERMINAL_DEBUGMODE).getAddress();
 
 	m_minSamplingRate = 1.0 * m_fref
 			/ std::numeric_limits<std::uint16_t>::max();
@@ -283,7 +283,7 @@ void IrioV2::searchCommonResources() {
 
 void IrioV2::searchPlatform() {
 	// Read Platform
-	auto platform_addr = m_bfp.getRegister(TERMINAL_PLATFORM).address;
+	auto platform_addr = m_bfp.getRegister(TERMINAL_PLATFORM).getAddress();
 	std::uint8_t platform;
 	const auto status = NiFpga_ReadU8(m_session, platform_addr, &platform);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading Platform");
@@ -324,7 +324,7 @@ void IrioV2::searchDevProfile() {
 				{ PLATFORM_ID::RSeries, { { PROFILE_VALUE_DAQ,
 						PROFILE_ID::R_DAQ } } } };
 
-	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).address;
+	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).getAddress();
 	std::uint8_t profile;
 	const auto status = NiFpga_ReadU8(m_session, profile_addr, &profile);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DevProfile");

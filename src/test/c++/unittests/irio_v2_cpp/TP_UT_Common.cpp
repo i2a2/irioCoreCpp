@@ -27,7 +27,7 @@ public:
 		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
 	{
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).address,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 						PLATFORM_ID::RSeries);
 	}
 };
@@ -123,7 +123,7 @@ TEST_F(CommonTests, closeAttribute) {
 TEST_F(ErrorCommonTests, FPGAVIVersionMismatchError) {
 	const uint8_t incorrectfpgaviversion[2] = { 0, 0 };
 	setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
-			bfp.getRegister(TERMINAL_FPGAVIVERSION).address, incorrectfpgaviversion, 2);
+			bfp.getRegister(TERMINAL_FPGAVIVERSION).getAddress(), incorrectfpgaviversion, 2);
 
 	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::FPGAVIVersionMismatchError);
@@ -132,7 +132,7 @@ TEST_F(ErrorCommonTests, FPGAVIVersionMismatchError) {
 TEST_F(ErrorCommonTests, UnsupportedDevProfileError) {
 	const uint8_t invalidProfile = 99;
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_DEVPROFILE).address, invalidProfile);
+			bfp.getRegister(TERMINAL_DEVPROFILE).getAddress(), invalidProfile);
 
 	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::UnsupportedDevProfileError);
@@ -141,7 +141,7 @@ TEST_F(ErrorCommonTests, UnsupportedDevProfileError) {
 TEST_F(ErrorCommonTests, UnsupportedPlatformError) {
 	const uint8_t invalidPlatform= 99;
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_PLATFORM).address, invalidPlatform);
+			bfp.getRegister(TERMINAL_PLATFORM).getAddress(), invalidPlatform);
 
 	EXPECT_THROW(IrioV2 irio(bitfilePath, "0", "V9.9");,
 		errors::UnsupportedPlatformError);
@@ -149,7 +149,7 @@ TEST_F(ErrorCommonTests, UnsupportedPlatformError) {
 
 TEST_F(ErrorCommonTests, InitializationTimeoutError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
-			bfp.getRegister(TERMINAL_INITDONE).address, 0);
+			bfp.getRegister(TERMINAL_INITDONE).getAddress(), 0);
 	IrioV2 irio(bitfilePath, "0", "V9.9");
 
 	EXPECT_THROW(irio.startFPGA(100);,
