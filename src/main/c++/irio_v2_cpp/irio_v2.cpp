@@ -1,9 +1,7 @@
-#include "irio_v2.h"
-
-#include <unistd.h>
 #include <math.h>
 #include <limits>
 
+#include "irio_v2.h"
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 #include "profiles/profiles.h"
@@ -18,21 +16,33 @@ namespace iriov2 {
 
 IrioV2::IrioV2(const std::string &bitfilePath,
 		const std::string &RIOSerialNumber, const std::string &FPGAVIversion) :
-		m_bfp(bitfilePath, false), m_session(0), m_closeAttribute(0) {
+		m_bfp(bitfilePath, false), m_session(0),
+		m_closeAttribute(0) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
 
 	initDriver();
 	openSession();
+
+	ParserManager parserManager(m_bfp);
 	try {
-		searchCommonResources();
+		searchCommonResources(&parserManager);
 
 		if(getFPGAVIversion() != FPGAVIversion) {
 			throw errors::FPGAVIVersionMismatchError(getFPGAVIversion(),
 							FPGAVIversion);
 		}
 
-		searchPlatform();
-		searchDevProfile();
+		searchPlatform(&parserManager);
+		searchDevProfile(&parserManager);
+
+		if(parserManager.hasErrorOccurred()) {
+			throw errors::ResourceNotFoundError();
+		}
+	} catch(errors::ResourceNotFoundError&) {
+		parserManager.printInfoError();
+		closeSession();
+		finalizeDriver();
+		throw;
 	} catch (...) {
 		// Must close the session, the destructor will not
 		// be called if exception occurs in the constructor
@@ -252,38 +262,53 @@ void IrioV2::openSession() {
 	}
 }
 
-void IrioV2::searchCommonResources() {
+void IrioV2::searchCommonResources(ParserManager *parserManager) {
 	NiFpga_Status status;
 
 	// Read FPGAVIversion
-	auto fpgaviversion_addr = m_bfp.getRegister(TERMINAL_FPGAVIVERSION).getAddress();
-	std::array<std::uint8_t, 2> fpgaviversion;
-	status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
-			fpgaviversion.data(), 2);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
-	m_fpgaviversion = "V" + std::to_string(fpgaviversion[0])
-			+ "." + std::to_string(fpgaviversion[1]);
+	std::uint32_t fpgaviversion_addr;
+	if (parserManager->findRegisterAddress(TERMINAL_FPGAVIVERSION,
+			GroupResource::Common, &fpgaviversion_addr)) {
+		std::array<std::uint8_t, 2> fpgaviversion;
+		status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
+				fpgaviversion.data(), 2);
+		utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
+		m_fpgaviversion = "V" + std::to_string(fpgaviversion[0])
+				+ "." + std::to_string(fpgaviversion[1]);
+	}
 
 	// Read Fref
-	auto fref_addr = m_bfp.getRegister(TERMINAL_FREF).getAddress();
-	status = NiFpga_ReadU32(m_session, fref_addr, &m_fref);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading Fref");
+	std::uint32_t fref_addr;
+	if (parserManager->findRegisterAddress(TERMINAL_FREF,
+				GroupResource::Common, &fref_addr)) {
+		status = NiFpga_ReadU32(m_session, fref_addr, &m_fref);
+		utils::throwIfNotSuccessNiFpga(status, "Error reading Fref");
+	}
 
-	m_initdone_addr = m_bfp.getRegister(TERMINAL_INITDONE).getAddress();
-	m_devqualitystatus_addr =
-			m_bfp.getRegister(TERMINAL_DEVQUALITYSTATUS).getAddress();
-	m_devtemp_addr = m_bfp.getRegister(TERMINAL_DEVTEMP).getAddress();
-	m_daqstartstop_addr = m_bfp.getRegister(TERMINAL_DAQSTARTSTOP).getAddress();
-	m_debugmode_addr = m_bfp.getRegister(TERMINAL_DEBUGMODE).getAddress();
+	parserManager->findRegisterAddress(TERMINAL_INITDONE,
+			GroupResource::Common, &m_initdone_addr);
+	parserManager->findRegisterAddress(TERMINAL_DEVQUALITYSTATUS,
+			GroupResource::Common, &m_devqualitystatus_addr);
+	parserManager->findRegisterAddress(TERMINAL_DEVTEMP, GroupResource::Common,
+			&m_devtemp_addr);
+	parserManager->findRegisterAddress(TERMINAL_DAQSTARTSTOP,
+			GroupResource::Common, &m_daqstartstop_addr);
+	parserManager->findRegisterAddress(TERMINAL_DEBUGMODE,
+			GroupResource::Common, &m_debugmode_addr);
 
 	m_minSamplingRate = 1.0 * m_fref
 			/ std::numeric_limits<std::uint16_t>::max();
 	m_maxSamplingRate = m_fref;
 }
 
-void IrioV2::searchPlatform() {
+void IrioV2::searchPlatform(ParserManager *parserManager) {
 	// Read Platform
-	auto platform_addr = m_bfp.getRegister(TERMINAL_PLATFORM).getAddress();
+	std::uint32_t platform_addr;
+	if (!parserManager->findRegisterAddress(TERMINAL_PLATFORM,
+					GroupResource::Common, &platform_addr)) {
+		throw errors::ResourceNotFoundError();
+	}
+
 	std::uint8_t platform;
 	const auto status = NiFpga_ReadU8(m_session, platform_addr, &platform);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading Platform");
@@ -303,7 +328,7 @@ void IrioV2::searchPlatform() {
 	}
 }
 
-void IrioV2::searchDevProfile() {
+void IrioV2::searchDevProfile(ParserManager *parserManager) {
 	static const std::unordered_map<PLATFORM_ID,
 			const std::unordered_map<std::uint8_t,
 				PROFILE_ID>> validProfileByPlatform =
@@ -324,7 +349,12 @@ void IrioV2::searchDevProfile() {
 				{ PLATFORM_ID::RSeries, { { PROFILE_VALUE_DAQ,
 						PROFILE_ID::R_DAQ } } } };
 
-	auto profile_addr = m_bfp.getRegister(TERMINAL_DEVPROFILE).getAddress();
+	std::uint32_t profile_addr;
+	if (!parserManager->findRegisterAddress(TERMINAL_DEVPROFILE,
+					GroupResource::Common, &profile_addr)) {
+		throw errors::ResourceNotFoundError();
+	}
+
 	std::uint8_t profile;
 	const auto status = NiFpga_ReadU8(m_session, profile_addr, &profile);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DevProfile");
@@ -341,7 +371,7 @@ void IrioV2::searchDevProfile() {
 	switch (it->second) {
 	case PROFILE_ID::FLEXRIO_CPUDAQ:
 		m_profile.reset(
-				new ProfileCPUDAQFlexRIO(m_bfp, m_session, *m_platform));
+				new ProfileCPUDAQFlexRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
@@ -351,13 +381,13 @@ void IrioV2::searchDevProfile() {
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::CRIO_DAQ:
 		m_profile.reset(
-				new ProfileCPUDAQcRIO(m_bfp, m_session, *m_platform));
+				new ProfileCPUDAQcRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::CRIO_IO:
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::R_DAQ:
 		m_profile.reset(
-				new ProfileCPUDAQ(m_bfp, m_session, *m_platform,
+				new ProfileCPUDAQ(parserManager, m_session, *m_platform,
 						PROFILE_ID::R_DAQ));
 		break;
 	}

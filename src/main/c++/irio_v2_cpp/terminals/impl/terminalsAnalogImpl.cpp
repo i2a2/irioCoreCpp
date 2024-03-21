@@ -6,24 +6,29 @@
 
 namespace iriov2 {
 
-TerminalsAnalogImpl::TerminalsAnalogImpl(const bfp::BFP &parsedBitfile,
+TerminalsAnalogImpl::TerminalsAnalogImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBaseImpl(session) {
 	// Find AI
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AI,
-			platform.maxAI, &m_mapAI);
+	for(size_t i = 0; i < platform.maxAI; ++i) {
+		parserManager->findRegisterEnumAddress(TERMINAL_AI, i,
+				GroupResource::AI, &m_mapAI, true);
+	}
 
-	// Find AO
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AO,
-			platform.maxAO, &m_mapAO);
+	// Find AO and AOEnable
+	for(size_t i = 0; i < platform.maxAO; ++i) {
+		const auto foundAO = parserManager->findRegisterEnumAddress(
+				TERMINAL_AO, i, GroupResource::AO, &m_mapAO, true);
+		const auto foundAOEna = parserManager->findRegisterEnumAddress(
+				TERMINAL_AOENABLE, i, GroupResource::AO,
+				&m_mapAOEnable, !foundAO);
 
-	// Find AOEnable
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AOENABLE,
-			platform.maxAO, &m_mapAOEnable);
-
-	if (m_mapAO.size() != m_mapAOEnable.size()) {
-		throw errors::ResourceNotFoundError(
-				"Mismatch in number of AO and AOEnable terminals");
+		if(!foundAO && foundAOEna) {
+			const std::string resourceName = TERMINAL_AOENABLE + std::to_string(i);
+			const std::string relatedResource = TERMINAL_AO + std::to_string(i);
+			parserManager->logResourceMismatch(resourceName, relatedResource,
+					GroupResource::AO);
+		}
 	}
 
 	numAI = m_mapAI.size();

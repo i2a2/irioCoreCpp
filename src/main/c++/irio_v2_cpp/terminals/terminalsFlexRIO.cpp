@@ -2,10 +2,10 @@
 #include "terminals/impl/terminalsFlexRIOImpl.h"
 
 namespace iriov2 {
-TerminalsFlexRIO::TerminalsFlexRIO(const bfp::BFP &parsedBitfile,
+TerminalsFlexRIO::TerminalsFlexRIO(ParserManager *parserManager,
 		const NiFpga_Session &session) :
 		TerminalsBase(
-				std::make_shared<TerminalsFlexRIOImpl>(parsedBitfile, session)) {
+				std::make_shared<TerminalsFlexRIOImpl>(parserManager, session)) {
 }
 
 bool TerminalsFlexRIO::getRIOAdapterCorrect() const {

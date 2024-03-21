@@ -6,57 +6,63 @@
 namespace iriov2 {
 
 void findAndCheck(
-		const std::unordered_map<std::string, bfp::Register> &mapReg,
+		ParserManager *parserManager,
 		const std::string &terminalName,
 		const size_t maxNum,
 		const size_t expectedNum,
 		std::unordered_map<std::uint32_t, const std::uint32_t> *mapInsert) {
-	utils::findAndInsertEnumResources(mapReg, terminalName, maxNum, mapInsert);
+	for(size_t i = 0; i < maxNum; ++i) {
+		parserManager->findRegisterEnumAddress(terminalName, i,
+						GroupResource::SG, mapInsert, true);
+	}
+
 	if (mapInsert->size() != expectedNum) {
-		throw errors::ResourceNotFoundError(
-				"Mismatch between SGNo and number of found " + terminalName);
+		parserManager->logResourceMismatch(terminalName,
+				TERMINAL_SGNO, GroupResource::SG);
 	}
 }
 
 TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
-		const bfp::BFP &parsedBitfile,
+		ParserManager *parserManager,
 		const NiFpga_Session &session,
 		const Platform &platform) :
 		TerminalsBaseImpl(session) {
 	NiFpga_Status status;
-	const auto mapReg = parsedBitfile.getRegisters();
-	const auto it = mapReg.find(TERMINAL_SGNO);
-	if (it == mapReg.end()) {
+
+	std::uint32_t addrSGNO;
+	if (!parserManager->findRegisterAddress(TERMINAL_SGNO, GroupResource::SG,
+			&addrSGNO, true)) {
 		// There are no signal generators, go back
 		return;
 	}
-	status = NiFpga_ReadU8(m_session, it->second.getAddress(), &m_numSG);
+	status = NiFpga_ReadU8(m_session, addrSGNO, &m_numSG);
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading " + std::string(TERMINAL_SGNO));
 
 	// Find SignalType
-	findAndCheck(mapReg, TERMINAL_SGSIGNALTYPE,
+	findAndCheck(parserManager, TERMINAL_SGSIGNALTYPE,
 			platform.maxSG, m_numSG, &m_mapSignalType_addr);
 
 	// Find Amp
-	findAndCheck(mapReg, TERMINAL_SGAMP,
+	findAndCheck(parserManager, TERMINAL_SGAMP,
 			platform.maxSG, m_numSG, &m_mapAmp_addr);
 
 	// Find Freq
-	findAndCheck(mapReg, TERMINAL_SGFREQ,
+	findAndCheck(parserManager, TERMINAL_SGFREQ,
 			platform.maxSG, m_numSG, &m_mapFreq_addr);
 
 	// Find Phase
-	findAndCheck(mapReg, TERMINAL_SGPHASE,
+	findAndCheck(parserManager, TERMINAL_SGPHASE,
 			platform.maxSG, m_numSG, &m_mapPhase_addr);
 
 	// Find Update Rate
-	findAndCheck(mapReg, TERMINAL_SGUPDATERATE,
+	findAndCheck(parserManager, TERMINAL_SGUPDATERATE,
 			platform.maxSG, m_numSG, &m_mapUpdateRate_addr);
 
 	// Read all Fref
 	std::unordered_map<std::uint32_t, const std::uint32_t> mapFrefAux;
-	findAndCheck(mapReg, TERMINAL_SGFREF, platform.maxSG, m_numSG, &mapFrefAux);
+	findAndCheck(parserManager, TERMINAL_SGFREF, platform.maxSG, m_numSG,
+			&mapFrefAux);
 	for (const auto pair : mapFrefAux) {
 		std::uint32_t aux;
 		status = NiFpga_ReadU32(m_session, pair.second, &aux);

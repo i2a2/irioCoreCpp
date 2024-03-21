@@ -3,13 +3,13 @@
 #include "utils.h"
 
 namespace iriov2 {
-TerminalsFlexRIOImpl::TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile,
+TerminalsFlexRIOImpl::TerminalsFlexRIOImpl(ParserManager *parserManager,
 		const NiFpga_Session &session) :
 		TerminalsBaseImpl(session) {
-	m_rioadaptercorrect_addr = parsedBitfile.getRegister(
-			TERMINAL_RIOADAPTERCORRECT).getAddress();
-	m_insertediomoduleid_addr = parsedBitfile.getRegister(
-			TERMINAL_INSERTEDIOMODULEID).getAddress();
+	parserManager->findRegisterAddress(TERMINAL_RIOADAPTERCORRECT,
+			GroupResource::FlexRIO, &m_rioadaptercorrect_addr, false);
+	parserManager->findRegisterAddress(TERMINAL_INSERTEDIOMODULEID,
+			GroupResource::FlexRIO, &m_insertediomoduleid_addr, false);
 }
 
 bool TerminalsFlexRIOImpl::getRIOAdapterCorrect() const {

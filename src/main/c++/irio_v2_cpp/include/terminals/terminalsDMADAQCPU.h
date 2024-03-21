@@ -27,7 +27,7 @@ class TerminalsDMADAQCPU: public TerminalsDMADAQ{
 	 * 								Used to know the maximum number of terminals
 	 * 								that can be found
 	 */
-	TerminalsDMADAQCPU(const bfp::BFP &parsedBitfile,
+	TerminalsDMADAQCPU(ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 };

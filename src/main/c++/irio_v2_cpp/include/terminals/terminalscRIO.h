@@ -23,7 +23,7 @@ class TerminalscRIO: public TerminalsBase {
 	 * @param parsedBitfile Parsed bitfile with the cRIO specific terminals
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 */
-	TerminalscRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+	TerminalscRIO(ParserManager *parserManager, const NiFpga_Session &session);
 
 	/**
 	 * Returns whether the modules connected to the cRIO are ok

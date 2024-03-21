@@ -12,7 +12,7 @@ namespace iriov2 {
  */
 class TerminalsFlexRIOImpl: public TerminalsBaseImpl {
  public:
-	TerminalsFlexRIOImpl(const bfp::BFP &parsedBitfile,
+	TerminalsFlexRIOImpl(ParserManager *parserManager,
 						const NiFpga_Session &session);
 
 	bool getRIOAdapterCorrect() const;

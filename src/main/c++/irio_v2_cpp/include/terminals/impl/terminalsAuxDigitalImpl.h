@@ -14,7 +14,7 @@ namespace iriov2 {
 class TerminalsAuxDigitalImpl: public TerminalsBaseImpl {
  public:
 	TerminalsAuxDigitalImpl(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 

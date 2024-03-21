@@ -3,16 +3,16 @@
 
 namespace iriov2 {
 
-ProfileCPUDAQ::ProfileCPUDAQ(const bfp::BFP &parsedBitfile,
+ProfileCPUDAQ::ProfileCPUDAQ(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,
 		const PROFILE_ID &id) :
 		ProfileBase(id) {
-	addTerminal(TerminalsAnalog(parsedBitfile, session, platform));
-	addTerminal(TerminalsDigital(parsedBitfile, session, platform));
-	addTerminal(TerminalsAuxAnalog(parsedBitfile, session, platform));
-	addTerminal(TerminalsAuxDigital(parsedBitfile, session, platform));
-	addTerminal(TerminalsSignalGeneration(parsedBitfile, session, platform));
-	addTerminal(TerminalsDMADAQCPU(parsedBitfile, session, platform));
+	addTerminal(TerminalsAnalog(parserManager, session, platform));
+	addTerminal(TerminalsDigital(parserManager, session, platform));
+	addTerminal(TerminalsAuxAnalog(parserManager, session, platform));
+	addTerminal(TerminalsAuxDigital(parserManager, session, platform));
+	addTerminal(TerminalsSignalGeneration(parserManager, session, platform));
+	addTerminal(TerminalsDMADAQCPU(parserManager, session, platform));
 }
 
 }  // namespace iriov2

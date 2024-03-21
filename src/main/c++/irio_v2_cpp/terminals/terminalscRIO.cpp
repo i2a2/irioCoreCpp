@@ -3,10 +3,10 @@
 #include <memory>
 
 namespace iriov2 {
-TerminalscRIO::TerminalscRIO(const bfp::BFP &parsedBitfile,
+TerminalscRIO::TerminalscRIO(ParserManager *parserManager,
 		const NiFpga_Session &session) :
 		TerminalsBase(
-				std::make_shared<TerminalscRIOImpl>(parsedBitfile, session)) {
+				std::make_shared<TerminalscRIOImpl>(parserManager, session)) {
 }
 
 bool TerminalscRIO::getcRIOModulesOk() const {

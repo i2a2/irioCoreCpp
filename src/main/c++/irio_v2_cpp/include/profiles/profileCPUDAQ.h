@@ -31,7 +31,7 @@ class ProfileCPUDAQ: virtual public ProfileBase {
 	 * @param id				Profile used
 	 */
 	ProfileCPUDAQ(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform,
 			const PROFILE_ID &id);

@@ -14,7 +14,7 @@ namespace iriov2 {
  */
 class TerminalscRIOImpl: public TerminalsBaseImpl {
  public:
-	TerminalscRIOImpl(const bfp::BFP &parsedBitfile,
+	TerminalscRIOImpl(ParserManager *parserManager,
 			const NiFpga_Session &session);
 
 	bool getcRIOModulesOk() const;

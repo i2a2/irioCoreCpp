@@ -14,7 +14,7 @@ namespace iriov2 {
 class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
  public:
 	TerminalsSignalGenerationImpl(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 

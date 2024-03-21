@@ -21,7 +21,7 @@ class TerminalsFlexRIO: public TerminalsBase{
 	 * @param parsedBitfile Parsed bitfile with the FlexRIO specific terminals
 	 * @param session		NiFpga_Session to be used in NiFpga related functions
 	 */
-	TerminalsFlexRIO(const bfp::BFP &parsedBitfile, const NiFpga_Session &session);
+	TerminalsFlexRIO(ParserManager *parserManager, const NiFpga_Session &session);
 
 	/**
 	 * Returns whether the adapter connected in the FPGA is correct

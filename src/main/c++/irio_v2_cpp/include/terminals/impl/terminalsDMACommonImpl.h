@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <functional>
 
 #include "terminals/impl/terminalsBaseImpl.h"
 #include "frameTypes.h"
@@ -48,7 +49,7 @@ class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 	 * 								write to DMA
 	 */
 	TerminalsDMACommonImpl(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform,
 			const std::string &nameTermNCh,
@@ -109,6 +110,15 @@ class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 			std::uint32_t timeout = 0) const;
 
 	size_t countDMAsImpl() const;
+
+ protected:
+	template<typename T>
+	bool findArrayRegReadToVector(ParserManager *parserManager,
+			const GroupResource &group, bool optional,
+			const NiFpga_Session &session, const std::string &nameReg,
+			std::vector<T> *vec,
+			std::function<NiFpga_Status(NiFpga_Session,
+					std::uint32_t, T*, size_t)> readFunc);
 
  private:
 	static const size_t SIZE_HOST_DMAS = 2048000;  // TODO: Why this number?

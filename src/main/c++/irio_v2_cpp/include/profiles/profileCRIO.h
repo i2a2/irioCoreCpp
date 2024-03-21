@@ -28,7 +28,7 @@ class ProfileCRIO: virtual public ProfileBase {
 	 * @param id			Profile used
 	 */
 	ProfileCRIO(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const PROFILE_ID &id);
 };

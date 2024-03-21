@@ -5,17 +5,17 @@
 namespace iriov2 {
 
 TerminalsDigitalImpl::TerminalsDigitalImpl(
-		const bfp::BFP &parsedBitfile,
+		ParserManager *parserManager,
 		const NiFpga_Session &session,
 		const Platform &platform) :
 		TerminalsBaseImpl(session) {
-	// Find DI
-	utils::findAndInsertEnumRegisters(
-			parsedBitfile, TERMINAL_DI, platform.maxDigital, &m_mapDI);
-
-	// Find DO
-	utils::findAndInsertEnumRegisters(
-			parsedBitfile, TERMINAL_DO, platform.maxDigital, &m_mapDO);
+	// Find DI and DO
+	for(size_t i = 0; i < platform.maxDigital; ++i) {
+		parserManager->findRegisterEnumAddress(TERMINAL_DI, i,
+						GroupResource::AuxDI, &m_mapDI, true);
+		parserManager->findRegisterEnumAddress(TERMINAL_DO, i,
+						GroupResource::AuxDO, &m_mapDO, true);
+	}
 }
 
 bool getDigital(

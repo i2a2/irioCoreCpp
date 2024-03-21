@@ -26,7 +26,7 @@ class TerminalsAuxDigital: public TerminalsBase {
 	 * @param platform		Platform that is using the terminals. Used to know the maximum number of terminals that can be found.
 	 */
 	TerminalsAuxDigital(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 

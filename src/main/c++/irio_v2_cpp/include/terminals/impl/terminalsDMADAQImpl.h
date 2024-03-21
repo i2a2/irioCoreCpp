@@ -51,7 +51,7 @@ class TerminalsDMADAQImpl: public TerminalsDMACommonImpl{
 	 * 								write to DMA
 	 */
 	TerminalsDMADAQImpl(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform,
 			const std::string &nameTermBlockNWords,

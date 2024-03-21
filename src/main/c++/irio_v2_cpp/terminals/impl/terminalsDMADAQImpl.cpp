@@ -4,7 +4,7 @@
 
 namespace iriov2 {
 
-TerminalsDMADAQImpl::TerminalsDMADAQImpl(const bfp::BFP &parsedBitfile,
+TerminalsDMADAQImpl::TerminalsDMADAQImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,
 		const std::string &nameTermBlockNWords,
 		const std::string &nameTermSamplingRate, const std::string &nameTermNCh,
@@ -12,30 +12,31 @@ TerminalsDMADAQImpl::TerminalsDMADAQImpl(const bfp::BFP &parsedBitfile,
 		const std::string &nameTermSampleSize,
 		const std::string &nameTermOverflows, const std::string &nameTermDMA,
 		const std::string &nameTermDMAEnable) :
-		TerminalsDMACommonImpl(parsedBitfile, session, platform, nameTermNCh,
+		TerminalsDMACommonImpl(parserManager, session, platform, nameTermNCh,
 				nameTermFrameType, nameTermSampleSize, nameTermOverflows,
 				nameTermDMA, nameTermDMAEnable), m_nameTermSamplingRate(
 				nameTermSamplingRate) {
 	const size_t numDMAs = countDMAsImpl();
 
 	// Find BlockNWords
-	utils::findArrayRegReadToVector<std::uint16_t>(parsedBitfile, m_session,
+	findArrayRegReadToVector<std::uint16_t>(parserManager,
+			GroupResource::DAQ, false, m_session,
 			nameTermBlockNWords, &m_lengthBlocks, &NiFpga_ReadArrayU16);
 
 	if (numDMAs != m_lengthBlocks.size()) {
-		throw errors::ResourceNotFoundError(
-				"Mismatch in number of " + nameTermDMA + " and "
-						+ nameTermBlockNWords + " terminals");
+		parserManager->logResourceMismatch(nameTermBlockNWords,
+				nameTermDMA, GroupResource::DAQ);
 	}
 
 	// Find SamplingRate
-	utils::findAndInsertEnumRegisters(parsedBitfile, nameTermSamplingRate,
-			platform.maxDMA, &m_samplingRate_addr);
+	for(size_t i = 0; i < platform.maxDMA; ++i) {
+		parserManager->findRegisterEnumAddress(nameTermSamplingRate, i,
+				GroupResource::DAQ, &m_samplingRate_addr, true);
+	}
 
 	if (numDMAs != m_samplingRate_addr.size()) {
-		throw errors::ResourceNotFoundError(
-				"Mismatch in number of " + nameTermDMA + " and "
-						+ nameTermSamplingRate + " terminals");
+		parserManager->logResourceMismatch(nameTermSamplingRate,
+						nameTermDMA, GroupResource::DAQ);
 	}
 }
 

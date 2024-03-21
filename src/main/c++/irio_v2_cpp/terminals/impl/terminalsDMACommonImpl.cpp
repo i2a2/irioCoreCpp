@@ -5,7 +5,45 @@
 
 namespace iriov2 {
 
-TerminalsDMACommonImpl::TerminalsDMACommonImpl(const bfp::BFP &parsedBitfile,
+template<typename T>
+bool TerminalsDMACommonImpl::findArrayRegReadToVector(
+		ParserManager *parserManager,
+		const GroupResource &group, bool optional,
+		const NiFpga_Session &session, const std::string &nameReg,
+		std::vector<T> *vec,
+		std::function<NiFpga_Status(NiFpga_Session,
+				std::uint32_t, T*, size_t)> readFunc) {
+	bfp::Register reg;
+	if (parserManager->findRegister(nameReg, group, &reg, optional)) {
+		vec->resize(reg.getNumElem());
+		const auto status = readFunc(session, reg.getAddress(), vec->data(),
+				vec->size());
+		utils::throwIfNotSuccessNiFpga(status, "Error reading " + nameReg);
+		return true;
+	} else {
+		return false;
+	}
+}
+
+template
+bool TerminalsDMACommonImpl::findArrayRegReadToVector<std::uint8_t>(
+		ParserManager *parserManager,
+		const GroupResource &group, bool optional,
+		const NiFpga_Session &session, const std::string &nameReg,
+		std::vector<std::uint8_t> *vec,
+		std::function<NiFpga_Status(NiFpga_Session,
+				std::uint32_t, std::uint8_t*, size_t)> readFunc);
+
+template
+bool TerminalsDMACommonImpl::findArrayRegReadToVector<std::uint16_t>(
+		ParserManager *parserManager,
+		const GroupResource &group, bool optional,
+		const NiFpga_Session &session, const std::string &nameReg,
+		std::vector<std::uint16_t> *vec,
+		std::function<NiFpga_Status(NiFpga_Session,
+				std::uint32_t, std::uint16_t*, size_t)> readFunc);
+
+TerminalsDMACommonImpl::TerminalsDMACommonImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,
 		const std::string &nameTermNCh, const std::string &nameTermFrameType,
 		const std::string &nameTermSampleSize,
@@ -14,15 +52,18 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(const bfp::BFP &parsedBitfile,
 		TerminalsBaseImpl(session), m_nameTermOverflows(nameTermOverflows),
 		m_nameTermDMA(nameTermDMA), m_nameTermDMAEnable(nameTermDMAEnable) {
 	// Find Overflows (it is one uint16 where each bit is the status)
-	m_overflowsAddr = parsedBitfile.getRegister(nameTermOverflows).getAddress();
+	parserManager->findRegisterAddress(nameTermOverflows,
+			GroupResource::DMA, &m_overflowsAddr, false);
 
 	// Find NCh
-	utils::findArrayRegReadToVector<std::uint16_t>(parsedBitfile, m_session,
+	findArrayRegReadToVector<std::uint16_t>(parserManager,
+			GroupResource::DMA, false, m_session,
 			nameTermNCh, &m_nCh, &NiFpga_ReadArrayU16);
 
 	// Find FrameType
 	std::vector<std::uint8_t> auxVecFrameType;
-	utils::findArrayRegReadToVector<std::uint8_t>(parsedBitfile, m_session,
+	findArrayRegReadToVector<std::uint8_t>(parserManager,
+			GroupResource::DMA, false, m_session,
 			nameTermFrameType, &auxVecFrameType, &NiFpga_ReadArrayU8);
 
 	m_frameType.reserve(auxVecFrameType.size());
@@ -31,21 +72,24 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(const bfp::BFP &parsedBitfile,
 	}
 
 	// Find SampleSize
-	utils::findArrayRegReadToVector<std::uint8_t>(parsedBitfile, m_session,
+	findArrayRegReadToVector<std::uint8_t>(parserManager,
+			GroupResource::DMA, false, m_session,
 			nameTermSampleSize, &m_sampleSize, &NiFpga_ReadArrayU8);
 
-	// Find DMAs
-	utils::findAndInsertEnumDMAs(parsedBitfile, nameTermDMA, platform.maxDMA,
-			&m_mapDMA);
+	// Find DMAs and DMAEnable
+	for(size_t i = 0; i < platform.maxDMA; ++i) {
+		const auto foundDMA = parserManager->findDMAEnumNum(
+				nameTermDMA, i, GroupResource::DMA, &m_mapDMA, true);
+		const auto foundDMAEna = parserManager->findRegisterEnumAddress(
+				nameTermDMAEnable, i, GroupResource::DMA,
+				&m_mapEnable, !foundDMA);
 
-	// Find DMAEnable
-	utils::findAndInsertEnumRegisters(parsedBitfile, nameTermDMAEnable,
-			platform.maxDMA, &m_mapEnable);
-
-	if (m_mapDMA.size() != m_mapEnable.size()) {
-		throw errors::ResourceNotFoundError(
-				"Mismatch in number of " + nameTermDMA + " and "
-						+ nameTermDMAEnable + " terminals");
+		if(!foundDMA && foundDMAEna) {
+			const std::string resourceName = nameTermDMAEnable + std::to_string(i);
+			const std::string relatedResource = nameTermDMA + std::to_string(i);
+			parserManager->logResourceMismatch(resourceName, relatedResource,
+					GroupResource::DMA);
+		}
 	}
 }
 

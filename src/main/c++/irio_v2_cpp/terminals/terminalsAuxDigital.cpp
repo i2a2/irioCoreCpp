@@ -4,10 +4,10 @@
 
 namespace iriov2 {
 
-TerminalsAuxDigital::TerminalsAuxDigital(const bfp::BFP &parsedBitfile,
+TerminalsAuxDigital::TerminalsAuxDigital(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBase(std::make_shared<TerminalsAuxDigitalImpl>
-						(parsedBitfile, session, platform)) {
+						(parserManager, session, platform)) {
 }
 
 bool TerminalsAuxDigital::getAuxDI(const std::uint32_t n) const {

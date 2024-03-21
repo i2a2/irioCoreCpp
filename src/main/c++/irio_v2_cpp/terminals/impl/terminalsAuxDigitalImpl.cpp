@@ -4,16 +4,16 @@
 
 namespace iriov2 {
 
-TerminalsAuxDigitalImpl::TerminalsAuxDigitalImpl(const bfp::BFP &parsedBitfile,
+TerminalsAuxDigitalImpl::TerminalsAuxDigitalImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBaseImpl(session) {
-	// Find DI
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDI,
-			platform.maxDigital, &m_mapAuxDI);
-
-	// Find DO
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXDO,
-			platform.maxDigital, &m_mapAuxDO);
+	// Find AuxDI and AuxDO
+	for(size_t i = 0; i < platform.maxAuxDigital; ++i) {
+		parserManager->findRegisterEnumAddress(TERMINAL_AUXDI, i,
+						GroupResource::AuxDI, &m_mapAuxDI, true);
+		parserManager->findRegisterEnumAddress(TERMINAL_AUXDO, i,
+						GroupResource::AuxDO, &m_mapAuxDO, true);
+	}
 }
 
 bool getAuxDigital(const NiFpga_Session &session, const std::uint32_t n,

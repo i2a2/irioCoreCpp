@@ -30,7 +30,7 @@ class ProfileCPUDAQFlexRIO: public ProfileCPUDAQ, public ProfileFlexRIO {
 	 * @param platform			Platform used
 	 */
 	ProfileCPUDAQFlexRIO(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 };

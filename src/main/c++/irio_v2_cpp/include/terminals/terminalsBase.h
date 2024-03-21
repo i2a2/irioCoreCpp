@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <NiFpga.h>
-#include "bfp.h"
+#include "parserManager.h"
 #include "platforms.h"
 
 namespace iriov2 {

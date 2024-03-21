@@ -30,7 +30,7 @@ class ProfileCPUDAQcRIO: public ProfileCPUDAQ, public ProfileCRIO {
 	 * @param platform			Platform used
 	 */
 	ProfileCPUDAQcRIO(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 };

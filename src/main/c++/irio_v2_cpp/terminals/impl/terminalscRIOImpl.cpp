@@ -3,15 +3,18 @@
 #include "utils.h"
 
 namespace iriov2 {
-TerminalscRIOImpl::TerminalscRIOImpl(const bfp::BFP &parsedBitfile,
+TerminalscRIOImpl::TerminalscRIOImpl(ParserManager *parserManager,
 		const NiFpga_Session &session) :
 		TerminalsBaseImpl(session) {
-	m_criomodulesok_addr =
-			parsedBitfile.getRegister(TERMINAL_CRIOMODULESOK).getAddress();
-	const auto regModulesID = parsedBitfile.getRegister(
-			TERMINAL_INSERTEDIOMODULESID);
-	m_insertediomodulesid_addr = regModulesID.getAddress();
-	m_numModules = regModulesID.getNumElem();
+	parserManager->findRegisterAddress(TERMINAL_CRIOMODULESOK,
+			GroupResource::CRIO, &m_criomodulesok_addr, false);
+
+	bfp::Register regModulesID;
+	if(parserManager->findRegister(TERMINAL_INSERTEDIOMODULESID,
+			GroupResource::CRIO, &regModulesID, false)) {
+		m_insertediomodulesid_addr = regModulesID.getAddress();
+		m_numModules = regModulesID.getNumElem();
+	}
 }
 
 bool TerminalscRIOImpl::getcRIOModulesOk() const {

@@ -5,6 +5,7 @@
 #include <utility>
 
 #include "profiles/profileBase.h"
+#include "parserManager.h"
 
 namespace iriov2 {
 
@@ -355,7 +356,7 @@ class IrioV2 {
 	 * @throw iriov2::errors::UnsupportedPlatformError	The platform read does not match any of the supported platforms
 	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
 	 */
-	void searchPlatform();
+	void searchPlatform(ParserManager *parserManager);
 
 	/**
 	 * Searches for the @ref TERMINAL_DEVPROFILE terminals and
@@ -368,14 +369,14 @@ class IrioV2 {
 	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
 	 * @throw iriov2::errors::NiFpgaError					Error occurred in an FPGA operation
 	 */
-	void searchDevProfile();
+	void searchDevProfile(ParserManager *parserManager);
 
 	/**
 	 * Searches for the common resources used in all profiles.
 	 * It reads some of the resources with their initials values,
 	 * so it must be called after a NiFpga_session has been obtained.
 	 */
-	void searchCommonResources();
+	void searchCommonResources(ParserManager *parserManager);
 
 	std::unique_ptr<Platform> m_platform;
 	std::unique_ptr<ProfileBase> m_profile;

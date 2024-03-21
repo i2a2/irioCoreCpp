@@ -3,13 +3,13 @@
 namespace iriov2 {
 
 ProfileCPUDAQFlexRIO::ProfileCPUDAQFlexRIO(
-		const bfp::BFP &parsedBitfile,
+		ParserManager *parserManager,
 		const NiFpga_Session &session,
 		const Platform &platform) :
 				ProfileBase(PROFILE_ID::FLEXRIO_CPUDAQ),
-				ProfileCPUDAQ(parsedBitfile, session,
+				ProfileCPUDAQ(parserManager, session,
 						platform, PROFILE_ID::FLEXRIO_CPUDAQ),
-				ProfileFlexRIO(parsedBitfile, session,
+				ProfileFlexRIO(parserManager, session,
 						PROFILE_ID::FLEXRIO_CPUDAQ) {
 }
 }  // namespace iriov2

@@ -4,24 +4,24 @@
 
 namespace iriov2 {
 
-TerminalsAuxAnalogImpl::TerminalsAuxAnalogImpl(const bfp::BFP &parsedBitfile,
+TerminalsAuxAnalogImpl::TerminalsAuxAnalogImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBaseImpl(session) {
-	// Find AuxAI
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXAI,
-			platform.maxAuxAI, &m_mapAuxAI);
+	// Find AuxAI and Aux64AI
+	for(size_t i = 0; i < platform.maxAuxAI; ++i) {
+		parserManager->findRegisterEnumAddress(TERMINAL_AUXAI, i,
+						GroupResource::AuxAI, &m_mapAuxAI, true);
+		parserManager->findRegisterEnumAddress(TERMINAL_AUX64AI, i,
+						GroupResource::AuxAI, &m_mapAuxAI64, true);
+	}
 
-	// Find AuxAO
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUXAO,
-			platform.maxAuxAO, &m_mapAuxAO);
-
-	// Find Aux64AI
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUX64AI,
-			platform.maxAuxAI, &m_mapAuxAI64);
-
-	// Find Aux64AO
-	utils::findAndInsertEnumRegisters(parsedBitfile, TERMINAL_AUX64AO,
-			platform.maxAuxAO, &m_mapAuxAO64);
+	// Find AuxAO and Aux64AO
+	for(size_t i = 0; i < platform.maxAuxAO; ++i) {
+		parserManager->findRegisterEnumAddress(TERMINAL_AUXAO, i,
+						GroupResource::AuxAO, &m_mapAuxAO, true);
+		parserManager->findRegisterEnumAddress(TERMINAL_AUX64AO, i,
+						GroupResource::AuxAO, &m_mapAuxAO64, true);
+	}
 }
 
 std::int32_t TerminalsAuxAnalogImpl::getAuxAIImpl(const std::uint32_t n) const {

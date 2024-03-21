@@ -15,7 +15,7 @@ namespace iriov2 {
 class TerminalsAnalogImpl: public TerminalsBaseImpl {
  public:
 	TerminalsAnalogImpl(
-			const bfp::BFP &parsedBitfile,
+			ParserManager *parserManager,
 			const NiFpga_Session &session,
 			const Platform &platform);
 

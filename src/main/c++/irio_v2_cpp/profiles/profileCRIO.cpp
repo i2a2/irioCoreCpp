@@ -3,10 +3,10 @@
 namespace iriov2 {
 
 ProfileCRIO::ProfileCRIO(
-		const bfp::BFP &parsedBitfile,
+		ParserManager *parserManager,
 		const NiFpga_Session &session,
 		const PROFILE_ID &id):
 			ProfileBase(id) {
-	addTerminal(TerminalscRIO(parsedBitfile, session));
+	addTerminal(TerminalscRIO(parserManager, session));
 }
 }  // namespace iriov2

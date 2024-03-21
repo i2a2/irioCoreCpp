@@ -6,11 +6,11 @@
 namespace iriov2 {
 
 TerminalsDMADAQCPU::TerminalsDMADAQCPU(
-		const bfp::BFP &parsedBitfile,
+		ParserManager *parserManager,
 		const NiFpga_Session &session,
 		const Platform &platform) :
 		TerminalsDMADAQ(
-				std::make_shared<TerminalsDMADAQImpl>(parsedBitfile, session,
+				std::make_shared<TerminalsDMADAQImpl>(parserManager, session,
 						platform, TERMINAL_DMATTOHOSTBLOCKNWORDS,
 						TERMINAL_DMATTOHOSTSAMPLINGRATE, TERMINAL_DMATTOHOSTNCH,
 						TERMINAL_DMATTOHOSTFRAMETYPE,
