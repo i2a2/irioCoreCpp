@@ -17,19 +17,14 @@ TerminalsAnalogImpl::TerminalsAnalogImpl(ParserManager *parserManager,
 
 	// Find AO and AOEnable
 	for(size_t i = 0; i < platform.maxAO; ++i) {
-		const auto foundAO = parserManager->findRegisterEnumAddress(
-				TERMINAL_AO, i, GroupResource::AO, &m_mapAO, true);
-		const auto foundAOEna = parserManager->findRegisterEnumAddress(
-				TERMINAL_AOENABLE, i, GroupResource::AO,
-				&m_mapAOEnable, !foundAO);
-
-		if(!foundAO && foundAOEna) {
-			const std::string resourceName = TERMINAL_AOENABLE + std::to_string(i);
-			const std::string relatedResource = TERMINAL_AO + std::to_string(i);
-			parserManager->logResourceMismatch(resourceName, relatedResource,
-					GroupResource::AO);
-		}
+		parserManager->findRegisterEnumAddress(
+			TERMINAL_AO, i, GroupResource::AO, &m_mapAO, true);
+		parserManager->findRegisterEnumAddress(
+			TERMINAL_AOENABLE, i, GroupResource::AO, &m_mapAOEnable, true);
 	}
+
+	parserManager->compareResourcesMap(m_mapAO, TERMINAL_AO, m_mapAOEnable,
+									   TERMINAL_AOENABLE, GroupResource::AO);
 
 	numAI = m_mapAI.size();
 	numAO = m_mapAO.size();

@@ -8,22 +8,22 @@
 #include "bfp.h"
 
 namespace iriov2 {
-struct MismatchInfo {
-	std::string resourceMissing;
-	std::string resourceNotMissing;
+struct ResourceError {
+	std::string resourceName;
+	std::string errMsg;
 
-	MismatchInfo(const std::string &resMissing,
-				const std::string &resNotMissing);
-	bool operator==(const MismatchInfo &other) const;
+	ResourceError(const std::string &resName,
+				const std::string &msg);
+	bool operator==(const ResourceError &other) const;
 };
 }
 
 
 template<>
-struct std::hash<iriov2::MismatchInfo> {
-	size_t operator()(const iriov2::MismatchInfo& info) const {
-		size_t hash1 = std::hash<std::string>{}(info.resourceMissing);
-		size_t hash2 = std::hash<std::string>{}(info.resourceNotMissing);
+struct std::hash<iriov2::ResourceError> {
+	size_t operator()(const iriov2::ResourceError& info) const {
+		size_t hash1 = std::hash<std::string>{}(info.resourceName);
+		size_t hash2 = std::hash<std::string>{}(info.errMsg);
 		return hash1 ^ (hash2 << 1);  // Combining hashes
 	}
 };
@@ -53,7 +53,7 @@ enum class GroupResource {
 struct GroupInfo {
 	std::unordered_set<std::string> found;
 	std::unordered_set<std::string> notFound;
-	std::unordered_set<MismatchInfo> mismatch;
+	std::unordered_set<ResourceError> error;
 
 	GroupInfo() = default;
 };
@@ -88,8 +88,16 @@ class ParserManager {
 			std::unordered_map<std::uint32_t, const std::uint32_t> *mapInsert,
 			const bool optional = false);
 
-	void logResourceMismatch(const std::string &resourceName,
-			const std::string &relatedResource, const GroupResource &group);
+	void compareResourcesMap(
+		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapA,
+		const std::string &nameTermA,
+		const std::unordered_map<std::uint32_t, const std::uint32_t> &mapB,
+		const std::string &nameTermB,
+		const GroupResource &group);
+
+	void logResourceError(const std::string &resourceName,
+		const std::string &errMsg,
+		const GroupResource &group);
 
 	bool hasErrorOccurred() const;
 

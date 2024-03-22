@@ -24,8 +24,14 @@ TerminalsDMADAQImpl::TerminalsDMADAQImpl(ParserManager *parserManager,
 			nameTermBlockNWords, &m_lengthBlocks, &NiFpga_ReadArrayU16);
 
 	if (numDMAs != m_lengthBlocks.size()) {
-		parserManager->logResourceMismatch(nameTermBlockNWords,
-				nameTermDMA, GroupResource::DAQ);
+		const std::string errMsg = "Array size of " +
+								    nameTermBlockNWords + " ("
+								   + std::to_string(m_lengthBlocks.size())
+								   + ") does not match the number "
+								   + "of DMAs found ("
+								   + std::to_string(numDMAs) + ")";
+		parserManager->logResourceError(nameTermBlockNWords, errMsg,
+										GroupResource::DAQ);
 	}
 
 	// Find SamplingRate
@@ -34,10 +40,9 @@ TerminalsDMADAQImpl::TerminalsDMADAQImpl(ParserManager *parserManager,
 				GroupResource::DAQ, &m_samplingRate_addr, true);
 	}
 
-	if (numDMAs != m_samplingRate_addr.size()) {
-		parserManager->logResourceMismatch(nameTermSamplingRate,
-						nameTermDMA, GroupResource::DAQ);
-	}
+	parserManager->compareResourcesMap(m_samplingRate_addr,
+									   nameTermSamplingRate, getDMAMap(),
+									   nameTermDMA, GroupResource::DAQ);
 }
 
 std::uint16_t TerminalsDMADAQImpl::getLengthBlock(

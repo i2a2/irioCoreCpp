@@ -29,6 +29,16 @@ public:
 						PLATFORM_ID::RSeries);
 	}
 
+	void SetUp() override {
+		TStatus status;
+		irio_initStatus(&status);
+	}
+
+	void TearDown() override {
+		TStatus status;
+		irio_closeDriver(&p_DrvPvt, 0, &status);
+	}
+
 	~CommonTestsAdapter() {
 		TStatus status;
 		irio_closeDriver(&p_DrvPvt, 0, &status);

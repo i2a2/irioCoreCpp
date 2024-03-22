@@ -78,19 +78,14 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(ParserManager *parserManager,
 
 	// Find DMAs and DMAEnable
 	for(size_t i = 0; i < platform.maxDMA; ++i) {
-		const auto foundDMA = parserManager->findDMAEnumNum(
-				nameTermDMA, i, GroupResource::DMA, &m_mapDMA, true);
-		const auto foundDMAEna = parserManager->findRegisterEnumAddress(
-				nameTermDMAEnable, i, GroupResource::DMA,
-				&m_mapEnable, !foundDMA);
-
-		if(!foundDMA && foundDMAEna) {
-			const std::string resourceName = nameTermDMAEnable + std::to_string(i);
-			const std::string relatedResource = nameTermDMA + std::to_string(i);
-			parserManager->logResourceMismatch(resourceName, relatedResource,
-					GroupResource::DMA);
-		}
+		parserManager->findDMAEnumNum(nameTermDMA, i, GroupResource::DMA,
+									  &m_mapDMA, true);
+		parserManager->findRegisterEnumAddress(
+			nameTermDMAEnable, i, GroupResource::DMA, &m_mapEnable, true);
 	}
+
+	parserManager->compareResourcesMap(m_mapDMA, nameTermDMA, m_mapEnable,
+									   nameTermDMAEnable, GroupResource::DMA);
 }
 
 std::uint16_t TerminalsDMACommonImpl::getNChImpl(const std::uint32_t n) const {
@@ -315,5 +310,11 @@ size_t TerminalsDMACommonImpl::readDataImpl(const std::uint32_t n,
 
 	return elementsRead;
 }
+
+std::unordered_map<std::uint32_t, const std::uint32_t>
+TerminalsDMACommonImpl::getDMAMap() const {
+	return m_mapDMA;
+}
+
 
 }  // namespace iriov2

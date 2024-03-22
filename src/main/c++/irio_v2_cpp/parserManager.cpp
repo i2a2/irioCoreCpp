@@ -75,11 +75,11 @@ void ParserManager::logResourceNotFound(const std::string &resourceName,
 	m_error = true;
 }
 
-void ParserManager::logResourceMismatch(const std::string &resourceName,
-									   const std::string &relatedResource,
-									   const GroupResource &group) {
+void ParserManager::logResourceError(const std::string &resourceName,
+		const std::string &errMsg,
+		const GroupResource &group) {
 	const auto it = &m_groupInfo.emplace(group, GroupInfo()).first->second;
-	it->mismatch.emplace(relatedResource, resourceName);
+	it->error.emplace(resourceName, errMsg);
 	m_error = true;
 }
 
@@ -100,13 +100,11 @@ void ParserManager::printInfo() const {
 			std::cout << notFound << ", " << std::endl;
 		}
 		std::cout << std::endl;
-		std::cout << "\tMismatch:" << std::endl << "\t\t";
-		for(const auto& mismatch : group.second.mismatch) {
-			std::cout << "Resource " << mismatch.resourceNotMissing
-					<< " found when resource " << mismatch.resourceMissing
-					<< " either does not exist or its value does not match"
-					<< " the number of resources found." << std::endl << "\t\t";
+		std::cout << "\tError:" << std::endl << "\t\t";
+		for(const auto& error : group.second.error) {
+			std::cout << error.errMsg << std::endl << "\t\t";
 		}
+
 		std::cout << std::endl;
 	}
 }
@@ -114,8 +112,8 @@ void ParserManager::printInfo() const {
 void ParserManager::printInfoError() const {
 	for(const auto& group : m_groupInfo) {
 		const auto notFoundMap = &group.second.notFound;
-		const auto mismatchMap = &group.second.mismatch;
-		if(notFoundMap->size() || mismatchMap->size()) {
+		const auto errorMap = &group.second.error;
+		if(notFoundMap->size() || errorMap->size()) {
 			std::cout << m_group2str.at(group.first) << ":" << std::endl;
 
 			if(notFoundMap->size()) {
@@ -125,13 +123,10 @@ void ParserManager::printInfoError() const {
 				}
 			}
 
-			if(mismatchMap->size()) {
-				std::cout << "\tMismatch:" << std::endl << "\t\t";
-				for(const auto& mismatch : *mismatchMap) {
-					std::cout << "Resource " << mismatch.resourceNotMissing
-							<< " found when resource " << mismatch.resourceMissing
-							<< " either does not exist or its value does not match"
-							<< " the number of resources found." << std::endl << "\t\t";
+			if(errorMap->size()) {
+				std::cout << "\tError:" << std::endl << "\t\t";
+				for(const auto& error : *errorMap) {
+					std::cout << error.errMsg << std::endl << "\t\t";
 				}
 				std::cout << std::endl;
 			}
@@ -167,14 +162,34 @@ bool ParserManager::findDMAEnumNum(const std::string &resourceName,
 	}
 }
 
+void ParserManager::compareResourcesMap(
+	const std::unordered_map<std::uint32_t, const std::uint32_t> &mapA,
+	const std::string &nameTermA,
+	const std::unordered_map<std::uint32_t, const std::uint32_t> &mapB,
+	const std::string &nameTermB,
+	const GroupResource &group) {
+	// Check resources in mapA
+    for (const auto& pair : mapA) {
+        if (mapB.find(pair.first) == mapB.end()) {
+			logResourceNotFound(nameTermB+std::to_string(pair.first), group);
+        }
+    }
 
-MismatchInfo::MismatchInfo(const std::string &resMissing,
-		const std::string &resNotMissing) : resourceMissing(resMissing),
-				resourceNotMissing(resNotMissing) { }
+    // Check resources in mapB
+    for (const auto& pair : mapB) {
+        if (mapA.find(pair.first) == mapA.end()) {
+			logResourceNotFound(nameTermA+std::to_string(pair.first), group);
+        }
+    }
+}
 
-bool MismatchInfo::operator==(const MismatchInfo &other) const {
-	 return (resourceMissing == other.resourceMissing) &&
-			 (resourceNotMissing == other.resourceNotMissing);
+ResourceError::ResourceError(const std::string &resName,
+		const std::string &msg) : resourceName(resName),
+				errMsg(msg) { }
+
+bool ResourceError::operator==(const ResourceError &other) const {
+	 return (resourceName == other.resourceName) &&
+			 (errMsg == other.errMsg);
 }
 
 

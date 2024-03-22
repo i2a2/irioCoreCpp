@@ -305,41 +305,42 @@ int irio_getVersion(char *version, TStatus*) {
 }
 
 int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	if (p_DrvPvt->fpgaStarted) {
-		irio_mergeStatus(status, FPGAAlreadyRunning_Warning,
-				p_DrvPvt->verbosity, "FPGA status can not be changed after started");
-		return IRIO_warning;
-	}
+	try {
+		const auto irio = IrioV2InstanceManager::getInstance(
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
-	// Why even have the parameter then???
-	if (value) {
-		try {
-			const auto irio = IrioV2InstanceManager::getInstance(
-					p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+		if (p_DrvPvt->fpgaStarted) {
+			irio_mergeStatus(status, FPGAAlreadyRunning_Warning,
+							 p_DrvPvt->verbosity,
+							 "FPGA status can not be changed after started");
+			return IRIO_warning;
+		}
 
+		// Why even have the parameter then???
+		if (value) {
 			irio->startFPGA();
 			p_DrvPvt->fpgaStarted = 1;
-		} catch (IrioV2NotInitializedError &e) {
-			irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
-					e.what());
-			return IRIO_error;
-		} catch (NiFpgaFPGAAlreadyRunning &e) {
-			irio_mergeStatus(status, FPGAAlreadyRunning_Warning,
-					p_DrvPvt->verbosity, "%s", e.what());
-			return IRIO_warning;
-		} catch (NiFpgaError &e) {
-			irio_mergeStatus(status, NIRIO_API_Error, p_DrvPvt->verbosity, "%s",
-					e.what());
-			return IRIO_error;
-		} catch (InitializationTimeoutError &e) {
-			irio_mergeStatus(status, InitDone_Error, p_DrvPvt->verbosity, "%s",
-					e.what());
-			return IRIO_error;
-		} catch (ModulesNotOKError &e) {
-			irio_mergeStatus(status, IOModule_Error, p_DrvPvt->verbosity, "%s",
-					e.what());
-			return IRIO_error;
 		}
+	} catch (IrioV2NotInitializedError &e) {
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return IRIO_error;
+	} catch (NiFpgaFPGAAlreadyRunning &e) {
+		irio_mergeStatus(status, FPGAAlreadyRunning_Warning,
+						 p_DrvPvt->verbosity, "%s", e.what());
+		return IRIO_warning;
+	} catch (NiFpgaError &e) {
+		irio_mergeStatus(status, NIRIO_API_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return IRIO_error;
+	} catch (InitializationTimeoutError &e) {
+		irio_mergeStatus(status, InitDone_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return IRIO_error;
+	} catch (ModulesNotOKError &e) {
+		irio_mergeStatus(status, IOModule_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return IRIO_error;
 	}
 
 	return IRIO_success;

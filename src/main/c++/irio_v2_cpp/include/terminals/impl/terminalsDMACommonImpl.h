@@ -120,6 +120,8 @@ class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 			std::function<NiFpga_Status(NiFpga_Session,
 					std::uint32_t, T*, size_t)> readFunc);
 
+	std::unordered_map<std::uint32_t, const std::uint32_t> getDMAMap() const;
+
  private:
 	static const size_t SIZE_HOST_DMAS = 2048000;  // TODO: Why this number?
 

@@ -255,8 +255,9 @@ void IrioV2::openSession() {
 			NiFpga_OpenAttribute_NoRun, &m_session);
 
 	if (NiFpga_IsError(status)) {
-		const std::string err = "Error downloading bitfile to FPGA. "
-				+ std::string("(Code: ") + std::to_string(status) + std::string(")");
+		const std::string err = "Error downloading bitfile to FPGA. " +
+								std::string("(Code: ") +
+								std::to_string(status) + std::string(")");
 
 		throw iriov2::errors::NiFpgaErrorDownloadingBitfile(err);
 	}
@@ -371,7 +372,7 @@ void IrioV2::searchDevProfile(ParserManager *parserManager) {
 	switch (it->second) {
 	case PROFILE_ID::FLEXRIO_CPUDAQ:
 		m_profile.reset(
-				new ProfileCPUDAQFlexRIO(parserManager, m_session, *m_platform));
+			new ProfileCPUDAQFlexRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 		throw std::runtime_error("Profile not implemented");
@@ -381,14 +382,13 @@ void IrioV2::searchDevProfile(ParserManager *parserManager) {
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::CRIO_DAQ:
 		m_profile.reset(
-				new ProfileCPUDAQcRIO(parserManager, m_session, *m_platform));
+			new ProfileCPUDAQcRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::CRIO_IO:
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::R_DAQ:
-		m_profile.reset(
-				new ProfileCPUDAQ(parserManager, m_session, *m_platform,
-						PROFILE_ID::R_DAQ));
+		m_profile.reset(new ProfileCPUDAQ(parserManager, m_session, *m_platform,
+										  PROFILE_ID::R_DAQ));
 		break;
 	}
 }

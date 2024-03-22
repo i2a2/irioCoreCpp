@@ -17,8 +17,13 @@ void findAndCheck(
 	}
 
 	if (mapInsert->size() != expectedNum) {
-		parserManager->logResourceMismatch(terminalName,
-				TERMINAL_SGNO, GroupResource::SG);
+		const std::string errMsg =
+			"Number of " + terminalName + " found (" +
+			std::to_string(mapInsert->size()) +
+			") does not match the number " + "of SGs expected (" +
+			std::to_string(expectedNum) + ")";
+		parserManager->logResourceError(terminalName, errMsg,
+										GroupResource::DAQ);
 	}
 }
 
