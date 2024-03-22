@@ -62,7 +62,9 @@ all: copy_includes $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
 copy_includes:
 	mkdir -p $(TARGET)/includes/
-	cp -R $(HEADERSFILES) $(TARGET)/includes/$(LIBNAME)
+	@for header in $(HEADERSFILES); do\
+		cp -R $$header $(TARGET)/includes/$(LIBNAME)/;\
+	done
 
 clean:
 	rm -rf "$(SHAREDLIBRARY)" "$(STATICLIBRARY)" "$(OBJECT_DIR)" "$(HTARGETS)"
