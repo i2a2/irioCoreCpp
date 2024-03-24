@@ -49,7 +49,6 @@ enum class GroupResource {
 	FlexRIO
 };
 
-
 struct GroupInfo {
 	std::unordered_set<std::string> found;
 	std::unordered_set<std::string> notFound;
