@@ -33,7 +33,15 @@ public:
 		if(ret != IRIO_success) {
 			throw std::runtime_error("Unable to initialize driver");
 		}
+	}
+
+	void SetUp() override {
+		irio_initStatus(&status);
+	}
+
+	void TearDown() override {
 		irio_resetStatus(&status);
+		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
 	~DigitalTestsAdapter() {

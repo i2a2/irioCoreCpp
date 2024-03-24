@@ -30,21 +30,20 @@ public:
 	}
 
 	void SetUp() override {
-		TStatus status;
 		irio_initStatus(&status);
 	}
 
 	void TearDown() override {
-		TStatus status;
+		irio_resetStatus(&status);
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
 	~CommonTestsAdapter() {
-		TStatus status;
 		irio_closeDriver(&p_DrvPvt, 0, &status);
 	}
 
 	irioDrv_t p_DrvPvt;
+	TStatus status;
 };
 
 class ErrorCommonTestsAdapter: public CommonTestsAdapter {};
@@ -53,8 +52,6 @@ class ErrorCommonTestsAdapter: public CommonTestsAdapter {};
 ///// Common Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(CommonTestsAdapter, InitClose) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -69,8 +66,6 @@ TEST_F(CommonTestsAdapter, InitClose) {
 }
 
 TEST_F(CommonTestsAdapter, getVersion) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -84,8 +79,6 @@ TEST_F(CommonTestsAdapter, getVersion) {
 }
 
 TEST_F(CommonTestsAdapter, setFPGAStart) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -98,7 +91,7 @@ TEST_F(CommonTestsAdapter, setFPGAStart) {
 }
 
 TEST_F(CommonTestsAdapter, getFPGAStart) {
-	TStatus status;
+	
 	int32_t value;
 	const auto ret = irio_getFPGAStart(&p_DrvPvt, &value, &status);
 
@@ -107,8 +100,6 @@ TEST_F(CommonTestsAdapter, getFPGAStart) {
 }
 
 TEST_F(CommonTestsAdapter, getFPGAVIVersion) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -127,8 +118,6 @@ TEST_F(CommonTestsAdapter, getFPGAVIVersion) {
 }
 
 TEST_F(CommonTestsAdapter, getDevQualityStatus) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -142,8 +131,6 @@ TEST_F(CommonTestsAdapter, getDevQualityStatus) {
 }
 
 TEST_F(CommonTestsAdapter, getDevTemp) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -157,8 +144,6 @@ TEST_F(CommonTestsAdapter, getDevTemp) {
 }
 
 TEST_F(CommonTestsAdapter, getProfile) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -172,8 +157,6 @@ TEST_F(CommonTestsAdapter, getProfile) {
 }
 
 TEST_F(CommonTestsAdapter, getDebugMode) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -187,8 +170,6 @@ TEST_F(CommonTestsAdapter, getDebugMode) {
 }
 
 TEST_F(CommonTestsAdapter, getDAQStartStop) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -202,8 +183,6 @@ TEST_F(CommonTestsAdapter, getDAQStartStop) {
 }
 
 TEST_F(CommonTestsAdapter, setDebugMode) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -216,8 +195,6 @@ TEST_F(CommonTestsAdapter, setDebugMode) {
 }
 
 TEST_F(CommonTestsAdapter, setDAQStartStop) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -230,7 +207,6 @@ TEST_F(CommonTestsAdapter, setDAQStartStop) {
 }
 
 TEST_F(CommonTestsAdapter, mergeStatusSuccess) {
-	TStatus status;
 	const std::string testString = "Test okay";
 
 	const auto ret = irio_mergeStatus(&status, Success, 0, testString.c_str());
@@ -251,7 +227,6 @@ TEST_F(CommonTestsAdapter, getErrorString) {
 /////// Error Common Tests
 /////////////////////////////////////////////////////////////////
 TEST_F(ErrorCommonTestsAdapter, InitStatusNullptr) {
-	TStatus status;
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
@@ -265,7 +240,6 @@ TEST_F(ErrorCommonTestsAdapter, InitStatusNullptr) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, IrioV2NotInitializedError) {
-	TStatus status;
 	int ret;
 
 	ret = irio_closeDriver(&p_DrvPvt, 0, &status);
@@ -277,7 +251,6 @@ TEST_F(ErrorCommonTestsAdapter, IrioV2NotInitializedError) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, InvalidBitfile) {
-	TStatus status;
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
@@ -291,7 +264,6 @@ TEST_F(ErrorCommonTestsAdapter, InvalidBitfile) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, InitResourceNotFoundError) {
-	TStatus status;
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
@@ -305,7 +277,6 @@ TEST_F(ErrorCommonTestsAdapter, InitResourceNotFoundError) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, FPGAVIVersionMismatchError) {
-	TStatus status;
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "0.0", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -320,7 +291,7 @@ TEST_F(ErrorCommonTestsAdapter, BitfileDownloadError) {
 	NiFpga_Open_fake.custom_fake = [](const char*, const char*, const char*, uint32_t, NiFpga_Session* session){
 		return NiFpga_Status_InternalError;
 	};
-	TStatus status;
+	
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -335,8 +306,7 @@ TEST_F(ErrorCommonTestsAdapter, GenericError) {
 	NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t*) {
 		return NiFpga_Status_InternalError;
 	};
-
-	TStatus status;
+	
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -348,8 +318,6 @@ TEST_F(ErrorCommonTestsAdapter, GenericError) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, setFPGAStartWhenAlreadyStarted) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -367,8 +335,6 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartWhenAlreadyStarted) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, setFPGAStartDriverNoInit) {
-	TStatus status;
-
 	auto ret = irio_setFPGAStart(&p_DrvPvt, 1, &status);
 	EXPECT_EQ(ret, IRIO_error) << "Expected error when calling the function without calling first initDriver";
 	EXPECT_EQ(status.code, IRIO_error);
@@ -379,8 +345,6 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaFPGAAlreadyRunning) {
 	NiFpga_Run_fake.custom_fake = [](NiFpga_Session, uint32_t) {
 		return NiFpga_Status_FpgaAlreadyRunning;
 	};
-
-	TStatus status;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
@@ -398,8 +362,6 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartNiFpgaError) {
 		return NiFpga_Status_SoftwareFault;
 	};
 
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -415,8 +377,6 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartInitDoneError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
 				bfp.getRegister(TERMINAL_INITDONE).getAddress(), 0);
 
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -429,8 +389,6 @@ TEST_F(ErrorCommonTestsAdapter, setFPGAStartInitDoneError) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, getFPGAVIVersionReadResourceWarning) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
@@ -448,7 +406,6 @@ TEST_F(ErrorCommonTestsAdapter, getFPGAVIVersionReadResourceWarning) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, getCommonNotInitError) {
-	TStatus status;
 	int32_t value;
 	auto ret = irio_getDAQStartStop(&p_DrvPvt, &value, &status);
 	EXPECT_EQ(ret, IRIO_error);
@@ -457,7 +414,6 @@ TEST_F(ErrorCommonTestsAdapter, getCommonNotInitError) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, getCommonReadNiRIOWarning) {
-	TStatus status;
 	int32_t value;
 
 	auto ret = irio_initDriver("test", "0", "TestModel",
@@ -476,7 +432,6 @@ TEST_F(ErrorCommonTestsAdapter, getCommonReadNiRIOWarning) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, setCommonNotInitError) {
-	TStatus status;
 	auto ret = irio_setDAQStartStop(&p_DrvPvt, 1, &status);
 	EXPECT_EQ(ret, IRIO_error);
 	EXPECT_EQ(status.code, IRIO_error);
@@ -484,8 +439,6 @@ TEST_F(ErrorCommonTestsAdapter, setCommonNotInitError) {
 }
 
 TEST_F(ErrorCommonTestsAdapter, setCommonReadNIRIOWarning) {
-	TStatus status;
-
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
