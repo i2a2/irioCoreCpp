@@ -355,15 +355,15 @@ int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 		size_t *valueLength, TStatus *status) {
 	if (strlen(p_DrvPvt->FPGAVIStringversion) > maxLength) {
 		*valueLength = maxLength;
-		irio_mergeStatus(status, Read_Resource_Warning,
-				p_DrvPvt->verbosity,
-				"FPGAVIVersion did not fit in the given pointer. Will be truncated");
+		irio_mergeStatus(status, Read_Resource_Warning, p_DrvPvt->verbosity,
+						 "FPGAVIVersion did not fit in the given pointer. Will "
+						 "be truncated");
 		return IRIO_warning;
 	} else {
 		*valueLength = strlen(p_DrvPvt->FPGAVIStringversion);
 	}
 
-	strncpy(value, p_DrvPvt->FPGAVIStringversion, *valueLength);
+	snprintf(value, *valueLength+1, "%s", p_DrvPvt->FPGAVIStringversion);
 
 	return IRIO_success;
 }
