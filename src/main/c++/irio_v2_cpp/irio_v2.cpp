@@ -44,9 +44,23 @@ IrioV2::IrioV2(const std::string &bitfilePath,
 			throw errors::ResourceNotFoundError();
 		}
 	} catch(errors::ResourceNotFoundError&) {
+		std::cerr << "[ERROR] Error searching resources in the bitfile "
+				  << bitfilePath << std::endl;
 		parserManager.printInfoError();
+
+		std::string baseFilename = utils::getBaseName(bitfilePath);
+		const char *envVar = std::getenv(PARSE_LOG_PATH_ENV_VAR);
+		const std::string logPath = envVar ? envVar : DEFAULT_PARSE_LOG_PATH;
+		const std::string timestamp = utils::getTimestamp();
+
+		std::string logFilePath =
+			logPath + "/" + baseFilename + "_parse_log_" + timestamp + ".xml";
+
+		parserManager.printInfoXML(logFilePath);
+
 		closeSession();
 		finalizeDriver();
+
 		throw;
 	} catch (...) {
 		// Must close the session, the destructor will not

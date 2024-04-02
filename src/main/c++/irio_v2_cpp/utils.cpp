@@ -1,4 +1,6 @@
-#include <vector>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 
 #include "utils.h"
 #include "errorsIrio.h"
@@ -27,6 +29,21 @@ std::uint32_t getAddressEnumResource(
 	return it->second;
 }
 
+std::string getBaseName(const std::string& path) {
+	return path.substr(path.find_last_of("/\\") + 1,
+					   path.find_last_of(".") - path.find_last_of("/\\") - 1);
+}
+
+std::string getTimestamp() {
+	auto now = std::chrono::system_clock::now();
+	auto duration = now.time_since_epoch();
+	auto nanoseconds =
+		std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
+
+	std::ostringstream oss;
+	oss << std::setfill('0') << std::setw(19) << nanoseconds;
+	return oss.str();
+}
 
 }  // namespace utils
 }  // namespace iriov2

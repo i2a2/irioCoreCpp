@@ -110,6 +110,8 @@ class ParserManager {
 
 	void printInfoError(std::ostream &os = std::cerr) const;
 
+	void printInfoXML(const std::string& filename) const;
+
  private:
 	void logResourceFound(const std::string &resourceName,
 			const GroupResource &group);

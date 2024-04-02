@@ -1,4 +1,6 @@
+#include <sys/stat.h>
 #include <iostream>
+#include <pugixml.hpp>
 
 #include "errorsIrio.h"
 #include "parserManager.h"
@@ -143,6 +145,66 @@ void ParserManager::printInfoError(std::ostream &os) const {
 				os << std::endl;
 			}
 		}
+	}
+}
+
+void ParserManager::printInfoXML(const std::string& filename) const {
+    pugi::xml_document doc;
+    pugi::xml_node root = doc.append_child("IrioV2");
+
+	for (const auto &group : m_groupInfo) {
+		const auto foundMap = &group.second.found;
+		const auto notFoundMap = &group.second.notFound;
+		const auto errorMap = &group.second.error;
+
+		pugi::xml_node groupNode = root.append_child("Group");
+		groupNode.append_attribute("name") =
+			m_group2str.at(group.first).c_str();
+
+		pugi::xml_node foundNode = groupNode.append_child("Found");
+		if (foundMap->size()) {
+			foundNode.append_attribute("count") = foundMap->size();
+			for (const auto &found : *foundMap) {
+				pugi::xml_node itemNode = foundNode.append_child("Resource");
+				itemNode.text().set(found.c_str());
+			}
+		}
+
+		pugi::xml_node notFoundNode = groupNode.append_child("NotFound");
+		if (notFoundMap->size()) {
+			notFoundNode.append_attribute("count") = notFoundMap->size();
+			for (const auto &notFound : *notFoundMap) {
+				pugi::xml_node itemNode = notFoundNode.append_child("Resource");
+				itemNode.text().set(notFound.c_str());
+			}
+		}
+
+		pugi::xml_node errorNode = groupNode.append_child("Error");
+		if (errorMap->size()) {
+			errorNode.append_attribute("count") = errorMap->size();
+			for (const auto &error : *errorMap) {
+				pugi::xml_node itemNode = errorNode.append_child("Resource");
+				itemNode.text().set(error.errMsg.c_str());
+			}
+		}
+	}
+
+	std::string directory(filename);
+    std::size_t lastSlash = directory.find_last_of("/\\");
+    if (lastSlash != std::string::npos) {
+        directory = directory.substr(0, lastSlash);
+    }
+
+    // Create the directory if it doesn't exist
+    struct stat st;
+    if (stat(directory.c_str(), &st) == -1) {
+		mkdir(directory.c_str(), 0777);
+    }
+
+	if (doc.save_file(filename.c_str())) {
+		std::cout << "Parse log created: " << filename << std::endl;
+	} else {
+		std::cerr << "Error: Could not save XML to file" << std::endl;
 	}
 }
 

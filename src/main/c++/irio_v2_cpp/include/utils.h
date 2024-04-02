@@ -39,6 +39,21 @@ std::uint32_t getAddressEnumResource(
 		const std::uint32_t n, const std::string &resourceName);
 
 /**
+ * Returns the base name of a given path.
+ * 
+ * @param path	The path from which to extract the base name.
+ * @return The base name of the path.
+ */
+std::string getBaseName(const std::string& path);
+
+/**
+ * Returns a string representation of the current timestamp.
+ *
+ * @return A string representing the current timestamp.
+ */
+std::string getTimestamp();
+
+/**
  * Converts an enum class to its underlying type.
  *
  * Helpful for switches when the value
