@@ -2,11 +2,11 @@
 
 #include <memory>
 #include <NiFpga.h>
-#include "parserManager.h"
 #include "platforms.h"
 
 namespace iriov2 {
 
+class ParserManager;
 class TerminalsBaseImpl;
 /**
  * Base class for all terminals

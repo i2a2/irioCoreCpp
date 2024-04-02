@@ -4,10 +4,14 @@
 #include <string>
 #include <utility>
 
-#include "profiles/profileBase.h"
-#include "parserManager.h"
+#include "platforms.h"
+#include "profilesTypes.h"
+#include "terminals/terminals.h"
 
 namespace iriov2 {
+
+class ProfileBase;
+class ParserManager;
 
 /**
  * @brief The environment variable name for specifying the parse log path.
@@ -367,14 +371,19 @@ class IrioV2 {
 	 */
 	void finalizeDriver() const noexcept;
 
-	/**
-	 * Opens a session to the FPGA, downloading the bitfile if necessary.
+    /**
+     * Opens a session with the specified bitfile and signature.
+     *  
+     * Opens a session to the FPGA, downloading the bitfile if necessary.
 	 * It does not run the VI, until @ref startFPGA has been called
-	 *
-	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-	 *
-	 */
-	void openSession();
+     * 
+     * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+     * 
+     * @param bitfilePath The path to the bitfile.
+     * @param signature The signature for the session.
+     */
+	void openSession(const std::string &bitfilePath,
+					 const std::string &signature);
 
 	/**
 	 * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.
@@ -408,8 +417,6 @@ class IrioV2 {
 
 	std::unique_ptr<Platform> m_platform;
 	std::unique_ptr<ProfileBase> m_profile;
-
-	bfp::BFP m_bfp;
 
 	std::string m_resourceName;
 

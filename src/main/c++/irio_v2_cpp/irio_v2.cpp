@@ -1,12 +1,15 @@
 #include <math.h>
 #include <limits>
 
+#include "bfp.h"
+
 #include "irio_v2.h"
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 #include "profiles/profiles.h"
 #include "rioDiscovery.h"
 #include "errorsIrio.h"
+#include "parserManager.h"
 
 namespace iriov2 {
 
@@ -15,16 +18,17 @@ namespace iriov2 {
  *********************************************/
 
 IrioV2::IrioV2(const std::string &bitfilePath,
-		const std::string &RIOSerialNumber, const std::string &FPGAVIversion,
-		const bool parseVerbose) :
-		m_bfp(bitfilePath, false), m_session(0),
-		m_closeAttribute(0) {
+			   const std::string &RIOSerialNumber,
+			   const std::string &FPGAVIversion,
+			   const bool parseVerbose)
+	: m_session(0), m_closeAttribute(0) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
+	bfp::BFP bfp(bitfilePath, false);
 
 	initDriver();
-	openSession();
+	openSession(bfp.getBitfilePath(), bfp.getSignature());
 
-	ParserManager parserManager(m_bfp);
+	ParserManager parserManager(bfp);
 	try {
 		searchCommonResources(&parserManager);
 
@@ -268,9 +272,10 @@ void IrioV2::initDriver() const {
 #endif
 }
 
-void IrioV2::openSession() {
-	const auto status = NiFpga_Open(m_bfp.getBitfilePath().c_str(),
-			m_bfp.getSignature().c_str(), m_resourceName.c_str(),
+void IrioV2::openSession(const std::string &bitfilePath,
+					 const std::string &signature) {
+	const auto status = NiFpga_Open(bitfilePath.c_str(),
+			signature.c_str(), m_resourceName.c_str(),
 			NiFpga_OpenAttribute_NoRun, &m_session);
 
 	if (NiFpga_IsError(status)) {
