@@ -17,6 +17,8 @@ COVERAGE_MAIN_FILE := main.coverage.info
 COVERAGE_FILE := coverage.info
 COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
 
+PACKAGE_DIR = packaging/
+
 ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
@@ -59,35 +61,15 @@ gen_rpmbuild: copy
 	@echo -e "$(BOLD)Generating packages...$(NC)"
 	@mkdir -p $(COPY_DIR)/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
 	@mkdir -p $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp/$(LIB_INSTALL_DIR)
-
-package_bfp:
-	$(MAKE) -f package_bfp.mk
-	$(MAKE) -f package_bfp_devel.mk
-
-package_iriov2cpp:
-	$(MAKE) -f package_iriov2cpp.mk
-	$(MAKE) -f package_iriov2cpp_devel.mk
-	
-package_lib_devel: gen_rpmbuild
-	@mkdir -p $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel/$(INC_INSTALL_DIR)/iriov2cpp
-	@mkdir -p $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel/$(LIB_INSTALL_DIR)
-	@cp -a $(COPY_DIR)/main/c++/bfp/include/. $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel/$(INC_INSTALL_DIR)/iriov2cpp
-	@cp -a $(COPY_DIR)/main/c++/irio_v2_cpp/include/. $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel/$(INC_INSTALL_DIR)/iriov2cpp
-	@cp $(COPY_DIR)/lib/*.a $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel/$(LIB_INSTALL_DIR)
-	@cp rpmspecs/iriov2cpp_devel.spec $(COPY_DIR)/rpmbuild/SPECS/
-	@sed -i 's/{VERSION}/$(VERSION)/g' $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp_devel.spec
-	@sed -i 's/{LIB_INSTALL_DIR}/$(shell echo "$(LIB_INSTALL_DIR)" | sed 's/\//\\\//g')/g' $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp_devel.spec
-	@sed -i 's/{INC_INSTALL_DIR}/$(shell echo "$(INC_INSTALL_DIR)" | sed 's/\//\\\//g')/g' $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp_devel.spec
-	rpmbuild --define "_rpmdir $(PWD)/$(COPY_DIR)" --buildroot $(PWD)/$(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp_devel -bb $(COPY_DIR)/rpmbuild/SPECS/iriov2cpp_devel.spec 
-	@echo -e "$(BOLD)iriov2cpp_devel package generated...$(NC)"
-	
+		
 doc: copy
 	@echo -e "$(BOLD)Generating documentation...$(NC)"
 	@mkdir -p $(COPY_DIR)/doc/irio_v2_cpp
 	@sed -i 's/{VERSION_DOXYGEN}/$(VERSION)/g' $(COPY_DIR)/main/c++/doc/Doxyfile
 	$(MAKE) -C $(COPY_DIR)/main/c++/doc all	
 
-package: compile package_bfp package_iriov2cpp
+package: compile
+	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
 		
 test:
