@@ -12,9 +12,9 @@ TerminalsDigitalImpl::TerminalsDigitalImpl(
 	// Find DI and DO
 	for(size_t i = 0; i < platform.maxDigital; ++i) {
 		parserManager->findRegisterEnumAddress(TERMINAL_DI, i,
-						GroupResource::AuxDI, &m_mapDI, true);
+						GroupResource::DI, &m_mapDI, true);
 		parserManager->findRegisterEnumAddress(TERMINAL_DO, i,
-						GroupResource::AuxDO, &m_mapDO, true);
+						GroupResource::DO, &m_mapDO, true);
 	}
 }
 
