@@ -49,11 +49,11 @@ public:
 class ErrorCommonTestsAdapter: public CommonTestsAdapter {};
 
 ///////////////////////////////////////////////////////////////
-///// Common Tests
+/// Common Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(CommonTestsAdapter, InitClose) {
 	auto ret = irio_initDriver("test", "0", "TestModel",
-			projectName.c_str(), "V9.9", false,
+			projectName.c_str(), "V9.9", true,
 			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
@@ -267,7 +267,7 @@ TEST_F(ErrorCommonTestsAdapter, InitResourceNotFoundError) {
 	int ret;
 
 	ret = irio_initDriver("test", "0", "TestModel",
-				"Rseries_MismatchSG_7854", "V9.9", true,
+				"Rseries_MismatchSG_7854", "V9.9", false,
 				nullptr, "../../../resources/failResources/7854", &p_DrvPvt, &status);
 
 	EXPECT_EQ(ret, IRIO_error) << "Expected error";

@@ -33,7 +33,7 @@ public:
 						nwords, sizeof(nwords)/sizeof(std::uint16_t));
 
 		auto ret = irio_initDriver("test", "0", "TestModel",
-					projectName.c_str(), "V9.9", true,
+					projectName.c_str(), "V9.9", false,
 					nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
 
 		if(ret != IRIO_success) {
