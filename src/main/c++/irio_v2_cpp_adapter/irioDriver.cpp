@@ -163,8 +163,9 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 	status->code = IRIO_success;
 	status->detailCode = Success;
 	try {
-		const auto pairAux = IrioV2InstanceManager::createInstance(bitfilePath,
-						p_DrvPvt->DeviceSerialNumber, p_DrvPvt->FPGAVIStringversion);
+		const auto pairAux = IrioV2InstanceManager::createInstance(
+			bitfilePath, p_DrvPvt->DeviceSerialNumber,
+			p_DrvPvt->FPGAVIStringversion, verbosity);
 
 		const auto irioV2ptr = pairAux.first;
 		p_DrvPvt->session = pairAux.second;
