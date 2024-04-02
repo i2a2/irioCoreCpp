@@ -17,9 +17,9 @@ std::unordered_map<std::string, ManageDevice> mapDevices;
 
 std::pair<iriov2::IrioV2*, std::uint32_t> IrioV2InstanceManager::createInstance(
 		const std::string &bitfilePath, const std::string &RIOSerialNumber,
-		const std::string &FPGAVIversion) {
-	auto irioV2ptr = IrioV2ptr(
-			new iriov2::IrioV2(bitfilePath, RIOSerialNumber, FPGAVIversion));
+		const std::string &FPGAVIversion, const bool verbose) {
+	auto irioV2ptr = IrioV2ptr(new iriov2::IrioV2(bitfilePath, RIOSerialNumber,
+												  FPGAVIversion, verbose));
 	const auto id = irioV2ptr->getID();
 
 	// If device exists, it will be returned. If not, a new entry is created

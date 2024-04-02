@@ -38,9 +38,10 @@ class IrioV2 {
 	 * @param bitfilePath		Bitfile to parse and download
 	 * @param RIOSerialNumber	RIO Serial Number of the device to use
 	 * @param FPGAVIversion		Version of the Bitfile. If it does not match the one parsed and exception will be thrown
+	 * @param parseVerbose		Print discovered resources
 	 */
 	IrioV2(const std::string &bitfilePath, const std::string &RIOSerialNumber,
-			const std::string &FPGAVIversion);
+			const std::string &FPGAVIversion, const bool parseVerbose = false);
 
 	/**
 	 * Destructor.

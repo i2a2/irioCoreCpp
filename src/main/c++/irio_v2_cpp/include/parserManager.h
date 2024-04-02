@@ -3,7 +3,9 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <set>
 #include <unordered_set>
+#include <iostream>
 
 #include "bfp.h"
 
@@ -49,9 +51,13 @@ enum class GroupResource {
 	FlexRIO
 };
 
+struct CustomStringComparator {
+    bool operator()(const std::string& a, const std::string& b) const;
+};
+
 struct GroupInfo {
-	std::unordered_set<std::string> found;
-	std::unordered_set<std::string> notFound;
+	std::set<std::string, CustomStringComparator> found;
+	std::set<std::string, CustomStringComparator> notFound;
 	std::unordered_set<ResourceError> error;
 
 	GroupInfo() = default;
@@ -100,9 +106,9 @@ class ParserManager {
 
 	bool hasErrorOccurred() const;
 
-	void printInfo() const;
+	void printInfo(std::ostream &os = std::cout) const;
 
-	void printInfoError() const;
+	void printInfoError(std::ostream &os = std::cerr) const;
 
  private:
 	void logResourceFound(const std::string &resourceName,

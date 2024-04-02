@@ -15,7 +15,8 @@ namespace iriov2 {
  *********************************************/
 
 IrioV2::IrioV2(const std::string &bitfilePath,
-		const std::string &RIOSerialNumber, const std::string &FPGAVIversion) :
+		const std::string &RIOSerialNumber, const std::string &FPGAVIversion,
+		const bool parseVerbose) :
 		m_bfp(bitfilePath, false), m_session(0),
 		m_closeAttribute(0) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
@@ -34,6 +35,10 @@ IrioV2::IrioV2(const std::string &bitfilePath,
 
 		searchPlatform(&parserManager);
 		searchDevProfile(&parserManager);
+
+		if(parseVerbose) {
+			parserManager.printInfo();
+		}
 
 		if(parserManager.hasErrorOccurred()) {
 			throw errors::ResourceNotFoundError();

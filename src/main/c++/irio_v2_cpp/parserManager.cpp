@@ -87,48 +87,60 @@ bool ParserManager::hasErrorOccurred() const {
 	return m_error;
 }
 
-void ParserManager::printInfo() const {
+void ParserManager::printInfo(std::ostream &os) const {
 	for(const auto& group : m_groupInfo) {
-		std::cout << m_group2str.at(group.first) << ":" << std::endl;
-		std::cout << "\tFound:" << std::endl << "\t\t";
-		for(const auto& found : group.second.found) {
-			std::cout << found << ", ";
-		}
-		std::cout << std::endl;
-		std::cout << "\tNot found:" << std::endl << "\t\t";
-		for(const auto& notFound : group.second.notFound) {
-			std::cout << notFound << ", " << std::endl;
-		}
-		std::cout << std::endl;
-		std::cout << "\tError:" << std::endl << "\t\t";
-		for(const auto& error : group.second.error) {
-			std::cout << error.errMsg << std::endl << "\t\t";
+		const auto foundMap = &group.second.found;
+		const auto notFoundMap = &group.second.notFound;
+		const auto errorMap = &group.second.error;
+
+		os << m_group2str.at(group.first) << ":" << std::endl;
+		if (foundMap->size()) {
+			os << "\tFound (" << foundMap->size() << " resources):" << std::endl
+			   << "\t\t";
+			for (const auto &found : *foundMap) {
+				os << found << ", ";
+			}
+			os << "\b\b " << std::endl;
 		}
 
-		std::cout << std::endl;
+		if (notFoundMap->size()) {
+			os << "\tNot found:" << std::endl << "\t\t";
+			for (const auto &notFound : *notFoundMap) {
+				os << notFound << ", " << std::endl;
+			}
+			os << "\b\b " << std::endl;
+		}
+
+		if (errorMap->size()) {
+			os << "\tError:" << std::endl << "\t\t";
+			for (const auto &error : *errorMap) {
+				os << error.errMsg << std::endl << "\t\t";
+			}
+			os << std::endl;
+		}
 	}
 }
 
-void ParserManager::printInfoError() const {
+void ParserManager::printInfoError(std::ostream &os) const {
 	for(const auto& group : m_groupInfo) {
 		const auto notFoundMap = &group.second.notFound;
 		const auto errorMap = &group.second.error;
 		if(notFoundMap->size() || errorMap->size()) {
-			std::cout << m_group2str.at(group.first) << ":" << std::endl;
+			os << m_group2str.at(group.first) << ":" << std::endl;
 
 			if(notFoundMap->size()) {
-				std::cout << "\tNot found:" << std::endl << "\t\t";
+				os << "\tNot found:" << std::endl << "\t\t";
 				for(const auto& notFound : *notFoundMap) {
-					std::cout << notFound << ", " << std::endl;
+					os << notFound << ", " << std::endl;
 				}
 			}
 
 			if(errorMap->size()) {
-				std::cout << "\tError:" << std::endl << "\t\t";
+				os << "\tError:" << std::endl << "\t\t";
 				for(const auto& error : *errorMap) {
-					std::cout << error.errMsg << std::endl << "\t\t";
+					os << error.errMsg << std::endl << "\t\t";
 				}
-				std::cout << std::endl;
+				os << std::endl;
 			}
 		}
 	}
@@ -192,5 +204,12 @@ bool ResourceError::operator==(const ResourceError &other) const {
 			 (errMsg == other.errMsg);
 }
 
+bool CustomStringComparator::operator()(const std::string &a,
+										const std::string &b) const {
+	if (a.size() == b.size()) {
+		return a < b;  // If sizes are equal, use lexicographical comparison
+	}
+	return a.size() < b.size();	 // Otherwise, shorter strings come first
+}
 
 }  // namespace iriov2

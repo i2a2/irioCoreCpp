@@ -23,7 +23,7 @@ class IrioV2InstanceManager {
 
 	static std::pair<iriov2::IrioV2*, std::uint32_t> createInstance(
 			const std::string &bitfilePath, const std::string &RIOSerialNumber,
-			const std::string &FPGAVIversion);
+			const std::string &FPGAVIversion, const bool verbose = true);
 
 	static iriov2::IrioV2* getInstance(const std::string &RIOSerialNumber,
 			const std::uint32_t session);
