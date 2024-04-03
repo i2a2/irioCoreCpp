@@ -29,7 +29,7 @@
 
 #pragma once
 
-#define IRIOVERSION "1.2.0"   //!< Actual IRIO version
+#define IRIOVERSION "{IRIOVERSIONVALUE}"   //!< Actual IRIO version
 #include "irioDataTypes.h"
 
 #include <stdint.h>
