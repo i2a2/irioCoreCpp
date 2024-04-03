@@ -69,4 +69,4 @@ constexpr auto enum2underlying(E e) -> typename std::underlying_type<E>::type {
 }
 
 }  // namespace utils
-}  // namespace iriov2
+}  // namespace irio

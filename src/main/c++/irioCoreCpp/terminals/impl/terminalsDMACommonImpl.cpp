@@ -317,4 +317,4 @@ TerminalsDMACommonImpl::getDMAMap() const {
 }
 
 
-}  // namespace iriov2
+}  // namespace irio

@@ -93,4 +93,4 @@ class BFP {
 	std::unordered_map<std::string, DMA> m_dmaMap;
 };
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

@@ -57,4 +57,4 @@ void TerminalsAuxDigitalImpl::setAuxDO(const std::uint32_t n,
 			"Error writing terminal " + std::string(TERMINAL_AUXDO)
 					+ std::to_string(n));
 }
-}  // namespace iriov2
+}  // namespace irio

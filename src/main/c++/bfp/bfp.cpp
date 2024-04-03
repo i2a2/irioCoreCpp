@@ -117,4 +117,4 @@ std::string BFP::getSignature() const {
 }
 
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

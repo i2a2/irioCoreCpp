@@ -15,4 +15,4 @@ ProfileCPUDAQ::ProfileCPUDAQ(ParserManager *parserManager,
 	addTerminal(TerminalsDMADAQCPU(parserManager, session, platform));
 }
 
-}  // namespace iriov2
+}  // namespace irio

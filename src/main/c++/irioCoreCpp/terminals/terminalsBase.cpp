@@ -7,4 +7,4 @@ TerminalsBase::TerminalsBase(std::shared_ptr<TerminalsBaseImpl> impl) :
 		m_impl(impl) {
 }
 
-}  // namespace iriov2
+}  // namespace irio

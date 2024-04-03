@@ -12,4 +12,4 @@ enum class FrameType {
 	FormatB = 1 /**< Not yet defined */
 };
 
-}  // namespace iriov2
+}  // namespace irio

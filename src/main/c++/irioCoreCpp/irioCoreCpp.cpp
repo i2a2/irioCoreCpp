@@ -418,4 +418,4 @@ void Irio::searchDevProfile(ParserManager *parserManager) {
 	}
 }
 
-}  // namespace iriov2
+}  // namespace irio

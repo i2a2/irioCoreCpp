@@ -62,4 +62,4 @@ Register Register::processRegister(const pugi::xml_node &registerNode,
 	return Register(name, fpgaType, elemType, address, numElem);
 }
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

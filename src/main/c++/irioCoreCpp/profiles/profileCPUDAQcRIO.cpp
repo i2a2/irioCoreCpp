@@ -12,4 +12,4 @@ ProfileCPUDAQcRIO::ProfileCPUDAQcRIO(
 				ProfileCRIO(parserManager, session,
 						PROFILE_ID::FLEXRIO_CPUDAQ) {
 }
-}  // namespace iriov2
+}  // namespace irio

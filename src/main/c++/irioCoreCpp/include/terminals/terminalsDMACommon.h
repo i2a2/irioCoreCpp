@@ -281,4 +281,4 @@ class TerminalsDMACommon: public TerminalsBase{
 	 */
 	size_t countDMAs() const;
 };
-}  // namespace iriov2
+}  // namespace irio

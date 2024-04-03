@@ -58,4 +58,4 @@ void TerminalsDigitalImpl::setDO(
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error writing terminal " + std::string(TERMINAL_DO) + std::to_string(n));
 }
-}  // namespace iriov2
+}  // namespace irio

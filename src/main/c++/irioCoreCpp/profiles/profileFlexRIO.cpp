@@ -9,4 +9,4 @@ ProfileFlexRIO::ProfileFlexRIO(
 			ProfileBase(id) {
 	addTerminal(TerminalsFlexRIO(parserManager, session));
 }
-}  // namespace iriov2
+}  // namespace irio

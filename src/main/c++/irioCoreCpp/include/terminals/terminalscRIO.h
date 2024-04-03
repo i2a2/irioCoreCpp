@@ -45,5 +45,5 @@ class TerminalscRIO: public TerminalsBase {
   std::vector<std::uint16_t> getInsertedIOModulesID() const;
 };
 
-}  // namespace iriov2
+}  // namespace irio
 

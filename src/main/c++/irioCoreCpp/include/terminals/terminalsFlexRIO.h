@@ -42,4 +42,4 @@ class TerminalsFlexRIO: public TerminalsBase{
   std::uint32_t getInsertedIOModuleID() const;
 };
 
-}  // namespace iriov2
+}  // namespace irio

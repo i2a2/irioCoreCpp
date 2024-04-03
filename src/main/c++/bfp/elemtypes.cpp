@@ -30,4 +30,4 @@ ElemTypes getElemTypeFromStr(const std::string &typeName) {
 	}
 }
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

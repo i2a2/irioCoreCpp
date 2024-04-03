@@ -229,4 +229,4 @@ class ModuleNI92xx: public Module {
 	const ConfigParams m_configDC { std::pow(2, -21), std::pow(2, 15), 10, -10 };
 };
 
-}  // namespace iriov2
+}  // namespace irio

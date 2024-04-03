@@ -46,4 +46,4 @@ class TerminalsAuxAnalogImpl: public TerminalsBaseImpl {
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapAuxAO64;
 };
 
-}  // namespace iriov2
+}  // namespace irio

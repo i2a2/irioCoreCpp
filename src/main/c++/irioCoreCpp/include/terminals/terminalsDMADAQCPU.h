@@ -33,6 +33,6 @@ class TerminalsDMADAQCPU: public TerminalsDMADAQ{
 			const Platform &platform);
 };
 
-}  // namespace iriov2
+}  // namespace irio
 
 

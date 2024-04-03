@@ -63,6 +63,6 @@ class TerminalsDMADAQ: public TerminalsDMACommon{
 			const std::uint16_t &decimation) const;
 };
 
-}  // namespace iriov2
+}  // namespace irio
 
 

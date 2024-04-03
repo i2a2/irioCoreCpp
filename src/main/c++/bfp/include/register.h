@@ -62,4 +62,4 @@ class Register: public Resource {
 	bool m_isArray = false;
 };
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

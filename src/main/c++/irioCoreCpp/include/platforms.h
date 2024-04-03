@@ -138,4 +138,4 @@ class PlatformRSeries: public Platform {
 	}
 };
 
-}  // namespace iriov2
+}  // namespace irio

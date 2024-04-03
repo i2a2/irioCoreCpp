@@ -55,4 +55,4 @@ class ProfileBase {
 			std::unique_ptr<TerminalsBase>> m_mapTerminals;
 };
 
-}  // namespace iriov2
+}  // namespace irio

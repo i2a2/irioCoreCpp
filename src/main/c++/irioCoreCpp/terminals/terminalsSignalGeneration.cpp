@@ -82,4 +82,4 @@ void TerminalsSignalGeneration::setSGUpdateRate(const std::uint32_t n,
 			->setSGUpdateRateImpl(n, value);
 }
 
-}  // namespace iriov2
+}  // namespace irio

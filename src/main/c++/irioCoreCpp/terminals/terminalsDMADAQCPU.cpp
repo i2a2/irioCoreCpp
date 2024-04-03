@@ -18,4 +18,4 @@ TerminalsDMADAQCPU::TerminalsDMADAQCPU(
 						TERMINAL_DMATTOHOSTOVERFLOWS, TERMINAL_DMATTOHOST,
 						TERMINAL_DMATTOHOSTENABLE)) {
 }
-}  // namespace iriov2
+}  // namespace irio

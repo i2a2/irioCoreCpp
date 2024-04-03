@@ -17,4 +17,4 @@ std::vector<std::uint16_t> TerminalscRIO::getInsertedIOModulesID() const {
 	return std::static_pointer_cast<TerminalscRIOImpl>(m_impl)
 			->getInsertedIOModulesID();
 }
-}  // namespace iriov2
+}  // namespace irio

@@ -17,4 +17,4 @@ enum class FpgaTypes : std::uint8_t {
 	FpgaType_DMAHtT /**< FpgaType_DMAHtT */
 };
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

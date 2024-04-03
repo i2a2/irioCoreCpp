@@ -9,7 +9,7 @@ DEFINE_FFF_GLOBALS
 
 namespace irio {
 DEFINE_FAKE_VALUE_FUNC(std::string, searchRIODevice, const std::string);
-}  // namespace iriov2
+}  // namespace irio
 
 
 DEFINE_FAKE_NIFPGA_FUNC(NiFlexRio_GetAttribute, NiFpga_Session, int32_t, int32_t, void*);

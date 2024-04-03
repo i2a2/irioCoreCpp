@@ -186,4 +186,4 @@ void TerminalsSignalGenerationImpl::setSGUpdateRateImpl(
 		const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapUpdateRate_addr, TERMINAL_SGUPDATERATE);
 }
-}  // namespace iriov2
+}  // namespace irio

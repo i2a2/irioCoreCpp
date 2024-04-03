@@ -38,4 +38,4 @@ class ProfileCPUDAQ: virtual public ProfileBase {
 			const PROFILE_ID &id);
 };
 
-}  // namespace iriov2
+}  // namespace irio

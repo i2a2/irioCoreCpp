@@ -77,4 +77,4 @@ void TerminalsDMADAQImpl::setSamplingRateDecimation(const std::uint32_t &n,
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error writing " + m_nameTermSamplingRate + std::to_string(n));
 }
-}  // namespace iriov2
+}  // namespace irio

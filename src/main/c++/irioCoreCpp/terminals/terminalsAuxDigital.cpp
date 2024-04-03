@@ -35,4 +35,4 @@ void TerminalsAuxDigital::setAuxDO(const std::uint32_t n,
 	return std::static_pointer_cast<TerminalsAuxDigitalImpl>(m_impl)
 			->setAuxDO(n, value);
 }
-}  // namespace iriov2
+}  // namespace irio

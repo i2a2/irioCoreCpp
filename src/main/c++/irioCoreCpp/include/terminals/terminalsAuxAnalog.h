@@ -124,4 +124,4 @@ class TerminalsAuxAnalog: public TerminalsBase {
   void setAuxAO64(const std::uint32_t n, const std::int64_t value) const;
 };
 
-}  // namespace iriov2
+}  // namespace irio

@@ -21,4 +21,4 @@ class TerminalsBase {
  protected:
 	std::shared_ptr<TerminalsBaseImpl> m_impl;
 };
-}  // namespace iriov2
+}  // namespace irio

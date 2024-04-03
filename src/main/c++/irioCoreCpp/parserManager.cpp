@@ -5,7 +5,7 @@
 #include "errorsIrio.h"
 #include "parserManager.h"
 
-namespace  irio {
+namespace irio {
 
 ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp),
 		m_error(false) { }
@@ -274,4 +274,4 @@ bool CustomStringComparator::operator()(const std::string &a,
 	return a.size() < b.size();	 // Otherwise, shorter strings come first
 }
 
-}  // namespace iriov2
+}  // namespace irio

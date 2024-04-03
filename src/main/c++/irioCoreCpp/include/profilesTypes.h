@@ -39,4 +39,4 @@ enum class PROFILE_ID: std::uint8_t {
 	R_DAQ /**< Data acquisition profile for R Series devices */
 };
 
-}  // namespace iriov2
+}  // namespace irio

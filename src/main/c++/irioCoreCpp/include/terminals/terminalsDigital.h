@@ -79,4 +79,4 @@ class TerminalsDigital: public TerminalsBase{
   void setDO(const std::uint32_t n, const bool value) const;
 };
 
-}  // namespace iriov2
+}  // namespace irio

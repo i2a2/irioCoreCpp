@@ -49,4 +49,4 @@ template void ProfileBase::addTerminal(TerminalsFlexRIO terminal);
 template void ProfileBase::addTerminal(TerminalscRIO terminal);
 template void ProfileBase::addTerminal(TerminalsSignalGeneration terminal);
 
-}  // namespace iriov2
+}  // namespace irio

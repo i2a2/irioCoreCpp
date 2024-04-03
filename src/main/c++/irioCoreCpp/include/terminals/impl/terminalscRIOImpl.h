@@ -26,5 +26,5 @@ class TerminalscRIOImpl: public TerminalsBaseImpl {
 	std::uint32_t m_insertediomodulesid_addr;
 	size_t m_numModules;
 };
-}  // namespace iriov2
+}  // namespace irio
 

@@ -26,4 +26,4 @@ void TerminalsDMADAQ::setSamplingRateDecimation(
 	std::static_pointer_cast<TerminalsDMADAQImpl>(m_impl)
 			->setSamplingRateDecimation(n, decimation);
 }
-}  // namespace iriov2
+}  // namespace irio

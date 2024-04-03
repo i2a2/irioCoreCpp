@@ -33,4 +33,4 @@ std::vector<std::uint16_t> TerminalscRIOImpl::getInsertedIOModulesID() const {
 			"Error reading " + std::string(TERMINAL_INSERTEDIOMODULESID));
 	return ret;
 }
-}  // namespace iriov2
+}  // namespace irio

@@ -14,7 +14,7 @@
 
 namespace irio {
 DECLARE_FAKE_VALUE_FUNC(std::string, searchRIODevice, const std::string);
-}  // namespace iriov2
+}  // namespace irio
 
 ///////////////////////////////////////////////////////////////
 ///// FAKE FUNCTIONS NiFpga

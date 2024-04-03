@@ -9,4 +9,4 @@ ProfileCRIO::ProfileCRIO(
 			ProfileBase(id) {
 	addTerminal(TerminalscRIO(parserManager, session));
 }
-}  // namespace iriov2
+}  // namespace irio

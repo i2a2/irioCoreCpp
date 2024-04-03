@@ -165,5 +165,5 @@ class TerminalsSignalGeneration: public TerminalsBase {
   void setSGUpdateRate(const std::uint32_t n, const std::uint32_t value) const;
 };
 
-}  // namespace iriov2
+}  // namespace irio
 

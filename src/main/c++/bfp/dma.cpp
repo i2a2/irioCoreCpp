@@ -49,4 +49,4 @@ DMA DMA::processDMA(const pugi::xml_node &dmaNode) {
 }
 
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

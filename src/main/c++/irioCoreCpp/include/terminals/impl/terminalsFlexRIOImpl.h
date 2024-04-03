@@ -24,4 +24,4 @@ class TerminalsFlexRIOImpl: public TerminalsBaseImpl {
 	std::uint32_t m_insertediomoduleid_addr;
 };
 
-}  // namespace iriov2
+}  // namespace irio

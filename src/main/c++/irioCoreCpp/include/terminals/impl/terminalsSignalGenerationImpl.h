@@ -55,5 +55,5 @@ class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFref;
 };
 
-}  // namespace iriov2
+}  // namespace irio
 

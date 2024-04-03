@@ -215,4 +215,4 @@ class UnsupportedAICouplingForModule: public IrioV2Error {
 };
 
 }  // namespace errors
-}  // namespace iriov2
+}  // namespace irio

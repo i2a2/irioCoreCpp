@@ -70,4 +70,4 @@ ModuleNI92xx::ModuleNI92xx() :
 	setCouplingMode(CouplingMode::DC);
 }
 
-}  // namespace iriov2
+}  // namespace irio

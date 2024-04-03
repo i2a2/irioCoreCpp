@@ -24,6 +24,6 @@ std::string searchRIODevice(const std::string serialNumber);
  * cases, suggest it please.
  */
 
-}  // namespace iriov2
+}  // namespace irio
 
 

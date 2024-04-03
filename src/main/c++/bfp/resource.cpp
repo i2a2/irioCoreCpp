@@ -31,4 +31,4 @@ size_t Resource::getNumElem() const {
 }
 
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

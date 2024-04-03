@@ -25,5 +25,5 @@ class TerminalsBaseImpl {
 	const NiFpga_Session m_session;
 };
 
-}  // namespace iriov2
+}  // namespace irio
 

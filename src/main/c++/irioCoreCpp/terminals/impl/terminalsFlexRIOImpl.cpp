@@ -27,5 +27,5 @@ std::uint32_t TerminalsFlexRIOImpl::getInsertedIOModuleID() const {
 			"Error reading " + std::string(TERMINAL_INSERTEDIOMODULEID));
 	return aux;
 }
-}  // namespace iriov2
+}  // namespace irio
 

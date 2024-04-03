@@ -36,5 +36,5 @@ class ProfileCPUDAQcRIO: public ProfileCPUDAQ, public ProfileCRIO {
 			const Platform &platform);
 };
 
-}  // namespace iriov2
+}  // namespace irio
 

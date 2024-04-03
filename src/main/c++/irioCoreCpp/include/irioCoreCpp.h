@@ -437,4 +437,4 @@ class Irio {
 	std::uint32_t m_closeAttribute;
 };
 
-}  // namespace iriov2
+}  // namespace irio

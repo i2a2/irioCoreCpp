@@ -9,4 +9,4 @@ ProfileCPUDAQFlexRIO::ProfileCPUDAQFlexRIO(ParserManager *parserManager,
 	  ProfileCPUDAQ(parserManager, session, platform,
 					PROFILE_ID::FLEXRIO_CPUDAQ),
 	  ProfileFlexRIO(parserManager, session, PROFILE_ID::FLEXRIO_CPUDAQ) {}
-}  // namespace iriov2
+}  // namespace irio

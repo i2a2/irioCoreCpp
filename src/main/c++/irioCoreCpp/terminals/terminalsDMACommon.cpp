@@ -113,4 +113,4 @@ size_t TerminalsDMACommon::readData(const std::uint32_t n,
 			->readDataImpl(n, elementsToRead, data, blockRead, timeout);
 }
 
-}  // namespace iriov2
+}  // namespace irio

@@ -180,5 +180,5 @@ std::string searchRIODevice(const std::string serialNumber) {
 	}
 }
 
-}  // namespace iriov2
+}  // namespace irio
 

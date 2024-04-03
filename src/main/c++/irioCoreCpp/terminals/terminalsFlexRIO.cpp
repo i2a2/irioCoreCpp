@@ -17,5 +17,5 @@ std::uint32_t TerminalsFlexRIO::getInsertedIOModuleID() const {
 	return std::static_pointer_cast<TerminalsFlexRIOImpl>(m_impl)
 			->getInsertedIOModuleID();
 }
-}  // namespace iriov2
+}  // namespace irio
 

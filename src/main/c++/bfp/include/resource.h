@@ -43,4 +43,4 @@ class Resource {
 	size_t numElem = 0;
 };
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

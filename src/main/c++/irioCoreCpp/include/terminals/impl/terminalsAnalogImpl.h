@@ -61,4 +61,4 @@ class TerminalsAnalogImpl: public TerminalsBaseImpl {
 
 	std::unique_ptr<Module> m_module;
 };
-}  // namespace iriov2
+}  // namespace irio

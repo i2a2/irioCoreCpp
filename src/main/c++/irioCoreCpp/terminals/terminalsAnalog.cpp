@@ -75,4 +75,4 @@ void TerminalsAnalog::setAICouplingMode(const CouplingMode &mode) const {
 			mode);
 }
 
-}  // namespace iriov2
+}  // namespace irio

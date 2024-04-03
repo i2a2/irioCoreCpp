@@ -64,5 +64,5 @@ class DMA: public Resource {
 };
 
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio
 

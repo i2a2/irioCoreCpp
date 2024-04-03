@@ -153,4 +153,4 @@ void TerminalsAnalogImpl::searchFlexRIOModule() {
 	}
 }
 
-}  // namespace iriov2
+}  // namespace irio

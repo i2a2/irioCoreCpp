@@ -80,4 +80,4 @@ class TerminalsAuxDigital: public TerminalsBase {
   void setAuxDO(const std::uint32_t n, const bool value) const;
 };
 
-}  // namespace iriov2
+}  // namespace irio

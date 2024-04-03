@@ -161,4 +161,4 @@ class TerminalsAnalog: public TerminalsBase {
    */
   void setAICouplingMode(const CouplingMode &mode) const;
 };
-}  // namespace iriov2
+}  // namespace irio

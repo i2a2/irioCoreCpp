@@ -21,16 +21,16 @@ if ! ./test_ut_irioCore; then
 fi
 
 cd ../../irioCoreCpp/
-#if ! ./test_irioCoreCpp; then
-#    echo "test_irioCoreCpp failed"
-#    failed_tests+=("test_irioCoreCpp")
-#fi
+if ! ./test_irioCoreCpp; then
+    echo "test_irioCoreCpp failed"
+    failed_tests+=("test_irioCoreCpp")
+fi
 
 cd ../irioCore
-#if ! ./test_irioCore; then
-#    echo "test_irioCore failed"
-#    failed_tests+=("test_irioCore")
-#fi
+if ! ./test_irioCore; then
+    echo "test_irioCore failed"
+    failed_tests+=("test_irioCore")
+fi
 
 if [ ${#failed_tests[@]} -gt 0 ]; then
     echo "The following tests failed:"

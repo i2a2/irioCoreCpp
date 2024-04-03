@@ -110,4 +110,4 @@ void TerminalsAuxAnalogImpl::setAuxAO64Impl(const std::uint32_t n,
 					+ std::to_string(n));
 }
 
-}  // namespace iriov2
+}  // namespace irio

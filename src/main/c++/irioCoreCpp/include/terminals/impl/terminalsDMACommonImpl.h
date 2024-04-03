@@ -143,4 +143,4 @@ class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 	const std::string m_nameTermDMA;
 	const std::string m_nameTermDMAEnable;
 };
-}  // namespace iriov2
+}  // namespace irio

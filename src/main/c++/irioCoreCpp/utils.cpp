@@ -46,4 +46,4 @@ std::string getTimestamp() {
 }
 
 }  // namespace utils
-}  // namespace iriov2
+}  // namespace irio
