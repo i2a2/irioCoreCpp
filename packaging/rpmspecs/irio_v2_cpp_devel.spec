@@ -6,6 +6,8 @@ Summary:	IRIO V2 CPP devel
 License:	GPL
 URL:		https://github.com/i2a2/irio-v2-cpp
 
+Requires: libbfp
+
 %description
 IRIO V2 CPP devel
 

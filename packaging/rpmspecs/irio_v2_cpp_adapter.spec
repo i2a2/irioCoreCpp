@@ -6,7 +6,7 @@ Summary:	IRIO V2 CPP Adapter Module
 License:	GPL
 URL:		https://github.com/i2a2/irio-v2-cpp
 
-Requires: libbfp
+Requires: libirio_v2_cpp
 
 %description
 Adapts the IrioV2Cpp library to the prexisting C API or IrioV2
