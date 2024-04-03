@@ -75,6 +75,9 @@
                         <package develof="cpp">
                             <include type="file" source="main/c++/irio_v2_cpp/include" target="include/irio_v2_cpp">
                                 <include>*.h</include>
+                                <exclude>utils.h</exclude>
+                                <exclude>rioDiscovery.h</exclude>
+                                <exclude>parserManager.h</exclude>
                             </include>
 
                             <include type="file" source="main/c++/irio_v2_cpp/include/terminals" target="include/irio_v2_cpp/terminals">
