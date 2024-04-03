@@ -11,6 +11,10 @@ INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/modules.h
 INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/platforms.h
 INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/profilesTypes.h
 
+ifdef CODAC_ROOT
+	INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/NiFpga_CD/NiFpga.h
+endif
+
 INCLUDES_TERMINALS = $(wildcard ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/terminals/*.h)
 
 LIB_INSTALL_DIR := $(BASE_LIB_INSTALL_DIR)
