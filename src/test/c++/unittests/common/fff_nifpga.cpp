@@ -78,7 +78,7 @@ void setValueForReg(const ReadFunctions func, const uint32_t reg, const T value)
 }
 
 template<>
-void setValueForReg<PLATFORM_ID>(const ReadFunctions func, const uint32_t reg, const PLATFORM_ID value){
+void setValueForReg<iriov2::PLATFORM_ID>(const ReadFunctions func, const uint32_t reg, const iriov2::PLATFORM_ID value){
 	setValueForReg(func, reg, static_cast<std::uint8_t>(value));
 }
 template void setValueForReg<uint8_t>(const ReadFunctions func, const uint32_t reg, const uint8_t value);

@@ -4,13 +4,16 @@
 #include <stdint.h>
 
 
-enum class PLATFORM_ID: std::uint8_t{
-	FlexRIO = 0,
-	cRIO = 1,
-	RSeries = 2
-};
-
 namespace iriov2 {
+
+/**
+ * Enumeration representing different platform IDs.
+ */
+enum class PLATFORM_ID: std::uint8_t{
+	FlexRIO = 0, /**< FlexRIO platform ID */
+	cRIO = 1, /**< cRIO platform ID */
+	RSeries = 2 /**< R Series platform ID */
+};
 
 /**
  * Generic Platform class. Stores maximum number of resources.
