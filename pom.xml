@@ -73,7 +73,7 @@
                             <include name="irio_v2_cpp" type="library" />
                         </package>
                         <package develof="cpp">
-                            <include type="file" source="main/c++/irio_v2_cpp/include/" target="include/irio_v2_cpp/">
+                            <include type="file" source="main/c++/irio_v2_cpp/include" target="include/irio_v2_cpp">
                                 <include>*.h</include>
                             </include>
 
@@ -87,13 +87,17 @@
                             <include name="irioCore" type="library" />
                         </package>
                         <package develof="">
-                            <include type="file" source="main/c++/irioCore/include/" target="include/irioCore/">
+                            <include type="file" source="main/c++/irioCore/include" target="include/irioCore">
                                 <include>*.h</include>
                             </include>
                         </package>
 
                         <package name="examples">
                             <requires codac="true">irio</requires>
+                            <include type="file" source="test/c/legacy/examples" target="examples/irio">
+                                <include>resourceFail</include>
+                                <include>resourceTest</include>
+                            </include>
                         </package>
 
                         <package name="doc">
