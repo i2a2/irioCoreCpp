@@ -5,7 +5,7 @@
 #include "bfp.h"
 #include "errorsIrio.h"
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 inline std::string removeSpaces(const std::string &s) {

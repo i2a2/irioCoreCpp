@@ -5,7 +5,7 @@
 #include "terminals/names/namesTerminalsCommon.h"
 #include "terminals/names/namesTerminalsAuxAnalog.h"
 
-using namespace iriov2;
+using namespace irio;
 
 class AuxAnalogTests: public BaseTests {
 public:

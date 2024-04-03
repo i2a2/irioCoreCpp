@@ -2,7 +2,7 @@
 
 #include "terminals/impl/terminalsBaseImpl.h"
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class implementing the functionality
  * specific to FlexRIO

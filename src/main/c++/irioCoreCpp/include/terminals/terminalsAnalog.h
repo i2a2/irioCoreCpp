@@ -3,7 +3,7 @@
 #include <terminals/terminalsBase.h>
 #include <modules.h>
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class managing all terminals related to the
  * analog functionality of the RIO device

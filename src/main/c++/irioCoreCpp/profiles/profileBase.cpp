@@ -1,7 +1,7 @@
 #include <profiles/profileBase.h>
 #include <errorsIrio.h>
 
-namespace iriov2 {
+namespace irio {
 
 ProfileBase::ProfileBase(const PROFILE_ID &id) :
 		profileID(id) {

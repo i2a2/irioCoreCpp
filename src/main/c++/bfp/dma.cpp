@@ -1,6 +1,6 @@
 #include "dma.h"
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 DMA::DMA(const std::string &_name, const FpgaTypes &_fpgaType,

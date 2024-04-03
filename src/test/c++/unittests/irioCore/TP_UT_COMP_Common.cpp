@@ -16,7 +16,7 @@
 #include "irioDriver.h"
 #include "irioError.h"
 
-using namespace iriov2;
+using namespace irio;
 
 
 class CommonTestsAdapter: public BaseTestsAdapter {

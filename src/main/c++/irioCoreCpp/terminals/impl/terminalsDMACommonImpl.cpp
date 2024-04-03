@@ -3,7 +3,7 @@
 #include <utils.h>
 #include <memory>
 
-namespace iriov2 {
+namespace irio {
 
 template<typename T>
 bool TerminalsDMACommonImpl::findArrayRegReadToVector(

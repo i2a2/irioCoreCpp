@@ -3,7 +3,7 @@
 #include "terminals/names/namesTerminalsDMADAQCPU.h"
 #include "terminals/impl/terminalsDMADAQImpl.h"
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsDMADAQCPU::TerminalsDMADAQCPU(
 		ParserManager *parserManager,

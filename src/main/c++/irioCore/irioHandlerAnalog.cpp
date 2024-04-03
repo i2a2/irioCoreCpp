@@ -2,16 +2,16 @@
 #include "irioV2InstanceManager.h"
 #include "utils.h"
 
-using iriov2::errors::ResourceNotFoundError;
-using iriov2::errors::NiFpgaError;
+using irio::errors::ResourceNotFoundError;
+using irio::errors::NiFpgaError;
 
-iriov2::TerminalsAnalog getTerminalsAnalog(const std::string &rioSerial,
+irio::TerminalsAnalog getTerminalsAnalog(const std::string &rioSerial,
 		const std::uint32_t session) {
 	return IrioV2InstanceManager::getInstance(rioSerial, session)
 			->getTerminalsAnalog();
 }
 
-iriov2::TerminalsAuxAnalog getTerminalsAuxAnalog(const std::string &rioSerial,
+irio::TerminalsAuxAnalog getTerminalsAuxAnalog(const std::string &rioSerial,
 		const std::uint32_t session) {
 	return IrioV2InstanceManager::getInstance(rioSerial, session)
 			->getTerminalsAuxAnalog();

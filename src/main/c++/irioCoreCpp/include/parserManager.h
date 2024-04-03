@@ -9,7 +9,7 @@
 
 #include "bfp.h"
 
-namespace iriov2 {
+namespace irio {
 struct ResourceError {
 	std::string resourceName;
 	std::string errMsg;

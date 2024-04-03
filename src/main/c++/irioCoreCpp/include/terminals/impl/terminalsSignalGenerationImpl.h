@@ -4,7 +4,7 @@
 
 #include "terminals/impl/terminalsBaseImpl.h"
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class implementing the signal generation
  * functionality

@@ -4,7 +4,7 @@
 
 #include "terminals/terminalsDMACommon.h"
 
-namespace iriov2 {
+namespace irio {
 
 class TerminalsDMADAQImpl;
 

@@ -3,7 +3,7 @@
 #include <profiles/profileBase.h>
 
 
-namespace iriov2 {
+namespace irio {
 /**
  * Profile with the terminals specific to FlexRIO devices.
  * This class must be a extended by other profile classes,

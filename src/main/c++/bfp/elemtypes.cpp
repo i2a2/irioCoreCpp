@@ -1,6 +1,6 @@
 #include "elemtypes.h"
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 ElemTypes getElemTypeFromStr(const std::string &typeName) {

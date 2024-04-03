@@ -7,7 +7,7 @@
 #include "modules.h"
 #include "irioUtils.h"
 
-using namespace iriov2;
+using namespace irio;
 
 class FlexRIOFixture: public IrioFixture {
 public:

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace iriov2 {
+namespace irio {
 /**
  * @ingroup IRIO
  *

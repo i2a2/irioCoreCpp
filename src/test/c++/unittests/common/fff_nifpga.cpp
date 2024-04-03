@@ -7,7 +7,7 @@ DEFINE_FFF_GLOBALS
 #define DEFINE_FAKE_NIFPGA_FUNC(funcName, ...) DEFINE_FAKE_VALUE_FUNC(NiFpga_Status, funcName, __VA_ARGS__)
 
 
-namespace iriov2 {
+namespace irio {
 DEFINE_FAKE_VALUE_FUNC(std::string, searchRIODevice, const std::string);
 }  // namespace iriov2
 
@@ -78,7 +78,7 @@ void setValueForReg(const ReadFunctions func, const uint32_t reg, const T value)
 }
 
 template<>
-void setValueForReg<iriov2::PLATFORM_ID>(const ReadFunctions func, const uint32_t reg, const iriov2::PLATFORM_ID value){
+void setValueForReg<irio::PLATFORM_ID>(const ReadFunctions func, const uint32_t reg, const irio::PLATFORM_ID value){
 	setValueForReg(func, reg, static_cast<std::uint8_t>(value));
 }
 template void setValueForReg<uint8_t>(const ReadFunctions func, const uint32_t reg, const uint8_t value);

@@ -6,7 +6,7 @@
 #include "terminals/names/namesTerminalsCommon.h"
 
 
-using namespace iriov2;
+using namespace irio;
 
 
 class CRIOTests: public BaseTests{

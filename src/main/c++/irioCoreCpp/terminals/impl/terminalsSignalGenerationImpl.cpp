@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "errorsIrio.h"
 
-namespace iriov2 {
+namespace irio {
 
 void findAndCheck(
 		ParserManager *parserManager,

@@ -3,12 +3,12 @@
 #include "irioError.h"
 #include "utils.h"
 
-using iriov2::errors::ResourceNotFoundError;
-using iriov2::errors::NiFpgaError;
-using iriov2::errors::TerminalNotImplementedError;
-using iriov2::errors::DMAReadTimeout;
+using irio::errors::ResourceNotFoundError;
+using irio::errors::NiFpgaError;
+using irio::errors::TerminalNotImplementedError;
+using irio::errors::DMAReadTimeout;
 
-iriov2::TerminalsDMADAQ getTerminalsDMADAQ(const std::string &rioSerial,
+irio::TerminalsDMADAQ getTerminalsDMADAQ(const std::string &rioSerial,
 		const std::uint32_t session) {
 	return IrioV2InstanceManager::getInstance(rioSerial, session)
 				->getTerminalsDAQ();
@@ -121,14 +121,14 @@ int irio_setDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-size_t getElementsToRead(const iriov2::FrameType &frameType,
+size_t getElementsToRead(const irio::FrameType &frameType,
 		const int NBlocks, const std::uint16_t lengthBlock) {
 	size_t elementsToRead;
 	switch (frameType) {
-	case iriov2::FrameType::FormatA:
+	case irio::FrameType::FormatA:
 		elementsToRead = NBlocks * lengthBlock;
 		break;
-	case iriov2::FrameType::FormatB:
+	case irio::FrameType::FormatB:
 		// each DMA data block includes two extra U64 words to include timestamp
 		elementsToRead = NBlocks * (lengthBlock + 2);
 		break;

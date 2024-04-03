@@ -15,7 +15,7 @@
 #include "terminals/names/namesTerminalsFlexRIO.h"
 
 
-using namespace iriov2;
+using namespace irio;
 
 
 class FlexRIOTests: public BaseTests {

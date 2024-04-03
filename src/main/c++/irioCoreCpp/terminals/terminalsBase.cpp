@@ -1,7 +1,7 @@
 #include <terminals/terminalsBase.h>
 #include <terminals/impl/terminalsBaseImpl.h>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsBase::TerminalsBase(std::shared_ptr<TerminalsBaseImpl> impl) :
 		m_impl(impl) {

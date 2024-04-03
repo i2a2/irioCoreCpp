@@ -2,7 +2,7 @@
 
 #include "terminals/terminalsDMADAQ.h"
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Class managing the terminals used for DMA CPU DAQ operations

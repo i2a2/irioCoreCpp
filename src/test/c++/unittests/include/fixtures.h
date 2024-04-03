@@ -16,7 +16,7 @@ public:
 	void resetFakes();
 
 	const std::string bitfilePath;
-	const iriov2::bfp::BFP bfp;
+	const irio::bfp::BFP bfp;
 
 	const uint8_t majorVersion = 9;
 	const uint8_t minorVersion = 9;

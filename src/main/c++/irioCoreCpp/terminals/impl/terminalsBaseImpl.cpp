@@ -1,6 +1,6 @@
 #include "terminals/impl/terminalsBaseImpl.h"
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsBaseImpl::TerminalsBaseImpl(const NiFpga_Session &session) :
 		m_session(session) {

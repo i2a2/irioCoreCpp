@@ -3,7 +3,7 @@
 #include <profiles/profileCPUDAQ.h>
 #include <profiles/profileFlexRIO.h>
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Profile with the terminals

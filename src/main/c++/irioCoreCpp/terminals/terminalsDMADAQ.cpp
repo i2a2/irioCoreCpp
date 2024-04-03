@@ -3,7 +3,7 @@
 #include <utils.h>
 #include <errorsIrio.h>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsDMADAQ::TerminalsDMADAQ(std::shared_ptr<TerminalsDMADAQImpl> impl) :
 		TerminalsDMACommon(std::static_pointer_cast<TerminalsDMACommonImpl>(impl)) {

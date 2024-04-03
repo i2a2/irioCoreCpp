@@ -3,7 +3,7 @@
 #include "terminals/impl/terminalsSignalGenerationImpl.h"
 #include "terminals/terminalsSignalGeneration.h"
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsSignalGeneration::TerminalsSignalGeneration(
 		ParserManager *parserManager, const NiFpga_Session &session,

@@ -5,7 +5,7 @@
 
 typedef uintptr_t NiFpga_Session;
 
-namespace iriov2 {
+namespace irio {
 
 class ParserManager;
 class TerminalsBaseImpl;

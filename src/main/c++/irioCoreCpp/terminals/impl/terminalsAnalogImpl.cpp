@@ -4,7 +4,7 @@
 #include <errorsIrio.h>
 #include <niflexrio.h>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsAnalogImpl::TerminalsAnalogImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :

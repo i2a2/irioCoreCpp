@@ -3,7 +3,7 @@
 #include "irioError.h"
 #include "utils.h"
 
-iriov2::TerminalsSignalGeneration getTerminalsSG(const std::string &rioSerial,
+irio::TerminalsSignalGeneration getTerminalsSG(const std::string &rioSerial,
 		const std::uint32_t session) {
 	return IrioV2InstanceManager::getInstance(rioSerial, session)
 				->getTerminalsSignalGeneration();

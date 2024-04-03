@@ -1,7 +1,7 @@
 #include <profiles/profileCPUDAQ.h>
 #include <terminals/terminalsDMADAQCPU.h>
 
-namespace iriov2 {
+namespace irio {
 
 ProfileCPUDAQ::ProfileCPUDAQ(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,

@@ -1,6 +1,6 @@
 #include <profiles/profileCPUDAQcRIO.h>
 
-namespace iriov2 {
+namespace irio {
 
 ProfileCPUDAQcRIO::ProfileCPUDAQcRIO(
 		ParserManager *parserManager,

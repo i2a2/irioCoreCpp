@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace iriov2 {
+namespace irio {
 namespace errors {
 
 /**

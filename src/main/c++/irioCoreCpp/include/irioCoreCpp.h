@@ -8,7 +8,7 @@
 #include "profilesTypes.h"
 #include "terminals/terminals.h"
 
-namespace iriov2 {
+namespace irio {
 
 class ProfileBase;
 class ParserManager;

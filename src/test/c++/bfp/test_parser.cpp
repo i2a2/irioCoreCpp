@@ -3,7 +3,7 @@
 #include "bfp.h"
 #include "errorsIrio.h"
 
-using namespace iriov2::bfp;
+using namespace irio::bfp;
 
 std::map<ElemTypes, std::string> t = { { ElemTypes::Bool, "Bool" }, { ElemTypes::U8, "U8" }, {
 		ElemTypes::I8, "I8" }, { ElemTypes::U16, "U16" }, { ElemTypes::I16, "I16" }, {
@@ -29,7 +29,7 @@ TEST(BFP, Basic) {
 TEST(BFP, InvalidBitfile) {
 	std::string bitfile = "DOESNOTEXIST.lvbitx";
 	EXPECT_THROW(BFP parsedBitfile(bitfile, false); // @suppress("Goto statement used")
-	, iriov2::errors::BFPParseBitfileError);
+	, irio::errors::BFPParseBitfileError);
 }
 
 TEST(BFP, Registers) {
@@ -80,7 +80,7 @@ TEST(BFP, InvalidRegister){
 	BFP parsedBitfile(bitfile, false);
 
 	EXPECT_THROW(parsedBitfile.getRegister("NOTEXIST");, // @suppress("Goto statement used")
-		iriov2::errors::ResourceNotFoundError);
+		irio::errors::ResourceNotFoundError);
 }
 
 TEST(BFP, DMAs){
@@ -106,6 +106,6 @@ TEST(BFP, InvalidDMA){
 	BFP parsedBitfile(bitfile, false);
 
 	EXPECT_THROW(parsedBitfile.getDMA("NOTEXIST");, // @suppress("Goto statement used")
-		iriov2::errors::ResourceNotFoundError);
+		irio::errors::ResourceNotFoundError);
 }
 

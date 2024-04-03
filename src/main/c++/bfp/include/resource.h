@@ -5,7 +5,7 @@
 #include "fpgatypes.h"
 #include "elemtypes.h"
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**

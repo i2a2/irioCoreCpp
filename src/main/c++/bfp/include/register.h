@@ -5,7 +5,7 @@
 #include "resource.h"
 #include <pugixml.hpp>
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**

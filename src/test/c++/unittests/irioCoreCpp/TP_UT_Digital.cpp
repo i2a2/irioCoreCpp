@@ -5,7 +5,7 @@
 #include "terminals/names/namesTerminalsCommon.h"
 #include "terminals/names/namesTerminalsDigital.h"
 
-using namespace iriov2;
+using namespace irio;
 
 class DigitalTests: public BaseTests {
 public:

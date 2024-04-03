@@ -14,7 +14,7 @@
 #include "irioError.h"
 #include "irioHandlerDigital.h"
 
-using namespace iriov2;
+using namespace irio;
 
 
 class DigitalTestsAdapter: public BaseTestsAdapter {

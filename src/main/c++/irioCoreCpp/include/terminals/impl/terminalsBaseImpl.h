@@ -6,7 +6,7 @@
 #include "parserManager.h"
 #include "platforms.h"
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Base class for terminals

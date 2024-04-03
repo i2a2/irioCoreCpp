@@ -3,7 +3,7 @@
 #include <profiles/profileBase.h>
 #include <platforms.h>
 
-namespace iriov2 {
+namespace irio {
 /**
  * Profile with the terminals
  * specific to data acquisition functionality.

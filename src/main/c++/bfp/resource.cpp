@@ -1,6 +1,6 @@
 #include "resource.h"
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 Resource::Resource(const std::string &_name, const FpgaTypes &_fpgaType,

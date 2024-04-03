@@ -1,7 +1,7 @@
 #include "register.h"
 #include <exception>
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 Register::Register(const std::string &_name, const FpgaTypes &_fpgaType,

@@ -7,7 +7,7 @@
 
 #include "terminals/impl/terminalsDMACommonImpl.h"
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Class implementing the DMA DAQ functionality

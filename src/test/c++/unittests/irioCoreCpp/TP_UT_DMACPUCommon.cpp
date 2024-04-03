@@ -8,7 +8,7 @@
 #include "terminals/names/namesTerminalsDMACPUCommon.h"
 
 
-using namespace iriov2;
+using namespace irio;
 
 
 class DMACPUCommonTests: public BaseTests {

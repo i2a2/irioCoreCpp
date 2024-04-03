@@ -13,25 +13,25 @@
 #include "irioError.h"
 #include "irioResourceFinder.h"
 
-using iriov2::IrioV2;
-using iriov2::PROFILE_ID;
+using irio::IrioV2;
+using irio::PROFILE_ID;
 
-using iriov2::errors::IrioV2Error;
-using iriov2::errors::BFPParseBitfileError;
-using iriov2::errors::ResourceNotFoundError;
-using iriov2::errors::FPGAVIVersionMismatchError;
-using iriov2::errors::UnsupportedDevProfileError;
-using iriov2::errors::UnsupportedPlatformError;
-using iriov2::errors::NiFpgaError;
-using iriov2::errors::NiFpgaErrorDownloadingBitfile;
-using iriov2::errors::NiFpgaFPGAAlreadyRunning;
-using iriov2::errors::RIODeviceNotFoundError;
-using iriov2::errors::TerminalNotImplementedError;
-using iriov2::errors::UnsupportedAICouplingForModule;
-using iriov2::errors::InitializationTimeoutError;
-using iriov2::errors::ModulesNotOKError;
-using iriov2::errors::UnsupportedPlatformError;
-using iriov2::errors::UnsupportedDevProfileError;
+using irio::errors::IrioV2Error;
+using irio::errors::BFPParseBitfileError;
+using irio::errors::ResourceNotFoundError;
+using irio::errors::FPGAVIVersionMismatchError;
+using irio::errors::UnsupportedDevProfileError;
+using irio::errors::UnsupportedPlatformError;
+using irio::errors::NiFpgaError;
+using irio::errors::NiFpgaErrorDownloadingBitfile;
+using irio::errors::NiFpgaFPGAAlreadyRunning;
+using irio::errors::RIODeviceNotFoundError;
+using irio::errors::TerminalNotImplementedError;
+using irio::errors::UnsupportedAICouplingForModule;
+using irio::errors::InitializationTimeoutError;
+using irio::errors::ModulesNotOKError;
+using irio::errors::UnsupportedPlatformError;
+using irio::errors::UnsupportedDevProfileError;
 
 std::unordered_map<irioDrv_t*, std::unique_ptr<char>> appCallID_map;
 std::unordered_map<irioDrv_t*, std::unique_ptr<char>> projectName_map;
@@ -239,10 +239,10 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 		TStatus *status) {
 	static const std::unordered_map<TIRIOCouplingMode,
-		iriov2::CouplingMode> couplingMap =
-			{ { IRIO_coupling_NULL, iriov2::CouplingMode::None }, {
-					IRIO_coupling_AC, iriov2::CouplingMode::AC }, {
-					IRIO_coupling_DC, iriov2::CouplingMode::DC }, };
+		irio::CouplingMode> couplingMap =
+			{ { IRIO_coupling_NULL, irio::CouplingMode::None }, {
+					IRIO_coupling_AC, irio::CouplingMode::AC }, {
+					IRIO_coupling_DC, irio::CouplingMode::DC }, };
 	const auto it = couplingMap.find(value);
 
 	if (it == couplingMap.end()) {
@@ -276,11 +276,11 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 
 int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		TStatus *status) {
-	const std::unordered_map<iriov2::CouplingMode,
+	const std::unordered_map<irio::CouplingMode,
 							TIRIOCouplingMode> conversionTable = {
-			{iriov2::CouplingMode::AC, TIRIOCouplingMode::IRIO_coupling_AC},
-			{iriov2::CouplingMode::DC, TIRIOCouplingMode::IRIO_coupling_DC},
-			{iriov2::CouplingMode::None, TIRIOCouplingMode::IRIO_coupling_NULL},
+			{irio::CouplingMode::AC, TIRIOCouplingMode::IRIO_coupling_AC},
+			{irio::CouplingMode::DC, TIRIOCouplingMode::IRIO_coupling_DC},
+			{irio::CouplingMode::None, TIRIOCouplingMode::IRIO_coupling_NULL},
 	};
 	const TIRIOCouplingMode valueNotFound = static_cast<TIRIOCouplingMode>(9);
 
@@ -379,7 +379,7 @@ int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 
 template<typename T>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		T (iriov2::IrioV2::*funcGet)() const, const std::string &funcName) {
+		T (irio::IrioV2::*funcGet)() const, const std::string &funcName) {
 	try {
 		const auto irio = IrioV2InstanceManager::getInstance(
 				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
@@ -400,7 +400,7 @@ int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
 
 template<typename T>
 int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		void (iriov2::IrioV2::*funcSet)(const T&) const,
+		void (irio::IrioV2::*funcSet)(const T&) const,
 		const std::string &funcName) {
 	try {
 		const auto irio = IrioV2InstanceManager::getInstance(
@@ -423,11 +423,11 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 int irio_getDevQualityStatus(irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status) {
 	return getCommon(value, status, p_DrvPvt,
-			&iriov2::IrioV2::getDevQualityStatus, "DevQualityStatus");
+			&irio::IrioV2::getDevQualityStatus, "DevQualityStatus");
 }
 
 int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &iriov2::IrioV2::getDevTemp,
+	return getCommon(value, status, p_DrvPvt, &irio::IrioV2::getDevTemp,
 			"DevTemp");
 }
 
@@ -439,22 +439,22 @@ int irio_getDevProfile(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 }
 
 int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &iriov2::IrioV2::setDebugMode,
+	return setCommon(value, status, p_DrvPvt, &irio::IrioV2::setDebugMode,
 			"DebugMode");
 }
 
 int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &iriov2::IrioV2::getDebugMode,
+	return getCommon(value, status, p_DrvPvt, &irio::IrioV2::getDebugMode,
 			"DebugMode");
 }
 
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &iriov2::IrioV2::setDAQStartStop,
+	return setCommon(value, status, p_DrvPvt, &irio::IrioV2::setDAQStartStop,
 			"DAQStartStop");
 }
 
 int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &iriov2::IrioV2::getDAQStartStop,
+	return getCommon(value, status, p_DrvPvt, &irio::IrioV2::getDAQStartStop,
 			"DAQStartStop");
 }
 

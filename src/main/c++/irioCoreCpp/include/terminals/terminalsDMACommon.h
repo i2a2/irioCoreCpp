@@ -6,7 +6,7 @@
 #include "terminals/terminalsBase.h"
 #include "frameTypes.h"
 
-namespace iriov2 {
+namespace irio {
 
 class TerminalsDMACommonImpl;
 

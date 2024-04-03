@@ -1,6 +1,6 @@
 #pragma once
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**

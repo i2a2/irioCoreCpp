@@ -18,7 +18,7 @@
 #include "modules.h"
 
 
-using namespace iriov2;
+using namespace irio;
 
 
 class CommonTests: public BaseTests {

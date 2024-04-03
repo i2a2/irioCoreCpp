@@ -2,7 +2,7 @@
 #include <utils.h>
 #include <errorsIrio.h>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsDMADAQImpl::TerminalsDMADAQImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,

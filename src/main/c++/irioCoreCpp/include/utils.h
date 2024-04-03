@@ -9,7 +9,7 @@
 #include "bfp.h"
 #include "errorsIrio.h"
 
-namespace iriov2 {
+namespace irio {
 
 namespace utils {
 /**

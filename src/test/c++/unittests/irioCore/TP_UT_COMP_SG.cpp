@@ -15,7 +15,7 @@
 #include "irioError.h"
 #include "irioHandlerSG.h"
 
-using namespace iriov2;
+using namespace irio;
 
 
 class SGTestsAdapter: public BaseTestsAdapter {

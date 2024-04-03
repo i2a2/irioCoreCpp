@@ -6,7 +6,7 @@
 #include "terminals/names/namesTerminalsSignalGeneration.h"
 
 
-using namespace iriov2;
+using namespace irio;
 
 class SignalGenerationTests: public BaseTests {
 public:

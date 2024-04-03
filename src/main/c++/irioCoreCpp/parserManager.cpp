@@ -5,7 +5,7 @@
 #include "errorsIrio.h"
 #include "parserManager.h"
 
-namespace  iriov2 {
+namespace  irio {
 
 ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp),
 		m_error(false) { }

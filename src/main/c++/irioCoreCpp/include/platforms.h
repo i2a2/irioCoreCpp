@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Enumeration representing different platform IDs.

@@ -1,6 +1,6 @@
 #include <profiles/profileCPUDAQFlexRIO.h>
 
-namespace iriov2 {
+namespace irio {
 
 ProfileCPUDAQFlexRIO::ProfileCPUDAQFlexRIO(ParserManager *parserManager,
 										   const NiFpga_Session &session,

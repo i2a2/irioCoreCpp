@@ -1,6 +1,6 @@
 #include <modules.h>
 
-namespace iriov2 {
+namespace irio {
 
 Module::Module(const ModulesType &id) :
 		moduleID(id) {

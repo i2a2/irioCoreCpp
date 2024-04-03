@@ -2,7 +2,7 @@
 #include <terminals/impl/terminalsDigitalImpl.h>
 #include <memory>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsDigital::TerminalsDigital(
 		ParserManager *parserManager,

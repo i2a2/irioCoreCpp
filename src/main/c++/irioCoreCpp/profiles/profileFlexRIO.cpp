@@ -1,6 +1,6 @@
 #include <profiles/profileFlexRIO.h>
 
-namespace iriov2 {
+namespace irio {
 
 ProfileFlexRIO::ProfileFlexRIO(
 		ParserManager *parserManager,

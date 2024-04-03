@@ -4,7 +4,7 @@
 
 #include "terminals/terminalsBase.h"
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class managing all terminals specific to
  * cRIO devices

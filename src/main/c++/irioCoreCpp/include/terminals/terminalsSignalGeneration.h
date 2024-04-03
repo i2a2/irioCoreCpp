@@ -2,7 +2,7 @@
 
 #include "terminals/terminalsBase.h"
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class managing all terminals related to the
  * signal generation functionality of the RIO device

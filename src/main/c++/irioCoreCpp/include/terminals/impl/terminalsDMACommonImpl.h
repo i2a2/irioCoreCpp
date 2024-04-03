@@ -8,7 +8,7 @@
 #include "terminals/impl/terminalsBaseImpl.h"
 #include "frameTypes.h"
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class implementing the DMA functionality common
  * to the terminals with DMA

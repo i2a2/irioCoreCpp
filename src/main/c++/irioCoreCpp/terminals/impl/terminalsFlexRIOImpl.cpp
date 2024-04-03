@@ -2,7 +2,7 @@
 #include "terminals/names/namesTerminalsFlexRIO.h"
 #include "utils.h"
 
-namespace iriov2 {
+namespace irio {
 TerminalsFlexRIOImpl::TerminalsFlexRIOImpl(ParserManager *parserManager,
 		const NiFpga_Session &session) :
 		TerminalsBaseImpl(session) {

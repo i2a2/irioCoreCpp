@@ -6,7 +6,7 @@
 #include "terminals/impl/terminalsBaseImpl.h"
 #include "modules.h"
 
-namespace iriov2 {
+namespace irio {
 /**
  * Class implementing the analog functionality.
  *

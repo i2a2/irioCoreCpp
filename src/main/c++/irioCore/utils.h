@@ -5,9 +5,9 @@
 #include "irioError.h"
 #include "irioV2InstanceManager.h"
 
-using iriov2::errors::ResourceNotFoundError;
-using iriov2::errors::NiFpgaError;
-using iriov2::errors::TerminalNotImplementedError;
+using irio::errors::ResourceNotFoundError;
+using irio::errors::NiFpgaError;
+using irio::errors::TerminalNotImplementedError;
 
 template<TErrorDetailCode R,
 		 TErrorDetailCode T,

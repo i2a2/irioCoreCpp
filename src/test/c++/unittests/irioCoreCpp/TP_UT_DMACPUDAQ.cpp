@@ -7,7 +7,7 @@
 #include "terminals/names/namesTerminalsDMADAQCPU.h"
 
 
-using namespace iriov2;
+using namespace irio;
 
 
 class DMACPUDAQTests: public BaseTests {

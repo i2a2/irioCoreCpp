@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Value of DevProfile when DAQ

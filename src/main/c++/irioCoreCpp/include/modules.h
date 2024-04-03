@@ -6,7 +6,7 @@
 
 #include "errorsIrio.h"
 
-namespace iriov2 {
+namespace irio {
 
 /**
  * Parameters for conversion

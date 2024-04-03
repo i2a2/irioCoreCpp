@@ -9,7 +9,7 @@
 #include <nisyscfg/nisyscfg.h>
 #endif
 
-namespace iriov2 {
+namespace irio {
 
 #ifdef CCS_VERSION
 std::vector<std::string> getListDevices() {

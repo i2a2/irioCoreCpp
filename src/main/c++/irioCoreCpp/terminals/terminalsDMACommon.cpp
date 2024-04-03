@@ -4,7 +4,7 @@
 #include <utils.h>
 #include <memory>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsDMACommon::TerminalsDMACommon(
 		std::shared_ptr<TerminalsDMACommonImpl> impl) :

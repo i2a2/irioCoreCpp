@@ -2,7 +2,7 @@
 #include "terminals/names/namesTerminalscRIO.h"
 #include "utils.h"
 
-namespace iriov2 {
+namespace irio {
 TerminalscRIOImpl::TerminalscRIOImpl(ParserManager *parserManager,
 		const NiFpga_Session &session) :
 		TerminalsBaseImpl(session) {

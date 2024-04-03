@@ -12,7 +12,7 @@
 #include "errorsIrio.h"
 #include "parserManager.h"
 
-namespace iriov2 {
+namespace irio {
 
 /*********************************************
  * PUBLIC METHODS
@@ -284,7 +284,7 @@ void IrioV2::openSession(const std::string &bitfilePath,
 								std::string("(Code: ") +
 								std::to_string(status) + std::string(")");
 
-		throw iriov2::errors::NiFpgaErrorDownloadingBitfile(err);
+		throw irio::errors::NiFpgaErrorDownloadingBitfile(err);
 	}
 }
 

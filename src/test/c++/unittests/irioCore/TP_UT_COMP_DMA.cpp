@@ -16,7 +16,7 @@
 #include "irioError.h"
 #include "irioHandlerDMA.h"
 
-using namespace iriov2;
+using namespace irio;
 
 
 class DMATestsAdapter: public BaseTestsAdapter {

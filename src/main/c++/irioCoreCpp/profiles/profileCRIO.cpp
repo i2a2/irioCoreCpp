@@ -1,6 +1,6 @@
 #include <profiles/profileCRIO.h>
 
-namespace iriov2 {
+namespace irio {
 
 ProfileCRIO::ProfileCRIO(
 		ParserManager *parserManager,

@@ -2,7 +2,7 @@
 #include <terminals/names/namesTerminalsAuxDigital.h>
 #include <utils.h>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsAuxDigitalImpl::TerminalsAuxDigitalImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :

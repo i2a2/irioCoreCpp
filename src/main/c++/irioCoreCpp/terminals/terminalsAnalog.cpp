@@ -2,7 +2,7 @@
 #include <terminals/impl/terminalsAnalogImpl.h>
 #include <memory>
 
-namespace iriov2 {
+namespace irio {
 
 TerminalsAnalog::TerminalsAnalog(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :

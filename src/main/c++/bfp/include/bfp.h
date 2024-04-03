@@ -7,7 +7,7 @@
 #include "register.h"
 #include "dma.h"
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 /**
  * BitFile Parser.

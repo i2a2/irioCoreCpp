@@ -5,7 +5,7 @@
 #include "resource.h"
 
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**

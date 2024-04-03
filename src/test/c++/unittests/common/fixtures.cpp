@@ -9,7 +9,7 @@
 #include "terminals/names/namesTerminalsFlexRIO.h"
 #include "platforms.h"
 
-using namespace iriov2;
+using namespace irio;
 
 BaseTests::BaseTests(const std::string bitfile):
 		bfp(bitfile, false), bitfilePath(bitfile){
@@ -58,6 +58,6 @@ BaseTests::~BaseTests(){
 }
 
 void BaseTests::resetFakes() {
-	RESET_FAKE(iriov2::searchRIODevice);
+	RESET_FAKE(irio::searchRIODevice);
 	reset_fff_nifpga();
 }
