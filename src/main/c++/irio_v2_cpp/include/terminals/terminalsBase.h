@@ -1,8 +1,9 @@
 #pragma once
 
 #include <memory>
-#include <NiFpga.h>
 #include "platforms.h"
+
+typedef uintptr_t NiFpga_Session;
 
 namespace iriov2 {
 

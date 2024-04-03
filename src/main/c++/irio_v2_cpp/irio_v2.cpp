@@ -1,5 +1,6 @@
 #include <math.h>
 #include <limits>
+#include <NiFpga.h>
 
 #include "bfp.h"
 
