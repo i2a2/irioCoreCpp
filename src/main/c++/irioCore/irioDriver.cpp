@@ -33,8 +33,8 @@ using iriov2::errors::ModulesNotOKError;
 using iriov2::errors::UnsupportedPlatformError;
 using iriov2::errors::UnsupportedDevProfileError;
 
-std::unique_ptr<char> appCallID_ptr;
-std::unique_ptr<char> projectName_ptr;
+std::unordered_map<irioDrv_t*, std::unique_ptr<char>> appCallID_map;
+std::unordered_map<irioDrv_t*, std::unique_ptr<char>> projectName_map;
 
 ////////////////////////////////////////////////////
 /// Local functions
@@ -50,14 +50,22 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *appCallID,
 	memset(p_DrvPvt->FPGAVIversion, 0, SHORT_CHAR_STRING);
 
 	// EPICS portName
-	appCallID_ptr.reset(new char[strlen(appCallID) + 1]);
-	snprintf(appCallID_ptr.get(), strlen(appCallID) + 1, "%s", appCallID);
-	p_DrvPvt->appCallID = appCallID_ptr.get();
+	// If it exists, a new element won't be inserted
+	const auto appCallID_ptr =
+		&appCallID_map.emplace(p_DrvPvt, std::unique_ptr<char>(nullptr))
+			 .first->second;
+	appCallID_ptr->reset(new char[strlen(appCallID) + 1]);
+	snprintf(appCallID_ptr->get(), strlen(appCallID) + 1, "%s", appCallID);
+	p_DrvPvt->appCallID = appCallID_ptr->get();
 
 	// Project Name
-	projectName_ptr.reset(new char[strlen(projectName) + 1]);
-	snprintf(projectName_ptr.get(), strlen(projectName) + 1, "%s", projectName);
-	p_DrvPvt->projectName = projectName_ptr.get();
+	// If it exists, a new element won't be inserted
+	const auto projectName_ptr =
+		&projectName_map.emplace(p_DrvPvt, std::unique_ptr<char>(nullptr))
+			 .first->second;
+	projectName_ptr->reset(new char[strlen(projectName) + 1]);
+	snprintf(projectName_ptr->get(), strlen(projectName) + 1, "%s", projectName);
+	p_DrvPvt->projectName = projectName_ptr->get();
 
 	// Device Serial Number
 	snprintf(p_DrvPvt->DeviceSerialNumber, DEVICESERIALNUMBERLENGTH, "%s",
@@ -212,11 +220,11 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 				p_DrvPvt->session);
 
 		// EPICS portName
-		appCallID_ptr.reset(nullptr);
+		appCallID_map.erase(p_DrvPvt);
 		p_DrvPvt->appCallID = nullptr;
 
 		// Project Name
-		projectName_ptr.reset(nullptr);
+		projectName_map.erase(p_DrvPvt);
 		p_DrvPvt->projectName = nullptr;
 	} catch (IrioV2NotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error,
