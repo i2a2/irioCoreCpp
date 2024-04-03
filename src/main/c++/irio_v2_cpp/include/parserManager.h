@@ -18,19 +18,14 @@ struct ResourceError {
 				const std::string &msg);
 	bool operator==(const ResourceError &other) const;
 };
-}
 
-
-template<>
-struct std::hash<iriov2::ResourceError> {
-	size_t operator()(const iriov2::ResourceError& info) const {
-		size_t hash1 = std::hash<std::string>{}(info.resourceName);
-		size_t hash2 = std::hash<std::string>{}(info.errMsg);
-		return hash1 ^ (hash2 << 1);  // Combining hashes
-	}
+struct ResourceErrorHash {
+    size_t operator()(const ResourceError& info) const {
+        size_t hash1 = std::hash<std::string>{}(info.resourceName);
+        size_t hash2 = std::hash<std::string>{}(info.errMsg);
+        return hash1 ^ (hash2 << 1);  // Combining hashes
+    }
 };
-
-namespace iriov2 {
 
 enum class GroupResource {
 	Common,
@@ -58,7 +53,7 @@ struct CustomStringComparator {
 struct GroupInfo {
 	std::set<std::string, CustomStringComparator> found;
 	std::set<std::string, CustomStringComparator> notFound;
-	std::unordered_set<ResourceError> error;
+	std::unordered_set<ResourceError, ResourceErrorHash> error;
 
 	GroupInfo() = default;
 };
