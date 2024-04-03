@@ -10,23 +10,46 @@
 #include "bfp.h"
 
 namespace irio {
+/**
+ * Represents an error that occurred while parsing a resource.
+ */
 struct ResourceError {
-	std::string resourceName;
-	std::string errMsg;
+	std::string resourceName; /**< Resource name that caused the error. */
+	std::string errMsg; /**< The error message. */
 
-	ResourceError(const std::string &resName,
-				const std::string &msg);
-	bool operator==(const ResourceError &other) const;
+	/**
+	 * Constructs a ResourceError object with the given resource name and error message.
+	 * 
+	 * @param resName The name of the resource that caused the error.
+	 * @param msg The error message.
+	 */
+	ResourceError(const std::string& resName, const std::string& msg);
+
+	/**
+	 * Checks if this ResourceError is equal to another ResourceError.
+	 * 
+	 * @param other The other ResourceError to compare with.
+	 * @return true if the ResourceErrors are equal, false otherwise.
+	 */
+	bool operator==(const ResourceError& other) const;
 };
 
+/**
+ * Hash function for the ResourceError struct.
+ */
 struct ResourceErrorHash {
-    size_t operator()(const ResourceError& info) const {
-        size_t hash1 = std::hash<std::string>{}(info.resourceName);
-        size_t hash2 = std::hash<std::string>{}(info.errMsg);
-        return hash1 ^ (hash2 << 1);  // Combining hashes
-    }
+	/**
+	 * Calculates the hash value for a ResourceError object.
+	 * 
+	 * @param info The ResourceError object to calculate the hash for.
+	 * @return The calculated hash value.
+	 */
+	size_t operator()(const ResourceError& info) const;
 };
 
+/**
+ * Possible groups of the parsed resources
+ */
 enum class GroupResource {
 	Common,
 	AI,
@@ -46,14 +69,33 @@ enum class GroupResource {
 	FlexRIO
 };
 
+/**
+ * Custom string comparator for std::set.
+ */
 struct CustomStringComparator {
-    bool operator()(const std::string& a, const std::string& b) const;
+	/**
+	 * Overloaded function call operator for comparing two strings.
+	 *
+	 * This function compares two strings, `a` and `b`, and returns true if `a`
+	 * is less than `b` in lexicographical order. Otherwise, it returns false.
+	 *
+	 * @param a The first string to compare.
+	 * @param b The second string to compare.
+	 * @return true if `a` is less than `b`, false otherwise.
+	 */
+	bool operator()(const std::string& a, const std::string& b) const;
 };
 
+/**
+ * Contains information about found, not found, and error resources for a group.
+ */
 struct GroupInfo {
-	std::set<std::string, CustomStringComparator> found;
-	std::set<std::string, CustomStringComparator> notFound;
-	std::unordered_set<ResourceError, ResourceErrorHash> error;
+	std::set<std::string, CustomStringComparator>
+		found; /**< Set of found resources. */
+	std::set<std::string, CustomStringComparator>
+		notFound; /**< Set of not found resources. */
+	std::unordered_set<ResourceError, ResourceErrorHash>
+		error; /**< Set of resource errors. */
 
 	GroupInfo() = default;
 };
@@ -62,9 +104,11 @@ struct GroupInfo {
  * Responsible for managing the parsing of resources for a bitfile.
  *
  * The ParserManager class provides methods for finding registers, DMAs,
- * register addresses and DMAs numbers. It also logs which resources have been
+ * register addresses and DMA numbers. It also logs which resources have been
  * found or not. It provides methods for logging resource incompatibilities and
- * print the problems found.
+ * printing the problems found.
+ * 
+ * @ingroup IRIO
  */
 class ParserManager {
  public:
