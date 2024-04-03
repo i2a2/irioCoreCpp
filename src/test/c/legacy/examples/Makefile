@@ -3,9 +3,9 @@ NC=\e[0m
 
 TARGET=../../../../../target
 
-LIBRARIES=irio_v2_cpp_adapter
+LIBRARIES=irioCore
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. $(TARGET)/includes/irio_v2_cpp_adapter
+INCLUDE_DIRS=. $(TARGET)/includes/irioCore
 
 ifdef CODAC_ROOT
 	LIBRARIES+=NiFpga 
