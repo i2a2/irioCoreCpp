@@ -36,17 +36,17 @@ class ErrorCRIOTests: public CRIOTests{};
 ///////////////////////////////////////////////////////////////
 
 TEST_F(CRIOTests, TerminalsFlexRIO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsCRIO());
 }
 
 TEST_F(CRIOTests, cRIOModulesOk){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsCRIO().getcRIOModulesOk(), true);
 }
 
 TEST_F(CRIOTests, InsertedIOModulesID){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	auto modules = irio.getTerminalsCRIO().getInsertedIOModulesID();
 	EXPECT_EQ(modules.size(), sizeof(insertedIOModulesIDFake)/sizeof(uint16_t));
 	for(size_t i = 0; i < modules.size(); ++i){
@@ -61,14 +61,14 @@ TEST_F(ErrorCRIOTests, ModulesNotOKError) {
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
 						bfp.getRegister(TERMINAL_CRIOMODULESOK).getAddress(),
 						0);
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 
 	EXPECT_THROW(irio.startFPGA(100);,
 		errors::ModulesNotOKError);
 }
 
 TEST_F(ErrorCRIOTests, FlexRIOTerminalNotImplementedError) {
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 
 	EXPECT_THROW(irio.getTerminalsFlexRIO();,
 		errors::TerminalNotImplementedError);

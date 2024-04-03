@@ -5,7 +5,7 @@
 #include "irioV2InstanceManager.h"
 
 using SessionID = std::uint32_t;
-using IrioV2ptr = std::unique_ptr<irio::IrioV2>;
+using IrioV2ptr = std::unique_ptr<irio::Irio>;
 
 struct ManageDevice {
 	std::mutex mutex;
@@ -15,10 +15,10 @@ struct ManageDevice {
 std::unordered_map<std::string, ManageDevice> mapDevices;
 
 
-std::pair<irio::IrioV2*, std::uint32_t> IrioV2InstanceManager::createInstance(
+std::pair<irio::Irio*, std::uint32_t> IrioV2InstanceManager::createInstance(
 		const std::string &bitfilePath, const std::string &RIOSerialNumber,
 		const std::string &FPGAVIversion, const bool verbose) {
-	auto irioV2ptr = IrioV2ptr(new irio::IrioV2(bitfilePath, RIOSerialNumber,
+	auto irioV2ptr = IrioV2ptr(new irio::Irio(bitfilePath, RIOSerialNumber,
 												  FPGAVIversion, verbose));
 	const auto id = irioV2ptr->getID();
 
@@ -32,7 +32,7 @@ std::pair<irio::IrioV2*, std::uint32_t> IrioV2InstanceManager::createInstance(
 	return std::make_pair(it->second.get(), id);
 }
 
-irio::IrioV2* IrioV2InstanceManager::getInstance(
+irio::Irio* IrioV2InstanceManager::getInstance(
 		const std::string &RIOSerialNumber,
 		const std::uint32_t session) {
 	try {

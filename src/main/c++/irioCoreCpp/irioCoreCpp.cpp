@@ -18,7 +18,7 @@ namespace irio {
  * PUBLIC METHODS
  *********************************************/
 
-IrioV2::IrioV2(const std::string &bitfilePath,
+Irio::Irio(const std::string &bitfilePath,
 			   const std::string &RIOSerialNumber,
 			   const std::string &FPGAVIversion,
 			   const bool parseVerbose)
@@ -76,16 +76,16 @@ IrioV2::IrioV2(const std::string &bitfilePath,
 	}
 }
 
-IrioV2::~IrioV2() {
+Irio::~Irio() {
 	closeSession();
 	finalizeDriver();
 }
 
-std::uint32_t IrioV2::getID() const {
+std::uint32_t Irio::getID() const {
 	return m_session;
 }
 
-void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
+void Irio::startFPGA(std::uint32_t timeoutMs) const {
 	const unsigned int SLEEP_INTERVAL_NS = 1e8;
 	const timespec ts { 0, SLEEP_INTERVAL_NS };
 
@@ -127,90 +127,90 @@ void IrioV2::startFPGA(std::uint32_t timeoutMs) const {
 	setDAQStop();
 }
 
-std::string IrioV2::getFPGAVIversion() const {
+std::string Irio::getFPGAVIversion() const {
 	return m_fpgaviversion;
 }
 
-std::uint32_t IrioV2::getFref() const {
+std::uint32_t Irio::getFref() const {
 	return m_fref;
 }
 
-bool IrioV2::getInitDone() const {
+bool Irio::getInitDone() const {
 	std::uint8_t aux;
 	auto status = NiFpga_ReadBool(m_session, m_initdone_addr, &aux);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading InitDone");
 	return static_cast<bool>(aux);
 }
 
-std::uint8_t IrioV2::getDevQualityStatus() const {
+std::uint8_t Irio::getDevQualityStatus() const {
 	std::uint8_t aux;
 	auto status = NiFpga_ReadU8(m_session, m_devqualitystatus_addr, &aux);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DevQualityStatus");
 	return aux;
 }
 
-std::int16_t IrioV2::getDevTemp() const {
+std::int16_t Irio::getDevTemp() const {
 	std::int16_t aux;
 	auto status = NiFpga_ReadI16(m_session, m_devtemp_addr, &aux);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DevTemp");
 	return aux;
 }
 
-bool IrioV2::getDAQStartStop() const {
+bool Irio::getDAQStartStop() const {
 	std::uint8_t aux;
 	auto status = NiFpga_ReadU8(m_session, m_daqstartstop_addr, &aux);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DAQStartStop");
 	return static_cast<bool>(aux);
 }
 
-bool IrioV2::getDebugMode() const {
+bool Irio::getDebugMode() const {
 	std::uint8_t aux;
 	auto status = NiFpga_ReadU8(m_session, m_debugmode_addr, &aux);
 	utils::throwIfNotSuccessNiFpga(status, "Error reading DebugMode");
 	return static_cast<bool>(aux);
 }
 
-void IrioV2::setDAQStart() const {
+void Irio::setDAQStart() const {
 	setDAQStartStop(true);
 }
 
-void IrioV2::setDAQStop() const {
+void Irio::setDAQStop() const {
 	setDAQStartStop(false);
 }
 
-void IrioV2::setDAQStartStop(const bool &start) const {
+void Irio::setDAQStartStop(const bool &start) const {
 	auto status = NiFpga_WriteU8(m_session, m_daqstartstop_addr,
 			static_cast<std::uint8_t>(start));
 	utils::throwIfNotSuccessNiFpga(status, "Error writing DAQStartStop");
 }
 
-void IrioV2::setDebugMode(const bool &debug) const {
+void Irio::setDebugMode(const bool &debug) const {
 	auto status = NiFpga_WriteU8(m_session, m_debugmode_addr,
 			static_cast<std::uint8_t>(debug));
 	utils::throwIfNotSuccessNiFpga(status, "Error writing DebugMode");
 }
 
-double IrioV2::getMinSamplingRate() const {
+double Irio::getMinSamplingRate() const {
 	return m_minSamplingRate;
 }
 
-double IrioV2::getMaxSamplingRate() const {
+double Irio::getMaxSamplingRate() const {
 	return m_maxSamplingRate;
 }
 
-Platform IrioV2::getPlatform() const {
+Platform Irio::getPlatform() const {
 	return *m_platform.get();
 }
 
-PROFILE_ID IrioV2::getProfileID() const {
+PROFILE_ID Irio::getProfileID() const {
 	return m_profile->profileID;
 }
 
-void IrioV2::setCloseAttribute(std::uint32_t attribute) {
+void Irio::setCloseAttribute(std::uint32_t attribute) {
 	m_closeAttribute = attribute;
 }
 
-std::uint32_t IrioV2::getCloseAttribute() const {
+std::uint32_t Irio::getCloseAttribute() const {
 	return m_closeAttribute;
 }
 
@@ -218,35 +218,35 @@ std::uint32_t IrioV2::getCloseAttribute() const {
 /// Terminals
 ///////////////////////////////////////////////
 
-TerminalsAnalog IrioV2::getTerminalsAnalog() const {
+TerminalsAnalog Irio::getTerminalsAnalog() const {
 	return m_profile->getTerminal<TerminalsAnalog>();
 }
 
-TerminalsDigital IrioV2::getTerminalsDigital() const {
+TerminalsDigital Irio::getTerminalsDigital() const {
 	return m_profile->getTerminal<TerminalsDigital>();
 }
 
-TerminalsAuxAnalog IrioV2::getTerminalsAuxAnalog() const {
+TerminalsAuxAnalog Irio::getTerminalsAuxAnalog() const {
 	return m_profile->getTerminal<TerminalsAuxAnalog>();
 }
 
-TerminalsAuxDigital IrioV2::getTerminalsAuxDigital() const {
+TerminalsAuxDigital Irio::getTerminalsAuxDigital() const {
 	return m_profile->getTerminal<TerminalsAuxDigital>();
 }
 
-TerminalscRIO IrioV2::getTerminalsCRIO() const {
+TerminalscRIO Irio::getTerminalsCRIO() const {
 	return m_profile->getTerminal<TerminalscRIO>();
 }
 
-TerminalsFlexRIO IrioV2::getTerminalsFlexRIO() const {
+TerminalsFlexRIO Irio::getTerminalsFlexRIO() const {
 	return m_profile->getTerminal<TerminalsFlexRIO>();
 }
 
-TerminalsSignalGeneration IrioV2::getTerminalsSignalGeneration() const {
+TerminalsSignalGeneration Irio::getTerminalsSignalGeneration() const {
 	return m_profile->getTerminal<TerminalsSignalGeneration>();
 }
 
-TerminalsDMADAQ IrioV2::getTerminalsDAQ() const {
+TerminalsDMADAQ Irio::getTerminalsDAQ() const {
 	return m_profile->getTerminal<TerminalsDMADAQ>();
 }
 
@@ -254,26 +254,26 @@ TerminalsDMADAQ IrioV2::getTerminalsDAQ() const {
  * PRIVATE METHODS
  *********************************************/
 
-void IrioV2::finalizeDriver() const noexcept {
+void Irio::finalizeDriver() const noexcept {
 #ifndef CCS_VERSION
 	NiFpga_Finalize();
 #endif
 }
 
-void IrioV2::closeSession() noexcept {
+void Irio::closeSession() noexcept {
 	if (m_session != 0)
 		NiFpga_Close(m_session, m_closeAttribute);
 	m_session = 0;
 }
 
-void IrioV2::initDriver() const {
+void Irio::initDriver() const {
 #ifndef CCS_VERSION
 	const auto status = NiFpga_Initialize();
 	utils::throwIfNotSuccessNiFpga(status, "Error initializing NiFpga library");
 #endif
 }
 
-void IrioV2::openSession(const std::string &bitfilePath,
+void Irio::openSession(const std::string &bitfilePath,
 					 const std::string &signature) {
 	const auto status = NiFpga_Open(bitfilePath.c_str(),
 			signature.c_str(), m_resourceName.c_str(),
@@ -288,7 +288,7 @@ void IrioV2::openSession(const std::string &bitfilePath,
 	}
 }
 
-void IrioV2::searchCommonResources(ParserManager *parserManager) {
+void Irio::searchCommonResources(ParserManager *parserManager) {
 	NiFpga_Status status;
 
 	// Read FPGAVIversion
@@ -327,7 +327,7 @@ void IrioV2::searchCommonResources(ParserManager *parserManager) {
 	m_maxSamplingRate = m_fref;
 }
 
-void IrioV2::searchPlatform(ParserManager *parserManager) {
+void Irio::searchPlatform(ParserManager *parserManager) {
 	// Read Platform
 	std::uint32_t platform_addr;
 	if (!parserManager->findRegisterAddress(TERMINAL_PLATFORM,
@@ -354,7 +354,7 @@ void IrioV2::searchPlatform(ParserManager *parserManager) {
 	}
 }
 
-void IrioV2::searchDevProfile(ParserManager *parserManager) {
+void Irio::searchDevProfile(ParserManager *parserManager) {
 	static const std::unordered_map<PLATFORM_ID,
 			const std::unordered_map<std::uint8_t,
 				PROFILE_ID>> validProfileByPlatform =

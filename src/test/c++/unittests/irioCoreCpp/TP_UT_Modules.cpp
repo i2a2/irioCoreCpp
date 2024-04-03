@@ -70,7 +70,7 @@ public:
 
 TEST_F(ModulesFlexRIO, NI5761){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>(bfp);
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 			ModulesType::FlexRIO_NI5761);
 	EXPECT_EQ(irio.getTerminalsFlexRIO().getInsertedIOModuleID(),
@@ -79,7 +79,7 @@ TEST_F(ModulesFlexRIO, NI5761){
 
 TEST_F(ModulesFlexRIO, NI5781){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5781>(bfp);
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 			ModulesType::FlexRIO_NI5781);
 	EXPECT_EQ(irio.getTerminalsFlexRIO().getInsertedIOModuleID(),
@@ -88,7 +88,7 @@ TEST_F(ModulesFlexRIO, NI5781){
 
 TEST_F(ModulesFlexRIO, NI6581) {
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI6581>(bfp);
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 			ModulesType::FlexRIO_NI6581);
 	EXPECT_EQ(irio.getTerminalsFlexRIO().getInsertedIOModuleID(),
@@ -97,7 +97,7 @@ TEST_F(ModulesFlexRIO, NI6581) {
 
 TEST_F(ModulesFlexRIO, NI5734) {
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5734>(bfp);
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 			ModulesType::FlexRIO_NI5734);
 	EXPECT_EQ(irio.getTerminalsFlexRIO().getInsertedIOModuleID(),
@@ -106,7 +106,7 @@ TEST_F(ModulesFlexRIO, NI5734) {
 
 TEST_F(ModulesCRIO, NI92XX) {
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 			ModulesType::cRIO_NI92xx);
 	const auto vecMod = irio.getTerminalsCRIO().getInsertedIOModulesID();
@@ -115,7 +115,7 @@ TEST_F(ModulesCRIO, NI92XX) {
 }
 
 TEST_F(ModulesRSeries, NoModule) {
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(),
 				ModulesType::NoModule);
 }

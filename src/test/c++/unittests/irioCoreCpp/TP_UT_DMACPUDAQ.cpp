@@ -42,22 +42,22 @@ class ErrorDMACPUDAQTests: public DMACPUDAQTests { };
 ///// DMACPU DAQ Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(DMACPUDAQTests, TerminalsDMACPUDAQ){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsDAQ());
 }
 
 TEST_F(DMACPUDAQTests, LengthBlock){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDAQ().getLengthBlock(0), 42);
 }
 
 TEST_F(DMACPUDAQTests, getSamplingRateDecimation){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDAQ().getSamplingRateDecimation(0), samplingRateFake);
 }
 
 TEST_F(DMACPUDAQTests, setSamplingRateDecimation){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsDAQ().setSamplingRateDecimation(0, 1));
 }
 
@@ -65,21 +65,21 @@ TEST_F(DMACPUDAQTests, setSamplingRateDecimation){
 ///// Error DMACPU DAQ Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(ErrorDMACPUDAQTests, LengthBlockInvalidDMAID){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_THROW(irio.getTerminalsDAQ().getLengthBlock(10);,
 		errors::ResourceNotFoundError);
 }
 
 TEST_F(ErrorDMACPUDAQTests, MistmatchDMALengthBlock) {
 	EXPECT_THROW(
-		IrioV2 irio("../../../resources/failResources/7854/NiFpga_Rseries_MismatchDMALengthBlock_7854.lvbitx", "0", "V9.9");,
+		Irio irio("../../../resources/failResources/7854/NiFpga_Rseries_MismatchDMALengthBlock_7854.lvbitx", "0", "V9.9");,
 		errors::ResourceNotFoundError
 	);
 }
 
 TEST_F(ErrorDMACPUDAQTests, MistmatchDMASamplingRate) {
 	EXPECT_THROW(
-		IrioV2 irio("../../../resources/failResources/7854/NiFpga_Rseries_MistmatchDMASamplingRate_7854.lvbitx", "0", "V9.9");,
+		Irio irio("../../../resources/failResources/7854/NiFpga_Rseries_MistmatchDMASamplingRate_7854.lvbitx", "0", "V9.9");,
 		errors::ResourceNotFoundError
 	);
 }

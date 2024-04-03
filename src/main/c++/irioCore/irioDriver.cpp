@@ -13,7 +13,7 @@
 #include "irioError.h"
 #include "irioResourceFinder.h"
 
-using irio::IrioV2;
+using irio::Irio;
 using irio::PROFILE_ID;
 
 using irio::errors::IrioV2Error;
@@ -88,7 +88,7 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *appCallID,
 	p_DrvPvt->fpgaStarted = 0;
 }
 
-void fillPlatformData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
+void fillPlatformData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	const auto platform = iriov2->getPlatform();
 	p_DrvPvt->platform = static_cast<std::uint8_t>(platform.platformID);
 
@@ -108,7 +108,7 @@ void fillPlatformData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
 	// TODO: GPU
 }
 
-void fillCVData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
+void fillCVData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	const auto analog = iriov2->getTerminalsAnalog();
 	p_DrvPvt->CVADC = analog.getCVADC();
 	p_DrvPvt->CVDAC = analog.getCVDAC();
@@ -116,11 +116,11 @@ void fillCVData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
 	p_DrvPvt->minAnalogOut = analog.getMinValAO();
 }
 
-void fillIMAQData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
+void fillIMAQData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	// TODO
 }
 
-void fillDrvPvtData(const IrioV2 *iriov2, irioDrv_t *p_DrvPvt) {
+void fillDrvPvtData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	fillPlatformData(iriov2, p_DrvPvt);
 
 	p_DrvPvt->Fref = iriov2->getFref();
@@ -379,7 +379,7 @@ int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 
 template<typename T>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		T (irio::IrioV2::*funcGet)() const, const std::string &funcName) {
+		T (irio::Irio::*funcGet)() const, const std::string &funcName) {
 	try {
 		const auto irio = IrioV2InstanceManager::getInstance(
 				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
@@ -400,7 +400,7 @@ int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
 
 template<typename T>
 int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		void (irio::IrioV2::*funcSet)(const T&) const,
+		void (irio::Irio::*funcSet)(const T&) const,
 		const std::string &funcName) {
 	try {
 		const auto irio = IrioV2InstanceManager::getInstance(
@@ -423,11 +423,11 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 int irio_getDevQualityStatus(irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status) {
 	return getCommon(value, status, p_DrvPvt,
-			&irio::IrioV2::getDevQualityStatus, "DevQualityStatus");
+			&irio::Irio::getDevQualityStatus, "DevQualityStatus");
 }
 
 int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::IrioV2::getDevTemp,
+	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDevTemp,
 			"DevTemp");
 }
 
@@ -439,22 +439,22 @@ int irio_getDevProfile(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 }
 
 int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &irio::IrioV2::setDebugMode,
+	return setCommon(value, status, p_DrvPvt, &irio::Irio::setDebugMode,
 			"DebugMode");
 }
 
 int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::IrioV2::getDebugMode,
+	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDebugMode,
 			"DebugMode");
 }
 
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &irio::IrioV2::setDAQStartStop,
+	return setCommon(value, status, p_DrvPvt, &irio::Irio::setDAQStartStop,
 			"DAQStartStop");
 }
 
 int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::IrioV2::getDAQStartStop,
+	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDAQStartStop,
 			"DAQStartStop");
 }
 

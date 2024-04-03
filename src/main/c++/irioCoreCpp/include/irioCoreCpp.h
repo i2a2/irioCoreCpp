@@ -37,7 +37,7 @@ constexpr char DEFAULT_PARSE_LOG_PATH[] = "/tmp/irio_log/";
  *
  * @ingroup IRIO
  */
-class IrioV2 {
+class Irio {
  public:
 	/**
 	 * Constructor.
@@ -60,7 +60,7 @@ class IrioV2 {
 	 * @param FPGAVIversion		Version of the Bitfile. If it does not match the one parsed and exception will be thrown
 	 * @param parseVerbose		Print discovered resources
 	 */
-  IrioV2(const std::string &bitfilePath, const std::string &RIOSerialNumber,
+  Irio(const std::string &bitfilePath, const std::string &RIOSerialNumber,
 		 const std::string &FPGAVIversion, const bool parseVerbose = false);
 
   /**
@@ -68,7 +68,7 @@ class IrioV2 {
    * Closes the session if there is one open and finalizes
    * the low level library.
    */
-  ~IrioV2();
+  ~Irio();
 
   /**
    * Returns unique identifier

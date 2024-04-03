@@ -33,31 +33,31 @@ public:
 ///// Digital Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(AuxDigitalTests, TerminalsAuxDigital){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAuxDigital());
 }
 
 TEST_F(AuxDigitalTests, NumAuxDI){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxDigital().getNumAuxDI(), 2);
 }
 
 TEST_F(AuxDigitalTests, NumDO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxDigital().getNumAuxDO(), 2);
 }
 
 TEST_F(AuxDigitalTests, getDI){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxDigital().getAuxDI(0), auxDIFake);
 }
 
 TEST_F(AuxDigitalTests, getDO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAuxDigital().getAuxDO(0), auxDOFake);
 }
 
 TEST_F(AuxDigitalTests, setDO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAuxDigital().setAuxDO(0, true));
 }

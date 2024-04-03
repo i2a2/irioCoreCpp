@@ -60,90 +60,90 @@ class ErrorAnalogTests: public AnalogTests{};
 ///// Analog Terminals Tests
 ///////////////////////////////////////////////////////////////
 TEST_F(AnalogTests, TerminalsAnalog){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAnalog());
 }
 
 TEST_F(AnalogTests, NumAI){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getNumAI(), 2);
 }
 
 TEST_F(AnalogTests, NumAO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getNumAO(), 2);
 }
 
 TEST_F(AnalogTests, ModuleConnected){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getModuleConnected(), ModulesType::NoModule);
 }
 
 TEST_F(AnalogTests, CVADC){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_DOUBLE_EQ(irio.getTerminalsAnalog().getCVADC(), 1.035 / 8191);
 }
 
 TEST_F(AnalogTests, CVDAC){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_DOUBLE_EQ(irio.getTerminalsAnalog().getCVDAC(), 8191 / 1.035);
 }
 
 TEST_F(AnalogTests, MaxValAO){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_DOUBLE_EQ(irio.getTerminalsAnalog().getMaxValAO(), 1.0);
 }
 
 TEST_F(AnalogTests, MinValAO){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_DOUBLE_EQ(irio.getTerminalsAnalog().getMinValAO(), -1.0);
 }
 
 TEST_F(AnalogTests, getAICoupling){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getAICouplingMode(), CouplingMode::AC);
 }
 
 TEST_F(AnalogTests, setAICoupling){
 	setFlexRIOConnectedModule<ModulesType::FlexRIO_NI5761>();
 
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAnalog().setAICouplingMode(CouplingMode::DC));
 	EXPECT_EQ(irio.getTerminalsAnalog().getAICouplingMode(), CouplingMode::DC);
 }
 
 TEST_F(AnalogTests, getAI){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getAI(0), aiFake);
 }
 
 TEST_F(AnalogTests, getAO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getAO(0), aoFake);
 }
 
 TEST_F(AnalogTests, getAOEnable){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsAnalog().getAOEnable(0), aoEnableFake);
 }
 
 TEST_F(AnalogTests, setAO){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAnalog().setAO(0, aoFake));
 }
 
 TEST_F(AnalogTests, setAOEnable){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_NO_THROW(irio.getTerminalsAnalog().setAOEnable(0, aoEnableFake));
 }
 
@@ -152,20 +152,20 @@ TEST_F(AnalogTests, setAOEnable){
 ///////////////////////////////////////////////////////////////
 
 TEST_F(ErrorAnalogTests, UnsupportedAICouplingForModule){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_THROW(irio.getTerminalsAnalog().setAICouplingMode(CouplingMode::None);,
 			errors::UnsupportedAICouplingForModule);
 }
 
 TEST_F(ErrorAnalogTests, MismatchAOandAOEnable){
-	EXPECT_THROW(IrioV2 irio(
+	EXPECT_THROW(Irio irio(
 			"../../../resources/failResources/7966/NiFpga_FlexRIO_MismatchAOAOEnable_7966.lvbitx",
 			"0", "V9.9");,
 			errors::ResourceNotFoundError);
 }
 
 TEST_F(ErrorAnalogTests, InvalidAnalogTerminal){
-	IrioV2 irio(bitfilePath, "0", "V9.9");
+	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_THROW(irio.getTerminalsAnalog().getAI(99);,
 		errors::ResourceNotFoundError);
 }
