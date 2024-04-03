@@ -1,10 +1,10 @@
-BOLD=\e[1m
-NC=\e[0m
+export BOLD=\e[1m
+export NC=\e[0m
 
 export VERSION=0.5
 
-SOURCE_DIR := src/
 export COPY_DIR := target/
+SOURCE_DIR := src/
 LIB_MAKEFILE_DIR := target/main/c++
 TEST_MAKEFILE_DIR := target/test/c++
 

@@ -6,8 +6,8 @@ PACKAGE_NAME := irio_v2_cpp_adapter
 LIBRARIES := ../$(COPY_DIR)/lib/lib$(PACKAGE_NAME).a
 INCLUDES += $(wildcard ../$(COPY_DIR)/main/c++/irio_v2_cpp_adapter/include/*.h)
 
-LIB_INSTALL_DIR := /usr/local/lib
-INC_INSTALL_DIR := /usr/local/include/$(PACKAGE_NAME)
+LIB_INSTALL_DIR := $(BASE_LIB_INSTALL_DIR)
+INC_INSTALL_DIR := $(BASE_INC_INSTALL_DIR)/$(PACKAGE_NAME)
 
 FILES_SPEC = $(foreach file,$(notdir $(LIBRARIES)),"$(LIB_INSTALL_DIR)/$(file)"\n)
 FILES_SPEC += $(foreach file,$(notdir $(INCLUDES)),"$(INC_INSTALL_DIR)/$(file)"\n)
