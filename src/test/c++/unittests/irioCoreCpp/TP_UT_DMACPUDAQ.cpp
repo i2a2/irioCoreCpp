@@ -1,7 +1,7 @@
 #include "fixtures.h"
 #include "fff_nifpga.h"
 
-#include "irio_v2.h"
+#include "irioCoreCpp.h"
 #include "terminals/names/namesTerminalsCommon.h"
 #include "terminals/names/namesTerminalsDMACPUCommon.h"
 #include "terminals/names/namesTerminalsDMADAQCPU.h"

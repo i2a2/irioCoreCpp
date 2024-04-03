@@ -4,7 +4,7 @@
 
 #include "bfp.h"
 
-#include "irio_v2.h"
+#include "irioCoreCpp.h"
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 #include "profiles/profiles.h"

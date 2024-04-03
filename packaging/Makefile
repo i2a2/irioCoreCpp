@@ -1,5 +1,5 @@
 PACKAGES_MAKEFILES=package_bfp.mk package_bfp_devel.mk 
-PACKAGES_MAKEFILES+=package_iriov2cpp.mk package_iriov2cpp_devel.mk
+PACKAGES_MAKEFILES+=package_irioCoreCpp.mk package_irioCoreCpp_devel.mk
 PACKAGES_MAKEFILES+=package_irioCore.mk package_irioCore_devel.mk
 
 ifdef CODAC_ROOT

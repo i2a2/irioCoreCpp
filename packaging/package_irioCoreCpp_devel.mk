@@ -5,12 +5,11 @@ PACKAGE_NAME := irioCoreCpp
 
 LIBRARIES := ../$(COPY_DIR)/lib/lib$(PACKAGE_NAME).a
 INCLUDES_BASE_DIR := ../$(COPY_DIR)/main/c++/irioCoreCpp/include
-INCLUDES += $(INCLUDES_BASE_DIR)/irio_v2.h
-INCLUDES += $(INCLUDES_BASE_DIR)/errorsIrio.h
-INCLUDES += $(INCLUDES_BASE_DIR)/frameTypes.h
-INCLUDES += $(INCLUDES_BASE_DIR)/modules.h
-INCLUDES += $(INCLUDES_BASE_DIR)/platforms.h
-INCLUDES += $(INCLUDES_BASE_DIR)/profilesTypes.h
+INCLUDES_ALL = $(wildcard $(INCLUDES_BASE_DIR)/*.h)
+EXCLUDE = utils.h
+EXCLUDE += rioDiscovery.h
+EXCLUDE += parserManager.h
+INCLUDES =  $(filter-out $(EXCLUDE), $(INCLUDES_ALL))
 
 INCLUDES_TERMINALS = $(wildcard $(INCLUDES_BASE_DIR)/terminals/*.h)
 

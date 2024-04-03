@@ -3,7 +3,7 @@
 #include <math.h>
 #include "errorsIrio.h"
 #include "irioFixture.h"
-#include "irio_v2.h"
+#include "irioCoreCpp.h"
 #include "modules.h"
 #include "irioUtils.h"
 

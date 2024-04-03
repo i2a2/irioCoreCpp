@@ -7,7 +7,7 @@
 #include "fff_nifpga.h"
 
 
-#include "irio_v2.h"
+#include "irioCoreCpp.h"
 #include "rioDiscovery.h"
 #include "errorsIrio.h"
 #include "bfp.h"

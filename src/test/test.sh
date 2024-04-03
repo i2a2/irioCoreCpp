@@ -3,14 +3,14 @@
 cd ./c++/bfp
 ./test_bfp
 
-cd ../unittests/irio_v2_cpp
-./test_ut_iriov2cpp
+cd ../unittests/irioCoreCpp
+./test_ut_irioCoreCpp
 
-cd ../irio_v2_cpp_adapter
-./test_ut_iriov2cpp_adapter
+cd ../irioCore
+./test_ut_irioCore
 
-cd ../../irio_v2_cpp/
-./test_iriov2cpp
+cd ../../irioCoreCpp/
+./test_irioCoreCpp
 
-cd ../irio_v2_cpp_adapter
-#./test_irio_v2_cpp_adapter
+cd ../irioCore
+./test_irioCore

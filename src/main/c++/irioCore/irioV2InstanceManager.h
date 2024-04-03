@@ -3,7 +3,7 @@
 #include <utility>
 #include <string>
 
-#include "irio_v2.h"
+#include "irioCoreCpp.h"
 
 class IrioV2NotInitializedError: public std::runtime_error {
  public:

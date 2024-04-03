@@ -1,39 +1,37 @@
-PROGNAME=test_ut_iriov2cpp
+PROGNAME=test_irioCoreCpp
 
-TARGET=../../../../../target
+TARGET=../../../../target
 
 LIBRARIES=gtest bfp irioCoreCpp
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
+INCLUDE_DIRS=$(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
 
 ifdef CODAC_ROOT
-	LIBRARIES+=NiFpga 
+	LIBRARIES+=NiFpga
 	INCLUDE_DIRS+=$(CODAC_ROOT)/include
 	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
 else
-	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
 	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
 endif
 
 BINARY_DIR=.
-SOURCE_BASE_DIR=.
-SOURCES_DIR=$(SOURCE_BASE_DIR) ../common
-OBJECT_DIR = $(SOURCE_BASE_DIR)/.obj
+SOURCE_DIR=.
+OBJECT_DIR = $(SOURCE_DIR)/.obj
 
 EXECUTABLE=$(BINARY_DIR)/$(PROGNAME)
-INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
+BASE_INCLUDES=. ../include $(TARGET)/main/c++/include
+INCLUDES=$(foreach inc,$(BASE_INCLUDES),-I$(inc)) $(foreach inc,$(INCLUDE_DIRS),-I$(inc))
 LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs))
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
-SOURCES=$(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
-OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.c, %.o,$(patsubst %.cpp,%.o,$(notdir $(SOURCES)))))
+SOURCES=$(wildcard $(SOURCE_DIR)/*.cpp)
+OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
 
 C=gcc
 CC=g++
-CFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -O0 -g
-CCFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -std=c++11 -O0 -g
+CFLAGS=-c -Wall -O0 -g
+CCFLAGS=-c -Wall -std=c++11 -O0 -g
 LDFLAGS=
 
-VPATH=$(SOURCES_DIR)
 
 .PHONY: all clean run
 
@@ -49,10 +47,10 @@ $(EXECUTABLE): $(OBJECTS)
 	mkdir -p $(BINARY_DIR)
 	$(CC) $(LDFLAGS) $(LDPATHS) $(OBJECTS) -o $@ $(LDLIBS)
 
-$(OBJECT_DIR)/%.o: %.cpp
+$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 
-$(OBJECT_DIR)/%.o: %.c
+$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
 	mkdir -p $(OBJECT_DIR)
 	$(C) $(CFLAGS) $(INCLUDES) $< -o $@
