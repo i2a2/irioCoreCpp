@@ -30,7 +30,8 @@ class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
 	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
-	 * @param parsedBitfile			Parsed bitfile with the terminals
+	 * @param parserManager     	Pointer to class managing parsing the
+	 * 								bitfile and finding its resources
 	 * @param session				NiFpga_Session to be used in NiFpga
 	 * 								related functions
 	 * @param platform				Platform that is using the terminals.
