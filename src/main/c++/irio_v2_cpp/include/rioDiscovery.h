@@ -3,7 +3,7 @@
 
 namespace iriov2 {
 /**
- * @ingroup IrioV2
+ * @ingroup IRIO
  *
  * Searches for RIO devices and returns its name if any matches the
  * specified serial number

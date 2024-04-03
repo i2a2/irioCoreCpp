@@ -24,8 +24,8 @@
     <artifactId>irio</artifactId>
     <packaging>codac</packaging>
     <version>1.3.0</version>
-    <name>CODAC Core System irio-v2-cpp module</name>
-    <description>CODAC Core System irio-v2-cpp module</description>
+    <name>CODAC Core System IRIO Core Library Module</name>
+    <description>CODAC Core System IRIO core library module</description>
     <url>http://www.iter.org/</url>
  
     <!-- project properties -->
