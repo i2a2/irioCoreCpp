@@ -1,7 +1,7 @@
-Name:		irio_v2_cpp_adapter
+Name:		irioCore
 Version:	{VERSION}
 Release:	1%{?dist}
-Summary:	IRIO V2 CPP Adapter Module
+Summary:	irioCore Module
 
 License:	GPL
 URL:		https://github.com/i2a2/irio-v2-cpp
@@ -9,7 +9,7 @@ URL:		https://github.com/i2a2/irio-v2-cpp
 Requires: libirio_v2_cpp
 
 %description
-Adapts the IrioV2Cpp library to the prexisting C API or IrioV2
+Adapts the IrioV2Cpp library to the prexisting C API of IrioV2
 
 %postun
 [ $1 == 0 ] && /sbin/ldconfig

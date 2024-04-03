@@ -1,4 +1,4 @@
-SUBDIRS=bfp irio_v2_cpp irio_v2_cpp_adapter
+SUBDIRS=bfp irio_v2_cpp irioCore
 
 BOLD=\e[1m
 NC=\e[0m

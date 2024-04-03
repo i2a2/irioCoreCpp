@@ -1,6 +1,6 @@
 PACKAGES_MAKEFILES=package_bfp.mk package_bfp_devel.mk 
 PACKAGES_MAKEFILES+=package_iriov2cpp.mk package_iriov2cpp_devel.mk
-PACKAGES_MAKEFILES+=package_iriov2cpp_adapter.mk package_iriov2cpp_adapter_devel.mk
+PACKAGES_MAKEFILES+=package_irioCore.mk package_irioCore_devel.mk
 
 ifdef CODAC_ROOT
 	BASE_LIB_INSTALL_DIR := $(CODAC_ROOT)/lib
