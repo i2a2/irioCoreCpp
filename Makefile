@@ -1,7 +1,7 @@
 export BOLD=\e[1m
 export NC=\e[0m
 
-export VERSION=1.3
+export VERSION=1.3.0
 
 export COPY_DIR := target/
 SOURCE_DIR := src/

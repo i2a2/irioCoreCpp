@@ -21,9 +21,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.iter.codac.units</groupId>
-    <artifactId>irio-v2-cpp</artifactId>
+    <artifactId>irio</artifactId>
     <packaging>codac</packaging>
-    <version>1.3</version>
+    <version>1.3.0</version>
     <name>CODAC Core System irio-v2-cpp module</name>
     <description>CODAC Core System irio-v2-cpp module</description>
     <url>http://www.iter.org/</url>
@@ -66,22 +66,43 @@
                             <include name="bfp" type="library" />
                         </package>
                         <package develof="bfp">
-                        	<include type="file" source="main/c++/bfp/include" target="include/iriov2cpp/bfp" />
+                        	<include type="file" source="main/c++/bfp/include" target="include/bfp" />
                         </package>
-                        <package name="irio_v2_cpp">
+                        <package name="cpp">
+                            <requires codac="true">irio-bfp</requires>
                             <include name="irio_v2_cpp" type="library" />
                         </package>
-                        <package develof="irio_v2_cpp">
-                        	<include type="file" source="main/c++/irio_v2_cpp/include" target="include/iriov2cpp" />
+                        <package develof="cpp">
+                            <include type="file" source="main/c++/irio_v2_cpp/include/" target="include/irio_v2_cpp/">
+                                <include>*.h</include>
+                            </include>
+
+                            <include type="file" source="main/c++/irio_v2_cpp/include/terminals" target="include/irio_v2_cpp/terminals">
+                                <include>*.h</include>
+                            </include>
                         </package>
-                        
+
+                        <package>
+                            <requires codac="true">irio-cpp</requires>
+                            <include name="irioCore" type="library" />
+                        </package>
+                        <package develof="">
+                            <include type="file" source="main/c++/irioCore/include/" target="include/irioCore/">
+                                <include>*.h</include>
+                            </include>
+                        </package>
+
+                        <package name="examples">
+                            <requires codac="true">irio</requires>
+                        </package>
+
                         <package name="doc">
-                            <include type="doxygen" name="iriov2cpp" project="${project.name}" version="${project.version}" optimize="cpp">
+                            <include type="doxygen" name="irio_v2_cpp" project="${project.name}" version="${project.version}" optimize="cpp">
                                 <filepattern>*.dox</filepattern>
                 				<filepattern>*.h</filepattern>
                 				<filepattern>*.cpp</filepattern>
                                 <outputformat>html</outputformat>
-                                <outputformat>pdf</outputformat>
+                                <!-- <outputformat>pdf</outputformat> -->
                                 <input>main/c++/doc</input>
                                 <input>main/c++/bfp/include</input>
                                 <input>main/c++/irio_v2_cpp/include</input>
