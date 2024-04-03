@@ -53,10 +53,8 @@ VPATH=$(SOURCES_DIR)
 
 FILE_WITH_IRIOVERSION=./include/irioDriver.h
 
-ifdef CODAC_ROOT
-	VERSION_TO_UPDATE=$(shell find $(TOP) -name pom.xml -execdir mvn -q -Dexec.executable="echo" -Dexec.args='$${project.version}' --non-recursive exec:exec \;)
-else
-	VERSION_TO_UPDATE=$(VERSION)
+ifndef VERSION
+	VERSION=$(shell find $(TOP) -name pom.xml -execdir mvn -q -Dexec.executable="echo" -Dexec.args='$${project.version}' --non-recursive exec:exec \;)
 endif
 
 
@@ -67,8 +65,8 @@ endif
 all: copy_includes update_irio_version $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
 update_irio_version:
-	echo "Updating $(FILE_WITH_IRIOVERSION) to version $(VERSION_TO_UPDATE)"
-	sed -i 's/{IRIOVERSIONVALUE}/$(VERSION_TO_UPDATE)/g' $(FILE_WITH_IRIOVERSION)
+	echo "Updating $(FILE_WITH_IRIOVERSION) to version $(VERSION)"
+	sed -i 's/{IRIOVERSIONVALUE}/$(VERSION)/g' $(FILE_WITH_IRIOVERSION)
 
 copy_includes:
 	mkdir -p $(TARGET)/includes/
