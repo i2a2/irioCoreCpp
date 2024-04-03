@@ -1,7 +1,7 @@
-Name:		irio_v2_cpp_devel
+Name:		irioCoreCpp_devel
 Version:	{VERSION}
 Release:	1%{?dist}
-Summary:	IRIO V2 CPP devel
+Summary:	irioCoreCpp devel
 
 License:	GPL
 URL:		https://github.com/i2a2/irio-v2-cpp
@@ -9,7 +9,7 @@ URL:		https://github.com/i2a2/irio-v2-cpp
 Requires: libbfp
 
 %description
-IRIO V2 CPP devel
+irioCoreCpp devel
 
 %postun
 [ $1 == 0 ] && /sbin/ldconfig

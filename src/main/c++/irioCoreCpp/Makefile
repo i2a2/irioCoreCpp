@@ -1,4 +1,4 @@
-LIBNAME=irio_v2_cpp
+LIBNAME=irioCoreCpp
 
 TARGET=../../../../target
 

@@ -4,7 +4,7 @@ TARGET=../../../../target
 
 LIBRARIES=pugixml
 LIBRARY_DIRS=
-INCLUDE_DIRS=./include ../irio_v2_cpp/include
+INCLUDE_DIRS=./include ../irioCoreCpp/include
 
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_DIR=.

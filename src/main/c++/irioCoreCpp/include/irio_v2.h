@@ -26,7 +26,7 @@ constexpr char PARSE_LOG_PATH_ENV_VAR[] = "PARSE_LOG_IRIOV2";
  *
  * This constant defines the default path for the parse log.
  */
-constexpr char DEFAULT_PARSE_LOG_PATH[] = "/tmp/irio_v2_log/";
+constexpr char DEFAULT_PARSE_LOG_PATH[] = "/tmp/irio_log/";
 
 /**
  * irio-v2 main class.

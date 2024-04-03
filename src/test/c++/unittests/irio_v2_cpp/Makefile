@@ -2,9 +2,9 @@ PROGNAME=test_ut_iriov2cpp
 
 TARGET=../../../../../target
 
-LIBRARIES=gtest bfp irio_v2_cpp
+LIBRARIES=gtest bfp irioCoreCpp
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/bfp $(TARGET)/includes/irio_v2_cpp
+INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
 
 ifdef CODAC_ROOT
 	LIBRARIES+=NiFpga 

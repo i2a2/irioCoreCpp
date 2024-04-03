@@ -1,4 +1,4 @@
-SUBDIRS=bfp irio_v2_cpp irioCore
+SUBDIRS=bfp irioCoreCpp irioCore
 
 BOLD=\e[1m
 NC=\e[0m

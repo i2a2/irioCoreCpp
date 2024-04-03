@@ -70,17 +70,17 @@
                         </package>
                         <package name="cpp">
                             <requires codac="true">irio-bfp</requires>
-                            <include name="irio_v2_cpp" type="library" />
+                            <include name="irioCoreCpp" type="library" />
                         </package>
                         <package develof="cpp">
-                            <include type="file" source="main/c++/irio_v2_cpp/include" target="include/irio_v2_cpp">
+                            <include type="file" source="main/c++/irioCoreCpp/include" target="include/irioCoreCpp">
                                 <include>*.h</include>
                                 <exclude>utils.h</exclude>
                                 <exclude>rioDiscovery.h</exclude>
                                 <exclude>parserManager.h</exclude>
                             </include>
 
-                            <include type="file" source="main/c++/irio_v2_cpp/include/terminals" target="include/irio_v2_cpp/terminals">
+                            <include type="file" source="main/c++/irioCoreCpp/include/terminals" target="include/irioCoreCpp/terminals">
                                 <include>*.h</include>
                             </include>
                         </package>
@@ -104,7 +104,7 @@
                         </package>
 
                         <package name="doc">
-                            <include type="doxygen" name="irio_v2_cpp" project="${project.name}" version="${project.version}" optimize="cpp">
+                            <include type="doxygen" name="irioCoreCpp" project="${project.name}" version="${project.version}" optimize="cpp">
                                 <filepattern>*.dox</filepattern>
                 				<filepattern>*.h</filepattern>
                 				<filepattern>*.cpp</filepattern>
@@ -112,7 +112,7 @@
                                 <!-- <outputformat>pdf</outputformat> -->
                                 <input>main/c++/doc</input>
                                 <input>main/c++/bfp/include</input>
-                                <input>main/c++/irio_v2_cpp/include</input>
+                                <input>main/c++/irioCoreCpp/include</input>
                                 <imagepath>images</imagepath>
                                 <properties>
                                     <SORT_MEMBER_DOCS>NO</SORT_MEMBER_DOCS> 

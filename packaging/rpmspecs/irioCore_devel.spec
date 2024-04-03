@@ -6,7 +6,7 @@ Summary:	irioCore Module devel
 License:	GPL
 URL:		https://github.com/i2a2/irio-v2-cpp
 
-Requires: libirio_v2_cpp
+Requires: libirioCoreCpp
 
 %description
 Adapts the IrioV2Cpp library to the prexisting C API of IrioV2.

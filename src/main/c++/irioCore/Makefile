@@ -3,10 +3,10 @@ LIBNAME=irioCore
 TOP=../../../..
 TARGET=$(TOP)/target
 
-LIBRARIES=irio_v2_cpp
+LIBRARIES=irioCoreCpp
 
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include $(TARGET)/includes/irio_v2_cpp $(TARGET)/includes/bfp
+INCLUDE_DIRS=. ./include $(TARGET)/includes/irioCoreCpp $(TARGET)/includes/bfp
 
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_BASE_DIR=.

@@ -1,17 +1,18 @@
 BOLD=\e[1m
 NC=\e[0m
 
-PACKAGE_NAME := irio_v2_cpp
+PACKAGE_NAME := irioCoreCpp
 
 LIBRARIES := ../$(COPY_DIR)/lib/lib$(PACKAGE_NAME).a
-INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/irio_v2.h
-INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/errorsIrio.h
-INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/frameTypes.h
-INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/modules.h
-INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/platforms.h
-INCLUDES += ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/profilesTypes.h
+INCLUDES_BASE_DIR := ../$(COPY_DIR)/main/c++/irioCoreCpp/include
+INCLUDES += $(INCLUDES_BASE_DIR)/irio_v2.h
+INCLUDES += $(INCLUDES_BASE_DIR)/errorsIrio.h
+INCLUDES += $(INCLUDES_BASE_DIR)/frameTypes.h
+INCLUDES += $(INCLUDES_BASE_DIR)/modules.h
+INCLUDES += $(INCLUDES_BASE_DIR)/platforms.h
+INCLUDES += $(INCLUDES_BASE_DIR)/profilesTypes.h
 
-INCLUDES_TERMINALS = $(wildcard ../$(COPY_DIR)/main/c++/irio_v2_cpp/include/terminals/*.h)
+INCLUDES_TERMINALS = $(wildcard $(INCLUDES_BASE_DIR)/terminals/*.h)
 
 LIB_INSTALL_DIR := $(BASE_LIB_INSTALL_DIR)
 INC_INSTALL_DIR := $(BASE_INC_INSTALL_DIR)/$(PACKAGE_NAME)

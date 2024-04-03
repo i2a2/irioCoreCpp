@@ -4,7 +4,7 @@ TARGET=../../../../../target
 
 LIBRARIES=gtest bfp irioCore
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/irioCore $(TARGET)/includes/bfp $(TARGET)/includes/irio_v2_cpp 
+INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/irioCore $(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp 
 
 ifdef CODAC_ROOT
 	LIBRARIES+=NiFpga 

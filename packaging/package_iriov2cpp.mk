@@ -1,7 +1,7 @@
 BOLD=\e[1m
 NC=\e[0m
 
-PACKAGE_NAME := irio_v2_cpp
+PACKAGE_NAME := irioCoreCpp
 
 LIBRARIES := ../$(COPY_DIR)/lib/lib$(PACKAGE_NAME).so
 INCLUDES :=
