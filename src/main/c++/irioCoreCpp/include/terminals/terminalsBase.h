@@ -3,7 +3,7 @@
 #include <memory>
 #include "platforms.h"
 
-#ifdef CODAC_ROOT
+#ifdef CCS_VERSION
 typedef uintptr_t NiFpga_Session;
 #else
 typedef uint32_t NiFpga_Session;

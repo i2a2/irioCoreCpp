@@ -42,6 +42,7 @@ Irio::Irio(const std::string &bitfilePath,
 		searchDevProfile(&parserManager);
 
 		if(parseVerbose) {
+			std::cout << "Resources found: " << std::endl;
 			parserManager.printInfo();
 		}
 

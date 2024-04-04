@@ -6,15 +6,6 @@ LIBRARIES=gtest bfp irioCoreCpp
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. ./include ../include $(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
 
-ifdef CODAC_ROOT
-	LIBRARIES+=NiFpga 
-	INCLUDE_DIRS+=$(CODAC_ROOT)/include
-	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
-else
-	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
-	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
-endif
-
 BINARY_DIR=.
 SOURCE_BASE_DIR=.
 SOURCES_DIR=$(SOURCE_BASE_DIR) ../common
@@ -32,6 +23,17 @@ CC=g++
 CFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -O0 -g
 CCFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -std=c++11 -O0 -g
 LDFLAGS=
+
+ifdef CODAC_ROOT
+	LIBRARIES+=NiFpga 
+	INCLUDE_DIRS+=$(CODAC_ROOT)/include
+	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
+	CFLAGS+= -DCCS_VERSION
+	CCFLAGS+= -DCCS_VERSION
+else
+	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
+	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
+endif
 
 VPATH=$(SOURCES_DIR)
 
