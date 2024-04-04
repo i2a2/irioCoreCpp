@@ -5,28 +5,6 @@
 
 namespace irio {
 
-void findAndCheck(
-		ParserManager *parserManager,
-		const std::string &terminalName,
-		const size_t maxNum,
-		const size_t expectedNum,
-		std::unordered_map<std::uint32_t, const std::uint32_t> *mapInsert) {
-	for(size_t i = 0; i < maxNum; ++i) {
-		parserManager->findRegisterEnumAddress(terminalName, i,
-						GroupResource::SG, mapInsert, true);
-	}
-
-	if (mapInsert->size() != expectedNum) {
-		const std::string errMsg =
-			"Number of " + terminalName + " found (" +
-			std::to_string(mapInsert->size()) +
-			") does not match the number " + "of SGs expected (" +
-			std::to_string(expectedNum) + ")";
-		parserManager->logResourceError(terminalName, errMsg,
-										GroupResource::DAQ);
-	}
-}
-
 TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
 		ParserManager *parserManager,
 		const NiFpga_Session &session,
@@ -44,30 +22,42 @@ TerminalsSignalGenerationImpl::TerminalsSignalGenerationImpl(
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error reading " + std::string(TERMINAL_SGNO));
 
-	// Find SignalType
-	findAndCheck(parserManager, TERMINAL_SGSIGNALTYPE,
-			platform.maxSG, m_numSG, &m_mapSignalType_addr);
-
-	// Find Amp
-	findAndCheck(parserManager, TERMINAL_SGAMP,
-			platform.maxSG, m_numSG, &m_mapAmp_addr);
-
-	// Find Freq
-	findAndCheck(parserManager, TERMINAL_SGFREQ,
-			platform.maxSG, m_numSG, &m_mapFreq_addr);
-
-	// Find Phase
-	findAndCheck(parserManager, TERMINAL_SGPHASE,
-			platform.maxSG, m_numSG, &m_mapPhase_addr);
-
-	// Find Update Rate
-	findAndCheck(parserManager, TERMINAL_SGUPDATERATE,
-			platform.maxSG, m_numSG, &m_mapUpdateRate_addr);
-
-	// Read all Fref
 	std::unordered_map<std::uint32_t, const std::uint32_t> mapFrefAux;
-	findAndCheck(parserManager, TERMINAL_SGFREF, platform.maxSG, m_numSG,
-			&mapFrefAux);
+	std::unordered_map<std::string,
+		std::unordered_map<std::uint32_t, const std::uint32_t>*>
+			auxTerminalInsertMap = {
+				{TERMINAL_SGSIGNALTYPE, &m_mapSignalType_addr},
+				{TERMINAL_SGAMP, &m_mapAmp_addr},
+				{TERMINAL_SGFREQ, &m_mapFreq_addr},
+				{TERMINAL_SGPHASE, &m_mapPhase_addr},
+				{TERMINAL_SGUPDATERATE, &m_mapUpdateRate_addr},
+				{TERMINAL_SGFREF, &mapFrefAux},
+			};
+	std::uint8_t sgFound = 0;
+	std::uint8_t idxSG = 0;
+	while(sgFound < m_numSG && idxSG < platform.maxSG) {
+		std::unordered_set<std::string> notFoundRegSet;
+		bool anyFound = false;
+		for(auto termMap : auxTerminalInsertMap) {
+			bool regFound = parserManager->findRegisterEnumAddress(
+				termMap.first, idxSG, GroupResource::SG,
+				termMap.second, true);
+			anyFound |= regFound;
+			if(!regFound) {
+				notFoundRegSet.insert(termMap.first);
+			}
+		}
+		if(anyFound) {
+			sgFound++;
+			for (const auto &notFoundReg : notFoundRegSet) {
+				std::string resourceName = notFoundReg + std::to_string(idxSG);
+				parserManager->logResourceNotFound(resourceName,
+												   GroupResource::SG);
+			}
+		}
+		idxSG++;
+	}
+
 	for (const auto pair : mapFrefAux) {
 		std::uint32_t aux;
 		status = NiFpga_ReadU32(m_session, pair.second, &aux);

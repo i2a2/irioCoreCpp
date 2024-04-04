@@ -262,7 +262,6 @@ class ParserManager {
 	 */
 	void printInfoXML(const std::string& filename) const;
 
- private:
 	/**
 	 * Logs that a resource has been found.
 	 * @param resourceName The name of the resource.
@@ -278,7 +277,8 @@ class ParserManager {
 	 */
 	void logResourceNotFound(const std::string &resourceName,
 							 const GroupResource &group);
-
+							 
+ private:
 	/// The BFP object used by the parser manager.
 	bfp::BFP m_bfp;
 	/// Map to divide information of found resources per group

@@ -51,6 +51,8 @@ Irio::Irio(const std::string &bitfilePath,
 	} catch(errors::ResourceNotFoundError&) {
 		std::cerr << "[ERROR] Error searching resources in the bitfile "
 				  << bitfilePath << std::endl;
+		std::cerr << "[ERROR] The following resources were not found:"
+				  << std::endl;
 		parserManager.printInfoError();
 
 		std::string baseFilename = utils::getBaseName(bitfilePath);

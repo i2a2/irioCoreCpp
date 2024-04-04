@@ -108,7 +108,7 @@ void ParserManager::printInfo(std::ostream &os) const {
 		if (notFoundMap->size()) {
 			os << "\tNot found:" << std::endl << "\t\t";
 			for (const auto &notFound : *notFoundMap) {
-				os << notFound << ", " << std::endl;
+				os << notFound << ", ";
 			}
 			os << "\b\b " << std::endl;
 		}
@@ -130,16 +130,17 @@ void ParserManager::printInfoError(std::ostream &os) const {
 		if(notFoundMap->size() || errorMap->size()) {
 			os << m_group2str.at(group.first) << ":" << std::endl;
 
-			if(notFoundMap->size()) {
+			if (notFoundMap->size()) {
 				os << "\tNot found:" << std::endl << "\t\t";
-				for(const auto& notFound : *notFoundMap) {
-					os << notFound << ", " << std::endl;
+				for (const auto &notFound : *notFoundMap) {
+					os << notFound << ", ";
 				}
+				os << "\b\b " << std::endl;
 			}
 
-			if(errorMap->size()) {
+			if (errorMap->size()) {
 				os << "\tError:" << std::endl << "\t\t";
-				for(const auto& error : *errorMap) {
+				for (const auto &error : *errorMap) {
 					os << error.errMsg << std::endl << "\t\t";
 				}
 				os << std::endl;
