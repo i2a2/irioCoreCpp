@@ -7,6 +7,7 @@ export COPY_DIR := target/
 SOURCE_DIR := src/
 LIB_MAKEFILE_DIR := target/main/c++
 TEST_MAKEFILE_DIR := target/test/c++
+LEGACY_EXAMPLES_DIR := target/test/c
 
 LIB_INSTALL_DIR := /usr/local/lib
 INC_INSTALL_DIR := /usr/local/include
@@ -45,7 +46,12 @@ build:
 	@echo "Entering $(TEST_MAKEFILE_DIR) and executing make..."
 	$(MAKE) -C $(TEST_MAKEFILE_DIR) $(DEBUG)
 	@echo "Make in $(TEST_MAKEFILE_DIR) complete."
-	
+
+	@echo -e "\n$(BOLD)Building legacy examples...$(NC)"
+	@echo "Entering $(LEGACY_EXAMPLES_DIR) and executing make..."
+	$(MAKE) -C $(LEGACY_EXAMPLES_DIR) $(DEBUG)
+	@echo "Make in $(LEGACY_EXAMPLES_DIR) complete."
+
 	@echo -e "$(BOLD)COMPILATION SUCCESSFUL!$(NC)"
 
 clean:
