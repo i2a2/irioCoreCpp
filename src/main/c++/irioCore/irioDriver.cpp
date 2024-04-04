@@ -329,6 +329,7 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 		if (value) {
 			irio->startFPGA();
 			p_DrvPvt->fpgaStarted = 1;
+			p_DrvPvt->initDone = 1;
 		}
 	} catch (IrioV2NotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
