@@ -277,7 +277,7 @@ class ParserManager {
 	 */
 	void logResourceNotFound(const std::string &resourceName,
 							 const GroupResource &group);
-							 
+
  private:
 	/// The BFP object used by the parser manager.
 	bfp::BFP m_bfp;
