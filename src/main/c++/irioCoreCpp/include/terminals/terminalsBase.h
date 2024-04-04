@@ -3,7 +3,11 @@
 #include <memory>
 #include "platforms.h"
 
+#ifdef CODAC_ROOT
 typedef uintptr_t NiFpga_Session;
+#else
+typedef uint32_t NiFpga_Session;
+#endif
 
 namespace irio {
 
