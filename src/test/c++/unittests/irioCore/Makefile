@@ -13,7 +13,7 @@ OBJECT_DIR = $(SOURCE_BASE_DIR)/.obj
 
 EXECUTABLE=$(BINARY_DIR)/$(PROGNAME)
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs))
+LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,--enable-new-dtags,-rpath,$(libs))
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.c, %.o,$(patsubst %.cpp,%.o,$(notdir $(SOURCES)))))
