@@ -5,7 +5,7 @@ TARGET=$(TOP)/target
 
 LIBRARIES=irioCoreCpp
 
-LIBRARY_DIRS=$(TARGET)/lib
+LIBRARY_DIRS=$(TARGET)/lib ../$(TARGET)/lib
 INCLUDE_DIRS=. ./include $(TARGET)/includes/irioCoreCpp $(TARGET)/includes/bfp
 
 LIBRARY_DIR=$(TARGET)/lib

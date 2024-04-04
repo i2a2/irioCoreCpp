@@ -1,4 +1,4 @@
-SUBDIRS=legacy/examples
+SUBDIRS=legacy_examples
 
 BOLD=\e[1m
 NC=\e[0m

@@ -1,9 +1,9 @@
 BOLD=\e[1m
 NC=\e[0m
 
-TARGET=../../../../../target
+TARGET=../../../../target
 
-LIBRARIES=irioCore
+LIBRARIES=pthread irioCore
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. $(TARGET)/includes/irioCore
 
@@ -20,7 +20,7 @@ BINARY_DIR=.
 SOURCE_DIR=.
 
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) 
+LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,--enable-new-dtags,-rpath,$(libs)) 
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(wildcard $(SOURCE_DIR)/*.c)
 
