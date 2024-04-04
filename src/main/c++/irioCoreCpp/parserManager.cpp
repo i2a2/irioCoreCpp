@@ -274,4 +274,10 @@ bool CustomStringComparator::operator()(const std::string &a,
 	return a.size() < b.size();	 // Otherwise, shorter strings come first
 }
 
+size_t ResourceErrorHash::operator()(const ResourceError &info) const {
+	size_t hash1 = std::hash<std::string>{}(info.resourceName);
+	size_t hash2 = std::hash<std::string>{}(info.errMsg);
+	return hash1 ^ (hash2 << 1);  // Combining hashes
+}
+
 }  // namespace irio

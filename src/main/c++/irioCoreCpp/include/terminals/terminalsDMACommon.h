@@ -32,7 +32,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Returns number of channels in specific DMA
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
 	 *
 	 * @param n  Number of DMA group
 	 * @return	Number of channels implemented in the specified DMA
@@ -42,8 +42,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Returns the FPGA DMA Overflow register of a specific DMA
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n Number of DMA group
 	 * @return	True if overflows occurred, false if not
@@ -56,7 +56,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * The <i>n<sup>th</sup></i> bit of the register corresponds
 	 * to the overflow value of the <i>n<sup>th</sup></i> DMA.
 	 *
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @return FPGA DMA Overflow register value
 	 */
@@ -65,7 +65,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Return the type of frame used in a specific DMA.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
 	 *
 	 * @param n	Number of DMA group
 	 * @return	Type of frame used by the DMA
@@ -81,8 +81,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Returns the sample size of each data for a specific DMA
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	Number of DMA group
 	 * @return	Sample size in bytes for the specified DMA
@@ -99,8 +99,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Configure a specified DMA, start it and clean its contents.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n DMA group to configure and start
 	 */
@@ -109,7 +109,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Configures and starts all DMAs in the FPGA
 	 *
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 */
 	void startAllDMAs() const;
@@ -117,8 +117,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Stops the specified DMA group
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	DMA to stop
 	 */
@@ -127,7 +127,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Stops all DMAs in the FPGA
 	 *
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 */
 	void stopAllDMAs() const;
@@ -139,8 +139,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * where more data is read that is possible to clean, which
 	 * may lead to a infinite loop
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	DMA group to clean
 	 */
@@ -153,15 +153,15 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * where more data is read that is possible to clean, which
 	 * may lead to a infinite loop
 	 *
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 */
 	void cleanAllDMAs() const;
 
 	/**
 	 * Returns if a DMA group is enabled or not
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n Number of DMA group
 	 * @return True if enabled, false if not
@@ -171,8 +171,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Enables a DMA group
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n Number of DMA group
 	 */
@@ -181,8 +181,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Disables a DMA group
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n Number of DMA group
 	 */
@@ -191,8 +191,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	 * Enables or disables a DMA group
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n Number of DMA group
 	 * @param enaDis True to enable, false to disable
@@ -204,8 +204,8 @@ class TerminalsDMACommon: public TerminalsBase{
 	 *
 	 * If there are less elements than requested nothing is read.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n					Number of DMA group
 	 * @param elementsToRead	Number of elements to read from the DMA
@@ -225,10 +225,10 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * The read operation will block until the requested number of elements
 	 * are available or a timeout expires if specified.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::DMAReadTimeout 	If reading is in blocking mode,
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::DMAReadTimeout 	If reading is in blocking mode,
 	 * 											and the timeout expires waiting for enough data to be read
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n					Number of DMA group
 	 * @param elementsToRead	Number of elements to read from the DMA
@@ -252,10 +252,10 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * there are not enough.
 	 * If configured to wait, a timeout can be specified.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::DMAReadTimeout 	If reading is in blocking mode,
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::DMAReadTimeout 	If reading is in blocking mode,
 	 * 											and the timeout expires waiting for enough data to be read
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	Number of DMA group
 	 * @param elementsToRead	Number of elements to read from the DMA

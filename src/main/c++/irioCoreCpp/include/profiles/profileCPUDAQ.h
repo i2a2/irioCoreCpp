@@ -23,7 +23,7 @@ class ProfileCPUDAQ: virtual public ProfileBase {
 	 * - TerminalsAuxDigital
 	 * - TerminalsSignalGeneration
 	 *
-	 * @throw iriov2::errors::NiFpgaError    Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError    Error occurred in an FPGA operation
 	 *
 	 * @param parserManager     Pointer to class managing parsing the bitfile
 	 *                          and finding its resources

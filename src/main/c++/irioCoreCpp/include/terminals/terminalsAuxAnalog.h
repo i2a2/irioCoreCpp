@@ -32,8 +32,8 @@ class TerminalsAuxAnalog: public TerminalsBase {
   /**
    * Returns the value of an auxAI terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxAI terminal to read
    * @return	Value read from the auxAI terminal
@@ -43,8 +43,8 @@ class TerminalsAuxAnalog: public TerminalsBase {
   /**
    * Returns the value of an auxAO terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxAO terminal to read
    * @return	Value read from the auxAO terminal
@@ -68,8 +68,8 @@ class TerminalsAuxAnalog: public TerminalsBase {
   /**
    * Writes to a specific auxAO terminal a value
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxAO terminal to write
    * @param value	Value to write to the terminal
@@ -79,8 +79,8 @@ class TerminalsAuxAnalog: public TerminalsBase {
   /**
    * Returns the value of an auxAI64 terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxAI64 terminal to read
    * @return	Value read from the auxAI64 terminal
@@ -90,8 +90,8 @@ class TerminalsAuxAnalog: public TerminalsBase {
   /**
    * Returns the value of an auxAO64 terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxAO64 terminal to read
    * @return	Value read from the auxAO64 terminal
@@ -115,8 +115,8 @@ class TerminalsAuxAnalog: public TerminalsBase {
   /**
    * Writes to a specific auxAO64 terminal a value
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxAO64 terminal to write
    * @param value	Value to write to the terminal

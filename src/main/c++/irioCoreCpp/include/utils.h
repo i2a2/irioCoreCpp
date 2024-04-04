@@ -16,7 +16,7 @@ namespace utils {
  * Throws an exception if the NiFpga_Status is not success.
  * The exception message includes the specified text along with the error code
  *
- * @throw iriov2::errors::NiFpgaError	Status is not NiFpga_Status_Success
+ * @throw irio::errors::NiFpgaError	Status is not NiFpga_Status_Success
  *
  * @param status	Status to check
  * @param errMsg	Error message to use in the exception if there has been an error
@@ -27,7 +27,7 @@ void throwIfNotSuccessNiFpga(const NiFpga_Status &status,
 /**
  * Searches a map with identifiers as keys and addresses as values and check if the specified identifier (n) exists.
  *
- * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+ * @throw irio::errors::ResourceNotFoundError Resource specified not found
  *
  * @param mapResource	Map with the identifiers as keys and addresses as values
  * @param n				Identifier to find in map

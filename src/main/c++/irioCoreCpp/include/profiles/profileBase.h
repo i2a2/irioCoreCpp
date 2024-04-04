@@ -15,7 +15,7 @@ namespace irio {
  *
  * Allows the user to access terminals for read/write operations.
  * If a terminal group is not in the profile,
- * an \ref iriov2::errors::TerminalNotImplementedError exception will be thrown.
+ * an \ref irio::errors::TerminalNotImplementedError exception will be thrown.
  *
  * @ingroup Profiles
  */
@@ -33,7 +33,7 @@ class ProfileBase {
 	/**
 	 * Returns the specified terminal if it is present in the current profile
 	 *
-	 * @throw iriov2::errors::TerminalNotImplementedError	Terminals group not present for the current profile
+	 * @throw irio::errors::TerminalNotImplementedError	Terminals group not present for the current profile
 	 *
 	 * @tparam T	Terminals to get
 	 * @return		Requested terminals
@@ -47,10 +47,17 @@ class ProfileBase {
 	const PROFILE_ID profileID;
 
  protected:
+	/**
+	 * @brief Adds a terminal to the profile.
+	 *
+	 * @param terminal The terminal to be added.
+	 * @tparam T The type of the terminal.
+	 */
 	template<typename T>
 	void addTerminal(T terminal);
 
  private:
+	/// Associates a Terminal type to the actual instance of the terminal
 	std::unordered_map<std::type_index,
 			std::unique_ptr<TerminalsBase>> m_mapTerminals;
 };

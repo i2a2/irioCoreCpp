@@ -58,7 +58,9 @@ class Register: public Resource {
 	bool isArray() const;
 
  private:
+	/// Indicates whether the register is a control or an indicator
 	bool m_isControl = false;
+	/// Indicates whether the register is an array or not
 	bool m_isArray = false;
 };
 }  // namespace bfp

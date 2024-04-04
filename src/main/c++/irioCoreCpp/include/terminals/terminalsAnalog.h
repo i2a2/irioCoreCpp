@@ -13,7 +13,6 @@ namespace irio {
 class TerminalsAnalog: public TerminalsBase {
  public:
   /**
-   * Constructor.
    * Manages finding the related analog terminals in the parsed bitfile
    * and reading their values from the FPGA if required
    *
@@ -34,8 +33,8 @@ class TerminalsAnalog: public TerminalsBase {
   /**
    * Returns the value of an AI terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the AI terminal to read
    * @return	Value read from the AI terminal
@@ -45,8 +44,8 @@ class TerminalsAnalog: public TerminalsBase {
   /**
    * Returns the value of an AO terminal
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the AO terminal to read
    * @return	Value read from the AO terminal
@@ -56,8 +55,8 @@ class TerminalsAnalog: public TerminalsBase {
   /**
    * Returns the value of an AOEnable terminal
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the AOEnable terminal to read
    * @return	Value read from the AOEnable terminal
@@ -81,8 +80,8 @@ class TerminalsAnalog: public TerminalsBase {
   /**
    * Writes to a specific AO terminal a value
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the AO terminal to write
    * @param value	Value to write to the terminal
@@ -92,8 +91,8 @@ class TerminalsAnalog: public TerminalsBase {
   /**
    * Enables or disables a specific AO terminal
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the AOEnable terminal to enable/disable
    * @param value	true for enabling the equivalent AO terminal, false to
@@ -154,7 +153,7 @@ class TerminalsAnalog: public TerminalsBase {
    * Sets a new coupling mode, changing the conversion constants
    * accordingly
    *
-   * @throw iriov2::errors::UnsupportedAICouplingForModule	The \p mode is not
+   * @throw irio::errors::UnsupportedAICouplingForModule	The \p mode is not
    * supported by the module
    *
    * @param mode New mode to configure

@@ -27,7 +27,7 @@ class TerminalsDMADAQ: public TerminalsDMACommon{
 	/**
 	 * Returns the block length of a specific DMA group
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
 	 *
 	 * @param n Number of DMA group
 	 * @return	Length of the block used in the specified DMA group
@@ -39,8 +39,8 @@ class TerminalsDMADAQ: public TerminalsDMACommon{
 	 *
 	 * The sampling rate configured can be calculated as Fref/decimation
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	Number of DMA group
 	 * @return	Decimation used in the specified DMA group
@@ -53,8 +53,8 @@ class TerminalsDMADAQ: public TerminalsDMACommon{
 	 * The sampling rate is configured by a decimation factor.
 	 * The sampling rate configured is calculated as Fref/decimation
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-	 * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
+	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n	Number of DMA group
 	 * @param decimation	Decimation to apply to the Fref

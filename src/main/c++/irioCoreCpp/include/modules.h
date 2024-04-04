@@ -93,7 +93,7 @@ class Module {
 	 * Sets a new coupling mode, changing the conversion constants
 	 * accordingly
 	 *
-	 * @throw iriov2::errors::UnsupportedAICouplingForModule	The \p mode is not supported by the module
+	 * @throw irio::errors::UnsupportedAICouplingForModule	The \p mode is not supported by the module
 	 *
 	 * @param mode	New mode to configure
 	 */
@@ -140,11 +140,20 @@ class Module {
 	const ModulesType moduleID;
 
  protected:
+	/**
+	 * Adds a configuration for a specific coupling mode.
+	 *
+	 * @param mode The coupling mode.
+	 * @param config The configuration parameters.
+	 */
 	void addConfig(const CouplingMode &mode, const ConfigParams &config);
 
  private:
+	/// A map that stores available configurations for different coupling modes.
 	std::unordered_map<CouplingMode, const ConfigParams> m_availableConfigs;
+	/// Current coupling mode.
 	CouplingMode m_couplingMode = CouplingMode::None;
+	/// Current config values for the selected coupling mode
 	ConfigParams m_currentConfig;
 };
 
@@ -161,7 +170,9 @@ class ModuleNI5761: public Module {
 	ModuleNI5761();
 
  private:
+	/// ConfigParams for AC coupling mode for NI5761
 	const ConfigParams m_configAC { 1.035 / 8191, 8191 / 1.035, 1.0, -1.0 };
+	/// ConfigParams for DC coupling mode for NI5761
 	const ConfigParams m_configDC { 0.635 / 8191, 8191 / 0.635, 0.635, -0.635 };
 };
 
@@ -178,6 +189,7 @@ class ModuleNI6581: public Module {
 	ModuleNI6581();
 
  private:
+	/// ConfigParams for No coupling mode for NI6581
 	const ConfigParams m_configNone { 1.0, 1.0, 1.0, -1.0 };
 };
 
@@ -194,6 +206,7 @@ class ModuleNI5734: public Module {
 	ModuleNI5734();
 
  private:
+	/// ConfigParams for No coupling mode for NI5734
 	const ConfigParams m_configNone { 2.0 / 65536, 65536 / 2.0, 1.0, -1.0 };
 };
 
@@ -210,6 +223,7 @@ class ModuleNI5781: public Module {
 	ModuleNI5781();
 
  private:
+	/// ConfigParams for DC coupling mode for NI5781
 	const ConfigParams m_configDC { 2.0 / 16384, 65536.0, 0.5, -0.5 };
 };
 
@@ -226,6 +240,7 @@ class ModuleNI92xx: public Module {
 	ModuleNI92xx();
 
  private:
+	/// ConfigParams for DC coupling mode for 9205/9264
 	const ConfigParams m_configDC { std::pow(2, -21), std::pow(2, 15), 10, -10 };
 };
 

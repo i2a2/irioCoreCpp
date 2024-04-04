@@ -25,8 +25,8 @@ class TerminalsDMADAQImpl: public TerminalsDMACommonImpl{
    * (such is the case for CPU and GPU)
    *
    * @throw std::runtime_error	Size mismatch between found resources
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
-   * @throw iriov2::errors::NiFpgaError Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
    *
    * @param parserManager     		Pointer to class managing parsing the bitfile
    *                          		and finding its resources

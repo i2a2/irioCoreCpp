@@ -35,8 +35,8 @@ class TerminalsAuxDigital: public TerminalsBase {
   /**
    * Returns the value of an auxDI terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxDI terminal to read
    * @return	Value read from the auxDI terminal
@@ -46,8 +46,8 @@ class TerminalsAuxDigital: public TerminalsBase {
   /**
    * Returns the value of an auxDO terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxDO terminal to read
    * @return	Value read from the auxDO terminal
@@ -71,8 +71,8 @@ class TerminalsAuxDigital: public TerminalsBase {
   /**
    * Writes to a specific auxDO terminal a value
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the auxDO terminal to write
    * @param value	Value to write to the terminal

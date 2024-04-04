@@ -34,8 +34,8 @@ class TerminalsDigital: public TerminalsBase{
   /**
    * Returns the value of an DI terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the DI terminal to read
    * @return	Value read from the DI terminal
@@ -45,8 +45,8 @@ class TerminalsDigital: public TerminalsBase{
   /**
    * Returns the value of an DO terminal.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the DO terminal to read
    * @return	Value read from the DO terminal
@@ -70,8 +70,8 @@ class TerminalsDigital: public TerminalsBase{
   /**
    * Writes to a specific DO terminal a value
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n	Number of the DO terminal to write
    * @param value	Value to write to the terminal

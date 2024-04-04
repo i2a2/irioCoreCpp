@@ -279,10 +279,14 @@ class ParserManager {
 	void logResourceNotFound(const std::string &resourceName,
 							 const GroupResource &group);
 
+	/// The BFP object used by the parser manager.
 	bfp::BFP m_bfp;
+	/// Map to divide information of found resources per group
 	std::unordered_map<GroupResource, GroupInfo> m_groupInfo;
+	/// True if some resource was not found
 	bool m_error;
 
+	/// Convert GroupResource to string
 	const std::unordered_map<GroupResource, std::string> m_group2str = {
 		{GroupResource::Common, "Common"},
 		{GroupResource::AI, "AI"},

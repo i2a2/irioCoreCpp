@@ -22,7 +22,7 @@ class BFP {
 	/**
 	 * Parse the specified bitfile
 	 *
-	 * @throw iriov2::errors::BFPParseBitfileError Unable to parse \p bitfile
+	 * @throw irio::errors::BFPParseBitfileError Unable to parse \p bitfile
 	 *
 	 * @param bitfile			Bitfile to parse
 	 * @param warnUnsupported	If true, a message will be printed by std::cerr
@@ -57,7 +57,7 @@ class BFP {
 	/**
 	 * Get specific register. Throws a runtime exception if not found.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError	Specified \p registerName not found
+	 * @throw irio::errors::ResourceNotFoundError	Specified \p registerName not found
 	 *
 	 * @param registerName	Register name to get
 	 * @return	Register found
@@ -74,7 +74,7 @@ class BFP {
 	/**
 	 * Get specific DMA. Throws a runtime exception if not found.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError	Specified \p dmaName not found
+	 * @throw irio::errors::ResourceNotFoundError	Specified \p dmaName not found
 	 *
 	 * @param dmaName	DMA name to get
 	 * @return	DMA found
@@ -82,14 +82,19 @@ class BFP {
 	DMA getDMA(const std::string &dmaName) const;
 
  private:
+	/// Path to the bitfile to be parsed
 	const std::string m_bitfilePath;
 
+	/// Bitfile's signature
 	std::string m_signature;
+	/// Bitfile's base address
 	std::uint32_t m_baseAddress;
-
+	/// Bitfile's version
 	std::string m_bitfileVersion;
 
+	/// Map storing the data of the registers parsed, using their names as keys
 	std::unordered_map<std::string, Register> m_regMap;
+	/// Map storing the data of the DMAs parsed, using their names as keys
 	std::unordered_map<std::string, DMA> m_dmaMap;
 };
 }  // namespace bfp

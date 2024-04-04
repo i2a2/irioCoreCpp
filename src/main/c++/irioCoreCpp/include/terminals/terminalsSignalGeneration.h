@@ -17,7 +17,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
    * in the parsed bitfile and reading their values
    * from the FPGA if required
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw std::runtime_error	Number of found terminals do not match the value
    * in SGNo
    *
@@ -40,7 +40,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Returns the reference clock for a specified signal generator.
    *
-   * @throw iriov2::errors::ResourceNotFoundError The specified signal generator
+   * @throw irio::errors::ResourceNotFoundError The specified signal generator
    * does not exists
    *
    * @param n	Number of the signal generator
@@ -52,8 +52,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Returns the signal type generated for a specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n Number of the signal generator
    * @return	Type of the signal for the specified signal generator
@@ -64,8 +64,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
    * Returns the amplitude of the signal for a
    * specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n Number of the signal generator
    * @return	Amplitude of the signal for the specified signal generator
@@ -76,8 +76,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
    * Returns the frequency of the signal for a
    * specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n Number of the signal generator
    * @return	Frequency of the signal for the specified signal generator
@@ -88,8 +88,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
    * Returns the phase of the signal for a
    * specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n Number of the signal generator
    * @return	Phase of the signal for the specified signal generator
@@ -100,8 +100,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
    * Returns the update rate of a
    * specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n Number of the signal generator
    * @return	Update rate of the specified signal generator
@@ -112,8 +112,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Configures the signal type for a specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n			Number of the signal generator
    * @param value		Signal type to configure
@@ -123,8 +123,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Configures the amplitude for a specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n			Number of the signal generator
    * @param value		Amplitude to configure
@@ -134,8 +134,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Configures the frequency for a specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n			Number of the signal generator
    * @param value		Frequency to configure
@@ -145,8 +145,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Configures the phase for a specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n			Number of the signal generator
    * @param value		Phase to configure
@@ -156,8 +156,8 @@ class TerminalsSignalGeneration: public TerminalsBase {
   /**
    * Configures the update rate for a specific signal generator
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw iriov2::errors::ResourceNotFoundError Resource specified not found
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n			Number of the signal generator
    * @param value		Update rate to configure

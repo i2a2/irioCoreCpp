@@ -18,7 +18,7 @@ class TerminalscRIO: public TerminalsBase {
    * Constructor.
    * Manages finding the related terminals specific to cRIO devices.
    *
-   * @throw iriov2::errors::ResourceNotFoundError		Some of the necessary
+   * @throw irio::errors::ResourceNotFoundError		Some of the necessary
    * resources were not found in the bitfile
    *
    * @param parserManager   Pointer to class managing parsing the bitfile
@@ -30,7 +30,7 @@ class TerminalscRIO: public TerminalsBase {
 
   /**
    * Returns whether the modules connected to the cRIO are ok
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return true if no problem found, false otherwise
    */
@@ -38,7 +38,7 @@ class TerminalscRIO: public TerminalsBase {
 
   /**
    * Returns a vector with all the modules in the cRIO device
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return Vector with the ID of the modules in the cRIO device
    */

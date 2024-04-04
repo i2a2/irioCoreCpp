@@ -55,11 +55,13 @@ class DMA: public Resource {
 
 	/**
 	 * Returns whether the DMA is Host to Target (HtT) or not
+	 * 
 	 * @return True if it is HtT
 	 */
 	bool isHostToTarget() const;
 
  private:
+	/// If the DMA is TtH or HtT
 	bool m_isTargetToHost = false;
 };
 

@@ -47,13 +47,13 @@ class Irio {
 	 * - Applies the appropriate profile depending on the values specified in the LabVIEW project. This allows access to some terminals or others.
 	 * - Checks that the configured values and resources matches the design rules
 	 *
-	 * @throw iriov2::errors::RIODeviceNotFoundError		Unable to found a device with the specified \p RIOSerialNumber
-	 * @throw iriov2::errors::BFPParseBitfileError			Unable to parse \p bitfilePath
-	 * @throw iriov2::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
-	 * @throw iriov2::errors::FPGAVIVersionMismatchError	Parsed FPGAVIversion does not match the one specified
-	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
-	 * @throw iriov2::errors::UnsupportedPlatformError		The platform read does not match any of the supported platforms
-	 * @throw iriov2::errors::NiFpgaError					Error occurred in an FPGA operation
+	 * @throw irio::errors::RIODeviceNotFoundError		Unable to found a device with the specified \p RIOSerialNumber
+	 * @throw irio::errors::BFPParseBitfileError			Unable to parse \p bitfilePath
+	 * @throw irio::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
+	 * @throw irio::errors::FPGAVIVersionMismatchError	Parsed FPGAVIversion does not match the one specified
+	 * @throw irio::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
+	 * @throw irio::errors::UnsupportedPlatformError		The platform read does not match any of the supported platforms
+	 * @throw irio::errors::NiFpgaError					Error occurred in an FPGA operation
 	 *
 	 * @param bitfilePath		Bitfile to parse and download
 	 * @param RIOSerialNumber	RIO Serial Number of the device to use
@@ -80,20 +80,20 @@ class Irio {
   /**
    * Starts the VI downloaded in the FPGA.
    *
-   * @throw iriov2::errors::InitializationTimeoutError	InitDone is not ready
+   * @throw irio::errors::InitializationTimeoutError	InitDone is not ready
    * after a timeout
-   * @throw iriov2::errors::ModulesNotOKError		At initialization, the
+   * @throw irio::errors::ModulesNotOKError		At initialization, the
    * modules are not ready
-   * @throw iriov2::errors::NiFpgaFPGAAlreadyRunning	Specified bitfile is
+   * @throw irio::errors::NiFpgaFPGAAlreadyRunning	Specified bitfile is
    * already running in the FPGA
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @param timeoutMs Max time to wait for InitDone to be ready
    */
   void startFPGA(std::uint32_t timeoutMs = 5000) const;
 
   /**
-   * Returns the parsed \ref TERMINAL_FPGAVIVERSION read from the FPGA
+   * Returns the parsed TERMINAL_FPGAVIVERSION read from the FPGA
    *
    * @return String with the FPGAVIversion as (M.m). First element is the major
    * version, second the minor version
@@ -101,10 +101,10 @@ class Irio {
   std::string getFPGAVIversion() const;
 
   /**
-   * Reads the \ref TERMINAL_INITDONE terminal from the FPGA and return its
+   * Reads the TERMINAL_INITDONE terminal from the FPGA and return its
    * value. This indicates if the FPGA has been initialized.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return InitDone value. True if FPAG initialized, false otherwise
    */
@@ -112,49 +112,49 @@ class Irio {
 
   /**
    * Returns the reference clock of the FPGA for sampling rate.
-   * Its value is specified by the terminal \ref TERMINAL_INITDONE
+   * Its value is specified by the terminal TERMINAL_INITDONE
    *
    * @return Reference clock of the FPGA for sampling rate
    */
   std::uint32_t getFref() const;
 
   /**
-   * Reads the \ref TERMINAL_DEVQUALITYSTATUS terminal.
+   * Reads the TERMINAL_DEVQUALITYSTATUS terminal.
    * Its value indicates the status of the acquisition.
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return Status of the acquisition
    */
   std::uint8_t getDevQualityStatus() const;
 
   /**
-   * Reads the \ref TERMINAL_DEVTEMP terminal.
+   * Reads the TERMINAL_DEVTEMP terminal.
    * Its value indicates the temperature of the FPGA
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return Temperature of the FPGA
    */
   std::int16_t getDevTemp() const;
 
   /**
-   * Reads the \ref TERMINAL_DAQSTARTSTOP terminal.
+   * Reads the TERMINAL_DAQSTARTSTOP terminal.
    * Its value indicates whether the data acquisition is running
    * or not
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return True if data acquisition is running, false otherwise
    */
   bool getDAQStartStop() const;
 
   /**
-   * Reads the \ref TERMINAL_DEBUGMODE terminal.
+   * Reads the TERMINAL_DEBUGMODE terminal.
    * Its value indicates whether the acquired data is simulated
    * or not
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return True if data acquired is simulated, false otherwise
    */
@@ -162,25 +162,25 @@ class Irio {
 
   /**
    * Starts the data acquisition.
-   * Writes true to \ref TERMINAL_DAQSTARTSTOP
+   * Writes true to TERMINAL_DAQSTARTSTOP
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    */
   void setDAQStart() const;
 
   /**
    * Stops the data acquisition.
-   * Writes false to \ref TERMINAL_DAQSTARTSTOP
+   * Writes false to TERMINAL_DAQSTARTSTOP
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    */
   void setDAQStop() const;
 
   /**
    * Allows starting or stopping the data acquisition.
-   * Writes to \ref TERMINAL_DAQSTARTSTOP
+   * Writes to TERMINAL_DAQSTARTSTOP
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @param start True to start, false to stop
    */
@@ -188,9 +188,9 @@ class Irio {
 
   /**
    * Enables or disables the debug mode.
-   * Writes to \ref TERMINAL_DEBUGMODE
+   * Writes to TERMINAL_DEBUGMODE
    *
-   * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @param debug
    */
@@ -257,7 +257,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return Analog terminals
@@ -270,7 +270,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return Digital terminals
@@ -283,7 +283,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return Aux analog terminals
@@ -296,7 +296,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return Aux digital terminals
@@ -309,7 +309,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return cRIO terminals
@@ -322,7 +322,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return FlexRIO terminals
@@ -335,7 +335,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return Signal generation terminals
@@ -348,7 +348,7 @@ class Irio {
    * The user must call it to be able to read/write the
    * related terminals.
    *
-   * @throw iriov2::errors::TerminalNotImplementedError The selected profile
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
    * does not have the terminals
    *
    * @return DAQ terminals
@@ -377,7 +377,7 @@ class Irio {
      * Opens a session to the FPGA, downloading the bitfile if necessary.
 	 * It does not run the VI, until @ref startFPGA has been called
      * 
-     * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+     * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
      * 
      * @param bitfilePath The path to the bitfile.
      * @param signature The signature for the session.
@@ -386,54 +386,72 @@ class Irio {
 					 const std::string &signature);
 
 	/**
-	 * Searches for the @ref TERMINAL_PLATFORM terminal and reads its value.
+	 * Searches for the TERMINAL_PLATFORM terminal and reads its value.
+     * 
 	 * Checks that is a valid value and assigns the equivalent
 	 * Platform to a variable.
 	 *
-	 * @throw iriov2::errors::UnsupportedPlatformError	The platform read does not match any of the supported platforms
-	 * @throw iriov2::errors::NiFpgaError	Error occurred in an FPGA operation
+	 * @throw irio::errors::UnsupportedPlatformError	The platform read does not match any of the supported platforms
+	 * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
 	 */
 	void searchPlatform(ParserManager *parserManager);
 
 	/**
-	 * Searches for the @ref TERMINAL_DEVPROFILE terminals and
-	 * reads its value.
+	 * Searches for the TERMINAL_DEVPROFILE terminals and reads its value.
+     * 
 	 * Checks that is a valid value for the selected platform and assigns
 	 * the corresponding profile to a variable.
 	 * This determines which terminals can the user access.
 	 *
-	 * @throw iriov2::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
-	 * @throw iriov2::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
-	 * @throw iriov2::errors::NiFpgaError					Error occurred in an FPGA operation
+	 * @throw irio::errors::ResourceNotFoundError			Some of the necessary resources were not found in the bitfile
+	 * @throw irio::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
+	 * @throw irio::errors::NiFpgaError					Error occurred in an FPGA operation
 	 */
 	void searchDevProfile(ParserManager *parserManager);
 
 	/**
 	 * Searches for the common resources used in all profiles.
+     * 
 	 * It reads some of the resources with their initials values,
 	 * so it must be called after a NiFpga_session has been obtained.
 	 */
 	void searchCommonResources(ParserManager *parserManager);
 
+	/// Platform of the RIO device
 	std::unique_ptr<Platform> m_platform;
+
+	/// Profile specified in the bitfile
 	std::unique_ptr<ProfileBase> m_profile;
 
+	/// Name of the RIO device used. Obtained through the serialNumber specified.
 	std::string m_resourceName;
 
+    /// Session obtained when opening a session using the NiFpga library
 	NiFpga_Session m_session;
 
+	/// FpgaVIVersion read from the RIO device
 	std::string m_fpgaviversion;
+	/// Reference frequency read from the RIO device
 	std::uint32_t m_fref;
 
+    /// Address of the initdone resource
 	std::uint32_t m_initdone_addr;
+    /// Address of the devqualitystatus resource
 	std::uint32_t m_devqualitystatus_addr;
+    /// Address of the devtemp resource
 	std::uint32_t m_devtemp_addr;
+    /// Address of the daqstartstop resource
 	std::uint32_t m_daqstartstop_addr;
+	/// Address of the debugmode resource
 	std::uint32_t m_debugmode_addr;
 
+	/// Minimum sampling rate supported by the RIO device
 	double m_minSamplingRate;
+	/// Maximum sampling rate supported by the RIO device
 	double m_maxSamplingRate;
 
+	/// Attribute to use when closing the session with the RIO device. By
+	/// default is 0
 	std::uint32_t m_closeAttribute;
 };
 

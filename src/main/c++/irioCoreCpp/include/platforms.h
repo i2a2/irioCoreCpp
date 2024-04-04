@@ -44,16 +44,26 @@ class Platform {
 					maxModules(modules), platformID(id) {
 	}
 
+	/// Max number of Analog Input terminals
 	const size_t maxAI;
+	/// Max number of Aux Analog Input terminals
 	const size_t maxAuxAI;
+	/// Max number of Analog Output terminals
 	const size_t maxAO;
+	/// Max number of Aux Analog Output terminals
 	const size_t maxAuxAO;
+	/// Max number of Digital terminals
 	const size_t maxDigital;
+	/// Max number of Aux Digital terminals
 	const size_t maxAuxDigital;
+	/// Max number of DMAs
 	const size_t maxDMA;
+	/// Max number of Signal Generators
 	const size_t maxSG;
+	/// Max number of modules
 	const size_t maxModules;
 
+	/// Platform identifier
 	const PLATFORM_ID platformID;
 };
 
@@ -63,14 +73,23 @@ class Platform {
  */
 class PlatformFlexRIO: public Platform {
  private:
+	/// Max number of Analog Input terminals for this platform
 	static const size_t MAX_AI = 4;
+	/// Max number of Aux Analog Input terminals for this platform
 	static const size_t MAX_AUX_AI = 16;
+	/// Max number of Analog Output terminals for this platform
 	static const size_t MAX_AO = 2;
+	/// Max number of Aux Analog Output terminals for this platform
 	static const size_t MAX_AUX_AO = 16;
+	/// Max number of Digital terminals for this platform
 	static const size_t MAX_DIGITAL = 90;
+	/// Max number of Aux Digital terminals for this platform
 	static const size_t MAX_AUX_DIGITAL = 16;
+	/// Max number of DMAs for this platform
 	static const size_t MAX_DMA = 16;
+	/// Max number of Signal Generators for this platform
 	static const size_t MAX_SG = 2;
+	/// Max number of modules supported by this platform
 	static const size_t MAX_MODULES = 1;
 
  public:
@@ -90,14 +109,23 @@ class PlatformFlexRIO: public Platform {
  */
 class PlatformCRIO: public Platform {
  private:
+	/// Max number of Analog Input terminals for this platform
 	static const size_t MAX_AI = 256;
+	/// Max number of Aux Analog Input terminals for this platform
 	static const size_t MAX_AUX_AI = 256;
+	/// Max number of Analog Output terminals for this platform
 	static const size_t MAX_AO = 256;
+	/// Max number of Aux Analog Output terminals for this platform
 	static const size_t MAX_AUX_AO = 256;
+	/// Max number of Digital terminals for this platform
 	static const size_t MAX_DIGITAL = 256;
+	/// Max number of Aux Digital terminals for this platform
 	static const size_t MAX_AUX_DIGITAL = 256;
+	/// Max number of DMAs for this platform
 	static const size_t MAX_DMA = 3;
+	/// Max number of Signal Generators for this platform
 	static const size_t MAX_SG = 256;
+	/// Max number of modules supported by this platform
 	static const size_t MAX_MODULES = 16;
 
  public:
@@ -117,14 +145,23 @@ class PlatformCRIO: public Platform {
  */
 class PlatformRSeries: public Platform {
  private:
+	/// Max number of Analog Input terminals for this platform
 	static const size_t MAX_AI = 8;
+	/// Max number of Aux Analog Input terminals for this platform
 	static const size_t MAX_AUX_AI = 16;
+	/// Max number of Analog Output terminals for this platform
 	static const size_t MAX_AO = 8;
+	/// Max number of Aux Analog Output terminals for this platform
 	static const size_t MAX_AUX_AO = 16;
+	/// Max number of Digital terminals for this platform
 	static const size_t MAX_DIGITAL = 128;
+	/// Max number of Aux Digital terminals for this platform
 	static const size_t MAX_AUX_DIGITAL = 16;
+	/// Max number of DMAs for this platform
 	static const size_t MAX_DMA = 3;
+	/// Max number of Signal Generators for this platform
 	static const size_t MAX_SG = 2;
+	/// Max number of modules supported by this platform
 	static const size_t MAX_MODULES = 1;
 
  public:
