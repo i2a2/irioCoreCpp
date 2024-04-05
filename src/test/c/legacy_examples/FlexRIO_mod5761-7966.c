@@ -251,8 +251,11 @@ int main (int argc, char **argv)
 	myStatus|=irio_getDAQStartStop(&p_DrvPvt,&valueReadI32,&status);
 	printf("[irio_getDAQStartStop function] DAQStartStop read %d\n",valueReadI32);
 	msgerr(myStatus,12,"irio_setDAQStartStop irio_getDAQStartStop",&status,verbosity,1);
-    int DMATtoHOSTBlockNWords=p_DrvPvt.DMATtoHOSTBlockNWords[0];
-	int DMATtoHOSTNCh=p_DrvPvt.DMATtoHOSTNCh[0];
+    uint16_t DMATtoHOSTBlockNWords;
+	uint16_t DMATtoHOSTNCh;
+	myStatus = irio_getDMATtoHOSTBlockNWords(&p_DrvPvt, &DMATtoHOSTBlockNWords, &status);
+	myStatus |= irio_getDMATtoHOSTNCh(&p_DrvPvt, &DMATtoHOSTNCh, &status);
+	msgerr(myStatus,12,"irio_getDMATtoHOSTBlockNWords irio_getDMATtoHOSTNCh",&status,verbosity,1);
 
 	usleep(1000);
 
@@ -317,14 +320,17 @@ int main (int argc, char **argv)
 	printf("################################################################\n");
 
 	msgtest(14, irio_setSGUpdateRate & irio_getSGUpdateRate);
-	printf("FPGA SignalGenerator Fref has the value:  %d Hz\n", p_DrvPvt.SGfref[0]);
-	// (SGFref/(S/s))=SGUpdateRate. In this case SG0 will generate 10 MS/s
-	// At this version, user has to apply this calculus
-	printf("[irio_setSGUpdateRate function] SGUpdateRate0 set to %d MS/s\n", (p_DrvPvt.SGfref[0]/10000000));
-	myStatus=irio_setSGUpdateRate(&p_DrvPvt, 0, (p_DrvPvt.SGfref[0]/10000000), &status);
-	myStatus|=irio_getSGUpdateRate(&p_DrvPvt, 0, &valueReadI32, &status);
-	printf("[irio_getSGUpdateRate function] SGUpdateRate0 read %d MS/s\n", valueReadI32);
-	msgerr(myStatus,14,"irio_setSGUpdateRate",&status,verbosity,0);
+    uint32_t SGfref = -1;
+    myStatus = irio_getSGFref(&p_DrvPvt, 0, &SGfref, &status);
+    msgerr(myStatus,14,"irio_getSGFref",&status,verbosity,0);
+    printf("FPGA SignalGenerator Fref has the value:  %d Hz\n", SGfref);
+    // (SGFref/(S/s))=SGUpdateRate. In this case SG0 will generate 10 MS/s
+    // At this version, user has to apply this calculus
+    printf("[irio_setSGUpdateRate function] SGUpdateRate0 set to %d MS/s\n", (SGfref/10000000));
+    myStatus=irio_setSGUpdateRate(&p_DrvPvt, 0, (SGfref/10000000), &status);
+    myStatus|=irio_getSGUpdateRate(&p_DrvPvt, 0, &valueReadI32, &status);
+    printf("[irio_getSGUpdateRate function] SGUpdateRate0 read %d MS/s\n", valueReadI32);
+    msgerr(myStatus,14,"irio_setSGUpdateRate",&status,verbosity,0);
 
 	// we want program signal generator with 10kHz periodic signal
 	// equation to apply to obtain freq_desired is: SGFreq=freq_desired*( (2to32) / ( SGFref/(S/s)) )
