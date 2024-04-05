@@ -2,7 +2,7 @@ PROGNAME=test_irioCore
 
 TARGET=../../../../target
 
-LIBRARIES=gtest irioCore
+LIBRARIES=gtest pthread irioCore
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. $(TARGET)/includes/irioCore
 

@@ -2,7 +2,7 @@ PROGNAME=test_irioCoreCpp
 
 TARGET=../../../../target
 
-LIBRARIES=gtest bfp irioCoreCpp
+LIBRARIES=gtest pthread bfp irioCoreCpp
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=$(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
 
