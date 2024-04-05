@@ -97,7 +97,7 @@
 
                         <package name="examples">
                             <requires codac="true">irio</requires>
-                            <include type="file" source="test/c/legacy/examples" target="examples/irio">
+                            <include type="file" source="test/c/legacy_examples" target="examples/irio">
                                 <include>resourceFail</include>
                                 <include>resourceTest</include>
                             </include>
