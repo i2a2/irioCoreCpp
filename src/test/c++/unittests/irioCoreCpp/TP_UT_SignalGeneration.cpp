@@ -19,7 +19,11 @@ public:
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU32,
 						bfp.getRegister(TERMINAL_SGFREF+std::to_string(0)).getAddress(),
-						frefFake);
+						fref0Fake);
+		
+		setValueForReg(ReadFunctions::NiFpga_ReadU32,
+						bfp.getRegister(TERMINAL_SGFREF+std::to_string(1)).getAddress(),
+						fref1Fake);
 
 		setValueForReg(ReadFunctions::NiFpga_ReadU8,
 						bfp.getRegister(TERMINAL_SGSIGNALTYPE+std::to_string(0)).getAddress(),
@@ -42,7 +46,8 @@ public:
 						freqFake);
 	}
 
-	const uint32_t frefFake = 1234567890;
+	const uint32_t fref0Fake = 12345;
+	const uint32_t fref1Fake = 67890;
 	const uint8_t sigTypeFake = 2;
 	const uint32_t phaseFake = 1;
 	const uint32_t ampFake = 3;
@@ -68,7 +73,15 @@ TEST_F(SignalGenerationTests, SGNo){
 
 TEST_F(SignalGenerationTests, SGFref){
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getTerminalsSignalGeneration().getSGFref(0), frefFake);
+	EXPECT_EQ(irio.getTerminalsSignalGeneration().getSGFref(0), fref0Fake);
+}
+
+TEST_F(SignalGenerationTests, VectorSGFref){
+	Irio irio(bitfilePath, "0", "V9.9");
+	const auto vec = irio.getTerminalsSignalGeneration().getVectorSGFrefs();
+	ASSERT_EQ(vec.size(), 2);
+	EXPECT_EQ(vec[0], fref0Fake);
+	EXPECT_EQ(vec[1], fref1Fake);
 }
 
 TEST_F(SignalGenerationTests, getSGSignalType){

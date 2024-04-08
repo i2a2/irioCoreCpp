@@ -20,7 +20,7 @@ int operationGeneric(const std::function<void()> &func, TStatus *status,
 		irio_mergeStatus(status, N, verbosity, e.what());
 		return IRIO_warning;
 	}
-
+	status->code = IRIO_success;
 	return IRIO_success;
 }
 

@@ -44,16 +44,26 @@ extern "C" {
 /**
  * Set up DMAs
  *
- * Configure GPU memory and FPGA registers for DMA transfer. First, allocate GPU memory
- * for DMA transfer and clean up of possible trash data. Then set.
- * The DMA channel should be activated
- * by the user once the initialization is finished,
+ * Configure GPU memory and FPGA registers for DMA transfer. First, allocate GPU
+ * memory for DMA transfer and clean up of possible trash data. Then set. The
+ * DMA channel should be activated by the user once the initialization has
+ * finished
  *
- * This method calls calcADCValue() to configure AD/DA conversion values among other fields.
+ * This method calls calcADCValue() to configure AD/DA conversion values among
+ * other fields.
  * @see{calcADCValue}
  *
  * @param[in,out] p_DrvPvt 	Pointer to the driver session structure
- * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
+ * @param[in] depth 	Number of elements in buffer.
+ *              Because the total buffer size in bytes must be a multiple of
+ *              64 KiB, depth in elements must be a multiple of:
+ *               8192 for 64-bit elements (U64, I64),
+ *              16384 for 32-bit elements (U32, I32),
+ *              32768 for 16-bit elements (U16, I16), or
+ *              65536 for  8-bit elements (U8, I8, Bool).
+ * @param[out] status	Warning and error messages produced during the execution
+ * of this call will be added here.
+ *
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
 int irio_setUpDMAsTtoGPU(irioDrv_t *p_DrvPvt, int depth, TStatus *status);
@@ -173,8 +183,10 @@ int irio_getDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 int irio_setDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
 
+
+
 /**
- * Reads data from the DMA
+ * Reads data from the DMA (NOT IMPLEMENTED)
  *
  * Reads Nelements from the DMA if they are available. If there are not enough
  * elements, nothing is read. The size in DMA words of an element must be
@@ -185,10 +197,9 @@ int irio_setDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param n Number of Number of the DMA where data should be read
  * @param data buffer where data should be stored
  * @param elementsRead number of elements read. Can be 0 or Nelements
+ * @param status Warning and error messages produced during the execution of this call will be added here.
+ * 
  * @return Operation status. @see {TStatusCodes}
- */
-/**
- * Not implemented yet
  */
 int irio_getDMATtoGPUData(irioDrv_t *p_DrvPvt, int Nelements, int n,
 		uint64_t **data, int *elementsRead, TStatus *status);

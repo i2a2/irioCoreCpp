@@ -23,6 +23,11 @@ std::uint32_t TerminalsSignalGeneration::getSGFref(
 			->getSGFrefImpl(n);
 }
 
+std::vector<std::uint32_t> TerminalsSignalGeneration::getVectorSGFrefs() const {
+	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)
+		->getVectorSGFrefsImpl();
+}
+
 std::uint8_t TerminalsSignalGeneration::getSGSignalType(
 		const std::uint32_t n) const {
 	return std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)

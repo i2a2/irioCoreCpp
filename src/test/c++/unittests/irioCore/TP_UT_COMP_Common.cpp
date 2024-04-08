@@ -156,6 +156,212 @@ TEST_F(CommonTestsAdapter, getProfile) {
 	EXPECT_EQ(status.detailCode, Success);
 }
 
+TEST_F(CommonTestsAdapter, getPlatformType) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+
+	uint8_t value;
+	ret = irio_getPlatformType(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+	EXPECT_EQ(value, static_cast<uint8_t>(irio::PLATFORM_ID::RSeries));
+}
+
+TEST_F(CommonTestsAdapter, getInitDone) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint8_t initDone;
+	ret = irio_getInitDone(&p_DrvPvt, &initDone, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxAOValue) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	float value;
+	ret = irio_getMaxAOValue(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMinAOValue) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	float value;
+	ret = irio_getMinAOValue(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfAI) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfAI(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfAO) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfAO(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfDI) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfDI(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfDO) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfDO(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfAuxAI) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfAuxAI(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfAuxAO) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfAuxAO(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfAuxDI) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfAuxDI(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfAuxDO) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfAuxDO(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfSG) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfSG(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfDMAs) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfDMAs(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxNumberOfGPUDMAs) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	std::uint16_t value;
+	ret = irio_getMaxNumberOfGPUDMAs(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMaxSamplingRate) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	float value;
+	ret = irio_getMaxSamplingRate(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
+TEST_F(CommonTestsAdapter, getMinSamplingRate) {
+	auto ret = irio_initDriver("test", "0", "TestModel",
+			projectName.c_str(), "V9.9", false,
+			nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	ASSERT_EQ(ret, IRIO_success) << "Driver not initialized properly. " << status.msg;
+	float value;
+	ret = irio_getMinSamplingRate(&p_DrvPvt, &value, &status);
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_success);
+	EXPECT_EQ(status.detailCode, Success);
+}
+
 TEST_F(CommonTestsAdapter, getDebugMode) {
 	auto ret = irio_initDriver("test", "0", "TestModel",
 			projectName.c_str(), "V9.9", false,

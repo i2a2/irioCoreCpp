@@ -200,3 +200,28 @@ int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
 			"Not implemented");
 	return IRIO_error;
 }
+
+int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
+								 uint8_t *frameType, TStatus *status) {
+	const auto f = [n, frameType, p_DrvPvt] {
+		*frameType = static_cast<std::uint8_t>(
+			IrioV2InstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
+											   p_DrvPvt->session)
+				->getTerminalsDAQ()
+				.getFrameType(n));
+	};
+
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
+}
+
+int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
+								 uint8_t *sampleSize, TStatus *status) {
+	const auto f = [n, sampleSize, p_DrvPvt] {
+		*sampleSize = IrioV2InstanceManager::getInstance(
+						  p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+						  ->getTerminalsDAQ()
+						  .getSampleSize(n);
+	};
+
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
+}

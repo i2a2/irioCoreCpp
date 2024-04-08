@@ -201,26 +201,6 @@ typedef struct TStatus {
 } TStatus;
 
 /**
- * Type for FPGA Resources
- *
- * Stores whether the resource was found or not and its offset
- */
-typedef struct TResourcePort {
-	uint8_t found;  //!< Register that indicates if a resource has been found
-	uint32_t value;  //!< If a resource has been found this register indicates its value
-} TResourcePort;
-
-/**
- * Type for FPGA Resources only for auxiliary analog I/O, 64 bits
- *
- * Stores whether the 64-bits resource was found or not and its offset
- */
-typedef struct TResourcePort_64 {
-	uint8_t found;  //!< Register that indicates if a 64 bits resource has been found
-	uint64_t value;  //!< If a resource has been found this register indicates its value
-} TResourcePort_64;
-
-/**
  * Type for managing GPU buffers
  *
  * Data type used for managing GPU DMAs
@@ -244,150 +224,104 @@ typedef struct TFifoGPUInfo {
  */
 typedef struct irioDrv_t {
 	// Candidates for commonNirioStruct
-	char *headerFile;				//!< Pointer to header file content
-	char *appCallID; 				//!< EPICS device port
-	char fpgaRIO[FPGARIOLENGTH];		//!< NiFpga driver port (RIO0,RIO1,...)
-	char RIODeviceModel[RIODEVICEMODELLENGTH];  //!< Board Model (PXI-7965R,...)
-	char DeviceSerialNumber[DEVICESERIALNUMBERLENGTH]; 	//!< Board serial number
-	int fpgaStarted;  //!< Indicates whether or not the FPGA has been started
-	NiFpga_Session session; 	//!< Session obtained by C API to manage a FPGA
-	char *projectName;  //!< Part of the name of the bitfile downloaded into the FPGA.
-	int NiFpgaDriverType;  //!< 0 For privative driver, 1 for open source driver
-	int verbosity;  //!< Indicates whether or not print trace messages in IRIO API methods
+	/// NiFpga driver port (RIO0,RIO1,...)
+	char fpgaRIO[FPGARIOLENGTH];
+	/// Board Model (PXI-7965R,...)
+	char RIODeviceModel[RIODEVICEMODELLENGTH];
+	/// Board serial number
+	char DeviceSerialNumber[DEVICESERIALNUMBERLENGTH];
+	/// Session obtained by C API to manage a FPGA
+	NiFpga_Session session;
+	/// Indicates whether or not print trace messages in IRIO API methods
+	int verbosity;
 
-	// Mandatory resources
-	TResourcePort enumPlatform;						//!< Port for FPGA platform
-	uint8_t platform;  //!< Indicates the type of platform been handled (cRIO, FlexRIO, ...)
-	TResourcePort enumFPGAVIversion;			//!< Port for FPGA VI Version
-	char FPGAVIversion[SHORT_CHAR_STRING];  //!< This Array Take the values from the FPGA array register: FPGAVIversion
-	char FPGAVIStringversion[SHORT_CHAR_STRING];  //!< This Array is used to keep the number version to publish through its getter
+	/// Indicates the type of platform being handled (cRIO, FlexRIO, RSeries)
+	uint8_t platform;
+	/// Indicates the profile of the target
+	uint8_t devProfile;
+	/// Bitfile's version
+	char FPGAVIStringversion[SHORT_CHAR_STRING];
 
-	TResourcePort enumInitDone;					//!< Port for InitDone indicator
-	NiFpga_Bool initDone;  //!< Indicates whether or not the FPGA was initialized properly
-	uint32_t moduleValue; 	//!< Identifier of the module connected to the FPGA
-	// FlexRIO Mandatory resources
-	TResourcePort enumInsertedIoModuleID;  //!< Port for FlexRIO InsertedIOModuleID indicator
-	TResourcePort enumRIOAdapterCorrect;  //!< Port for FlexRIO RIOAdapterCorrect indicator
-	NiFpga_Bool RIOAdapterCorrect;  //!< Indicates if the FlexRIO adapter module connected is the expected one and if it was properly initialized
-	// cRIO Mandatory resources
-	TResourcePort enumInsertedModulesID;  //!< Port for cRIO InsertedModulesID indicator
-	uint16_t *InsertedModulesID;			//!< Values of cRIO modules inserted
-	TResourcePort enumcRIOModulesOk;  //!< Port for cRIOModulesOk indicator
-	uint8_t cRIOModulesOK;  //!< Indicates if all cRIO modules connected are the expected ones and if they were properly initialized
-	TResourcePort *enumSamplingRate;  //!< Port for Point-By-Point sampling rates
+	/// Module identifier connected to FlexRIO board
+	uint32_t moduleFlexRIO;
+	/// Array with modules identifiers connected to cRIO board
+	uint16_t modulescRIO[CRIO_MAX_MODULES];
+	/// Number of modules connected to cRIO board
+	uint16_t numModulescRIO;
 
-	TResourcePort enumFref;					//!< Port for Fref
-	uint32_t Fref; 		//!< Clock reference of the FPGA for signal generation
-	TResourcePort enumDevQualityStatus;		//!< Port for DevQualityStatus
-	TResourcePort enumDevTemp;				//!< Port for DevTemp
-	TResourcePort enumDevProfile;			//!< Port for DevProfile
-	uint8_t devProfile;  //!< Indicates the profile of the target (DAQ, IMAQ, PBP,...)
-	TResourcePort enumDAQStartStop;			//!< Port for DAQStartStop
-	TResourcePort enumDebugMode;			//!< Port for DebugMode
+	/// Indicates whether the FPGA has already been started or not
+	int fpgaStarted;
+	/// Indicates whether the FPGA has been initialized properly or not
+	uint8_t initDone;
+
+	/// FPGA's clock reference for signal generation
+	uint32_t Fref;
 
 	// DAQ profile
-	TResourcePort enumDMATtoHOSTNCh;			//!< Port for DMATtoHOSTNCh
-	TResourcePort DMATtoHOSTNo;  //!< Number of DMAs that has the FPGA for acquiring data in the host, this is the size of DMATtoHOSTNCh array
-	uint16_t *DMATtoHOSTNCh;  //!< Array that contains the number of Channels per DMA
-	uint16_t *DMATtoHOSTChIndex;  //!< Array containing the first channel indexed in each DMA
-	TResourcePort enumDMATtoHOSTOverflows;  //!< Port for DMATtoHOSTOverflows
-	TResourcePort *enumDMATtoHOST;				//!< Ports for DMATtoHOSTs
-	TResourcePort *enumDMATtoHOSTEnable;		//!< Ports for DMATtoHOSTEnables
-	TResourcePort *enumDMATtoHOSTSamplingRate;  //!< Ports for DMATtoHOSTSamplingRates
-	TResourcePort enumDMATtoHOSTFrameType;  //!< Port for DMATtoHOSTFrameType
-	uint8_t *DMATtoHOSTFrameType;  //!< Array that contains the frame type used by the different DMAs
-	TResourcePort enumDMATtoHOSTSampleSize;  //!< Port for DMATtoHOSTSampleSize
-	uint8_t *DMATtoHOSTSampleSize;  //!< Array that contains the sample size used by the different DMAs
-	TResourcePort enumDMATtoHOSTBlockNWords;  //!< Port for DMATtoHOSTBlockNWords
-	uint16_t *DMATtoHOSTBlockNWords;  //!< Array that contains size of DMA data blocks in terms of DMA words.
-	uint16_t max_dmas;			//!< Maximum number of DMAs to be instantiated.
+	/// Array that contains the number of Channels per DMA
+	uint16_t *DMATtoHOSTNCh;
+	/// Array that contains the frame type used by the different DMAs
+	uint8_t *DMATtoHOSTFrameType;
+	/// Array that contains the sample size used by the different DMAs
+	uint8_t *DMATtoHOSTSampleSize;
+	/// Array that contains the size of DMA data block in terms of DMA words
+	uint16_t *DMATtoHOSTBlockNWords;
 
-	// DAQGPU profile
-	TResourcePort enumDMATtoGPUNCh;				//!< Port for enumDMATtoGPUNCh
-	TResourcePort DMATtoGPUNo;  //!< Number of DMAs that has the FPGA for acquiring data in the GPU, this is the size of DMATtoGPUNCh array
-	uint16_t *DMATtoGPUNCh;  //!< Array that contains the number of Channels per GPU_DMA
-	uint16_t *DMATtoGPUChIndex;  //!< Array containing the first channel indexed in each GPU_DMA
-	TResourcePort enumDMATtoGPUOverflows;		//!< Port for DMATtoGPUOverflows
-	TResourcePort *enumDMATtoGPU;				//!< Ports for DMATtoGPUs
-	TResourcePort *enumDMATtoGPUEnable;			//!< Ports for DMATtoGPUEnables
-	TResourcePort *enumDMATtoGPUSamplingRate;  //!< Ports for DMATtoGPUSamplingRates
-	TResourcePort enumDMATtoGPUFrameType;		//!< Port for DMATtoGPUFrameType
-	uint8_t *DMATtoGPUFrameType;  //!< Array that contains the frame type used by the different GPU_DMAs
-	TResourcePort enumDMATtoGPUSampleSize;  //!< Port for DMATtoGPUSampleSize
-	uint8_t *DMATtoGPUSampleSize;  //!< Array that contains the sample size used by the different GPU_DMAs
-	TResourcePort enumDMATtoGPUBlockNWords;  //!< Port for DMATtoGPUBlockNWords
-	uint16_t *DMATtoGPUBlockNWords;  //!< Array that contains size of GPU DMA data blocks in terms of DMA words.
-	uint16_t max_dmas_gpu;  //!< Maximum number of GPU DMAs to be instantiated
-	uint64_t *gpu_buffer;					//!< GPU DMA buffer information
+	// DAQGPU profile //TODO : Check which ones can be removed from the struct
+	/// Array that contains the number of Channels per GPU_DMA
+	uint16_t *DMATtoGPUNCh;
+	/// Array containing the first channel indexed in each GPU_DMA
+	uint16_t *DMATtoGPUChIndex;
+	/// Array that contains the frame type used by the different GPU_DMAs
+	uint8_t *DMATtoGPUFrameType;
+	/// Array that contains the sample size used by the different GPU_DMAs
+	uint8_t *DMATtoGPUSampleSize;
+	/// Array that contains size of GPU DMA data blocks in terms of DMA words.
+	uint16_t *DMATtoGPUBlockNWords;
+	/// GPU DMA buffer information
+	uint64_t *gpu_buffer;
 
 	// optional resources digital I/O
-	TResourcePort *enumAnalogInput;		//!< Ports for AnalogInputs
-	uint16_t max_analoginputs;  //!< Maximum number of analog inputs to be instantiated
-	double CVADC; 					//!< Conversion to Volts of analog inputs
-	TIRIOCouplingMode couplingMode;					//!< Coupling mode
-	TResourcePort *enumAnalogOutput;  //!< Ports for AnalogOutputs
-	TResourcePort *enumAOEnable;		//!< Ports for AOEnables
-	uint16_t max_analogoutputs;  //!< Maximum number of analog outputs to be instantiated
-	double CVDAC; 				//!< Conversion from Volts for analog outputs
-	float maxAnalogOut; 	//!< Maximum value to be written in an analog output
-	float minAnalogOut;		//!< Minimum value to be written in an analog output
+	/// Conversion to Volts of analog inputs
+	double CVADC;
+	/// Conversion from Volts for analog outputs
+	double CVDAC;
+	/// Maximum value to be written in an analog output
+	float maxAnalogOut;
+	/// Minimum value to be written in an analog output
+	float minAnalogOut;
+	/// Number of Signal Generators in FPGA
+	uint8_t NoOfSG;
+	/// Reference frequency used for signal generation using DDS technique
+	uint32_t *SGfref;
 
-	TResourcePort *enumDigitalInput;  //!< Ports for DigitalInputs
-	uint16_t max_digitalsinputs;  //!< Maximum number of digital inputs to be instantiated
+	/// The maximum number of analog inputs supported by the platform
+	uint16_t max_analoginputs;
+	/// The maximum number of analog outputs supported by the platform
+	uint16_t max_analogoutputs;
+	/// The maximum number of aux analog inputs supported by the platform
+	uint16_t max_auxanaloginputs;
+	/// The maximum number of aux analog outputs supported by the platform
+	uint16_t max_auxanalogoutputs;
+	/// The maximum number of digital inputs supported by the platform
+	uint16_t max_digitalsinputs;
+	/// The maximum number of digital outputs supported by the platform
+	uint16_t max_digitalsoutputs;
+	/// The maximum number of aux digital inputs supported by the platform
+	uint16_t max_auxdigitalsinputs;
+	/// The maximum number of aux digital outputs supported by the platform
+	uint16_t max_auxdigitalsoutputs;
+	/// The maximum number of signal generatos supported by the platform
+	uint16_t max_numberofSG;
+	/// The maximum number of DMAs supported by the platform
+	uint16_t max_dmas;
+	/// The maximum number of GPU DMAs supported by the platform
+	uint16_t max_dmas_gpu;
 
-	TResourcePort *enumDigitalOutput;  //!< Ports for DigitalOutputs
-	uint16_t max_digitalsoutputs;  //!< Maximum number of digital outputs to be instantiated
-
-	TResourcePort *enumauxAI;			//!< Ports for auxAI, 32 bits
-	TResourcePort_64 *enumauxAI_64;		//!< Ports for auxAI, 64 bits
-	uint16_t max_auxanaloginputs;  //!< Maximum number of auxiliary analog inputs to be instantiated
-
-	TResourcePort *enumauxAO;			//!< Ports for auxAO, 32 bits
-	TResourcePort_64 *enumauxAO_64;		//!< Ports for auxAO, 64 bits
-	uint16_t max_auxanalogoutputs;  //!< Maximum number of auxiliary analog outputs to be instantiated
-
-	TResourcePort *enumauxDI;			//!< Ports for auxDI
-	uint16_t max_auxdigitalsinputs;  //!< Maximum number of auxiliary digital inputs to be instantiated
-
-	TResourcePort *enumauxDO;			//!< Ports for auxDO
-	uint16_t max_auxdigitalsoutputs;  //!< Maximum number of auxiliary digital outputs to be instantiated
-
-	// optional resources Signal generators,
-	TResourcePort enumSGNo;				//!< Port for SGNo
-	uint8_t NoOfSG;				//!< Number of signal generators instantiated
-	uint16_t max_numberofSG;  //!< Maximum number of signal generators to be instantiated
-	TResourcePort *enumSGFreq;			//!< Ports for SGFreq
-	TResourcePort *enumSGAmp;			//!< Ports for SGAmp
-	TResourcePort *enumSGPhase;			//!< Ports for SGPhase
-	TResourcePort *enumSGSignalType;  //!< Ports for SGSignalType
-	TResourcePort *enumSGUpdateRate;  //!< Ports for SGUpdateRate
-	TResourcePort *enumSGFref;			//!< Ports for SGFref
-	uint32_t *SGfref;  //!< Reference frequency used for signal generation using DDS technique
-
-	// CL Enums
-	TResourcePort enumuartByteMode; 		//!< Port for uartByteMode
-	TResourcePort enumuartSetBaudRate; 		//!< Port for uartSetBaudRate
-	TResourcePort enumuartTransmit;			//!< Port for uartTransmit
-	TResourcePort enumuartReceive;			//!< Port for uartReceive
-	TResourcePort enumuartBaudRate;			//!< Port for uartBaudRate
-	TResourcePort enumuartTxByte;			//!< Port for uartTxByte
-	TResourcePort enumFVALHigh;				//!< Port for FVALHigh
-	TResourcePort enumLVALHigh;				//!< Port for LVALHigh
-	TResourcePort enumDVALHigh;				//!< Port for DVALHigh
-	TResourcePort enumSpareHigh;			//!< Port for SpareHigh
-	TResourcePort enumControlEnable;		//!< Port for ControlEnable
-	TResourcePort enumLineScan;				//!< Port for LineScan
-	TResourcePort enumSignalMapping;		//!< Port for SignalMapping
-	TResourcePort enumConfiguration;		//!< Port for Configuration
-	TResourcePort enumuartTxReady;			//!< Port for uartTxReady
-	TResourcePort enumuartRxReady;			//!< Port for uartRxReady
-	TResourcePort enumuartOverrunError;		//!< Port for uartOverrunError
-	TResourcePort enumuartFramingError;		//!< Port for uartFrammingError
-	TResourcePort enumuartBreakIndicator;  //!< Port for uartBreakIndicator
-	TResourcePort enumuartRxByte;			//!< Port for uartRxByte
-
-	float minSamplingRate;   //!< Minumum value needed to set FPGA sampling rate
-	float maxSamplingRate;  //!< Maximum potential value that FPGA sampling rate can be set
+	/// Minimum sampling rate supported by the FPGA
+	float minSamplingRate;
+	/// Maximum sampling rate supported by the FPGA
+	float maxSamplingRate;
 } irioDrv_t;
 
 #define CRIOMODULENAMELENGTH 7

@@ -82,6 +82,16 @@ std::uint32_t TerminalsSignalGenerationImpl::getSGFrefImpl(
 	return it->second;
 }
 
+std::vector<std::uint32_t> TerminalsSignalGenerationImpl::getVectorSGFrefsImpl()
+	const {
+	std::vector<std::uint32_t> vecFref;
+	vecFref.reserve(m_mapFref.size());
+	for (const auto fref : m_mapFref) {
+		vecFref.push_back(fref.second);
+	}
+	return vecFref;
+}
+
 std::uint8_t TerminalsSignalGenerationImpl::getSGSignalTypeImpl(
 		const std::uint32_t n) const {
 	auto addr = utils::getAddressEnumResource(m_mapSignalType_addr,

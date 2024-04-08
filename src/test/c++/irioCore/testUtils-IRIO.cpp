@@ -47,7 +47,6 @@ static const std::map<IRIOFamily, std::map<IRIOProfile, string>> bitfiles = {
     }},
 };
 
-static int getResourceCount(TResourcePort* arr, int max);
 static string getBitfilePrefix(const IRIOFamily& family, const IRIOProfile& profile);
 
 void TestUtilsIRIO::displayTitle(const string& msg, const string& forecolor,
@@ -150,60 +149,6 @@ int TestUtilsIRIO::closeDriver(irioDrv_t* drv) {
     if (verbose_test) cout << "[TEST] Driver closed " << ((st == IRIO_success) ? "successfully" : "unsuccessfully") << endl;
     return st;
 }
-
-static int getResourceCount(TResourcePort* arr, int max) {
-    int cnt = 0;
-    for (int i = 0; i < max; i++) 
-        if (arr[i].found)
-            cnt++;
-
-    return cnt;
-}
-
-void TestUtilsIRIO::getResources(irioDrv_t* drv, irioResources_t* res) {
-	res->AI = getResourceCount(drv->enumAnalogInput, drv->max_analoginputs);
-	res->AO = getResourceCount(drv->enumAnalogOutput, drv->max_analogoutputs);
-	res->auxAI = getResourceCount(drv->enumauxAI, drv->max_auxanaloginputs);
-	res->auxAO = getResourceCount(drv->enumauxAO, drv->max_auxanalogoutputs);
-
-	res->DI = getResourceCount(drv->enumDigitalInput, drv->max_digitalsinputs);
-	res->DO = getResourceCount(drv->enumDigitalOutput, drv->max_digitalsoutputs);
-	res->auxDI = getResourceCount(drv->enumauxDI, drv->max_auxdigitalsinputs);
-	res->auxDO = getResourceCount(drv->enumauxDO, drv->max_auxdigitalsoutputs);
-
-    res->DMA = getResourceCount(drv->enumDMATtoHOST, drv->max_dmas) + getResourceCount(drv->enumDMATtoGPU, drv->max_dmas_gpu);
-
-	res->SG = drv->NoOfSG;
-
-	res->CLConfig = drv->enumConfiguration.found;
-	res->CLUART = drv->enumuartByteMode.found;
-
-    // Only cRIO
-    res->samplingRate = (drv->enumSamplingRate == NULL) ? -1 
-        : getResourceCount(drv->enumSamplingRate, CRIO_MAX_MODULES);
-}
-
-//int TestUtilsIRIO::loadHeaderFile(irioDrv_t* drv, string file_path, TStatus* status) {
-//	char* headerPath=NULL;
-//    int local_status = IRIO_success;
-//
-//	if (file_path[file_path.length() - 1] != '/')
-//		asprintf(&headerPath,"%s/%s%s%s",file_path.c_str(),STRINGNAME_PREFIX,drv->projectName,".h");
-//	else
-//		asprintf(&headerPath,"%s%s%s%s",file_path.c_str(),STRINGNAME_PREFIX,drv->projectName,".h");
-//
-//	//Call for file init
-//	local_status |= irio_initFileSearch(drv,headerPath,(void**)&drv->headerFile,status);
-//	if(status->detailCode==FileNotFound_Error){
-//		status->detailCode=HeaderNotFound_Error;
-//	}
-//	free(headerPath);
-//    return local_status;
-//}
-//
-//void TestUtilsIRIO::freeHeaderFile(irioDrv_t* drv) {
-//    irio_closeFileSearch(drv, (void**)&drv->headerFile, NULL);
-//}
 
 void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
     int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));

@@ -120,4 +120,3 @@ int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
-

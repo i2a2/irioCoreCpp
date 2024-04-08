@@ -154,6 +154,22 @@ TEST_F(DMATestsAdapter, getDMATtoHOSTNCh) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
+TEST_F(DMATestsAdapter, getDMATtoHostFrameType) {
+	uint8_t value;
+	const auto ret = irio_getDMATTtoHostFrameType(&p_DrvPvt, 0, &value, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+}
+
+TEST_F(DMATestsAdapter, getDMATtoHostSampleSize) {
+	uint8_t value;
+	const auto ret = irio_getDMATTtoHostSampleSize(&p_DrvPvt, 0, &value, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+}
+
 TEST_F(DMATestsAdapter, getDMATtoHostData) {
 	int32_t elementsRead;
 	uint64_t data[4096];

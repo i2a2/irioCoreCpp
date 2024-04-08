@@ -1,6 +1,8 @@
 #pragma once
 
 #include <unordered_map>
+#include <map>
+#include <vector>
 
 #include "terminals/impl/terminalsBaseImpl.h"
 
@@ -21,6 +23,8 @@ class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
 	std::uint8_t getSGNoImpl() const;
 
 	std::uint32_t getSGFrefImpl(const std::uint32_t n) const;
+
+	std::vector<std::uint32_t> getVectorSGFrefsImpl() const;
 
 	std::uint8_t getSGSignalTypeImpl(const std::uint32_t n) const;
 
@@ -52,7 +56,7 @@ class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
 	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapUpdateRate_addr;
 
 	std::uint8_t m_numSG = 0;
-	std::unordered_map<std::uint32_t, const std::uint32_t> m_mapFref;
+	std::map<std::uint32_t, const std::uint32_t> m_mapFref;
 };
 
 }  // namespace irio

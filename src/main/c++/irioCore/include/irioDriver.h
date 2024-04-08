@@ -302,6 +302,232 @@ int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
+
+/**
+ * Reads the platform type
+ *
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] value    Pointer to store the platform type value.
+ * @param[out] status   Warning and error messages produced during the execution of this call will be added here.
+ * @return         \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getPlatformType(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
+
+/**
+ * Indicates whether the FPGA has been initialized properly or not
+ *
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] value Pointer to a variable where the initDone will be stored.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getInitDone(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
+
+/**
+ * Reads module connected to FlexRIO board.
+ * 
+ * If the board is not a FlexRIO, a warning will be returned
+ *
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] value Pointer to store the module connected
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getFlexRIOModule(irioDrv_t *p_DrvPvt, uint32_t *value,
+						  TStatus *status);
+
+/**
+ * Reads an array of the modules connected to cRIO board.
+ * 
+ * If the board is not a cRIO, a warning will be returned
+ *
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] modules Pointer to an array on which the modules connected are. Do not free the memory.
+ * @param[out] numModules Number of modules connected to the cRIO board
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getcRIOModules(irioDrv_t *p_DrvPvt, uint16_t **modules,
+						size_t *numModules, TStatus *status);
+
+/**
+ * Reads the maximum number of DMAs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxNumDMAs Pointer to store the maximum number of DMAs supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
+							TStatus *status);
+/**
+ * Reads the maximum number of GPU DMAs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxNumGPUDMAs Pointer to store the maximum number of GPU DMAs supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfGPUDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
+							   TStatus *status);
+
+/**
+ * Reads the maximum number of analog inputs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxAI Pointer to store the maximum number of analog input supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfAI(irioDrv_t *p_DrvPvt, uint16_t *maxAI,
+						  TStatus *status);
+/**
+ * Reads the maximum number of analog output supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxAO Pointer to store the maximum number of analog output supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfAO(irioDrv_t *p_DrvPvt, uint16_t *maxAO,
+						  TStatus *status);
+/**
+ * Reads the maximum number of digital inputs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxDI Pointer to store the maximum number of digital input supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfDI(irioDrv_t *p_DrvPvt, uint16_t *maxDI,
+						  TStatus *status);
+/**
+ * Reads the maximum number of digital output supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxDO Pointer to store the maximum number of digital output supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfDO(irioDrv_t *p_DrvPvt, uint16_t *maxDO,
+						  TStatus *status);
+
+/**
+ * Reads the maximum number of aux analog inputs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxAuxAI Pointer to store the maximum number of aux analog input supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfAuxAI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
+							 TStatus *status);
+
+/**
+ * Reads the maximum number of aux analog outputs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxAuxAO Pointer to store the maximum number of aux analog outputs supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfAuxAO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
+							 TStatus *status);
+
+/**
+ * Reads the maximum number of aux digital inputs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxAuxDI Pointer to store the maximum number of aux digital input supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfAuxDI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
+							 TStatus *status);
+
+/**
+ * Reads the maximum number of aux digital outputs supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxAuxDO Pointer to store the maximum number of aux digital outputs supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfAuxDO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
+							 TStatus *status);
+
+/**
+ * Reads the maximum number of aux signal generators supported by the platform
+ * 
+ * @param[in] p_DrvPvt Pointer to the driver session structure
+ * @param[out] maxSG Pointer to store the maximum number of signal generators supported by the platform
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxNumberOfSG(irioDrv_t *p_DrvPvt, uint16_t *maxSG,
+						  TStatus *status);
+
+
+/**
+ * Reads the conversion to Volts of analog inputs
+ *
+ * @param[in] p_DrvPvt Pointer to the irioDrv_t object.
+ * @param[out] cvadc Pointer to store the CVADC value.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getCVADC(irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status);
+
+/**
+ * Reads the conversion from Volts for analog outputs
+ *
+ * @param[in] p_DrvPvt Pointer to the irioDrv_t object.
+ * @param[out] cvdac Pointer to store the CVDAC value.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getCVDAC(irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status);
+
+/**
+ * Reads the maximum value to be written in an analog output
+ *
+ * @param[in] p_DrvPvt Pointer to the irioDrv_t object.
+ * @param[out] maxAOVal Pointer to store the maximum value to be written in an analog output.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxAOValue(irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status);
+
+/**
+ * Reads the minimum value to be written in an analog output
+ *
+ * @param[in] p_DrvPvt Pointer to the irioDrv_t object.
+ * @param[out] minAOVal Pointer to store the minimum value to be written in an analog output.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMinAOValue(irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status);
+
+/**
+ * Reads the maximum sampling rate supported by the FPGA
+ *
+ * @param[in] p_DrvPvt Pointer to the irioDrv_t object.
+ * @param[out] maxSamplingRate Pointer to store the maximum value to be written in an analog output.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMaxSamplingRate(irioDrv_t *p_DrvPvt, float *maxSamplingRate, TStatus *status);
+
+/**
+ * Reads the minimum sampling rate supported by the FPGA
+ *
+ * @param[in] p_DrvPvt Pointer to the irioDrv_t object.
+ * @param[out] minSamplingRate Pointer to store the minimum value to be written in an analog output.
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getMinSamplingRate(irioDrv_t *p_DrvPvt, float *minSamplingRate, TStatus *status);
+
 #ifdef __cplusplus
 }
 #endif

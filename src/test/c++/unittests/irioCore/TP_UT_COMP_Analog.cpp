@@ -216,6 +216,22 @@ TEST_F(AnalogCouplingTestsAdapter, setAICoupling) {
 	EXPECT_EQ(ret, IRIO_success);
 }
 
+TEST_F(AnalogCouplingTestsAdapter, getCVADC) {
+	double value;
+	const auto ret = irio_getCVADC(&p_DrvPvt, &value, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+}
+
+TEST_F(AnalogCouplingTestsAdapter, getCVDAC) {
+	double value;
+	const auto ret = irio_getCVDAC(&p_DrvPvt, &value, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+}
+
 /////////////////////////////////////////////////////////////////
 /////// Error Analog Tests
 /////////////////////////////////////////////////////////////////

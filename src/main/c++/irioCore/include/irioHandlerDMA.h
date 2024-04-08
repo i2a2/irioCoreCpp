@@ -257,6 +257,30 @@ int irio_getDMATtoHOSTBlockNWords(irioDrv_t *p_DrvPvt, uint16_t *Nwords,
  */
 int irio_getDMATtoHOSTNCh(irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status);
 
+/**
+ * Reads frame type used by the different DMAs
+ *
+ * @param[in]  p_DrvPvt 	Pointer to the driver session structure
+ * @param[in]  n			DMA number from which to obtain the frame type
+ * @param[out] frameType    Pointer to store the frame type of the DMA specified
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
+								 uint8_t *frameType, TStatus *status);
+
+/**
+ * Reads sample size used by the different DMAs
+ *
+ * @param[in]  p_DrvPvt 	Pointer to the driver session structure
+ * @param[in]  n			DMA number from which to obtain the frame type
+ * @param[out] sampleSize    Pointer to store the sample size of the DMA specified
+ * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
+								 uint8_t *sampleSize, TStatus *status);
+
 #ifdef __cplusplus
 }
 #endif

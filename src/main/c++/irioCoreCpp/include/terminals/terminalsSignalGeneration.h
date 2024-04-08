@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "terminals/terminalsBase.h"
 
 namespace irio {
@@ -48,6 +50,14 @@ class TerminalsSignalGeneration: public TerminalsBase {
    * generator
    */
   std::uint32_t getSGFref(const std::uint32_t n) const;
+
+  /**
+   * Returns a vector with the reference clocks for all the signal generators
+   * in the system
+   * 
+   * @return Vector with reference clocks in ascending order of terminal number
+   */
+  std::vector<std::uint32_t> getVectorSGFrefs() const;
 
   /**
    * Returns the signal type generated for a specific signal generator
