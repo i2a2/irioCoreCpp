@@ -8,3 +8,4 @@
 #include <terminals/terminalscRIO.h>
 #include <terminals/terminalsSignalGeneration.h>
 #include <terminals/terminalsDMADAQCPU.h>
+#include <terminals/terminalsDMAIMAQCPU.h>

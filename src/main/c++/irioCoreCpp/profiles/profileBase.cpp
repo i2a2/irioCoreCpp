@@ -26,6 +26,7 @@ template TerminalsDMADAQ ProfileBase::getTerminal() const;
 template TerminalsFlexRIO ProfileBase::getTerminal() const;
 template TerminalscRIO ProfileBase::getTerminal() const;
 template TerminalsSignalGeneration ProfileBase::getTerminal() const;
+template TerminalsDMAIMAQ ProfileBase::getTerminal() const;
 
 
 template<typename T>
@@ -40,6 +41,11 @@ void ProfileBase::addTerminal(TerminalsDMADAQCPU terminal) {
 				std::unique_ptr<TerminalsBase>(new TerminalsDMADAQCPU(terminal)));
 }
 
+template <>
+void ProfileBase::addTerminal(TerminalsDMAIMAQCPU terminal) {
+	m_mapTerminals.emplace(std::type_index(typeid(TerminalsDMAIMAQ)),
+				std::unique_ptr<TerminalsBase>(new TerminalsDMAIMAQCPU(terminal)));
+}
 
 template void ProfileBase::addTerminal(TerminalsAnalog terminal);
 template void ProfileBase::addTerminal(TerminalsAuxAnalog terminal);

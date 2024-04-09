@@ -355,6 +355,19 @@ class Irio {
    */
   TerminalsDMADAQ getTerminalsDAQ() const;
 
+  /**
+   * Access to the IMAQ group terminals
+   *
+   * The user must call it to be able to read/write the
+   * related terminals.
+   *
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
+   * does not have the terminals
+   *
+   * @return IMAQ terminals
+   */
+  TerminalsDMAIMAQ getTerminalsIMAQ() const;
+
  private:
 	/**
 	 * Initializes the low level library. If system is CCS, does nothing.

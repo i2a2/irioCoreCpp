@@ -16,8 +16,6 @@ class TerminalsDMADAQCPU: public TerminalsDMADAQ{
 	 * Manages finding all the required
 	 * DMA CPU DAQ resources.
 	 *
-	 * @throw std::runtime_error	Size mismatch between found resources
-	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param parserManager     Pointer to class managing parsing the bitfile

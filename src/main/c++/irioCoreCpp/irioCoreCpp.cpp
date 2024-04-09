@@ -253,6 +253,10 @@ TerminalsDMADAQ Irio::getTerminalsDAQ() const {
 	return m_profile->getTerminal<TerminalsDMADAQ>();
 }
 
+TerminalsDMAIMAQ Irio::getTerminalsIMAQ() const {
+	return m_profile->getTerminal<TerminalsDMAIMAQ>();
+}
+
 /*********************************************
  * PRIVATE METHODS
  *********************************************/
@@ -403,7 +407,9 @@ void Irio::searchDevProfile(ParserManager *parserManager) {
 			new ProfileCPUDAQFlexRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
-		throw std::runtime_error("Profile not implemented");
+		m_profile.reset(
+			new ProfileCPUIMAQ(parserManager, m_session, *m_platform));
+		break;
 	case PROFILE_ID::FLEXRIO_GPUDAQ:
 		throw std::runtime_error("Profile not implemented");
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:

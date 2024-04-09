@@ -225,4 +225,4 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 	std::uint16_t getUARTOverrunError() const;
 };
 
-}
+}  // namespace irio
