@@ -5,82 +5,79 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <memory>
+
 #include <iostream>
+#include <memory>
 #include <unordered_map>
 
-std::unordered_map<TStatus*, std::unique_ptr<char>> statusMap;
+std::unordered_map<TStatus *, std::unique_ptr<char>> statusMap;
 
-int irio_initStatus(TStatus *status) {
-	return irio_resetStatus(status);
-}
+int irio_initStatus(TStatus *status) { return irio_resetStatus(status); }
 
 int irio_resetStatus(TStatus *status) {
-    status->code = IRIO_success;
-    status->detailCode = Success;
+	status->code = IRIO_success;
+	status->detailCode = Success;
 	statusMap.erase(status);
-    status->msg = nullptr;
-    return IRIO_success;
+	status->msg = nullptr;
+	return IRIO_success;
 }
 
 void mergeStatus(TStatus *status, const TErrorDetailCode detailCode,
-        const std::string &errorMsg, const bool verbose = false) {
-    std::string typeMsg;
-    std::ostream* output;
-    if (detailCode < Success) {
-        status->code = IRIO_error;
-        typeMsg = "[ERROR] ";
-        output = &std::cerr;
-    } else if (detailCode > Success) {
-        status->code = IRIO_warning;
-        typeMsg = "[WARN] ";
-        output = &std::cerr;
-    } else {
-        status->code = IRIO_success;
-        typeMsg = "[MSG] ";
-        output = &std::cout;
-    }
-    status->detailCode = detailCode;
+				 const std::string &errorMsg, const bool verbose = false) {
+	std::string typeMsg;
+	std::ostream *output;
+	if (detailCode < Success) {
+		status->code = IRIO_error;
+		typeMsg = "[ERROR] ";
+		output = &std::cerr;
+	} else if (detailCode > Success) {
+		status->code = IRIO_warning;
+		typeMsg = "[WARN] ";
+		output = &std::cerr;
+	} else {
+		status->code = IRIO_success;
+		typeMsg = "[MSG] ";
+		output = &std::cout;
+	}
+	status->detailCode = detailCode;
 
-    if (verbose) {
-        *output << typeMsg << errorMsg << std::endl;
-    }
+	if (verbose) {
+		*output << typeMsg << errorMsg << std::endl;
+	}
 
-    std::unique_ptr<char> aux;
+	std::unique_ptr<char> aux;
 	// If it exists, a new element won't be inserted
 	const auto it =
 		statusMap.emplace(status, std::unique_ptr<char>(nullptr)).first;
 	if (!it->second.get()) {
 		size_t len = errorMsg.length() + 1;
-        aux.reset(new char[len]);
-        snprintf(aux.get(), len, "%s", errorMsg.c_str());
-	} else {
-		size_t len =
-			strlen(it->second.get()) + 1 + errorMsg.length() + 1;
 		aux.reset(new char[len]);
-		snprintf(aux.get(), len, "%s\n%s", it->second.get(),
-                errorMsg.c_str());
+		snprintf(aux.get(), len, "%s", errorMsg.c_str());
+	} else {
+		size_t len = strlen(it->second.get()) + 1 + errorMsg.length() + 1;
+		aux.reset(new char[len]);
+		snprintf(aux.get(), len, "%s\n%s", it->second.get(), errorMsg.c_str());
 	}
 	it->second.swap(aux);
 
-    status->msg = it->second.get();
+	status->msg = it->second.get();
 }
 
 int irio_mergeStatus(TStatus *status, TErrorDetailCode code, int printMsg,
-        const char *format, ...) {
-    va_list argptr;
-    va_start(argptr, format);
-    char *newMsg = NULL;
-    if (vasprintf(&newMsg, format, argptr) <= 0) {
-        printf("\n\nERROR in irio_mergeStatus\n\n");
-        va_end(argptr);
-        return -1;
-    }
-    va_end(argptr);
+					 const char *format, ...) {
+	va_list argptr;
+	va_start(argptr, format);
+	char *newMsg = NULL;
+	if (vasprintf(&newMsg, format, argptr) <= 0) {
+		printf("\n\nERROR in irio_mergeStatus\n\n");
+		va_end(argptr);
+		return -1;
+	}
+	va_end(argptr);
 
-    mergeStatus(status, code, newMsg, printMsg);
+	mergeStatus(status, code, newMsg, printMsg);
 
-    return 0;
+	return 0;
 }
 
 const std::unordered_map<TErrorDetailCode, std::string> errorMap = {
@@ -200,10 +197,14 @@ int irio_getErrorString(TErrorDetailCode error, char **str) {
 	*str = nullptr;
 	const auto it = errorMap.find(error);
 
-	if(it != errorMap.end()) {
-		asprintf(str, it->second.c_str());
+	if (it != errorMap.end()) {
+		if (asprintf(str, it->second.c_str()) == -1) {
+			return IRIO_error;
+		}
 	} else {
-		asprintf(str, "Error code not defined");
+		if (asprintf(str, "Error code not defined") == -1) {
+			return IRIO_error;
+		}
 	}
 	return IRIO_success;
 }
