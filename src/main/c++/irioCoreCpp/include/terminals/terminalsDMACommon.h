@@ -217,7 +217,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	 */
 	size_t readDataNonBlocking(
 			const std::uint32_t n,
-			size_t elementsToRead,
+			const size_t elementsToRead,
 			std::uint64_t *data) const;
 
 	/**
@@ -241,9 +241,9 @@ class TerminalsDMACommon: public TerminalsBase{
 	 */
 	size_t readDataBlocking(
 			const std::uint32_t n,
-			size_t elementsToRead,
+			const size_t elementsToRead,
 			std::uint64_t *data,
-			std::uint32_t timeout = 0) const;
+			const std::uint32_t timeout = 0) const;
 
 	/**
 	 * Reads an specified number of elements from a DMA group.
@@ -269,10 +269,10 @@ class TerminalsDMACommon: public TerminalsBase{
 	 */
 	size_t readData(
 			const std::uint32_t n,
-			size_t elementsToRead,
+			const size_t elementsToRead,
 			std::uint64_t *data,
-			bool blockRead,
-			std::uint32_t timeout = 0) const;
+			const bool blockRead,
+			const std::uint32_t timeout = 0) const;
 
 	/**
 	 * Returns the number of DMAs found
