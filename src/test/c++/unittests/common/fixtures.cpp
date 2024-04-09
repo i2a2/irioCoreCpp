@@ -11,7 +11,7 @@
 
 using namespace irio;
 
-BaseTests::BaseTests(const std::string bitfile):
+BaseTests::BaseTests(const std::string bitfile, const bool includeSG):
 		bfp(bitfile, false), bitfilePath(bitfile){
 
 	resetFakes();
@@ -28,8 +28,6 @@ BaseTests::BaseTests(const std::string bitfile):
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
 			bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
 			PLATFORM_ID::FlexRIO);
-	setValueForReg(ReadFunctions::NiFpga_ReadU8,
-			bfp.getRegister(TERMINAL_SGNO).getAddress(), numSGFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadU32,
 			bfp.getRegister(TERMINAL_FREF).getAddress(), frefFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadU8,
@@ -44,6 +42,11 @@ BaseTests::BaseTests(const std::string bitfile):
 			bfp.getRegister(TERMINAL_DEBUGMODE).getAddress(), debugModeFake);
 	setValueForReg(ReadFunctions::NiFpga_ReadBool,
 			bfp.getRegister(TERMINAL_INITDONE).getAddress(), 1);
+
+	if (includeSG) {
+		setValueForReg(ReadFunctions::NiFpga_ReadU8,
+					   bfp.getRegister(TERMINAL_SGNO).getAddress(), numSGFake);
+	}
 
 	NiFlexRio_GetAttribute_fake.custom_fake = [](NiFpga_Session, int32_t,
 			int32_t, void *value) {
