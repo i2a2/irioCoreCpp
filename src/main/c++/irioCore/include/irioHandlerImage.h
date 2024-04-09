@@ -179,8 +179,12 @@ int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
+int irio_getUARTFramingError(irioDrv_t *p_DrvPvt, int32_t *value,
+							 TStatus *status);
+
 int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
-		TStatus *status);
+							  TStatus *status)
+	__attribute__((deprecated("Use irio_getUARTFramingError")));
 
 /**
  * Read UART Overrun Error

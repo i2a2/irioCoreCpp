@@ -127,10 +127,6 @@ void fillCVData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	p_DrvPvt->minAnalogOut = analog.getMinValAO();
 }
 
-void fillIMAQData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
-	// TODO
-}
-
 void fillSGFref(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	p_DrvPvt->NoOfSG = iriov2->getTerminalsSignalGeneration().getSGNo();
 	const auto it =
@@ -193,7 +189,6 @@ void fillDrvPvtData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
-		fillIMAQData(iriov2, p_DrvPvt);
 		break;
 	}
 }

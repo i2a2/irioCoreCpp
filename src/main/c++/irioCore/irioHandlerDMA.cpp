@@ -195,10 +195,14 @@ int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 
 int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t *data, int *elementsRead, TStatus *status) {
-	// TODO: Finish image profile
-	irio_mergeStatus(status, FeatureNotImplemented_Error, p_DrvPvt->verbosity,
-			"Not implemented");
-	return IRIO_error;
+	const auto f = [n, imageSize, data, elementsRead, p_DrvPvt] {
+		const auto irio = IrioV2InstanceManager::getInstance(
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+		*elementsRead =
+			irio->getTerminalsIMAQ().readImageNonBlocking(n, imageSize, data);
+	};
+
+	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
