@@ -131,15 +131,15 @@ void TerminalsDMAIMAQImpl::sendUARTMsgImpl(
 	const std::string& msg, const std::uint32_t timeout) const {
 	NiFpga_Status status;
 	for (const char& c : msg) {
-        NiFpga_Bool txReady = 0;
-        std::uint32_t countTimeout = 0;
-        status = NiFpga_ReadBool(m_session, m_txReady_addr, &txReady);
-        utils::throwIfNotSuccessNiFpga(
-            status, "Error waiting for " + std::string(TERMINAL_UARTTXREADY));
-        while (!txReady && (timeout == 0 || countTimeout < timeout)) {
-            usleep(1000);
-            countTimeout++;
-            status = NiFpga_ReadBool(m_session, m_txReady_addr, &txReady);
+		NiFpga_Bool txReady = 0;
+		std::uint32_t countTimeout = 0;
+		status = NiFpga_ReadBool(m_session, m_txReady_addr, &txReady);
+		utils::throwIfNotSuccessNiFpga(
+			status, "Error waiting for " + std::string(TERMINAL_UARTTXREADY));
+		while (!txReady && (timeout == 0 || countTimeout < timeout)) {
+			usleep(1000);
+			countTimeout++;
+			status = NiFpga_ReadBool(m_session, m_txReady_addr, &txReady);
 			utils::throwIfNotSuccessNiFpga(
 				status,
 				"Error waiting for " + std::string(TERMINAL_UARTTXREADY));
@@ -169,12 +169,12 @@ std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 
 	recvMsg.reserve(bytesToRecv);
 
-	status = NiFpga_ReadBool(m_session, m_rxReady_addr, &rxReady);
-	utils::throwIfNotSuccessNiFpga(
-		status, "Error waiting for " + std::string(TERMINAL_UARTRXREADY));
-
 	size_t bytesRead = 0;
 	while(bytesRead < bytesToRecv) {
+		status = NiFpga_ReadBool(m_session, m_rxReady_addr, &rxReady);
+		utils::throwIfNotSuccessNiFpga(
+		status, "Error waiting for " + std::string(TERMINAL_UARTRXREADY));
+
 		while (!rxReady && (timeout == 0 || countTimeout < timeout)) {
 			usleep(1000);
 			countTimeout++;
@@ -195,6 +195,8 @@ std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 		NiFpga_Bool isDataReady;
 		do {
 			status = NiFpga_ReadBool(m_session, m_receive_addr, &isDataReady);
+			utils::throwIfNotSuccessNiFpga(
+				status, "Error reading " + std::string(TERMINAL_UARTRECEIVE));
 		} while (!isDataReady);
 
 		std::uint8_t charAux;
@@ -211,7 +213,7 @@ void TerminalsDMAIMAQImpl::setUARTBaudRateImpl(
 	const UARTBaudRates& baudRate, const std::uint32_t timeout) const {
 	NiFpga_Status status;
 	NiFpga_Bool setBR;
-	std::uint32_t countTimeout;
+	std::uint32_t countTimeout = 0;
 
 	// Wait for SetBaudRate = false
 	status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
@@ -237,6 +239,9 @@ void TerminalsDMAIMAQImpl::setUARTBaudRateImpl(
 	utils::throwIfNotSuccessNiFpga(status, "Error setting baud rate");
 
 	// Wait for SetBaudRate = false to confirm is configured
+	status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
+	utils::throwIfNotSuccessNiFpga(
+		status, "Error reading " + std::string(TERMINAL_UARTSETBAUDRATE));
 	while (setBR && (timeout == 0 || countTimeout < timeout)) {
 		usleep(1000);
 		countTimeout++;
@@ -291,7 +296,7 @@ std::uint16_t TerminalsDMAIMAQImpl::getUARTFramingErrorImpl() const {
 std::uint16_t TerminalsDMAIMAQImpl::getUARTOverrunErrorImpl() const {
     std::uint16_t overrunError;
 	const auto status =
-		NiFpga_ReadU16(m_session, m_framingError_addr, &overrunError);
+		NiFpga_ReadU16(m_session, m_overrunError_addr, &overrunError);
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error reading " + std::string(TERMINAL_UARTOVERRUNERROR));
 	return overrunError;
