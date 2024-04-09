@@ -408,7 +408,7 @@ void Irio::searchDevProfile(ParserManager *parserManager) {
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 		m_profile.reset(
-			new ProfileCPUIMAQ(parserManager, m_session, *m_platform));
+			new ProfileCPUIMAQFlexRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::FLEXRIO_GPUDAQ:
 		throw std::runtime_error("Profile not implemented");

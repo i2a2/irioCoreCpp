@@ -5,8 +5,9 @@ namespace irio {
 
 ProfileCPUIMAQ::ProfileCPUIMAQ(ParserManager *parserManager,
 							   const NiFpga_Session &session,
-							   const Platform &platform)
-	: ProfileBase(PROFILE_ID::FLEXRIO_CPUIMAQ) {
+							   const Platform &platform,
+                               const PROFILE_ID &id)
+	: ProfileBase(id) {
     addTerminal(TerminalsDigital(parserManager, session, platform));
     addTerminal(TerminalsAuxDigital(parserManager, session, platform));
     addTerminal(TerminalsAuxAnalog(parserManager, session, platform));

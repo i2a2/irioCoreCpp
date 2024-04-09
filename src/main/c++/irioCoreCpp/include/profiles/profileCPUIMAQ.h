@@ -4,7 +4,7 @@
 #include "platforms.h"
 
 namespace irio {
-class ProfileCPUIMAQ: public ProfileBase {
+class ProfileCPUIMAQ: virtual public ProfileBase {
  public:
     /**
      * Manages creating the required terminals for CPU image acquisition
@@ -19,6 +19,7 @@ class ProfileCPUIMAQ: public ProfileBase {
     ProfileCPUIMAQ(
         ParserManager *parserManager,
         const NiFpga_Session &session,
-        const Platform &platform);
+        const Platform &platform,
+        const PROFILE_ID &id);
 };
 }  // namespace irio

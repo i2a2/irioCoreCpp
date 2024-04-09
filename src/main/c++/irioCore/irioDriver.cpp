@@ -128,13 +128,17 @@ void fillCVData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 }
 
 void fillSGFref(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
-	p_DrvPvt->NoOfSG = iriov2->getTerminalsSignalGeneration().getSGNo();
-	const auto it =
-		map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->NoOfSG]);
-	const auto auxSGFrefs =
-		iriov2->getTerminalsSignalGeneration().getVectorSGFrefs();
-	std::copy_n(auxSGFrefs.begin(), p_DrvPvt->NoOfSG, it.first->second.get());
-	p_DrvPvt->SGfref = it.first->second.get();
+	try {
+		p_DrvPvt->NoOfSG = iriov2->getTerminalsSignalGeneration().getSGNo();
+		const auto it =
+			map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->NoOfSG]);
+		const auto auxSGFrefs =
+			iriov2->getTerminalsSignalGeneration().getVectorSGFrefs();
+		std::copy_n(auxSGFrefs.begin(), p_DrvPvt->NoOfSG, it.first->second.get());
+		p_DrvPvt->SGfref = it.first->second.get();
+	} catch(TerminalNotImplementedError&) {
+		p_DrvPvt->NoOfSG = 0;
+	}
 }
 
 void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
