@@ -19,6 +19,7 @@ class TerminalsDMADAQImpl: public TerminalsDMACommonImpl{
   /**
    * Constructor.
    * Manages finding DMA DAQ resources.
+   * 
    * The name of these terminals are set by the constructor
    * parameters, to allow reusing code when terminal
    * functionality is the same but name changes

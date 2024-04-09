@@ -22,6 +22,15 @@
 @defgroup DMAGPUTerminals	DMA GPU Terminals
 @ingroup DMATerminals
 
+@defgroup IMAQTerminals     IMAQ Terminals
+@ingroup DMATerminals
+
+@defgroup IMAQCPUTerminals  IMAQ CPU Terminals
+@ingroup IMAQTerminals
+
+@defgroup IMAQGPUTerminals  IMAQ GPU Terminals
+@ingroup IMAQTerminals
+
 
 
 @defgroup FlexRIO 			Specific Classes/Functions to FlexRIO

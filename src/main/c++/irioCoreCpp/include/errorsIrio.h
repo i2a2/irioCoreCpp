@@ -141,6 +141,30 @@ class InitializationTimeoutError: public IrioV2Error {
 };
 
 /**
+ * Exception when a timeout occurs in a CL UART operation
+ *
+ * @ingroup Errors
+ */
+class CLUARTTimeout: public IrioV2Error {
+ public:
+	CLUARTTimeout() :
+			IrioV2Error("CL UART timeout") {
+	}
+};
+
+/**
+ * Exception when the baud rate read is not a valid value
+ *
+ * @ingroup Errors
+ */
+class CLUARTInvalidBaudRate: public IrioV2Error {
+ public:
+	CLUARTInvalidBaudRate() :
+			IrioV2Error("Invalid UART baud rate") {
+	}
+};
+
+/**
  * Exception when the modules installed in the platform are not the ones expected or
  * the FPGA inform that there is a problem with them
  *
