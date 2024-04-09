@@ -18,5 +18,5 @@ constexpr char TERMINAL_UARTRXBYTE[] = "uartRxByte";
 constexpr char TERMINAL_UARTTXREADY[] = "uartTxReady";
 constexpr char TERMINAL_UARTRXREADY[] = "uartRxReady";
 constexpr char TERMINAL_UARTBREAKINDICATOR[] = "uartBreakIndicator";
-constexpr char TERMINAL_UARTFRAMMINGERROR[] = "uartFrammingError";
+constexpr char TERMINAL_UARTFRAMINGERROR[] = "uartFramingError";
 constexpr char TERMINAL_UARTOVERRUNERROR[] = "uartOverrunError";

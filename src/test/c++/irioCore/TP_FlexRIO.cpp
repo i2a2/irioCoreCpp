@@ -1100,7 +1100,7 @@ TEST(FlexRIODIO6581, GetSetDIO) {
 // * - FlexRIOIMAQ1483.GetImages
 // * - FlexRIOUART1483.GetUARTBaudRate
 // * - FlexRIOUART1483.GetUARTBreakIndicator
-// * - FlexRIOUART1483.GetUARTFrammingError
+// * - FlexRIOUART1483.GetUARTFramingError
 // * - FlexRIOUART1483.GetUARTOverrunError
 // * - FlexRIOUART1483.SetUARTBaudRate
 // * - FlexRIOUART1483.SendCLUART
@@ -1266,7 +1266,7 @@ TEST(FlexRIODIO6581, GetSetDIO) {
 //    st = closeDriver(&drv);
 //	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 //}
-//TEST(FlexRIOUART1483, GetUARTFrammingError) {
+//TEST(FlexRIOUART1483, GetUARTFramingError) {
 //    irioDrv_t drv;
 //	TStatus status;
 //	irio_initStatus(&status);
@@ -1282,14 +1282,14 @@ TEST(FlexRIODIO6581, GetSetDIO) {
 //	irio_resetStatus(&status);
 //	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 //
-//	if (verbose_test) cout << "[TEST] Reading UARTFrammingError" << endl;
+//	if (verbose_test) cout << "[TEST] Reading UARTFramingError" << endl;
 //	int32_t uartFE = -1;
-//	st = irio_getUARTFrammingError(&drv, &uartFE, &status);
+//	st = irio_getUARTFramingError(&drv, &uartFE, &status);
 //	logErrors(st, status);
 //	EXPECT_EQ(st, IRIO_success);
 //	EXPECT_NE(uartFE, -1);
 //	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] UARTFrammingError = " << uartFE << endl;
+//	if (verbose_test) cout << "[TEST] UARTFramingError = " << uartFE << endl;
 //
 //    st = closeDriver(&drv);
 //	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";

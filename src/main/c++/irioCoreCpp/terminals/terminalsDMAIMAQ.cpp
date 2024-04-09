@@ -69,9 +69,9 @@ std::uint16_t TerminalsDMAIMAQ::getUARTBreakIndicator() const {
 		->getUARTBreakIndicatorImpl();
 }
 
-std::uint16_t TerminalsDMAIMAQ::getUARTFrammingError() const {
+std::uint16_t TerminalsDMAIMAQ::getUARTFramingError() const {
 	return std::static_pointer_cast<TerminalsDMAIMAQImpl>(m_impl)
-		->getUARTFrammingErrorImpl();
+		->getUARTFramingErrorImpl();
 }
 
 std::uint16_t TerminalsDMAIMAQ::getUARTOverrunError() const {

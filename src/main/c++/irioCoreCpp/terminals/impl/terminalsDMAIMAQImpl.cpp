@@ -60,7 +60,7 @@ void TerminalsDMAIMAQImpl::findUART(ParserManager* parserManager) {
 									   GroupResource::IMAQ,
 									   &m_breakIndicator_addr);
 	parserManager->findRegisterAddress(
-		TERMINAL_UARTFRAMMINGERROR, GroupResource::IMAQ, &m_framingError_addr);
+		TERMINAL_UARTFRAMINGERROR, GroupResource::IMAQ, &m_framingError_addr);
 	parserManager->findRegisterAddress(
 		TERMINAL_UARTOVERRUNERROR, GroupResource::IMAQ, &m_overrunError_addr);
 }
@@ -279,13 +279,13 @@ std::uint16_t TerminalsDMAIMAQImpl::getUARTBreakIndicatorImpl() const {
 	return breakIndicator;
 }
 
-std::uint16_t TerminalsDMAIMAQImpl::getUARTFrammingErrorImpl() const {
-	std::uint16_t frammingError;
+std::uint16_t TerminalsDMAIMAQImpl::getUARTFramingErrorImpl() const {
+	std::uint16_t framingError;
 	const auto status =
-		NiFpga_ReadU16(m_session, m_framingError_addr, &frammingError);
+		NiFpga_ReadU16(m_session, m_framingError_addr, &framingError);
 	utils::throwIfNotSuccessNiFpga(
-		status, "Error reading " + std::string(TERMINAL_UARTFRAMMINGERROR));
-	return frammingError;
+		status, "Error reading " + std::string(TERMINAL_UARTFRAMINGERROR));
+	return framingError;
 }
 
 std::uint16_t TerminalsDMAIMAQImpl::getUARTOverrunErrorImpl() const {

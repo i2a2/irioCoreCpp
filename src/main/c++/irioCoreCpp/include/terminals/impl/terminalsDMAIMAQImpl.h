@@ -88,7 +88,7 @@ class TerminalsDMAIMAQImpl : public TerminalsDMACommonImpl {
 
 	std::uint16_t getUARTBreakIndicatorImpl() const;
 
-	std::uint16_t getUARTFrammingErrorImpl() const;
+	std::uint16_t getUARTFramingErrorImpl() const;
 
 	std::uint16_t getUARTOverrunErrorImpl() const;
 

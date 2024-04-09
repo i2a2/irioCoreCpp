@@ -201,16 +201,16 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 	std::uint16_t getUARTBreakIndicator() const;
 
 	/**
-	 * Read UART Framming Error
+	 * Read UART Framing Error
 	 *
 	 * Reads the value from CameraLink UART framing error port. A non-zero value
 	 * returned indicates problems while receiving UART data.
 	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
-	 * @return Current value of the UART Framming Error
+	 * @return Current value of the UART Framing Error
 	 */
-	std::uint16_t getUARTFrammingError() const;
+	std::uint16_t getUARTFramingError() const;
 
 	/**
 	 * Read UART Overrun Error
