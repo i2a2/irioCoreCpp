@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "irioHandlerImage.h"
-#include "irioV2InstanceManager.h"
+#include "irioInstanceManager.h"
 #include "utils.h"
 #include "imaqTypes.h"
 
@@ -46,7 +46,7 @@ int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
 
 	const auto f = [p_DrvPvt, fvalHigh, lvalHigh, dvalHigh, spareHigh,
 					controlEnable, linescan, itSigMap, itMode] {
-		auto irio = IrioV2InstanceManager::getInstance(
+		auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		irio->getTerminalsIMAQ().configCameraLink(
 			fvalHigh, lvalHigh, dvalHigh, spareHigh, controlEnable, linescan,
@@ -59,7 +59,7 @@ int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
 int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 					TStatus *status) {
     const auto f = [p_DrvPvt, msg, msg_size] {
-		auto irio = IrioV2InstanceManager::getInstance(
+		auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		irio->getTerminalsIMAQ().sendUARTMsg(std::string(msg, msg_size));
 	};
@@ -72,7 +72,7 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
 				   int *msg_size, TStatus *status) {
     const auto f = [p_DrvPvt, data_size, data, msg_size] {
-        auto irio = IrioV2InstanceManager::getInstance(
+        auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
         auto msg = irio->getTerminalsIMAQ().recvUARTMsg(data_size);
 		std::memcpy(data, msg.c_str(),
@@ -87,7 +87,7 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
 
 int irio_getUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
     const auto f = [p_DrvPvt, value] {
-        auto irio = IrioV2InstanceManager::getInstance(
+        auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		auto aux = irio->getTerminalsIMAQ().getUARTBaudRate();
 		*value = static_cast<std::uint8_t>(aux);
@@ -119,7 +119,7 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	}
 
 	const auto f = [p_DrvPvt, itBaudRate] {
-        auto irio = IrioV2InstanceManager::getInstance(
+        auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
         irio->getTerminalsIMAQ().setUARTBaudRate(itBaudRate->second);
     };
@@ -132,7 +132,7 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
 							   TStatus *status) {
     const auto f = [p_DrvPvt, value] {
-        auto irio = IrioV2InstanceManager::getInstance(
+        auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
         *value = irio->getTerminalsIMAQ().getUARTBreakIndicator();
     };
@@ -143,7 +143,7 @@ int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
 int irio_getUARTFramingError(irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
-		auto irio = IrioV2InstanceManager::getInstance(
+		auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		*value = irio->getTerminalsIMAQ().getUARTFramingError();
 	};
@@ -159,7 +159,7 @@ int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
 int irio_getUARTOverrunError(irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
-		auto irio = IrioV2InstanceManager::getInstance(
+		auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		*value = irio->getTerminalsIMAQ().getUARTOverrunError();
 	};

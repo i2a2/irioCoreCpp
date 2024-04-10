@@ -445,7 +445,7 @@ TEST_F(ErrorCommonTestsAdapter, InitStatusNullptr) {
 	irio_closeDriver(&p_DrvPvt, 0, &status);
 }
 
-TEST_F(ErrorCommonTestsAdapter, IrioV2NotInitializedError) {
+TEST_F(ErrorCommonTestsAdapter, IrioNotInitializedError) {
 	int ret;
 
 	ret = irio_closeDriver(&p_DrvPvt, 0, &status);

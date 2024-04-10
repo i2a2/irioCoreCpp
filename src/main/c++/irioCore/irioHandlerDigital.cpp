@@ -1,16 +1,16 @@
 #include "irioHandlerDigital.h"
-#include "irioV2InstanceManager.h"
+#include "irioInstanceManager.h"
 #include "utils.h"
 
 irio::TerminalsDigital getTerminalsDigital(const std::string &rioSerial,
 		const std::uint32_t session) {
-	return IrioV2InstanceManager::getInstance(rioSerial, session)
+	return IrioInstanceManager::getInstance(rioSerial, session)
 			->getTerminalsDigital();
 }
 
 irio::TerminalsAuxDigital getTerminalsAuxDigital(const std::string &rioSerial,
 		const std::uint32_t session) {
-	return IrioV2InstanceManager::getInstance(rioSerial, session)
+	return IrioInstanceManager::getInstance(rioSerial, session)
 			->getTerminalsAuxDigital();
 }
 

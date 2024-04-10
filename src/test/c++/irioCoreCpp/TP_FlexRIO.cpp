@@ -47,7 +47,7 @@ TEST_F(FlexRIOOnlyResources, InitClose){
 	try{
 		Irio irio(bitfilePath, serialNumber, "V1.2");
 	}catch(std::exception &e){
-		FAIL() << "Error at IrioV2's constructor (" + std::string(e.what()) + ")";
+		FAIL() << "Error at irioCore's constructor (" + std::string(e.what()) + ")";
 	}
 }
 

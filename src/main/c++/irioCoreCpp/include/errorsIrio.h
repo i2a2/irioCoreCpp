@@ -7,11 +7,11 @@ namespace irio {
 namespace errors {
 
 /**
- * Base IrioV2 error
+ * Base IRIO error
  *
  * @ingroup Errors
  */
-class IrioV2Error: public std::runtime_error {
+class IrioError: public std::runtime_error {
 	using std::runtime_error::runtime_error;
 };
 
@@ -20,11 +20,11 @@ class IrioV2Error: public std::runtime_error {
  *
  * @ingroup Errors
  */
-class TerminalNotImplementedError: public IrioV2Error {
-	using IrioV2Error::IrioV2Error;
+class TerminalNotImplementedError: public IrioError {
+	using IrioError::IrioError;
  public:
 	TerminalNotImplementedError() :
-			IrioV2Error("Terminal not implemented in the profile") {
+			IrioError("Terminal not implemented in the profile") {
 	}
 };
 
@@ -32,11 +32,11 @@ class TerminalNotImplementedError: public IrioV2Error {
  * Exception when a resource (Register/DMA) is not found
  * @ingroup Errors
  */
-class ResourceNotFoundError: public IrioV2Error {
-	using IrioV2Error::IrioV2Error;
+class ResourceNotFoundError: public IrioError {
+	using IrioError::IrioError;
  public:
 	ResourceNotFoundError() :
-			IrioV2Error("Resource not found") {
+			IrioError("Resource not found") {
 	}
 
 	/**
@@ -49,7 +49,7 @@ class ResourceNotFoundError: public IrioV2Error {
 	 */
 	ResourceNotFoundError(const std::uint32_t resourceNumber,
 			const std::string &resourceName) :
-			IrioV2Error(std::to_string(resourceNumber)
+			IrioError(std::to_string(resourceNumber)
 					+ " is not a valid " + resourceName + " resource") {	}
 };
 
@@ -57,10 +57,10 @@ class ResourceNotFoundError: public IrioV2Error {
  * Exception when FPGAVIVersion is not the one expected
  * @ingroup Errors
  */
-class FPGAVIVersionMismatchError: public IrioV2Error {
+class FPGAVIVersionMismatchError: public IrioError {
  public:
 	FPGAVIVersionMismatchError() :
-			IrioV2Error("FPGAVIversion mismatch") {
+			IrioError("FPGAVIversion mismatch") {
 	}
 
 	/**
@@ -73,7 +73,7 @@ class FPGAVIVersionMismatchError: public IrioV2Error {
 	 */
 	FPGAVIVersionMismatchError(const std::string &foundVersion,
 			const std::string &expectedVersion) :
-			IrioV2Error(
+			IrioError(
 					"FPGAVIVserion mismatch (" + foundVersion + " != "
 							+ expectedVersion + ")") {
 	}
@@ -84,10 +84,10 @@ class FPGAVIVersionMismatchError: public IrioV2Error {
  * supported ones (See \ref platforms.h)
  * @ingroup Errors
  */
-class UnsupportedPlatformError: public IrioV2Error {
+class UnsupportedPlatformError: public IrioError {
  public:
 	UnsupportedPlatformError()
-		: IrioV2Error("Platform specified is not supported") {}
+		: IrioError("Platform specified is not supported") {}
 	/**
 	 * Exception when the platform read from the FPGA does not match any of the
 	 * supported ones. Indicated the platform found.
@@ -95,7 +95,7 @@ class UnsupportedPlatformError: public IrioV2Error {
 	 * @param platform Invalid platform value
 	 */
 	explicit UnsupportedPlatformError(const std::uint8_t platform)
-		: IrioV2Error(std::to_string(platform) +
+		: IrioError(std::to_string(platform) +
 						"is not a supported platform value") {}
 };
 
@@ -105,10 +105,10 @@ class UnsupportedPlatformError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class UnsupportedDevProfileError: public IrioV2Error {
+class UnsupportedDevProfileError: public IrioError {
  public:
 	UnsupportedDevProfileError() :
-			IrioV2Error("DevProfile specified is not supported") {
+			IrioError("DevProfile specified is not supported") {
 	}
 
 	/**
@@ -121,7 +121,7 @@ class UnsupportedDevProfileError: public IrioV2Error {
 	 */
 	UnsupportedDevProfileError(const std::uint8_t devProfile,
 			const std::uint8_t platform) :
-			IrioV2Error(
+			IrioError(
 					"DevProfile " + std::to_string(devProfile)
 							+ " is not valid for the platform "
 							+ std::to_string(platform)) {
@@ -133,10 +133,10 @@ class UnsupportedDevProfileError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class InitializationTimeoutError: public IrioV2Error {
+class InitializationTimeoutError: public IrioError {
  public:
 	InitializationTimeoutError() :
-			IrioV2Error("InitDone not ready in time") {
+			IrioError("InitDone not ready in time") {
 	}
 };
 
@@ -145,10 +145,10 @@ class InitializationTimeoutError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class CLUARTTimeout: public IrioV2Error {
+class CLUARTTimeout: public IrioError {
  public:
 	CLUARTTimeout() :
-			IrioV2Error("CL UART timeout") {
+			IrioError("CL UART timeout") {
 	}
 };
 
@@ -157,10 +157,10 @@ class CLUARTTimeout: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class CLUARTInvalidBaudRate: public IrioV2Error {
+class CLUARTInvalidBaudRate: public IrioError {
  public:
 	CLUARTInvalidBaudRate() :
-			IrioV2Error("Invalid UART baud rate") {
+			IrioError("Invalid UART baud rate") {
 	}
 };
 
@@ -170,8 +170,8 @@ class CLUARTInvalidBaudRate: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class ModulesNotOKError: public IrioV2Error {
-	using IrioV2Error::IrioV2Error;
+class ModulesNotOKError: public IrioError {
+	using IrioError::IrioError;
 };
 
 /**
@@ -179,8 +179,8 @@ class ModulesNotOKError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class RIODiscoveryError: public IrioV2Error {
-	using IrioV2Error::IrioV2Error;
+class RIODiscoveryError: public IrioError {
+	using IrioError::IrioError;
 };
 
 /**
@@ -188,10 +188,10 @@ class RIODiscoveryError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class RIODeviceNotFoundError: public IrioV2Error {
+class RIODeviceNotFoundError: public IrioError {
  public:
 	RIODeviceNotFoundError() :
-			IrioV2Error("") {
+			IrioError("") {
 	}
 
 	/**
@@ -201,7 +201,7 @@ class RIODeviceNotFoundError: public IrioV2Error {
 	 * @param serialNumber	Serial number of the not found RIO device
 	 */
 	explicit RIODeviceNotFoundError(const std::string &serialNumber) :
-			IrioV2Error("No RIO device with serial number " + serialNumber) {
+			IrioError("No RIO device with serial number " + serialNumber) {
 	}
 };
 
@@ -210,8 +210,8 @@ class RIODeviceNotFoundError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class NiFpgaError: public IrioV2Error {
-	using IrioV2Error::IrioV2Error;
+class NiFpgaError: public IrioError {
+	using IrioError::IrioError;
 };
 
 /**
@@ -238,7 +238,7 @@ class NiFpgaFPGAAlreadyRunning: public NiFpgaError {
  *
  * @ingroup Errors
  */
-class DMAReadTimeout: public IrioV2Error {
+class DMAReadTimeout: public IrioError {
  public:
 	/**
 	 * Exception when a timeout expires while trying to read a DMA
@@ -247,7 +247,7 @@ class DMAReadTimeout: public IrioV2Error {
 	 * @param n 			Number of the DMA that generated the timeout
 	 */
 	DMAReadTimeout(const std::string &nameTermDMA, const std::uint32_t &n) :
-			IrioV2Error("Timeout reading " + nameTermDMA + std::to_string(n)) {
+			IrioError("Timeout reading " + nameTermDMA + std::to_string(n)) {
 	}
 };
 
@@ -256,7 +256,7 @@ class DMAReadTimeout: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class BFPParseBitfileError: public IrioV2Error {
+class BFPParseBitfileError: public IrioError {
  public:
 	/**
 	 * Exception class for errors that occur during bitfile parsing
@@ -264,7 +264,7 @@ class BFPParseBitfileError: public IrioV2Error {
 	 * @param bitfile	Bitfile on which the error occurred
 	 */
 	explicit BFPParseBitfileError(const std::string &bitfile)
-		: IrioV2Error("Error parsing " + bitfile) {}
+		: IrioError("Error parsing " + bitfile) {}
 
   /**
    * Exception class for errors that occur during bitfile parsing. Adds an error
@@ -275,7 +275,7 @@ class BFPParseBitfileError: public IrioV2Error {
    */
   BFPParseBitfileError(const std::string &bitfile,
 					   const std::string &errDescription)
-	  : IrioV2Error("Error parsing " + bitfile + ". Error: " + errDescription) {
+	  : IrioError("Error parsing " + bitfile + ". Error: " + errDescription) {
   }
 };
 
@@ -285,10 +285,10 @@ class BFPParseBitfileError: public IrioV2Error {
  *
  * @ingroup Errors
  */
-class UnsupportedAICouplingForModule: public IrioV2Error {
+class UnsupportedAICouplingForModule: public IrioError {
  public:
 	UnsupportedAICouplingForModule() :
-			IrioV2Error("Unsupported AI coupling mode for module") {
+			IrioError("Unsupported AI coupling mode for module") {
 	}
 };
 

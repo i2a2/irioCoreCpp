@@ -1,11 +1,11 @@
 #include "irioHandlerSG.h"
-#include "irioV2InstanceManager.h"
+#include "irioInstanceManager.h"
 #include "irioError.h"
 #include "utils.h"
 
 irio::TerminalsSignalGeneration getTerminalsSG(const std::string &rioSerial,
 		const std::uint32_t session) {
-	return IrioV2InstanceManager::getInstance(rioSerial, session)
+	return IrioInstanceManager::getInstance(rioSerial, session)
 				->getTerminalsSignalGeneration();
 }
 
@@ -119,7 +119,7 @@ int irio_getSGFref(irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
 
 int irio_getFref(irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status) {
 	const auto f = [Fref, p_DrvPvt] {
-		*Fref = IrioV2InstanceManager::getInstance(
+		*Fref = IrioInstanceManager::getInstance(
 				p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session)->getFref();
 	};
@@ -129,7 +129,7 @@ int irio_getFref(irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status) {
 
 int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status) {
 	const auto f = [SGCVDAC, p_DrvPvt] {
-		*SGCVDAC = IrioV2InstanceManager::getInstance(
+		*SGCVDAC = IrioInstanceManager::getInstance(
 					p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session)
 						->getTerminalsAnalog().getCVDAC();
@@ -140,7 +140,7 @@ int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status) {
 
 int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status) {
 	const auto f = [SGCVADC, p_DrvPvt] {
-		*SGCVADC = IrioV2InstanceManager::getInstance(
+		*SGCVADC = IrioInstanceManager::getInstance(
 					p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session)
 						->getTerminalsAnalog().getCVADC();

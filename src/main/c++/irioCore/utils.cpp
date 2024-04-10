@@ -7,7 +7,7 @@ int operationGeneric(const std::function<void()> &func, TStatus *status,
 		const bool verbosity) {
 	try {
 		func();
-	} catch (IrioV2NotInitializedError &e) {
+	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, verbosity, e.what());
 		return IRIO_error;
 	} catch (ResourceNotFoundError &e) {

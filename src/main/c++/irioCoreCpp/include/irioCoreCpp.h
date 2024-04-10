@@ -19,7 +19,7 @@ class ParserManager;
  * This constant defines the name of the environment variable that can be used
  * to specify the path where the parse log should be written.
  */
-constexpr char PARSE_LOG_PATH_ENV_VAR[] = "PARSE_LOG_IRIOV2";
+constexpr char PARSE_LOG_PATH_ENV_VAR[] = "PARSE_LOG_IRIOCORE";
 
 /**
  * @brief The default path for the parse log.

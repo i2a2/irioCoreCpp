@@ -151,7 +151,7 @@ void ParserManager::printInfoError(std::ostream &os) const {
 
 void ParserManager::printInfoXML(const std::string& filename) const {
     pugi::xml_document doc;
-    pugi::xml_node root = doc.append_child("IrioV2");
+    pugi::xml_node root = doc.append_child("irioCore");
 
 	for (const auto &group : m_groupInfo) {
 		const auto foundMap = &group.second.found;

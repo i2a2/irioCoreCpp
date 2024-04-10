@@ -1,5 +1,5 @@
 #include "irioHandlerDMA.h"
-#include "irioV2InstanceManager.h"
+#include "irioInstanceManager.h"
 #include "irioError.h"
 #include "utils.h"
 
@@ -10,7 +10,7 @@ using irio::errors::DMAReadTimeout;
 
 irio::TerminalsDMADAQ getTerminalsDMADAQ(const std::string &rioSerial,
 		const std::uint32_t session) {
-	return IrioV2InstanceManager::getInstance(rioSerial, session)
+	return IrioInstanceManager::getInstance(rioSerial, session)
 				->getTerminalsDAQ();
 }
 
@@ -196,7 +196,7 @@ int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, imageSize, data, elementsRead, p_DrvPvt] {
-		const auto irio = IrioV2InstanceManager::getInstance(
+		const auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		*elementsRead =
 			irio->getTerminalsIMAQ().readImageNonBlocking(n, imageSize, data);
@@ -209,7 +209,7 @@ int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *frameType, TStatus *status) {
 	const auto f = [n, frameType, p_DrvPvt] {
 		*frameType = static_cast<std::uint8_t>(
-			IrioV2InstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
+			IrioInstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
 											   p_DrvPvt->session)
 				->getTerminalsDAQ()
 				.getFrameType(n));
@@ -221,7 +221,7 @@ int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
 int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *sampleSize, TStatus *status) {
 	const auto f = [n, sampleSize, p_DrvPvt] {
-		*sampleSize = IrioV2InstanceManager::getInstance(
+		*sampleSize = IrioInstanceManager::getInstance(
 						  p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
 						  ->getTerminalsDAQ()
 						  .getSampleSize(n);

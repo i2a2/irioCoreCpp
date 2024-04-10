@@ -1,5 +1,5 @@
 #include "irioHandlerAnalog.h"
-#include "irioV2InstanceManager.h"
+#include "irioInstanceManager.h"
 #include "utils.h"
 
 using irio::errors::ResourceNotFoundError;
@@ -7,13 +7,13 @@ using irio::errors::NiFpgaError;
 
 irio::TerminalsAnalog getTerminalsAnalog(const std::string &rioSerial,
 		const std::uint32_t session) {
-	return IrioV2InstanceManager::getInstance(rioSerial, session)
+	return IrioInstanceManager::getInstance(rioSerial, session)
 			->getTerminalsAnalog();
 }
 
 irio::TerminalsAuxAnalog getTerminalsAuxAnalog(const std::string &rioSerial,
 		const std::uint32_t session) {
-	return IrioV2InstanceManager::getInstance(rioSerial, session)
+	return IrioInstanceManager::getInstance(rioSerial, session)
 			->getTerminalsAuxAnalog();
 }
 

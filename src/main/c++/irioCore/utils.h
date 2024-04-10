@@ -3,7 +3,7 @@
 
 #include "irioDataTypes.h"
 #include "irioError.h"
-#include "irioV2InstanceManager.h"
+#include "irioInstanceManager.h"
 
 using irio::errors::ResourceNotFoundError;
 using irio::errors::NiFpgaError;
