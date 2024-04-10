@@ -89,8 +89,20 @@ TEST_F(DMACPUIMAQTests, sendUARTMsg){
 
 TEST_F(DMACPUIMAQTests, recvUARTMsg){
     Irio irio(bitfilePath, "0", "V9.9");
+
+    NiFpga_ReadU8_fake.custom_fake = [](NiFpga_Session, uint32_t, uint8_t* value){
+        static std::string msg = "Message received";
+		static size_t i = 0;
+
+		*value = msg[i%(msg.length()+1)];
+		i++;
+        return NiFpga_Status_Success;
+	};
+
     auto imaq = irio.getTerminalsIMAQ();
-    EXPECT_NO_THROW(imaq.recvUARTMsg(1));
+    std::string msg;
+    EXPECT_NO_THROW(msg = imaq.recvUARTMsg(17));
+    EXPECT_STREQ(std::string("Message received").c_str(), msg.c_str());
 }
 
 TEST_F(DMACPUIMAQTests, setUARTBaudRate){
