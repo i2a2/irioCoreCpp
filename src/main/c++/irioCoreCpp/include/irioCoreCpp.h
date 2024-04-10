@@ -29,7 +29,8 @@ constexpr char PARSE_LOG_PATH_ENV_VAR[] = "PARSE_LOG_IRIOCORE";
 constexpr char DEFAULT_PARSE_LOG_PATH[] = "/tmp/irio_log/";
 
 /**
- * irio-v2 main class.
+ * irioCoreCpp main class.
+ * 
  * Hides the complexity of using the National Instruments low level driver by
  * abstracting several elements from the user. It parses the specified Bitfile
  * and downloads it to the selected RIO device. It also provides the user
