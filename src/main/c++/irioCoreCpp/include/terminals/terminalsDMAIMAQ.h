@@ -181,9 +181,11 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 
 	/**
 	 * Read UART baud rate
-	 * 
+	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
-	 * 
+	 * @throw irio::errors::CLUARTInvalidBaudRate 	The baud rate read from the
+	 * 												FPGA does nto match any of the expected values
+	 *
 	 * @return Baud rate read
 	 */
 	UARTBaudRates getUARTBaudRate() const;
