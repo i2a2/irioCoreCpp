@@ -63,11 +63,6 @@ debug:
 	@echo -e "$(BOLD)Compiling with symbols...$(NC)"
 	$(MAKE) all DEBUG="COVERAGE=true"
 
-gen_rpmbuild: copy
-	@echo -e "$(BOLD)Generating packages...$(NC)"
-	@mkdir -p $(COPY_DIR)/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
-	@mkdir -p $(COPY_DIR)/rpmbuild/BUILDROOT/iriov2cpp/$(LIB_INSTALL_DIR)
-		
 doc: copy
 	@echo -e "$(BOLD)Generating documentation...$(NC)"
 	@mkdir -p $(COPY_DIR)/doc/irioCore
