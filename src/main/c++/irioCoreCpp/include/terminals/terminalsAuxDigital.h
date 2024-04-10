@@ -12,14 +12,9 @@ namespace irio {
 class TerminalsAuxDigital: public TerminalsBase {
  public:
   /**
-   * Constructor.
    * Manages finding the related auxiliary digital terminals
    * in the parsed bitfile and reading their values from the FPGA
    * if required
-   *
-   * @throw std::runtime_error	The combined number of found auxDI and
-   * auxDO terminals are greater than the number of auxiliary
-   * digital terminals supported by the platform
    *
    * @param parserManager   Pointer to class managing parsing the bitfile
    *                        and finding its resources

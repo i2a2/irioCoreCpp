@@ -16,16 +16,13 @@ class TerminalsAnalog: public TerminalsBase {
    * Manages finding the related analog terminals in the parsed bitfile
    * and reading their values from the FPGA if required
    *
-   * @throw std::runtime_error Size mismatch between number of AO and AOEnable
-   * terminals found
-   *
    * @param parserManager   Pointer to class managing parsing the bitfile
    *                        and finding its resources
    * @param session			NiFpga_Session to be used in NiFpga related
-   * 						functions
+   * 						        functions
    * @param platform		Platform that is using the terminals. Used to
-   * 						know the maximum number of terminals that can be
-   * 						found.
+   * 						        know the maximum number of terminals that can be
+   * 						        found.
    */
   TerminalsAnalog(ParserManager *parserManager, const NiFpga_Session &session,
 				  const Platform &platform);

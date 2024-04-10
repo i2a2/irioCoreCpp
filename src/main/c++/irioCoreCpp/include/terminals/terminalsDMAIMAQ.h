@@ -19,6 +19,8 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
     /**
      * Manages finding IMAQ resources
 	 * 
+	 * @throw irio::errors::NiFpgaError Error reading resources from the FPGA
+	 * 
      * @param impl Shared pointer to a class implementing the functionality
      */
     explicit TerminalsDMAIMAQ(std::shared_ptr<TerminalsDMAIMAQImpl> impl);

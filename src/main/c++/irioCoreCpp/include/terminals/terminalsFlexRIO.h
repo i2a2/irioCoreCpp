@@ -13,11 +13,7 @@ namespace irio {
 class TerminalsFlexRIO: public TerminalsBase{
  public:
   /**
-   * Constructor.
    * Manages finding the related terminals specific to FlexRIO devices.
-   *
-   * @throw irio::errors::ResourceNotFoundError		Some of the necessary
-   * resources were not found in the bitfile
    *
    * @param parserManager     Pointer to class managing parsing the bitfile
    *                          and finding its resources
@@ -27,6 +23,7 @@ class TerminalsFlexRIO: public TerminalsBase{
 
   /**
    * Returns whether the adapter connected in the FPGA is correct
+   * 
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return true if no problem found, false otherwise
@@ -35,6 +32,7 @@ class TerminalsFlexRIO: public TerminalsBase{
 
   /**
    * Return the ID of the module connected to the FlexRIO device
+   * 
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
    * @return ID of the module connected to the FlexRIO device

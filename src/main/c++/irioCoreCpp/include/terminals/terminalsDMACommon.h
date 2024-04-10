@@ -19,10 +19,10 @@ class TerminalsDMACommonImpl;
 class TerminalsDMACommon: public TerminalsBase{
  public:
 	/**
-	 * Constructor.
-	 *
 	 * Manages finding DMA resources common to all terminals
 	 * that use them, DAQ/IMAQ.
+	 * 
+	 * @throw irio::errors::NiFpgaError Error reading resources from the FPGA
 	 *
 	 * @param impl Shared pointer to the class that implements the functionality
 	 */
@@ -222,20 +222,23 @@ class TerminalsDMACommon: public TerminalsBase{
 
 	/**
 	 * Waits to read an specified number of elements from a DMA group.
+	 * 
 	 * The read operation will block until the requested number of elements
 	 * are available or a timeout expires if specified.
 	 *
 	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
 	 * @throw irio::errors::DMAReadTimeout 	If reading is in blocking mode,
-	 * 											and the timeout expires waiting for enough data to be read
+	 * 										and the timeout expires waiting for
+	 * 										enough data to be read
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n					Number of DMA group
 	 * @param elementsToRead	Number of elements to read from the DMA
-	 * @param data				Buffer to write the read data. Allocation and deallocation
-	 * 							of data is user responsibility
-	 * @param timeout			Max time in milliseconds to wait for the \p elementsToRead to
-	 * 							be available, 0 to wait indefinitely.
+	 * @param data				Buffer to write the read data. Allocation and
+	 * 							deallocation of data is user responsibility
+	 * @param timeout			Max time in milliseconds to wait for the
+	 * 							\p elementsToRead to be available, 
+	 * 							0 to wait indefinitely.
 	 * @return 	Unless the timeout expires, this function will always
 	 * 			return the specified \p elementsToRead
 	 */
@@ -247,6 +250,7 @@ class TerminalsDMACommon: public TerminalsBase{
 
 	/**
 	 * Reads an specified number of elements from a DMA group.
+	 * 
 	 * It can be configure to wait until there are the specified
 	 * number of elements in the DMA or read nothing if
 	 * there are not enough.

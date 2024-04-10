@@ -12,9 +12,7 @@ namespace irio {
 class TerminalsDMADAQCPU: public TerminalsDMADAQ{
  public:
 	/**
-	 * Constructor.
-	 * Manages finding all the required
-	 * DMA CPU DAQ resources.
+	 * Manages finding all the required DMA CPU DAQ resources.
 	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *

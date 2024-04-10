@@ -14,20 +14,16 @@ namespace irio {
 class TerminalsSignalGeneration: public TerminalsBase {
  public:
   /**
-   * Constructor.
    * Manages finding the related signal generation terminals
-   * in the parsed bitfile and reading their values
-   * from the FPGA if required
+   * in the parsed bitfile and reading their values from the FPGA if required
    *
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   * @throw std::runtime_error	Number of found terminals do not match the value
-   * in SGNo
    *
-   * @param parserManager	Pointer to class managing parsing the bitfile
+   * @param parserManager   Pointer to class managing parsing the bitfile
    *                       	and finding its resources
    * @param session			NiFpga_Session to be used in NiFpga related functions
    * @param platform		Platform that is using the terminals. Used to know
-   * 						the maximum number of terminals that can be found.
+   * 						        the maximum number of terminals that can be found.
    */
   TerminalsSignalGeneration(ParserManager *parserManager,
 							const NiFpga_Session &session,
@@ -35,6 +31,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
 
   /**
    * Returns the number of signal generators in the FPGA implementation
+   * 
    * @return Number of signal generators implemented
    */
   std::uint8_t getSGNo() const;
@@ -71,8 +68,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
   std::uint8_t getSGSignalType(const std::uint32_t n) const;
 
   /**
-   * Returns the amplitude of the signal for a
-   * specific signal generator
+   * Returns the amplitude of the signal for a specific signal generator
    *
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw irio::errors::ResourceNotFoundError Resource specified not found
@@ -83,8 +79,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
   std::uint32_t getSGAmp(const std::uint32_t n) const;
 
   /**
-   * Returns the frequency of the signal for a
-   * specific signal generator
+   * Returns the frequency of the signal for a specific signal generator
    *
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw irio::errors::ResourceNotFoundError Resource specified not found
@@ -95,8 +90,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
   std::uint32_t getSGFreq(const std::uint32_t n) const;
 
   /**
-   * Returns the phase of the signal for a
-   * specific signal generator
+   * Returns the phase of the signal for a specific signal generator
    *
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw irio::errors::ResourceNotFoundError Resource specified not found
@@ -107,8 +101,7 @@ class TerminalsSignalGeneration: public TerminalsBase {
   std::uint32_t getSGPhase(const std::uint32_t n) const;
 
   /**
-   * Returns the update rate of a
-   * specific signal generator
+   * Returns the update rate of a specific signal generator
    *
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw irio::errors::ResourceNotFoundError Resource specified not found

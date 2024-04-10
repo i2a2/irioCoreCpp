@@ -12,10 +12,9 @@ namespace irio {
 class TerminalsDMAIMAQCPU: public TerminalsDMAIMAQ {
  public:
    /**
-	 * Manages finding all the required
-	 * DMA CPU IMAQ resources.
+	 * Manages finding all the required DMA CPU IMAQ resources.
 	 *
-	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
+	 * @throw irio::errors::NiFpgaError Error reading resources from the FPGA
 	 *
 	 * @param parserManager     Pointer to class managing parsing the bitfile
 	 *                          and finding its resources

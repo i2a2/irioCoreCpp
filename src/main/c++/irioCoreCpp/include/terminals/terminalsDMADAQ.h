@@ -16,8 +16,9 @@ class TerminalsDMADAQImpl;
 class TerminalsDMADAQ: public TerminalsDMACommon{
  public:
 	/**
-	 * Constructor.
 	 * Manages finding DMA DAQ resources.
+	 * 
+	 * @throw irio::errors::NiFpgaError Error reading resources from the FPGA
 	 *
 	 * @param impl Shared pointer to the class that implements the functionality
 	 */

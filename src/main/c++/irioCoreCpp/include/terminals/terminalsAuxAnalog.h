@@ -13,7 +13,6 @@ namespace irio {
 class TerminalsAuxAnalog: public TerminalsBase {
  public:
   /**
-   * Constructor.
    * Manages finding the related auxiliary analog terminals
    * in the parsed bitfile and reading their values
    * from the FPGA if required

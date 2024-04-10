@@ -12,14 +12,9 @@ namespace irio {
 class TerminalsDigital: public TerminalsBase{
  public:
   /**
-   * Constructor.
    * Manages finding the related digital terminals in the parsed bitfile
    * and reading their values from the FPGA if required
-   *
-   * @throw std::runtime_error	The combined number of found DI and
-   * DO terminals are greater than the number of digital
-   * terminals supported by the platform
-   *
+   * 
    * @param parserManager   Pointer to class managing parsing the bitfile
    *                        and finding its resources
    * @param session			NiFpga_Session to be used in NiFpga related
