@@ -224,6 +224,18 @@ int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status);
  */
 int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status);
 
+/**
+ * Returns the number of signal generators found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumSG(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+
 #ifdef __cplusplus
 }
 #endif

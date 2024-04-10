@@ -121,6 +121,51 @@ int irio_getAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
  */
 int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
+/**
+ * Returns the number of digital inputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of digital outputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of aux digital inputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAuxDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of aux digital outputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAuxDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+
 #ifdef __cplusplus
 }
 #endif

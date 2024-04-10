@@ -116,6 +116,60 @@ public:
 ///////////////////////////////////////////////////////////////
 ///// Analog Tests
 ///////////////////////////////////////////////////////////////
+TEST_F(AnalogTestsAdapter, getNumAI) {
+	size_t num;
+	const auto ret = irio_getNumAI(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(AnalogTestsAdapter, getNumAO) {
+	size_t num;
+	const auto ret = irio_getNumAO(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(AnalogTestsAdapter, getNumAuxAI) {
+	size_t num;
+	const auto ret = irio_getNumAuxAI(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(AnalogTestsAdapter, getNumAuxAO) {
+	size_t num;
+	const auto ret = irio_getNumAuxAO(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(AnalogTestsAdapter, getNumAuxAI64) {
+	size_t num;
+	const auto ret = irio_getNumAuxAI64(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 0);
+}
+
+TEST_F(AnalogTestsAdapter, getNumAuxAO64) {
+	size_t num;
+	const auto ret = irio_getNumAuxAO64(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 0);
+}
+
 TEST_F(AnalogTestsAdapter, getAI) {
 	int32_t value;
 	const auto ret = irio_getAI(&p_DrvPvt, 0, &value, &status);

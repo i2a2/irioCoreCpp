@@ -281,6 +281,18 @@ int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
 int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *sampleSize, TStatus *status);
 
+/**
+ * Returns the number of DMAs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumDMA(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+
 #ifdef __cplusplus
 }
 #endif

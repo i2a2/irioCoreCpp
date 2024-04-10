@@ -64,8 +64,17 @@ class ErrorDMATestsAdapter: public DMATestsAdapter {};
 
 
 ///////////////////////////////////////////////////////////////
-///// DMA Tests
+/// DMA Tests
 ///////////////////////////////////////////////////////////////
+TEST_F(DMATestsAdapter, getNumDMA) {
+	size_t num;
+	const auto ret = irio_getNumDMA(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
 TEST_F(DMATestsAdapter, setUpDMAsTtoHost) {
 	int32_t value;
 	const auto ret = irio_setUpDMAsTtoHost(&p_DrvPvt, &status);

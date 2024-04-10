@@ -196,6 +196,72 @@ int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
 		TStatus *status);
 
+/**
+ * Returns the number of analog inputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of analog outputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of aux analog inputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAuxAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of aux analog outputs found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAuxAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of aux analog inputs 64 bits found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAuxAI64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
+/**
+ * Returns the number of aux analog outputs 64 bits found in the FPGA
+ *
+ * @param[in] p_DrvPvt	Pointer to the driver session structure
+ * @param[out] value	Pointer to store the number of resources found
+ * @param[out] status   Warning and error messages produced during the execution of
+ * 						this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getNumAuxAO64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+
 #ifdef __cplusplus
 }
 #endif

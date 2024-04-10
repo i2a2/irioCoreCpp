@@ -123,7 +123,7 @@ int irio_setDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 
 size_t getElementsToRead(const irio::FrameType &frameType,
 		const int NBlocks, const std::uint16_t lengthBlock) {
-	size_t elementsToRead;
+	size_t elementsToRead = 0;
 	switch (frameType) {
 	case irio::FrameType::FormatA:
 		elementsToRead = NBlocks * lengthBlock;
@@ -228,4 +228,10 @@ int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
+}
+
+int irio_getNumDMA(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numDMA;
+	status->code = IRIO_success;
+	return IRIO_success;
 }

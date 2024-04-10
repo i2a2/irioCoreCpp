@@ -148,3 +148,9 @@ int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status) {
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
+
+int irio_getNumSG(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numSG;
+	status->code = IRIO_success;
+	return IRIO_success;
+}

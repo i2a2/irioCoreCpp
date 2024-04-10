@@ -67,3 +67,27 @@ int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
+
+int irio_getNumDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numDI;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numDO;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAuxDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAuxDI;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAuxDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAuxDO;
+	status->code = IRIO_success;
+	return IRIO_success;
+}

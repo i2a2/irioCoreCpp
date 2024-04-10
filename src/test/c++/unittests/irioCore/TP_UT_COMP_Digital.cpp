@@ -53,8 +53,44 @@ public:
 };
 
 ///////////////////////////////////////////////////////////////
-///// Digital Tests
+/// Digital Tests
 ///////////////////////////////////////////////////////////////
+TEST_F(DigitalTestsAdapter, getNumDI) {
+	size_t num;
+	const auto ret = irio_getNumDI(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(DigitalTestsAdapter, getNumDO) {
+	size_t num;
+	const auto ret = irio_getNumDO(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(DigitalTestsAdapter, getNumAuxDI) {
+	size_t num;
+	const auto ret = irio_getNumAuxDI(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
+TEST_F(DigitalTestsAdapter, getNumAuxDO) {
+	size_t num;
+	const auto ret = irio_getNumAuxDO(&p_DrvPvt, &num, &status);
+
+	EXPECT_EQ(status.code, IRIO_success) << status.msg;
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(num, 2);
+}
+
 TEST_F(DigitalTestsAdapter, getDI) {
 	int32_t value;
 	const auto ret = irio_getDI(&p_DrvPvt, 0, &value, &status);

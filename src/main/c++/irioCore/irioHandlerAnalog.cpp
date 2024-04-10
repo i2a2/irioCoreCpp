@@ -120,3 +120,39 @@ int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
+
+int irio_getNumAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAI;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAO;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAuxAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAuxAI;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAuxAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAuxAO;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAuxAI64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAuxAI64;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
+
+int irio_getNumAuxAO64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+	*value = p_DrvPvt->numAuxAI64;
+	status->code = IRIO_success;
+	return IRIO_success;
+}
