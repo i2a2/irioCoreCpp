@@ -6,6 +6,10 @@ PACKAGE_NAME := irioCore
 LIBRARIES := ../$(COPY_DIR)/lib/lib$(PACKAGE_NAME).a
 INCLUDES += $(wildcard ../$(COPY_DIR)/main/c++/irioCore/include/*.h)
 
+ifndef CODAC_ROOT
+	INCLUDES += ../$(COPY_DIR)/main/c++/NiFpga_CD/NiFpga.h
+endif
+
 LIB_INSTALL_DIR := $(BASE_LIB_INSTALL_DIR)
 INC_INSTALL_DIR := $(BASE_INC_INSTALL_DIR)/$(PACKAGE_NAME)
 
