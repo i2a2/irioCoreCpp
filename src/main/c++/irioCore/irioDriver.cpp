@@ -129,15 +129,15 @@ void fillCVData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 
 void fillSGFref(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	try {
-		p_DrvPvt->NoOfSG = iriov2->getTerminalsSignalGeneration().getSGNo();
+		p_DrvPvt->numSG = iriov2->getTerminalsSignalGeneration().getSGNo();
 		const auto it =
-			map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->NoOfSG]);
+			map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->numSG]);
 		const auto auxSGFrefs =
 			iriov2->getTerminalsSignalGeneration().getVectorSGFrefs();
-		std::copy_n(auxSGFrefs.begin(), p_DrvPvt->NoOfSG, it.first->second.get());
+		std::copy_n(auxSGFrefs.begin(), p_DrvPvt->numSG, it.first->second.get());
 		p_DrvPvt->SGfref = it.first->second.get();
 	} catch(TerminalNotImplementedError&) {
-		p_DrvPvt->NoOfSG = 0;
+		p_DrvPvt->numSG = 0;
 	}
 }
 
@@ -167,6 +167,17 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	}
 }
 
+template <typename GetTerminalFunc, typename GetNumFunc>
+int getNum(const Irio *iriov2, GetTerminalFunc getTerminalFunc,
+		   GetNumFunc getNumFunc) {
+	try {
+		auto terminal = (iriov2->*getTerminalFunc)();
+        return (terminal.*getNumFunc)();
+	} catch (TerminalNotImplementedError &) {
+		return 0;
+	}
+}
+
 void fillDrvPvtData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	fillPlatformData(iriov2, p_DrvPvt);
 
@@ -178,6 +189,27 @@ void fillDrvPvtData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	p_DrvPvt->minSamplingRate = iriov2->getMinSamplingRate();
 	p_DrvPvt->maxSamplingRate = iriov2->getMaxSamplingRate();
 
+	p_DrvPvt->numAI = getNum(iriov2, &irio::Irio::getTerminalsAnalog,
+							 &irio::TerminalsAnalog::getNumAI);
+	p_DrvPvt->numAuxAI = getNum(iriov2, &irio::Irio::getTerminalsAuxAnalog,
+								&irio::TerminalsAuxAnalog::getNumAuxAI);
+	p_DrvPvt->numAO = getNum(iriov2, &irio::Irio::getTerminalsAnalog,
+							 &irio::TerminalsAnalog::getNumAO);
+	p_DrvPvt->numAuxAO = getNum(iriov2, &irio::Irio::getTerminalsAuxAnalog,
+								&irio::TerminalsAuxAnalog::getNumAuxAO);
+
+	p_DrvPvt->numDI = getNum(iriov2, &irio::Irio::getTerminalsDigital,
+							 &irio::TerminalsDigital::getNumDI);
+	p_DrvPvt->numAuxDI = getNum(iriov2, &irio::Irio::getTerminalsAuxDigital,
+								&irio::TerminalsAuxDigital::getNumAuxDI);
+	p_DrvPvt->numDO = getNum(iriov2, &irio::Irio::getTerminalsDigital,
+							 &irio::TerminalsDigital::getNumDO);
+	p_DrvPvt->numAuxDO = getNum(iriov2, &irio::Irio::getTerminalsAuxDigital,
+								&irio::TerminalsAuxDigital::getNumAuxDO);
+
+	p_DrvPvt->numSG = getNum(iriov2, &irio::Irio::getTerminalsSignalGeneration,
+							 &irio::TerminalsSignalGeneration::getSGNo);
+
 	fillSGFref(iriov2, p_DrvPvt);
 
 	switch (profile) {
@@ -187,12 +219,16 @@ void fillDrvPvtData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	case PROFILE_ID::R_DAQ:
 		fillCVData(iriov2, p_DrvPvt);
 		fillDMATtoHOST(iriov2, p_DrvPvt);
+		p_DrvPvt->numDMA = getNum(iriov2, &irio::Irio::getTerminalsDAQ,
+							 &irio::TerminalsDMADAQ::countDMAs);
 		break;
 	case PROFILE_ID::CRIO_IO:
 		fillCVData(iriov2, p_DrvPvt);
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
+		p_DrvPvt->numDMA = getNum(iriov2, &irio::Irio::getTerminalsIMAQ,
+							 &irio::TerminalsDMAIMAQ::countDMAs);
 		break;
 	}
 }

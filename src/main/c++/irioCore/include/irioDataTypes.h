@@ -290,8 +290,6 @@ typedef struct irioDrv_t {
 	float maxAnalogOut;
 	/// Minimum value to be written in an analog output
 	float minAnalogOut;
-	/// Number of Signal Generators in FPGA
-	uint8_t NoOfSG;
 	/// Reference frequency used for signal generation using DDS technique
 	uint32_t *SGfref;
 
@@ -322,6 +320,27 @@ typedef struct irioDrv_t {
 	float minSamplingRate;
 	/// Maximum sampling rate supported by the FPGA
 	float maxSamplingRate;
+
+	// Number of AI found in FPGA
+	size_t numAI;
+	// Number of AuxAI found in FPGA
+	size_t numAuxAI;
+	// Number of AO found in FPGA
+	size_t numAO;
+	// Number of AuxAO found in FPGA
+	size_t numAuxAO;
+	// Number of DI found in FPGA
+	size_t numDI;
+	// Number of AuxDI found in FPGA
+	size_t numAuxDI;
+	// Number of DO found in FPGA
+	size_t numDO;
+	// Number of AuxDO found in FPGA
+	size_t numAuxDO;
+	// Number of DMA found in FPGA
+	size_t numDMA;
+	/// Number of Signal Generators found in FPGA
+	size_t numSG;
 } irioDrv_t;
 
 #define CRIOMODULENAMELENGTH 7
