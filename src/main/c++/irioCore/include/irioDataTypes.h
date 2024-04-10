@@ -321,26 +321,30 @@ typedef struct irioDrv_t {
 	/// Maximum sampling rate supported by the FPGA
 	float maxSamplingRate;
 
-	// Number of AI found in FPGA
+	/// Number of AI found in FPGA
 	size_t numAI;
-	// Number of AuxAI found in FPGA
+	/// Number of AuxAI found in FPGA
 	size_t numAuxAI;
-	// Number of AO found in FPGA
+	/// Number of AO found in FPGA
 	size_t numAO;
-	// Number of AuxAO found in FPGA
+	/// Number of AuxAO found in FPGA
 	size_t numAuxAO;
-	// Number of DI found in FPGA
+	/// Number of DI found in FPGA
 	size_t numDI;
 	// Number of AuxDI found in FPGA
 	size_t numAuxDI;
-	// Number of DO found in FPGA
+	/// Number of DO found in FPGA
 	size_t numDO;
-	// Number of AuxDO found in FPGA
+	/// Number of AuxDO found in FPGA
 	size_t numAuxDO;
-	// Number of DMA found in FPGA
+	/// Number of DMA found in FPGA
 	size_t numDMA;
 	/// Number of Signal Generators found in FPGA
 	size_t numSG;
+	/// Number of AuxAI 64 bits found in FPGA
+	size_t numAuxAI64;
+	/// Number of AuxAO 64 bits found in FPGA
+	size_t numAuxAO64;
 } irioDrv_t;
 
 #define CRIOMODULENAMELENGTH 7

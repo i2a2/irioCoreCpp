@@ -198,6 +198,11 @@ void fillDrvPvtData(const Irio *iriov2, irioDrv_t *p_DrvPvt) {
 	p_DrvPvt->numAuxAO = getNum(iriov2, &irio::Irio::getTerminalsAuxAnalog,
 								&irio::TerminalsAuxAnalog::getNumAuxAO);
 
+	p_DrvPvt->numAuxAI64 = getNum(iriov2, &irio::Irio::getTerminalsAuxAnalog,
+								&irio::TerminalsAuxAnalog::getNumAuxAI64);
+	p_DrvPvt->numAuxAO64 = getNum(iriov2, &irio::Irio::getTerminalsAuxAnalog,
+								&irio::TerminalsAuxAnalog::getNumAuxAO64);
+
 	p_DrvPvt->numDI = getNum(iriov2, &irio::Irio::getTerminalsDigital,
 							 &irio::TerminalsDigital::getNumDI);
 	p_DrvPvt->numAuxDI = getNum(iriov2, &irio::Irio::getTerminalsAuxDigital,
