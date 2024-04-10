@@ -9,12 +9,12 @@ namespace irio {
 enum class UARTBaudRates : std::uint8_t {
 	BR96 = 0,	/**< Baud rate 9.6 kbps */
 	BR192 = 1,	/**< Baud rate 19.2 kbps */
-	BR384 = 3,	/**< Baud rate 38.4 kbps */
-	BR576 = 4,	/**< Baud rate 57.6 kbps */
-	BR1152 = 5, /**< Baud rate 115.2 kbps */
-	BR2304 = 6, /**< Baud rate 230.4 kbps */
-	BR4608 = 7, /**< Baud rate 460.8 kbps */
-	BR9216 = 8	/**< Baud rate 921.6 kbps */
+	BR384 = 2,	/**< Baud rate 38.4 kbps */
+	BR576 = 3,	/**< Baud rate 57.6 kbps */
+	BR1152 = 4, /**< Baud rate 115.2 kbps */
+	BR2304 = 5, /**< Baud rate 230.4 kbps */
+	BR4608 = 6, /**< Baud rate 460.8 kbps */
+	BR9216 = 7	/**< Baud rate 921.6 kbps */
 };
 
 
