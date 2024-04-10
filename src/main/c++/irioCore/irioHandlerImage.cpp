@@ -9,6 +9,7 @@
 using irio::CLSignalMapping;
 using irio::CLMode;
 using irio::UARTBaudRates;
+using irio::errors::CLUARTInvalidBaudRate;
 
 int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
 				  int32_t dvalHigh, int32_t spareHigh, int32_t controlEnable,
@@ -63,7 +64,9 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 		irio->getTerminalsIMAQ().sendUARTMsg(std::string(msg, msg_size));
 	};
 
-    return setOperationGeneric(f, status, p_DrvPvt->verbosity);
+	// sendUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which
+	// in this case is
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
@@ -77,6 +80,8 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
         *msg_size = msg.length();
     };
 
+	// recvUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which
+	// in this case is
     return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
@@ -84,11 +89,17 @@ int irio_getUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
     const auto f = [p_DrvPvt, value] {
         auto irio = IrioV2InstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		*value = static_cast<std::uint32_t>(
-			irio->getTerminalsIMAQ().getUARTBaudRate());
+		auto aux = irio->getTerminalsIMAQ().getUARTBaudRate();
+		*value = static_cast<std::uint8_t>(aux);
     };
 
-    return getOperationGeneric(f, status, p_DrvPvt->verbosity);
+	try {
+    	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
+	} catch(CLUARTInvalidBaudRate &e) {
+		irio_mergeStatus(status, ValueOOB_Warning, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return status->code;
+	}
 }
 
 int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
@@ -113,7 +124,9 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
         irio->getTerminalsIMAQ().setUARTBaudRate(itBaudRate->second);
     };
 
-    return setOperationGeneric(f, status, p_DrvPvt->verbosity);
+	// setUARTBaudRate could throw CLUARTTimeout, but not if the timeout is 0,
+	// which in this case is
+	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
 int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
