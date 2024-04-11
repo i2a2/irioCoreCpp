@@ -165,6 +165,10 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 			it.first->second.blockNWords.get()[i] = 0;
 		}
 	}
+	p_DrvPvt->DMATtoHOSTNCh = it.first->second.nch.get();
+	p_DrvPvt->DMATtoHOSTFrameType = it.first->second.frameType.get();
+	p_DrvPvt->DMATtoHOSTSampleSize = it.first->second.sampleSize.get();
+	p_DrvPvt->DMATtoHOSTBlockNWords = it.first->second.blockNWords.get();
 }
 
 template <typename GetTerminalFunc, typename GetNumFunc>
@@ -306,11 +310,18 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 
 		irio->setCloseAttribute(mode);
 		map_sgfref.erase(p_DrvPvt);
+
+		map_DMA.erase(p_DrvPvt);
+		p_DrvPvt->DMATtoHOSTNCh = nullptr;
+		p_DrvPvt->DMATtoHOSTFrameType = nullptr;
+		p_DrvPvt->DMATtoHOSTSampleSize = nullptr;
+		p_DrvPvt->DMATtoHOSTBlockNWords = nullptr;
+
 		IrioInstanceManager::destroyInstance(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session);
 	} catch (IrioNotInitializedError &e) {
-		irio_mergeStatus(status, Generic_Error,
-			p_DrvPvt->verbosity, "%s", e.what());
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
 		return IRIO_error;
 	}
 	irio_resetStatus(status);
