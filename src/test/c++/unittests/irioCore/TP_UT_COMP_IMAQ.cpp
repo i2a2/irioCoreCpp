@@ -55,7 +55,7 @@ public:
                         1);
         setValueForReg(ReadFunctions::NiFpga_ReadBool,
                         bfp.getRegister(TERMINAL_UARTRECEIVE).getAddress(),
-                        1);
+                        0);
         setValueForReg(ReadFunctions::NiFpga_ReadBool,
                         bfp.getRegister(TERMINAL_UARTSETBAUDRATE).getAddress(),
                         0);

@@ -173,7 +173,7 @@ std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 	while(bytesRead < bytesToRecv) {
 		status = NiFpga_ReadBool(m_session, m_rxReady_addr, &rxReady);
 		utils::throwIfNotSuccessNiFpga(
-		status, "Error waiting for " + std::string(TERMINAL_UARTRXREADY));
+			status, "Error waiting for " + std::string(TERMINAL_UARTRXREADY));
 
 		while (!rxReady && (timeout == 0 || countTimeout < timeout)) {
 			usleep(1000);
@@ -188,16 +188,27 @@ std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 			throw errors::CLUARTTimeout();
 		}
 
-		status = NiFpga_WriteBool(m_session, m_receive_addr, 1);
+		status = NiFpga_WriteBool(m_session, m_receive_addr, NiFpga_True);
 		utils::throwIfNotSuccessNiFpga(status,
 									   "Error enabling receiving UART data");
 
-		NiFpga_Bool isDataReady;
-		do {
-			status = NiFpga_ReadBool(m_session, m_receive_addr, &isDataReady);
+		NiFpga_Bool isDataPending;  // 0 means data is ready
+		status = NiFpga_ReadBool(m_session, m_receive_addr, &isDataPending);
+		utils::throwIfNotSuccessNiFpga(
+			status, "Error reading " + std::string(TERMINAL_UARTRECEIVE));
+
+		countTimeout = 0;
+		while(isDataPending && (timeout == 0 || countTimeout < timeout)) {
+			usleep(1000);
+			countTimeout++;
+			status = NiFpga_ReadBool(m_session, m_receive_addr, &isDataPending);
 			utils::throwIfNotSuccessNiFpga(
 				status, "Error reading " + std::string(TERMINAL_UARTRECEIVE));
-		} while (!isDataReady);
+		}
+
+		if (timeout != 0 && countTimeout >= timeout) {
+			throw errors::CLUARTTimeout();
+		}
 
 		std::uint8_t charAux;
 		status = NiFpga_ReadU8(m_session, m_rxByte_addr, &charAux);
