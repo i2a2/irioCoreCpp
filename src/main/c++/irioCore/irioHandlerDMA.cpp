@@ -2,21 +2,36 @@
 #include "irioInstanceManager.h"
 #include "irioError.h"
 #include "utils.h"
+#include "profilesTypes.h"
+
+using irio::PROFILE_ID;
 
 using irio::errors::ResourceNotFoundError;
 using irio::errors::NiFpgaError;
 using irio::errors::TerminalNotImplementedError;
 using irio::errors::DMAReadTimeout;
 
-irio::TerminalsDMADAQ getTerminalsDMADAQ(const std::string &rioSerial,
+irio::TerminalsDMACommon getTerminalsDMA(const std::string &rioSerial,
+		const std::uint32_t session) {
+	auto irio = IrioInstanceManager::getInstance(rioSerial, session);
+	const auto profile = irio->getProfileID();
+	if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
+		profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
+		return irio->getTerminalsIMAQ();
+	} else {
+		return irio->getTerminalsDAQ();
+	}
+}
+
+irio::TerminalsDMADAQ getTerminalsDAQ(const std::string &rioSerial,
 		const std::uint32_t session) {
 	return IrioInstanceManager::getInstance(rioSerial, session)
-				->getTerminalsDAQ();
+		->getTerminalsDAQ();
 }
 
 int irio_setUpDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto f = [p_DrvPvt] {
-		return getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		return getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).startAllDMAs();
 	};
 
@@ -30,7 +45,7 @@ int irio_setUpDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 
 int irio_closeDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto f = [p_DrvPvt] {
-		return getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		return getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).stopAllDMAs();
 	};
 
@@ -44,7 +59,7 @@ int irio_closeDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 
 int irio_cleanDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto f = [p_DrvPvt] {
-		return getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		return getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).cleanAllDMAs();
 	};
 
@@ -59,7 +74,7 @@ int irio_cleanDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 int irio_cleanDMATtoHost(irioDrv_t *p_DrvPvt, int n, uint64_t*,
 		size_t, TStatus *status) {
 	const auto f = [n, p_DrvPvt] {
-		return getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		return getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).cleanDMA(n);
 	};
 
@@ -74,7 +89,7 @@ int irio_cleanDMATtoHost(irioDrv_t *p_DrvPvt, int n, uint64_t*,
 int irio_getDMATtoHostOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status) {
 	const auto f = [value, p_DrvPvt] {
-		*value = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		*value = getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).getAllDMAOverflows();
 	};
 
@@ -84,7 +99,7 @@ int irio_getDMATtoHostOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
 int irio_getDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		*value = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		*value = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).getSamplingRateDecimation(n);
 	};
 
@@ -94,7 +109,7 @@ int irio_getDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 int irio_setDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).setSamplingRateDecimation(n, value);
 	};
 
@@ -104,7 +119,7 @@ int irio_setDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 int irio_getDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		*value = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		*value = getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).isDMAEnable(n);
 	};
 
@@ -114,7 +129,7 @@ int irio_getDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 int irio_setDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
-		getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).enaDisDMA(n, value);
 	};
 
@@ -139,7 +154,7 @@ size_t getElementsToRead(const irio::FrameType &frameType,
 int irio_getDMATtoHOSTBlockNWords(irioDrv_t *p_DrvPvt, uint16_t *Nwords,
 		TStatus *status) {
 	const auto f = [Nwords, p_DrvPvt] {
-		*Nwords = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		*Nwords = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).getLengthBlock(0);
 	};
 
@@ -148,7 +163,7 @@ int irio_getDMATtoHOSTBlockNWords(irioDrv_t *p_DrvPvt, uint16_t *Nwords,
 
 int irio_getDMATtoHOSTNCh(irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status) {
 	const auto f = [NCh, p_DrvPvt] {
-		*NCh = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		*NCh = getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).getNCh(0);
 	};
 
@@ -158,7 +173,7 @@ int irio_getDMATtoHOSTNCh(irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status) {
 int irio_getDMATtoHostData(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 		uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, NBlocks, data, elementsRead, p_DrvPvt] {
-		const auto term = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		const auto term = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session);
 
 		size_t lengthBlock = term.getLengthBlock(n);
@@ -174,7 +189,7 @@ int irio_getDMATtoHostData(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 		uint64_t *data, int *elementsRead, uint32_t timeout, TStatus *status) {
 	const auto f = [n, NBlocks, data, timeout, elementsRead, p_DrvPvt] {
-		const auto term = getTerminalsDMADAQ(p_DrvPvt->DeviceSerialNumber,
+		const auto term = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session);
 		size_t lengthBlock = term.getLengthBlock(n);
 		size_t elementsToRead = getElementsToRead(term.getFrameType(n), NBlocks,
