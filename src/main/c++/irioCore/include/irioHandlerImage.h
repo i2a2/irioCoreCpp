@@ -111,18 +111,25 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 /**
  * Reads a message from the CameraLink camera
  *
- * Reads a message streamed from the CameraLink camera. This method blocks until a message is read.
- * User has to define the size of the buffer because of method will truncate message read from CameraLink
- *    if its size is bigger than number of characters previously allocated
- * A maximum of data_size characters will be displayed
+ * Reads a message streamed from the CameraLink camera. This method blocks until
+ * a message is read.
  *
- * Errors may occur if any of the necessary ports was not found or while reading/writing from/to the ports.
+ * The buffer \p data is an user allocated buffer of length \p data_size. Users
+ * must also take into account the final \0 that it will be included as last
+ * element of the \p data buffer.
+ *
+ * Errors may occur if any of the necessary ports was not found or while
+ * reading/writing from/to the ports.
  *
  * @param[in] p_DrvPvt 	Pointer to the driver session structure
- * @param[in] data_size size of previously allocated buffer (data) where message read will be stored
- * @param[out] data Previously allocated buffer where message read will be stored
- * @param[out] msg_size Size of the message read. Its maximum size is data_size
- * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
+ * @param[in] data_size Size of previously allocated buffer (data) where message
+ * 						read will be stored
+ * @param[out] data 	Previously allocated buffer where message read will be
+ *						stored. Always ends in \0
+ * @param[out] msg_size Size of the message read. 
+ * 						Its maximum size is data_size - 1
+ * @param[out] status	Warning and error messages produced during the execution
+ * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
 int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,

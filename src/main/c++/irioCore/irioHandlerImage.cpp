@@ -74,7 +74,7 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
     const auto f = [p_DrvPvt, data_size, data, msg_size] {
         auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-        auto msg = irio->getTerminalsIMAQ().recvUARTMsg(data_size);
+        auto msg = irio->getTerminalsIMAQ().recvUARTMsg(data_size-1);
 		std::memcpy(data, msg.c_str(),
 					std::min<size_t>(data_size, msg.length()+1));
         *msg_size = msg.length();
