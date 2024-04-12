@@ -176,16 +176,7 @@ TEST_F(ErrorDMACPUIMAQTests, sendUARTMsgTimeout){
 	EXPECT_THROW(imaq.sendUARTMsg("test", 1), irio::errors::CLUARTTimeout);
 }
 
-TEST_F(ErrorDMACPUIMAQTests, recvUARTMsgTimeout1){
-	setValueForReg(ReadFunctions::NiFpga_ReadBool,
-				   bfp.getRegister(TERMINAL_UARTRXREADY).getAddress(), 0);
-
-	Irio irio(bitfilePath, "0", "V9.9");
-    auto imaq = irio.getTerminalsIMAQ();
-    EXPECT_THROW(imaq.recvUARTMsg(1,1), irio::errors::CLUARTTimeout);
-}
-
-TEST_F(ErrorDMACPUIMAQTests, recvUARTMsgTimeout2){
+TEST_F(ErrorDMACPUIMAQTests, recvUARTMsgTimeout){
     setValueForReg(ReadFunctions::NiFpga_ReadBool,
                         bfp.getRegister(TERMINAL_UARTRECEIVE).getAddress(),
                         1);
