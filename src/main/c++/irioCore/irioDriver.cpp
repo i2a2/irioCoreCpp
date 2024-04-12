@@ -141,6 +141,16 @@ void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	}
 }
 
+irio::TerminalsDMACommon getTerminalsDMA(const Irio *irio) {
+	const auto profile = irio->getProfileID();
+	if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
+		profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
+		return irio->getTerminalsIMAQ();
+	} else {
+		return irio->getTerminalsDAQ();
+	}
+}
+
 void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	const auto it = map_DMA.emplace(p_DrvPvt, DMATtoHostStruct());
 	const auto maxDMA = irio->getPlatform().maxDMA;
@@ -149,15 +159,21 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	it.first->second.sampleSize.reset(new std::uint8_t[maxDMA]);
 	it.first->second.blockNWords.reset(new std::uint16_t[maxDMA]);
 
+	const auto profile = irio->getProfileID();
 	for(size_t i = 0; i < maxDMA; ++i) {
 		try {
-			it.first->second.nch.get()[i] = irio->getTerminalsDAQ().getNCh(i);
+			it.first->second.nch.get()[i] = getTerminalsDMA(irio).getNCh(i);
 			it.first->second.frameType.get()[i] = static_cast<std::uint8_t>(
-				irio->getTerminalsDAQ().getFrameType(i));
+				getTerminalsDMA(irio).getFrameType(i));
 			it.first->second.sampleSize.get()[i] =
-				irio->getTerminalsDAQ().getSampleSize(i);
-			it.first->second.blockNWords.get()[i] =
-				irio->getTerminalsDAQ().getLengthBlock(i);
+				getTerminalsDMA(irio).getSampleSize(i);
+			if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
+				profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
+				it.first->second.blockNWords.get()[i] = 0;
+			} else {
+				it.first->second.blockNWords.get()[i] =
+					irio->getTerminalsDAQ().getLengthBlock(i);
+			}
 		} catch (ResourceNotFoundError&) {
 			it.first->second.nch.get()[i] = 0;
 			it.first->second.frameType.get()[i] = 0;
@@ -236,6 +252,7 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt) {
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
+		fillDMATtoHOST(irio, p_DrvPvt);
 		p_DrvPvt->numDMA = getNum(irio, &irio::Irio::getTerminalsIMAQ,
 							 &irio::TerminalsDMAIMAQ::countDMAs);
 		break;
