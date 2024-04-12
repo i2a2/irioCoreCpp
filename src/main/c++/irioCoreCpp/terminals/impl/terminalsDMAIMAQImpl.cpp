@@ -123,8 +123,11 @@ size_t TerminalsDMAIMAQImpl::readImageImpl(const std::uint32_t n,
 									   std::uint64_t* imageRead,
 									   const bool blockRead,
 									   const std::uint32_t timeout) const {
-	const size_t elementsToRead = imagePixelSize * getSampleSizeImpl(n)/8;
-    return readDataImpl(n, elementsToRead, imageRead, blockRead, timeout);
+	const size_t elementsToRead = imagePixelSize * getSampleSizeImpl(n) / 8;
+	return readDataImpl(n, elementsToRead, imageRead, blockRead, timeout) ==
+				   elementsToRead
+			   ? imagePixelSize
+			   : 0;
 }
 
 void TerminalsDMAIMAQImpl::sendUARTMsgImpl(
@@ -164,17 +167,18 @@ std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 	const std::uint32_t timeout) const {
 	NiFpga_Status status;
 	std::string recvMsg;
-	NiFpga_Bool rxReady = 0;
+	NiFpga_Bool rxReady = 1;
 	std::uint32_t countTimeout = 0;
 
 	recvMsg.reserve(bytesToRecv);
 
 	size_t bytesRead = 0;
-	while(bytesRead < bytesToRecv) {
+	while(rxReady && bytesRead < bytesToRecv) {
 		status = NiFpga_ReadBool(m_session, m_rxReady_addr, &rxReady);
 		utils::throwIfNotSuccessNiFpga(
 			status, "Error waiting for " + std::string(TERMINAL_UARTRXREADY));
 
+		countTimeout = 0;
 		while (!rxReady && (timeout == 0 || countTimeout < timeout)) {
 			usleep(1000);
 			countTimeout++;
@@ -185,7 +189,8 @@ std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 		}
 
 		if (timeout != 0 && countTimeout >= timeout) {
-			throw errors::CLUARTTimeout();
+			// This means message has been received, return it
+			continue;
 		}
 
 		status = NiFpga_WriteBool(m_session, m_receive_addr, NiFpga_True);

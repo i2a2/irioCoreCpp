@@ -216,20 +216,23 @@ int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 /**
  * Reads image from the DMA
  *
- * Reads one image from the specified image DMA if it is available.If there is not
- * a complete image ready to be read, nothing is read. The size of an image
- * depends on imageSize (given as parameter) and the pixel deep, specified by the DMATtoHOSTSampleSize FPGA register
- * (read into irioDrv_t::DMATtoHOSTSampleSize at irio_findIMAQDMAs()). Image data
- * (including frame counter and timestamp) will be read if the image frame type is 1
- * (DMATtoHOSTFrameType read into irioDrv_t::DMATtoHOSTFrameType at irio_findIMAQDMAs()).
- * Errors may occur if one of the needed ports were not found or while reading from the ports.
+ * Reads one image from the specified image DMA if it is available.
+ * If there is not a complete image ready, nothing is read.
+ * The size of an image (in bytes) depends on imageSize (given as parameter)
+ * and the pixel depth, specified by the DMATtoHOSTSampleSize FPGA register.
+ * Image data (including frame counter and timestamp) will be read
+ * if the image frame type is 1.
+ *
+ * Errors may occur if one of the needed ports were not found or while reading
+ * from the ports.
  *
  * @param[in] p_DrvPvt 	Pointer to the driver session structure
  * @param[in] imageSize Size of the image in pixels
  * @param[in] n Number of Number of the DMA where data should be read
  * @param[out] data Previously allocated buffer where data read will be stored
- * @param[out] elementsRead number of elements read. Can be 0 or imageSize
- * @param[out] status Warning and error messages produced during the execution of this call will be added here.
+ * @param[out] elementsRead Number of elements read. Can be 0 or imageSize
+ * @param[out] status 	Warning and error messages produced during the execution
+ * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
 int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,

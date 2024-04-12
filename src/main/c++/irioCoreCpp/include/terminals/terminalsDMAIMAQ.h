@@ -119,17 +119,17 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 	 *
 	 * @param n	Number of DMA group
 	 * @param imagePixelSize	Number of pixels to read from the DMA
-	 * @param imageRead	Buffer to write the read iamge. Allocation and
+	 * @param imageRead	Buffer to write the read image. Allocation and
 	 * 					deallocation of this buffer is user responsibility
 	 * @param blockRead	 Whether to wait until the requested number of pixels
-	 * 					(\p imagePixelSize) are available or not
+	 * 					( \p imagePixelSize) are available or not
 	 * @param timeout	If \p blockRead is true. Max time in milliseconds to
-	 * 					wait for the \p elementsToRead to be available,
+	 * 					wait for the \p imagePixelSize to be available,
 	 * 					0 means wait indefinitely. If \p blockRead is false,
 	 * 					this parameter is ignored.
 	 *
 	 * @return	Number of elements read. 0 if they were not enough,
-	 * 			the number specified in \p elementsToRead it they were.
+	 * 			the number specified in \p imagePixelSize it they were.
 	 */
 	size_t readImage(const std::uint32_t n, const size_t imagePixelSize,
 					 std::uint64_t *imageRead, const bool blockRead,
@@ -155,16 +155,14 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 	 * Reads an UART message from the CameraLink system
 	 * 
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
-	 * @throw irio::errors::CLUARTTimeout Timeout waiting for 
-	 * 										\p TERMINAL_UARTRXREADY to be ready
 	 * 
 	 * @param bytesToRecv  Number of bytes to read
-	 * @param timeout 	   Time in ms to wait for line to be ready to read.
-	 * 						(0 to wait indefinetly)
+	 * @param timeout 	   Max time (ms) to wait between bytes. (0 to wait
+	 * 						indefinetly)
 	 * @return 	Message read
 	 */
 	std::string recvUARTMsg(const size_t bytesToRecv,
-							const std::uint32_t timeout = 0) const;
+							const std::uint32_t timeout = 1000) const;
 
 	/**
 	 * Sets UART baud rate
