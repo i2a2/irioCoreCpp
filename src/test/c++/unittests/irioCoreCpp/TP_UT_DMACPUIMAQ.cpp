@@ -84,7 +84,9 @@ TEST_F(DMACPUIMAQTests, sendUARTMsg){
     Irio irio(bitfilePath, "0", "V9.9");
     auto imaq = irio.getTerminalsIMAQ();
 
-    EXPECT_NO_THROW(imaq.sendUARTMsg("test"));
+    std::string msg = "test";
+	EXPECT_NO_THROW(
+		imaq.sendUARTMsg(std::vector<std::uint8_t>(msg.begin(), msg.end())));
 }
 
 TEST_F(DMACPUIMAQTests, recvUARTMsg){
@@ -94,15 +96,17 @@ TEST_F(DMACPUIMAQTests, recvUARTMsg){
         static std::string msg = "Message received";
 		static size_t i = 0;
 
-		*value = msg[i%(msg.length()+1)];
+		*value = msg[i%(msg.length())];
 		i++;
         return NiFpga_Status_Success;
 	};
 
     auto imaq = irio.getTerminalsIMAQ();
-    std::string msg;
-    EXPECT_NO_THROW(msg = imaq.recvUARTMsg(17));
-    EXPECT_STREQ(std::string("Message received").c_str(), msg.c_str());
+    std::vector<std::uint8_t> msg;
+    EXPECT_NO_THROW(msg = imaq.recvUARTMsg(16));
+    std::string expectedMsg = "Message received";
+	EXPECT_EQ(std::vector<std::uint8_t>(expectedMsg.begin(), expectedMsg.end()),
+			  msg);
 }
 
 TEST_F(DMACPUIMAQTests, setUARTBaudRate){
@@ -173,7 +177,10 @@ TEST_F(ErrorDMACPUIMAQTests, sendUARTMsgTimeout){
 	Irio irio(bitfilePath, "0", "V9.9");
     auto imaq = irio.getTerminalsIMAQ();
 
-	EXPECT_THROW(imaq.sendUARTMsg("test", 1), irio::errors::CLUARTTimeout);
+    std::string msg = "test";
+	EXPECT_THROW(
+		imaq.sendUARTMsg(std::vector<std::uint8_t>(msg.begin(), msg.end()), 1),
+		irio::errors::CLUARTTimeout);
 }
 
 TEST_F(ErrorDMACPUIMAQTests, recvUARTMsgTimeout){

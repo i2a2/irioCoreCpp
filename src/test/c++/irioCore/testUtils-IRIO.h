@@ -10,6 +10,8 @@ using std::string;
 
 namespace TestUtilsIRIO {
 
+const string resourcePath = "../../resources/";
+
 enum class IRIOFamily { FlexRIO, cRIO, NONE };
 enum class IRIOProfile { NoModule, OnlyResources, IO, CPUDAQ, CPUIMAQ, Mod5761DAQ, Mod6581DIO, Mod1483IMAQ };
 const string FWHT = "\x1b[37m";  // Foreground color, White
@@ -25,15 +27,15 @@ double sineCorrelation(const std::vector<double>& vec, int f, int fs);
 
 [[gnu::warn_unused_result]] int initDriver(IRIOProfile profile, irioDrv_t* drv);
 [[gnu::warn_unused_result]] int closeDriver(irioDrv_t* drv);
-//int  loadHeaderFile(irioDrv_t* drv, string file_path, TStatus* status);
-//void freeHeaderFile(irioDrv_t* drv);
+int  loadHeaderFile(irioDrv_t* drv, string file_path, TStatus* status);
+void freeHeaderFile(irioDrv_t* drv);
 void startFPGA(irioDrv_t* drv);
 void setDebugMode(irioDrv_t* drv, int debug_mode);
-TIRIOCouplingMode setAICoupling(irioDrv_t* drv);
+void setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling);
 IRIOFamily getIRIOFamily(string device);
 
 typedef struct {
-    int AI, AO, auxAI, auxAO, DI, DO, auxDI, auxDO, SG, DMA, CLConfig, CLUART, samplingRate;
+    size_t AI, AO, auxAI, auxAO, DI, DO, auxDI, auxDO, SG, DMA;
 } irioResources_t;
 
 void getResources(irioDrv_t* drv, irioResources_t* res);
@@ -53,6 +55,7 @@ namespace SG {
     void     setSignalType(irioDrv_t* drv, int channel, int signal_type);
     void     setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t freq);
     void     setSigAmp(irioDrv_t* drv, int channel, int32_t amp);
+    void     setSigPhase(irioDrv_t* drv, int channel, int32_t phase);
     uint32_t getFref(irioDrv_t* drv, int channel);
     double   getCVDAC(irioDrv_t* drv);
 }  // namespace SG 

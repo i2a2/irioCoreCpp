@@ -59,7 +59,7 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 					TStatus *status) {
 	const auto f = [p_DrvPvt, msg, msg_size] {
 		getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
-			.sendUARTMsg(std::string(msg, msg_size));
+			.sendUARTMsg(std::vector<std::uint8_t>(msg, msg+msg_size));
 	};
 
 	// sendUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which
@@ -72,10 +72,10 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
 	const auto f = [p_DrvPvt, data_size, data, msg_size] {
 		auto msg =
 			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
-				.recvUARTMsg(data_size - 1);
-		std::memcpy(data, msg.c_str(),
-					std::min<size_t>(data_size, msg.length()+1));
-        *msg_size = msg.length();
+				.recvUARTMsg(data_size);
+		std::memcpy(data, msg.data(),
+					std::min<size_t>(data_size, msg.size()));
+        *msg_size = msg.size();
 	};
 
 	// recvUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which

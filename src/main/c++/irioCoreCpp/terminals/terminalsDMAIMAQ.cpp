@@ -41,13 +41,13 @@ size_t TerminalsDMAIMAQ::readImage(const std::uint32_t n,
 		->readImageImpl(n, imagePixelSize, imageRead, blockRead, timeout);
 }
 
-void TerminalsDMAIMAQ::sendUARTMsg(const std::string &msg,
+void TerminalsDMAIMAQ::sendUARTMsg(const std::vector<std::uint8_t> &msg,
 								   const std::uint32_t timeout) const {
 	std::static_pointer_cast<TerminalsDMAIMAQImpl>(m_impl)->sendUARTMsgImpl(
 		msg, timeout);
 }
 
-std::string TerminalsDMAIMAQ::recvUARTMsg(
+std::vector<std::uint8_t> TerminalsDMAIMAQ::recvUARTMsg(
 	const size_t bytesToRecv, const std::uint32_t timeout) const {
 	return std::static_pointer_cast<TerminalsDMAIMAQImpl>(m_impl)
 		->recvUARTMsgImpl(bytesToRecv, timeout);

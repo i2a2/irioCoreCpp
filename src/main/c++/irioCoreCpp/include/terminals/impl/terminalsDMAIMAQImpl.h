@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 #include "terminals/impl/terminalsDMACommonImpl.h"
 #include "imaqTypes.h"
@@ -75,10 +76,10 @@ class TerminalsDMAIMAQImpl : public TerminalsDMACommonImpl {
 						 std::uint64_t *imageRead, const bool blockRead,
 						 const std::uint32_t timeout = 0) const;
 
-	void sendUARTMsgImpl(const std::string &msg,
+	void sendUARTMsgImpl(const std::vector<std::uint8_t> &msg,
 						 const std::uint32_t timeout = 0) const;
 
-	std::string recvUARTMsgImpl(const size_t bytesToRecv,
+	std::vector<std::uint8_t> recvUARTMsgImpl(const size_t bytesToRecv,
 								const std::uint32_t timeout = 0) const;
 
 	void setUARTBaudRateImpl(const UARTBaudRates &baudRate,

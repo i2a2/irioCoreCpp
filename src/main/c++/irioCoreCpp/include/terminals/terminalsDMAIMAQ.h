@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <memory>
+#include <vector>
 
 #include "terminals/terminalsDMACommon.h"
 #include "imaqTypes.h"
@@ -137,32 +137,33 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 
 	/**
 	 * Sends an UART message to the CameraLink system
-	 * 
-	 * Streams the given string to the CameraLink camera connected to the frame grabber.
-	 * 
+	 *
+	 * Streams the given vector to the CameraLink camera connected to the frame
+	 * grabber.
+	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
-	 * @throw irio::errors::CLUARTTimeout Timeout waiting for 
+	 * @throw irio::errors::CLUARTTimeout Timeout waiting for
 	 * 										\p TERMINAL_UARTTXREADY to be ready
-	 * 
+	 *
 	 * @param msg 		Message to send
 	 * @param timeout 	Time in ms to wait for line to be ready to send message.
 	 * 					(0 to wait indefinetly)
 	 */
-	void sendUARTMsg(const std::string &msg,
+	void sendUARTMsg(const std::vector<std::uint8_t> &msg,
 					 const std::uint32_t timeout = 0) const;
 
 	/**
 	 * Reads an UART message from the CameraLink system
-	 * 
+	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
-	 * 
-	 * @param bytesToRecv  Number of bytes to read
-	 * @param timeout 	   Max time (ms) to wait between bytes. (0 to wait
+	 *
+	 * @param bytesToRecv	Number of bytes to read
+	 * @param timeout		Max time (ms) to wait between bytes. (0 to wait
 	 * 						indefinetly)
 	 * @return 	Message read
 	 */
-	std::string recvUARTMsg(const size_t bytesToRecv,
-							const std::uint32_t timeout = 1000) const;
+	std::vector<std::uint8_t> recvUARTMsg(
+		const size_t bytesToRecv, const std::uint32_t timeout = 1000) const;
 
 	/**
 	 * Sets UART baud rate

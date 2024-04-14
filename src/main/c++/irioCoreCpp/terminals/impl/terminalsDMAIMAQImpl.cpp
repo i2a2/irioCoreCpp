@@ -130,8 +130,8 @@ size_t TerminalsDMAIMAQImpl::readImageImpl(const std::uint32_t n,
 			   : 0;
 }
 
-void TerminalsDMAIMAQImpl::sendUARTMsgImpl(
-	const std::string& msg, const std::uint32_t timeout) const {
+void TerminalsDMAIMAQImpl::sendUARTMsgImpl(const std::vector<std::uint8_t>& msg,
+										   const std::uint32_t timeout) const {
 	NiFpga_Status status;
 	for (const char& c : msg) {
 		NiFpga_Bool txReady = 0;
@@ -162,11 +162,10 @@ void TerminalsDMAIMAQImpl::sendUARTMsgImpl(
 	}
 }
 
-std::string TerminalsDMAIMAQImpl::recvUARTMsgImpl(
-	const size_t bytesToRecv,
-	const std::uint32_t timeout) const {
+std::vector<std::uint8_t> TerminalsDMAIMAQImpl::recvUARTMsgImpl(
+	const size_t bytesToRecv, const std::uint32_t timeout) const {
 	NiFpga_Status status;
-	std::string recvMsg;
+	std::vector<std::uint8_t> recvMsg;
 	NiFpga_Bool rxReady = 1;
 	std::uint32_t countTimeout = 0;
 

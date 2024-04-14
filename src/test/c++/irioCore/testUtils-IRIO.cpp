@@ -120,7 +120,7 @@ int TestUtilsIRIO::initDriver(IRIOProfile profile, irioDrv_t* drv) {
             cerr << "Invalid RIODevice: " << RIODevice << endl;
             return -1;
     }
-    string filePath = "../../resources/" + RIODevice + "/";
+    string filePath = resourcePath + RIODevice + "/";
     string testName = ("Test_" + bitfileName);
 
     TStatus status;
@@ -148,6 +148,33 @@ int TestUtilsIRIO::closeDriver(irioDrv_t* drv) {
     TestUtilsIRIO::logErrors(st, status);
     if (verbose_test) cout << "[TEST] Driver closed " << ((st == IRIO_success) ? "successfully" : "unsuccessfully") << endl;
     return st;
+}
+
+template<typename F>
+static size_t getResourceCount(F func, irioDrv_t* drv) {
+    TStatus status;
+    size_t value;
+
+    irio_initStatus(&status);
+    func(drv, &value, &status);
+
+    return value;
+}
+
+void TestUtilsIRIO::getResources(irioDrv_t* drv, irioResources_t* res) {
+    res->AI = getResourceCount(&irio_getNumAI, drv);
+	res->AO = getResourceCount(&irio_getNumAO, drv);
+	res->auxAI = getResourceCount(&irio_getNumAuxAI, drv);
+	res->auxAO = getResourceCount(&irio_getNumAuxAO, drv);
+
+	res->DI = getResourceCount(&irio_getNumDI, drv);
+	res->DO = getResourceCount(&irio_getNumDO, drv);
+	res->auxDI = getResourceCount(&irio_getNumAuxDI, drv);
+	res->auxDO = getResourceCount(&irio_getNumAuxDO, drv);
+
+    res->DMA = getResourceCount(&irio_getNumDMA, drv);
+
+	res->SG = getResourceCount(&irio_getNumSG, drv);
 }
 
 void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
@@ -223,21 +250,16 @@ int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rat
     return fref;
 }
 
-TIRIOCouplingMode TestUtilsIRIO::setAICoupling(irioDrv_t* drv) {
+void TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
     int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-    string couplingStr = TestUtilsIRIO::getEnvVar("VerboseTest");
     TStatus status;
     irio_initStatus(&status);
-
-    TIRIOCouplingMode coupling = static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC");
 
     if (verbose_test) cout << "[TEST] Setting the AI Coupling to " << coupling << (coupling ? " (DC)" : " (AC)") << endl;
     int st = irio_setAICoupling(drv, coupling, &status);
 	if (verbose_test) cout << "[TEST] AI coupling set " << (st ? "unsuccessfully" : "successfully") << endl;
     TestUtilsIRIO::logErrors(st, status);
     EXPECT_EQ(st, IRIO_success);
-
-    return coupling;
 }
 
 void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
@@ -271,8 +293,7 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dm
     irio_initStatus(&status);
 
 	int blocksRead = 0;
-	int tries = 0;
-	int maxTries = 10;
+	int tries = 0, maxTries = 10;
 
     // Buffer = blocks * (words/block) * (bytes/word)
     std::vector<uint64_t> dataBuffer(blocksToRead * wordsPerBlock);
@@ -410,6 +431,19 @@ void TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
 	logErrors(st, status);
 	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGSignalAmp" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
+	irio_resetStatus(&status);
+}
+
+void TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) {
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    TStatus status;
+    irio_initStatus(&status);
+
+	if (verbose_test) cout << "[TEST] Setting SGSignalPhase" << channel << " to " << phase << endl;
+	int st = irio_setSGPhase(drv, channel, phase, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	if (verbose_test) cout << "[TEST] SGSignalPhase" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	irio_resetStatus(&status);
 }
 

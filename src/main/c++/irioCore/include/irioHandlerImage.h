@@ -114,9 +114,7 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
  * Reads a message streamed from the CameraLink camera. This method blocks until
  * a message is read.
  *
- * The buffer \p data is an user allocated buffer of length \p data_size. Users
- * must also take into account the final \0 that it will be included as last
- * element of the \p data buffer.
+ * The buffer \p data is an user allocated buffer of length \p data_size.
  *
  * Errors may occur if any of the necessary ports was not found or while
  * reading/writing from/to the ports.
@@ -126,8 +124,9 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
  * 						read will be stored
  * @param[out] data 	Previously allocated buffer where message read will be
  *						stored. Always ends in \0
- * @param[out] msg_size Size of the message read. 
- * 						Its maximum size is data_size - 1
+ * @param[out] msg_size Size of the message read. This may be bigger than
+ * 						\p data_size. However, the data written to \p data
+ * 						will always be up to \p data_size bytes
  * @param[out] status	Warning and error messages produced during the execution
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
