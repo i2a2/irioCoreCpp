@@ -30,10 +30,10 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 	 *
 	 * Configure CameraLink frame grabber with the camera parameters.
 	 * This configuration includes:
-	 * 	- Set whether the CaneraLink signals FVAL, LVAL, DVAL, and SPARE are
-	 * active high or active low.
-	 *  - Set whether the CameraLink control signals will be driven by the FPGA
-	 * or not.
+	 *  - Set whether the CaneraLink signals FVAL, LVAL, DVAL, and SPARE
+	 * 		are active high or active low.
+	 *  - Set whether the CameraLink control signals will be driven by
+	 * 		the FPGA or not.
 	 *  - Set the scanning mode between regular and line scan.
 	 *  - Set the signal mapping when using extended configuration mode.
 	 *  - Set the configuration mode.

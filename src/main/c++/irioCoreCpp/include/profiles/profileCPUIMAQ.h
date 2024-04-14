@@ -15,6 +15,7 @@ class ProfileCPUIMAQ: virtual public ProfileBase {
 	 *                          and finding its resources
      * @param session           NiFpga_Session to be used in NiFpga related functions
 	 * @param platform          Platform used
+     * @param id                Profile used
      */
     ProfileCPUIMAQ(
         ParserManager *parserManager,

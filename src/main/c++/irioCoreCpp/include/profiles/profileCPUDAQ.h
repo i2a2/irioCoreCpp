@@ -14,14 +14,7 @@ namespace irio {
 class ProfileCPUDAQ: virtual public ProfileBase {
  public:
 	/**
-	 * Constructor.
-	 *
-	 * Manages creating the required terminals for data acquisition functionality, which are:
-	 * - TerminalsAnalog
-	 * - TerminalsDigital
-	 * - TerminalsAuxAnalog
-	 * - TerminalsAuxDigital
-	 * - TerminalsSignalGeneration
+	 * Manages creating the required terminals for data acquisition functionality.
 	 *
 	 * @throw irio::errors::NiFpgaError    Error occurred in an FPGA operation
 	 *
