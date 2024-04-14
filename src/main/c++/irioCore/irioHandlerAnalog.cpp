@@ -5,18 +5,6 @@
 using irio::errors::ResourceNotFoundError;
 using irio::errors::NiFpgaError;
 
-irio::TerminalsAnalog getTerminalsAnalog(const std::string &rioSerial,
-		const std::uint32_t session) {
-	return IrioInstanceManager::getInstance(rioSerial, session)
-			->getTerminalsAnalog();
-}
-
-irio::TerminalsAuxAnalog getTerminalsAuxAnalog(const std::string &rioSerial,
-		const std::uint32_t session) {
-	return IrioInstanceManager::getInstance(rioSerial, session)
-			->getTerminalsAuxAnalog();
-}
-
 int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,

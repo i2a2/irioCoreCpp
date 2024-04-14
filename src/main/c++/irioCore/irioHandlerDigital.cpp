@@ -2,18 +2,6 @@
 #include "irioInstanceManager.h"
 #include "utils.h"
 
-irio::TerminalsDigital getTerminalsDigital(const std::string &rioSerial,
-		const std::uint32_t session) {
-	return IrioInstanceManager::getInstance(rioSerial, session)
-			->getTerminalsDigital();
-}
-
-irio::TerminalsAuxDigital getTerminalsAuxDigital(const std::string &rioSerial,
-		const std::uint32_t session) {
-	return IrioInstanceManager::getInstance(rioSerial, session)
-			->getTerminalsAuxDigital();
-}
-
 int irio_getDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] () {
 		*value = getTerminalsDigital(p_DrvPvt->DeviceSerialNumber,

@@ -3,13 +3,6 @@
 #include "irioError.h"
 #include "utils.h"
 
-irio::TerminalsSignalGeneration getTerminalsSG(const std::string &rioSerial,
-		const std::uint32_t session) {
-	return IrioInstanceManager::getInstance(rioSerial, session)
-				->getTerminalsSignalGeneration();
-}
-
-
 int irio_getSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {

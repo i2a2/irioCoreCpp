@@ -46,11 +46,10 @@ int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
 
 	const auto f = [p_DrvPvt, fvalHigh, lvalHigh, dvalHigh, spareHigh,
 					controlEnable, linescan, itSigMap, itMode] {
-		auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		irio->getTerminalsIMAQ().configCameraLink(
-			fvalHigh, lvalHigh, dvalHigh, spareHigh, controlEnable, linescan,
-			itSigMap->second, itMode->second);
+		getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+			.configCameraLink(fvalHigh, lvalHigh, dvalHigh, spareHigh,
+							  controlEnable, linescan, itSigMap->second,
+							  itMode->second);
 	};
 
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
@@ -58,10 +57,9 @@ int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
 
 int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 					TStatus *status) {
-    const auto f = [p_DrvPvt, msg, msg_size] {
-		auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		irio->getTerminalsIMAQ().sendUARTMsg(std::string(msg, msg_size));
+	const auto f = [p_DrvPvt, msg, msg_size] {
+		getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+			.sendUARTMsg(std::string(msg, msg_size));
 	};
 
 	// sendUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which
@@ -71,14 +69,14 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 
 int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
 				   int *msg_size, TStatus *status) {
-    const auto f = [p_DrvPvt, data_size, data, msg_size] {
-        auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-        auto msg = irio->getTerminalsIMAQ().recvUARTMsg(data_size-1);
+	const auto f = [p_DrvPvt, data_size, data, msg_size] {
+		auto msg =
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.recvUARTMsg(data_size - 1);
 		std::memcpy(data, msg.c_str(),
 					std::min<size_t>(data_size, msg.length()+1));
         *msg_size = msg.length();
-    };
+	};
 
 	// recvUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which
 	// in this case is
@@ -86,12 +84,12 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
 }
 
 int irio_getUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
-    const auto f = [p_DrvPvt, value] {
-        auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		auto aux = irio->getTerminalsIMAQ().getUARTBaudRate();
+	const auto f = [p_DrvPvt, value] {
+		auto aux =
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.getUARTBaudRate();
 		*value = static_cast<std::uint8_t>(aux);
-    };
+	};
 
 	try {
     	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
@@ -119,10 +117,9 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	}
 
 	const auto f = [p_DrvPvt, itBaudRate] {
-        auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-        irio->getTerminalsIMAQ().setUARTBaudRate(itBaudRate->second);
-    };
+		getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+			.setUARTBaudRate(itBaudRate->second);
+	};
 
 	// setUARTBaudRate could throw CLUARTTimeout, but not if the timeout is 0,
 	// which in this case is
@@ -132,9 +129,9 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
 							   TStatus *status) {
     const auto f = [p_DrvPvt, value] {
-        auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-        *value = irio->getTerminalsIMAQ().getUARTBreakIndicator();
+		*value =
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.getUARTBreakIndicator();
     };
 
     return getOperationGeneric(f, status, p_DrvPvt->verbosity);
@@ -143,9 +140,9 @@ int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
 int irio_getUARTFramingError(irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
-		auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		*value = irio->getTerminalsIMAQ().getUARTFramingError();
+		*value =
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.getUARTFramingError();
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
@@ -159,9 +156,9 @@ int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
 int irio_getUARTOverrunError(irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
-		auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		*value = irio->getTerminalsIMAQ().getUARTOverrunError();
+		*value =
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.getUARTOverrunError();
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);

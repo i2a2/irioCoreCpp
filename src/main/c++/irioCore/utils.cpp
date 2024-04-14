@@ -1,5 +1,65 @@
 #include "utils.h"
 
+using irio::PROFILE_ID;
+
+irio::TerminalsAnalog getTerminalsAnalog(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+			->getTerminalsAnalog();
+}
+
+irio::TerminalsAuxAnalog getTerminalsAuxAnalog(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+			->getTerminalsAuxAnalog();
+}
+
+irio::TerminalsDigital getTerminalsDigital(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+			->getTerminalsDigital();
+}
+
+irio::TerminalsAuxDigital getTerminalsAuxDigital(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+			->getTerminalsAuxDigital();
+}
+
+irio::TerminalsSignalGeneration getTerminalsSG(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+				->getTerminalsSignalGeneration();
+}
+
+irio::TerminalsDMACommon getTerminalsDMA(const irio::Irio *irio) {
+	const auto profile = irio->getProfileID();
+	if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
+		profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
+		return irio->getTerminalsIMAQ();
+	} else {
+		return irio->getTerminalsDAQ();
+	}
+}
+
+irio::TerminalsDMADAQ getTerminalsDAQ(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+		->getTerminalsDAQ();
+}
+
+irio::TerminalsDMAIMAQ getTerminalsIMAQ(const std::string &rioSerial,
+		const std::uint32_t session) {
+	return IrioInstanceManager::getInstance(rioSerial, session)
+		->getTerminalsIMAQ();
+}
+
+irio::TerminalsDMACommon getTerminalsDMA(const std::string &rioSerial,
+		const std::uint32_t session) {
+	auto irio = IrioInstanceManager::getInstance(rioSerial, session);
+	return getTerminalsDMA(irio);
+}
+
 template<TErrorDetailCode R,
 		 TErrorDetailCode T,
 		 TErrorDetailCode N>

@@ -13,6 +13,7 @@
 #include "irioDriver.h"
 #include "irioError.h"
 #include "irioResourceFinder.h"
+#include "utils.h"
 
 using irio::Irio;
 using irio::PROFILE_ID;
@@ -138,16 +139,6 @@ void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 		p_DrvPvt->SGfref = it.first->second.get();
 	} catch(TerminalNotImplementedError&) {
 		p_DrvPvt->numSG = 0;
-	}
-}
-
-irio::TerminalsDMACommon getTerminalsDMA(const Irio *irio) {
-	const auto profile = irio->getProfileID();
-	if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
-		profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
-		return irio->getTerminalsIMAQ();
-	} else {
-		return irio->getTerminalsDAQ();
 	}
 }
 

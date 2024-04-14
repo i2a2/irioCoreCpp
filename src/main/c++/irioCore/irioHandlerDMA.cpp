@@ -11,24 +11,6 @@ using irio::errors::NiFpgaError;
 using irio::errors::TerminalNotImplementedError;
 using irio::errors::DMAReadTimeout;
 
-irio::TerminalsDMACommon getTerminalsDMA(const std::string &rioSerial,
-		const std::uint32_t session) {
-	auto irio = IrioInstanceManager::getInstance(rioSerial, session);
-	const auto profile = irio->getProfileID();
-	if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
-		profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
-		return irio->getTerminalsIMAQ();
-	} else {
-		return irio->getTerminalsDAQ();
-	}
-}
-
-irio::TerminalsDMADAQ getTerminalsDAQ(const std::string &rioSerial,
-		const std::uint32_t session) {
-	return IrioInstanceManager::getInstance(rioSerial, session)
-		->getTerminalsDAQ();
-}
-
 int irio_setUpDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto f = [p_DrvPvt] {
 		return getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
@@ -211,10 +193,9 @@ int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, imageSize, data, elementsRead, p_DrvPvt] {
-		const auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 		*elementsRead =
-			irio->getTerminalsIMAQ().readImageNonBlocking(n, imageSize, data);
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.readDataNonBlocking(n, imageSize, data);
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
