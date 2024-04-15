@@ -37,4 +37,5 @@ if [ ${#failed_tests[@]} -gt 0 ]; then
     for executable in "${failed_tests[@]}"; do
         echo "$executable"
     done
+    exit -1
 fi
