@@ -195,7 +195,7 @@ int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
 	const auto f = [n, imageSize, data, elementsRead, p_DrvPvt] {
 		*elementsRead =
 			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
-				.readDataNonBlocking(n, imageSize, data);
+				.readImageNonBlocking(n, imageSize, data);
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
