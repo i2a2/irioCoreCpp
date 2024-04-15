@@ -1551,7 +1551,7 @@ TEST(FlexRIOUART1483, GetCLUART) {
 	char buffer[msgsize] = {};
 	cout << "[TEST] Write a message up to " << msgsize - 1 << " characters on the EDTpdv terminal and press enter here";
 	std::cin.get();
-	st = irio_getCLuart(&drv, msgsize - 1, buffer, &rcvsize, &status);
+	st = irio_getCLuartWithBufferSize(&drv, msgsize - 1, buffer, &rcvsize, &status);
 	logErrors(st, status);
 	EXPECT_EQ(st, IRIO_success);
 	irio_resetStatus(&status);

@@ -106,7 +106,41 @@ int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
 int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
-		TStatus *status);
+					TStatus *status);
+
+/**
+ * Reads a message from the CameraLink camera. This function is unsafe!!
+ *
+ * This function is unsafe!! If a message exceed the length of the reserved
+ * memory by \p data there is no check to avoid a buffer overflow.
+ * Use \ref irio_getCLuartWithBufferSize insted. This funciton is maintaned 
+ * only due to compatibility reasons with software previous to 1.2.0
+ * 
+ * Reads a message streamed from the CameraLink camera. This method blocks until
+ * a message is read.
+ *
+ * The buffer \p data is an user allocated buffer
+ * 
+ * Errors may occur if any of the necessary ports was not found or while
+ * reading/writing from/to the ports.
+ * 
+ * @deprecated 
+ * This function is unsafe!! If a message exceed the length of the reserved
+ * memory by \p data there is no check to avoid a buffer overflow.
+ * Use \ref irio_getCLuartWithBufferSize insted. This funciton is maintaned 
+ * only due to compatibility reasons with software previous to 1.2.0
+ *	
+ * @param[in] p_DrvPvt 	Pointer to the driver session structure
+ * @param[out] data 	Previously allocated buffer where message read will be
+ *						stored. Always ends in \0
+ * @param[out] msg_size Size of the message read.
+ * @param[out] status	Warning and error messages produced during the execution
+ * 						of this call will be added here.
+ * @return \ref TIRIOStatusCode result of the execution of this call.
+ */
+int irio_getCLuart(irioDrv_t *p_DrvPvt, char *data, int *msg_size,
+				   TStatus *status)
+	__attribute__((deprecated("Unsafe!! Use irio_getCLuartWithBufferSize")));
 
 /**
  * Reads a message from the CameraLink camera
@@ -131,8 +165,7 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
-		int *msg_size, TStatus *status);
+int irio_getCLuartWithBufferSize(irioDrv_t *p_DrvPvt, int data_size, char *data, int *msg_size, TStatus *status);
 
 /**
  * Read UART Baud Rate

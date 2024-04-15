@@ -154,16 +154,19 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 
 	/**
 	 * Reads an UART message from the CameraLink system
+	 * 
+	 * Do not use bytesToRecv = 0 and timeout = 0 at the same time!
 	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
-	 * @param bytesToRecv	Number of bytes to read
+	 * @param bytesToRecv	Number of bytes to read. If it is 0,
+	 * 						reads everything until timeout
 	 * @param timeout		Max time (ms) to wait between bytes. (0 to wait
 	 * 						indefinetly)
 	 * @return 	Message read
 	 */
 	std::vector<std::uint8_t> recvUARTMsg(
-		const size_t bytesToRecv, const std::uint32_t timeout = 1000) const;
+		const size_t bytesToRecv = 0, const std::uint32_t timeout = 1000) const;
 
 	/**
 	 * Sets UART baud rate

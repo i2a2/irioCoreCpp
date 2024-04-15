@@ -132,7 +132,7 @@ TEST_F(IMAQTestsAdapter, getCLuart) {
 	};
 
 	const auto ret =
-		irio_getCLuart(&p_DrvPvt, lenData, data.get(), &msgSize, &status);
+		irio_getCLuartWithBufferSize(&p_DrvPvt, lenData, data.get(), &msgSize, &status);
 
 	EXPECT_STREQ(std::string("Message received").c_str(),
 				 std::string(data.get()).c_str());

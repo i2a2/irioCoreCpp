@@ -213,6 +213,16 @@ typedef struct TFifoGPUInfo {
 	int sel_mem;
 } TFifoGPUInfo;
 
+/**
+ * Type for FPGA Resources. Maintaned for compatibility.
+ *
+ * Stores whether the resource was found or not and its offset
+ */
+typedef struct TResourcePort {
+	uint8_t found;      //!< Register that indicates if a resource has been found
+	uint32_t value;     //!< If a resource has been found this register indicates its value
+}TResourcePort;
+
 #define DEVICESERIALNUMBERLENGTH 20
 #define RIODEVICEMODELLENGTH 20
 #define FPGARIOLENGTH 15
@@ -223,7 +233,10 @@ typedef struct TFifoGPUInfo {
  * Stores all ports, the current session and the status.
  */
 typedef struct irioDrv_t {
-	// Candidates for commonNirioStruct
+	/// Part of the name of the bitfile downloaded into the FPGA.
+	char* projectName;
+	/// Name for this irioDriver session
+	char *appCallID;
 	/// NiFpga driver port (RIO0,RIO1,...)
 	char fpgaRIO[FPGARIOLENGTH];
 	/// Board Model (PXI-7965R,...)
@@ -260,6 +273,8 @@ typedef struct irioDrv_t {
 	// DAQ profile
 	/// Array that contains the number of Channels per DMA
 	uint16_t *DMATtoHOSTNCh;
+	/// Array containing the first channel indexed in each DMA
+	uint16_t *DMATtoHOSTChIndex;
 	/// Array that contains the frame type used by the different DMAs
 	uint8_t *DMATtoHOSTFrameType;
 	/// Array that contains the sample size used by the different DMAs
@@ -345,6 +360,17 @@ typedef struct irioDrv_t {
 	size_t numAuxAI64;
 	/// Number of AuxAO 64 bits found in FPGA
 	size_t numAuxAO64;
+
+	/// Same as \ref numSG. Maintaned for compatibility
+	uint8_t NoOfSG;
+	/// Same as \ref moduleFlexRIO. Maintaned for compatibility.
+	uint32_t moduleValue;
+	/// Number of DMAs that has the FPGA for acquiring data in the host, this is
+	/// the size of DMATtoHOSTNCh array.Maintaned for compatibility.
+	TResourcePort DMATtoHOSTNo;
+
+	/// Coupling mode
+	TIRIOCouplingMode couplingMode;
 } irioDrv_t;
 
 #define CRIOMODULENAMELENGTH 7

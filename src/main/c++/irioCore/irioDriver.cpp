@@ -40,17 +40,22 @@ struct DMATtoHostStruct {
 	std::unique_ptr<std::uint8_t> frameType;
 	std::unique_ptr<std::uint8_t> sampleSize;
 	std::unique_ptr<std::uint16_t> blockNWords;
+	std::unique_ptr<std::uint16_t> chIndex;
 };
 std::unordered_map<irioDrv_t*, DMATtoHostStruct> map_DMA;
 
 std::unordered_map<irioDrv_t*, std::unique_ptr<std::uint32_t>> map_sgfref;
+
+std::unordered_map<irioDrv_t*, std::unique_ptr<char>> map_projectName;
+std::unordered_map<irioDrv_t*, std::unique_ptr<char>> map_appCallID;
 
 ////////////////////////////////////////////////////
 /// Local functions
 ////////////////////////////////////////////////////
 
 void initDrvPvt(irioDrv_t *p_DrvPvt, const char *DeviceSerialNumber,
-				const char *RIODeviceModel, const char *FPGAversion,
+				const char *RIODeviceModel, const char *appCallID,
+				const char *projectName, const char *FPGAversion,
 				int verbosity) {
 	// TODO: Fix this
 	memset(p_DrvPvt, 0x00, sizeof(irioDrv_t));
@@ -62,6 +67,24 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *DeviceSerialNumber,
 	// Device Model
 	snprintf(p_DrvPvt->RIODeviceModel, RIODEVICEMODELLENGTH, "%s",
 			RIODeviceModel);
+
+	// App Call ID
+	const size_t lenAppCallID = strlen(appCallID);
+	const auto ptrAppCallID =
+		map_appCallID
+			.emplace(p_DrvPvt, std::unique_ptr<char>(new char[lenAppCallID]))
+			.first->second.get();
+	snprintf(ptrAppCallID, lenAppCallID, "%s", appCallID);
+	p_DrvPvt->appCallID = ptrAppCallID;
+
+	// Project name
+	const size_t lenProjectName = strlen(projectName);
+	const auto ptrProjectName =
+		map_projectName
+			.emplace(p_DrvPvt, std::unique_ptr<char>(new char[lenProjectName]))
+			.first->second.get();
+	snprintf(ptrProjectName, lenProjectName, "%s", projectName);
+	p_DrvPvt->projectName = ptrProjectName;
 
 	// FPGA VI Version
 	snprintf(p_DrvPvt->FPGAVIStringversion, SHORT_CHAR_STRING, "%s",
@@ -83,6 +106,7 @@ void fillModules(const irio::Platform &platform, irioDrv_t *p_DrvPvt,
 	case irio::PLATFORM_ID::FlexRIO:
 		p_DrvPvt->moduleFlexRIO =
 			irio->getTerminalsFlexRIO().getInsertedIOModuleID();
+		p_DrvPvt->moduleValue = p_DrvPvt->moduleFlexRIO;
 		p_DrvPvt->numModulescRIO = 0;
 		break;
 	case irio::PLATFORM_ID::cRIO:
@@ -120,17 +144,19 @@ void fillPlatformData(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	// TODO: GPU
 }
 
-void fillCVData(const Irio *irio, irioDrv_t *p_DrvPvt) {
+void fillCVData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto analog = irio->getTerminalsAnalog();
 	p_DrvPvt->CVADC = analog.getCVADC();
 	p_DrvPvt->CVDAC = analog.getCVDAC();
 	p_DrvPvt->maxAnalogOut = analog.getMaxValAO();
 	p_DrvPvt->minAnalogOut = analog.getMinValAO();
+	irio_getAICoupling(p_DrvPvt, &p_DrvPvt->couplingMode, status);
 }
 
 void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	try {
 		p_DrvPvt->numSG = irio->getTerminalsSignalGeneration().getSGNo();
+		p_DrvPvt->NoOfSG = p_DrvPvt->numSG;
 		const auto it =
 			map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->numSG]);
 		const auto auxSGFrefs =
@@ -145,12 +171,16 @@ void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	const auto it = map_DMA.emplace(p_DrvPvt, DMATtoHostStruct());
 	const auto maxDMA = irio->getPlatform().maxDMA;
+	size_t numCh = 0;
+
 	it.first->second.nch.reset(new std::uint16_t[maxDMA]);
 	it.first->second.frameType.reset(new std::uint8_t[maxDMA]);
 	it.first->second.sampleSize.reset(new std::uint8_t[maxDMA]);
 	it.first->second.blockNWords.reset(new std::uint16_t[maxDMA]);
+	it.first->second.chIndex.reset(new std::uint16_t[maxDMA]);
 
 	const auto profile = irio->getProfileID();
+	int chIndexAccum = 0;
 	for(size_t i = 0; i < maxDMA; ++i) {
 		try {
 			it.first->second.nch.get()[i] = getTerminalsDMA(irio).getNCh(i);
@@ -161,10 +191,14 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 			if (profile == PROFILE_ID::FLEXRIO_CPUIMAQ ||
 				profile == PROFILE_ID::FLEXRIO_GPUIMAQ) {
 				it.first->second.blockNWords.get()[i] = 0;
+				it.first->second.chIndex.get()[i] = i;
 			} else {
 				it.first->second.blockNWords.get()[i] =
 					irio->getTerminalsDAQ().getLengthBlock(i);
+				it.first->second.chIndex.get()[i] = chIndexAccum;
+				chIndexAccum += it.first->second.nch.get()[i];
 			}
+			numCh++;
 		} catch (ResourceNotFoundError&) {
 			it.first->second.nch.get()[i] = 0;
 			it.first->second.frameType.get()[i] = 0;
@@ -172,7 +206,11 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 			it.first->second.blockNWords.get()[i] = 0;
 		}
 	}
+	p_DrvPvt->DMATtoHOSTNo.found = true;
+	p_DrvPvt->DMATtoHOSTNo.value = numCh;
+
 	p_DrvPvt->DMATtoHOSTNCh = it.first->second.nch.get();
+	p_DrvPvt->DMATtoGPUChIndex = it.first->second.chIndex.get();
 	p_DrvPvt->DMATtoHOSTFrameType = it.first->second.frameType.get();
 	p_DrvPvt->DMATtoHOSTSampleSize = it.first->second.sampleSize.get();
 	p_DrvPvt->DMATtoHOSTBlockNWords = it.first->second.blockNWords.get();
@@ -189,7 +227,7 @@ int getNum(const Irio *irio, GetTerminalFunc getTerminalFunc,
 	}
 }
 
-void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt) {
+void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus* status) {
 	fillPlatformData(irio, p_DrvPvt);
 
 	p_DrvPvt->Fref = irio->getFref();
@@ -233,13 +271,13 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	case PROFILE_ID::FLEXRIO_GPUDAQ:
 	case PROFILE_ID::CRIO_DAQ:
 	case PROFILE_ID::R_DAQ:
-		fillCVData(irio, p_DrvPvt);
+		fillCVData(irio, p_DrvPvt, status);
 		fillDMATtoHOST(irio, p_DrvPvt);
 		p_DrvPvt->numDMA = getNum(irio, &irio::Irio::getTerminalsDAQ,
 							 &irio::TerminalsDMADAQ::countDMAs);
 		break;
 	case PROFILE_ID::CRIO_IO:
-		fillCVData(irio, p_DrvPvt);
+		fillCVData(irio, p_DrvPvt, status);
 		break;
 	case PROFILE_ID::FLEXRIO_CPUIMAQ:
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
@@ -263,8 +301,8 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 	}
 
 	irio_initStatus(status);
-	initDrvPvt(p_DrvPvt, DeviceSerialNumber, RIODeviceModel, FPGAversion,
-			   verbosity);
+	initDrvPvt(p_DrvPvt, DeviceSerialNumber, RIODeviceModel, appCallID,
+			   projectName, FPGAversion, verbosity);
 
 	std::string bitfilePath = std::string(bitfileDir) + "/" + STRINGNAME_PREFIX
 	+ std::string(projectName) + STRINGNAME_BITFILEEXT;
@@ -278,7 +316,7 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 
 		const auto irioptr = pairAux.first;
 		p_DrvPvt->session = pairAux.second;
-		fillDrvPvtData(irioptr, p_DrvPvt);
+		fillDrvPvtData(irioptr, p_DrvPvt, status);
 	} catch (BFPParseBitfileError &e) {
 		irio_mergeStatus(status, BitfileNotFound_Error, p_DrvPvt->verbosity,
 				"%s", e.what());
@@ -318,7 +356,8 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 
 		irio->setCloseAttribute(mode);
 		map_sgfref.erase(p_DrvPvt);
-
+		map_projectName.erase(p_DrvPvt);
+		map_appCallID.erase(p_DrvPvt);
 		map_DMA.erase(p_DrvPvt);
 		p_DrvPvt->DMATtoHOSTNCh = nullptr;
 		p_DrvPvt->DMATtoHOSTFrameType = nullptr;
@@ -358,7 +397,7 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		irio->getTerminalsAnalog().setAICouplingMode(it->second);
-		fillCVData(irio, p_DrvPvt);
+		fillCVData(irio, p_DrvPvt, status);
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
 				e.what());

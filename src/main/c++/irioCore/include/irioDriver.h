@@ -72,7 +72,7 @@ extern "C" {
  *		\n irioDrv_t::Fref
  *		\n ... and struct fields corresponding to found resources.
  *
- * @param[in] appCallID			Name for this irioDriver session. Will be added to every log, error and warning message.
+ * @param[in] appCallID			Name for this irioDriver session.
  * @param[in] DeviceSerialNumber S/n of the RIO target device
  * @param[in] RIODeviceModel	Model number of the RIO target device
  * @param[in] projectName		Part of the name of the bitfile to be downloaded into the FPGA

@@ -67,7 +67,23 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getCLuart(irioDrv_t *p_DrvPvt, int data_size, char *data,
+// Unsafe code. Maintaned for compatibility with epics-irio
+int irio_getCLuart(irioDrv_t *p_DrvPvt, char *data, int *msg_size,
+				   TStatus *status) {
+	const auto f = [p_DrvPvt, data, msg_size] {
+		auto msg =
+			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
+				.recvUARTMsg();
+		std::memcpy(data, msg.data(), msg.size());
+		*msg_size = msg.size();
+	};
+
+	// recvUARTMsg could throw CLUARTTimeout, but not if the timeout is 0, which
+	// in this case is
+    return getOperationGeneric(f, status, p_DrvPvt->verbosity);
+}
+
+int irio_getCLuartWithBufferSize(irioDrv_t *p_DrvPvt, int data_size, char *data,
 				   int *msg_size, TStatus *status) {
 	const auto f = [p_DrvPvt, data_size, data, msg_size] {
 		auto msg =

@@ -172,7 +172,7 @@ std::vector<std::uint8_t> TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 	recvMsg.reserve(bytesToRecv);
 
 	size_t bytesRead = 0;
-	while(rxReady && bytesRead < bytesToRecv) {
+	while(rxReady && (bytesToRecv == 0 || bytesRead < bytesToRecv)) {
 		status = NiFpga_ReadBool(m_session, m_rxReady_addr, &rxReady);
 		utils::throwIfNotSuccessNiFpga(
 			status, "Error waiting for " + std::string(TERMINAL_UARTRXREADY));
