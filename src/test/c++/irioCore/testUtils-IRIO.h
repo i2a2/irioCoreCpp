@@ -24,6 +24,7 @@ void displayTitle(const string& msg, const string& forecolor = FWHT, const strin
 void logErrors(const int ret_status, const TStatus& out_status);
 string getEnvVar(const string& shellVarName);
 double sineCorrelation(const std::vector<double>& vec, int f, int fs);
+std::string escapeSequencesToLiteral(const std::string& str);
 
 [[gnu::warn_unused_result]] int initDriver(IRIOProfile profile, irioDrv_t* drv);
 [[gnu::warn_unused_result]] int closeDriver(irioDrv_t* drv);

@@ -77,20 +77,19 @@ TEST(Common, GetDevTemp) {
 TEST(Common, GetDevQualityStatus) {
     irioDrv_t drv;
     TStatus status;   
-    const int initalQuality = -99;
     int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
     startFPGA(&drv);
 
-    int quality = initalQuality;
+    int quality = -1;
     if (verbose_test) cout << "[TEST] Reading DevQualityStatus" << endl;
     st = irio_getDevQualityStatus(&drv, &quality, &status);
     logErrors(st, status);
     if (verbose_test) cout << "[TEST] DevQualityStatus = " << quality << endl;
     EXPECT_EQ(st, IRIO_success);
-    EXPECT_NE(quality, initalQuality);
+    EXPECT_NE(quality, -1);
 
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";

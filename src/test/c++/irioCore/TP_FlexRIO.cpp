@@ -42,135 +42,130 @@ using std::endl;
  * - FlexRIOResources.ResourcesMAXIO
  * - FlexRIOResources.ResourcesMissing
  */
-//TEST(FlexRIOResources, ResourcesCPUDAQ) {
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    irioDrv_t drv;
-//    int st = initDriver(IRIOProfile::CPUDAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	irioResources_t res;
-//	getResources(&drv, &res);
-//
-//    // Expected resources:
-//    // 2 DMAs
-//    if (verbose_test) cout << "[TEST] Found " << res.DMA << " DMAs. Expected 2" << endl;
-//    EXPECT_EQ(res.DMA, 2);
-//    // 2 AI
-//	if (verbose_test) cout << "[TEST] Found " << res.AI << " AIs. Expected 2" << endl;
-//	EXPECT_EQ(res.AI, 2);
-//    // 2 AO
-//	if (verbose_test) cout << "[TEST] Found " << res.AO << " AOs. Expected 2" << endl;
-//	EXPECT_EQ(res.AO, 2);
-//    // 2 auxAI
-//	if (verbose_test) cout << "[TEST] Found " << res.auxAI << " auxAIs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxAI, 2);
-//    // 2 auxAO
-//	if (verbose_test) cout << "[TEST] Found " << res.auxAO << " auxAOs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxAO, 2);
-//    // 2 DI
-//	if (verbose_test) cout << "[TEST] Found " << res.DI << " DIs. Expected 2" << endl;
-//	EXPECT_EQ(res.DI, 2);
-//    // 2 DO
-//	if (verbose_test) cout << "[TEST] Found " << res.DO << " DOs. Expected 2" << endl;
-//	EXPECT_EQ(res.DO, 2);
-//    // 2 auxDI
-//	if (verbose_test) cout << "[TEST] Found " << res.auxDI << " auxDIs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxDI, 2);
-//    // 2 auxDO
-//	if (verbose_test) cout << "[TEST] Found " << res.auxDO << " auxDOs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxDO, 2);
-//    // 2 SG
-//	if (verbose_test) cout << "[TEST] Found " << res.SG << " SGs. Expected 2" << endl;
-//	EXPECT_EQ(res.SG, 2);
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOResources, ResourcesIMAQ) {
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    irioDrv_t drv;
-//    int st = initDriver(IRIOProfile::CPUIMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	irioResources_t res;
-//	getResources(&drv, &res);
-//
-//    // Expected resources
-//	// 1 IMAQ DMA
-//	if (verbose_test) cout << "[TEST] Found " << res.DMA << " IMAQ DMAs. Expected 1" << endl;
-//	EXPECT_EQ(res.DMA, 1);
-//	// 1 CLConfig
-//	if (verbose_test) cout << "[TEST] CLConfig " << (res.CLConfig ? "found" : "not found") << endl;
-//	EXPECT_EQ(res.CLConfig, 1);
-//	// 1 CLUART
-//	if (verbose_test) cout << "[TEST] CLUART " << (res.CLUART ? "found" : "not found") << endl;
-//	EXPECT_EQ(res.CLUART, 1);
-//    // 2 auxAI
-//	if (verbose_test) cout << "[TEST] Found " << res.auxAI << " auxAIs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxAI, 2);
-//    // 2 auxAO
-//	if (verbose_test) cout << "[TEST] Found " << res.auxAO << " auxAOs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxAO, 2);
-//    // 2 DI
-//	if (verbose_test) cout << "[TEST] Found " << res.DI << " DIs. Expected 2" << endl;
-//	EXPECT_EQ(res.DI, 2);
-//    // 2 DO
-//	if (verbose_test) cout << "[TEST] Found " << res.DO << " DOs. Expected 2" << endl;
-//	EXPECT_EQ(res.DO, 2);
-//    // 2 auxDI
-//	if (verbose_test) cout << "[TEST] Found " << res.auxDI << " auxDIs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxDI, 2);
-//    // 2 auxDO
-//	if (verbose_test) cout << "[TEST] Found " << res.auxDO << " auxDOs. Expected 2" << endl;
-//	EXPECT_EQ(res.auxDO, 2);
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOResources, ResourcesMAXIO) {
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    irioDrv_t drv;
-//    int st = initDriver(IRIOProfile::OnlyResources, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	irioResources_t res;
-//	getResources(&drv, &res);
-//
-//    // Expected resources:
-//    // 1 DMAs
-//    if (verbose_test) cout << "[TEST] Found " << res.DMA << " DMAs. Expected 1" << endl;
-//    EXPECT_EQ(res.DMA , 1);
-//    // 2 AO
-//	if (verbose_test) cout << "[TEST] Found " << res.AO << " AOs. Expected 2" << endl;
-//	EXPECT_EQ(res.AO, 2);
-//    // 16 auxAI
-//	if (verbose_test) cout << "[TEST] Found " << res.auxAI << " auxAIs. Expected 16" << endl;
-//	EXPECT_EQ(res.auxAI, 16);
-//    // 16 auxAO
-//	if (verbose_test) cout << "[TEST] Found " << res.auxAO << " auxAOs. Expected 16" << endl;
-//	EXPECT_EQ(res.auxAO, 16);
-//    // 16 auxDI
-//	if (verbose_test) cout << "[TEST] Found " << res.auxDI << " auxDIs. Expected 16" << endl;
-//	EXPECT_EQ(res.auxDI, 16);
-//    // 16 auxDO
-//	if (verbose_test) cout << "[TEST] Found " << res.auxDO << " auxDOs. Expected 16" << endl;
-//	EXPECT_EQ(res.auxDO, 16);
-//    // 54 DI
-//	if (verbose_test) cout << "[TEST] Found " << res.DI << " DIs. Expected 54" << endl;
-//	EXPECT_EQ(res.DI, 54);
-//    // 54 DO
-//	if (verbose_test) cout << "[TEST] Found " << res.DO << " DOs. Expected 54" << endl;
-//	EXPECT_EQ(res.DO, 54);
-//    // 2 SG
-//	if (verbose_test) cout << "[TEST] Found " << res.SG << " SGs. Expected 2" << endl;
-//	EXPECT_EQ(res.SG, 2);
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
+TEST(FlexRIOResources, ResourcesCPUDAQ) {
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    irioDrv_t drv;
+    int st = initDriver(IRIOProfile::CPUDAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	irioResources_t res;
+	getResources(&drv, &res);
+
+    // Expected resources:
+    // 2 DMAs
+    if (verbose_test) cout << "[TEST] Found " << res.DMA << " DMAs. Expected 2" << endl;
+    EXPECT_EQ(res.DMA, 2);
+    // 2 AI
+	if (verbose_test) cout << "[TEST] Found " << res.AI << " AIs. Expected 2" << endl;
+	EXPECT_EQ(res.AI, 2);
+    // 2 AO
+	if (verbose_test) cout << "[TEST] Found " << res.AO << " AOs. Expected 2" << endl;
+	EXPECT_EQ(res.AO, 2);
+    // 2 auxAI
+	if (verbose_test) cout << "[TEST] Found " << res.auxAI << " auxAIs. Expected 2" << endl;
+	EXPECT_EQ(res.auxAI, 2);
+    // 2 auxAO
+	if (verbose_test) cout << "[TEST] Found " << res.auxAO << " auxAOs. Expected 2" << endl;
+	EXPECT_EQ(res.auxAO, 2);
+    // 2 DI
+	if (verbose_test) cout << "[TEST] Found " << res.DI << " DIs. Expected 2" << endl;
+	EXPECT_EQ(res.DI, 2);
+    // 2 DO
+	if (verbose_test) cout << "[TEST] Found " << res.DO << " DOs. Expected 2" << endl;
+	EXPECT_EQ(res.DO, 2);
+    // 2 auxDI
+	if (verbose_test) cout << "[TEST] Found " << res.auxDI << " auxDIs. Expected 2" << endl;
+	EXPECT_EQ(res.auxDI, 2);
+    // 2 auxDO
+	if (verbose_test) cout << "[TEST] Found " << res.auxDO << " auxDOs. Expected 2" << endl;
+	EXPECT_EQ(res.auxDO, 2);
+    // 2 SG
+	if (verbose_test) cout << "[TEST] Found " << res.SG << " SGs. Expected 2" << endl;
+	EXPECT_EQ(res.SG, 2);
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOResources, ResourcesIMAQ) {
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    irioDrv_t drv;
+    int st = initDriver(IRIOProfile::CPUIMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	irioResources_t res;
+	getResources(&drv, &res);
+
+    // Expected resources
+	// 1 IMAQ DMA
+	if (verbose_test) cout << "[TEST] Found " << res.DMA << " IMAQ DMAs. Expected 1" << endl;
+	EXPECT_EQ(res.DMA, 1);
+    // 2 auxAI
+	if (verbose_test) cout << "[TEST] Found " << res.auxAI << " auxAIs. Expected 2" << endl;
+	EXPECT_EQ(res.auxAI, 2);
+    // 2 auxAO
+	if (verbose_test) cout << "[TEST] Found " << res.auxAO << " auxAOs. Expected 2" << endl;
+	EXPECT_EQ(res.auxAO, 2);
+    // 2 DI
+	if (verbose_test) cout << "[TEST] Found " << res.DI << " DIs. Expected 2" << endl;
+	EXPECT_EQ(res.DI, 2);
+    // 2 DO
+	if (verbose_test) cout << "[TEST] Found " << res.DO << " DOs. Expected 2" << endl;
+	EXPECT_EQ(res.DO, 2);
+    // 2 auxDI
+	if (verbose_test) cout << "[TEST] Found " << res.auxDI << " auxDIs. Expected 2" << endl;
+	EXPECT_EQ(res.auxDI, 2);
+    // 2 auxDO
+	if (verbose_test) cout << "[TEST] Found " << res.auxDO << " auxDOs. Expected 2" << endl;
+	EXPECT_EQ(res.auxDO, 2);
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+
+TEST(FlexRIOResources, ResourcesMAXIO) {
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    irioDrv_t drv;
+    int st = initDriver(IRIOProfile::OnlyResources, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	irioResources_t res;
+	getResources(&drv, &res);
+
+    // Expected resources:
+    // 1 DMAs
+    if (verbose_test) cout << "[TEST] Found " << res.DMA << " DMAs. Expected 1" << endl;
+    EXPECT_EQ(res.DMA , 1);
+    // 2 AO
+	if (verbose_test) cout << "[TEST] Found " << res.AO << " AOs. Expected 2" << endl;
+	EXPECT_EQ(res.AO, 2);
+    // 16 auxAI
+	if (verbose_test) cout << "[TEST] Found " << res.auxAI << " auxAIs. Expected 16" << endl;
+	EXPECT_EQ(res.auxAI, 16);
+    // 16 auxAO
+	if (verbose_test) cout << "[TEST] Found " << res.auxAO << " auxAOs. Expected 16" << endl;
+	EXPECT_EQ(res.auxAO, 16);
+    // 16 auxDI
+	if (verbose_test) cout << "[TEST] Found " << res.auxDI << " auxDIs. Expected 16" << endl;
+	EXPECT_EQ(res.auxDI, 16);
+    // 16 auxDO
+	if (verbose_test) cout << "[TEST] Found " << res.auxDO << " auxDOs. Expected 16" << endl;
+	EXPECT_EQ(res.auxDO, 16);
+    // 54 DI
+	if (verbose_test) cout << "[TEST] Found " << res.DI << " DIs. Expected 54" << endl;
+	EXPECT_EQ(res.DI, 54);
+    // 54 DO
+	if (verbose_test) cout << "[TEST] Found " << res.DO << " DOs. Expected 54" << endl;
+	EXPECT_EQ(res.DO, 54);
+    // 2 SG
+	if (verbose_test) cout << "[TEST] Found " << res.SG << " SGs. Expected 2" << endl;
+	EXPECT_EQ(res.SG, 2);
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
 
 /**
  * TP-IRL-3001 Checking for FlexRIO the irio_setAuxAO, irio_getAuxAI, irio_setAuxDO, 
@@ -198,8 +193,7 @@ TEST(FlexRIOnoModule, GetSetAuxAIO32) {
 	startFPGA(&drv);
 
 	// Initialize random engine
-	int min = 0;
-	int max = 100;
+	int min = 0, max = 100;
 	std::mt19937 gen(std::chrono::system_clock::now().time_since_epoch().count());
 	std::uniform_int_distribution<int32_t> dist(min + 1, max - 1);
 
@@ -334,22 +328,25 @@ TEST(FlexRIOnoModule, GetSetAuxDIO) {
  * irio_getDMATtoHostData, irio_setDebugMode, irio_getDMATtoHostOverflow.
  * 
  * Implemented in:
- * - FlexRIODAQ5761.GetSetDebugMode
  * - FlexRIODAQ5761.GetSetSGSignalType
  * - FlexRIODAQ5761.GetSetEnableAO0
  * - FlexRIODAQ5761.GetSetAO0
  * - FlexRIODAQ5761.CleanDMA
  * - FlexRIODAQ5761.SetupDMAToHost
+ * - FlexRIODAQ5761.CloseDMA
  * - FlexRIODAQ5761.GetSetDMAToHostSamplingRate
  * - FlexRIODAQ5761.GetSetAICoupling
  * - FlexRIODAQ5761.GetSetDMAToHostEnable
  * - FlexRIODAQ5761.GetSetDAQStartStop
  * - FlexRIODAQ5761.GetDMAToHostParameters
+ * - FlexRIODAQ5761.GetDMAToHostOverflow
  * - FlexRIODAQ5761.ReadDMADCNoTimeout
  * - FlexRIODAQ5761.ReadDMADCTimeout
  * - FlexRIODAQ5761.GetSetSGUpdateRate
  * - FlexRIODAQ5761.GetSetSGSignalFreq
  * - FlexRIODAQ5761.GetSetSGSignalAmp
+ * - FlexRIODAQ5761.GetSetSGSignalPhase
+ * - FlexRIODAQ5761.GetSGCVADC
  * - FlexRIODAQ5761.ReadDMASineTimeout
  * - FlexRIODAQ5761.ReadDMASineNoTimeout
 */
@@ -488,6 +485,27 @@ TEST(FlexRIODAQ5761, SetupDMAToHost) {
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
+TEST(FlexRIODAQ5761, CloseDMA) {
+	irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+	startFPGA(&drv);
+	setDebugMode(&drv, 0);
+	DMAHost::setupDMA(&drv);
+
+	if (verbose_test) cout << "[TEST] Closing DMAsTtoHost" << endl;
+	st = irio_closeDMAsTtoHost(&drv, &status);
+	if (verbose_test) cout << "[TEST] DMAs closed " << ((st == IRIO_success) ? "successfully" : "unsuccessfully") << endl;
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+
+	st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
 TEST(FlexRIODAQ5761, GetSetDMAToHostSamplingRate) {
 	irioDrv_t drv;
 	TStatus status;
@@ -528,14 +546,23 @@ TEST(FlexRIODAQ5761, GetSetAICoupling) {
 	startFPGA(&drv);
 	setDebugMode(&drv, 0);
 
-	TIRIOCouplingMode aic = setAICoupling(&drv);
-
+    TIRIOCouplingMode coupling = IRIO_coupling_AC;
+	setAICoupling(&drv, coupling);
 	TIRIOCouplingMode reading = IRIO_coupling_NULL;
 	st = irio_getAICoupling(&drv, &reading, &status);
 	if (verbose_test) cout << "[TEST] AI Coupling read = " << static_cast<int>(reading) << (reading == IRIO_coupling_DC ? " (DC)" : " (AC)")<< endl;
 	logErrors(st, status);
 	EXPECT_EQ(st, IRIO_success);
-	EXPECT_EQ(aic, reading);
+	EXPECT_EQ(coupling, reading);
+
+    coupling = IRIO_coupling_DC;
+	setAICoupling(&drv, coupling);
+	reading = IRIO_coupling_NULL;
+	st = irio_getAICoupling(&drv, &reading, &status);
+	if (verbose_test) cout << "[TEST] AI Coupling read = " << static_cast<int>(reading) << (reading == IRIO_coupling_DC ? " (DC)" : " (AC)")<< endl;
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_EQ(coupling, reading);
 
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
@@ -618,6 +645,30 @@ TEST(FlexRIODAQ5761, GetDMAToHostParameters) {
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
+TEST(FlexRIODAQ5761, GetDMAToHostOverflow) {
+	irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+	startFPGA(&drv);
+	setDebugMode(&drv, 0);
+
+	DMAHost::setEnable(&drv, 0, 1);
+
+	int32_t overflow = -1;
+	if (verbose_test) cout << "[TEST] Reading DMA to Host Overflow" << endl;
+	st = irio_getDMATtoHostOverflow(&drv, &overflow, &status);
+	if (verbose_test) cout << "[TEST] Overflow read = " << overflow << endl;
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_EQ(overflow, 0);
+
+	st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
 TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	irioDrv_t drv;
 	TStatus status;
@@ -634,8 +685,8 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
 	startFPGA(&drv);
 	setDebugMode(&drv, 0);
-	setAICoupling(&drv);
-
+	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
+	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 	// Enable AO0 and set to 2048 and configure SGSignalType0
 	if (verbose_test) cout << "[TEST] Configuring the signal generator to output a DC of 2048" << endl;
 	st  = irio_setSGSignalType(&drv,0,0,&status);
@@ -697,7 +748,8 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
 	startFPGA(&drv);
 	setDebugMode(&drv, 0);
-	setAICoupling(&drv);
+	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
+	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 
 	// Enable AO0 and set to 2048 and configure SGSignalType0
 	if (verbose_test) cout << "[TEST] Configuring the signal generator to output a DC of 2048" << endl;
@@ -780,6 +832,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalFreq) {
 	int sig_freq = 10000; // 10 kHz
 	int update_rate = 10000000; // 10 MSps
 	int channel = 0;
+	double allowed_delta = 0.01;
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -788,14 +841,13 @@ TEST(FlexRIODAQ5761, GetSetSGSignalFreq) {
 
 	SG::setFsig(&drv, channel, update_rate, sig_freq);
 
-
 	int32_t read = -1;
 	st = irio_getSGFreq(&drv, channel, &read, &status);
-	int read_fsig = static_cast<int>(std::round(read/(UINT_MAX/static_cast<double>(update_rate))));
+	double read_fsig = read/static_cast<double>(UINT_MAX/static_cast<double>(update_rate));
 	logErrors(st, status);
 	if (verbose_test) cout << "[TEST] SGFreq" << channel << " read = " << read << ", meaning " << read_fsig << " Hz" << endl;
 	EXPECT_EQ(st, IRIO_success);
-	EXPECT_EQ(sig_freq, read_fsig);
+	EXPECT_NEAR(read_fsig, static_cast<double>(sig_freq), allowed_delta);
 
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
@@ -816,6 +868,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 
 	SG::setSigAmp(&drv, channel, sig_amp);
 	double CVDAC = SG::getCVDAC(&drv);
+	if (verbose_test) cout << "[TEST] SGAmp" << channel << " set = " << sig_amp << ", meaning " << std::setprecision(6) << sig_amp/CVDAC << " V" << endl;
 
 	int32_t read = -1;
 	st = irio_getSGAmp(&drv, channel, &read, &status);
@@ -823,6 +876,54 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 	if (verbose_test) cout << "[TEST] SGAmp" << channel << " read = " << read << ", meaning " << std::setprecision(6) << read/CVDAC << " V" << endl;
 	EXPECT_EQ(st, IRIO_success);
 	EXPECT_EQ(read, sig_amp);
+
+	st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
+	irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+	int channel = 0;
+	int phase = 1;
+
+	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+	startFPGA(&drv);
+	setDebugMode(&drv, 0);
+
+	SG::setSigPhase(&drv, channel, phase);
+
+	if (verbose_test) cout << "[TEST] Reading SGSignalPhase" << channel << endl;
+	int32_t read = -1;
+	st = irio_getSGPhase(&drv, channel, &read, &status);
+	if (verbose_test) cout << "[TEST] SGSignalPhase" << channel << " read = " << read << endl;
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_EQ(read, phase);
+
+	st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIODAQ5761, GetSGCVADC) {
+	irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+	startFPGA(&drv);
+	setDebugMode(&drv, 0);
+
+	if (verbose_test) cout << "[TEST] Reading SGCVADC" << endl;
+	double read = -1;
+	st = irio_getSGCVADC(&drv, &read, &status);
+	if (verbose_test) cout << "[TEST] SGCVADC read = " << std::setprecision(6) << read << " V" << endl;
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
 
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
@@ -849,7 +950,8 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
 	startFPGA(&drv);
 	setDebugMode(&drv, 0);
-	setAICoupling(&drv);
+	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
+	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 
 	// Configure signal generator
 	int32_t sg_fref = SG::getFref(&drv, sg_channel);
@@ -919,7 +1021,8 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
 	startFPGA(&drv);
 	setDebugMode(&drv, 0);
-	setAICoupling(&drv);
+	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
+	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 
 	// Configure signal generator
 	int32_t sg_fref = SG::getFref(&drv, sg_channel);
@@ -1080,378 +1183,387 @@ TEST(FlexRIODIO6581, GetSetDIO) {
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
 
-///**
-// * TP-IRL-3004    iRIO library functions checking for FlexRIO template FlexRIOMod1483-7966
-// *
-// * This test checks the iRIO library functions: irio_setUARTBaudRate, irio_sendCLuart,
-// * irio_getCLuart and irio_getDMATtoHOSTImage.  This test verifies: The image acquisition
-// * using the FlexRIO PXIe-7966R + NI 1483 bundle and the CameraLink Simulator. The simulator
-// * will be configured to send test images with an embedded frame counter. Using the library,
-// * 1000 images will be acquired from the camera and check the integrity of the frame counter
-// * value during the acquisition.  The UART communication between FlexRIO and CameraLink
-// * Simulator. The simulator is configured to echo every message received back to the FlexRIO.
-// * Then, a message is sent and wait to receive a response. Finally the messages sent and
-// * received are compared.
-// *
-// * Implemented in:
-// * - FlexRIOIMAQ1483.InitClose
-// * - FlexRIOIMAQ1483.StartFPGA
-// * - FlexRIOIMAQ1483.InitConfigCL
-// * - FlexRIOIMAQ1483.GetImages
-// * - FlexRIOUART1483.GetUARTBaudRate
-// * - FlexRIOUART1483.GetUARTBreakIndicator
-// * - FlexRIOUART1483.GetUARTFramingError
-// * - FlexRIOUART1483.GetUARTOverrunError
-// * - FlexRIOUART1483.SetUARTBaudRate
-// * - FlexRIOUART1483.SendCLUART
-// * - FlexRIOUART1483.GetCLUART
-//*/
-//TEST(FlexRIOIMAQ1483, InitClose) {
-//    irioDrv_t drv;
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOIMAQ1483, StartFPGA) {
-//    irioDrv_t drv;
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//	startFPGA(&drv);
-//
-//	TStatus status;
-//	irio_initStatus(&status);
-//	int running = 0;
-//	st = irio_getFPGAStart(&drv, &running, &status);
-//	EXPECT_EQ(st, IRIO_success);
-//	EXPECT_EQ(running, 1);
-//	irio_resetStatus(&status);
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOIMAQ1483, InitConfigCL) {
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOIMAQ1483, GetImages) {
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//    int maxCounter = std::stoi(TestUtilsIRIO::getEnvVar("maxCounter"));
-//
-//	const int totalImages = 1000;
-//	const int dmaN = 0;
-//	const int imageWidth = 256, imageHeight = 256;
-//	std::unique_ptr<uint64_t[]> buffer(new uint64_t[imageWidth * imageHeight / 8]);
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//	irio_resetStatus(&status);
-//
-//	startFPGA(&drv);
-//
-//	if (verbose_test) {
-//		cout << "[TEST] Reading " << totalImages << " images from DMA" << dmaN << ". Images are " << imageWidth << "x" << imageHeight << " pixels and have " << drv.DMATtoHOSTSampleSize[dmaN] << " bits per pixel." << endl;
-//	}
-//
-//	DMAHost::setEnable(&drv, dmaN, 1);
-//	DMAHost::setDAQStartStop(&drv, 1);
-//
-//	int imageCount = 0;
-//	int readCount = -1;
-//	uint16_t current_counter = 0, last_counter = 0;
-//
-//	st = IRIO_success;
-//	while (imageCount < totalImages && st == IRIO_success) {
-//		st |= irio_getDMATtoHostImage(&drv, imageHeight * imageWidth, dmaN, buffer.get(), &readCount, &status);
-//		logErrors(st, status);
-//		EXPECT_EQ(st, IRIO_success);
-//
-//		if (readCount == imageHeight * imageWidth) {
-//			current_counter = reinterpret_cast<uint16_t*>(buffer.get())[0]; // Assuming the counter is the first two bytes
-//			if (imageCount != 0 && (last_counter + 1)%maxCounter != current_counter) { // Don't compare first image
-//				if (verbose_test) std::cerr << "[TEST] Error on image " << imageCount << " counter" << endl;
-//				EXPECT_EQ(current_counter, (last_counter + 1)%maxCounter); // Alredy tested, only to print formatted
-//			}
-//			if (verbose_test) cout << "[TEST] Frame " << std::setw(3) << std::setfill('0') << imageCount << ": Counter = " <<  current_counter << endl;
-//			last_counter = current_counter;
-//			imageCount++;
-//		} else {
-//			usleep(1000);
-//		}
-//	}
-//	EXPECT_EQ(st, IRIO_success);
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, GetUARTBaudRate) {
-//	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // sps
-//
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	if (verbose_test) cout << "[TEST] Reading UARTBaudRate" << endl;
-//	int32_t uartBR = -1;
-//	st = irio_getUARTBaudRate(&drv, &uartBR, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	EXPECT_NE(uartBR, -1);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] UARTBaudRate = " << uartBR << " => Baud Rate = " << baudRateConversion[uartBR] << " sps" << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, GetUARTBreakIndicator) {
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	if (verbose_test) cout << "[TEST] Reading UARTBreakIndicator" << endl;
-//	int32_t uartBI = -1;
-//	st = irio_getUARTBreakIndicator(&drv, &uartBI, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	EXPECT_NE(uartBI, -1);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] UARTBreakIndicator = " << uartBI << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, GetUARTFramingError) {
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	if (verbose_test) cout << "[TEST] Reading UARTFramingError" << endl;
-//	int32_t uartFE = -1;
-//	st = irio_getUARTFramingError(&drv, &uartFE, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	EXPECT_NE(uartFE, -1);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] UARTFramingError = " << uartFE << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, GetUARTOverrunError) {
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	if (verbose_test) cout << "[TEST] Reading UARTOverrunError" << endl;
-//	int32_t uartOE = -1;
-//	st = irio_getUARTOverrunError(&drv, &uartOE, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	EXPECT_NE(uartOE, -1);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] UARTOverrunError = " << uartOE << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, SetUARTBaudRate) {
-//	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // sps
-//	const int targetBR = 0;
-//
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	startFPGA(&drv);
-//
-//	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " sps" << endl;
-//	st = irio_setUARTBaudRate(&drv, targetBR, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	if (verbose_test) cout << "[TEST] Reading UARTBaudRate" << endl;
-//	int32_t uartBR = -1;
-//	st = irio_getUARTBaudRate(&drv, &uartBR, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	EXPECT_EQ(uartBR, targetBR);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] UARTBaudRate = " << uartBR << " => Baud Rate = " << baudRateConversion[uartBR] << " sps" << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, SendCLUART) {
-//	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // baud
-//	const int targetBR = 0;
-//
-//	const string charactersToSend = "HELO\n";
-//
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	DMAHost::setupDMA(&drv);
-//	startFPGA(&drv);
-//
-//	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " baud" << endl;
-//	st = irio_setUARTBaudRate(&drv, targetBR, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	cout << "[TEST] Open the EDTpdv terminal and press enter here." << endl;
-//	std::cin.get();
-//
-//	if (verbose_test) cout << "[TEST] Sending the message: " << charactersToSend << endl;
-//	st = irio_sendCLuart(&drv, charactersToSend.c_str(), charactersToSend.length(), &status );
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//
-//	cout << "[TEST] Message send " << (st ? "unsuccessfully" : "successfully. Check EDTpdv terminal application") << endl;
-//
-//	sleep(1);
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
-//TEST(FlexRIOUART1483, GetCLUART) {
-//	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // baud
-//	const int targetBR = 0;
-//	const int msgsize = 11;
-//
-//    irioDrv_t drv;
-//	TStatus status;
-//	irio_initStatus(&status);
-//    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
-//
-//    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-//
-//	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
-//	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	DMAHost::setupDMA(&drv);
-//	startFPGA(&drv);
-//
-//	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " baud" << endl;
-//	st = irio_setUARTBaudRate(&drv, targetBR, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
-//
-//	int rcvsize = -1;
-//	char buffer[msgsize] = {};
-//	cout << "[TEST] Write a message up to " << msgsize - 1 << " characters on the EDTpdv terminal and press enter here" << endl;
-//	std::cin.get();
-//	st = irio_getCLuart(&drv, msgsize, buffer, &rcvsize, &status);
-//	logErrors(st, status);
-//	EXPECT_EQ(st, IRIO_success);
-//	irio_resetStatus(&status);
-//
-//	if (buffer[rcvsize] == '\n') { // Remove last line break
-//		buffer[rcvsize] = '\0';
-//	}
-//	cout << "[TEST] Message received: " << buffer << " (" << rcvsize << " characters)" << endl;
-//
-//    st = closeDriver(&drv);
-//	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
-//}
+/**
+ * TP-IRL-3004    iRIO library functions checking for FlexRIO template FlexRIOMod1483-7966
+ * 
+ * This test checks the iRIO library functions: irio_setUARTBaudRate, irio_sendCLuart, 
+ * irio_getCLuart and irio_getDMATtoHOSTImage.  This test verifies: The image acquisition
+ * using the FlexRIO PXIe-7966R + NI 1483 bundle and the CameraLink Simulator. The simulator
+ * will be configured to send test images with an embedded frame counter. Using the library,
+ * 1000 images will be acquired from the camera and check the integrity of the frame counter
+ * value during the acquisition.  The UART communication between FlexRIO and CameraLink
+ * Simulator. The simulator is configured to echo every message received back to the FlexRIO.
+ * Then, a message is sent and wait to receive a response. Finally the messages sent and
+ * received are compared.
+ * 
+ * Implemented in:
+ * - FlexRIOIMAQ1483.InitClose
+ * - FlexRIOIMAQ1483.StartFPGA
+ * - FlexRIOIMAQ1483.InitConfigCL
+ * - FlexRIOIMAQ1483.GetImages
+ * - FlexRIOUART1483.GetUARTBaudRate
+ * - FlexRIOUART1483.GetUARTBreakIndicator
+ * - FlexRIOUART1483.GetUARTFrammingError
+ * - FlexRIOUART1483.GetUARTOverrunError
+ * - FlexRIOUART1483.SetUARTBaudRate
+ * - FlexRIOUART1483.SendCLUART
+ * - FlexRIOUART1483.GetCLUART
+*/
+TEST(FlexRIOIMAQ1483, InitClose) {
+    irioDrv_t drv;
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOIMAQ1483, StartFPGA) {
+    irioDrv_t drv;
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+	startFPGA(&drv);
+
+	TStatus status;
+	irio_initStatus(&status);
+	int running = 0;
+	st = irio_getFPGAStart(&drv, &running, &status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_EQ(running, 1);
+	irio_resetStatus(&status);
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOIMAQ1483, InitConfigCL) {
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+
+TEST(FlexRIOIMAQ1483, GetImages) {
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int maxCounter = std::stoi(TestUtilsIRIO::getEnvVar("maxCounter"));
+
+	const int totalImages = 1000;
+	const int dmaN = 0;
+	const int imageWidth = 256, imageHeight = 256;
+	std::unique_ptr<uint64_t[]> buffer(new uint64_t[imageWidth * imageHeight / 8]);
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+	irio_resetStatus(&status);
+
+	st = irio_cleanDMAsTtoHost(&drv, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+
+	startFPGA(&drv);
+
+	if (verbose_test) {
+		cout << "[TEST] Reading " << totalImages << " images from DMA" << dmaN << ". Images are " << imageWidth << "x" << imageHeight << " pixels and have " << drv.DMATtoHOSTSampleSize[dmaN] << " bits per pixel." << endl;
+	}
+
+	DMAHost::setEnable(&drv, dmaN, 1);
+	DMAHost::setDAQStartStop(&drv, 1);
+
+	int imageCount = 0;
+	int readCount = -1;
+	uint16_t current_counter = 0, last_counter = 0;
+	
+	st = IRIO_success;
+	while (imageCount < totalImages && st == IRIO_success) {
+		st |= irio_getDMATtoHostImage(&drv, imageHeight * imageWidth, dmaN, buffer.get(), &readCount, &status);
+		logErrors(st, status);
+		EXPECT_EQ(st, IRIO_success);
+
+		if (readCount == imageHeight * imageWidth) {
+			current_counter = reinterpret_cast<uint16_t*>(buffer.get())[0]; // Assuming the counter is the first two bytes
+			if (imageCount != 0 && (last_counter + 1)%maxCounter != current_counter) { // Don't compare first image
+				if (verbose_test) std::cerr << "[TEST] Error on image " << imageCount << " counter" << endl;
+				EXPECT_EQ(current_counter, (last_counter + 1)%maxCounter); // Alredy tested, only to print formatted 
+			}
+			if (verbose_test) cout << "[TEST] Frame " << std::setw(3) << std::setfill('0') << imageCount << ": Counter = " <<  current_counter << endl;
+			last_counter = current_counter;
+			imageCount++;
+		} else {
+			usleep(1000);
+		}
+	}
+	EXPECT_EQ(st, IRIO_success);
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+
+TEST(FlexRIOUART1483, GetUARTBaudRate) {
+	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // sps
+	
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	if (verbose_test) cout << "[TEST] Reading UARTBaudRate" << endl;
+	int32_t uartBR = -1;
+	st = irio_getUARTBaudRate(&drv, &uartBR, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_NE(uartBR, -1);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] UARTBaudRate = " << uartBR << " => Baud Rate = " << baudRateConversion[uartBR] << " sps" << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOUART1483, GetUARTBreakIndicator) {
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	if (verbose_test) cout << "[TEST] Reading UARTBreakIndicator" << endl;
+	int32_t uartBI = -1;
+	st = irio_getUARTBreakIndicator(&drv, &uartBI, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_NE(uartBI, -1);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] UARTBreakIndicator = " << uartBI << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOUART1483, GetUARTFrammingError) {
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	if (verbose_test) cout << "[TEST] Reading UARTFrammingError" << endl;
+	int32_t uartFE = -1;
+	st = irio_getUARTFrammingError(&drv, &uartFE, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_NE(uartFE, -1);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] UARTFrammingError = " << uartFE << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOUART1483, GetUARTOverrunError) {
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	if (verbose_test) cout << "[TEST] Reading UARTOverrunError" << endl;
+	int32_t uartOE = -1;
+	st = irio_getUARTOverrunError(&drv, &uartOE, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_NE(uartOE, -1);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] UARTOverrunError = " << uartOE << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOUART1483, SetUARTBaudRate) {
+	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // sps
+	const int targetBR = 0;
+	
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	startFPGA(&drv);
+
+	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " sps" << endl;
+	st = irio_setUARTBaudRate(&drv, targetBR, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	if (verbose_test) cout << "[TEST] Reading UARTBaudRate" << endl;
+	int32_t uartBR = -1;
+	st = irio_getUARTBaudRate(&drv, &uartBR, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	EXPECT_EQ(uartBR, targetBR);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] UARTBaudRate = " << uartBR << " => Baud Rate = " << baudRateConversion[uartBR] << " sps" << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOUART1483, SendCLUART) {
+	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // baud
+	const int targetBR = 0;
+
+	const string charactersToSend = "HELO\n";
+
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	DMAHost::setupDMA(&drv);
+	startFPGA(&drv);
+
+	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " baud" << endl;
+	st = irio_setUARTBaudRate(&drv, targetBR, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	cout << "[TEST] Open the EDTpdv terminal and press enter here." << endl;
+	std::cin.get();
+
+	if (verbose_test) cout << "[TEST] Sending the message: " << charactersToSend << endl;
+	st = irio_sendCLuart(&drv, charactersToSend.c_str(), charactersToSend.length(), &status );
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+
+	cout << "[TEST] Message send " << (st ? "unsuccessfully" : "successfully. Check EDTpdv terminal application") << endl;
+
+	sleep(1);
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
+TEST(FlexRIOUART1483, GetCLUART) {
+	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // baud
+	const int targetBR = 0;
+	const int msgsize = 11;
+
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with FVAL, LVAL, DVAL and SPARE High, control signals from the FPGA and no linescan. Signal mapping is STANDARD and the configuration is FULL mode" << endl;
+	st = irio_configCL(&drv, 1, 1, 1, 1, 1, 0, CL_STANDARD, CL_FULL, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	DMAHost::setupDMA(&drv);
+	startFPGA(&drv);
+
+	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " baud" << endl;
+	st = irio_setUARTBaudRate(&drv, targetBR, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
+
+	int rcvsize = -1;
+	char buffer[msgsize] = {};
+	cout << "[TEST] Write a message up to " << msgsize - 1 << " characters on the EDTpdv terminal and press enter here";
+	std::cin.get();
+	st = irio_getCLuart(&drv, msgsize - 1, buffer, &rcvsize, &status);
+	logErrors(st, status);
+	EXPECT_EQ(st, IRIO_success);
+	irio_resetStatus(&status);
+
+	if (rcvsize < msgsize - 1) {
+		buffer[rcvsize] = '\0';
+	} else {
+		buffer[msgsize - 1] = '\0';
+	}
+	const auto messageRcv = TestUtilsIRIO::escapeSequencesToLiteral(std::string(buffer));
+	cout << "[TEST] Message received: '" << messageRcv << "' (" << rcvsize << " characters)" << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}

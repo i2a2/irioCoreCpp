@@ -489,3 +489,23 @@ static string getBitfilePrefix(const IRIOFamily& family, const IRIOProfile& prof
         return "";
     }
 }
+
+std::string TestUtilsIRIO::escapeSequencesToLiteral(const std::string& str) {
+    std::string result;
+    for (char c : str) {
+        switch (c) {
+            case '\n': result += "\\n"; break;
+            case '\t': result += "\\t"; break;
+            case '\r': result += "\\r"; break;
+            case '\b': result += "\\b"; break;
+            case '\f': result += "\\f"; break;
+            case '\a': result += "\\a"; break;
+            case '\v': result += "\\v"; break;
+            case '\\': result += "\\\\"; break;
+            case '\"': result += "\\\""; break;
+            case '\'': result += "\\\'"; break;
+            default: result += c; break;
+        }
+    }
+    return result;
+}
