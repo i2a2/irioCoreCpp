@@ -18,6 +18,7 @@ COVERAGE_MAIN_FILE := main.coverage.info
 COVERAGE_FILE := coverage.info
 COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
 
+VERIFY_DIR = ./verify.mk
 PACKAGE_DIR = packaging/
 
 ifeq ($(PREFIX),)
@@ -29,14 +30,19 @@ endif
 
 .NOTPARALLEL: copy clean test package
 
-all: copy build
+all: build
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
 	rsync -a --inplace $(SOURCE_DIR) $(COPY_DIR)
 	@echo "Copying complete."
 
-build:
+verify:
+	@echo -e "$(BOLD)VERIFY STAGE...$(NC)"
+	$(MAKE) -f $(VERIFY_DIR)
+	@echo -e "$(BOLD)VERIFY SUCCESS...$(NC)"
+
+build: verify copy
 	@echo -e "\n$(BOLD)Building libs...$(NC)"
 	@echo "Entering $(LIB_MAKEFILE_DIR) and executing make..."
 	$(MAKE) -C $(LIB_MAKEFILE_DIR) $(DEBUG)
@@ -72,7 +78,11 @@ doc: copy
 package: compile
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
-		
+
+package_debug: debug
+	$(MAKE) -C $(PACKAGE_DIR)
+	@echo -e "$(BOLD)ALL PACKAGES GENERATED (WITH DEBUG SYMBOLS)!$(NC)"
+
 test:
 	@cd $(COPY_DIR)/test; ./test.sh
 
