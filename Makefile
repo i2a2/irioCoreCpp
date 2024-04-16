@@ -5,10 +5,7 @@ export NC=\e[0m
 export VERSION=1.3.0
 
 export COPY_DIR := target/
-SOURCE_DIR := src/
-LIB_MAKEFILE_DIR := target/main/c++
-TEST_MAKEFILE_DIR := target/test/c++
-LEGACY_EXAMPLES_DIR := target/test/c
+export SOURCE_DIR := src/
 
 LIB_INSTALL_DIR := /usr/local/lib
 INC_INSTALL_DIR := /usr/local/include
@@ -19,56 +16,42 @@ COVERAGE_MAIN_FILE := main.coverage.info
 COVERAGE_FILE := coverage.info
 COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
 
-VERIFY_DIR = ./workflowStages/verify.mk
+VERIFY_MK = ./workflowStages/verify.mk
+COMPILE_MK = ./workflowStages/compile.mk
 PACKAGE_DIR = packaging/
-
-ifeq ($(PREFIX),)
-    PREFIX := /usr/local
-endif
-
-
-.PHONY: all debug clean compile coverage package doc
 
 .NOTPARALLEL: copy clean test package verify
 
-all: build
+all: compile
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
 	rsync -a --inplace $(SOURCE_DIR) $(COPY_DIR)
 	@echo "Copying complete."
 
-verify:
-	@echo -e "$(BOLD)VERIFY STAGE...$(NC)"
-	$(MAKE) -k -f $(VERIFY_DIR)
-	@echo -e "$(BOLD)VERIFY SUCCESS...$(NC)"
-
-build: verify copy
-	@echo -e "\n$(BOLD)Building libs...$(NC)"
-	@echo "Entering $(LIB_MAKEFILE_DIR) and executing make..."
-	$(MAKE) -C $(LIB_MAKEFILE_DIR) $(DEBUG)
-	@echo "Make in $(LIB_MAKEFILE_DIR) complete."
-	
-	@echo -e "\n$(BOLD)Building tests...$(NC)"
-	@echo "Entering $(TEST_MAKEFILE_DIR) and executing make..."
-	$(MAKE) -C $(TEST_MAKEFILE_DIR) $(DEBUG)
-	@echo "Make in $(TEST_MAKEFILE_DIR) complete."
-
-	@echo -e "\n$(BOLD)Building legacy examples...$(NC)"
-	@echo "Entering $(LEGACY_EXAMPLES_DIR) and executing make..."
-	$(MAKE) -C $(LEGACY_EXAMPLES_DIR) $(DEBUG)
-	@echo "Make in $(LEGACY_EXAMPLES_DIR) complete."
-
-	@echo -e "$(BOLD)COMPILATION SUCCESSFUL!$(NC)"
-
 clean:
 	@echo -e "$(BOLD)Cleaning \"$(COPY_DIR)\"...$(NC)"
 	rm -rf $(COPY_DIR)
 	@echo "\"$(COPY_DIR)\" cleaned."
 
+verify:
+	@echo -e "$(BOLD)VERIFY STAGE...$(NC)"
+	$(MAKE) -k -f $(VERIFY_MK)
+	@echo -e "$(BOLD)VERIFY STAGE SUCCESS!$(NC)"
+
+compile: copy
+	@if [ "$(skipVerify)" -ne "0" ]; then \
+		echo -e "$(BOLD)Skipping verify stage...$(NC)"; \
+	else \
+		$(MAKE) verify; \
+	fi
+	@echo -e "$(BOLD)COMPILE STAGE...$(NC)"
+	$(MAKE) -f $(COMPILE_MK) DEBUG=$(DEBUG)
+	@echo -e "$(BOLD)COMPILE STAGE SUCCESS!$(NC)"
+
 debug:
-	@echo -e "$(BOLD)Compiling with symbols...$(NC)"
-	$(MAKE) all DEBUG="COVERAGE=true"
+	@echo -e "$(BOLD)Compiling with debugging symbols...$(NC)"
+	$(MAKE) compile DEBUG="COVERAGE=true"
 
 doc: copy
 	@echo -e "$(BOLD)Generating documentation...$(NC)"
@@ -95,4 +78,3 @@ coverage: debug test
 	lcov -q -r $(COVERAGE_DIR)/$(COVERAGE_FILE) $(COVERAGE_EXCLUDE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE) 
 	genhtml $(COVERAGE_DIR)/$(COVERAGE_FILE) --function-coverage --demangle-cpp --output-directory $(COVERAGE_DIR)
 
-compile: all
