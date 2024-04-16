@@ -2,7 +2,7 @@
 #include "fff_nifpga.h"
 
 #include "irioCoreCpp.h"
-#include "terminals/names/namesTerminalscRIO.h"
+#include "terminals/names/namesTerminalsCRIO.h"
 #include "terminals/names/namesTerminalsCommon.h"
 
 

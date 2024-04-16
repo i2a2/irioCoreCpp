@@ -1,7 +1,7 @@
 #include "irioHandlerSG.h"
 #include "irioInstanceManager.h"
 #include "irioError.h"
-#include "utils.h"
+#include "irioUtils.h"
 
 int irio_getSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {

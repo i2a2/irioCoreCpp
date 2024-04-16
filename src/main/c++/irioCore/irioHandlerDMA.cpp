@@ -1,7 +1,7 @@
 #include "irioHandlerDMA.h"
 #include "irioInstanceManager.h"
 #include "irioError.h"
-#include "utils.h"
+#include "irioUtils.h"
 #include "profilesTypes.h"
 
 using irio::PROFILE_ID;

@@ -9,7 +9,7 @@
 #include "bfp.h"
 #include "terminals/names/namesTerminalsCommon.h"
 #include "terminals/names/namesTerminalsSignalGeneration.h"
-#include "terminals/names/namesTerminalscRIO.h"
+#include "terminals/names/namesTerminalsCRIO.h"
 #include "terminals/names/namesTerminalsFlexRIO.h"
 #include "platforms.h"
 

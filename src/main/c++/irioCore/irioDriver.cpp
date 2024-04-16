@@ -13,7 +13,7 @@
 #include "irioDriver.h"
 #include "irioError.h"
 #include "irioResourceFinder.h"
-#include "utils.h"
+#include "irioUtils.h"
 
 using irio::Irio;
 using irio::PROFILE_ID;

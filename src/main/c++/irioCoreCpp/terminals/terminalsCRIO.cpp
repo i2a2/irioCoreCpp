@@ -1,6 +1,8 @@
-#include "terminals/terminalscRIO.h"
-#include <terminals/impl/terminalscRIOImpl.h>
 #include <memory>
+
+#include "terminals/terminalsCRIO.h"
+#include "terminals/impl/terminalsCRIOImpl.h"
+
 
 namespace irio {
 TerminalscRIO::TerminalscRIO(ParserManager *parserManager,

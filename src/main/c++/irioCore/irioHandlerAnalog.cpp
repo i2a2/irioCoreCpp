@@ -1,6 +1,6 @@
 #include "irioHandlerAnalog.h"
 #include "irioInstanceManager.h"
-#include "utils.h"
+#include "irioUtils.h"
 
 using irio::errors::ResourceNotFoundError;
 using irio::errors::NiFpgaError;

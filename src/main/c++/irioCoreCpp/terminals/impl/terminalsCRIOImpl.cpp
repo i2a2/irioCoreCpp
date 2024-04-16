@@ -1,5 +1,5 @@
-#include "terminals/impl/terminalscRIOImpl.h"
-#include "terminals/names/namesTerminalscRIO.h"
+#include "terminals/impl/terminalsCRIOImpl.h"
+#include "terminals/names/namesTerminalsCRIO.h"
 #include "utils.h"
 
 namespace irio {

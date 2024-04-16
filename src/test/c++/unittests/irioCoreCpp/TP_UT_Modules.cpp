@@ -5,7 +5,7 @@
 #include "terminals/names/namesTerminalsCommon.h"
 #include "terminals/names/namesTerminalsAnalog.h"
 #include "terminals/names/namesTerminalsFlexRIO.h"
-#include "terminals/names/namesTerminalscRIO.h"
+#include "terminals/names/namesTerminalsCRIO.h"
 #include "modules.h"
 
 using namespace irio;

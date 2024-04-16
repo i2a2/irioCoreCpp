@@ -1,4 +1,5 @@
 export BOLD=\e[1m
+export RED=\e[0;31m
 export NC=\e[0m
 
 export VERSION=1.3.0
@@ -28,7 +29,7 @@ endif
 
 .PHONY: all debug clean compile coverage package doc
 
-.NOTPARALLEL: copy clean test package
+.NOTPARALLEL: copy clean test package verify
 
 all: build
 
@@ -39,7 +40,7 @@ copy:
 
 verify:
 	@echo -e "$(BOLD)VERIFY STAGE...$(NC)"
-	$(MAKE) -f $(VERIFY_DIR)
+	$(MAKE) -k -f $(VERIFY_DIR)
 	@echo -e "$(BOLD)VERIFY SUCCESS...$(NC)"
 
 build: verify copy

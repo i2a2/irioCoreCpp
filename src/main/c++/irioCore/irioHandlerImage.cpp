@@ -3,7 +3,7 @@
 
 #include "irioHandlerImage.h"
 #include "irioInstanceManager.h"
-#include "utils.h"
+#include "irioUtils.h"
 #include "imaqTypes.h"
 
 using irio::CLSignalMapping;
