@@ -19,7 +19,7 @@ COVERAGE_MAIN_FILE := main.coverage.info
 COVERAGE_FILE := coverage.info
 COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
 
-VERIFY_DIR = ./verify.mk
+VERIFY_DIR = ./workflowStages/verify.mk
 PACKAGE_DIR = packaging/
 
 ifeq ($(PREFIX),)

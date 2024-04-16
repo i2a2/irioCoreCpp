@@ -54,7 +54,6 @@ define check_files_regex
 		>&2 echo -e "$(BOLD)$(1) file structure failed...$(NC)"; \
 		exit 3; \
 	fi
-	@echo -e "$(BOLD)$(1) file structure success...$(NC)"
 endef
 
 all: folder_structure linting
@@ -73,7 +72,6 @@ main_structure:
 		>&2 echo -e "$(BOLD)$(MAIN_FOLDER) file structure failed...$(NC)"; \
 		exit 1; \
 	fi
-	@echo -e "$(BOLD)$(MAIN_FOLDER) file structure success...$(NC)"
 
 iriocore_structure:
 	$(call check_files_regex,$(IRIOCORE_FOLDER),,\( -name '*.h' -o -name '*.c' -o -name '*.cpp' \),$(IRIOCORE_REGEX))
@@ -91,7 +89,6 @@ iriocorecpp_include_base:
 		>&2 echo -e "$(BOLD)$(IRIOCORECPP_INCLUDE_FOLDER) file structure failed...$(NC)"; \
 		exit 4; \
 	fi
-	@echo -e "$(BOLD)$(IRIOCORECPP_INCLUDE_FOLDER) file structure success...$(NC)"
 
 iriocorecpp_include_profiles:
 	$(call check_files_regex,$(IRIOCORECPP_INCLUDE_PROFILES_FOLDER),,\( -name '*.h' \),$(IRIOCORECPP_INCLUDE_PROFILES_REGEX))
@@ -115,7 +112,6 @@ iriocorecpp_include_terminals_imp_equivalent_files:
 			>&2 echo -e "$(BOLD)$(RED)Not found $$file equivalent for $${file}Impl.h $(NC)"; \
 		fi; \
 	done
-	@echo -e "$(BOLD)$(IRIOCORECPP_INCLUDE_TERMINALS_IMPL_FOLDER) file structure success...$(NC)"
 
 iriocorecpp_include_terminals_names:
 	$(call check_files_regex,$(IRIOCORECPP_INCLUDE_TERMINALS_NAMES_FOLDER),-maxdepth 1,\( -name '*.h' \),$(IRIOCORECPP_INCLUDE_TERMINALS_NAMES_REGEX))
@@ -142,7 +138,6 @@ iriocorecpp_terminals_imp_equivalent_files:
 			>&2 echo -e "$(BOLD)$(RED)Not found $$file equivalent for $${file}Impl.cpp $(NC)"; \
 		fi; \
 	done
-	@echo -e "$(BOLD)$(IRIOCORECPP_TERMINALS_IMPL_FOLDER) file structure success...$(NC)"
 
 nifpgacd:
 	$(call check_files_regex,$(NIFPGACD_FOLDER),-maxdepth 1,\( -name '*.c' -o -name '*.h' -o -name '*.cpp' \),$(NIFPGACF_REGEX))
