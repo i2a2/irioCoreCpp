@@ -7,18 +7,10 @@ export VERSION=1.3.0
 export COPY_DIR := target/
 export SOURCE_DIR := src/
 
-LIB_INSTALL_DIR := /usr/local/lib
-INC_INSTALL_DIR := /usr/local/include
-
-COVERAGE_DIR := $(COPY_DIR)/coverage
-COVERAGE_INITIAL_FILE := initial.coverage.info
-COVERAGE_MAIN_FILE := main.coverage.info
-COVERAGE_FILE := coverage.info
-COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
-
 VERIFY_MK = ./workflowStages/verify.mk
 COMPILE_MK = ./workflowStages/compile.mk
 TEST_MK = ./workflowStages/test.mk
+QUALITY_MK = ./workflowStages/quality.mk
 PACKAGE_DIR = packaging/
 
 .NOTPARALLEL: copy clean test package verify
@@ -54,6 +46,18 @@ debug:
 	@echo -e "$(BOLD)Compiling with debugging symbols...$(NC)"
 	$(MAKE) compile DEBUG="COVERAGE=true"
 
+test:
+	@echo -e "$(BOLD)TEST STAGE...$(NC)"
+	$(MAKE) --no-print-directory -f $(TEST_MK) AddTestsFunctionalIrioCore=$(AddTestsFunctionalIrioCore) AddTestsFunctionalIrioCoreCpp=$(AddTestsFunctionalIrioCoreCpp)
+	@echo -e "$(BOLD)TEST STAGE SUCCESS!$(NC)"
+
+quality: | debug test
+	@echo -e "$(BOLD)QUALITY/COVERAGE STAGE...$(NC)"
+	$(MAKE) --no-print-directory -f $(QUALITY_MK)
+	@echo -e "$(BOLD)QUALITY/COVERAGE STAGE SUCCESS!$(NC)"
+
+coverage: quality
+
 doc: copy
 	@echo -e "$(BOLD)Generating documentation...$(NC)"
 	@mkdir -p $(COPY_DIR)/doc/irioCore
@@ -67,15 +71,4 @@ package: compile
 package_debug: debug
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED (WITH DEBUG SYMBOLS)!$(NC)"
-
-test:
-	$(MAKE) --no-print-directory -f $(TEST_MK) AddTestsFunctionalIrioCore=$(AddTestsFunctionalIrioCore) AddTestsFunctionalIrioCoreCpp=$(AddTestsFunctionalIrioCoreCpp)
-
-coverage: debug test
-	@mkdir -p $(COVERAGE_DIR)
-	lcov -q --capture --directory $(COPY_DIR)/main/c++ --no-external --initial -o $(COVERAGE_DIR)/$(COVERAGE_INITIAL_FILE)	
-	lcov -q --capture --directory $(COPY_DIR)/main/c++ --no-external -o $(COVERAGE_DIR)/$(COVERAGE_MAIN_FILE)	
-	lcov -q -a $(COVERAGE_DIR)/$(COVERAGE_INITIAL_FILE) -a $(COVERAGE_DIR)/$(COVERAGE_MAIN_FILE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE)
-	lcov -q -r $(COVERAGE_DIR)/$(COVERAGE_FILE) $(COVERAGE_EXCLUDE) -o $(COVERAGE_DIR)/$(COVERAGE_FILE) 
-	genhtml $(COVERAGE_DIR)/$(COVERAGE_FILE) --function-coverage --demangle-cpp --output-directory $(COVERAGE_DIR)
 
