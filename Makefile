@@ -18,6 +18,7 @@ COVERAGE_EXCLUDE := '*/NiFpga_CD/*' '*/O.*'
 
 VERIFY_MK = ./workflowStages/verify.mk
 COMPILE_MK = ./workflowStages/compile.mk
+TEST_MK = ./workflowStages/test.mk
 PACKAGE_DIR = packaging/
 
 .NOTPARALLEL: copy clean test package verify
@@ -68,7 +69,7 @@ package_debug: debug
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED (WITH DEBUG SYMBOLS)!$(NC)"
 
 test:
-	@cd $(COPY_DIR)/test; ./test.sh
+	$(MAKE) --no-print-directory -f $(TEST_MK) AddTestsFunctionalIrioCore=$(AddTestsFunctionalIrioCore) AddTestsFunctionalIrioCoreCpp=$(AddTestsFunctionalIrioCoreCpp)
 
 coverage: debug test
 	@mkdir -p $(COVERAGE_DIR)
