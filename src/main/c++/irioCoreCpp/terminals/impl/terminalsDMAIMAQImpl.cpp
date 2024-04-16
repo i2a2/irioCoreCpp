@@ -133,7 +133,7 @@ size_t TerminalsDMAIMAQImpl::readImageImpl(const std::uint32_t n,
 void TerminalsDMAIMAQImpl::sendUARTMsgImpl(const std::vector<std::uint8_t>& msg,
 										   const std::uint32_t timeout) const {
 	NiFpga_Status status;
-	for (const char& c : msg) {
+	for (const std::uint8_t& c : msg) {
 		NiFpga_Bool txReady = 0;
 		std::uint32_t countTimeout = 0;
 		status = NiFpga_ReadBool(m_session, m_txReady_addr, &txReady);
