@@ -4,10 +4,8 @@ on:
   push:
     branches:
       - '*'
-    paths:
-      - '*'
   pull_request:
-    paths:
+    branches:
       - '*'
 jobs:
   verify:
