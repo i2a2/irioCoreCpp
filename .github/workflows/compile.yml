@@ -15,24 +15,9 @@ on:
 jobs:
   compile_and_test:
     runs-on: ubuntu-latest
+    container: i2a2/iriocore-docker:latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v5
-    - name: Install Dependencies
-      run: |
-        pip install cpplint
-        sudo apt-get install -y unzip
-        sudo apt-get install -y wget
-        sudo apt-get install -y rsync
-        wget https://download.ni.com/support/softlib/MasterRepository/LinuxDrivers2023Q4/NILinux2023Q4DeviceDrivers.zip
-        unzip NILinux2023Q4DeviceDrivers.zip
-        cd NILinux2023Q4DeviceDrivers
-        sudo dpkg -i ni-ubuntu*
-        sudo apt-get update
-        sudo apt-get install -y ni-syscfg-devel
-        sudo apt-get install -y ni-flexrio-modulario-libs-devel
-        sudo apt-get install -y libpugixml-dev
-        sudo apt-get install -y libgtest-dev
         
     - name: Compile Code
       run: make compile -j
