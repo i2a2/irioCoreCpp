@@ -11,6 +11,7 @@ VERIFY_MK = ./workflowStages/verify.mk
 COMPILE_MK = ./workflowStages/compile.mk
 TEST_MK = ./workflowStages/test.mk
 QUALITY_MK = ./workflowStages/quality.mk
+DOCUMENTATION_MK = ./workflowStages/documentation.mk
 PACKAGE_DIR = packaging/
 
 .NOTPARALLEL: copy clean test package verify
@@ -59,10 +60,9 @@ quality: | debug test
 coverage: quality
 
 doc: copy
-	@echo -e "$(BOLD)Generating documentation...$(NC)"
-	@mkdir -p $(COPY_DIR)/doc/irioCore
-	@sed -i 's/{VERSION_DOXYGEN}/$(VERSION)/g' $(COPY_DIR)/main/c++/doc/Doxyfile
-	$(MAKE) -C $(COPY_DIR)/main/c++/doc all	
+	@echo -e "$(BOLD)DOCUMENTATION STAGE...$(NC)"
+	$(MAKE) --no-print-directory -f $(DOCUMENTATION_MK)
+	@echo -e "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)"
 
 package: compile
 	$(MAKE) -C $(PACKAGE_DIR)
