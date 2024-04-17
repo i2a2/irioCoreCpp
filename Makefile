@@ -52,8 +52,10 @@ info:
 	@echo -e "\t\t Calculates the project's coverage"
 	@echo -e "\t coverage: [quality]"
 	@echo -e "\t\t Alias to quality recipe"
-# TODO: Add missin recipes (doc, package and any extra ones)
-
+	@echo -e "\t doc: [copy]"
+	@echo -e "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore"
+	@echo -e "\t package: [compile]"
+	@echo -e "\t\t Generates rpms"
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
@@ -112,7 +114,3 @@ package: compile
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
 	@echo -e "$(BOLD)PACKAGING STAGE SUCCESS!$(NC)"
-
-package_debug: debug
-	$(MAKE) -C $(PACKAGE_DIR)
-	@echo -e "$(BOLD)ALL PACKAGES GENERATED (WITH DEBUG SYMBOLS)!$(NC)"
