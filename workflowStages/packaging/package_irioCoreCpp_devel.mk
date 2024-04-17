@@ -9,7 +9,7 @@ INCLUDES_ALL = $(wildcard $(INCLUDES_BASE_DIR)/*.h)
 EXCLUDE = utils.h
 EXCLUDE += rioDiscovery.h
 EXCLUDE += parserManager.h
-INCLUDES =  $(filter-out $(EXCLUDE), $(INCLUDES_ALL))
+INCLUDES =  $(filter-out $(addprefix $(INCLUDES_BASE_DIR)/,$(EXCLUDE)), $(INCLUDES_ALL))
 
 INCLUDES_TERMINALS = $(wildcard $(INCLUDES_BASE_DIR)/terminals/*.h)
 
