@@ -12,7 +12,7 @@ COMPILE_MK = ./workflowStages/compile.mk
 TEST_MK = ./workflowStages/test.mk
 QUALITY_MK = ./workflowStages/quality.mk
 DOCUMENTATION_MK = ./workflowStages/documentation.mk
-PACKAGE_DIR = packaging/
+PACKAGE_DIR = ./workflowStages/packaging/
 
 .NOTPARALLEL: copy clean test package verify
 
@@ -65,10 +65,11 @@ doc: copy
 	@echo -e "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)"
 
 package: compile
+	@echo -e "$(BOLD)PACKAGING STAGE...$(NC)"
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
+	@echo -e "$(BOLD)PACKAGING STAGE SUCCESS!$(NC)"
 
 package_debug: debug
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED (WITH DEBUG SYMBOLS)!$(NC)"
-
