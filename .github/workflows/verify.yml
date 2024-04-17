@@ -1,0 +1,19 @@
+name: Verify Stage
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '*'
+    paths:
+      - '*'
+  pull_request:
+    paths:
+      - '*'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+    - run: pip install cpplint
+    - run: make verify

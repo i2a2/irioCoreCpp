@@ -1,4 +1,4 @@
-name: C/C++ CI - Compilation
+name: Compile Stage
 
 on:
   workflow_dispatch:
@@ -35,12 +35,5 @@ jobs:
     - name: Compile Code
       run: make compile -j
 
-    - name: Run Unit Tests irioCoreCpp
-      run: |
-        cd target/test/c++/unittests/irioCoreCpp
-        ./test_ut_irioCoreCpp
-
-    - name: Run Unit Tests irioCore
-      run: |
-        cd target/test/c++/unittests/irioCore
-        ./test_ut_irioCore
+    - name: Run UnitTests
+      run: make test
