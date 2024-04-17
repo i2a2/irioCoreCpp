@@ -13,7 +13,7 @@ COMPILE_MK = ./workflowStages/compile.mk
 TEST_MK = ./workflowStages/test.mk
 QUALITY_MK = ./workflowStages/quality.mk
 DOCUMENTATION_MK = ./workflowStages/documentation.mk
-PACKAGE_DIR = ./workflowStages/packaging/
+PACKAGE_MK = ./workflowStages/packaging/
 INSTALL_MK = ./workflowStages/install/
 
 ifdef Debug
@@ -114,7 +114,7 @@ doc: copy
 
 package: compile test doc
 	@echo -e "$(BOLD)PACKAGING STAGE...$(NC)"
-	$(MAKE) -C $(PACKAGE_DIR)
+	$(MAKE) -C $(PACKAGE_MK)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
 	@echo -e "$(BOLD)PACKAGING STAGE SUCCESS!$(NC)"
 
