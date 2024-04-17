@@ -1,8 +1,8 @@
-all: compile
-
 LIB_MAKEFILE_DIR := $(COPY_DIR)/main/c++
 TEST_MAKEFILE_DIR := $(COPY_DIR)/test/c++
 LEGACY_EXAMPLES_DIR := $(COPY_DIR)/test/c
+
+all: compile
 
 compile:
 	@echo -e "\n$(BOLD)Building libs...$(NC)"
