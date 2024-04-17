@@ -109,7 +109,7 @@ doc: copy
 	$(MAKE) --no-print-directory -f $(DOCUMENTATION_MK)
 	@echo -e "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)"
 
-package: compile
+package: compile test doc
 	@echo -e "$(BOLD)PACKAGING STAGE...$(NC)"
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
