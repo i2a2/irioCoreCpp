@@ -3,7 +3,6 @@ export RED=\e[0;31m
 export ORANGE=\e[0;33m
 export NC=\e[0m
 
-
 export VERSION=1.3.0
 
 export COPY_DIR := target/
@@ -15,6 +14,7 @@ TEST_MK = ./workflowStages/test.mk
 QUALITY_MK = ./workflowStages/quality.mk
 DOCUMENTATION_MK = ./workflowStages/documentation.mk
 PACKAGE_DIR = ./workflowStages/packaging/
+INSTALL_MK = ./workflowStages/install/
 
 ifdef Debug
 	COMPILE_DEBUG="COVERAGE=true"
@@ -56,6 +56,9 @@ info:
 	@echo -e "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore"
 	@echo -e "\t package: [compile]"
 	@echo -e "\t\t Generates rpms"
+	@echo -e "\t install: [compile]"
+	@echo -e "\t\t Copies the libraries and headers to the INSTALL_DIR directory"
+	@echo -e "\t\t\t *INSTALL_DIR: (Required) Install location. Libraries go to INSTALL_DIR/lib and headers to INSTALL_DIR/include"
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
@@ -114,3 +117,7 @@ package: compile test doc
 	$(MAKE) -C $(PACKAGE_DIR)
 	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
 	@echo -e "$(BOLD)PACKAGING STAGE SUCCESS!$(NC)"
+
+install: compile test
+	$(MAKE) -C $(INSTALL_MK)
+	
