@@ -1,7 +1,7 @@
 PACKAGE_NAME := bfp
 
-LIBRARIES := ../$(COPY_DIR)/lib/lib$(PACKAGE_NAME).a
-INCLUDES := $(wildcard ../$(COPY_DIR)/main/c++/bfp/include/*.h)
+LIBRARIES := $(TOP_DIR)/$(COPY_DIR)/lib/lib$(PACKAGE_NAME).a
+INCLUDES := $(wildcard $(TOP_DIR)/$(COPY_DIR)/main/c++/bfp/include/*.h)
 
 LIB_INSTALL_DIR := $(BASE_LIB_INSTALL_DIR)
 INC_INSTALL_DIR := $(BASE_INC_INSTALL_DIR)/$(PACKAGE_NAME)
@@ -9,7 +9,7 @@ INC_INSTALL_DIR := $(BASE_INC_INSTALL_DIR)/$(PACKAGE_NAME)
 FILES_SPEC = $(foreach file,$(notdir $(LIBRARIES)),"$(LIB_INSTALL_DIR)/$(file)"\n)
 FILES_SPEC += $(foreach file,$(notdir $(INCLUDES)),"$(INC_INSTALL_DIR)/$(file)"\n)
 
-RPM_BUILD_DIR := ../$(COPY_DIR)/rpmbuild/$(PACKAGE_NAME)_devel
+RPM_BUILD_DIR := $(TOP_DIR)/$(COPY_DIR)/rpmbuild/$(PACKAGE_NAME)_devel
 
 RPM_OUTPUT_DIR := $(RPM_BUILD_DIR)/RPMS
 RPM_SOURCE_DIR := $(RPM_BUILD_DIR)/SOURCES
@@ -37,7 +37,7 @@ package: clean gen_rpmbuild
 	@cp $(RPM_SPEC_FILE_ORIG) $(RPM_SPEC_FILE_DEST)
 	@sed -i 's/{VERSION}/$(VERSION)/g' $(RPM_SPEC_FILE_DEST)
 	@sed -i 's/{FILES_TO_INCLUDE}/$(shell echo "$(FILES_SPEC)" | sed 's/\//\\\//g')/g' $(RPM_SPEC_FILE_DEST)
-	$(RPM_BUILD_CMD) --define "_rpmdir $(PWD)/../$(COPY_DIR)/packages" --buildroot $(PWD)/$(RPM_BUILD_ROOT) $(RPM_BUILD_OPTIONS) $(RPM_SPEC_FILE_DEST)
+	$(RPM_BUILD_CMD) --define "_rpmdir $(PWD)/$(TOP_DIR)/$(COPY_DIR)/packages" --buildroot $(PWD)/$(RPM_BUILD_ROOT) $(RPM_BUILD_OPTIONS) $(RPM_SPEC_FILE_DEST)
 
 gen_rpmbuild:
 	@echo -e "$(BOLD)Generating $(PACKAGE_NAME)_devel package...$(NC)"
