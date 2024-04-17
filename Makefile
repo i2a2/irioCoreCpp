@@ -16,6 +16,10 @@ QUALITY_MK = ./workflowStages/quality.mk
 DOCUMENTATION_MK = ./workflowStages/documentation.mk
 PACKAGE_DIR = ./workflowStages/packaging/
 
+ifdef Debug
+	COMPILE_DEBUG="COVERAGE=true"
+endif
+
 .NOTPARALLEL: copy clean test package verify
 
 all: compile
@@ -34,10 +38,12 @@ info:
 	@echo -e "\t\t\t *SkipVerify: If defined, the verify stage is skipped"
 	@echo -e "\t compile: [verify, copy]"
 	@echo -e "\t\t Compiles the project's code"
+	@echo -e "\t\t\t *Debug: If defined, the code is compiled with debugging symbols"
 	@echo -e "\t debug: [compile]"
 	@echo -e "\t\t Compiles the project's code with debugging symbols"
-	@echo -e "\t test:"
-	@echo -e "\t\t Run tests. This does not copy nor recompiles changes in $(SOURCE_DIR)."
+	@echo -e "\t\t Equivalent to 'make compile Debug=1'"
+	@echo -e "\t test: [compile]"
+	@echo -e "\t\t Run tests."
 	@echo -e "\t\t If no variable defined. Only unittests are run."
 	@echo -e "\t\t\t *SkipTests: If defined, the test stage is skipped"
 	@echo -e "\t\t\t *AddTestsFunctionalIrioCore: Adds functional irioCore tests"
@@ -71,14 +77,14 @@ verify:
 
 compile: verify copy
 	@echo -e "$(BOLD)COMPILE STAGE...$(NC)"
-	$(MAKE) -f $(COMPILE_MK) DEBUG=$(DEBUG)
+	$(MAKE) -f $(COMPILE_MK) DEBUG=$(COMPILE_DEBUG)
 	@echo -e "$(BOLD)COMPILE STAGE SUCCESS!$(NC)"
 
 debug:
 	@echo -e "$(BOLD)Compiling with debugging symbols...$(NC)"
-	$(MAKE) compile DEBUG="COVERAGE=true"
+	$(MAKE) compile Debug="COVERAGE=true"
 
-test: 
+test: compile 
 	@set -e;\
 	if ! [ $(SkipTests) -ne 0 ]; then \
 		echo -e "$(BOLD)TEST STAGE...$(NC)";\
