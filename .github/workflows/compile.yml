@@ -17,9 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:v1.0
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.github_token }}
     steps:
     - uses: actions/checkout@v3  
     - name: Compile Code
