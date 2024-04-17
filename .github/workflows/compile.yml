@@ -16,7 +16,7 @@ jobs:
   compile_and_test:
     runs-on: ubuntu-latest
     container: 
-      image: ghcr.io/i2a2/iriocore-docker:latest
+      image: i2a2/iriocore-docker:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
