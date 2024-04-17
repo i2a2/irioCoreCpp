@@ -56,9 +56,12 @@ info:
 	@echo -e "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore"
 	@echo -e "\t package: [compile]"
 	@echo -e "\t\t Generates rpms"
+	@echo -e "\t\t\t *INSTALL_DIR: This optional variable sets the install location."
+	@echo -e "\t\t\t\t Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include."
+	@echo -e "\t\t\t\t If INSTALL_DIR is not set, it defaults to /usr/local, unless CODAC_ROOT is set, in which case INSTALL_DIR will use the value of CODAC_ROOT."
 	@echo -e "\t install: [compile]"
 	@echo -e "\t\t Copies the libraries and headers to the INSTALL_DIR directory"
-	@echo -e "\t\t\t *INSTALL_DIR: (Required) Install location. Libraries go to INSTALL_DIR/lib and headers to INSTALL_DIR/include"
+	@echo -e "\t\t\t *INSTALL_DIR: (Required) Install location. Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include."
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
