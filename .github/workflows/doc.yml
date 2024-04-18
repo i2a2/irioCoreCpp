@@ -1,8 +1,9 @@
 name: Documentation
 
 on: 
-    release: 
-        types: [released]
+    workflow_run:
+      workflows: ["Generate Release"]
+      types: [completed]
 
 jobs:
     generate_and_publish:
