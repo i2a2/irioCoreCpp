@@ -35,4 +35,4 @@ jobs:
     - name: Generate release
       uses: softprops/action-gh-release@v2
       with:
-        files: ${PACKAGE_DIR}/*
+        files: ${{ env.PACKAGE_DIR }}/*
