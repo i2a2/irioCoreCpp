@@ -1,0 +1,4 @@
+<map id="irio::TerminalsAuxAnalog" name="irio::TerminalsAuxAnalog">
+<area shape="rect" id="node1" title="Class managing all terminals related to the auxiliary analog functionality of the RIO device." alt="" coords="5,131,189,355"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsBase.html" title="Base class for all terminals." alt="" coords="24,5,171,83"/>
+</map>

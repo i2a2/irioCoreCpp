@@ -1,0 +1,4 @@
+<map id="irio::TerminalsFlexRIO" name="irio::TerminalsFlexRIO">
+<area shape="rect" id="node1" title="Class managing all terminals specific to FlexRIO devices." alt="" coords="5,131,203,237"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsBase.html" title="Base class for all terminals." alt="" coords="31,5,177,83"/>
+</map>

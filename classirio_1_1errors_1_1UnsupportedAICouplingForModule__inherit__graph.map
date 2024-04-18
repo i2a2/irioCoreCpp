@@ -1,0 +1,5 @@
+<map id="irio::errors::UnsupportedAICouplingForModule" name="irio::errors::UnsupportedAICouplingForModule">
+<area shape="rect" id="node1" title="Exception when trying to set an invalid AI coupling mode for a module." alt="" coords="5,256,216,363"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="36,131,185,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="41,5,180,83"/>
+</map>

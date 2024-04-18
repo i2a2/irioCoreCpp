@@ -1,0 +1,6 @@
+<map id="irio::ProfileCPUIMAQFlexRIO" name="irio::ProfileCPUIMAQFlexRIO">
+<area shape="rect" id="node1" title=" " alt="" coords="67,315,272,392"/>
+<area shape="rect" id="node2" href="$classirio_1_1ProfileCPUIMAQ.html" title=" " alt="" coords="5,189,160,267"/>
+<area shape="rect" id="node3" href="$classirio_1_1ProfileBase.html" title="Base profile class." alt="" coords="98,5,241,141"/>
+<area shape="rect" id="node4" href="$classirio_1_1ProfileFlexRIO.html" title="Profile with the terminals specific to FlexRIO devices." alt="" coords="185,189,327,267"/>
+</map>

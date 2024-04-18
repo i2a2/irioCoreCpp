@@ -1,0 +1,5 @@
+<map id="irio::errors::BFPParseBitfileError" name="irio::errors::BFPParseBitfileError">
+<area shape="rect" id="node1" title="Exception when an error occurs while parsing the bitfile." alt="" coords="5,256,200,363"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="28,131,177,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="33,5,172,83"/>
+</map>

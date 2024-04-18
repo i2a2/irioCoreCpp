@@ -1,0 +1,10 @@
+<map id="irio::ProfileBase" name="irio::ProfileBase">
+<area shape="rect" id="node1" title="Base profile class." alt="" coords="240,5,383,141"/>
+<area shape="rect" id="node2" href="$classirio_1_1ProfileCPUDAQ.html" title="Profile with the terminals specific to data acquisition functionality." alt="" coords="153,189,301,267"/>
+<area shape="rect" id="node5" href="$classirio_1_1ProfileCPUIMAQ.html" title=" " alt="" coords="493,189,647,267"/>
+<area shape="rect" id="node7" href="$classirio_1_1ProfileCRIO.html" title="Profile with the terminals specific to cRIO devices." alt="" coords="5,189,129,267"/>
+<area shape="rect" id="node8" href="$classirio_1_1ProfileFlexRIO.html" title="Profile with the terminals specific to FlexRIO devices." alt="" coords="325,189,468,267"/>
+<area shape="rect" id="node3" href="$classirio_1_1ProfileCPUDAQFlexRIO.html" title="Profile with the terminals specific to data acquisition functionality and the ones specific to FlexRI..." alt="" coords="228,315,427,392"/>
+<area shape="rect" id="node4" href="$classirio_1_1ProfileCPUDAQcRIO.html" title="Profile with the terminals specific to data acquisition functionality and the ones specific to cRIO d..." alt="" coords="9,315,187,392"/>
+<area shape="rect" id="node6" href="$classirio_1_1ProfileCPUIMAQFlexRIO.html" title=" " alt="" coords="459,315,665,392"/>
+</map>

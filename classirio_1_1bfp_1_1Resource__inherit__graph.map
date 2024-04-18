@@ -1,0 +1,5 @@
+<map id="irio::bfp::Resource" name="irio::bfp::Resource">
+<area shape="rect" id="node1" title="Class holding information about one resource (Register or DMA)" alt="" coords="97,5,237,229"/>
+<area shape="rect" id="node2" href="$classirio_1_1bfp_1_1DMA.html" title="Class holding information about one DMA." alt="" coords="5,285,156,435"/>
+<area shape="rect" id="node3" href="$classirio_1_1bfp_1_1Register.html" title="Class holding information about one Register." alt="" coords="180,277,331,443"/>
+</map>

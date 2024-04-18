@@ -1,0 +1,15 @@
+<map id="terminalsDMADAQ.h" name="terminalsDMADAQ.h">
+<area shape="rect" id="node1" title=" " alt="" coords="137,5,293,32"/>
+<area shape="rect" id="node2" href="$terminalsDMADAQCPU_8h.html" title=" " alt="" coords="124,80,307,107"/>
+<area shape="rect" id="node3" href="$terminals_8h.html" title=" " alt="" coords="167,155,263,181"/>
+<area shape="rect" id="node4" href="$irioCoreCpp_8h.html" title=" " alt="" coords="93,229,204,256"/>
+<area shape="rect" id="node5" href="$profileBase_8h.html" title=" " alt="" coords="229,229,335,256"/>
+<area shape="rect" id="node6" href="$profileCPUDAQ_8h.html" title=" " alt="" coords="141,304,271,331"/>
+<area shape="rect" id="node10" href="$profileCPUIMAQ_8h.html" title=" " alt="" coords="447,304,584,331"/>
+<area shape="rect" id="node12" href="$profileCRIO_8h.html" title=" " alt="" coords="10,304,117,331"/>
+<area shape="rect" id="node13" href="$profileFlexRIO_8h.html" title=" " alt="" coords="296,304,423,331"/>
+<area shape="rect" id="node7" href="$profileCPUDAQcRIO_8h.html" title=" " alt="" coords="5,379,167,405"/>
+<area shape="rect" id="node9" href="$profileCPUDAQFlexRIO_8h.html" title=" " alt="" coords="191,379,373,405"/>
+<area shape="rect" id="node8" href="$profiles_8h.html" title=" " alt="" coords="241,453,323,480"/>
+<area shape="rect" id="node11" href="$profileCPUIMAQFlexRIO_8h.html" title=" " alt="" coords="397,379,585,405"/>
+</map>

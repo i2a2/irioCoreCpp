@@ -1,0 +1,4 @@
+<map id="irio::TerminalsSignalGeneration" name="irio::TerminalsSignalGeneration">
+<area shape="rect" id="node1" title="Class managing all terminals related to the signal generation functionality of the RIO device." alt="" coords="5,131,232,399"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsBase.html" title="Base class for all terminals." alt="" coords="45,5,192,83"/>
+</map>

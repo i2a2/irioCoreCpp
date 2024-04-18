@@ -1,0 +1,5 @@
+<map id="irio::ProfileCRIO" name="irio::ProfileCRIO">
+<area shape="rect" id="node1" title="Profile with the terminals specific to cRIO devices." alt="" coords="33,189,157,267"/>
+<area shape="rect" id="node3" href="$classirio_1_1ProfileCPUDAQcRIO.html" title="Profile with the terminals specific to data acquisition functionality and the ones specific to cRIO d..." alt="" coords="5,315,184,392"/>
+<area shape="rect" id="node2" href="$classirio_1_1ProfileBase.html" title="Base profile class." alt="" coords="23,5,166,141"/>
+</map>

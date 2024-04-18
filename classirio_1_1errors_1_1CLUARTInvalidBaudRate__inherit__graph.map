@@ -1,0 +1,5 @@
+<map id="irio::errors::CLUARTInvalidBaudRate" name="irio::errors::CLUARTInvalidBaudRate">
+<area shape="rect" id="node1" title="Exception when the baud rate read is not a valid value." alt="" coords="5,256,211,348"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="33,131,183,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="39,5,177,83"/>
+</map>

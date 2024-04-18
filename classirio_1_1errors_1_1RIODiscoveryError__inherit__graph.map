@@ -1,0 +1,5 @@
+<map id="irio::errors::RIODiscoveryError" name="irio::errors::RIODiscoveryError">
+<area shape="rect" id="node1" title="Exception when an error occurs while searching for the RIO Device." alt="" coords="5,256,191,348"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="23,131,173,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="29,5,167,83"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classirio_1_1Platform.html" title="Generic Platform class." alt="" coords="5,56,112,83"/>
+<area shape="rect" id="node2" href="$classirio_1_1PlatformCRIO.html" title="Specific implementation for the cRIO platform." alt="" coords="170,5,309,32"/>
+<area shape="rect" id="node3" href="$classirio_1_1PlatformFlexRIO.html" title="Specific implementation for the FlexRIO platform." alt="" coords="160,56,319,83"/>
+<area shape="rect" id="node4" href="$classirio_1_1PlatformRSeries.html" title="Specific implementation for the R Series platform." alt="" coords="161,107,317,133"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="bfp.h" name="bfp.h">
+<area shape="rect" id="node1" title=" " alt="" coords="255,5,309,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,68,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="92,80,216,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="227,304,286,331"/>
+<area shape="rect" id="node5" href="$register_8h.html" title=" " alt="" coords="241,80,323,107"/>
+<area shape="rect" id="node10" href="$dma_8h.html" title=" " alt="" coords="348,80,411,107"/>
+<area shape="rect" id="node6" href="$resource_8h.html" title=" " alt="" coords="213,155,303,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="328,155,431,181"/>
+<area shape="rect" id="node7" href="$fpgatypes_8h.html" title=" " alt="" coords="333,229,431,256"/>
+<area shape="rect" id="node8" href="$elemtypes_8h.html" title=" " alt="" coords="205,229,308,256"/>
+</map>

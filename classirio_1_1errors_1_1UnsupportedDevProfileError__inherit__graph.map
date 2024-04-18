@@ -1,0 +1,5 @@
+<map id="irio::errors::UnsupportedDevProfileError" name="irio::errors::UnsupportedDevProfileError">
+<area shape="rect" id="node1" title="Exception when the DevProfile read from the FPGA does not matches any of the supported ones or if the..." alt="" coords="5,256,233,363"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="45,131,194,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="50,5,189,83"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="irio::Module" name="irio::Module">
+<area shape="rect" id="node1" title="Manage conversion information for the ADC/DAC of a module." alt="" coords="336,5,497,229"/>
+<area shape="rect" id="node2" href="$classirio_1_1ModuleNI5734.html" title="Conversion parameters for FlexRIO Module NI5734." alt="" coords="5,285,151,362"/>
+<area shape="rect" id="node3" href="$classirio_1_1ModuleNI5761.html" title="Conversion parameters for FlexRIO Module NI5761." alt="" coords="175,277,320,369"/>
+<area shape="rect" id="node4" href="$classirio_1_1ModuleNI5781.html" title="Conversion parameters for FlexRIO Module NI5781." alt="" coords="344,285,489,362"/>
+<area shape="rect" id="node5" href="$classirio_1_1ModuleNI6581.html" title="Conversion parameters for FlexRIO Module NI6581." alt="" coords="513,285,659,362"/>
+<area shape="rect" id="node6" href="$classirio_1_1ModuleNI92xx.html" title="Conversion parameters for cRIO Module 9205/9264." alt="" coords="683,285,828,362"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="irio::errors::NiFpgaError" name="irio::errors::NiFpgaError">
+<area shape="rect" id="node1" title="Exception when an error returns from a NiFpga_* function." alt="" coords="117,256,292,333"/>
+<area shape="rect" id="node4" href="$classirio_1_1errors_1_1NiFpgaErrorDownloadingBitfile.html" title="Specific error when an error occurs while downloading the bitfile into the FPGA." alt="" coords="5,381,180,473"/>
+<area shape="rect" id="node5" href="$classirio_1_1errors_1_1NiFpgaFPGAAlreadyRunning.html" title="Specific error when NiFpga_Run return that the FPGA VI is already running." alt="" coords="204,381,432,473"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="130,131,279,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="135,5,274,83"/>
+</map>

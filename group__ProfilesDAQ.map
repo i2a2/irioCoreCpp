@@ -1,0 +1,8 @@
+<map id="Data Acquisition Profiles" name="Data Acquisition Profiles">
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,187,181"/>
+<area shape="rect" id="node2" href="$group__ProfilesFlexRIO.html" title=" " alt="" coords="445,9,571,34"/>
+<area shape="rect" id="node3" href="$group__ProfilesCRIO.html" title=" " alt="" coords="456,58,560,83"/>
+<area shape="rect" id="node4" href="$group__Profiles.html" title=" " alt="" coords="457,143,559,169"/>
+<area shape="rect" id="node5" href="$group__FlexRIO.html" title=" " alt="" coords="412,204,604,244"/>
+<area shape="rect" id="node6" href="$group__cRIO.html" title=" " alt="" coords="412,268,604,308"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="irio::PlatformFlexRIO" name="irio::PlatformFlexRIO">
+<area shape="rect" id="node1" title="Specific implementation for the FlexRIO platform." alt="" coords="5,263,164,457"/>
+<area shape="rect" id="node2" href="$classirio_1_1Platform.html" title="Generic Platform class." alt="" coords="17,5,152,215"/>
+</map>

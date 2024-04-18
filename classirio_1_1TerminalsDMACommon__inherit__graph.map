@@ -1,0 +1,8 @@
+<map id="irio::TerminalsDMACommon" name="irio::TerminalsDMACommon">
+<area shape="rect" id="node1" title="Class managing the terminals common to all other terminals that use DMAs in the RIO device." alt="" coords="141,131,345,355"/>
+<area shape="rect" id="node3" href="$classirio_1_1TerminalsDMADAQ.html" title="Class managing the terminals used for DMA DAQ operations." alt="" coords="5,461,240,583"/>
+<area shape="rect" id="node5" href="$classirio_1_1TerminalsDMAIMAQ.html" title="Class managing the resources used for IMAQ DAQ operations." alt="" coords="263,403,462,641"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsBase.html" title="Base class for all terminals." alt="" coords="169,5,316,83"/>
+<area shape="rect" id="node4" href="$classirio_1_1TerminalsDMADAQCPU.html" title="Class managing the terminals used for DMA CPU DAQ operations." alt="" coords="22,689,223,767"/>
+<area shape="rect" id="node6" href="$classirio_1_1TerminalsDMAIMAQCPU.html" title="Class managing the resources used for DMA CPU IMAQ operations." alt="" coords="259,689,466,767"/>
+</map>

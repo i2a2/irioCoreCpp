@@ -1,0 +1,4 @@
+<map id="irio::TerminalsDigital" name="irio::TerminalsDigital">
+<area shape="rect" id="node1" title="Class managing all terminals related to the digital functionality of the RIO device." alt="" coords="5,131,163,281"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsBase.html" title="Base class for all terminals." alt="" coords="11,5,157,83"/>
+</map>

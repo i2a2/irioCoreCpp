@@ -1,0 +1,5 @@
+<map id="irio::errors::CLUARTTimeout" name="irio::errors::CLUARTTimeout">
+<area shape="rect" id="node1" title="Exception when a timeout occurs in a CL UART operation." alt="" coords="5,256,208,333"/>
+<area shape="rect" id="node2" href="$classirio_1_1errors_1_1IrioError.html" title="Base IRIO error." alt="" coords="32,131,181,208"/>
+<area shape="rect" id="node3" title=" " alt="" coords="37,5,176,83"/>
+</map>

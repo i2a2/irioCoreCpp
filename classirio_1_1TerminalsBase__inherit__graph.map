@@ -1,0 +1,15 @@
+<map id="irio::TerminalsBase" name="irio::TerminalsBase">
+<area shape="rect" id="node1" title="Base class for all terminals." alt="" coords="762,5,909,83"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsAnalog.html" title="Class managing all terminals related to the analog functionality of the RIO device." alt="" coords="5,131,191,413"/>
+<area shape="rect" id="node3" href="$classirio_1_1TerminalsAuxAnalog.html" title="Class managing all terminals related to the auxiliary analog functionality of the RIO device." alt="" coords="215,160,399,384"/>
+<area shape="rect" id="node4" href="$classirio_1_1TerminalsAuxDigital.html" title="Class managing all terminals related to the auxiliary digital functionality of the RIO device." alt="" coords="424,197,607,347"/>
+<area shape="rect" id="node5" href="$classirio_1_1TerminalsDMACommon.html" title="Class managing the terminals common to all other terminals that use DMAs in the RIO device." alt="" coords="631,160,835,384"/>
+<area shape="rect" id="node10" href="$classirio_1_1TerminalsDigital.html" title="Class managing all terminals related to the digital functionality of the RIO device." alt="" coords="859,197,1017,347"/>
+<area shape="rect" id="node11" href="$classirio_1_1TerminalsFlexRIO.html" title="Class managing all terminals specific to FlexRIO devices." alt="" coords="1041,219,1238,325"/>
+<area shape="rect" id="node12" href="$classirio_1_1TerminalsSignalGeneration.html" title="Class managing all terminals related to the signal generation functionality of the RIO device." alt="" coords="1262,138,1489,406"/>
+<area shape="rect" id="node13" href="$classirio_1_1TerminalscRIO.html" title="Class managing all terminals specific to cRIO devices." alt="" coords="1513,219,1717,325"/>
+<area shape="rect" id="node6" href="$classirio_1_1TerminalsDMADAQ.html" title="Class managing the terminals used for DMA DAQ operations." alt="" coords="495,520,730,641"/>
+<area shape="rect" id="node8" href="$classirio_1_1TerminalsDMAIMAQ.html" title="Class managing the resources used for IMAQ DAQ operations." alt="" coords="753,461,952,700"/>
+<area shape="rect" id="node7" href="$classirio_1_1TerminalsDMADAQCPU.html" title="Class managing the terminals used for DMA CPU DAQ operations." alt="" coords="512,748,713,825"/>
+<area shape="rect" id="node9" href="$classirio_1_1TerminalsDMAIMAQCPU.html" title="Class managing the resources used for DMA CPU IMAQ operations." alt="" coords="749,748,956,825"/>
+</map>
