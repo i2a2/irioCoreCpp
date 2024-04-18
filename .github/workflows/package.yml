@@ -1,6 +1,7 @@
-name: Generate release
+name: Generate Release
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*.*.*"
