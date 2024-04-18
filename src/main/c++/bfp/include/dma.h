@@ -5,7 +5,7 @@
 #include "resource.h"
 
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**
@@ -30,6 +30,8 @@ class DMA: public Resource {
 			const ElemTypes &_elemType, const std::uint32_t &_address,
 			const size_t &_numElem = 1);
 
+	DMA() = default;
+
 	/**
 	 * Creates a DMA object from an XML node
 	 *
@@ -53,14 +55,16 @@ class DMA: public Resource {
 
 	/**
 	 * Returns whether the DMA is Host to Target (HtT) or not
+	 * 
 	 * @return True if it is HtT
 	 */
 	bool isHostToTarget() const;
 
  private:
-	bool m_isTargetToHost;
+	/// If the DMA is TtH or HtT
+	bool m_isTargetToHost = false;
 };
 
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio
 

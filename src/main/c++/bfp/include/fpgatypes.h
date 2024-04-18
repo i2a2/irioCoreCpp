@@ -1,6 +1,6 @@
 #pragma once
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**
@@ -8,7 +8,7 @@ namespace bfp {
  *
  * @ingroup BFP
  */
-enum class FpgaTypes {
+enum class FpgaTypes : std::uint8_t {
 	FpgaType_Control, /**< FpgaType_Control */
 	FpgaType_Indicator, /**< FpgaType_Indicator */
 	FpgaType_ArrayControl, /**< FpgaType_ArrayControl */
@@ -17,4 +17,4 @@ enum class FpgaTypes {
 	FpgaType_DMAHtT /**< FpgaType_DMAHtT */
 };
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

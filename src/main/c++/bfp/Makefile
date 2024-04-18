@@ -1,10 +1,11 @@
 LIBNAME=bfp
 
+TARGET=../../../../target
+
 LIBRARIES=pugixml
 LIBRARY_DIRS=
-INCLUDE_DIRS=. ./include ../include ../irio_v2_cpp/include
+INCLUDE_DIRS=./include ../irioCoreCpp/include
 
-TARGET=../../../../target
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_DIR=.
 OBJECT_DIR = $(SOURCE_DIR)/.obj
@@ -12,12 +13,11 @@ OBJECT_DIR = $(SOURCE_DIR)/.obj
 SHAREDLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).so
 STATICLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).a
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDPATHS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) 
+LDPATHS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,--enable-new-dtags,-rpath,$(libs)) 
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(SOURCE_DIR)/$(wildcard *.cpp)
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
-HFILES=$(wildcard *.h)
-HTARGETS=$(addprefix $(TARGET)/include/, $(HFILES))
+HEADERSFILES = ./include
 
 C=gcc
 CC=g++
@@ -36,11 +36,13 @@ endif
 
 .PHONY: all clean run 
 
-all: $(HTARGETS) $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
+all: copy_includes $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
-$(TARGET)/include/%.h: %.h
-	@mkdir -p $(TARGET)/include
-	cp $< $@
+copy_includes:
+	mkdir -p $(TARGET)/includes/
+	@for header in $(HEADERSFILES); do\
+		cp -R $$header $(TARGET)/includes/$(LIBNAME)/;\
+	done
 
 clean:
 	rm -rf "$(SHAREDLIBRARY)" "$(STATICLIBRARY)" "$(OBJECT_DIR)" "$(HTARGETS)"

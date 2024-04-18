@@ -5,7 +5,7 @@
 #include "resource.h"
 #include <pugixml.hpp>
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**
@@ -26,6 +26,8 @@ class Register: public Resource {
 	Register(const std::string &_name, const FpgaTypes &_fpgaType,
 			const ElemTypes &_elemType, const std::uint32_t &_address,
 			const size_t &_numElem = 1);
+
+	Register() = default;
 
 	/**
 	 * Creates a Register object from an XML node
@@ -56,8 +58,10 @@ class Register: public Resource {
 	bool isArray() const;
 
  private:
-	bool m_isControl;
-	bool m_isArray;
+	/// Indicates whether the register is a control or an indicator
+	bool m_isControl = false;
+	/// Indicates whether the register is an array or not
+	bool m_isArray = false;
 };
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

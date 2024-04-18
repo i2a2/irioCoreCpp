@@ -1,8 +1,8 @@
-# irio-v2-cpp
+# irioCore
 
 # Compilation instructions
 
-This guide will walk you through the process to set the required dependencies on your system to compile irio-v2-cpp.
+This guide will walk you through the process to set the required dependencies on your system to compile irioCore and irioCoreCpp
 
 ## Prerequisites
 
@@ -119,11 +119,6 @@ No prerequisites are known
     2. **Ubuntu**
     ```bash
     sudo apt install doxygen graphviz
-    ```
-    
-22. **Generate the packages:**
-	 ```bash
-    make package
     ```
 
 *WIP: TBC*

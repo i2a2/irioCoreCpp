@@ -1,0 +1,86 @@
+#include "fixtures.h"
+#include "fff_nifpga.h"
+
+#include "irioCoreCpp.h"
+#include "terminals/names/namesTerminalsCommon.h"
+#include "terminals/names/namesTerminalsDMACPUCommon.h"
+#include "terminals/names/namesTerminalsDMADAQCPU.h"
+
+
+using namespace irio;
+
+
+class DMACPUDAQTests: public BaseTests {
+public:
+	DMACPUDAQTests():
+		BaseTests("../../../resources/7854/NiFpga_Rseries_CPUDAQ_7854.lvbitx")
+	{
+		setValueForReg(ReadFunctions::NiFpga_ReadU8,
+						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
+						PLATFORM_ID::RSeries);
+		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
+						bfp.getRegister(TERMINAL_DMATTOHOSTNCH).getAddress(),
+						nchFake, 2);
+		setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU16,
+						bfp.getRegister(TERMINAL_DMATTOHOSTBLOCKNWORDS).getAddress(),
+						lengthBlockFake, 2);
+		setValueForReg(ReadFunctions::NiFpga_ReadU16,
+						bfp.getRegister(TERMINAL_DMATTOHOSTSAMPLINGRATE
+								+std::to_string(0)).getAddress(),
+						samplingRateFake);
+	}
+
+	const std::uint16_t nchFake[2] = {5,2};
+	const std::uint16_t lengthBlockFake[2] = {42,24};
+	const std::uint16_t samplingRateFake = 12345;
+};
+
+class ErrorDMACPUDAQTests: public DMACPUDAQTests { };
+
+
+///////////////////////////////////////////////////////////////
+///// DMACPU DAQ Terminals Tests
+///////////////////////////////////////////////////////////////
+TEST_F(DMACPUDAQTests, TerminalsDMACPUDAQ){
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_NO_THROW(irio.getTerminalsDAQ());
+}
+
+TEST_F(DMACPUDAQTests, LengthBlock){
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_EQ(irio.getTerminalsDAQ().getLengthBlock(0), 42);
+}
+
+TEST_F(DMACPUDAQTests, getSamplingRateDecimation){
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_EQ(irio.getTerminalsDAQ().getSamplingRateDecimation(0), samplingRateFake);
+}
+
+TEST_F(DMACPUDAQTests, setSamplingRateDecimation){
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_NO_THROW(irio.getTerminalsDAQ().setSamplingRateDecimation(0, 1));
+}
+
+///////////////////////////////////////////////////////////////
+///// Error DMACPU DAQ Terminals Tests
+///////////////////////////////////////////////////////////////
+TEST_F(ErrorDMACPUDAQTests, LengthBlockInvalidDMAID){
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_THROW(irio.getTerminalsDAQ().getLengthBlock(10);,
+		errors::ResourceNotFoundError);
+}
+
+TEST_F(ErrorDMACPUDAQTests, MistmatchDMALengthBlock) {
+	EXPECT_THROW(
+		Irio irio("../../../resources/failResources/7854/NiFpga_Rseries_MismatchDMALengthBlock_7854.lvbitx", "0", "V9.9");,
+		errors::ResourceNotFoundError
+	);
+}
+
+TEST_F(ErrorDMACPUDAQTests, MistmatchDMASamplingRate) {
+	EXPECT_THROW(
+		Irio irio("../../../resources/failResources/7854/NiFpga_Rseries_MistmatchDMASamplingRate_7854.lvbitx", "0", "V9.9");,
+		errors::ResourceNotFoundError
+	);
+}
+

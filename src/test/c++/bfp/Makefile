@@ -2,9 +2,9 @@ PROGNAME=test_bfp
 
 TARGET=../../../../target
 
-LIBRARIES=gtest bfp
+LIBRARIES=gtest pthread bfp
 LIBRARY_DIRS=$(TARGET)/lib
-INCLUDE_DIRS=$(TARGET)/main/c++/bfp/include $(TARGET)/main/c++/irio_v2_cpp/include
+INCLUDE_DIRS=$(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
 
 BINARY_DIR=.
 SOURCE_DIR=.
@@ -13,7 +13,7 @@ OBJECT_DIR = $(SOURCE_DIR)/.obj
 EXECUTABLE=$(BINARY_DIR)/$(PROGNAME)
 BASE_INCLUDES=. ../include $(TARGET)/main/c++/include
 INCLUDES=$(foreach inc,$(BASE_INCLUDES),-I$(inc)) $(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,-rpath,$(libs)) 
+LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,--enable-new-dtags,-rpath,$(libs)) 
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(wildcard $(SOURCE_DIR)/*.cpp)
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))

@@ -1,4 +1,4 @@
-name: C/C++ CI - Compilation
+name: Compile and Test Stages
 
 on:
   workflow_dispatch:
@@ -15,27 +15,12 @@ on:
 jobs:
   compile_and_test:
     runs-on: ubuntu-latest
+    container: 
+      image: ghcr.io/i2a2/iriocore-docker:v1.0
     steps:
-    - uses: actions/checkout@v3
-    - name: Install Dependencies
-      run: |
-        sudo apt install -y unzip
-        sudo apt install -y wget
-        sudo apt install -y rsync
-        wget https://download.ni.com/support/softlib/MasterRepository/LinuxDrivers2023Q4/NILinux2023Q4DeviceDrivers.zip
-        unzip NILinux2023Q4DeviceDrivers.zip
-        cd NILinux2023Q4DeviceDrivers
-        sudo dpkg -i ni-ubuntu*
-        sudo apt update
-        sudo apt install -y ni-syscfg-devel
-        sudo apt install -y ni-flexrio-modulario-libs-devel
-        sudo apt install -y libpugixml-dev
-        sudo apt install -y libgtest-dev
-        
+    - uses: actions/checkout@v3  
     - name: Compile Code
-      run: make
+      run: make compile -j
 
-    - name: Run Unit Tests
-      run: |
-        cd target/test/c++/unittests
-        ./test_ut_iriov2cpp
+    - name: Run UnitTests
+      run: make test

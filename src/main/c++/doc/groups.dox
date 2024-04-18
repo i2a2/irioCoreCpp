@@ -1,17 +1,17 @@
 /**
 
-@defgroup IrioV2 			IrioV2
+@defgroup IRIO 			IRIO
 
 @defgroup BFP 				Bitfile Parsing
-@ingroup IrioV2
+@ingroup IRIO
 
 @defgroup Platforms			Platforms
-@ingroup IrioV2
+@ingroup IRIO
 
 
 
-@defgroup Terminals 		IrioV2 Terminals
-@ingroup IrioV2
+@defgroup Terminals 		IRIO Terminals
+@ingroup IRIO
 
 @defgroup DMATerminals 		DMA Terminals
 @ingroup Terminals
@@ -22,21 +22,30 @@
 @defgroup DMAGPUTerminals	DMA GPU Terminals
 @ingroup DMATerminals
 
+@defgroup IMAQTerminals     IMAQ Terminals
+@ingroup DMATerminals
+
+@defgroup IMAQCPUTerminals  IMAQ CPU Terminals
+@ingroup IMAQTerminals
+
+@defgroup IMAQGPUTerminals  IMAQ GPU Terminals
+@ingroup IMAQTerminals
+
 
 
 @defgroup FlexRIO 			Specific Classes/Functions to FlexRIO
-@ingroup IrioV2
+@ingroup IRIO
 
 @defgroup cRIO 				Specific Classes/Functions to cRIO
-@ingroup IrioV2
+@ingroup IRIO
 
 @defgroup RSeries 			Specific Classes/Functions to R Series
-@ingroup IrioV2
+@ingroup IRIO
 
 
 
-@defgroup Profiles 			IrioV2 Profiles
-@ingroup IrioV2
+@defgroup Profiles 			IRIO Profiles
+@ingroup IRIO
 
 @defgroup ProfilesDAQ 		Data Acquisition Profiles
 @ingroup Profiles
@@ -58,7 +67,7 @@
 
 
 @defgroup Modules			Modules types
-@ingroup IrioV2
+@ingroup IRIO
 
 @defgroup ModulesFlexRIO	Modules specific to FlexRIO
 @ingroup Modules
@@ -71,6 +80,6 @@
 
 
 @defgroup Errors			Error Management
-@ingroup IrioV2
+@ingroup IRIO
 
 */

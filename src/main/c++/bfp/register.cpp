@@ -1,17 +1,17 @@
 #include "register.h"
 #include <exception>
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 Register::Register(const std::string &_name, const FpgaTypes &_fpgaType,
 		const ElemTypes &_elemType, const std::uint32_t &_address,
 		const size_t &_numElem) :
 		Resource(_name, _fpgaType, _elemType, _address, _numElem) {
-	m_isArray = fpgaType == FpgaTypes::FpgaType_ArrayControl
-			|| fpgaType == FpgaTypes::FpgaType_ArrayIndicator;
-	m_isControl = fpgaType == FpgaTypes::FpgaType_ArrayControl
-			|| fpgaType == FpgaTypes::FpgaType_Control;
+	m_isArray = _fpgaType == FpgaTypes::FpgaType_ArrayControl
+			|| _fpgaType == FpgaTypes::FpgaType_ArrayIndicator;
+	m_isControl = _fpgaType == FpgaTypes::FpgaType_ArrayControl
+			|| _fpgaType == FpgaTypes::FpgaType_Control;
 }
 
 bool Register::isArray() const {
@@ -62,4 +62,4 @@ Register Register::processRegister(const pugi::xml_node &registerNode,
 	return Register(name, fpgaType, elemType, address, numElem);
 }
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio

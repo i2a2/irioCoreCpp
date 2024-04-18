@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace iriov2 {
+namespace irio {
 namespace bfp {
 
 /**
@@ -10,7 +10,7 @@ namespace bfp {
  *
  * @ingroup BFP
  */
-enum class ElemTypes {
+enum class ElemTypes : std::uint8_t {
 	Bool, /**< Bool */
 	I8, /**< I8 */
 	U8, /**< U8 */
@@ -35,4 +35,4 @@ enum class ElemTypes {
 ElemTypes getElemTypeFromStr(const std::string &typeName);
 
 }  // namespace bfp
-}  // namespace iriov2
+}  // namespace irio
