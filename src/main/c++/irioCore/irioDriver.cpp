@@ -631,11 +631,13 @@ int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status) {
 	// TODO: SamplingRate IO Profile
+	return 0;
 }
 
 int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	// TODO: SamplingRate IO Profile
+	return 0;
 }
 
 int irio_getPlatformType(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
