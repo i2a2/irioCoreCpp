@@ -12,7 +12,7 @@ jobs:
       BASE_DIR: ./target
       INPUT_LCOV_FILE: $BASE_DIR/coverage/coverage.info
       OUTPUT_COBERTURA_XML: $BASE_DIR/coverage/coverage.xml
-      SOURCES: "main/c++/bfp,main/c++/irio_v2_cpp"
+      SOURCES: "main/c++/bfp,main/c++/irioCoreCpp,main/c++/irioCore"
       EXCLUSIONS: "*/NiFpga_CD/**"
       SONAR_ORGANIZATION: "i2a2"
       SONAR_PROJECT_KEY: "i2a2_irioCore"
