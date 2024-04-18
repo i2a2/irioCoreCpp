@@ -19,6 +19,7 @@ INC_INSTALL_DIR := $(BASE_INC_INSTALL_DIR)/$(PACKAGE_NAME)
 FILES_SPEC = $(foreach file,$(notdir $(LIBRARIES)),"$(LIB_INSTALL_DIR)/$(file)"\n)
 FILES_SPEC += $(foreach file,$(notdir $(INCLUDES)),"$(INC_INSTALL_DIR)/$(file)"\n)
 FILES_SPEC += $(foreach file,$(notdir $(INCLUDES_TERMINALS)),"$(INC_INSTALL_DIR)/terminals/$(file)"\n)
+FILES_SPEC_FINAL := $(shell echo "$(FILES_SPEC)" | sed 's/\//\\\//g' | sed 's/ /\{NEWLINE\}/g')
 
 RPM_BUILD_DIR := $(TOP_DIR)/$(COPY_DIR)/rpmbuild/$(PACKAGE_NAME)_devel
 
@@ -48,12 +49,18 @@ package: clean gen_rpmbuild
 	@if [ -n "$(INCLUDES_TERMINALS)" ]; then cp $(INCLUDES_TERMINALS) $(RPM_BUILD_ROOT)/$(INC_INSTALL_DIR)/terminals; fi
 	@cp $(RPM_SPEC_FILE_ORIG) $(RPM_SPEC_FILE_DEST)
 	@sed -i 's/{VERSION}/$(VERSION)/g' $(RPM_SPEC_FILE_DEST)
-	@sed -i 's/{FILES_TO_INCLUDE}/$(shell echo "$(FILES_SPEC)" | sed 's/\//\\\//g')/g' $(RPM_SPEC_FILE_DEST)
+	sed -i 's/{FILES_TO_INCLUDE}/$(FILES_SPEC_FINAL)/g' $(RPM_SPEC_FILE_DEST)
+	sed -i 's/{NEWLINE}/\n/g' $(RPM_SPEC_FILE_DEST)
 	$(RPM_BUILD_CMD) --define "_rpmdir $(PWD)/$(TOP_DIR)/$(COPY_DIR)/packages" --buildroot $(PWD)/$(RPM_BUILD_ROOT) $(RPM_BUILD_OPTIONS) $(RPM_SPEC_FILE_DEST)
 
 gen_rpmbuild:
 	echo -e "$(BOLD)Generating $(PACKAGE_NAME)_devel package...$(NC)"
-	@mkdir -p $(RPM_BUILD_DIR)/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+	@mkdir -p $(RPM_BUILD_DIR)/BUILD
+	@mkdir -p $(RPM_BUILD_DIR)/BUILDROOT
+	@mkdir -p $(RPM_BUILD_DIR)/RPMS
+	@mkdir -p $(RPM_BUILD_DIR)/SOURCES
+	@mkdir -p $(RPM_BUILD_DIR)/SPECS
+	@mkdir -p $(RPM_BUILD_DIR)/SRPMS
 	@mkdir -p $(RPM_BUILD_ROOT)/$(LIB_INSTALL_DIR)
 	@mkdir -p $(RPM_BUILD_ROOT)/$(INC_INSTALL_DIR)
 	@mkdir -p $(RPM_BUILD_ROOT)/$(INC_INSTALL_DIR)/terminals
