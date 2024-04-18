@@ -25,7 +25,7 @@ jobs:
           pip install lcov-cobertura
       - name: Run build-wrapper
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean coverage
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean coverage -j
       - name: lcov to cobertura
         run: |
           lcov_cobertura $INPUT_LCOV_FILE -b $TARGET -o $OUTPUT_COBERTURA_XML
