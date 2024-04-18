@@ -1,0 +1,28 @@
+name: Generate release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+jobs:
+  compile_and_test:
+    runs-on: ubuntu-latest
+    container: 
+      image: ghcr.io/i2a2/iriocore-docker:v1.0
+    steps:
+    - name: Install alien
+      run: |
+        dnf config-manager --set-enabled crb
+        dnf install -y alien
+
+    - uses: actions/checkout@v3  
+    - name: Generate RPM packages
+      run: | 
+        make package -j
+        ls target/packages/x86_64
+
+    - name: Generate DEB packages
+      run: |
+        cd target/packages/x86_64
+        alien *.rpm
+        ls target/packages/x86_64
