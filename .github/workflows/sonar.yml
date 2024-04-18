@@ -32,8 +32,8 @@ jobs:
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean coverage -j
       - name: lcov to cobertura
         run: |
-          lcov_cobertura $INPUT_LCOV_FILE -b $TARGET -o $OUTPUT_COBERTURA_XML
-          sed -i 's|<source>[^<]*</source>|<source>.</source>|g' $OUTPUT_COBERTURA_XML
+          lcov_cobertura ${{ env.INPUT_LCOV_FILE }} -b ${{ env.BASE_DIR }} -o ${{ env.OUTPUT_COBERTURA_XML }}
+          sed -i 's|<source>[^<]*</source>|<source>.</source>|g' ${{ env.OUTPUT_COBERTURA_XML }}
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
