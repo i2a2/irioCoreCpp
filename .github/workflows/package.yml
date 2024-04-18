@@ -1,12 +1,15 @@
 name: Generate Release
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - "v*.*.*"
+
+env:
+  PACKAGE_DIR: "target/packages/x86_64"
+
 jobs:
-  compile_and_test:
+  package:
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:v1.0
@@ -20,10 +23,16 @@ jobs:
     - name: Generate RPM packages
       run: | 
         make package -j
-        ls target/packages/x86_64
+        ls $PACKAGE_DIR
 
     - name: Generate DEB packages
       run: |
-        cd target/packages/x86_64
+        cd $PACKAGE_DIR
         alien *.rpm
-        ls target/packages/x86_64
+        ls .
+        cd -
+    
+    - name: Generate release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: $PACKAGE_DIR/*
