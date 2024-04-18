@@ -1,7 +1,8 @@
 name: Documentation
 
 on: 
-    workflow_dispatch:
+    release: 
+        types: [published]
 
 jobs:
     generate_and_publish:
@@ -9,6 +10,16 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-            - run: sudo apt install -y doxygen
 
-            - run: make doc
+            - name: Install Dependencies
+              run: sudo apt install -y doxygen graphviz
+
+            - name: Generate Documentation
+              run: make doc
+
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                publish_dir: ./target/doc/irioCore/html
+                full_commit_message: Generated documentation for ${{ github.ref }}
