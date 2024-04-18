@@ -1,39 +1,37 @@
-#include <stdio.h>
-#include <cstring>
-#include <iostream>
-#include <functional>
-#include <algorithm>
+#include "irioDriver.h"
 
-#include "irioInstanceManager.h"
+#include <stdio.h>
+
+#include <algorithm>
+#include <cstring>
+#include <functional>
+#include <iostream>
 
 #include "errorsIrio.h"
-#include "profiles/profileBase.h"
-#include "terminals/terminalsDMADAQ.h"
-
-#include "irioDriver.h"
 #include "irioError.h"
+#include "irioInstanceManager.h"
 #include "irioResourceFinder.h"
 #include "irioUtils.h"
+#include "profiles/profileBase.h"
+#include "terminals/terminalsDMADAQ.h"
 
 using irio::Irio;
 using irio::PROFILE_ID;
 
-using irio::errors::IrioError;
 using irio::errors::BFPParseBitfileError;
-using irio::errors::ResourceNotFoundError;
 using irio::errors::FPGAVIVersionMismatchError;
-using irio::errors::UnsupportedDevProfileError;
-using irio::errors::UnsupportedPlatformError;
+using irio::errors::InitializationTimeoutError;
+using irio::errors::IrioError;
+using irio::errors::ModulesNotOKError;
 using irio::errors::NiFpgaError;
 using irio::errors::NiFpgaErrorDownloadingBitfile;
 using irio::errors::NiFpgaFPGAAlreadyRunning;
+using irio::errors::ResourceNotFoundError;
 using irio::errors::RIODeviceNotFoundError;
 using irio::errors::TerminalNotImplementedError;
 using irio::errors::UnsupportedAICouplingForModule;
-using irio::errors::InitializationTimeoutError;
-using irio::errors::ModulesNotOKError;
-using irio::errors::UnsupportedPlatformError;
 using irio::errors::UnsupportedDevProfileError;
+using irio::errors::UnsupportedPlatformError;
 
 struct DMATtoHostStruct {
 	std::unique_ptr<std::uint16_t> nch;
@@ -42,12 +40,12 @@ struct DMATtoHostStruct {
 	std::unique_ptr<std::uint16_t> blockNWords;
 	std::unique_ptr<std::uint16_t> chIndex;
 };
-std::unordered_map<irioDrv_t*, DMATtoHostStruct> map_DMA;
+std::unordered_map<irioDrv_t *, DMATtoHostStruct> map_DMA;
 
-std::unordered_map<irioDrv_t*, std::unique_ptr<std::uint32_t>> map_sgfref;
+std::unordered_map<irioDrv_t *, std::unique_ptr<std::uint32_t>> map_sgfref;
 
-std::unordered_map<irioDrv_t*, std::unique_ptr<char>> map_projectName;
-std::unordered_map<irioDrv_t*, std::unique_ptr<char>> map_appCallID;
+std::unordered_map<irioDrv_t *, std::unique_ptr<char>> map_projectName;
+std::unordered_map<irioDrv_t *, std::unique_ptr<char>> map_appCallID;
 
 ////////////////////////////////////////////////////
 /// Local functions
@@ -62,11 +60,11 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *DeviceSerialNumber,
 
 	// Device Serial Number
 	snprintf(p_DrvPvt->DeviceSerialNumber, DEVICESERIALNUMBERLENGTH, "%s",
-			DeviceSerialNumber);
+			 DeviceSerialNumber);
 
 	// Device Model
 	snprintf(p_DrvPvt->RIODeviceModel, RIODEVICEMODELLENGTH, "%s",
-			RIODeviceModel);
+			 RIODeviceModel);
 
 	// App Call ID
 	const size_t lenAppCallID = strlen(appCallID);
@@ -88,7 +86,7 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *DeviceSerialNumber,
 
 	// FPGA VI Version
 	snprintf(p_DrvPvt->FPGAVIStringversion, SHORT_CHAR_STRING, "%s",
-			FPGAversion);
+			 FPGAversion);
 
 	// RIO Device.
 	snprintf(p_DrvPvt->fpgaRIO, FPGARIOLENGTH, "RIO");
@@ -161,9 +159,10 @@ void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 			map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->numSG]);
 		const auto auxSGFrefs =
 			irio->getTerminalsSignalGeneration().getVectorSGFrefs();
-		std::copy_n(auxSGFrefs.begin(), p_DrvPvt->numSG, it.first->second.get());
+		std::copy_n(auxSGFrefs.begin(), p_DrvPvt->numSG,
+					it.first->second.get());
 		p_DrvPvt->SGfref = it.first->second.get();
-	} catch(TerminalNotImplementedError&) {
+	} catch (TerminalNotImplementedError &) {
 		p_DrvPvt->numSG = 0;
 	}
 }
@@ -181,7 +180,7 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 
 	const auto profile = irio->getProfileID();
 	int chIndexAccum = 0;
-	for(size_t i = 0; i < maxDMA; ++i) {
+	for (size_t i = 0; i < maxDMA; ++i) {
 		try {
 			it.first->second.nch.get()[i] = getTerminalsDMA(irio).getNCh(i);
 			it.first->second.frameType.get()[i] = static_cast<std::uint8_t>(
@@ -199,7 +198,7 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 				chIndexAccum += it.first->second.nch.get()[i];
 			}
 			numCh++;
-		} catch (ResourceNotFoundError&) {
+		} catch (ResourceNotFoundError &) {
 			it.first->second.nch.get()[i] = 0;
 			it.first->second.frameType.get()[i] = 0;
 			it.first->second.sampleSize.get()[i] = 0;
@@ -221,13 +220,13 @@ int getNum(const Irio *irio, GetTerminalFunc getTerminalFunc,
 		   GetNumFunc getNumFunc) {
 	try {
 		auto terminal = (irio->*getTerminalFunc)();
-        return (terminal.*getNumFunc)();
+		return (terminal.*getNumFunc)();
 	} catch (TerminalNotImplementedError &) {
 		return 0;
 	}
 }
 
-void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus* status) {
+void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus *status) {
 	fillPlatformData(irio, p_DrvPvt);
 
 	p_DrvPvt->Fref = irio->getFref();
@@ -248,9 +247,9 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus* status) {
 								&irio::TerminalsAuxAnalog::getNumAuxAO);
 
 	p_DrvPvt->numAuxAI64 = getNum(irio, &irio::Irio::getTerminalsAuxAnalog,
-								&irio::TerminalsAuxAnalog::getNumAuxAI64);
+								  &irio::TerminalsAuxAnalog::getNumAuxAI64);
 	p_DrvPvt->numAuxAO64 = getNum(irio, &irio::Irio::getTerminalsAuxAnalog,
-								&irio::TerminalsAuxAnalog::getNumAuxAO64);
+								  &irio::TerminalsAuxAnalog::getNumAuxAO64);
 
 	p_DrvPvt->numDI = getNum(irio, &irio::Irio::getTerminalsDigital,
 							 &irio::TerminalsDigital::getNumDI);
@@ -274,7 +273,7 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus* status) {
 		fillCVData(irio, p_DrvPvt, status);
 		fillDMATtoHOST(irio, p_DrvPvt);
 		p_DrvPvt->numDMA = getNum(irio, &irio::Irio::getTerminalsDAQ,
-							 &irio::TerminalsDMADAQ::countDMAs);
+								  &irio::TerminalsDMADAQ::countDMAs);
 		break;
 	case PROFILE_ID::CRIO_IO:
 		fillCVData(irio, p_DrvPvt, status);
@@ -283,7 +282,7 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus* status) {
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
 		fillDMATtoHOST(irio, p_DrvPvt);
 		p_DrvPvt->numDMA = getNum(irio, &irio::Irio::getTerminalsIMAQ,
-							 &irio::TerminalsDMAIMAQ::countDMAs);
+								  &irio::TerminalsDMAIMAQ::countDMAs);
 		break;
 	}
 }
@@ -293,9 +292,10 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus* status) {
 ////////////////////////////////////////////////////
 
 int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
-		const char *RIODeviceModel, const char *projectName,
-		const char *FPGAversion, int verbosity, const char*,
-		const char *bitfileDir, irioDrv_t *p_DrvPvt, TStatus *status) {
+					const char *RIODeviceModel, const char *projectName,
+					const char *FPGAversion, int verbosity, const char *,
+					const char *bitfileDir, irioDrv_t *p_DrvPvt,
+					TStatus *status) {
 	if (!status) {
 		return IRIO_error;
 	}
@@ -304,8 +304,9 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 	initDrvPvt(p_DrvPvt, DeviceSerialNumber, RIODeviceModel, appCallID,
 			   projectName, FPGAversion, verbosity);
 
-	std::string bitfilePath = std::string(bitfileDir) + "/" + STRINGNAME_PREFIX
-	+ std::string(projectName) + STRINGNAME_BITFILEEXT;
+	std::string bitfilePath = std::string(bitfileDir) + "/" +
+							  STRINGNAME_PREFIX + std::string(projectName) +
+							  STRINGNAME_BITFILEEXT;
 
 	status->code = IRIO_success;
 	status->detailCode = Success;
@@ -319,31 +320,31 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		fillDrvPvtData(irioptr, p_DrvPvt, status);
 	} catch (BFPParseBitfileError &e) {
 		irio_mergeStatus(status, BitfileNotFound_Error, p_DrvPvt->verbosity,
-				"%s", e.what());
+						 "%s", e.what());
 	} catch (NiFpgaErrorDownloadingBitfile &e) {
 		irio_mergeStatus(status, BitfileDownload_Error, p_DrvPvt->verbosity,
-				"%s", e.what());
+						 "%s", e.what());
 	} catch (ResourceNotFoundError &e) {
 		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
-				"%s", e.what());
+						 "%s", e.what());
 	} catch (FPGAVIVersionMismatchError &e) {
 		irio_mergeStatus(status, NIRIO_API_Error, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 	} catch (RIODeviceNotFoundError &e) {
 		irio_mergeStatus(status, HardwareNotFound_Error, p_DrvPvt->verbosity,
-				"%s", e.what());
+						 "%s", e.what());
 	} catch (UnsupportedPlatformError &e) {
-		irio_mergeStatus(status, ResourceValueNotValid_Error, p_DrvPvt->verbosity,
-						"%s", e.what());
+		irio_mergeStatus(status, ResourceValueNotValid_Error,
+						 p_DrvPvt->verbosity, "%s", e.what());
 	} catch (UnsupportedDevProfileError &e) {
-		irio_mergeStatus(status, ResourceValueNotValid_Error, p_DrvPvt->verbosity,
-						"%s", e.what());
+		irio_mergeStatus(status, ResourceValueNotValid_Error,
+						 p_DrvPvt->verbosity, "%s", e.what());
 	} catch (IrioError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 	} catch (...) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity,
-				"Unknown exception caught");
+						 "Unknown exception caught");
 	}
 
 	return status->code;
@@ -352,7 +353,7 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
-				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		irio->setCloseAttribute(mode);
 		map_sgfref.erase(p_DrvPvt);
@@ -365,7 +366,7 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 		p_DrvPvt->DMATtoHOSTBlockNWords = nullptr;
 
 		IrioInstanceManager::destroyInstance(p_DrvPvt->DeviceSerialNumber,
-				p_DrvPvt->session);
+											 p_DrvPvt->session);
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
 						 e.what());
@@ -377,38 +378,38 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 }
 
 int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
-		TStatus *status) {
-	static const std::unordered_map<TIRIOCouplingMode,
-		irio::CouplingMode> couplingMap =
-			{ { IRIO_coupling_NULL, irio::CouplingMode::None }, {
-					IRIO_coupling_AC, irio::CouplingMode::AC }, {
-					IRIO_coupling_DC, irio::CouplingMode::DC }, };
+					   TStatus *status) {
+	static const std::unordered_map<TIRIOCouplingMode, irio::CouplingMode>
+		couplingMap = {
+			{IRIO_coupling_NULL, irio::CouplingMode::None},
+			{IRIO_coupling_AC, irio::CouplingMode::AC},
+			{IRIO_coupling_DC, irio::CouplingMode::DC},
+		};
 	const auto it = couplingMap.find(value);
 
 	if (it == couplingMap.end()) {
-		irio_mergeStatus(status, ValueOOB_Warning,
-				p_DrvPvt->verbosity,
-				"Incorrect value for configuring AC/DC coupling mode");
+		irio_mergeStatus(status, ValueOOB_Warning, p_DrvPvt->verbosity,
+						 "Incorrect value for configuring AC/DC coupling mode");
 		return IRIO_warning;
 	}
 
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
-				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		irio->getTerminalsAnalog().setAICouplingMode(it->second);
 		fillCVData(irio, p_DrvPvt, status);
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 		return IRIO_error;
 	} catch (TerminalNotImplementedError &e) {
 		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
-				"%s", e.what());
+						 "%s", e.what());
 		return IRIO_error;
 	} catch (UnsupportedAICouplingForModule &e) {
 		irio_mergeStatus(status, ValueOOB_Warning, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 		return IRIO_warning;
 	}
 
@@ -416,33 +417,33 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 }
 
 int irio_getAICoupling(const irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
-		TStatus *status) {
-	const std::unordered_map<irio::CouplingMode,
-							TIRIOCouplingMode> conversionTable = {
+					   TStatus *status) {
+	const std::unordered_map<irio::CouplingMode, TIRIOCouplingMode>
+		conversionTable = {
 			{irio::CouplingMode::AC, TIRIOCouplingMode::IRIO_coupling_AC},
 			{irio::CouplingMode::DC, TIRIOCouplingMode::IRIO_coupling_DC},
 			{irio::CouplingMode::None, TIRIOCouplingMode::IRIO_coupling_NULL},
-	};
+		};
 	const TIRIOCouplingMode valueNotFound = static_cast<TIRIOCouplingMode>(9);
 
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
-				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		const auto auxCoup = irio->getTerminalsAnalog().getAICouplingMode();
 		const auto it = conversionTable.find(auxCoup);
-		if(it == conversionTable.end()) {
+		if (it == conversionTable.end()) {
 			*value = valueNotFound;
 		} else {
 			*value = it->second;
 		}
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 		return IRIO_error;
 	} catch (TerminalNotImplementedError &e) {
 		irio_mergeStatus(status, ResourceNotFound_Error, p_DrvPvt->verbosity,
-				"%s", e.what());
+						 "%s", e.what());
 		return IRIO_error;
 	}
 
@@ -463,21 +464,23 @@ int irio_getCVDAC(const irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status) {
 	return IRIO_success;
 }
 
-int irio_getMaxAOValue(const irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status) {
+int irio_getMaxAOValue(const irioDrv_t *p_DrvPvt, float *maxAOVal,
+					   TStatus *status) {
 	*maxAOVal = p_DrvPvt->maxAnalogOut;
 
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status) {
+int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal,
+					   TStatus *status) {
 	*minAOVal = p_DrvPvt->minAnalogOut;
 
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getVersion(char *version, TStatus*) {
+int irio_getVersion(char *version, TStatus *) {
 	snprintf(version, sizeof(IRIOVERSION), "%s", IRIOVERSION);
 	return IRIO_success;
 }
@@ -525,13 +528,14 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return IRIO_success;
 }
 
-int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus*) {
+int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *) {
 	*value = p_DrvPvt->fpgaStarted;
 	return IRIO_success;
 }
 
-int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
-		size_t *valueLength, TStatus *status) {
+int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value,
+						  size_t maxLength, size_t *valueLength,
+						  TStatus *status) {
 	if (strlen(p_DrvPvt->FPGAVIStringversion) > maxLength) {
 		*valueLength = maxLength;
 		irio_mergeStatus(status, Read_Resource_Warning, p_DrvPvt->verbosity,
@@ -542,48 +546,48 @@ int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value, size_t maxLeng
 		*valueLength = strlen(p_DrvPvt->FPGAVIStringversion);
 	}
 
-	snprintf(value, *valueLength+1, "%s", p_DrvPvt->FPGAVIStringversion);
+	snprintf(value, *valueLength + 1, "%s", p_DrvPvt->FPGAVIStringversion);
 
 	return IRIO_success;
 }
 
-template<typename T>
+template <typename T>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		T (irio::Irio::*funcGet)() const, const std::string &funcName) {
+			  T (irio::Irio::*funcGet)() const, const std::string &funcName) {
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
-				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		*value = (irio->*funcGet)();
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 		return IRIO_error;
 	} catch (NiFpgaError &e) {
-		irio_mergeStatus(status, Read_NIRIO_Warning,
-				p_DrvPvt->verbosity, "%s read error: ", funcName.c_str(), e.what());
+		irio_mergeStatus(status, Read_NIRIO_Warning, p_DrvPvt->verbosity,
+						 "%s read error: ", funcName.c_str(), e.what());
 		return IRIO_warning;
 	}
 
 	return IRIO_success;
 }
 
-template<typename T>
+template <typename T>
 int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
-		void (irio::Irio::*funcSet)(const T&) const,
-		const std::string &funcName) {
+			  void (irio::Irio::*funcSet)(const T &) const,
+			  const std::string &funcName) {
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
-				p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
 
 		(irio->*funcSet)(value);
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
-				e.what());
+						 e.what());
 		return IRIO_error;
 	} catch (NiFpgaError &e) {
-		irio_mergeStatus(status, Read_NIRIO_Warning,
-				p_DrvPvt->verbosity, "%s set error: ", funcName.c_str(), e.what());
+		irio_mergeStatus(status, Read_NIRIO_Warning, p_DrvPvt->verbosity,
+						 "%s set error: ", funcName.c_str(), e.what());
 		return IRIO_warning;
 	}
 
@@ -591,17 +595,19 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 }
 
 int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
-		TStatus *status) {
-	return getCommon(value, status, p_DrvPvt,
-			&irio::Irio::getDevQualityStatus, "DevQualityStatus");
+							 TStatus *status) {
+	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDevQualityStatus,
+					 "DevQualityStatus");
 }
 
-int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value,
+					TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDevTemp,
-			"DevTemp");
+					 "DevTemp");
 }
 
-int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value,
+					   TStatus *status) {
 	*value = p_DrvPvt->devProfile;
 	status->code = IRIO_success;
 
@@ -610,44 +616,48 @@ int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *statu
 
 int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return setCommon(value, status, p_DrvPvt, &irio::Irio::setDebugMode,
-			"DebugMode");
+					 "DebugMode");
 }
 
-int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value,
+					  TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDebugMode,
-			"DebugMode");
+					 "DebugMode");
 }
 
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return setCommon(value, status, p_DrvPvt, &irio::Irio::setDAQStartStop,
-			"DAQStartStop");
+					 "DAQStartStop");
 }
 
-int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value,
+						 TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDAQStartStop,
-			"DAQStartStop");
+					 "DAQStartStop");
 }
 
 int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
-		TStatus *status) {
+						 TStatus *status) {
 	// TODO: SamplingRate IO Profile
 	return 0;
 }
 
 int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
-		TStatus *status) {
+						 TStatus *status) {
 	// TODO: SamplingRate IO Profile
 	return 0;
 }
 
-int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
+int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value,
+						 TStatus *status) {
 	*value = p_DrvPvt->platform;
 	status->code = IRIO_success;
 
 	return IRIO_success;
 }
 
-int irio_getInitDone(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
+int irio_getInitDone(const irioDrv_t *p_DrvPvt, uint8_t *value,
+					 TStatus *status) {
 	*value = p_DrvPvt->initDone;
 	status->code = IRIO_success;
 
@@ -662,24 +672,23 @@ int irio_getFlexRIOModule(const irioDrv_t *p_DrvPvt, uint32_t *value,
 		status->code = IRIO_success;
 		return IRIO_success;
 	} else {
-		irio_mergeStatus(status, Generic_Warning,
-				p_DrvPvt->verbosity, "The board platform is not FlexRIO");
+		irio_mergeStatus(status, Generic_Warning, p_DrvPvt->verbosity,
+						 "The board platform is not FlexRIO");
 		return IRIO_warning;
 	}
 }
 
 int irio_getcRIOModules(const irioDrv_t *p_DrvPvt, const uint16_t **modules,
 						size_t *numModules, TStatus *status) {
-	if (p_DrvPvt->platform ==
-		static_cast<uint8_t>(irio::PLATFORM_ID::cRIO)) {
+	if (p_DrvPvt->platform == static_cast<uint8_t>(irio::PLATFORM_ID::cRIO)) {
 		*modules = p_DrvPvt->modulescRIO;
 		*numModules = p_DrvPvt->numModulescRIO;
 		status->code = IRIO_success;
 		return IRIO_success;
 	} else {
 		*numModules = 0;
-		irio_mergeStatus(status, Generic_Warning,
-				p_DrvPvt->verbosity, "The board platform is not cRIO");
+		irio_mergeStatus(status, Generic_Warning, p_DrvPvt->verbosity,
+						 "The board platform is not cRIO");
 		return IRIO_warning;
 	}
 }
@@ -692,8 +701,8 @@ int irio_getMaxNumberOfDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfGPUDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
-							   TStatus *status) {
+int irio_getMaxNumberOfGPUDMAs(const irioDrv_t *p_DrvPvt,
+							   uint16_t *maxNumGPUDMAs, TStatus *status) {
 	*maxNumGPUDMAs = p_DrvPvt->max_dmas_gpu;
 	status->code = IRIO_success;
 
