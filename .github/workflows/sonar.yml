@@ -41,4 +41,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner -Dsonar.organization="${{ env.SONAR_ORGANIZATION }}" -Dsonar.projectKey="${{ env.SONAR_PROJECT_KEY }}" -Dsonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.sources="${{ env.SOURCES }}" -Dsonar.exclusions="${{ env.EXCLUSIONS }}" -Dsonar.scm.exclusions.disabled=true -Dsonar.cfamily.cobertura.reportPaths=coverage/coverage.xml" -Dsonar.projectBaseDir="${{ env.BASE_DIR }}
+          sonar-scanner -Dsonar.organization="${{ env.SONAR_ORGANIZATION }}" -Dsonar.projectKey="${{ env.SONAR_PROJECT_KEY }}" -Dsonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.sources="${{ env.SOURCES }}" -Dsonar.exclusions="${{ env.EXCLUSIONS }}" -Dsonar.scm.exclusions.disabled=true -Dsonar.cfamily.cobertura.reportPaths=coverage/coverage.xml" -Dsonar.projectBaseDir="${{ env.BASE_DIR }}"
