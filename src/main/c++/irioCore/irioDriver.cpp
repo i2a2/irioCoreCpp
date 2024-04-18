@@ -415,7 +415,7 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 	return IRIO_success;
 }
 
-int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
+int irio_getAICoupling(const irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		TStatus *status) {
 	const std::unordered_map<irio::CouplingMode,
 							TIRIOCouplingMode> conversionTable = {
@@ -449,28 +449,28 @@ int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 	return IRIO_success;
 }
 
-int irio_getCVADC(irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status) {
+int irio_getCVADC(const irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status) {
 	*cvadc = p_DrvPvt->CVADC;
 
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getCVDAC(irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status) {
+int irio_getCVDAC(const irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status) {
 	*cvdac = p_DrvPvt->CVDAC;
 
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getMaxAOValue(irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status) {
+int irio_getMaxAOValue(const irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status) {
 	*maxAOVal = p_DrvPvt->maxAnalogOut;
 
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getMinAOValue(irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status) {
+int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status) {
 	*minAOVal = p_DrvPvt->minAnalogOut;
 
 	status->code = IRIO_success;
@@ -525,12 +525,12 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return IRIO_success;
 }
 
-int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, TStatus*) {
+int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus*) {
 	*value = p_DrvPvt->fpgaStarted;
 	return IRIO_success;
 }
 
-int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
+int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 		size_t *valueLength, TStatus *status) {
 	if (strlen(p_DrvPvt->FPGAVIStringversion) > maxLength) {
 		*valueLength = maxLength;
@@ -590,18 +590,18 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 	return IRIO_success;
 }
 
-int irio_getDevQualityStatus(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status) {
 	return getCommon(value, status, p_DrvPvt,
 			&irio::Irio::getDevQualityStatus, "DevQualityStatus");
 }
 
-int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDevTemp,
 			"DevTemp");
 }
 
-int irio_getDevProfile(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	*value = p_DrvPvt->devProfile;
 	status->code = IRIO_success;
 
@@ -613,7 +613,7 @@ int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 			"DebugMode");
 }
 
-int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDebugMode,
 			"DebugMode");
 }
@@ -623,7 +623,7 @@ int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 			"DAQStartStop");
 }
 
-int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDAQStartStop,
 			"DAQStartStop");
 }
@@ -634,27 +634,27 @@ int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return 0;
 }
 
-int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	// TODO: SamplingRate IO Profile
 	return 0;
 }
 
-int irio_getPlatformType(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
+int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
 	*value = p_DrvPvt->platform;
 	status->code = IRIO_success;
 
 	return IRIO_success;
 }
 
-int irio_getInitDone(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
+int irio_getInitDone(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status) {
 	*value = p_DrvPvt->initDone;
 	status->code = IRIO_success;
 
 	return IRIO_success;
 }
 
-int irio_getFlexRIOModule(irioDrv_t *p_DrvPvt, uint32_t *value,
+int irio_getFlexRIOModule(const irioDrv_t *p_DrvPvt, uint32_t *value,
 						  TStatus *status) {
 	if (p_DrvPvt->platform ==
 		static_cast<uint8_t>(irio::PLATFORM_ID::FlexRIO)) {
@@ -668,7 +668,7 @@ int irio_getFlexRIOModule(irioDrv_t *p_DrvPvt, uint32_t *value,
 	}
 }
 
-int irio_getcRIOModules(irioDrv_t *p_DrvPvt, uint16_t **modules,
+int irio_getcRIOModules(const irioDrv_t *p_DrvPvt, const uint16_t **modules,
 						size_t *numModules, TStatus *status) {
 	if (p_DrvPvt->platform ==
 		static_cast<uint8_t>(irio::PLATFORM_ID::cRIO)) {
@@ -684,7 +684,7 @@ int irio_getcRIOModules(irioDrv_t *p_DrvPvt, uint16_t **modules,
 	}
 }
 
-int irio_getMaxNumberOfDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
+int irio_getMaxNumberOfDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
 							TStatus *status) {
 	*maxNumDMAs = p_DrvPvt->max_dmas;
 	status->code = IRIO_success;
@@ -692,7 +692,7 @@ int irio_getMaxNumberOfDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfGPUDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
+int irio_getMaxNumberOfGPUDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
 							   TStatus *status) {
 	*maxNumGPUDMAs = p_DrvPvt->max_dmas_gpu;
 	status->code = IRIO_success;
@@ -700,7 +700,7 @@ int irio_getMaxNumberOfGPUDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfAI(irioDrv_t *p_DrvPvt, uint16_t *maxAI,
+int irio_getMaxNumberOfAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAI,
 						  TStatus *status) {
 	*maxAI = p_DrvPvt->max_analoginputs;
 	status->code = IRIO_success;
@@ -708,7 +708,7 @@ int irio_getMaxNumberOfAI(irioDrv_t *p_DrvPvt, uint16_t *maxAI,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfAO(irioDrv_t *p_DrvPvt, uint16_t *maxAO,
+int irio_getMaxNumberOfAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAO,
 						  TStatus *status) {
 	*maxAO = p_DrvPvt->max_analogoutputs;
 	status->code = IRIO_success;
@@ -716,7 +716,7 @@ int irio_getMaxNumberOfAO(irioDrv_t *p_DrvPvt, uint16_t *maxAO,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfDI(irioDrv_t *p_DrvPvt, uint16_t *maxDI,
+int irio_getMaxNumberOfDI(const irioDrv_t *p_DrvPvt, uint16_t *maxDI,
 						  TStatus *status) {
 	*maxDI = p_DrvPvt->max_digitalsinputs;
 	status->code = IRIO_success;
@@ -724,7 +724,7 @@ int irio_getMaxNumberOfDI(irioDrv_t *p_DrvPvt, uint16_t *maxDI,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfDO(irioDrv_t *p_DrvPvt, uint16_t *maxDO,
+int irio_getMaxNumberOfDO(const irioDrv_t *p_DrvPvt, uint16_t *maxDO,
 						  TStatus *status) {
 	*maxDO = p_DrvPvt->max_digitalsoutputs;
 	status->code = IRIO_success;
@@ -732,7 +732,7 @@ int irio_getMaxNumberOfDO(irioDrv_t *p_DrvPvt, uint16_t *maxDO,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfAuxAI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
+int irio_getMaxNumberOfAuxAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
 							 TStatus *status) {
 	*maxAuxAI = p_DrvPvt->max_auxanaloginputs;
 	status->code = IRIO_success;
@@ -740,7 +740,7 @@ int irio_getMaxNumberOfAuxAI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfAuxAO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
+int irio_getMaxNumberOfAuxAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
 							 TStatus *status) {
 	*maxAuxAO = p_DrvPvt->max_auxanalogoutputs;
 	status->code = IRIO_success;
@@ -748,7 +748,7 @@ int irio_getMaxNumberOfAuxAO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfAuxDI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
+int irio_getMaxNumberOfAuxDI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
 							 TStatus *status) {
 	*maxAuxDI = p_DrvPvt->max_auxdigitalsinputs;
 	status->code = IRIO_success;
@@ -756,7 +756,7 @@ int irio_getMaxNumberOfAuxDI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfAuxDO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
+int irio_getMaxNumberOfAuxDO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
 							 TStatus *status) {
 	*maxAuxDO = p_DrvPvt->max_auxdigitalsoutputs;
 	status->code = IRIO_success;
@@ -764,7 +764,7 @@ int irio_getMaxNumberOfAuxDO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
 	return IRIO_success;
 }
 
-int irio_getMaxNumberOfSG(irioDrv_t *p_DrvPvt, uint16_t *maxSG,
+int irio_getMaxNumberOfSG(const irioDrv_t *p_DrvPvt, uint16_t *maxSG,
 						  TStatus *status) {
 	*maxSG = p_DrvPvt->max_numberofSG;
 	status->code = IRIO_success;
@@ -772,7 +772,7 @@ int irio_getMaxNumberOfSG(irioDrv_t *p_DrvPvt, uint16_t *maxSG,
 	return IRIO_success;
 }
 
-int irio_getMaxSamplingRate(irioDrv_t *p_DrvPvt, float *maxSamplingRate,
+int irio_getMaxSamplingRate(const irioDrv_t *p_DrvPvt, float *maxSamplingRate,
 							TStatus *status) {
 	*maxSamplingRate = p_DrvPvt->maxSamplingRate;
 	status->code = IRIO_success;
@@ -780,7 +780,7 @@ int irio_getMaxSamplingRate(irioDrv_t *p_DrvPvt, float *maxSamplingRate,
 	return IRIO_success;
 }
 
-int irio_getMinSamplingRate(irioDrv_t *p_DrvPvt, float *minSamplingRate,
+int irio_getMinSamplingRate(const irioDrv_t *p_DrvPvt, float *minSamplingRate,
 							TStatus *status) {
 	*minSamplingRate = p_DrvPvt->minSamplingRate;
 	status->code = IRIO_success;

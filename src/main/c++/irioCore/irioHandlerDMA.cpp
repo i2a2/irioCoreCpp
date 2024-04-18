@@ -68,7 +68,7 @@ int irio_cleanDMATtoHost(irioDrv_t *p_DrvPvt, int n, uint64_t*,
 	return ret;
 }
 
-int irio_getDMATtoHostOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getDMATtoHostOverflow(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status) {
 	const auto f = [value, p_DrvPvt] {
 		*value = getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
@@ -78,7 +78,7 @@ int irio_getDMATtoHostOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getDMATtoHostSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
@@ -98,7 +98,7 @@ int irio_setDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getDMATtoHostEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
@@ -133,7 +133,7 @@ size_t getElementsToRead(const irio::FrameType &frameType,
 	return elementsToRead;
 }
 
-int irio_getDMATtoHOSTBlockNWords(irioDrv_t *p_DrvPvt, uint16_t *Nwords,
+int irio_getDMATtoHOSTBlockNWords(const irioDrv_t *p_DrvPvt, uint16_t *Nwords,
 		TStatus *status) {
 	const auto f = [Nwords, p_DrvPvt] {
 		*Nwords = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
@@ -143,7 +143,7 @@ int irio_getDMATtoHOSTBlockNWords(irioDrv_t *p_DrvPvt, uint16_t *Nwords,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATtoHOSTNCh(irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status) {
+int irio_getDMATtoHOSTNCh(const irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status) {
 	const auto f = [NCh, p_DrvPvt] {
 		*NCh = getTerminalsDMA(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).getNCh(0);
@@ -152,7 +152,7 @@ int irio_getDMATtoHOSTNCh(irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATtoHostData(irioDrv_t *p_DrvPvt, int NBlocks, int n,
+int irio_getDMATtoHostData(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
 		uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, NBlocks, data, elementsRead, p_DrvPvt] {
 		const auto term = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
@@ -168,7 +168,7 @@ int irio_getDMATtoHostData(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
+int irio_getDMATtoHostData_timeout(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
 		uint64_t *data, int *elementsRead, uint32_t timeout, TStatus *status) {
 	const auto f = [n, NBlocks, data, timeout, elementsRead, p_DrvPvt] {
 		const auto term = getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber,
@@ -190,7 +190,7 @@ int irio_getDMATtoHostData_timeout(irioDrv_t *p_DrvPvt, int NBlocks, int n,
 	}
 }
 
-int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
+int irio_getDMATtoHostImage(const irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, imageSize, data, elementsRead, p_DrvPvt] {
 		*elementsRead =
@@ -201,7 +201,7 @@ int irio_getDMATtoHostImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
+int irio_getDMATTtoHostFrameType(const irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *frameType, TStatus *status) {
 	const auto f = [n, frameType, p_DrvPvt] {
 		*frameType = static_cast<std::uint8_t>(
@@ -214,7 +214,7 @@ int irio_getDMATTtoHostFrameType(irioDrv_t *p_DrvPvt, int n,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
+int irio_getDMATTtoHostSampleSize(const irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *sampleSize, TStatus *status) {
 	const auto f = [n, sampleSize, p_DrvPvt] {
 		*sampleSize = IrioInstanceManager::getInstance(
@@ -226,7 +226,7 @@ int irio_getDMATTtoHostSampleSize(irioDrv_t *p_DrvPvt, int n,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getNumDMA(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumDMA(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numDMA;
 	status->code = IRIO_success;
 	return IRIO_success;

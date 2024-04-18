@@ -3,7 +3,7 @@
 #include "irioError.h"
 #include "irioUtils.h"
 
-int irio_getSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGSignalType(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsSG(p_DrvPvt->DeviceSerialNumber,
@@ -23,7 +23,7 @@ int irio_setSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGFreq(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsSG(p_DrvPvt->DeviceSerialNumber,
@@ -42,7 +42,7 @@ int irio_setSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGPhase(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGPhase(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsSG(p_DrvPvt->DeviceSerialNumber,
@@ -62,7 +62,7 @@ int irio_setSGPhase(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGAmp(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
+int irio_getSGAmp(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsSG(p_DrvPvt->DeviceSerialNumber,
 					p_DrvPvt->session).getSGAmp(n);
@@ -80,7 +80,7 @@ int irio_setSGAmp(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGUpdateRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsSG(p_DrvPvt->DeviceSerialNumber,
@@ -100,7 +100,7 @@ int irio_setSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGFref(irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
+int irio_getSGFref(const irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
 		TStatus *status) {
 	const auto f = [n, SGFref, p_DrvPvt] {
 		*SGFref = getTerminalsSG(p_DrvPvt->DeviceSerialNumber,
@@ -110,7 +110,7 @@ int irio_getSGFref(irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getFref(irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status) {
+int irio_getFref(const irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status) {
 	const auto f = [Fref, p_DrvPvt] {
 		*Fref = IrioInstanceManager::getInstance(
 				p_DrvPvt->DeviceSerialNumber,
@@ -120,7 +120,7 @@ int irio_getFref(irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status) {
+int irio_getSGCVDAC(const irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status) {
 	const auto f = [SGCVDAC, p_DrvPvt] {
 		*SGCVDAC = IrioInstanceManager::getInstance(
 					p_DrvPvt->DeviceSerialNumber,
@@ -131,7 +131,7 @@ int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status) {
+int irio_getSGCVADC(const irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status) {
 	const auto f = [SGCVADC, p_DrvPvt] {
 		*SGCVADC = IrioInstanceManager::getInstance(
 					p_DrvPvt->DeviceSerialNumber,
@@ -142,7 +142,7 @@ int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getNumSG(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumSG(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numSG;
 	status->code = IRIO_success;
 	return IRIO_success;

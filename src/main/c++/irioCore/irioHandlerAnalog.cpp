@@ -5,7 +5,7 @@
 using irio::errors::ResourceNotFoundError;
 using irio::errors::NiFpgaError;
 
-int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
+int irio_getAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAI(n);
@@ -14,7 +14,7 @@ int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
+int irio_getAuxAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAuxAI(n);
@@ -23,7 +23,7 @@ int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
+int irio_getAuxAI_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
@@ -33,7 +33,7 @@ int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
+int irio_getAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAO(n);
@@ -42,7 +42,7 @@ int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
+int irio_getAuxAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
 				p_DrvPvt->session).getAuxAO(n);
@@ -51,7 +51,7 @@ int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status) {
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
+int irio_getAuxAO_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAuxAnalog(p_DrvPvt->DeviceSerialNumber,
@@ -61,7 +61,7 @@ int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getAOEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		*value = getTerminalsAnalog(p_DrvPvt->DeviceSerialNumber,
@@ -109,37 +109,37 @@ int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getNumAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numAI;
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getNumAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numAO;
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getNumAuxAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumAuxAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numAuxAI;
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getNumAuxAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumAuxAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numAuxAO;
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getNumAuxAI64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumAuxAI64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numAuxAI64;
 	status->code = IRIO_success;
 	return IRIO_success;
 }
 
-int irio_getNumAuxAO64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
+int irio_getNumAuxAO64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status) {
 	*value = p_DrvPvt->numAuxAI64;
 	status->code = IRIO_success;
 	return IRIO_success;

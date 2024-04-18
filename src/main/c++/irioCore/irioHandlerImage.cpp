@@ -68,7 +68,7 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 }
 
 // Unsafe code. Maintaned for compatibility with epics-irio
-int irio_getCLuart(irioDrv_t *p_DrvPvt, char *data, int *msg_size,
+int irio_getCLuart(const irioDrv_t *p_DrvPvt, char *data, int *msg_size,
 				   TStatus *status) {
 	const auto f = [p_DrvPvt, data, msg_size] {
 		auto msg =
@@ -83,7 +83,7 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, char *data, int *msg_size,
     return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getCLuartWithBufferSize(irioDrv_t *p_DrvPvt, int data_size, char *data,
+int irio_getCLuartWithBufferSize(const irioDrv_t *p_DrvPvt, int data_size, char *data,
 				   int *msg_size, TStatus *status) {
 	const auto f = [p_DrvPvt, data_size, data, msg_size] {
 		auto msg =
@@ -99,7 +99,7 @@ int irio_getCLuartWithBufferSize(irioDrv_t *p_DrvPvt, int data_size, char *data,
     return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
+int irio_getUARTBaudRate(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
 		auto aux =
 			getTerminalsIMAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
@@ -142,7 +142,7 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTBreakIndicator(const irioDrv_t *p_DrvPvt, int32_t *value,
 							   TStatus *status) {
     const auto f = [p_DrvPvt, value] {
 		*value =
@@ -153,7 +153,7 @@ int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
     return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getUARTFramingError(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTFramingError(const irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
 		*value =
@@ -164,12 +164,12 @@ int irio_getUARTFramingError(irioDrv_t *p_DrvPvt, int32_t *value,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
-int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTFrammingError(const irioDrv_t *p_DrvPvt, int32_t *value,
 							  TStatus *status) {
 	return irio_getUARTFramingError(p_DrvPvt, value, status);
 }
 
-int irio_getUARTOverrunError(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTOverrunError(const irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	const auto f = [p_DrvPvt, value] {
 		*value =

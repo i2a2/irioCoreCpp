@@ -49,7 +49,7 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read an auxiliary analog input
@@ -63,7 +63,7 @@ int irio_getAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getAuxAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read a 64 bits auxiliary analog input
@@ -77,7 +77,7 @@ int irio_getAuxAI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
+int irio_getAuxAI_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status);
 
 /**
@@ -92,7 +92,7 @@ int irio_getAuxAI_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write an analog output
@@ -120,7 +120,7 @@ int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getAOEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 /**
@@ -150,7 +150,7 @@ int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getAuxAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read a 64 bits auxiliary analog output
@@ -164,7 +164,7 @@ int irio_getAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t *value,
+int irio_getAuxAO_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status);
 
 /**
@@ -205,7 +205,7 @@ int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of analog outputs found in the FPGA
@@ -216,7 +216,7 @@ int irio_getNumAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of aux analog inputs found in the FPGA
@@ -227,7 +227,7 @@ int irio_getNumAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAuxAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAuxAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of aux analog outputs found in the FPGA
@@ -238,7 +238,7 @@ int irio_getNumAuxAI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAuxAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAuxAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of aux analog inputs 64 bits found in the FPGA
@@ -249,7 +249,7 @@ int irio_getNumAuxAO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAuxAI64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAuxAI64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of aux analog outputs 64 bits found in the FPGA
@@ -260,7 +260,7 @@ int irio_getNumAuxAI64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAuxAO64(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAuxAO64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 #ifdef __cplusplus
 }

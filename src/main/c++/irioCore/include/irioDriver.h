@@ -125,7 +125,7 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
+int irio_getAICoupling(const irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		TStatus *status);
 
 /**
@@ -168,7 +168,7 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
+int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Read the FPGA VI Version
@@ -184,7 +184,7 @@ int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
+int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 		size_t *valueLength, TStatus *status);
 
 /**
@@ -197,7 +197,7 @@ int irio_getFPGAVIVersion(irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDevQualityStatus(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
 
 /**
@@ -210,7 +210,7 @@ int irio_getDevQualityStatus(irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
+int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Read Device Acquisition Profile
@@ -222,7 +222,7 @@ int irio_getDevTemp(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDevProfile(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
+int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Set Debug Mode
@@ -246,7 +246,7 @@ int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDebugMode(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
+int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Set Acquisition status
@@ -270,7 +270,7 @@ int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDAQStartStop(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
+int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Set Sampling Rate
@@ -299,7 +299,7 @@ int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 
@@ -311,7 +311,7 @@ int irio_getSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[out] status   Warning and error messages produced during the execution of this call will be added here.
  * @return         \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getPlatformType(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
+int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
 
 /**
  * Indicates whether the FPGA has been initialized properly or not
@@ -321,7 +321,7 @@ int irio_getPlatformType(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getInitDone(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
+int irio_getInitDone(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
 
 /**
  * Reads module connected to FlexRIO board.
@@ -333,7 +333,7 @@ int irio_getInitDone(irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getFlexRIOModule(irioDrv_t *p_DrvPvt, uint32_t *value,
+int irio_getFlexRIOModule(const irioDrv_t *p_DrvPvt, uint32_t *value,
 						  TStatus *status);
 
 /**
@@ -347,7 +347,7 @@ int irio_getFlexRIOModule(irioDrv_t *p_DrvPvt, uint32_t *value,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getcRIOModules(irioDrv_t *p_DrvPvt, uint16_t **modules,
+int irio_getcRIOModules(const irioDrv_t *p_DrvPvt, const uint16_t **modules,
 						size_t *numModules, TStatus *status);
 
 /**
@@ -358,7 +358,7 @@ int irio_getcRIOModules(irioDrv_t *p_DrvPvt, uint16_t **modules,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
+int irio_getMaxNumberOfDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
 							TStatus *status);
 /**
  * Reads the maximum number of GPU DMAs supported by the platform
@@ -368,7 +368,7 @@ int irio_getMaxNumberOfDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfGPUDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
+int irio_getMaxNumberOfGPUDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
 							   TStatus *status);
 
 /**
@@ -379,7 +379,7 @@ int irio_getMaxNumberOfGPUDMAs(irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfAI(irioDrv_t *p_DrvPvt, uint16_t *maxAI,
+int irio_getMaxNumberOfAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAI,
 						  TStatus *status);
 /**
  * Reads the maximum number of analog output supported by the platform
@@ -389,7 +389,7 @@ int irio_getMaxNumberOfAI(irioDrv_t *p_DrvPvt, uint16_t *maxAI,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfAO(irioDrv_t *p_DrvPvt, uint16_t *maxAO,
+int irio_getMaxNumberOfAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAO,
 						  TStatus *status);
 /**
  * Reads the maximum number of digital inputs supported by the platform
@@ -399,7 +399,7 @@ int irio_getMaxNumberOfAO(irioDrv_t *p_DrvPvt, uint16_t *maxAO,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfDI(irioDrv_t *p_DrvPvt, uint16_t *maxDI,
+int irio_getMaxNumberOfDI(const irioDrv_t *p_DrvPvt, uint16_t *maxDI,
 						  TStatus *status);
 /**
  * Reads the maximum number of digital output supported by the platform
@@ -409,7 +409,7 @@ int irio_getMaxNumberOfDI(irioDrv_t *p_DrvPvt, uint16_t *maxDI,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfDO(irioDrv_t *p_DrvPvt, uint16_t *maxDO,
+int irio_getMaxNumberOfDO(const irioDrv_t *p_DrvPvt, uint16_t *maxDO,
 						  TStatus *status);
 
 /**
@@ -420,7 +420,7 @@ int irio_getMaxNumberOfDO(irioDrv_t *p_DrvPvt, uint16_t *maxDO,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfAuxAI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
+int irio_getMaxNumberOfAuxAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
 							 TStatus *status);
 
 /**
@@ -431,7 +431,7 @@ int irio_getMaxNumberOfAuxAI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfAuxAO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
+int irio_getMaxNumberOfAuxAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
 							 TStatus *status);
 
 /**
@@ -442,7 +442,7 @@ int irio_getMaxNumberOfAuxAO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfAuxDI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
+int irio_getMaxNumberOfAuxDI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
 							 TStatus *status);
 
 /**
@@ -453,7 +453,7 @@ int irio_getMaxNumberOfAuxDI(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfAuxDO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
+int irio_getMaxNumberOfAuxDO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
 							 TStatus *status);
 
 /**
@@ -464,7 +464,7 @@ int irio_getMaxNumberOfAuxDO(irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxNumberOfSG(irioDrv_t *p_DrvPvt, uint16_t *maxSG,
+int irio_getMaxNumberOfSG(const irioDrv_t *p_DrvPvt, uint16_t *maxSG,
 						  TStatus *status);
 
 
@@ -476,7 +476,7 @@ int irio_getMaxNumberOfSG(irioDrv_t *p_DrvPvt, uint16_t *maxSG,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getCVADC(irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status);
+int irio_getCVADC(const irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status);
 
 /**
  * Reads the conversion from Volts for analog outputs
@@ -486,7 +486,7 @@ int irio_getCVADC(irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getCVDAC(irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status);
+int irio_getCVDAC(const irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status);
 
 /**
  * Reads the maximum value to be written in an analog output
@@ -496,7 +496,7 @@ int irio_getCVDAC(irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxAOValue(irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status);
+int irio_getMaxAOValue(const irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status);
 
 /**
  * Reads the minimum value to be written in an analog output
@@ -506,7 +506,7 @@ int irio_getMaxAOValue(irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMinAOValue(irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status);
+int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status);
 
 /**
  * Reads the maximum sampling rate supported by the FPGA
@@ -516,7 +516,7 @@ int irio_getMinAOValue(irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMaxSamplingRate(irioDrv_t *p_DrvPvt, float *maxSamplingRate, TStatus *status);
+int irio_getMaxSamplingRate(const irioDrv_t *p_DrvPvt, float *maxSamplingRate, TStatus *status);
 
 /**
  * Reads the minimum sampling rate supported by the FPGA
@@ -526,7 +526,7 @@ int irio_getMaxSamplingRate(irioDrv_t *p_DrvPvt, float *maxSamplingRate, TStatus
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getMinSamplingRate(irioDrv_t *p_DrvPvt, float *minSamplingRate, TStatus *status);
+int irio_getMinSamplingRate(const irioDrv_t *p_DrvPvt, float *minSamplingRate, TStatus *status);
 
 #ifdef __cplusplus
 }

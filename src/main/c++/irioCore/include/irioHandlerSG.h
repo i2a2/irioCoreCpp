@@ -49,7 +49,7 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGSignalType(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 /**
@@ -79,7 +79,7 @@ int irio_setSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getSGFreq(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write signal generator frequency
@@ -107,7 +107,7 @@ int irio_setSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGPhase(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGPhase(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 /**
@@ -136,7 +136,7 @@ int irio_setSGPhase(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGAmp(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getSGAmp(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write signal generator amplitude
@@ -164,7 +164,7 @@ int irio_setSGAmp(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getSGUpdateRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 /**
@@ -191,7 +191,7 @@ int irio_setSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGFref(irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
+int irio_getSGFref(const irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
 		TStatus *status);
 
 /**
@@ -202,7 +202,7 @@ int irio_getSGFref(irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getFref(irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status);
+int irio_getFref(const irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status);
 
 /**
  * Reads the value after conversion from Volts for analog outputs
@@ -212,7 +212,7 @@ int irio_getFref(irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status);
+int irio_getSGCVDAC(const irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status);
 
 /**
  * Reads the value after conversion to Volts of analog inputs
@@ -222,7 +222,7 @@ int irio_getSGCVDAC(irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status);
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status);
+int irio_getSGCVADC(const irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status);
 
 /**
  * Returns the number of signal generators found in the FPGA
@@ -233,7 +233,7 @@ int irio_getSGCVADC(irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumSG(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumSG(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 
 #ifdef __cplusplus
