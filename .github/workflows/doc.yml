@@ -13,10 +13,11 @@ jobs:
             - name: Install Dependencies
               run: sudo apt install -y doxygen graphviz
 
+            - name: Generate Documentation
+              run: make doc
+
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./target/doc/html
-
-            - run: make doc
