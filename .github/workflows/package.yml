@@ -1,7 +1,6 @@
 name: Generate Release
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - "v*.*.*"
@@ -31,3 +30,9 @@ jobs:
         cd $PACKAGE_DIR
         alien *.rpm
         ls .
+        cd -
+    
+    - name: Generate release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: $PACKAGE_DIR/*
