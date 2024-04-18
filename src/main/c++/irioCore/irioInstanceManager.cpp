@@ -27,7 +27,7 @@ std::pair<irio::Irio*, std::uint32_t> IrioInstanceManager::createInstance(
 	                                  std::forward_as_tuple(RIOSerialNumber),
 	                                  std::forward_as_tuple()).first->second;
 
-	std::lock_guard<std::mutex>(mngDev->mutex);
+	std::lock_guard<std::mutex> mtx(mngDev->mutex);
 	auto it = mngDev->mapSessions.emplace(id, std::move(irioptr)).first;
 	return std::make_pair(it->second.get(), id);
 }
@@ -37,7 +37,7 @@ irio::Irio* IrioInstanceManager::getInstance(
 		const std::uint32_t session) {
 	try {
 		const auto mngDev = &mapDevices.at(RIOSerialNumber);
-		std::lock_guard<std::mutex>(mngDev->mutex);
+		std::lock_guard<std::mutex> mtx(mngDev->mutex);
 		return mngDev->mapSessions.at(session).get();
 	} catch(std::out_of_range&) {
 		throw IrioNotInitializedError();
@@ -49,7 +49,7 @@ void IrioInstanceManager::destroyInstance(
 		const std::uint32_t session) {
 	try {
 		const auto mngDev = &mapDevices.at(RIOSerialNumber);
-		std::lock_guard<std::mutex>(mngDev->mutex);
+		std::lock_guard<std::mutex> mtx(mngDev->mutex);
 		mngDev->mapSessions.erase(session);
 	} catch(std::out_of_range&) {
 		throw IrioNotInitializedError();
