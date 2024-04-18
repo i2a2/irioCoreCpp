@@ -1,0 +1,38 @@
+name: SonarCloud
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    container: 
+      image: ghcr.io/i2a2/iriocore-docker:v1.0
+    env:
+      BUILD_WRAPPER_OUT_DIR: bw-output # Directory where build-wrapper output will be placed
+      BASE_DIR: ./target  
+      INPUT_LCOV_FILE: $BASE_DIR/coverage/coverage.info
+      OUTPUT_COBERTURA_XML: $BASE_DIR/coverage/coverage.xml
+      SOURCES: "main/c++/bfp,main/c++/irio_v2_cpp"
+      EXCLUSIONS: "*/NiFpga_CD/**"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Install sonar-scanner and build-wrapper
+        uses: SonarSource/sonarcloud-github-c-cpp@v2
+      - name: Install lcov-cobertura
+        run: |
+          pip install lcov-cobertura
+      - name: Run build-wrapper
+        run: |
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean coverage
+      - name: lcov to cobertura
+        run: |
+          lcov_cobertura $INPUT_LCOV_FILE -b $TARGET -o $OUTPUT_COBERTURA_XML
+          sed -i 's|<source>[^<]*</source>|<source>.</source>|g' $OUTPUT_COBERTURA_XML
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner -Dsonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.sources="${{ env.SOURCES }}" -Dsonar.exclusions="${{ env.EXCLUSIONS }}" -Dsonar.scm.exclusions.disabled=true -Dsonar.projectBaseDir="${{ env.BASE_DIR }} -Dsonar.cfamily.cobertura.reportPaths=coverage/coverage.xml"
