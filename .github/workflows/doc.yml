@@ -2,7 +2,7 @@ name: Documentation
 
 on: 
     release: 
-        types: [released]
+        types: [created]
 
 jobs:
     generate_and_publish:
