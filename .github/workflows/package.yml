@@ -26,4 +26,4 @@ jobs:
       run: |
         cd target/packages/x86_64
         alien *.rpm
-        ls target/packages/x86_64
+        ls .
