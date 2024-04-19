@@ -34,18 +34,18 @@ jobs:
         run: |
           lcov_cobertura ${{ env.INPUT_LCOV_FILE }} -b ${{ env.COVERAGE_BASE_DIR }} -o ${{ env.OUTPUT_COBERTURA_XML }}
           sed -i 's|<source>[^<]*</source>|<source>.</source>|g' ${{ env.OUTPUT_COBERTURA_XML }}
-      - name: Prev sonar-scanner if not main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: github.ref_name != 'main'
-        run: |
-          git checkout main
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.branch.name="${{ github.ref_name }}"
-          git checkout ${{ github.ref }}
+      # - name: Prev sonar-scanner if not main
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   if: github.ref_name != 'main'
+      #   run: |
+      #     git checkout main
+      #     sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.branch.name="${{ github.ref_name }}"
+      #     git checkout ${{ github.ref }}
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.qualitygate.wait=true -Dsonar.branch.name="${{ github.ref_name }}"
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.qualitygate.wait=true -Dsonar.branch.name="${{ github.ref_name }}" -Dsonar.branch.name="main"
