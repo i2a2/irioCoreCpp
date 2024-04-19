@@ -9,7 +9,12 @@ env:
   PACKAGE_DIR: "target/packages/x86_64"
 
 jobs:
+  Sonar:
+    uses: ./.github/workflows/sonar.yml
+    secrets: inherit
+
   package:
+    needs: Sonar
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:v1.0
@@ -36,3 +41,8 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: ${{ env.PACKAGE_DIR }}/*
+
+  Documentation:
+    uses: ./.github/workflows/doc.yml
+    secrets: inherit
+    needs: package

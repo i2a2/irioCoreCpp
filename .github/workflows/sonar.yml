@@ -1,5 +1,6 @@
 name: SonarCloud
 on:
+  workflow_call: 
   workflow_dispatch:
 jobs:
   build:
@@ -10,12 +11,9 @@ jobs:
     env:
       BUILD_WRAPPER_OUT_DIR: bw-output # Directory where build-wrapper output will be placed
       BASE_DIR: ./target
+      COVERAGE_BASE_DIR: $BASE_DIR/main/c++
       INPUT_LCOV_FILE: $BASE_DIR/coverage/coverage.info
       OUTPUT_COBERTURA_XML: $BASE_DIR/coverage/coverage.xml
-      SOURCES: "main/c++/bfp,main/c++/irioCoreCpp,main/c++/irioCore"
-      EXCLUSIONS: "*/NiFpga_CD/**"
-      SONAR_ORGANIZATION: "i2a2"
-      SONAR_PROJECT_KEY: "i2a2_irioCore"
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,11 +32,22 @@ jobs:
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean coverage -j
       - name: lcov to cobertura
         run: |
-          lcov_cobertura ${{ env.INPUT_LCOV_FILE }} -b ${{ env.BASE_DIR }} -o ${{ env.OUTPUT_COBERTURA_XML }}
+          lcov_cobertura ${{ env.INPUT_LCOV_FILE }} -b ${{ env.COVERAGE_BASE_DIR }} -o ${{ env.OUTPUT_COBERTURA_XML }}
           sed -i 's|<source>[^<]*</source>|<source>.</source>|g' ${{ env.OUTPUT_COBERTURA_XML }}
+      - name: Prev sonar-scanner if not main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: github.ref_name != 'main'
+        run: |
+          git config --global --add safe.directory $(pwd)
+          git checkout main
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.branch.name="${{ github.ref_name }}"
+          git checkout ${{ github.ref }}
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner -Dsonar.organization="${{ env.SONAR_ORGANIZATION }}" -Dsonar.projectKey="${{ env.SONAR_PROJECT_KEY }}" -Dsonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.sources="${{ env.SOURCES }}" -Dsonar.exclusions="${{ env.EXCLUSIONS }}" -Dsonar.scm.exclusions.disabled=true -Dsonar.cfamily.cobertura.reportPaths="coverage/coverage.xml" -Dsonar.qualitygate.wait=true -Dsonar.projectBaseDir="${{ env.BASE_DIR }}"
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.qualitygate.wait=true -Dsonar.branch.name="${{ github.ref_name }}"
+

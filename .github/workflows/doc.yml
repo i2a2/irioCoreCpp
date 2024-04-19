@@ -1,9 +1,7 @@
 name: Documentation
 
 on: 
-    workflow_run:
-      workflows: ["Generate Release"]
-      types: [completed]
+  workflow_call: 
 
 jobs:
     generate_and_publish:
@@ -11,6 +9,10 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+
+            - name: Get Latest Tag
+              uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
+              id: latestTag
 
             - name: Install Dependencies
               run: sudo apt install -y doxygen graphviz
@@ -23,4 +25,4 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./target/doc/irioCore/html
-                full_commit_message: Generate documentation for ${{ github.ref }}
+                full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
