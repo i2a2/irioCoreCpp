@@ -45,3 +45,4 @@ jobs:
   Documentation:
     uses: ./.github/workflows/doc.yml
     secrets: inherit
+    needs: package
