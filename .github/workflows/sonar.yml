@@ -40,10 +40,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         if: github.ref_name != 'main'
         run: |
-          git config --global --add safe.directory $(pwd)
-          git checkout main
           sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.branch.name="${{ github.ref_name }}"
-          git checkout ${{ github.ref }}
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
