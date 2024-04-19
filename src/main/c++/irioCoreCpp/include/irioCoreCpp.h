@@ -441,7 +441,7 @@ class Irio {
 	std::string m_resourceName;
 
     /// Session obtained when opening a session using the NiFpga library
-	NiFpga_Session m_session;
+	NiFpga_Session m_session = 0;
 
 	/// FpgaVIVersion read from the RIO device
 	std::string m_fpgaviversion;
@@ -466,7 +466,7 @@ class Irio {
 
 	/// Attribute to use when closing the session with the RIO device. By
 	/// default is 0
-	std::uint32_t m_closeAttribute;
+	std::uint32_t m_closeAttribute = 0;
 };
 
 }  // namespace irio

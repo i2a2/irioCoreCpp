@@ -69,7 +69,7 @@ void TerminalsDMAIMAQImpl::configCameraLinkImpl(
 	const std::int32_t fvalHigh, const std::int32_t lvalHigh,
 	const std::int32_t dvalHigh, const std::int32_t spareHigh,
 	const std::int32_t controlEnable, const std::int32_t linescan,
-	const CLSignalMapping& signalMapping, const CLMode& mode) {
+	const CLSignalMapping& signalMapping, const CLMode& mode) const {
     NiFpga_Status status;
     status = NiFpga_WriteBool(m_session, m_fvalHigh_addr, fvalHigh);
 	utils::throwIfNotSuccessNiFpga(
@@ -91,12 +91,12 @@ void TerminalsDMAIMAQImpl::configCameraLinkImpl(
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error configuring " + std::string(TERMINAL_CONTROLENABLE));
 
-    std::uint8_t signalMappingAux = static_cast<std::uint8_t>(signalMapping);
+    const auto signalMappingAux = static_cast<std::uint8_t>(signalMapping);
     status = NiFpga_WriteU8(m_session, m_signalMapping_addr, signalMappingAux);
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error configuring " + std::string(TERMINAL_SIGNALMAPPING));
 
-	std::uint8_t modeAux = static_cast<std::uint8_t>(mode);
+	const auto modeAux = static_cast<std::uint8_t>(mode);
 	status = NiFpga_WriteU8(m_session, m_configuration_addr, modeAux);
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error configuring " + std::string(TERMINAL_CONFIGURATION));

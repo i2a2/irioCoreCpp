@@ -79,8 +79,8 @@ void throwIfNiSysCfgError(const NISysCfgStatus &status,
 
 class NISysCfg{
  public:
-	explicit NISysCfg(const std::string &targetName, unsigned int timeout = 5000):
-			m_filter(), m_resource() {
+	explicit NISysCfg(const std::string &targetName,
+						unsigned int timeout = 5000) {
 		auto status = NISysCfgInitializeSession(targetName.c_str(), nullptr,
 				nullptr, NISysCfgLocaleEnglish, NISysCfgBoolTrue,
 				timeout, nullptr, &m_session);

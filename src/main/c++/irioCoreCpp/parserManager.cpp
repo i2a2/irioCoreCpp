@@ -7,8 +7,7 @@
 
 namespace irio {
 
-ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp),
-		m_error(false) { }
+ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp) {}
 
 bool ParserManager::findRegister(const std::string &resourceName,
 								const GroupResource &group,

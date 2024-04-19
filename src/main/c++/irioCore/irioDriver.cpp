@@ -636,16 +636,14 @@ int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value,
 						   &irio::Irio::getDAQStartStop, "DAQStartStop");
 }
 
-int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
-						 TStatus *status) {
-	// TODO: SamplingRate IO Profile
-	return 0;
+int irio_setSamplingRate(irioDrv_t *, int, int32_t, TStatus *) {
+  // TODO: SamplingRate IO Profile
+  return 0;
 }
 
-int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
-						 TStatus *status) {
-	// TODO: SamplingRate IO Profile
-	return 0;
+int irio_getSamplingRate(const irioDrv_t *, int, int32_t *, TStatus *) {
+  // TODO: SamplingRate IO Profile
+  return 0;
 }
 
 int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value,

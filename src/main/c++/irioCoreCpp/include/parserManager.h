@@ -287,7 +287,7 @@ class ParserManager {
 	/// Map to divide information of found resources per group
 	std::unordered_map<GroupResource, GroupInfo> m_groupInfo;
 	/// True if some resource was not found
-	bool m_error;
+	bool m_error = false;
 
 	/// Convert GroupResource to string
 	const std::unordered_map<GroupResource, std::string> m_group2str = {
