@@ -32,7 +32,7 @@ jobs:
       - name: lcov to cobertura
         run: |
           lcov_cobertura ${{ env.INPUT_LCOV_FILE }} -b ${{ env.BASE_DIR }} -o ${{ env.OUTPUT_COBERTURA_XML }}
-          sed -i 's|<source>[^<]*</source>|<source>.</source>|g' ${{ env.OUTPUT_COBERTURA_XML }}
+          sed -i 's|<source>[^<]*</source>|<source>../..</source>|g' ${{ env.OUTPUT_COBERTURA_XML }}
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
