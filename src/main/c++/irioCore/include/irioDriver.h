@@ -168,7 +168,7 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, const TStatus *status);
+int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, const TStatus *status);
 
 /**
  * Read the FPGA VI Version

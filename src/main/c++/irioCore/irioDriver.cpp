@@ -527,7 +527,8 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return IRIO_success;
 }
 
-int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, const TStatus*) {
+int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value,
+					  const TStatus *) {
 	*value = p_DrvPvt->fpgaStarted;
 	return IRIO_success;
 }
@@ -550,9 +551,9 @@ int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value,
 	return IRIO_success;
 }
 
-template <typename T>
+template <typename T, typename FuncGet>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
-			  T (irio::Irio::*funcGet)() const, const std::string &funcName) {
+			  FuncGet funcGet, const std::string &funcName) {
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
@@ -571,10 +572,9 @@ int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
 	return IRIO_success;
 }
 
-template <typename T>
+template <typename T, typename FuncSet>
 int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
-			  void (irio::Irio::*funcSet)(const T &) const,
-			  const std::string &funcName) {
+			  FuncSet funcSet, const std::string &funcName) {
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
@@ -595,14 +595,15 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 
 int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDevQualityStatus,
-					 "DevQualityStatus");
+	return getCommon<std::uint8_t>(value, status, p_DrvPvt,
+								   &irio::Irio::getDevQualityStatus,
+								   "DevQualityStatus");
 }
 
 int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value,
 					TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDevTemp,
-					 "DevTemp");
+	return getCommon<std::int16_t>(value, status, p_DrvPvt,
+								   &irio::Irio::getDevTemp, "DevTemp");
 }
 
 int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value,
@@ -614,25 +615,25 @@ int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value,
 }
 
 int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &irio::Irio::setDebugMode,
-					 "DebugMode");
+	return setCommon<bool>(value, status, p_DrvPvt, &irio::Irio::setDebugMode,
+						   "DebugMode");
 }
 
 int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value,
 					  TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDebugMode,
-					 "DebugMode");
+	return getCommon<bool>(value, status, p_DrvPvt, &irio::Irio::getDebugMode,
+						   "DebugMode");
 }
 
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon(value, status, p_DrvPvt, &irio::Irio::setDAQStartStop,
-					 "DAQStartStop");
+	return setCommon<bool>(value, status, p_DrvPvt,
+						   &irio::Irio::setDAQStartStop, "DAQStartStop");
 }
 
 int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value,
 						 TStatus *status) {
-	return getCommon(value, status, p_DrvPvt, &irio::Irio::getDAQStartStop,
-					 "DAQStartStop");
+	return getCommon<bool>(value, status, p_DrvPvt,
+						   &irio::Irio::getDAQStartStop, "DAQStartStop");
 }
 
 int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
