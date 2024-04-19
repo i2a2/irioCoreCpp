@@ -75,7 +75,7 @@ clean:
 
 verify:
 	@set -e; \
-	if ! [ $(SkipVerify) -ne 0 ]; then \
+	if [ -z $(SkipVerify) ] || ! [ $(SkipVerify) != 0 ] ; then \
 		echo -e "$(BOLD)VERIFY STAGE...$(NC)"; \
 		$(MAKE) -k -f $(VERIFY_MK); \
 		echo -e "$(BOLD)VERIFY STAGE SUCCESS!$(NC)"; \
@@ -94,7 +94,7 @@ debug:
 
 test: compile 
 	@set -e;\
-	if ! [ $(SkipTests) -ne 0 ]; then \
+	if [ -z $(SkipTests) ] || ! [ $(SkipTests) != 0 ]; then \
 		echo -e "$(BOLD)TEST STAGE...$(NC)";\
 		$(MAKE) --no-print-directory -f $(TEST_MK) AddTestsFunctionalIrioCore=$(AddTestsFunctionalIrioCore) AddTestsFunctionalIrioCoreCpp=$(AddTestsFunctionalIrioCoreCpp);\
 		echo -e "$(BOLD)TEST STAGE SUCCESS!$(NC)";\
