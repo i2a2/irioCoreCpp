@@ -7,8 +7,7 @@
 
 namespace irio {
 
-ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp),
-		m_error(false) { }
+ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp) {}
 
 bool ParserManager::findRegister(const std::string &resourceName,
 								const GroupResource &group,
@@ -89,14 +88,17 @@ bool ParserManager::hasErrorOccurred() const {
 	return m_error;
 }
 
-void ParserManager::printInfo(std::ostream &os) const {
-	for(const auto& group : m_groupInfo) {
+void ParserManager::printInfo(std::ostream &os, const bool onlyErrors) const {
+	for (const auto &group : m_groupInfo) {
 		const auto foundMap = &group.second.found;
 		const auto notFoundMap = &group.second.notFound;
 		const auto errorMap = &group.second.error;
 
-		os << m_group2str.at(group.first) << ":" << std::endl;
-		if (foundMap->size()) {
+		if ((foundMap->size() && !onlyErrors) || notFoundMap->size() ||
+			errorMap->size()) {
+			os << m_group2str.at(group.first) << ":" << std::endl;
+		}
+		if (foundMap->size() && !onlyErrors) {
 			os << "\tFound (" << foundMap->size() << " resources):" << std::endl
 			   << "\t\t";
 			for (const auto &found : *foundMap) {
@@ -124,27 +126,11 @@ void ParserManager::printInfo(std::ostream &os) const {
 }
 
 void ParserManager::printInfoError(std::ostream &os) const {
-	for(const auto& group : m_groupInfo) {
+	for (const auto &group : m_groupInfo) {
 		const auto notFoundMap = &group.second.notFound;
 		const auto errorMap = &group.second.error;
-		if(notFoundMap->size() || errorMap->size()) {
-			os << m_group2str.at(group.first) << ":" << std::endl;
-
-			if (notFoundMap->size()) {
-				os << "\tNot found:" << std::endl << "\t\t";
-				for (const auto &notFound : *notFoundMap) {
-					os << notFound << ", ";
-				}
-				os << "\b\b " << std::endl;
-			}
-
-			if (errorMap->size()) {
-				os << "\tError:" << std::endl << "\t\t";
-				for (const auto &error : *errorMap) {
-					os << error.errMsg << std::endl << "\t\t";
-				}
-				os << std::endl;
-			}
+		if (notFoundMap->size() || errorMap->size()) {
+			printInfo(os, true);
 		}
 	}
 }

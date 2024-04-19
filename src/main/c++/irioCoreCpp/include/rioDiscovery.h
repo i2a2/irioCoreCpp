@@ -15,7 +15,8 @@ namespace irio {
  * @return	Name of the RIO device
  */
 std::string searchRIODevice(const std::string serialNumber);
-/* serialNumber should be a reference, but due to the mocking
+/* 
+ * serialNumber should be a reference, but due to the mocking
  * framework the project uses (fff) which is really a C framework,
  * when using reference breaks. So as this function is only called at
  * the beginning when performance is not critical, I'm leaving it

@@ -79,11 +79,11 @@ void throwIfNiSysCfgError(const NISysCfgStatus &status,
 
 class NISysCfg{
  public:
-	explicit NISysCfg(const std::string &targetName, unsigned int timeout = 5000):
-			m_filter(), m_resource() {
-		auto status = NISysCfgInitializeSession(targetName.c_str(), NULL,
-				NULL, NISysCfgLocaleEnglish, NISysCfgBoolTrue,
-				timeout, NULL, &m_session);
+	explicit NISysCfg(const std::string &targetName,
+						unsigned int timeout = 5000) {
+		auto status = NISysCfgInitializeSession(targetName.c_str(), nullptr,
+				nullptr, NISysCfgLocaleEnglish, NISysCfgBoolTrue,
+				timeout, nullptr, &m_session);
 		throwIfNiSysCfgError(status, "Unable to initialize NISysCfg");
 	}
 
@@ -92,6 +92,9 @@ class NISysCfg{
 		NISysCfgCloseHandle(m_resource);
 		NISysCfgCloseHandle(m_session);
 	}
+
+	NISysCfg(const NISysCfg&) = delete;
+	NISysCfg& operator=(const NISysCfg&) = delete;
 
 	std::string getDeviceFromSerialNumber(const std::string &serialNumber) {
 		char resourceName[NISYSCFG_SIMPLE_STRING_LENGTH];
@@ -104,13 +107,17 @@ class NISysCfg{
 	}
 
  private:
-	void createFilter(NISysCfgFilterProperty property, const void* value) {
+	template<typename T>
+	void createFilter(NISysCfgFilterProperty property, const T* value) {
 		NISysCfgCloseHandle(m_filter);
 
 		auto status = NISysCfgCreateFilter(m_session, &m_filter);
-		throwIfNiSysCfgError(status, "Unable to create NISysCfg filter");
-		status = NISysCfgSetFilterProperty(m_filter, property, value);
-		throwIfNiSysCfgError(status, "Unable to configure NISysCfg filter");
+		throwIfNiSysCfgError(status,
+								"Unable to create NISysCfg filter");
+		status = NISysCfgSetFilterProperty(
+			m_filter, property, reinterpret_cast<const void *>(value));
+		throwIfNiSysCfgError(status,
+								"Unable to configure NISysCfg filter");
 	}
 
 	void findResource() {
@@ -119,7 +126,7 @@ class NISysCfg{
 		NISysCfgEnumResourceHandle resourceEnum;
 		auto status = NISysCfgFindHardware(m_session,
 				NISysCfgFilterModeMatchValuesAll,
-				m_filter, NULL, &resourceEnum);
+				m_filter, nullptr, &resourceEnum);
 		throwIfNiSysCfgError(status, "Unable to find NISysCfg hardware");
 
 		NISysCfgIsPresentType isPresent = NISysCfgIsPresentTypeNotPresent;
@@ -138,15 +145,10 @@ class NISysCfg{
 		}
 	}
 
-	void getProperty(NISysCfgResourceProperty property, void* val) {
-		auto status = NISysCfgGetResourceProperty(m_resource, property, val);
-		throwIfNiSysCfgError(status, "Unable to get NISysCfg property "
-				+ std::to_string(property));
-	}
-
-	void getIndexedProperty(NISysCfgIndexedProperty property, void* val) {
+	template<typename T>
+	void getIndexedProperty(NISysCfgIndexedProperty property, T* val) {
 		auto status = NISysCfgGetResourceIndexedProperty(m_resource,
-				property, 0, val);
+				property, 0, reinterpret_cast<void*>(val));
 		throwIfNiSysCfgError(status, "");
 	}
 
@@ -157,7 +159,7 @@ class NISysCfg{
 
 
 std::string getRIODevicesNI(const std::string &serialNumber) {
-	auto syscfg = NISysCfg("localhost");
+	NISysCfg syscfg("localhost");
 	return syscfg.getDeviceFromSerialNumber(serialNumber);
 }
 

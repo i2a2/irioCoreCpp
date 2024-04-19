@@ -10,13 +10,13 @@ TerminalsAnalogImpl::TerminalsAnalogImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBaseImpl(session) {
 	// Find AI
-	for(size_t i = 0; i < platform.maxAI; ++i) {
+	for(uint32_t i = 0; i < platform.maxAI; ++i) {
 		parserManager->findRegisterEnumAddress(TERMINAL_AI, i,
 				GroupResource::AI, &m_mapAI, true);
 	}
 
 	// Find AO and AOEnable
-	for(size_t i = 0; i < platform.maxAO; ++i) {
+	for(uint32_t i = 0; i < platform.maxAO; ++i) {
 		parserManager->findRegisterEnumAddress(
 			TERMINAL_AO, i, GroupResource::AO, &m_mapAO, true);
 		parserManager->findRegisterEnumAddress(

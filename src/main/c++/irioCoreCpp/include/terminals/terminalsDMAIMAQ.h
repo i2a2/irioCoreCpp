@@ -56,7 +56,7 @@ class TerminalsDMAIMAQ: public TerminalsDMACommon {
 		const std::int32_t fvalHigh, const std::int32_t lvalHigh,
 		const std::int32_t dvalHigh, const std::int32_t spareHigh,
 		const std::int32_t controlEnable, const std::int32_t linescan,
-		const CLSignalMapping &signalMapping, const CLMode &mode);
+		const CLSignalMapping &signalMapping, const CLMode &mode) const;
 
 	/**
 	 * Tries to read an specifeid number of pixels.

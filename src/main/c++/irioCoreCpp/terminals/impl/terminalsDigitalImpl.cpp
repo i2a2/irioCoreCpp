@@ -10,7 +10,7 @@ TerminalsDigitalImpl::TerminalsDigitalImpl(
 		const Platform &platform) :
 		TerminalsBaseImpl(session) {
 	// Find DI and DO
-	for(size_t i = 0; i < platform.maxDigital; ++i) {
+	for(uint32_t i = 0; i < platform.maxDigital; ++i) {
 		parserManager->findRegisterEnumAddress(TERMINAL_DI, i,
 						GroupResource::DI, &m_mapDI, true);
 		parserManager->findRegisterEnumAddress(TERMINAL_DO, i,

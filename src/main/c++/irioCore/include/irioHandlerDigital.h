@@ -49,7 +49,7 @@ extern "C" {
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getDI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Read an auxiliary digital input
@@ -63,7 +63,7 @@ int irio_getDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getAuxDI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Reads a digital output
@@ -77,7 +77,7 @@ int irio_getAuxDI(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getDO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write a digital output
@@ -105,7 +105,7 @@ int irio_setDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
+int irio_getAuxDO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
 /**
  * Write an auxiliary digital output
@@ -130,7 +130,7 @@ int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumDI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of digital outputs found in the FPGA
@@ -141,7 +141,7 @@ int irio_getNumDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumDO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of aux digital inputs found in the FPGA
@@ -152,7 +152,7 @@ int irio_getNumDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAuxDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAuxDI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 /**
  * Returns the number of aux digital outputs found in the FPGA
@@ -163,7 +163,7 @@ int irio_getNumAuxDI(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getNumAuxDO(irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
+int irio_getNumAuxDO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
 
 #ifdef __cplusplus

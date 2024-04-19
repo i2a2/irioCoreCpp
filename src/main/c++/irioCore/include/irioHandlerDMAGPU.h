@@ -118,7 +118,7 @@ int irio_cleanDMATtoGPU(irioDrv_t *p_DrvPvt, int n, uint64_t **cleanbuffer,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDMATtoGPUOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getDMATtoGPUOverflow(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
 
 /**
@@ -133,7 +133,7 @@ int irio_getDMATtoGPUOverflow(irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDMATtoGPUSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getDMATtoGPUSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 /**
@@ -165,7 +165,7 @@ int irio_setDMATtoGPUSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t *value,
+int irio_getDMATtoGPUEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
 
 /**
@@ -201,7 +201,7 @@ int irio_setDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * 
  * @return Operation status. @see {TStatusCodes}
  */
-int irio_getDMATtoGPUData(irioDrv_t *p_DrvPvt, int Nelements, int n,
+int irio_getDMATtoGPUData(const irioDrv_t *p_DrvPvt, int Nelements, int n,
 		uint64_t **data, int *elementsRead, TStatus *status);
 
 /**
@@ -216,7 +216,7 @@ int irio_getDMATtoGPUData(irioDrv_t *p_DrvPvt, int Nelements, int n,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode
  */
-int irio_getDMATtoGPUImage(irioDrv_t *p_DrvPvt, int imageSize, int n,
+int irio_getDMATtoGPUImage(const irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t **data, int *elementsRead, TStatus *status);
 
 /**

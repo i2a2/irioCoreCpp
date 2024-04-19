@@ -21,8 +21,7 @@ namespace irio {
 Irio::Irio(const std::string &bitfilePath,
 			   const std::string &RIOSerialNumber,
 			   const std::string &FPGAVIversion,
-			   const bool parseVerbose)
-	: m_session(0), m_closeAttribute(0) {
+			   const bool parseVerbose) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
 	bfp::BFP bfp(bitfilePath, false);
 

@@ -119,7 +119,7 @@ class TerminalsDMACommonImpl: public TerminalsBaseImpl{
 			const NiFpga_Session &session, const std::string &nameReg,
 			std::vector<T> *vec,
 			std::function<NiFpga_Status(NiFpga_Session,
-					std::uint32_t, T*, size_t)> readFunc);
+					std::uint32_t, T*, size_t)> readFunc) const;
 
 	std::unordered_map<std::uint32_t, const std::uint32_t> getDMAMap() const;
 

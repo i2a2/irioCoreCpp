@@ -35,7 +35,7 @@ TerminalsDMADAQImpl::TerminalsDMADAQImpl(ParserManager *parserManager,
 	}
 
 	// Find SamplingRate
-	for(size_t i = 0; i < platform.maxDMA; ++i) {
+	for(uint32_t i = 0; i < platform.maxDMA; ++i) {
 		parserManager->findRegisterEnumAddress(nameTermSamplingRate, i,
 				GroupResource::DAQ, &m_samplingRate_addr, true);
 	}

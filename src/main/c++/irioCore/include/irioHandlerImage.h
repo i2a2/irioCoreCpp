@@ -42,8 +42,6 @@ typedef enum {
 	CL_BASE,  //!< CameraLink Base mode
 	CL_MEDIUM,  //!< CameraLink Medium mode
 	CL_FULL   //!< CameraLink Full mode
-/*	CL_DUAL_BASE, // !< CameraLink DualBase mode Not supported yet
-	CL_EXTENDED // !< CameraLink extended mode Not supported yet*/
 } CL_Config_T;
 
 /**
@@ -138,7 +136,7 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getCLuart(irioDrv_t *p_DrvPvt, char *data, int *msg_size,
+int irio_getCLuart(const irioDrv_t *p_DrvPvt, char *data, int *msg_size,
 				   TStatus *status)
 	__attribute__((deprecated("Unsafe!! Use irio_getCLuartWithBufferSize")));
 
@@ -165,7 +163,7 @@ int irio_getCLuart(irioDrv_t *p_DrvPvt, char *data, int *msg_size,
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getCLuartWithBufferSize(irioDrv_t *p_DrvPvt, int data_size, char *data, int *msg_size, TStatus *status);
+int irio_getCLuartWithBufferSize(const irioDrv_t *p_DrvPvt, int data_size, char *data, int *msg_size, TStatus *status);
 
 /**
  * Read UART Baud Rate
@@ -178,7 +176,7 @@ int irio_getCLuartWithBufferSize(irioDrv_t *p_DrvPvt, int data_size, char *data,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
+int irio_getUARTBaudRate(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
 /**
  * Set UART Baud Rate
@@ -204,7 +202,7 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTBreakIndicator(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
 
 /**
@@ -218,10 +216,10 @@ int irio_getUARTBreakIndicator(irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTFramingError(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTFramingError(const irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status);
 
-int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTFrammingError(const irioDrv_t *p_DrvPvt, int32_t *value,
 							  TStatus *status)
 	__attribute__((deprecated("Use irio_getUARTFramingError")));
 
@@ -236,7 +234,7 @@ int irio_getUARTFrammingError(irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  */
-int irio_getUARTOverrunError(irioDrv_t *p_DrvPvt, int32_t *value,
+int irio_getUARTOverrunError(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
 
 #ifdef __cplusplus

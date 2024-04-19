@@ -246,9 +246,12 @@ class ParserManager {
 
 	/**
 	 * Prints resources found, not found and incompatibilities
-	 * @param os The output stream to print the information to.
+	 * @param os 			The output stream to print the information to.
+	 * @param onlyErrors	Only output not found or error. Default: print
+	 * 						everything
 	 */
-	void printInfo(std::ostream &os = std::cout) const;
+	void printInfo(std::ostream &os = std::cout,
+				   const bool onlyErrors = false) const;
 
 	/**
 	 * Prints resources not found and incompatibilities
@@ -284,7 +287,7 @@ class ParserManager {
 	/// Map to divide information of found resources per group
 	std::unordered_map<GroupResource, GroupInfo> m_groupInfo;
 	/// True if some resource was not found
-	bool m_error;
+	bool m_error = false;
 
 	/// Convert GroupResource to string
 	const std::unordered_map<GroupResource, std::string> m_group2str = {

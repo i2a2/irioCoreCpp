@@ -8,7 +8,7 @@ TerminalsAuxAnalogImpl::TerminalsAuxAnalogImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBaseImpl(session) {
 	// Find AuxAI and Aux64AI
-	for(size_t i = 0; i < platform.maxAuxAI; ++i) {
+	for(uint32_t i = 0; i < platform.maxAuxAI; ++i) {
 		parserManager->findRegisterEnumAddress(TERMINAL_AUXAI, i,
 						GroupResource::AuxAI, &m_mapAuxAI, true);
 		parserManager->findRegisterEnumAddress(TERMINAL_AUX64AI, i,
@@ -16,7 +16,7 @@ TerminalsAuxAnalogImpl::TerminalsAuxAnalogImpl(ParserManager *parserManager,
 	}
 
 	// Find AuxAO and Aux64AO
-	for(size_t i = 0; i < platform.maxAuxAO; ++i) {
+	for(uint32_t i = 0; i < platform.maxAuxAO; ++i) {
 		parserManager->findRegisterEnumAddress(TERMINAL_AUXAO, i,
 						GroupResource::AuxAO, &m_mapAuxAO, true);
 		parserManager->findRegisterEnumAddress(TERMINAL_AUX64AO, i,

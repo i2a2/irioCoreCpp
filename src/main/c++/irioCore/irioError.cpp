@@ -54,7 +54,7 @@ void mergeStatus(TStatus *status, const TErrorDetailCode detailCode,
 		aux.reset(new char[len]);
 		snprintf(aux.get(), len, "%s", errorMsg.c_str());
 	} else {
-		size_t len = strlen(it->second.get()) + 1 + errorMsg.length() + 1;
+		size_t len = std::string(it->second.get()).size() + 1 + errorMsg.length() + 1;
 		aux.reset(new char[len]);
 		snprintf(aux.get(), len, "%s\n%s", it->second.get(), errorMsg.c_str());
 	}
@@ -67,7 +67,7 @@ int irio_mergeStatus(TStatus *status, TErrorDetailCode code, int printMsg,
 					 const char *format, ...) {
 	va_list argptr;
 	va_start(argptr, format);
-	char *newMsg = NULL;
+	char *newMsg = nullptr;
 	if (vasprintf(&newMsg, format, argptr) <= 0) {
 		printf("\n\nERROR in irio_mergeStatus\n\n");
 		va_end(argptr);
@@ -198,7 +198,7 @@ int irio_getErrorString(TErrorDetailCode error, char **str) {
 	const auto it = errorMap.find(error);
 
 	if (it != errorMap.end()) {
-		if (asprintf(str, it->second.c_str()) == -1) {
+		if (asprintf(str, "%s", it->second.c_str()) == -1) {
 			return IRIO_error;
 		}
 	} else {
@@ -206,5 +206,6 @@ int irio_getErrorString(TErrorDetailCode error, char **str) {
 			return IRIO_error;
 		}
 	}
+
 	return IRIO_success;
 }
