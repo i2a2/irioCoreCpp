@@ -28,19 +28,22 @@ jobs:
     - name: Generate RPM packages
       run: | 
         make package -j
-        ls $PACKAGE_DIR
 
     - name: Generate DEB packages
+      working-directory: $PACKAGE_DIR
       run: |
-        cd $PACKAGE_DIR
         alien *.rpm
-        ls .
-        cd -
     
+    - name: Group packages
+      working-directory: $PACKAGE_DIR
+      run: |
+        tar -czvf rpm-irioCore-${{ github.ref_name}}.tar.gz *.rpm
+        tar -czvf deb-irioCore-${{ github.ref_name}}.tar.gz *.deb
+
     - name: Generate release
       uses: softprops/action-gh-release@v2
       with:
-        files: ${{ env.PACKAGE_DIR }}/*
+        files: ${{ env.PACKAGE_DIR }}/*.tar.gz
 
   Documentation:
     uses: ./.github/workflows/doc.yml
