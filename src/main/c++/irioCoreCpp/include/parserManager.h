@@ -246,9 +246,12 @@ class ParserManager {
 
 	/**
 	 * Prints resources found, not found and incompatibilities
-	 * @param os The output stream to print the information to.
+	 * @param os 			The output stream to print the information to.
+	 * @param onlyErrors	Only output not found or error. Default: print
+	 * 						everything
 	 */
-	void printInfo(std::ostream &os = std::cout) const;
+	void printInfo(std::ostream &os = std::cout,
+				   const bool onlyErrors = false) const;
 
 	/**
 	 * Prints resources not found and incompatibilities
