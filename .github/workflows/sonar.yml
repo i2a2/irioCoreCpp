@@ -14,7 +14,6 @@ jobs:
       COVERAGE_BASE_DIR: $BASE_DIR/main/c++
       INPUT_LCOV_FILE: $BASE_DIR/coverage/coverage.info
       OUTPUT_COBERTURA_XML: $BASE_DIR/coverage/coverage.xml
-      TARGET_BRANCH: 
     steps:
       - uses: actions/checkout@v3
         with:
@@ -42,11 +41,11 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           echo "TARGET_BRANCH=-Dsonar.branch.target=\"main\"" >> $GITHUB_ENV
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.branch.name="${{ github.ref_name }}" ${{ env.TARGET_BRANCH }}
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.branch.name="${{ github.ref_name }}" $TARGET_BRANCH
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.qualitygate.wait=true -Dsonar.branch.name="${{ github.ref_name }}" ${{ env.TARGET_BRANCH }}
+          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.qualitygate.wait=true -Dsonar.branch.name="${{ github.ref_name }}" $TARGET_BRANCH
 
