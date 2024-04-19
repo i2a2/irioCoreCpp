@@ -66,9 +66,9 @@ void TerminalsDMAIMAQImpl::findUART(ParserManager* parserManager) {
 }
 
 void TerminalsDMAIMAQImpl::configCameraLinkImpl(
-	const std::int32_t fvalHigh, const std::int32_t lvalHigh,
-	const std::int32_t dvalHigh, const std::int32_t spareHigh,
-	const std::int32_t controlEnable, const std::int32_t linescan,
+	const bool fvalHigh, const bool lvalHigh,
+	const bool dvalHigh, const bool spareHigh,
+	const bool controlEnable, const bool linescan,
 	const CLSignalMapping& signalMapping, const CLMode& mode) const {
     NiFpga_Status status;
     status = NiFpga_WriteBool(m_session, m_fvalHigh_addr, fvalHigh);

@@ -8,7 +8,7 @@ TerminalsAuxDigitalImpl::TerminalsAuxDigitalImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform) :
 		TerminalsBaseImpl(session) {
 	// Find AuxDI and AuxDO
-	for(size_t i = 0; i < platform.maxAuxDigital; ++i) {
+	for(uint32_t i = 0; i < platform.maxAuxDigital; ++i) {
 		parserManager->findRegisterEnumAddress(TERMINAL_AUXDI, i,
 						GroupResource::AuxDI, &m_mapAuxDI, true);
 		parserManager->findRegisterEnumAddress(TERMINAL_AUXDO, i,

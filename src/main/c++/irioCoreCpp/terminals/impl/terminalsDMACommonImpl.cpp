@@ -12,7 +12,7 @@ bool TerminalsDMACommonImpl::findArrayRegReadToVector(
 		const NiFpga_Session &session, const std::string &nameReg,
 		std::vector<T> *vec,
 		std::function<NiFpga_Status(NiFpga_Session,
-				std::uint32_t, T*, size_t)> readFunc) {
+				std::uint32_t, T*, size_t)> readFunc) const {
 	bfp::Register reg;
 	if (parserManager->findRegister(nameReg, group, &reg, optional)) {
 		vec->resize(reg.getNumElem());
@@ -32,7 +32,7 @@ bool TerminalsDMACommonImpl::findArrayRegReadToVector<std::uint8_t>(
 		const NiFpga_Session &session, const std::string &nameReg,
 		std::vector<std::uint8_t> *vec,
 		std::function<NiFpga_Status(NiFpga_Session,
-				std::uint32_t, std::uint8_t*, size_t)> readFunc);
+				std::uint32_t, std::uint8_t*, size_t)> readFunc) const;
 
 template
 bool TerminalsDMACommonImpl::findArrayRegReadToVector<std::uint16_t>(
@@ -41,7 +41,7 @@ bool TerminalsDMACommonImpl::findArrayRegReadToVector<std::uint16_t>(
 		const NiFpga_Session &session, const std::string &nameReg,
 		std::vector<std::uint16_t> *vec,
 		std::function<NiFpga_Status(NiFpga_Session,
-				std::uint32_t, std::uint16_t*, size_t)> readFunc);
+				std::uint32_t, std::uint16_t*, size_t)> readFunc) const;
 
 TerminalsDMACommonImpl::TerminalsDMACommonImpl(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,
@@ -77,7 +77,7 @@ TerminalsDMACommonImpl::TerminalsDMACommonImpl(ParserManager *parserManager,
 			nameTermSampleSize, &m_sampleSize, &NiFpga_ReadArrayU8);
 
 	// Find DMAs and DMAEnable
-	for(size_t i = 0; i < platform.maxDMA; ++i) {
+	for(uint32_t i = 0; i < platform.maxDMA; ++i) {
 		parserManager->findDMAEnumNum(nameTermDMA, i, GroupResource::DMA,
 									  &m_mapDMA, true);
 		parserManager->findRegisterEnumAddress(
