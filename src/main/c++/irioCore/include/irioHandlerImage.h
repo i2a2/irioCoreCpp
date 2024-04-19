@@ -42,8 +42,6 @@ typedef enum {
 	CL_BASE,  //!< CameraLink Base mode
 	CL_MEDIUM,  //!< CameraLink Medium mode
 	CL_FULL   //!< CameraLink Full mode
-/*	CL_DUAL_BASE, // !< CameraLink DualBase mode Not supported yet
-	CL_EXTENDED // !< CameraLink extended mode Not supported yet*/
 } CL_Config_T;
 
 /**

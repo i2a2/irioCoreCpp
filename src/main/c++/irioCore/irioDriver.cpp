@@ -109,8 +109,8 @@ void fillModules(const irio::Platform &platform, irioDrv_t *p_DrvPvt,
 		break;
 	case irio::PLATFORM_ID::cRIO:
 		auxModules = irio->getTerminalsCRIO().getInsertedIOModulesID();
-		p_DrvPvt->numModulescRIO =
-			std::min<std::uint16_t>(CRIO_MAX_MODULES, auxModules.size());
+		p_DrvPvt->numModulescRIO = std::min<std::uint16_t>(
+			CRIO_MAX_MODULES, static_cast<std::uint16_t>(auxModules.size()));
 		std::copy_n(auxModules.begin(), p_DrvPvt->numModulescRIO,
 					p_DrvPvt->modulescRIO);
 		break;
@@ -121,23 +121,23 @@ void fillModules(const irio::Platform &platform, irioDrv_t *p_DrvPvt,
 }
 
 void fillPlatformData(const Irio *irio, irioDrv_t *p_DrvPvt) {
-	const auto platform = irio->getPlatform();
-	p_DrvPvt->platform = static_cast<std::uint8_t>(platform.platformID);
+	const auto plt = irio->getPlatform();
+	p_DrvPvt->platform = static_cast<std::uint8_t>(plt.platformID);
 
-	p_DrvPvt->max_analoginputs = platform.maxAI;
-	p_DrvPvt->max_analogoutputs = platform.maxAO;
-	p_DrvPvt->max_auxanaloginputs = platform.maxAuxAI;
-	p_DrvPvt->max_auxanalogoutputs = platform.maxAuxAO;
-	p_DrvPvt->max_digitalsinputs = platform.maxDigital;
-	p_DrvPvt->max_digitalsoutputs = platform.maxDigital;
-	p_DrvPvt->max_auxdigitalsinputs = platform.maxAuxDigital;
-	p_DrvPvt->max_auxdigitalsoutputs = platform.maxAuxDigital;
+	p_DrvPvt->max_analoginputs = static_cast<std::uint16_t>(plt.maxAI);
+	p_DrvPvt->max_analogoutputs = static_cast<std::uint16_t>(plt.maxAO);
+	p_DrvPvt->max_auxanaloginputs = static_cast<std::uint16_t>(plt.maxAuxAI);
+	p_DrvPvt->max_auxanalogoutputs = static_cast<std::uint16_t>(plt.maxAuxAO);
+	p_DrvPvt->max_digitalsinputs = static_cast<std::uint16_t>(plt.maxDigital);
+	p_DrvPvt->max_digitalsoutputs = static_cast<std::uint16_t>(plt.maxDigital);
+	p_DrvPvt->max_auxdigitalsinputs =
+		static_cast<std::uint16_t>(plt.maxAuxDigital);
+	p_DrvPvt->max_auxdigitalsoutputs =
+		static_cast<std::uint16_t>(plt.maxAuxDigital);
+	p_DrvPvt->max_dmas = static_cast<std::uint16_t>(plt.maxDMA);
+	p_DrvPvt->max_numberofSG = static_cast<std::uint16_t>(plt.maxSG);
 
-	p_DrvPvt->max_dmas = platform.maxDMA;
-
-	p_DrvPvt->max_numberofSG = platform.maxSG;
-
-	fillModules(platform, p_DrvPvt, irio);
+	fillModules(plt, p_DrvPvt, irio);
 
 	// TODO: GPU
 }
@@ -146,15 +146,15 @@ void fillCVData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto analog = irio->getTerminalsAnalog();
 	p_DrvPvt->CVADC = analog.getCVADC();
 	p_DrvPvt->CVDAC = analog.getCVDAC();
-	p_DrvPvt->maxAnalogOut = analog.getMaxValAO();
-	p_DrvPvt->minAnalogOut = analog.getMinValAO();
+	p_DrvPvt->maxAnalogOut = static_cast<float>(analog.getMaxValAO());
+	p_DrvPvt->minAnalogOut = static_cast<float>(analog.getMinValAO());
 	irio_getAICoupling(p_DrvPvt, &p_DrvPvt->couplingMode, status);
 }
 
 void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	try {
 		p_DrvPvt->numSG = irio->getTerminalsSignalGeneration().getSGNo();
-		p_DrvPvt->NoOfSG = p_DrvPvt->numSG;
+		p_DrvPvt->NoOfSG = static_cast<std::uint8_t>(p_DrvPvt->numSG);
 		const auto it =
 			map_sgfref.emplace(p_DrvPvt, new std::uint32_t[p_DrvPvt->numSG]);
 		const auto auxSGFrefs =
@@ -169,8 +169,8 @@ void fillSGFref(const Irio *irio, irioDrv_t *p_DrvPvt) {
 
 void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	const auto it = map_DMA.emplace(p_DrvPvt, DMATtoHostStruct());
-	const auto maxDMA = irio->getPlatform().maxDMA;
-	size_t numCh = 0;
+	const auto maxDMA = p_DrvPvt->max_dmas;
+	std::uint32_t numCh = 0;
 
 	it.first->second.nch.reset(new std::uint16_t[maxDMA]);
 	it.first->second.frameType.reset(new std::uint8_t[maxDMA]);
@@ -179,8 +179,8 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 	it.first->second.chIndex.reset(new std::uint16_t[maxDMA]);
 
 	const auto profile = irio->getProfileID();
-	int chIndexAccum = 0;
-	for (size_t i = 0; i < maxDMA; ++i) {
+	std::uint16_t chIndexAccum = 0;
+	for(std::uint16_t i = 0; i < maxDMA; ++i) {
 		try {
 			it.first->second.nch.get()[i] = getTerminalsDMA(irio).getNCh(i);
 			it.first->second.frameType.get()[i] = static_cast<std::uint8_t>(
@@ -216,7 +216,7 @@ void fillDMATtoHOST(const Irio *irio, irioDrv_t *p_DrvPvt) {
 }
 
 template <typename GetTerminalFunc, typename GetNumFunc>
-int getNum(const Irio *irio, GetTerminalFunc getTerminalFunc,
+size_t getNum(const Irio *irio, GetTerminalFunc getTerminalFunc,
 		   GetNumFunc getNumFunc) {
 	try {
 		auto terminal = (irio->*getTerminalFunc)();
@@ -234,8 +234,8 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus *status) {
 	const auto profile = irio->getProfileID();
 	p_DrvPvt->devProfile = static_cast<std::uint8_t>(profile);
 
-	p_DrvPvt->minSamplingRate = irio->getMinSamplingRate();
-	p_DrvPvt->maxSamplingRate = irio->getMaxSamplingRate();
+	p_DrvPvt->minSamplingRate = static_cast<float>(irio->getMinSamplingRate());
+	p_DrvPvt->maxSamplingRate = static_cast<float>(irio->getMaxSamplingRate());
 
 	p_DrvPvt->numAI = getNum(irio, &irio::Irio::getTerminalsAnalog,
 							 &irio::TerminalsAnalog::getNumAI);
@@ -423,9 +423,8 @@ int irio_getAICoupling(const irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 			{irio::CouplingMode::AC, TIRIOCouplingMode::IRIO_coupling_AC},
 			{irio::CouplingMode::DC, TIRIOCouplingMode::IRIO_coupling_DC},
 			{irio::CouplingMode::None, TIRIOCouplingMode::IRIO_coupling_NULL},
-		};
-	const TIRIOCouplingMode valueNotFound = static_cast<TIRIOCouplingMode>(9);
-
+	};
+	const auto valueNotFound = static_cast<TIRIOCouplingMode>(9);
 	try {
 		const auto irio = IrioInstanceManager::getInstance(
 			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
@@ -480,7 +479,7 @@ int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal,
 	return IRIO_success;
 }
 
-int irio_getVersion(char *version, TStatus *) {
+int irio_getVersion(char *version, const TStatus*) {
 	snprintf(version, sizeof(IRIOVERSION), "%s", IRIOVERSION);
 	return IRIO_success;
 }
@@ -528,7 +527,7 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return IRIO_success;
 }
 
-int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *) {
+int irio_getFPGAStart(irioDrv_t *p_DrvPvt, int32_t *value, const TStatus*) {
 	*value = p_DrvPvt->fpgaStarted;
 	return IRIO_success;
 }
