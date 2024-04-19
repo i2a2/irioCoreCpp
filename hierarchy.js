@@ -2,9 +2,12 @@ var hierarchy =
 [
     [ "irio::bfp::BFP", "classirio_1_1bfp_1_1BFP.html", null ],
     [ "irio::ConfigParams", "structirio_1_1ConfigParams.html", null ],
+    [ "cRIOmodule", "structcRIOmodule.html", null ],
     [ "irio::CustomStringComparator", "structirio_1_1CustomStringComparator.html", null ],
     [ "irio::GroupInfo", "structirio_1_1GroupInfo.html", null ],
+    [ "imageData_t", "structimageData__t.html", null ],
     [ "irio::Irio", "classirio_1_1Irio.html", null ],
+    [ "irioDrv_t", "structirioDrv__t.html", null ],
     [ "irio::Module", "classirio_1_1Module.html", [
       [ "irio::ModuleNI5734", "classirio_1_1ModuleNI5734.html", null ],
       [ "irio::ModuleNI5761", "classirio_1_1ModuleNI5761.html", null ],
@@ -78,5 +81,8 @@ var hierarchy =
       [ "irio::TerminalsFlexRIO", "classirio_1_1TerminalsFlexRIO.html", null ],
       [ "irio::TerminalsSignalGeneration", "classirio_1_1TerminalsSignalGeneration.html", null ],
       [ "irio::TerminalscRIO", "classirio_1_1TerminalscRIO.html", null ]
-    ] ]
+    ] ],
+    [ "TFifoGPUInfo", "structTFifoGPUInfo.html", null ],
+    [ "TResourcePort", "structTResourcePort.html", null ],
+    [ "TStatus", "structTStatus.html", null ]
 ];

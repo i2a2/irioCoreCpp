@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['found_886',['found',['../structirio_1_1GroupInfo.html#a57f36112d15762bd00e9b47524582324',1,'irio::GroupInfo']]],
-  ['fpgatype_887',['fpgaType',['../classirio_1_1bfp_1_1Resource.html#ac732b5465748b07d877c1621c3803a8f',1,'irio::bfp::Resource']]]
+  ['elemtype_1352',['elemType',['../classirio_1_1bfp_1_1Resource.html#a738a8304669efd9e1fdd7bb3a4d238bc',1,'irio::bfp::Resource']]],
+  ['errmsg_1353',['errMsg',['../structirio_1_1ResourceError.html#a6192ea3ae1074600e0e0faf6ed05a53b',1,'irio::ResourceError']]],
+  ['error_1354',['error',['../structirio_1_1GroupInfo.html#abddc069b6e55f119ce40274c16a738c2',1,'irio::GroupInfo']]]
 ];

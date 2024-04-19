@@ -128,9 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6fc858843302840e9ffbae33db8bc2de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a6fc858843302840e9ffbae33db8bc2de">hasErrorOccurred</a> () const</td></tr>
 <tr class="memdesc:a6fc858843302840e9ffbae33db8bc2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an error has occurred during parsing.  <a href="classirio_1_1ParserManager.html#a6fc858843302840e9ffbae33db8bc2de">More...</a><br /></td></tr>
 <tr class="separator:a6fc858843302840e9ffbae33db8bc2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a824498486e8c111cc710680096b67ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a824498486e8c111cc710680096b67ea6">printInfo</a> (std::ostream &amp;os=std::cout) const</td></tr>
-<tr class="memdesc:a824498486e8c111cc710680096b67ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources found, not found and incompatibilities.  <a href="classirio_1_1ParserManager.html#a824498486e8c111cc710680096b67ea6">More...</a><br /></td></tr>
-<tr class="separator:a824498486e8c111cc710680096b67ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6dfd9b3b3ce3986d6fde6091fb9ecd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a8c6dfd9b3b3ce3986d6fde6091fb9ecd">printInfo</a> (std::ostream &amp;os=std::cout, const bool onlyErrors=false) const</td></tr>
+<tr class="memdesc:a8c6dfd9b3b3ce3986d6fde6091fb9ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources found, not found and incompatibilities.  <a href="classirio_1_1ParserManager.html#a8c6dfd9b3b3ce3986d6fde6091fb9ecd">More...</a><br /></td></tr>
+<tr class="separator:a8c6dfd9b3b3ce3986d6fde6091fb9ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae4877f106d82463d0321fc020773691"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#aae4877f106d82463d0321fc020773691">printInfoError</a> (std::ostream &amp;os=std::cerr) const</td></tr>
 <tr class="memdesc:aae4877f106d82463d0321fc020773691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources not found and incompatibilities.  <a href="classirio_1_1ParserManager.html#aae4877f106d82463d0321fc020773691">More...</a><br /></td></tr>
 <tr class="separator:aae4877f106d82463d0321fc020773691"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,7 +152,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a>, <a class="el" href="structirio_1_1GroupInfo.html">GroupInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a863e50a5e78d4cc6ef54fc6b91c6d6d3">m_groupInfo</a></td></tr>
 <tr class="memdesc:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map to divide information of found resources per group.  <a href="classirio_1_1ParserManager.html#a863e50a5e78d4cc6ef54fc6b91c6d6d3">More...</a><br /></td></tr>
 <tr class="separator:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a94975f0efc685a905e8e52602d2a9c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">m_error</a></td></tr>
+<tr class="memitem:a4a94975f0efc685a905e8e52602d2a9c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">m_error</a> = false</td></tr>
 <tr class="memdesc:a4a94975f0efc685a905e8e52602d2a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if some resource was not found.  <a href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">More...</a><br /></td></tr>
 <tr class="separator:a4a94975f0efc685a905e8e52602d2a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ea75d1ac565548e0892cd1dec76fff5"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5">m_group2str</a></td></tr>
@@ -725,8 +725,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a824498486e8c111cc710680096b67ea6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a824498486e8c111cc710680096b67ea6">&#9670;&nbsp;</a></span>printInfo()</h2>
+<a id="a8c6dfd9b3b3ce3986d6fde6091fb9ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c6dfd9b3b3ce3986d6fde6091fb9ecd">&#9670;&nbsp;</a></span>printInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -735,8 +735,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">void irio::ParserManager::printInfo </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em> = <code>std::cout</code></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>os</em> = <code>std::cout</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>onlyErrors</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -745,6 +755,7 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">os</td><td>The output stream to print the information to. </td></tr>
+    <tr><td class="paramname">onlyErrors</td><td>Only output not found or error. Default: print everything </td></tr>
   </table>
   </dd>
 </dl>
@@ -826,7 +837,7 @@ Private Attributes</h2></td></tr>
 
 <p>The BFP object used by the parser manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00283">283</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00286">286</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 
 </div>
 </div>
@@ -840,7 +851,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool irio::ParserManager::m_error</td>
+          <td class="memname">bool irio::ParserManager::m_error = false</td>
         </tr>
       </table>
   </td>
@@ -852,7 +863,7 @@ Private Attributes</h2></td></tr>
 
 <p>True if some resource was not found. </p>
 
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00287">287</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00290">290</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 
 </div>
 </div>
@@ -912,7 +923,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p>Convert GroupResource to string. </p>
 
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00290">290</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00293">293</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 
 </div>
 </div>
@@ -938,7 +949,7 @@ Private Attributes</h2></td></tr>
 
 <p>Map to divide information of found resources per group. </p>
 
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00285">285</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00288">288</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 
 </div>
 </div>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['r_5fdaq_1092',['R_DAQ',['../namespaceirio.html#ac90c8a6a2b100f3ef18e5b86c533b4c7aa890540e1f8e6ce2158322991b93a3fd',1,'irio']]],
-  ['rseries_1093',['RSeries',['../namespaceirio.html#acb8f22ae6f36fec9015a71feed78f154a6538eb20b2a7ae87430358d468de9497',1,'irio']]]
+  ['listriodevicescommand_5ferror_1654',['ListRIODevicesCommand_Error',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a4281a23e4b56b45227df3666e04c3a53',1,'irioDataTypes.h']]],
+  ['listriodevicesparsing_5ferror_1655',['ListRIODevicesParsing_Error',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a42875633c756022ec70d2f93273b5067',1,'irioDataTypes.h']]]
 ];

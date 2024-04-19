@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_7eirio_535',['~Irio',['../classirio_1_1Irio.html#aea23d3a6494466861b667b227bb9fc7f',1,'irio::Irio']]],
-  ['_7eprofilebase_536',['~ProfileBase',['../classirio_1_1ProfileBase.html#abd0797580c4ac04fbb060a6f6a517463',1,'irio::ProfileBase']]]
+  ['write_5fnirio_5fwarning_843',['Write_NIRIO_Warning',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a1ac7a48bfdc2185ed3699409f3cac295',1,'irioDataTypes.h']]],
+  ['write_5fresource_5fwarning_844',['Write_Resource_Warning',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a2ec438b6955821da2dc5451c1672d028',1,'irioDataTypes.h']]]
 ];

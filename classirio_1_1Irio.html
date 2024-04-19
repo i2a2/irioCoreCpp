@@ -225,7 +225,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a48e38b55a281808eb75f3eb1aae3e88a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a48e38b55a281808eb75f3eb1aae3e88a">m_resourceName</a></td></tr>
 <tr class="memdesc:a48e38b55a281808eb75f3eb1aae3e88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the RIO device used. Obtained through the serialNumber specified.  <a href="classirio_1_1Irio.html#a48e38b55a281808eb75f3eb1aae3e88a">More...</a><br /></td></tr>
 <tr class="separator:a48e38b55a281808eb75f3eb1aae3e88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d3fc9439231c3a7b3c623c6575365c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a2d3fc9439231c3a7b3c623c6575365c8">m_session</a></td></tr>
+<tr class="memitem:a2d3fc9439231c3a7b3c623c6575365c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a2d3fc9439231c3a7b3c623c6575365c8">m_session</a> = 0</td></tr>
 <tr class="memdesc:a2d3fc9439231c3a7b3c623c6575365c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Session obtained when opening a session using the NiFpga library.  <a href="classirio_1_1Irio.html#a2d3fc9439231c3a7b3c623c6575365c8">More...</a><br /></td></tr>
 <tr class="separator:a2d3fc9439231c3a7b3c623c6575365c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9b895a8bf252fcb4b533f7bb0cfc4f0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#aa9b895a8bf252fcb4b533f7bb0cfc4f0">m_fpgaviversion</a></td></tr>
@@ -255,7 +255,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a3dd9f378d9c25e531a7309202fec0871"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a3dd9f378d9c25e531a7309202fec0871">m_maxSamplingRate</a></td></tr>
 <tr class="memdesc:a3dd9f378d9c25e531a7309202fec0871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum sampling rate supported by the RIO device.  <a href="classirio_1_1Irio.html#a3dd9f378d9c25e531a7309202fec0871">More...</a><br /></td></tr>
 <tr class="separator:a3dd9f378d9c25e531a7309202fec0871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6838f3bef2bfcb56d235a16e4c750266"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a6838f3bef2bfcb56d235a16e4c750266">m_closeAttribute</a></td></tr>
+<tr class="memitem:a6838f3bef2bfcb56d235a16e4c750266"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a6838f3bef2bfcb56d235a16e4c750266">m_closeAttribute</a> = 0</td></tr>
 <tr class="memdesc:a6838f3bef2bfcb56d235a16e4c750266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute to use when closing the session with the RIO device.  <a href="classirio_1_1Irio.html#a6838f3bef2bfcb56d235a16e4c750266">More...</a><br /></td></tr>
 <tr class="separator:a6838f3bef2bfcb56d235a16e4c750266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -1326,7 +1326,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t irio::Irio::m_closeAttribute</td>
+          <td class="memname">std::uint32_t irio::Irio::m_closeAttribute = 0</td>
         </tr>
       </table>
   </td>
@@ -1665,7 +1665,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a> irio::Irio::m_session</td>
+          <td class="memname"><a class="el" href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a> irio::Irio::m_session = 0</td>
         </tr>
       </table>
   </td>

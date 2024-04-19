@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['cvadc_880',['CVADC',['../structirio_1_1ConfigParams.html#a19eaba117683a5d1f107dcaafa5343c3',1,'irio::ConfigParams']]],
-  ['cvdac_881',['CVDAC',['../structirio_1_1ConfigParams.html#a20badc0eff204671601232b9d05f929e',1,'irio::ConfigParams']]]
+  ['buff_5fptr_1330',['buff_ptr',['../structTFifoGPUInfo.html#ae311c8c039dc4311b5aba2cd61657d90',1,'TFifoGPUInfo']]],
+  ['bytes_1331',['bytes',['../structTFifoGPUInfo.html#a501e8ecb9a9c9777ecf35df0ffbfa6b6',1,'TFifoGPUInfo']]]
 ];

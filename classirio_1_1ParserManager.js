@@ -12,7 +12,7 @@ var classirio_1_1ParserManager =
     [ "logResourceError", "classirio_1_1ParserManager.html#a97203f2fcac6d074647d50ffb787d495", null ],
     [ "logResourceFound", "classirio_1_1ParserManager.html#ab28751acb80b278ebfba64b07b0cdb88", null ],
     [ "logResourceNotFound", "classirio_1_1ParserManager.html#a00d7b30036405b1ac4ac012f683d98d2", null ],
-    [ "printInfo", "classirio_1_1ParserManager.html#a824498486e8c111cc710680096b67ea6", null ],
+    [ "printInfo", "classirio_1_1ParserManager.html#a8c6dfd9b3b3ce3986d6fde6091fb9ecd", null ],
     [ "printInfoError", "classirio_1_1ParserManager.html#aae4877f106d82463d0321fc020773691", null ],
     [ "printInfoXML", "classirio_1_1ParserManager.html#a40c97890189c2eb0094c68f602761ef7", null ],
     [ "m_bfp", "classirio_1_1ParserManager.html#a939458e88840fb16324bcac5c2015e68", null ],
