@@ -93,6 +93,9 @@ class NISysCfg{
 		NISysCfgCloseHandle(m_session);
 	}
 
+	NISysCfg(const NISysCfg&) = delete;
+	NISysCfg& operator=(const NISysCfg&) = delete;
+
 	std::string getDeviceFromSerialNumber(const std::string &serialNumber) {
 		char resourceName[NISYSCFG_SIMPLE_STRING_LENGTH];
 
@@ -156,7 +159,7 @@ class NISysCfg{
 
 
 std::string getRIODevicesNI(const std::string &serialNumber) {
-	auto syscfg = NISysCfg("localhost");
+	NISysCfg syscfg("localhost");
 	return syscfg.getDeviceFromSerialNumber(serialNumber);
 }
 
