@@ -54,7 +54,7 @@ void mergeStatus(TStatus *status, const TErrorDetailCode detailCode,
 		aux.reset(new char[len]);
 		snprintf(aux.get(), len, "%s", errorMsg.c_str());
 	} else {
-		size_t len = strlen(it->second.get()) + 1 + errorMsg.length() + 1;
+		size_t len = std::string(it->second.get()).size() + 1 + errorMsg.length() + 1;
 		aux.reset(new char[len]);
 		snprintf(aux.get(), len, "%s\n%s", it->second.get(), errorMsg.c_str());
 	}

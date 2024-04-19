@@ -67,7 +67,7 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *DeviceSerialNumber,
 			 RIODeviceModel);
 
 	// App Call ID
-	const size_t lenAppCallID = strlen(appCallID);
+	const size_t lenAppCallID = std::string(appCallID).size();
 	const auto ptrAppCallID =
 		map_appCallID
 			.emplace(p_DrvPvt, std::unique_ptr<char>(new char[lenAppCallID]))
@@ -76,7 +76,7 @@ void initDrvPvt(irioDrv_t *p_DrvPvt, const char *DeviceSerialNumber,
 	p_DrvPvt->appCallID = ptrAppCallID;
 
 	// Project name
-	const size_t lenProjectName = strlen(projectName);
+	const size_t lenProjectName = std::string(projectName).size();
 	const auto ptrProjectName =
 		map_projectName
 			.emplace(p_DrvPvt, std::unique_ptr<char>(new char[lenProjectName]))
@@ -536,14 +536,15 @@ int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value,
 int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value,
 						  size_t maxLength, size_t *valueLength,
 						  TStatus *status) {
-	if (strlen(p_DrvPvt->FPGAVIStringversion) > maxLength) {
+	const auto auxLen = std::string(p_DrvPvt->FPGAVIStringversion).size();
+	if (auxLen > maxLength) {
 		*valueLength = maxLength;
 		irio_mergeStatus(status, Read_Resource_Warning, p_DrvPvt->verbosity,
 						 "FPGAVIVersion did not fit in the given pointer. Will "
 						 "be truncated");
 		return IRIO_warning;
 	} else {
-		*valueLength = strlen(p_DrvPvt->FPGAVIStringversion);
+		*valueLength = auxLen;
 	}
 
 	snprintf(value, *valueLength + 1, "%s", p_DrvPvt->FPGAVIStringversion);
