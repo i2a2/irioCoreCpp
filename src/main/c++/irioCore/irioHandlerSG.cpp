@@ -117,7 +117,8 @@ int irio_getFref(const irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status) {
 	const auto f = [Fref, p_DrvPvt] {
 		*Fref = IrioInstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
 												 p_DrvPvt->session)
-					->getFref();
+					->getTerminalsCommon()
+					.getFref();
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);

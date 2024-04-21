@@ -44,53 +44,55 @@ TEST_F(CommonTests, ConstructDestruct) {
 
 TEST_F(CommonTests, Fref) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getFref(), frefFake);
+	EXPECT_EQ(irio.getTerminalsCommon().getFref(), frefFake);
 }
 
 TEST_F(CommonTests, DevQualityStatus) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getDevQualityStatus(), devQualityStatusFake);
+	EXPECT_EQ(irio.getTerminalsCommon().getDevQualityStatus(),
+			  devQualityStatusFake);
 }
 
 TEST_F(CommonTests, DevTemp) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getDevTemp(), devTempFake);
+	EXPECT_EQ(irio.getTerminalsCommon().getDevTemp(), devTempFake);
 }
 
 TEST_F(CommonTests, MinSamplingRate) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_DOUBLE_EQ(irio.getMinSamplingRate(),
+	EXPECT_DOUBLE_EQ(irio.getTerminalsCommon().getMinSamplingRate(),
 			1.0 * frefFake / std::numeric_limits<std::uint16_t>::max());
 }
 
 TEST_F(CommonTests, MaxSamplingRate) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_DOUBLE_EQ(irio.getMaxSamplingRate(), 1.0 * frefFake);
+	EXPECT_DOUBLE_EQ(irio.getTerminalsCommon().getMaxSamplingRate(),
+					 1.0 * frefFake);
 }
 
 TEST_F(CommonTests, DAQStartStopStatus) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getDAQStartStop(), daqStartStopFake);
+	EXPECT_EQ(irio.getTerminalsCommon().getDAQStartStop(), daqStartStopFake);
 }
 
 TEST_F(CommonTests, DAQStart) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_NO_THROW(irio.setDAQStart(););
+	EXPECT_NO_THROW(irio.getTerminalsCommon().setDAQStart(););
 }
 
 TEST_F(CommonTests, DAQStop) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_NO_THROW(irio.setDAQStop(););
+	EXPECT_NO_THROW(irio.getTerminalsCommon().setDAQStop(););
 }
 
 TEST_F(CommonTests, getDebugMode) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_NO_THROW(irio.getDebugMode(););
+	EXPECT_NO_THROW(irio.getTerminalsCommon().getDebugMode(););
 }
 
 TEST_F(CommonTests, setDebugMode) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_NO_THROW(irio.setDebugMode(true););
+	EXPECT_NO_THROW(irio.getTerminalsCommon().setDebugMode(true););
 }
 
 TEST_F(CommonTests, startFPGA) {

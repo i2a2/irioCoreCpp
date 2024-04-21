@@ -30,15 +30,14 @@ Irio::Irio(const std::string &bitfilePath,
 
 	ParserManager parserManager(bfp);
 	try {
-		searchCommonResources(&parserManager);
-
-		if(getFPGAVIversion() != FPGAVIversion) {
-			throw errors::FPGAVIVersionMismatchError(getFPGAVIversion(),
-							FPGAVIversion);
-		}
-
 		searchPlatform(&parserManager);
 		searchDevProfile(&parserManager);
+
+		const auto fpgaVer =
+			m_profile->getTerminal<TerminalsCommon>().getFPGAVIversion();
+		if (fpgaVer != FPGAVIversion) {
+			throw errors::FPGAVIVersionMismatchError(fpgaVer, FPGAVIversion);
+		}
 
 		if(parseVerbose) {
 			std::cout << "Resources found: " << std::endl;
@@ -101,13 +100,14 @@ void Irio::startFPGA(std::uint32_t timeoutMs) const {
 		utils::throwIfNotSuccessNiFpga(status, "Error starting the VI");
 	}
 
+	const auto commonTerm = getTerminalsCommon();
 	unsigned int tries = 0;
-	while (!getInitDone() && tries < maxTries) {
+	while (!commonTerm.getInitDone() && tries < maxTries) {
 		nanosleep(&ts, nullptr);
 		tries++;
 	}
 
-	if (!getInitDone()) {
+	if (!commonTerm.getInitDone()) {
 		throw errors::InitializationTimeoutError();
 	}
 
@@ -126,78 +126,7 @@ void Irio::startFPGA(std::uint32_t timeoutMs) const {
 		break;
 	}
 
-	setDAQStop();
-}
-
-std::string Irio::getFPGAVIversion() const {
-	return m_fpgaviversion;
-}
-
-std::uint32_t Irio::getFref() const {
-	return m_fref;
-}
-
-bool Irio::getInitDone() const {
-	std::uint8_t aux;
-	auto status = NiFpga_ReadBool(m_session, m_initdone_addr, &aux);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading InitDone");
-	return static_cast<bool>(aux);
-}
-
-std::uint8_t Irio::getDevQualityStatus() const {
-	std::uint8_t aux;
-	auto status = NiFpga_ReadU8(m_session, m_devqualitystatus_addr, &aux);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading DevQualityStatus");
-	return aux;
-}
-
-std::int16_t Irio::getDevTemp() const {
-	std::int16_t aux;
-	auto status = NiFpga_ReadI16(m_session, m_devtemp_addr, &aux);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading DevTemp");
-	return aux;
-}
-
-bool Irio::getDAQStartStop() const {
-	std::uint8_t aux;
-	auto status = NiFpga_ReadU8(m_session, m_daqstartstop_addr, &aux);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading DAQStartStop");
-	return static_cast<bool>(aux);
-}
-
-bool Irio::getDebugMode() const {
-	std::uint8_t aux;
-	auto status = NiFpga_ReadU8(m_session, m_debugmode_addr, &aux);
-	utils::throwIfNotSuccessNiFpga(status, "Error reading DebugMode");
-	return static_cast<bool>(aux);
-}
-
-void Irio::setDAQStart() const {
-	setDAQStartStop(true);
-}
-
-void Irio::setDAQStop() const {
-	setDAQStartStop(false);
-}
-
-void Irio::setDAQStartStop(const bool &start) const {
-	auto status = NiFpga_WriteU8(m_session, m_daqstartstop_addr,
-			static_cast<std::uint8_t>(start));
-	utils::throwIfNotSuccessNiFpga(status, "Error writing DAQStartStop");
-}
-
-void Irio::setDebugMode(const bool &debug) const {
-	auto status = NiFpga_WriteU8(m_session, m_debugmode_addr,
-			static_cast<std::uint8_t>(debug));
-	utils::throwIfNotSuccessNiFpga(status, "Error writing DebugMode");
-}
-
-double Irio::getMinSamplingRate() const {
-	return m_minSamplingRate;
-}
-
-double Irio::getMaxSamplingRate() const {
-	return m_maxSamplingRate;
+	commonTerm.setDAQStop();
 }
 
 Platform Irio::getPlatform() const {
@@ -219,6 +148,10 @@ std::uint32_t Irio::getCloseAttribute() const {
 ///////////////////////////////////////////////
 /// Terminals
 ///////////////////////////////////////////////
+
+TerminalsCommon Irio::getTerminalsCommon() const {
+	return m_profile->getTerminal<TerminalsCommon>();
+}
 
 TerminalsAnalog Irio::getTerminalsAnalog() const {
 	return m_profile->getTerminal<TerminalsAnalog>();
@@ -292,45 +225,6 @@ void Irio::openSession(const std::string &bitfilePath,
 
 		throw irio::errors::NiFpgaErrorDownloadingBitfile(err);
 	}
-}
-
-void Irio::searchCommonResources(ParserManager *parserManager) {
-	NiFpga_Status status;
-
-	// Read FPGAVIversion
-	std::uint32_t fpgaviversion_addr;
-	if (parserManager->findRegisterAddress(TERMINAL_FPGAVIVERSION,
-			GroupResource::Common, &fpgaviversion_addr)) {
-		std::array<std::uint8_t, 2> fpgaviversion;
-		status = NiFpga_ReadArrayU8(m_session, fpgaviversion_addr,
-				fpgaviversion.data(), 2);
-		utils::throwIfNotSuccessNiFpga(status, "Error reading FPGAVIversion");
-		m_fpgaviversion = "V" + std::to_string(fpgaviversion[0])
-				+ "." + std::to_string(fpgaviversion[1]);
-	}
-
-	// Read Fref
-	std::uint32_t fref_addr;
-	if (parserManager->findRegisterAddress(TERMINAL_FREF,
-				GroupResource::Common, &fref_addr)) {
-		status = NiFpga_ReadU32(m_session, fref_addr, &m_fref);
-		utils::throwIfNotSuccessNiFpga(status, "Error reading Fref");
-	}
-
-	parserManager->findRegisterAddress(TERMINAL_INITDONE,
-			GroupResource::Common, &m_initdone_addr);
-	parserManager->findRegisterAddress(TERMINAL_DEVQUALITYSTATUS,
-			GroupResource::Common, &m_devqualitystatus_addr);
-	parserManager->findRegisterAddress(TERMINAL_DEVTEMP, GroupResource::Common,
-			&m_devtemp_addr);
-	parserManager->findRegisterAddress(TERMINAL_DAQSTARTSTOP,
-			GroupResource::Common, &m_daqstartstop_addr);
-	parserManager->findRegisterAddress(TERMINAL_DEBUGMODE,
-			GroupResource::Common, &m_debugmode_addr);
-
-	m_minSamplingRate = 1.0 * m_fref
-			/ std::numeric_limits<std::uint16_t>::max();
-	m_maxSamplingRate = m_fref;
 }
 
 void Irio::searchPlatform(ParserManager *parserManager) {

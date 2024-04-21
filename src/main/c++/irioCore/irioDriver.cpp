@@ -229,13 +229,16 @@ size_t getNum(const Irio *irio, GetTerminalFunc getTerminalFunc,
 void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus *status) {
 	fillPlatformData(irio, p_DrvPvt);
 
-	p_DrvPvt->Fref = irio->getFref();
+	const auto commonTerm = irio->getTerminalsCommon();
+	p_DrvPvt->Fref = commonTerm.getFref();
 
 	const auto profile = irio->getProfileID();
 	p_DrvPvt->devProfile = static_cast<std::uint8_t>(profile);
 
-	p_DrvPvt->minSamplingRate = static_cast<float>(irio->getMinSamplingRate());
-	p_DrvPvt->maxSamplingRate = static_cast<float>(irio->getMaxSamplingRate());
+	p_DrvPvt->minSamplingRate =
+		static_cast<float>(commonTerm.getMinSamplingRate());
+	p_DrvPvt->maxSamplingRate =
+		static_cast<float>(commonTerm.getMaxSamplingRate());
 
 	p_DrvPvt->numAI = getNum(irio, &irio::Irio::getTerminalsAnalog,
 							 &irio::TerminalsAnalog::getNumAI);
@@ -556,10 +559,12 @@ template <typename T, typename FuncGet>
 int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
 			  FuncGet funcGet, const std::string &funcName) {
 	try {
-		const auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+		const auto commonTerm =
+			IrioInstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
+											 p_DrvPvt->session)
+				->getTerminalsCommon();
 
-		*value = (irio->*funcGet)();
+		*value = (commonTerm.*funcGet)();
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
 						 e.what());
@@ -577,10 +582,12 @@ template <typename T, typename FuncSet>
 int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 			  FuncSet funcSet, const std::string &funcName) {
 	try {
-		const auto irio = IrioInstanceManager::getInstance(
-			p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
+		const auto commonTerm =
+			IrioInstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
+											 p_DrvPvt->session)
+				->getTerminalsCommon();
 
-		(irio->*funcSet)(value);
+		(commonTerm.*funcSet)(value);
 	} catch (IrioNotInitializedError &e) {
 		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
 						 e.what());
@@ -597,14 +604,14 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status) {
 	return getCommon<std::uint8_t>(value, status, p_DrvPvt,
-								   &irio::Irio::getDevQualityStatus,
+								   &irio::TerminalsCommon::getDevQualityStatus,
 								   "DevQualityStatus");
 }
 
 int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value,
 					TStatus *status) {
-	return getCommon<std::int16_t>(value, status, p_DrvPvt,
-								   &irio::Irio::getDevTemp, "DevTemp");
+	return getCommon<std::int16_t>(
+		value, status, p_DrvPvt, &irio::TerminalsCommon::getDevTemp, "DevTemp");
 }
 
 int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value,
@@ -616,25 +623,27 @@ int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value,
 }
 
 int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
-	return setCommon<bool>(value, status, p_DrvPvt, &irio::Irio::setDebugMode,
-						   "DebugMode");
+	return setCommon<bool>(value, status, p_DrvPvt,
+						   &irio::TerminalsCommon::setDebugMode, "DebugMode");
 }
 
 int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value,
 					  TStatus *status) {
-	return getCommon<bool>(value, status, p_DrvPvt, &irio::Irio::getDebugMode,
-						   "DebugMode");
+	return getCommon<bool>(value, status, p_DrvPvt,
+						   &irio::TerminalsCommon::getDebugMode, "DebugMode");
 }
 
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status) {
 	return setCommon<bool>(value, status, p_DrvPvt,
-						   &irio::Irio::setDAQStartStop, "DAQStartStop");
+						   &irio::TerminalsCommon::setDAQStartStop,
+						   "DAQStartStop");
 }
 
 int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value,
 						 TStatus *status) {
 	return getCommon<bool>(value, status, p_DrvPvt,
-						   &irio::Irio::getDAQStartStop, "DAQStartStop");
+						   &irio::TerminalsCommon::getDAQStartStop,
+						   "DAQStartStop");
 }
 
 int irio_setSamplingRate(irioDrv_t *, int, int32_t, TStatus *) {
