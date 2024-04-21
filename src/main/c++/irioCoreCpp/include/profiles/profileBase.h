@@ -26,7 +26,8 @@ class ProfileBase {
 	 *
 	 * @param id	Identification of the profile
 	 */
-	explicit ProfileBase(const PROFILE_ID &id);
+	explicit ProfileBase(ParserManager *parserManager,
+		const NiFpga_Session &session, const PROFILE_ID &id);
 
 	virtual ~ProfileBase() = default;
 

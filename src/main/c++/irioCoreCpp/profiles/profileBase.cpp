@@ -1,10 +1,12 @@
-#include <profiles/profileBase.h>
-#include <errorsIrio.h>
+#include "profiles/profileBase.h"
+#include "errorsIrio.h"
 
 namespace irio {
 
-ProfileBase::ProfileBase(const PROFILE_ID &id) :
+ProfileBase::ProfileBase(ParserManager *parserManager,
+		const NiFpga_Session &session, const PROFILE_ID &id) :
 		profileID(id) {
+	addTerminal(TerminalsCommon(parserManager, session));
 }
 
 template<typename T>
@@ -27,6 +29,7 @@ template TerminalsFlexRIO ProfileBase::getTerminal() const;
 template TerminalscRIO ProfileBase::getTerminal() const;
 template TerminalsSignalGeneration ProfileBase::getTerminal() const;
 template TerminalsDMAIMAQ ProfileBase::getTerminal() const;
+template TerminalsCommon ProfileBase::getTerminal() const;
 
 
 template<typename T>
@@ -54,5 +57,6 @@ template void ProfileBase::addTerminal(TerminalsAuxDigital terminal);
 template void ProfileBase::addTerminal(TerminalsFlexRIO terminal);
 template void ProfileBase::addTerminal(TerminalscRIO terminal);
 template void ProfileBase::addTerminal(TerminalsSignalGeneration terminal);
+template void ProfileBase::addTerminal(TerminalsCommon terminal);
 
 }  // namespace irio
