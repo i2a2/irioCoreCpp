@@ -6,7 +6,7 @@ Summary:	irioCoreCpp
 License:	GPL
 URL:		https://github.com/i2a2/irioCore
 
-Requires: libbfp
+Requires: bfp
 
 %description
 irioCoreCpp

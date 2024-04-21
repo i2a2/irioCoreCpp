@@ -6,6 +6,8 @@ Summary:	BFP devel
 License:	GPL
 URL:		https://github.com/i2a2/irioCore
 
+Requires: bfp
+
 %description
 BFP devel
 
