@@ -31,7 +31,7 @@ Irio::Irio(const std::string &bitfilePath,
 	ParserManager parserManager(bfp);
 	try {
 		searchPlatform(&parserManager);
-		searchDevProfile(&parserManager);
+		selectDevProfile(&parserManager);
 
 		const auto fpgaVer =
 			m_profile->getTerminal<TerminalsCommon>().getFPGAVIversion();
@@ -254,7 +254,7 @@ void Irio::searchPlatform(ParserManager *parserManager) {
 	}
 }
 
-void Irio::searchDevProfile(ParserManager *parserManager) {
+void Irio::selectDevProfile(ParserManager *parserManager) {
 	static const std::unordered_map<PLATFORM_ID,
 			const std::unordered_map<std::uint8_t,
 				PROFILE_ID>> validProfileByPlatform =

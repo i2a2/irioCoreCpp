@@ -316,7 +316,7 @@ class Irio {
 	 * @throw irio::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
 	 * @throw irio::errors::NiFpgaError					Error occurred in an FPGA operation
 	 */
-	void searchDevProfile(ParserManager *parserManager);
+	void selectDevProfile(ParserManager *parserManager);
 
 	/// Platform of the RIO device
 	std::unique_ptr<Platform> m_platform;
