@@ -30,12 +30,12 @@ jobs:
         make package -j
 
     - name: Generate DEB packages
-      working-directory: $PACKAGE_DIR
+      working-directory: ${{ env.PACKAGE_DIR }}
       run: |
         alien *.rpm
     
     - name: Group packages
-      working-directory: $PACKAGE_DIR
+      working-directory: ${{ env.PACKAGE_DIR }}
       run: |
         tar -czvf rpm-irioCore-${{ github.ref_name}}.tar.gz *.rpm
         tar -czvf deb-irioCore-${{ github.ref_name}}.tar.gz *.deb
