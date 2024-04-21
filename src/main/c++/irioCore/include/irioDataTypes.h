@@ -231,6 +231,10 @@ typedef struct TResourcePort {
  * Main struct of irioCore
  *
  * Stores all ports, the current session and the status.
+ * 
+ * @warning Direct access to this structure should be avoided. 
+ * Use getters/setters. Variables may be unitialized or null pointers which
+ * may lead to unwanted behaviour or even segfaults.
  */
 typedef struct irioDrv_t {
 	/// Part of the name of the bitfile downloaded into the FPGA.
