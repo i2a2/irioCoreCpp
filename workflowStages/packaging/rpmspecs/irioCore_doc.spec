@@ -6,6 +6,8 @@ Summary:	irioCore documentation
 License:	GPL
 URL:		https://github.com/i2a2/irioCore
 
+Requires: bfp
+
 %description
 IrioCore documentation for modules BFP, irioCore and irioCoreCpp
 
