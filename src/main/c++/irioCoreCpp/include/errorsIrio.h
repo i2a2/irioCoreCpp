@@ -29,6 +29,19 @@ class TerminalNotImplementedError: public IrioError {
 };
 
 /**
+ * Exception when a profiel is a valid one, but has not been implemented yet
+ *
+ * @ingroup Errors
+ */
+class ProfileNotImplementedError: public IrioError {
+	using IrioError::IrioError;
+ public:
+	ProfileNotImplementedError() :
+			IrioError("Profile not implemented yet") {
+	}
+};
+
+/**
  * Exception when a resource (Register/DMA) is not found
  * @ingroup Errors
  */

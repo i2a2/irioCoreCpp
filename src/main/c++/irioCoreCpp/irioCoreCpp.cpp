@@ -304,15 +304,15 @@ void Irio::selectDevProfile(ParserManager *parserManager) {
 			new ProfileCPUIMAQFlexRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::FLEXRIO_GPUDAQ:
-		throw std::runtime_error("Profile not implemented");
+		throw errors::ProfileNotImplementedError();
 	case PROFILE_ID::FLEXRIO_GPUIMAQ:
-		throw std::runtime_error("Profile not implemented");
+		throw errors::ProfileNotImplementedError();
 	case PROFILE_ID::CRIO_DAQ:
 		m_profile.reset(
 			new ProfileCPUDAQcRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::CRIO_IO:
-		throw std::runtime_error("Profile not implemented");
+		throw errors::ProfileNotImplementedError();
 	case PROFILE_ID::R_DAQ:
 		m_profile.reset(new ProfileCPUDAQ(parserManager, m_session, *m_platform,
 										  PROFILE_ID::R_DAQ));
