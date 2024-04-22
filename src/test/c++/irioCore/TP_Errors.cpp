@@ -27,14 +27,7 @@ using namespace TestUtilsIRIO;
 using std::cout; 
 using std::endl;
 
-/**
- * TP-XXX-XXX1 irioDriver
- * 
- * Test error paths on irioDriver.c file
- * Implemented on:
- * - IRIOError.InitWithNullStatus
- * - IRIOError.InvalidDirs
- */
+// irioDriver.c tests
 TEST(IRIOError, InitWithNullStatus) {
     int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
@@ -44,7 +37,6 @@ TEST(IRIOError, InitWithNullStatus) {
         IRIO_error
     );
 }
-
 TEST(IRIOError, InvalidDirs) {
     irioDrv_t drv;
     TStatus status;
@@ -57,7 +49,22 @@ TEST(IRIOError, InvalidDirs) {
         IRIO_error
     );
 }
+TEST(IRIOError, StartAlredyStarted) {
+    irioDrv_t drv;
+    TStatus status;   
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
+    int st = initDriver(IRIOProfile::NoModule, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+    if (verbose_test) cout << "[TEST] Starting FPGA for the first time (should succeed)" << endl;
+    startFPGA(&drv);
+
+    if (verbose_test) cout << "[TEST] Starting FPGA for the second time (should fail)" << endl;
+    int startStatus = irio_setFPGAStart(&drv,1,&status);
+	TestUtilsIRIO::logErrors(startStatus, status);
+	EXPECT_NE(startStatus, IRIO_success);
+}
+// irioError.c tests
 TEST(IRIOError, GetErrorString) {
     TErrorDetailCode errorCode;
     char* errorString;

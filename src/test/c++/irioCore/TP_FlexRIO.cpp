@@ -123,7 +123,6 @@ TEST(FlexRIOResources, ResourcesIMAQ) {
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
-
 TEST(FlexRIOResources, ResourcesMAXIO) {
     int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
@@ -1252,7 +1251,24 @@ TEST(FlexRIOIMAQ1483, InitConfigCL) {
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
+TEST(FlexRIOIMAQ1483, InitConfigCLWarning) {
+    irioDrv_t drv;
+	TStatus status;
+	irio_initStatus(&status);
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
+    int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+
+	if (verbose_test) cout << "[TEST] Configuring CL with invalid values, should throw a warning" << endl;
+	st = irio_configCL(&drv, 0, 0, 0, 0, 0, 1, (CL_SignalMapping_T)99, (CL_Config_T)99, &status);
+	logErrors(st, status);
+	EXPECT_NE(st, IRIO_success);
+	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful (expected)" : "successful (incorrect)") << endl;
+
+    st = closeDriver(&drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
+}
 TEST(FlexRIOIMAQ1483, GetImages) {
     irioDrv_t drv;
 	TStatus status;
@@ -1274,10 +1290,6 @@ TEST(FlexRIOIMAQ1483, GetImages) {
 	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 	irio_resetStatus(&status);
-
-	st = irio_cleanDMAsTtoHost(&drv, &status);
-	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
 
 	startFPGA(&drv);
 
@@ -1316,7 +1328,6 @@ TEST(FlexRIOIMAQ1483, GetImages) {
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
-
 TEST(FlexRIOUART1483, GetUARTBaudRate) {
 	const int baudRateConversion[] = { 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600 }; // sps
 	
@@ -1549,20 +1560,17 @@ TEST(FlexRIOUART1483, GetCLUART) {
 
 	int rcvsize = -1;
 	char buffer[msgsize] = {};
-	cout << "[TEST] Write a message up to " << msgsize - 1 << " characters on the EDTpdv terminal and press enter here";
+	cout << "[TEST] Write a message up to " << msgsize - 1 << " characters on the EDTpdv terminal and press enter here" << endl;
 	std::cin.get();
-	st = irio_getCLuartWithBufferSize(&drv, msgsize - 1, buffer, &rcvsize, &status);
+	st = irio_getCLuartWithBufferSize(&drv, msgsize, buffer, &rcvsize, &status);
 	logErrors(st, status);
 	EXPECT_EQ(st, IRIO_success);
 	irio_resetStatus(&status);
 
-	if (rcvsize < msgsize - 1) {
+	if (buffer[rcvsize] == '\n') { // Remove last line break 
 		buffer[rcvsize] = '\0';
-	} else {
-		buffer[msgsize - 1] = '\0';
 	}
-	const auto messageRcv = TestUtilsIRIO::escapeSequencesToLiteral(std::string(buffer));
-	cout << "[TEST] Message received: '" << messageRcv << "' (" << rcvsize << " characters)" << endl;
+	cout << "[TEST] Message received: " << buffer << " (" << rcvsize << " characters)" << endl;
 
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
