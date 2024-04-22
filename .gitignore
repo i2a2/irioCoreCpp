@@ -10,3 +10,4 @@ target/
 .vscode/
 bw-output/
 .idea/
+**/test-suites/
