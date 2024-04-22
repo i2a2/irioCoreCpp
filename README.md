@@ -23,7 +23,7 @@
 # Installation
 The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCore/releases). However, it is also possible to install them [manually](#manual-installation).
 
-> **_NOTE_**
+> **_NOTE_**<br>
 >  
 > It is necessary to have the national instrument package repository configured to resolve the dependencies appropriately (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
 >
@@ -41,7 +41,7 @@ The requires packages for compiling the project are:
 - ni-syscfg-devel 
 - ni-flexrio-modulario-libs-devel
 
-> **_NOTE_** 
+> **_NOTE_**<br> 
 > 
 > It is necessary to have the national instrument package repository configured to install the packages related to NI (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
 
@@ -60,7 +60,7 @@ This will compile the libraries, unittests, functional tests and examples.
 ## Prerequisites
 - Compile succesfully the libraries (See [compilation](#compilation))
 ## Instructions
-> **_NOTE_** 
+> **_NOTE_**<br> 
 > 
 > This section covers how to install the libraries by copying using make install, it is recommended installing it as a package if possible. See [Generating packages manually](#generating-packages-manually) 
 
@@ -68,16 +68,16 @@ To install the project go to the root folder and execute:
 ```
 make install INSTALL_DIR=<INSTALL DIR>
 ```
-> **_NOTE_** 
+> **_NOTE_**<br> 
 > 
 > `INSTALL_DIR` is the install location. Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
 
 # Generating packages manually
-> **_NOTE_** 
+> **_NOTE_**<br> 
 > 
 > Package generation will only generate RPM for RHEL distributions. In other distributions it is necessary to install tools for managing rpm (in Debian it is usually the package _'rpm'_).
 
-> **_NOTE_**
+> **_NOTE_**<br>
 >
 > It is also possible to convert these rpms into deb with `alien` (See [Converting RPM packages to deb](#converting-rpm-packages-to-deb)), but this has not been tested throughly. 
 
@@ -88,7 +88,7 @@ make package
 
 This will generate rpm files in `target/packages/x86_64`
 
-> **_NOTE_**
+> **_NOTE_**<br>
 >
 > Default installation directories are:
 > - `/usr/local/lib` : Libraries
@@ -129,7 +129,7 @@ In order toaccess and install the requiredpackages ofNationalInstrument,it is re
 
 4. **Install the package corresponding to your distribution**
     - ni-\<distribution\>-drivers-stream.rpm
-    > **_NOTE_**
+    > **_NOTE_**<br>
     >
     > After this step, it may be required to update the repositories to find the NI packages
 
