@@ -94,124 +94,6 @@ class Irio {
   void startFPGA(std::uint32_t timeoutMs = 5000) const;
 
   /**
-   * Returns the parsed TERMINAL_FPGAVIVERSION read from the FPGA
-   *
-   * @return String with the FPGAVIversion as (M.m). First element is the major
-   * version, second the minor version
-   */
-  std::string getFPGAVIversion() const;
-
-  /**
-   * Reads the TERMINAL_INITDONE terminal from the FPGA and return its
-   * value. This indicates if the FPGA has been initialized.
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @return InitDone value. True if FPAG initialized, false otherwise
-   */
-  bool getInitDone() const;
-
-  /**
-   * Returns the reference clock of the FPGA for sampling rate.
-   * Its value is specified by the terminal TERMINAL_INITDONE
-   *
-   * @return Reference clock of the FPGA for sampling rate
-   */
-  std::uint32_t getFref() const;
-
-  /**
-   * Reads the TERMINAL_DEVQUALITYSTATUS terminal.
-   * Its value indicates the status of the acquisition.
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @return Status of the acquisition
-   */
-  std::uint8_t getDevQualityStatus() const;
-
-  /**
-   * Reads the TERMINAL_DEVTEMP terminal.
-   * Its value indicates the temperature of the FPGA
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @return Temperature of the FPGA
-   */
-  std::int16_t getDevTemp() const;
-
-  /**
-   * Reads the TERMINAL_DAQSTARTSTOP terminal.
-   * Its value indicates whether the data acquisition is running
-   * or not
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @return True if data acquisition is running, false otherwise
-   */
-  bool getDAQStartStop() const;
-
-  /**
-   * Reads the TERMINAL_DEBUGMODE terminal.
-   * Its value indicates whether the acquired data is simulated
-   * or not
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @return True if data acquired is simulated, false otherwise
-   */
-  bool getDebugMode() const;
-
-  /**
-   * Starts the data acquisition.
-   * Writes true to TERMINAL_DAQSTARTSTOP
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   */
-  void setDAQStart() const;
-
-  /**
-   * Stops the data acquisition.
-   * Writes false to TERMINAL_DAQSTARTSTOP
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   */
-  void setDAQStop() const;
-
-  /**
-   * Allows starting or stopping the data acquisition.
-   * Writes to TERMINAL_DAQSTARTSTOP
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @param start True to start, false to stop
-   */
-  void setDAQStartStop(const bool &start) const;
-
-  /**
-   * Enables or disables the debug mode.
-   * Writes to TERMINAL_DEBUGMODE
-   *
-   * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
-   *
-   * @param debug
-   */
-  void setDebugMode(const bool &debug) const;
-
-  /**
-   * Returns the minimum valid value for the FPGA sampling rate
-   *
-   * @return Minimum valid sampling rate
-   */
-  double getMinSamplingRate() const;
-
-  /**
-   * Returns the maximum valid value for the FPGA sampling rate
-   *
-   * @return Maximum valid sampling rate
-   */
-  double getMaxSamplingRate() const;
-
-  /**
    * Returns the platform detected
    *
    * The object returned has information about the type of platform
@@ -251,6 +133,19 @@ class Irio {
   ///////////////////////////////////////////////
   /// Terminals
   ///////////////////////////////////////////////
+
+  /**
+   * Access to the common group terminals
+   *
+   * The user must call it to be able to read/write the
+   * related terminals.
+   *
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
+   * does not have the terminals
+   *
+   * @return Common terminals
+   */
+  TerminalsCommon getTerminalsCommon() const;
 
   /**
    * Access to the analog group terminals
@@ -421,15 +316,7 @@ class Irio {
 	 * @throw irio::errors::UnsupportedDevProfileError	The DevProfile read does not match any of the supported profiles
 	 * @throw irio::errors::NiFpgaError					Error occurred in an FPGA operation
 	 */
-	void searchDevProfile(ParserManager *parserManager);
-
-	/**
-	 * Searches for the common resources used in all profiles.
-     * 
-	 * It reads some of the resources with their initials values,
-	 * so it must be called after a NiFpga_session has been obtained.
-	 */
-	void searchCommonResources(ParserManager *parserManager);
+	void selectDevProfile(ParserManager *parserManager);
 
 	/// Platform of the RIO device
 	std::unique_ptr<Platform> m_platform;
@@ -442,27 +329,6 @@ class Irio {
 
     /// Session obtained when opening a session using the NiFpga library
 	NiFpga_Session m_session = 0;
-
-	/// FpgaVIVersion read from the RIO device
-	std::string m_fpgaviversion;
-	/// Reference frequency read from the RIO device
-	std::uint32_t m_fref;
-
-    /// Address of the initdone resource
-	std::uint32_t m_initdone_addr;
-    /// Address of the devqualitystatus resource
-	std::uint32_t m_devqualitystatus_addr;
-    /// Address of the devtemp resource
-	std::uint32_t m_devtemp_addr;
-    /// Address of the daqstartstop resource
-	std::uint32_t m_daqstartstop_addr;
-	/// Address of the debugmode resource
-	std::uint32_t m_debugmode_addr;
-
-	/// Minimum sampling rate supported by the RIO device
-	double m_minSamplingRate;
-	/// Maximum sampling rate supported by the RIO device
-	double m_maxSamplingRate;
 
 	/// Attribute to use when closing the session with the RIO device. By
 	/// default is 0

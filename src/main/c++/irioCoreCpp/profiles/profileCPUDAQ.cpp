@@ -6,7 +6,7 @@ namespace irio {
 ProfileCPUDAQ::ProfileCPUDAQ(ParserManager *parserManager,
 		const NiFpga_Session &session, const Platform &platform,
 		const PROFILE_ID &id) :
-		ProfileBase(id) {
+		ProfileBase(parserManager, session, id) {
 	addTerminal(TerminalsAnalog(parserManager, session, platform));
 	addTerminal(TerminalsDigital(parserManager, session, platform));
 	addTerminal(TerminalsAuxAnalog(parserManager, session, platform));

@@ -9,3 +9,4 @@
 #include <terminals/terminalsSignalGeneration.h>
 #include <terminals/terminalsDMADAQCPU.h>
 #include <terminals/terminalsDMAIMAQCPU.h>
+#include <terminals/terminalsCommon.h>

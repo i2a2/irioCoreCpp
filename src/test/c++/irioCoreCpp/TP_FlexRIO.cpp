@@ -55,21 +55,22 @@ TEST_F(FlexRIOOnlyResources, FPGAVIversion){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 
-	EXPECT_EQ(irio.getFPGAVIversion(), "V1.2");
+	EXPECT_EQ(irio.getTerminalsCommon().getFPGAVIversion(), "V1.2");
 }
 
 TEST_F(FlexRIOOnlyResources, DevQualityStatus){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 
-	EXPECT_EQ(irio.getDevQualityStatus(), 0);
+	EXPECT_EQ(irio.getTerminalsCommon().getDevQualityStatus(), 0);
 }
 
 TEST_F(FlexRIOOnlyResources, GetMinSamplingRate){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 
-	EXPECT_DOUBLE_EQ(irio.getMinSamplingRate(), 1525.9021896696422);
+	EXPECT_DOUBLE_EQ(irio.getTerminalsCommon().getMinSamplingRate(),
+					 1525.9021896696422);
 }
 
 
@@ -77,7 +78,7 @@ TEST_F(FlexRIOOnlyResources, GetMaxSamplingRate){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 
-	EXPECT_DOUBLE_EQ(irio.getMaxSamplingRate(), 100e6);
+	EXPECT_DOUBLE_EQ(irio.getTerminalsCommon().getMaxSamplingRate(), 100e6);
 }
 
 
@@ -294,19 +295,20 @@ TEST_F(FlexRIONoModule, DevTemp){
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
 
-	irio.getDevTemp();
+	irio.getTerminalsCommon().getDevTemp();
 }
 
 TEST_F(FlexRIONoModule, DebugMode){
 	const std::string bitfilePath = getBitfilePath();
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	irio.startFPGA();
-	irio.setDebugMode(false);
-	EXPECT_FALSE(irio.getDebugMode());
+	commonTerm.setDebugMode(false);
+	EXPECT_FALSE(commonTerm.getDebugMode());
 
-	irio.setDebugMode(true);
-	EXPECT_TRUE(irio.getDebugMode());
+	commonTerm.setDebugMode(true);
+	EXPECT_TRUE(commonTerm.getDebugMode());
 }
 
 //TODO: Check how the SG works, decimation?
@@ -314,12 +316,13 @@ TEST_F(FlexRIONoModule, SGSignalType){
 	const std::string bitfilePath = getBitfilePath();
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	auto sg = irio.getTerminalsSignalGeneration();
 
 	ASSERT_GE(sg.getSGNo(), 1);
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	const auto st = sg.getSGSignalType(0);
 	EXPECT_EQ(st, 0);
@@ -329,10 +332,11 @@ TEST_F(FlexRIONoModule, SGFref){
 	const std::string bitfilePath = getBitfilePath();
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	const auto fref = sg.getSGFref(0);
 	EXPECT_EQ(fref, 100e6);
@@ -345,10 +349,11 @@ TEST_F(FlexRIONoModule, SGPhase){
 	const std::string bitfilePath = getBitfilePath();
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	sg.setSGPhase(numSG, phase);
 	const auto phaseRead = sg.getSGPhase(numSG);
@@ -361,10 +366,11 @@ TEST_F(FlexRIONoModule, SGUpdateRate){
 
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	const auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	sg.setSGUpdateRate(channel, updateRate);
 	EXPECT_EQ(sg.getSGUpdateRate(channel), updateRate) << "SGUpdateRate was not configured properly";
@@ -376,10 +382,11 @@ TEST_F(FlexRIONoModule, SGSignalFreq){
 
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	const auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	sg.setSGFreq(channel, signalFreq);
 	EXPECT_EQ(sg.getSGFreq(channel), signalFreq) << "SGSignalFreq was not configured properly";
@@ -391,10 +398,11 @@ TEST_F(FlexRIONoModule, SGSignalAmp){
 
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	const auto sg = irio.getTerminalsSignalGeneration();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	//auto a = sg.getSGFref(channel);
 
@@ -477,11 +485,12 @@ TEST_F(FlexRIOMod5761, AO){
 	const std::uint32_t idAuxAI = 9;
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	const auto analog = irio.getTerminalsAnalog();
 	const auto auxAnalog = irio.getTerminalsAuxAnalog();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	std::int32_t valueWrite;
 	std::int32_t valueRead;
@@ -502,9 +511,10 @@ TEST_F(FlexRIOMod5761, AO){
 TEST_F(FlexRIOMod5761, DMAClean){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 	irio.getTerminalsDAQ().cleanDMA(0);
 	irio.getTerminalsDAQ().cleanAllDMAs();
 }
@@ -512,9 +522,10 @@ TEST_F(FlexRIOMod5761, DMAClean){
 TEST_F(FlexRIOMod5761, DMAStartStop){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	irio.getTerminalsDAQ().startAllDMAs();
 	irio.getTerminalsDAQ().stopAllDMAs();
@@ -526,9 +537,10 @@ TEST_F(FlexRIOMod5761, DMAStartStop){
 TEST_F(FlexRIOMod5761, DMAEnableDisable){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	EXPECT_FALSE(irio.getTerminalsDAQ().isDMAEnable(0));
 	irio.getTerminalsDAQ().enableDMA(0);
@@ -546,11 +558,12 @@ TEST_F(FlexRIOMod5761, DMASamplingRate){
 	const std::uint32_t samplingRate = 500000;
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
-	const std::uint32_t fref = irio.getFref();
+	const auto commonTerm = irio.getTerminalsCommon();
+	const std::uint32_t fref = commonTerm.getFref();
 	const std::uint32_t decimation = fref / samplingRate;
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	irio.getTerminalsDAQ().setSamplingRateDecimation(0, decimation);
 	const auto readDecimation = irio.getTerminalsDAQ().getSamplingRateDecimation(0);
@@ -583,25 +596,27 @@ TEST_F(FlexRIOMod5761, AICoupling){
 TEST_F(FlexRIOMod5761, DAQStartStop){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
-	EXPECT_FALSE(irio.getDAQStartStop());
+	EXPECT_FALSE(commonTerm.getDAQStartStop());
 
-	irio.setDAQStart();
-	EXPECT_TRUE(irio.getDAQStartStop());
+	commonTerm.setDAQStart();
+	EXPECT_TRUE(commonTerm.getDAQStartStop());
 
-	irio.setDAQStop();
-	EXPECT_FALSE(irio.getDAQStartStop());
+	commonTerm.setDAQStop();
+	EXPECT_FALSE(commonTerm.getDAQStartStop());
 }
 
 TEST_F(FlexRIOMod5761, DMADAQParameters){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	auto daq = irio.getTerminalsDAQ();
 	daq.enableDMA(0);
@@ -621,8 +636,9 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeout){
 	const std::uint8_t signalType = 0; //DC
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	auto sg = irio.getTerminalsSignalGeneration();
 	auto analog = irio.getTerminalsAnalog();
@@ -638,11 +654,11 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeout){
 	const auto lengthBlock = daq.getLengthBlock(DMANum);
 
 	// Setup DMAQ
-	const std::uint16_t decimation = irio.getFref()/samplingRate;
+	const std::uint16_t decimation = commonTerm.getFref()/samplingRate;
 	daq.startDMA(DMANum);
 	daq.setSamplingRateDecimation(DMANum, decimation);
 	daq.enableDMA(DMANum);
-	irio.setDAQStart();
+	commonTerm.setDAQStart();
 
 	::usleep(100000);
 
@@ -651,7 +667,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeout){
 	EXPECT_EQ(sizeRead, lengthBlock*blocksToRead) << "Incorrect number of elements read";
 
 	daq.disableDMA(DMANum);
-	irio.setDAQStop();
+	commonTerm.setDAQStop();
 	daq.cleanDMA(DMANum);
 
 	std::uint16_t *dataAux = reinterpret_cast<std::uint16_t*>(data.get());
@@ -673,8 +689,9 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeoutNoData){
 	const std::uint8_t signalType = 0; //DC
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	auto sg = irio.getTerminalsSignalGeneration();
 	auto analog = irio.getTerminalsAnalog();
@@ -689,7 +706,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeoutNoData){
 	const auto lengthBlock = daq.getLengthBlock(DMANum);
 
 	// Setup DMAQ
-	const std::uint16_t decimation = irio.getFref()/samplingRate;
+	const std::uint16_t decimation = commonTerm.getFref()/samplingRate;
 	daq.startDMA(DMANum);
 	daq.setSamplingRateDecimation(DMANum, decimation);
 	daq.enableDMA(DMANum);
@@ -701,7 +718,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataNoTimeoutNoData){
 	EXPECT_EQ(sizeRead, 0) << "Data was read when it was not expected";
 
 	daq.disableDMA(DMANum);
-	irio.setDAQStop();
+	commonTerm.setDAQStop();
 	daq.cleanDMA(DMANum);
 }
 
@@ -717,8 +734,9 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeout){
 	const std::uint8_t signalType = 0; //DC
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	auto sg = irio.getTerminalsSignalGeneration();
 	auto analog = irio.getTerminalsAnalog();
@@ -734,14 +752,14 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeout){
 	const auto lengthBlock = daq.getLengthBlock(DMANum);
 
 	// Setup DMAQ
-	const std::uint16_t decimation = irio.getFref()/samplingRate;
+	const std::uint16_t decimation = commonTerm.getFref()/samplingRate;
 	std::unique_ptr<std::uint64_t> data(new std::uint64_t[lengthBlock*blocksToRead]);
 	const auto timeout = static_cast<std::uint32_t>(1.1*std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
 
 	daq.startDMA(DMANum);
 	daq.setSamplingRateDecimation(DMANum, decimation);
 	daq.enableDMA(DMANum);
-	irio.setDAQStart();
+	commonTerm.setDAQStart();
 
 	try{
 		daq.readDataBlocking(DMANum, lengthBlock*blocksToRead, data.get(), timeout);
@@ -750,7 +768,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeout){
 	}
 
 	daq.disableDMA(DMANum);
-	irio.setDAQStop();
+	commonTerm.setDAQStop();
 	daq.cleanDMA(DMANum);
 
 	std::uint16_t *dataAux = reinterpret_cast<std::uint16_t*>(data.get());
@@ -773,8 +791,9 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeoutNoData){
 	const std::uint8_t signalType = 0; //DC
 
 	Irio irio(bitfilePath, serialNumber, "V1.2");
+	const auto commonTerm = irio.getTerminalsCommon();
 	irio.startFPGA();
-	irio.setDebugMode(false);
+	commonTerm.setDebugMode(false);
 
 	auto sg = irio.getTerminalsSignalGeneration();
 	auto analog = irio.getTerminalsAnalog();
@@ -789,7 +808,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeoutNoData){
 	const auto lengthBlock = daq.getLengthBlock(DMANum);
 
 	// Setup DMAQ
-	const std::uint16_t decimation = irio.getFref()/samplingRate;
+	const std::uint16_t decimation = commonTerm.getFref()/samplingRate;
 	std::unique_ptr<std::uint64_t> data(new std::uint64_t[lengthBlock*blocksToRead]);
 	const auto timeout = static_cast<std::uint32_t>(std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
 
@@ -801,7 +820,7 @@ TEST_F(FlexRIOMod5761, DMADAQGetDataTimeoutNoData){
 					, errors::DMAReadTimeout) << "Timeout exception was not raised";
 
 	daq.disableDMA(DMANum);
-	irio.setDAQStop();
+	commonTerm.setDAQStop();
 	daq.cleanDMA(DMANum);
 }
 

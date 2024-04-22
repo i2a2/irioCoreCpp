@@ -23,10 +23,14 @@ class ProfileBase {
  public:
 	/**
 	 * Allows the user to access terminals for read/write operations.
-	 *
-	 * @param id	Identification of the profile
+	 * 
+	 * @param parserManager     Pointer to class managing parsing the bitfile
+	 *                          and finding its resources
+	 * @param session           NiFpga_Session to be used in NiFpga related functions
+	 * @param id				Identification of the profile type
 	 */
-	explicit ProfileBase(const PROFILE_ID &id);
+	explicit ProfileBase(ParserManager *parserManager,
+		const NiFpga_Session &session, const PROFILE_ID &id);
 
 	virtual ~ProfileBase() = default;
 
