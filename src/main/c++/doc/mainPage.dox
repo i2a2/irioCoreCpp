@@ -95,6 +95,7 @@ is set, in which case `INSTALL_DIR` will use the value of `CODAC_ROOT`
 
 \subsection manual_packages_deb Converting RPM packages to deb
 \subsubsection manual_packages_deb_prerequisites Prerequisites
+- \ref manual_packages "Packaging" is done succesfully.
 - Install `alien` package.
 \subsubsection manual_packages_deb_instructions Instructions
 1. Go to `target/packages/x86_64`

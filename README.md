@@ -104,6 +104,7 @@ If `INSTALL_DIR` is not set, it defaults to `/usr/local`, unless `CODAC_ROOT` is
 
 ## Converting RPM packages to deb
 ### Prerequisites
+- [Packaging](#generating-packages-manually) is done succesfully.
 - Install `alien` package.
 ### Instructions
 1. Go to `target/packages/x86_64`
