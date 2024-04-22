@@ -21,16 +21,15 @@ using namespace irio;
 
 class CommonTestsAdapter: public BaseTestsAdapter {
 public:
-	CommonTestsAdapter():
-		BaseTestsAdapter("../../../resources/7854", "Rseries_CPUDAQ_7854")
-	{
-		setValueForReg(ReadFunctions::NiFpga_ReadU8,
-						bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
-						PLATFORM_ID::RSeries);
-	}
+ CommonTestsAdapter()
+	 : BaseTestsAdapter("../../../resources/7854", "Rseries_CPUDAQ_7854") {}
 
-	void SetUp() override {
-		irio_initStatus(&status);
+ void SetUp() override {
+	 init_ok_fff_nifpga();
+	 irio_initStatus(&status);
+	 setValueForReg(ReadFunctions::NiFpga_ReadU8,
+					bfp.getRegister(TERMINAL_PLATFORM).getAddress(),
+					PLATFORM_ID::RSeries);
 	}
 
 	void TearDown() override {
@@ -667,4 +666,26 @@ TEST_F(ErrorCommonTestsAdapter, getErrorStringInvalidErrorCode) {
 	free(str);
 }
 
+TEST_F(ErrorCommonTestsAdapter, UnsupportedPlatformError) {
+	setValueForReg(ReadFunctions::NiFpga_ReadU8,
+				   bfp.getRegister(TERMINAL_PLATFORM).getAddress(), 99);
 
+	auto ret =
+		irio_initDriver("test", "0", "TestModel", projectName.c_str(), "V9.9",
+						false, nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	EXPECT_EQ(ret, IRIO_error);
+	EXPECT_EQ(status.code, IRIO_error);
+	EXPECT_EQ(status.detailCode, ResourceValueNotValid_Error);
+}
+
+TEST_F(ErrorCommonTestsAdapter, UnsupportedProfileError) {
+	setValueForReg(ReadFunctions::NiFpga_ReadU8,
+				   bfp.getRegister(TERMINAL_DEVPROFILE).getAddress(), 99);
+
+	auto ret =
+		irio_initDriver("test", "0", "TestModel", projectName.c_str(), "V9.9",
+						false, nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	EXPECT_EQ(ret, IRIO_error);
+	EXPECT_EQ(status.code, IRIO_error);
+	EXPECT_EQ(status.detailCode, ResourceValueNotValid_Error);
+}
