@@ -12,7 +12,7 @@ Requires: bfp pugixml-devel
 BFP devel
 
 %postun
-[ $1 == 0 ] && /sbin/ldconfig
+/sbin/ldconfig
 
 %posttrans
 /sbin/ldconfig

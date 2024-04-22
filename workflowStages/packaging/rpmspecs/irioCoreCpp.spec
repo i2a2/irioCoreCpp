@@ -12,7 +12,7 @@ Requires: bfp ni-flexrio-modulario-libs ni-syscfg-runtime
 irioCoreCpp
 
 %postun
-[ $1 == 0 ] && /sbin/ldconfig
+/sbin/ldconfig
 
 %posttrans
 /sbin/ldconfig

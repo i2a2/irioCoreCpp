@@ -12,7 +12,7 @@ Requires: bfp irioCoreCpp
 C API wrapper of irioCoreCpp
 
 %postun
-[ $1 == 0 ] && /sbin/ldconfig
+/sbin/ldconfig
 
 %posttrans
 /sbin/ldconfig

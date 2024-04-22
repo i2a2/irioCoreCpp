@@ -13,7 +13,7 @@ C API wrapper of irioCoreCpp
 Includes header files and the static library for developing applications with it.
 
 %postun
-[ $1 == 0 ] && /sbin/ldconfig
+/sbin/ldconfig
 
 %posttrans
 /sbin/ldconfig
