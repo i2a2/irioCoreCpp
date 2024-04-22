@@ -7,6 +7,9 @@
 
 namespace irio {
 
+static const unsigned int SLEEP_INTERVAL_NS = 1000000;  // 1 ms
+static const timespec sleepTs { 0, SLEEP_INTERVAL_NS };
+
 TerminalsDMAIMAQImpl::TerminalsDMAIMAQImpl(
 	ParserManager* parserManager, const NiFpga_Session& session,
 	const Platform& platform, const std::string& nameTermNCh,
@@ -140,7 +143,7 @@ void TerminalsDMAIMAQImpl::sendUARTMsgImpl(const std::vector<std::uint8_t>& msg,
 		utils::throwIfNotSuccessNiFpga(
 			status, "Error waiting for " + std::string(TERMINAL_UARTTXREADY));
 		while (!txReady && (timeout == 0 || countTimeout < timeout)) {
-			usleep(1000);
+			nanosleep(&sleepTs, nullptr);
 			countTimeout++;
 			status = NiFpga_ReadBool(m_session, m_txReady_addr, &txReady);
 			utils::throwIfNotSuccessNiFpga(
@@ -179,7 +182,7 @@ std::vector<std::uint8_t> TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 
 		countTimeout = 0;
 		while (!rxReady && (timeout == 0 || countTimeout < timeout)) {
-			usleep(1000);
+			nanosleep(&sleepTs, nullptr);
 			countTimeout++;
 			status = NiFpga_ReadBool(m_session, m_rxReady_addr, &rxReady);
 			utils::throwIfNotSuccessNiFpga(
@@ -203,7 +206,7 @@ std::vector<std::uint8_t> TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 
 		countTimeout = 0;
 		while(isDataPending && (timeout == 0 || countTimeout < timeout)) {
-			usleep(1000);
+			nanosleep(&sleepTs, nullptr);
 			countTimeout++;
 			status = NiFpga_ReadBool(m_session, m_receive_addr, &isDataPending);
 			utils::throwIfNotSuccessNiFpga(
@@ -235,7 +238,7 @@ void TerminalsDMAIMAQImpl::setUARTBaudRateImpl(
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error reading " + std::string(TERMINAL_UARTSETBAUDRATE));
 	while (setBR && (timeout == 0 || countTimeout < timeout)) {
-		usleep(1000);
+		nanosleep(&sleepTs, nullptr);
 		countTimeout++;
 		status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
 		utils::throwIfNotSuccessNiFpga(
@@ -258,7 +261,7 @@ void TerminalsDMAIMAQImpl::setUARTBaudRateImpl(
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error reading " + std::string(TERMINAL_UARTSETBAUDRATE));
 	while (setBR && (timeout == 0 || countTimeout < timeout)) {
-		usleep(1000);
+		nanosleep(&sleepTs, nullptr);
 		countTimeout++;
 		status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
 		utils::throwIfNotSuccessNiFpga(
