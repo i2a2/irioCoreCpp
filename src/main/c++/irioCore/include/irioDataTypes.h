@@ -364,6 +364,8 @@ typedef struct irioDrv_t {
 	size_t numAuxAI64;
 	/// Number of AuxAO 64 bits found in FPGA
 	size_t numAuxAO64;
+	/// Number of IO Samplint Rate found in FPGA
+	size_t numIOSamplingRate;
 
 	/// Same as \ref numSG. Maintaned for compatibility
 	uint8_t NoOfSG;
