@@ -75,7 +75,7 @@ make install INSTALL_DIR=<INSTALL DIR>
 # Generating packages manually
 > **_NOTE_**<br> 
 > 
-> Package generation will only generate RPM for RHEL distributions. In other distributions it is necessary to install tools for managing rpm (in Debian it is usually the package _'rpm'_).
+> Package generation will only generate rpm for RHEL distributions. In other distributions it is necessary to install tools for managing rpm (in Debian it is usually the package `rpm`).
 
 > **_NOTE_**<br>
 >
