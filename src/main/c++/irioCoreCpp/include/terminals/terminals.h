@@ -10,3 +10,4 @@
 #include <terminals/terminalsDMADAQCPU.h>
 #include <terminals/terminalsDMAIMAQCPU.h>
 #include <terminals/terminalsCommon.h>
+#include <terminals/terminalsIO.h>
