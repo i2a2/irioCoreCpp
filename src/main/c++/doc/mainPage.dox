@@ -2,6 +2,128 @@
 
 @mainpage
 
-# WIP
+\section main_introduction Introduction
+\b WIP
+
+\section main_installation Installation
+The recommended way is to download the appropiate packages from
+the [release section](https://github.com/i2a2/irioCore/releases).
+However, it is also possible to install them \ref manual_installation "manually".
+
+\attention It is necessary to have the national instrument package repository
+configured to resolve the dependencies appropriately
+(See \ref configure_ni_repository "Configure National Instrument package repository"). 
+Alternatively the following packages could be installed manually:
+- ni-flexrio-modulario-libs
+- ni-syscfg-runtime
+
+\section compilation Compilation
+\subsection compilation_prerequisites Prerequisites
+The requires packages for compiling the project are:
+- pugixml-devel
+- gtest-devel
+- rsync
+- cpplint (python3 module)
+- ni-syscfg-devel 
+- ni-flexrio-modulario-libs-devel
+
+\attention It is necessary to have the national instrument package repository configured
+to install the packages related to NI
+(See \ref configure_ni_repository "Configure National Instrument package repository")
+
+If the generation of the documentation is required, it is also necessary to have installed the following packages:
+- doxygen
+- graphviz
+
+\subsection compilation_instructions Instructions
+To compile the project go to the root folder and execute:
+```
+make compile
+```
+This will compile the libraries, unittests, functional tests and examples.
+
+\section manual_installation Manual installation
+\subsection manual_installation_prerequisites Prerequisites
+- Compile succesfully the libraries (See \ref compilation)
+\subsection manual_installation_instructions Instructions
+
+\note
+This section covers how to install the libraries by copying using make install,
+it is recommended installing it as a package if possible
+(See \ref manual_packages "Generating packages manually").
+
+To install the project go to the root folder and execute:
+```
+make install INSTALL_DIR=<INSTALL DIR>
+```
+\note
+`INSTALL_DIR` is the install location. Libraries will be placed in 
+`INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
+
+\section manual_packages Generating packages manually
+\attention
+Package generation will only generate rpm for RHEL distributions.
+In other distributions it is necessary to install tools for managing rpm 
+(in Debian it is usually the package `rpm`).
+
+\note
+It is also possible to convert these rpms into deb with `alien`
+(See \ref manual_packages_deb "Converting RPM packages to deb"),
+but this has not been tested throughly. 
+
+To genearte the rpm go to the root folder and execute:
+```
+make package
+```
+
+This will generate rpm files in `target/packages/x86_64`
+
+\note
+Default installation directories are:
+- `/usr/local/lib` : Libraries
+- `/usr/local/include` : Header files
+
+It is also possible to set the installation directory for the files once the
+ rpm are installed by using the parameter `INSTALL_DIR`
+```
+make package INSTALL_DIR=<install direcotry>
+```
+
+Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
+If `INSTALL_DIR` is not set, it defaults to `/usr/local`, unless `CODAC_ROOT`
+is set, in which case `INSTALL_DIR` will use the value of `CODAC_ROOT`
+
+\subsection manual_packages_deb Converting RPM packages to deb
+\subsubsection manual_packages_deb_prerequisites Prerequisites
+- Install `alien` package.
+\subsubsection manual_packages_deb_instructions Instructions
+1. Go to `target/packages/x86_64`
+2. Run the `alien` command:
+    ```
+    sudo alien -c *.rpm
+    ```
+3. The `.deb` packages will be generated in the same folder
+
+\section configure_ni_repository Configure National Instrument package repository
+In order toaccess and install the required packages of National Instrument, 
+it is recommended to add the pacakge repository. The following list explains how to do this:
+1. **Download the NI System Configuration repositories:**
+    - Visit [NI System Configuration Downloads](https://www.ni.com/en/support/downloads/drivers/download.system-configuration.html) and download the relevant package.
+2. **Unzip the contents (.zip file may have different name):**
+    ```bash
+    unzip -o NILinuxDeviceDrivers NILinux2023Q4DeviceDrivers.zip
+    ```
+
+3. **Navigate to the extracted folder:**
+    ```bash
+    cd NILinuxDeviceDrivers
+    ```
+
+4. **Install the package corresponding to your distribution**
+    - ni-\<distribution\>-drivers-stream.rpm
+    \note
+    After this step, it may be required to update the repositories to find the NI packages
+
+
 
 */
