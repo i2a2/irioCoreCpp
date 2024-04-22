@@ -6,7 +6,7 @@ Summary:	BFP devel
 License:	GPL
 URL:		https://github.com/i2a2/irioCore
 
-Requires: bfp
+Requires: bfp pugixml-devel
 
 %description
 BFP devel

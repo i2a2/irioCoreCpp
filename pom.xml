@@ -63,6 +63,7 @@
                 <configuration>
                     <packaging>
                         <package name="bfp">
+                            <requires codac="false">pugixml</requires>
                             <include name="bfp" type="library" />
                         </package>
                         <package develof="bfp">
@@ -70,6 +71,7 @@
                         </package>
                         <package name="cpp">
                             <requires codac="true">irio-bfp</requires>
+                            <requires codac="true">kmod-nirio</requires>
                             <include name="irioCoreCpp" type="library" />
                         </package>
                         <package develof="cpp">
