@@ -264,6 +264,19 @@ class Irio {
    */
   TerminalsDMAIMAQ getTerminalsIMAQ() const;
 
+  /**
+   * Access to the cRIO IO group terminals
+   *
+   * The user must call it to be able to read/write the
+   * related terminals.
+   *
+   * @throw irio::errors::TerminalNotImplementedError The selected profile
+   * does not have the terminals
+   *
+   * @return cRIO IO terminals
+   */
+  TerminalsIO getTerminalsIO() const;
+
  private:
 	/**
 	 * Initializes the low level library. If system is CCS, does nothing.

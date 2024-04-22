@@ -263,6 +263,9 @@ void fillDrvPvtData(const Irio *irio, irioDrv_t *p_DrvPvt, TStatus *status) {
 	p_DrvPvt->numAuxDO = getNum(irio, &irio::Irio::getTerminalsAuxDigital,
 								&irio::TerminalsAuxDigital::getNumAuxDO);
 
+	p_DrvPvt->numIOSamplingRate = getNum(irio, &irio::Irio::getTerminalsIO,
+							&irio::TerminalsIO::getNumIOSamplingRate);
+
 	p_DrvPvt->numSG = getNum(irio, &irio::Irio::getTerminalsSignalGeneration,
 							 &irio::TerminalsSignalGeneration::getSGNo);
 
@@ -571,7 +574,7 @@ int getCommon(int32_t *value, TStatus *status, const irioDrv_t *p_DrvPvt,
 		return IRIO_error;
 	} catch (NiFpgaError &e) {
 		irio_mergeStatus(status, Read_NIRIO_Warning, p_DrvPvt->verbosity,
-						 "%s read error: ", funcName.c_str(), e.what());
+						 "%s read error: %s", funcName.c_str(), e.what());
 		return IRIO_warning;
 	}
 
@@ -594,7 +597,7 @@ int setCommon(int32_t value, TStatus *status, const irioDrv_t *p_DrvPvt,
 		return IRIO_error;
 	} catch (NiFpgaError &e) {
 		irio_mergeStatus(status, Read_NIRIO_Warning, p_DrvPvt->verbosity,
-						 "%s set error: ", funcName.c_str(), e.what());
+						 "%s set error: %s", funcName.c_str(), e.what());
 		return IRIO_warning;
 	}
 
@@ -646,14 +649,44 @@ int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value,
 						   "DAQStartStop");
 }
 
-int irio_setSamplingRate(irioDrv_t *, int, int32_t, TStatus *) {
-  // TODO: SamplingRate IO Profile
-  return 0;
+int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
+						 TStatus *status) {
+	try {
+		const auto termIO =
+			IrioInstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
+											 p_DrvPvt->session)
+				->getTerminalsIO();
+		termIO.setSamplingRateDecimation(n, value);
+	} catch (IrioNotInitializedError &e) {
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return IRIO_error;
+	} catch (NiFpgaError &e) {
+		irio_mergeStatus(status, Read_NIRIO_Warning, p_DrvPvt->verbosity,
+						 "setSamplingRate error: %s", e.what());
+		return IRIO_warning;
+	}
+	return IRIO_success;
 }
 
-int irio_getSamplingRate(const irioDrv_t *, int, int32_t *, TStatus *) {
-  // TODO: SamplingRate IO Profile
-  return 0;
+int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
+						 TStatus *status) {
+	try {
+		const auto termIO =
+			IrioInstanceManager::getInstance(p_DrvPvt->DeviceSerialNumber,
+											 p_DrvPvt->session)
+				->getTerminalsIO();
+		*value = termIO.getSamplingRateDecimation(n);
+	} catch (IrioNotInitializedError &e) {
+		irio_mergeStatus(status, Generic_Error, p_DrvPvt->verbosity, "%s",
+						 e.what());
+		return IRIO_error;
+	} catch (NiFpgaError &e) {
+		irio_mergeStatus(status, Read_NIRIO_Warning, p_DrvPvt->verbosity,
+						 "getSamplingRate error: %s", e.what());
+		return IRIO_warning;
+	}
+	return IRIO_success;
 }
 
 int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value,

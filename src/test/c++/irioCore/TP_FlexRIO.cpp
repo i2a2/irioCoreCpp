@@ -1393,7 +1393,7 @@ TEST(FlexRIOUART1483, GetUARTFrammingError) {
 
 	if (verbose_test) cout << "[TEST] Reading UARTFrammingError" << endl;
 	int32_t uartFE = -1;
-	st = irio_getUARTFrammingError(&drv, &uartFE, &status);
+	st = irio_getUARTFramingError(&drv, &uartFE, &status);
 	logErrors(st, status);
 	EXPECT_EQ(st, IRIO_success);
 	EXPECT_NE(uartFE, -1);

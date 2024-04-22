@@ -189,6 +189,10 @@ TerminalsDMAIMAQ Irio::getTerminalsIMAQ() const {
 	return m_profile->getTerminal<TerminalsDMAIMAQ>();
 }
 
+TerminalsIO Irio::getTerminalsIO() const {
+	return m_profile->getTerminal<TerminalsIO>();
+}
+
 /*********************************************
  * PRIVATE METHODS
  *********************************************/
@@ -312,7 +316,8 @@ void Irio::selectDevProfile(ParserManager *parserManager) {
 			new ProfileCPUDAQcRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::CRIO_IO:
-		throw errors::ProfileNotImplementedError();
+		m_profile.reset(new ProfileIO(parserManager, m_session, *m_platform));
+		break;
 	case PROFILE_ID::R_DAQ:
 		m_profile.reset(new ProfileCPUDAQ(parserManager, m_session, *m_platform,
 										  PROFILE_ID::R_DAQ));
