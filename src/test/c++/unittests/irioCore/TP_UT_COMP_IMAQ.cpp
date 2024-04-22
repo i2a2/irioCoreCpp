@@ -245,3 +245,20 @@ TEST_F(ErrorIMAQTestsAdapter, setUARTBaudRateInvalid) {
 	EXPECT_EQ(status.detailCode, ValueOOB_Warning);
 	EXPECT_EQ(ret, IRIO_warning);
 }
+
+TEST_F(ErrorIMAQTestsAdapter, setAICouplingTerminalNotImplemented) {
+	const auto ret = irio_setAICoupling(&p_DrvPvt, IRIO_coupling_AC, &status);
+
+	EXPECT_EQ(status.code, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.detailCode, ResourceNotFound_Error);
+	EXPECT_EQ(ret, IRIO_error);
+}
+
+TEST_F(ErrorIMAQTestsAdapter, getAICouplingTerminalNotImplemented) {
+	TIRIOCouplingMode cm;
+	const auto ret = irio_getAICoupling(&p_DrvPvt, &cm, &status);
+
+	EXPECT_EQ(status.code, IRIO_error) << "Expected error";
+	EXPECT_EQ(status.detailCode, ResourceNotFound_Error);
+	EXPECT_EQ(ret, IRIO_error);
+}
