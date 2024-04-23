@@ -66,7 +66,7 @@ info:
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
 	rsync -a --inplace $(SOURCE_DIR) $(COPY_DIR)
-	@echo "Copying complete."
+	@echo "Copy complete."
 
 clean:
 	@printf "$(BOLD)Cleaning \"$(COPY_DIR)\"...$(NC)\n"
@@ -85,12 +85,12 @@ verify:
 
 compile: verify copy
 	@printf "$(BOLD)COMPILE STAGE...$(NC)\n"
-	$(MAKE) -f $(COMPILE_MK) DEBUG=$(COMPILE_DEBUG)
+	@$(MAKE) --no-print-directory -f $(COMPILE_MK) DEBUG=$(COMPILE_DEBUG)
 	@printf "$(BOLD)COMPILE STAGE SUCCESS!$(NC)\n"
 
 debug:
 	@printf "$(BOLD)Compiling with debugging symbols...$(NC)\n"
-	$(MAKE) compile Debug="COVERAGE=true"
+	@$(MAKE) compile --no-print-directory Debug="COVERAGE=true" SkipVerify=1
 
 test: compile 
 	@set -e;\
@@ -105,7 +105,7 @@ test: compile
 
 quality: | debug test
 	@printf "$(BOLD)QUALITY/COVERAGE STAGE...$(NC)\n"
-	$(MAKE) --no-print-directory -f $(QUALITY_MK)
+	@$(MAKE) --no-print-directory -f $(QUALITY_MK)
 	@printf "$(BOLD)QUALITY/COVERAGE STAGE SUCCESS!$(NC)\n"
 
 coverage: quality
