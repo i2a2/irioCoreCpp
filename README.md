@@ -18,7 +18,17 @@
 
 
 # Introduction
-**_WIP_**
+> **_NOTE_**<br>
+> 
+>This project is a reimplementation of https://github.com/i2a2/irio-v2 
+
+National Instruments RIO devices are data acquisition devices implemented using field-programmable gate arrays (FPGAs). This project aims to facilitate their use by providing a series of classes and methods to simplify the interface with these devices.
+
+There are three RIO devices: FlexRIO, compactRIO and RSeries. Each of these devices has a XILINX FPGA at its core, which can be reconfigured in virtually an infinite number of implementations. This renders it challenging, if not impossible, to entirely abstract the user from the specific implementation being used. While designing the C++ library, efforts were made to avoid possible problems. However, no all cases were to fully covered.
+
+
+
+
 
 # Installation
 The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCore/releases). However, it is also possible to install them [manually](#manual-installation).
