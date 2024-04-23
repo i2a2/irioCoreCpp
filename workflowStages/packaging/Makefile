@@ -31,5 +31,5 @@ export TOP_DIR
 all:
 
 %:
-	@$(foreach mk, $(PACKAGES_MAKEFILES), echo -e "$(BOLD)Packaging $(mk)...$(NC)" && $(MAKE) -f $(mk) $@ &&) :
-	@echo -e "$(BOLD)Install directory: $(INSTALL_DIR)$(NC)"
+	@$(foreach mk, $(PACKAGES_MAKEFILES), printf "$(BOLD)Packaging $(mk)...$(NC)\n" && $(MAKE) -f $(mk) $@ &&) :
+	@printf "$(BOLD)Install directory: $(INSTALL_DIR)$(NC)\n"

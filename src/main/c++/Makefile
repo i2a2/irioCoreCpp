@@ -6,4 +6,4 @@ NC=\e[0m
 all:
 
 %:
-	@$(foreach dir, $(SUBDIRS), echo -e "$(BOLD)Building $(dir:/=)...$(NC)" && $(MAKE) -C $(dir) $@ &&) :
+	@$(foreach dir, $(SUBDIRS), printf "$(BOLD)Building $(dir:/=)...$(NC)\n" && $(MAKE) -C $(dir) $@ &&) :

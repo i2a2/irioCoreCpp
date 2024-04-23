@@ -42,7 +42,7 @@ package: clean gen_rpmbuild
 	$(RPM_BUILD_CMD) --define "_rpmdir $(PWD)/$(TOP_DIR)/$(COPY_DIR)/packages" --buildroot $(PWD)/$(RPM_BUILD_ROOT) $(RPM_BUILD_OPTIONS) $(RPM_SPEC_FILE_DEST)
 
 gen_rpmbuild:
-	@echo -e "$(BOLD)Generating $(PACKAGE_NAME)_devel package...$(NC)"
+	@printf "$(BOLD)Generating $(PACKAGE_NAME)_devel package...$(NC)\n"
 	@mkdir -p $(RPM_BUILD_DIR)/BUILD
 	@mkdir -p $(RPM_BUILD_DIR)/BUILDROOT
 	@mkdir -p $(RPM_BUILD_DIR)/RPMS

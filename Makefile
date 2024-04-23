@@ -25,43 +25,43 @@ endif
 all: compile
 
 info:
-	@echo -e "Available recipes:"
-	@echo -e "<name recipe>: [<recipes executed as prerequisites>]"
-	@echo -e "\t <description>"
-	@echo -e "\t\t *<defines>: <If defined, hwo they modify the behaviour of the recipe>\n"
-	@echo -e "\t copy:"
-	@echo -e "\t\t Copies $(SOURCE_DIR) into $(COPY_DIR). If it does not exist, the folder will be created"
-	@echo -e "\t clean:"
-	@echo -e "\t\t Clean the project. Removes $(COPY_DIR) folder"
-	@echo -e "\t verify:"
-	@echo -e "\t\t Enforces Google's C++ style guidelines and file name and directory structure"
-	@echo -e "\t\t\t *SkipVerify: If defined, the verify stage is skipped"
-	@echo -e "\t compile: [verify, copy]"
-	@echo -e "\t\t Compiles the project's code"
-	@echo -e "\t\t\t *Debug: If defined, the code is compiled with debugging symbols"
-	@echo -e "\t debug: [compile]"
-	@echo -e "\t\t Compiles the project's code with debugging symbols"
-	@echo -e "\t\t Equivalent to 'make compile Debug=1'"
-	@echo -e "\t test: [compile]"
-	@echo -e "\t\t Run tests."
-	@echo -e "\t\t If no variable defined. Only unittests are run."
-	@echo -e "\t\t\t *SkipTests: If defined, the test stage is skipped"
-	@echo -e "\t\t\t *AddTestsFunctionalIrioCore: Adds functional irioCore tests"
-	@echo -e "\t\t\t *AddTestsFunctionalIrioCoreCpp: Adds functional irioCore tests"
-	@echo -e "\t quality: [debug, test]"
-	@echo -e "\t\t Calculates the project's coverage"
-	@echo -e "\t coverage: [quality]"
-	@echo -e "\t\t Alias to quality recipe"
-	@echo -e "\t doc: [copy]"
-	@echo -e "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore"
-	@echo -e "\t package: [compile]"
-	@echo -e "\t\t Generates rpms"
-	@echo -e "\t\t\t *INSTALL_DIR: This optional variable sets the install location."
-	@echo -e "\t\t\t\t Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include."
-	@echo -e "\t\t\t\t If INSTALL_DIR is not set, it defaults to /usr/local, unless CODAC_ROOT is set, in which case INSTALL_DIR will use the value of CODAC_ROOT."
-	@echo -e "\t install: [compile]"
-	@echo -e "\t\t Copies the libraries and headers to the INSTALL_DIR directory"
-	@echo -e "\t\t\t *INSTALL_DIR: (Required) Install location. Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include."
+	@printf "Available recipes:\n"
+	@printf "<name recipe>: [<recipes executed as prerequisites>]\n"
+	@printf "\t <description>\n"
+	@printf "\t\t *<defines>: <If defined, hwo they modify the behaviour of the recipe>\n\n"
+	@printf "\t copy:\n"
+	@printf "\t\t Copies $(SOURCE_DIR) into $(COPY_DIR). If it does not exist, the folder will be created\n"
+	@printf "\t clean:\n"
+	@printf "\t\t Clean the project. Removes $(COPY_DIR) folder\n"
+	@printf "\t verify:\n"
+	@printf "\t\t Enforces Google's C++ style guidelines and file name and directory structure\n"
+	@printf "\t\t\t *SkipVerify: If defined, the verify stage is skipped\n"
+	@printf "\t compile: [verify, copy]\n"
+	@printf "\t\t Compiles the project's code\n"
+	@printf "\t\t\t *Debug: If defined, the code is compiled with debugging symbols\n"
+	@printf "\t debug: [compile]\n"
+	@printf "\t\t Compiles the project's code with debugging symbols\n"
+	@printf "\t\t Equivalent to 'make compile Debug=1'\n"
+	@printf "\t test: [compile]\n"
+	@printf "\t\t Run tests.\n"
+	@printf "\t\t If no variable defined. Only unittests are run.\n"
+	@printf "\t\t\t *SkipTests: If defined, the test stage is skipped\n"
+	@printf "\t\t\t *AddTestsFunctionalIrioCore: Adds functional irioCore tests\n"
+	@printf "\t\t\t *AddTestsFunctionalIrioCoreCpp: Adds functional irioCore tests\n"
+	@printf "\t quality: [debug, test]\n"
+	@printf "\t\t Calculates the project's coverage\n"
+	@printf "\t coverage: [quality]\n"
+	@printf "\t\t Alias to quality recipe\n"
+	@printf "\t doc: [copy]\n"
+	@printf "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore\n"
+	@printf "\t package: [compile]\n"
+	@printf "\t\t Generates rpms\n"
+	@printf "\t\t\t *INSTALL_DIR: This optional variable sets the install location.\n"
+	@printf "\t\t\t\t Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include.\n"
+	@printf "\t\t\t\t If INSTALL_DIR is not set, it defaults to /usr/local, unless CODAC_ROOT is set, in which case INSTALL_DIR will use the value of CODAC_ROOT.\n"
+	@printf "\t install: [compile]\n"
+	@printf "\t\t Copies the libraries and headers to the INSTALL_DIR directory\n"
+	@printf "\t\t\t *INSTALL_DIR: (Required) Install location. Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include.\n"
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."
@@ -69,57 +69,57 @@ copy:
 	@echo "Copying complete."
 
 clean:
-	@echo -e "$(BOLD)Cleaning \"$(COPY_DIR)\"...$(NC)"
+	@printf "$(BOLD)Cleaning \"$(COPY_DIR)\"...$(NC)\n"
 	rm -rf $(COPY_DIR)
 	@echo "\"$(COPY_DIR)\" cleaned."
 
 verify:
 	@set -e; \
 	if [ -z $(SkipVerify) ] || ! [ $(SkipVerify) != 0 ] ; then \
-		echo -e "$(BOLD)VERIFY STAGE...$(NC)"; \
+		printf "$(BOLD)VERIFY STAGE...$(NC)\n"; \
 		$(MAKE) -k -f $(VERIFY_MK); \
-		echo -e "$(BOLD)VERIFY STAGE SUCCESS!$(NC)"; \
+		printf "$(BOLD)VERIFY STAGE SUCCESS!$(NC)\n"; \
 	else \
-		echo -e "$(BOLD)$(ORANGE)VERIFY STAGE SKIPPED!$(NC)"; \
+		printf "$(BOLD)$(ORANGE)VERIFY STAGE SKIPPED!$(NC)\n"; \
 	fi
 
 compile: verify copy
-	@echo -e "$(BOLD)COMPILE STAGE...$(NC)"
+	@printf "$(BOLD)COMPILE STAGE...$(NC)\n"
 	$(MAKE) -f $(COMPILE_MK) DEBUG=$(COMPILE_DEBUG)
-	@echo -e "$(BOLD)COMPILE STAGE SUCCESS!$(NC)"
+	@printf "$(BOLD)COMPILE STAGE SUCCESS!$(NC)\n"
 
 debug:
-	@echo -e "$(BOLD)Compiling with debugging symbols...$(NC)"
+	@printf "$(BOLD)Compiling with debugging symbols...$(NC)\n"
 	$(MAKE) compile Debug="COVERAGE=true"
 
 test: compile 
 	@set -e;\
 	if [ -z $(SkipTests) ] || ! [ $(SkipTests) != 0 ]; then \
-		echo -e "$(BOLD)TEST STAGE...$(NC)";\
+		printf "$(BOLD)TEST STAGE...$(NC)\n";\
 		$(MAKE) --no-print-directory -f $(TEST_MK) AddTestsFunctionalIrioCore=$(AddTestsFunctionalIrioCore) AddTestsFunctionalIrioCoreCpp=$(AddTestsFunctionalIrioCoreCpp);\
-		echo -e "$(BOLD)TEST STAGE SUCCESS!$(NC)";\
+		printf "$(BOLD)TEST STAGE SUCCESS!$(NC)\n";\
 	else \
-		echo -e "$(BOLD)$(ORANGE)TEST STAGE SKIPPED!$(NC)";\
+		printf "$(BOLD)$(ORANGE)TEST STAGE SKIPPED!$(NC)\n";\
 		exit 0;\
 	fi
 
 quality: | debug test
-	@echo -e "$(BOLD)QUALITY/COVERAGE STAGE...$(NC)"
+	@printf "$(BOLD)QUALITY/COVERAGE STAGE...$(NC)\n"
 	$(MAKE) --no-print-directory -f $(QUALITY_MK)
-	@echo -e "$(BOLD)QUALITY/COVERAGE STAGE SUCCESS!$(NC)"
+	@printf "$(BOLD)QUALITY/COVERAGE STAGE SUCCESS!$(NC)\n"
 
 coverage: quality
 
 doc: copy
-	@echo -e "$(BOLD)DOCUMENTATION STAGE...$(NC)"
+	@printf "$(BOLD)DOCUMENTATION STAGE...$(NC)\n"
 	$(MAKE) --no-print-directory -f $(DOCUMENTATION_MK)
-	@echo -e "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)"
+	@printf "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)\n"
 
 package: compile test doc
-	@echo -e "$(BOLD)PACKAGING STAGE...$(NC)"
+	@printf "$(BOLD)PACKAGING STAGE...$(NC)\n"
 	$(MAKE) -C $(PACKAGE_MK)
-	@echo -e "$(BOLD)ALL PACKAGES GENERATED!$(NC)"
-	@echo -e "$(BOLD)PACKAGING STAGE SUCCESS!$(NC)"
+	@printf "$(BOLD)ALL PACKAGES GENERATED!$(NC)\n"
+	@printf "$(BOLD)PACKAGING STAGE SUCCESS!$(NC)\n"
 
 install: compile test
 	$(MAKE) -C $(INSTALL_MK)

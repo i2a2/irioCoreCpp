@@ -12,4 +12,4 @@ export TOP_DIR
 all:
 
 %:
-	@$(foreach mk, $(MODULES_MAKEFILES), echo -e "$(BOLD)Installing $(mk)...$(NC)" && $(MAKE) -f $(mk) $@ &&) :
+	@$(foreach mk, $(MODULES_MAKEFILES), printf "$(BOLD)Installing $(mk)...$(NC)\n" && $(MAKE) -f $(mk) $@ &&) :

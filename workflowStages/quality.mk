@@ -33,11 +33,11 @@ get_coverage_perc:
 	COVERAGE_THRESHOLD_AUX=$$(echo $$COVERAGE_THRESHOLD_AUX | sed 's/\.//g') ;\
 	err=0;\
 	if [ $$LINE_COVERAGE_PERCENTAGE_AUX -lt $$COVERAGE_THRESHOLD_AUX ]; then \
-		>&2 echo -e "$(BOLD)$(RED)Line coverage $$LINE_COVERAGE_PERCENTAGE% is less than the threshold $(COVERAGE_THRESHOLD)%$(NC)"; \
+		>&2 printf "$(BOLD)$(RED)Line coverage $$LINE_COVERAGE_PERCENTAGE% is less than the threshold $(COVERAGE_THRESHOLD)%$(NC)\n"; \
 		err=1; \
 	fi; \
 	if [ $$FUNC_COVERAGE_PERCENTAGE_AUX -lt $$COVERAGE_THRESHOLD_AUX ]; then \
-		>&2 echo -e "$(BOLD)$(RED)Function coverage $$FUNC_COVERAGE_PERCENTAGE% is less than the threshold $(COVERAGE_THRESHOLD)%$(NC)"; \
+		>&2 printf "$(BOLD)$(RED)Function coverage $$FUNC_COVERAGE_PERCENTAGE% is less than the threshold $(COVERAGE_THRESHOLD)%$(NC)\n"; \
 		err=1; \
 	fi; \
 	if [ $$err -ne 0 ]; then \

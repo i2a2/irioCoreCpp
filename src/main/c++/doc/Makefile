@@ -3,4 +3,4 @@ NC=\e[0m
 
 all:
 	@doxygen Doxyfile
-	@echo -e "$(BOLD)Documentation generated!!$(NC)"
+	@printf "$(BOLD)Documentation generated!!$(NC)\n"
