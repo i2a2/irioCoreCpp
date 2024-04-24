@@ -35,8 +35,8 @@ class TerminalsIO: public TerminalsBase {
 	 * @throw irio::errors::ResourceNotFoundError Resource specified not found
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
-	 * @param n	Number of cRIO module
-	 * @param decimation	Decimation to apply to the Fref
+	 * @param n		Number of cRIO module
+	 * @param dec	Decimation to apply to the Fref
 	 */
   void setSamplingRateDecimation(const std::uint32_t &n,
 								 const std::uint16_t dec) const;

@@ -20,7 +20,7 @@ to avoid possible problems. However, no all cases were to fully covered.
 
 \section main_installation Installation
 The recommended way is to download the appropiate packages from
-the [release section](https://github.com/i2a2/irioCore/releases).
+the [release section](https://github.com/i2a2/irioCoreCpp/releases).
 However, it is also possible to install them \ref manual_installation "manually".
 
 \attention It is necessary to have the national instrument package repository
