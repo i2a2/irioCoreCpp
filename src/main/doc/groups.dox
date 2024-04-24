@@ -19,13 +19,13 @@
 @defgroup Profiles 			IRIO Profiles
 @ingroup IrioCoreCpp
 
-@defgroup ProfilesCRIO 		Profiles that can be used by cRIO boards
+@defgroup ProfilesCRIO 		cRIO Profiles
 @ingroup Profiles
 
-@defgroup ProfilesFlexRIO	Profiles that can be used by FlexRIO boards
+@defgroup ProfilesFlexRIO	FlexRIO Profiles
 @ingroup Profiles
 
-@defgroup ProfilesRSeries	Profiles that can be used by R Series boards
+@defgroup ProfilesRSeries	R Series Profiles
 @ingroup Profiles
 
 
@@ -33,17 +33,17 @@
 @defgroup Modules			Modules types
 @ingroup IrioCoreCpp
 
-@defgroup ModulesFlexRIO	Modules specific to FlexRIO
+@defgroup ModulesFlexRIO	FlexRIO Modules
 @ingroup Modules
 @ingroup FlexRIO
 
-@defgroup ModulesCRIO		Modules specific to cRIO
+@defgroup ModulesCRIO		cRIO Modules
 @ingroup Modules
 @ingroup cRIO
 
 
 
-@defgroup Errors			Error Management
+@defgroup Errors			IrioCoreCpp Errors
 @ingroup IrioCoreCpp
 
 */
