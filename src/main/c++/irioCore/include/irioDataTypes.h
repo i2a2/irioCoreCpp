@@ -196,22 +196,9 @@ typedef enum {
  */
 typedef struct TStatus {
 	TIRIOStatusCode code; 	//!< Current level of error
-	TErrorDetailCode detailCode;  //!< Status code for a more detailed information of the status. To be used in \ref irio_getErrorString
+	TErrorDetailCode detailCode;  //!< Status code for a more detailed information of the status. To be used in irio_getErrorString
 	char *msg;  //!< Stored log of errors and warnings. Should always contain a valid pointer to allocated memory or NULL.
 } TStatus;
-
-/**
- * Type for managing GPU buffers
- *
- * Data type used for managing GPU DMAs
- */
-typedef struct TFifoGPUInfo {
-	uint64_t bytes;
-	uint32_t buff_ptr;
-	size_t gpu_buff_size;
-	void *gpu_buff_ptr;
-	int sel_mem;
-} TFifoGPUInfo;
 
 /**
  * Type for FPGA Resources. Maintaned for compatibility.
@@ -350,7 +337,7 @@ typedef struct irioDrv_t {
 	size_t numAuxAO;
 	/// Number of DI found in FPGA
 	size_t numDI;
-	// Number of AuxDI found in FPGA
+	/// Number of AuxDI found in FPGA
 	size_t numAuxDI;
 	/// Number of DO found in FPGA
 	size_t numDO;
@@ -390,17 +377,6 @@ typedef struct cRIOmodule {
 	uint16_t id;     //!< Identificator of each cRIO MODULE
 	char cmodule[CRIOMODULENAMELENGTH];  //!< Name of each cRIO module
 } cRIOmodule;
-
-/**
- * Type for image time stamp
- *
- * Used to read image embedded time stamp and frame counter
- */
-typedef struct imageData_t {
-	uint16_t fc :16;
-	uint64_t tsec :48;
-	uint32_t tnsec :32;
-} imageData_t;
 
 #ifdef __cplusplus
 }

@@ -54,6 +54,11 @@ class TerminalsIO: public TerminalsBase {
 	 */
   std::uint16_t getSamplingRateDecimation(const std::uint32_t &n) const;
 
+  /**
+   * Returns number of IO Sampling Rate terminals found
+   *
+   * @return Number of IO Sampling Rate terminals found
+   */
   size_t getNumIOSamplingRate() const;
 };
 

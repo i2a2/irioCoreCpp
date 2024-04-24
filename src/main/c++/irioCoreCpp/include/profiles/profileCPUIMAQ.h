@@ -4,6 +4,14 @@
 #include "platforms.h"
 
 namespace irio {
+
+/**
+ * Profile with the terminals
+ * specific to image acquisition functionality
+ * 
+ * @ingroup Profiles
+ * @ingroup ProfilesIMAQ
+ */
 class ProfileCPUIMAQ: virtual public ProfileBase {
  public:
     /**

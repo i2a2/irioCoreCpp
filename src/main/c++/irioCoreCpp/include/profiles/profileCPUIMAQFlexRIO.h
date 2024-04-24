@@ -4,6 +4,16 @@
 #include "profiles/profileCPUIMAQ.h"
 
 namespace irio {
+/**
+ * Profile with the terminals
+ * specific to data acquisition functionality
+ * and the ones specific to FlexRIO devices.
+ *
+ * @ingroup Profiles
+ * @ingroup ProfilesIMAQ
+ * @ingroup ProfilesFlexRIO
+ * @ingroup FlexRIO
+ */
 class ProfileCPUIMAQFlexRIO: public ProfileCPUIMAQ, public ProfileFlexRIO {
  public:
   /**
