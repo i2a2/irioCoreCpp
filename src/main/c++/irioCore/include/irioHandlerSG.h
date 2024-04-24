@@ -48,6 +48,8 @@ extern "C" {
  * @param[out] value  Current value of signal generator signal type
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGSignalType(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -63,6 +65,8 @@ int irio_getSGSignalType(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[in] value Signal type to set
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -78,6 +82,8 @@ int irio_setSGSignalType(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] value  Current value of signal generator frequency
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGFreq(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -92,6 +98,8 @@ int irio_getSGFreq(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *st
  * @param[in] value Frequency to set
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -106,6 +114,8 @@ int irio_setSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] value  Current value of signal generator phase shift
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGPhase(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -121,6 +131,8 @@ int irio_getSGPhase(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[in] value Phase shift to set
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setSGPhase(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -135,6 +147,8 @@ int irio_setSGPhase(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] value  Current value of signal generator amplitude
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGAmp(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -149,6 +163,8 @@ int irio_getSGAmp(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *sta
  * @param[in] value Amplitude to set
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setSGAmp(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -163,6 +179,8 @@ int irio_setSGAmp(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] value  Current value of signal generator update rate
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGUpdateRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -178,6 +196,8 @@ int irio_getSGUpdateRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[in] value Update rate to set
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -190,6 +210,8 @@ int irio_setSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] SGFref       Signal generator frequency
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGFref(const irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
 		TStatus *status);
@@ -201,6 +223,8 @@ int irio_getSGFref(const irioDrv_t *p_DrvPvt, int n, uint32_t *SGFref,
  * @param[out] Fref         FPGA clock reference
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getFref(const irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status);
 
@@ -211,6 +235,8 @@ int irio_getFref(const irioDrv_t *p_DrvPvt, int32_t *Fref, TStatus *status);
  * @param[out] SGCVDAC      Conversion from Volts for analog outputs
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGCVDAC(const irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status);
 
@@ -221,6 +247,8 @@ int irio_getSGCVDAC(const irioDrv_t *p_DrvPvt, double *SGCVDAC, TStatus *status)
  * @param[out] SGCVADC      Conversion to Volts of analog inputs
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSGCVADC(const irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status);
 
@@ -232,6 +260,8 @@ int irio_getSGCVADC(const irioDrv_t *p_DrvPvt, double *SGCVADC, TStatus *status)
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumSG(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 

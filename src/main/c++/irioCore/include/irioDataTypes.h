@@ -39,6 +39,8 @@ extern "C" {
 
 /** @name Size and timeout constants
  * Definitions of maximum size for channel read, dmas and max timeout in reads
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 #define SIZE_HOST_DMAS 2048000              //!< DMA size used when configuring FiFo buffer
@@ -46,8 +48,10 @@ extern "C" {
 #define NUMBEROFU64TOREADPERCHANNEL	4096    //!< Number of 8-bytes words per DMA channel
 ///@}
 
-/**@name FlexRIO Adapter Modules Identifiers
+/** @name FlexRIO Adapter Modules Identifiers
  *
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 #define FlexRIO_Module_IO_NI5761 0x109374C6  //!< NI5761: 0x109374C6, supported by ITER in AC version not DC, 4 analog inputs
@@ -58,6 +62,8 @@ extern "C" {
 
 /** @name Maximum FlexRIO resources
  * Definitions of the maximum number of resources that can be instantiated for FlexRIO platform.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 #define FLEXRIO_MAX_ANALOGS_IN 4        //!< Max number of analog inputs
@@ -72,6 +78,8 @@ extern "C" {
 
 /** @name Maximum R-Series resources
  * Definitions of the maximum number of resources that can be instantiated for R Series platform.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 /***
@@ -79,7 +87,6 @@ extern "C" {
  * NI PXI 7831R/7833R/7841R/7842R/7851R/7852R/7853R/7854R:
  * Specifications document
  * NI 7830R only has 4 analog in channels. IRIO supports it but the LabVIEW design cannot include more than 4 physical ADC channels
-
  */
 #define RSERIES_MAX_ANALOGS_IN 8        //!< Max number of analog inputs
 #define RSERIES_MAX_AUXA_IN 16          //!< Max number of auxiliary analog inputs
@@ -93,6 +100,8 @@ extern "C" {
 
 /** @name Maximum cRIO resources
  * Definitions of the maximum number of resources that can be instantiated for cRIO platform.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 #define CRIO_MAX_ANALOGS_IN 256         //!< Max number of analog inputs
@@ -108,6 +117,8 @@ extern "C" {
 
 /** @name Maximum cRIO resources
  * Sizes of several ports
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 #define U16BIT 65535           //!< Limit for unsigned 16-bits variables
@@ -118,6 +129,8 @@ extern "C" {
  * Enum Type for IRIO supported platforms
  *
  * Specify the result of a method call
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef enum {
 	IRIO_FlexRIO = 0, 	//!< FlexRIO Devices
@@ -129,6 +142,8 @@ typedef enum {
  * Enum Type for driver operation state
  *
  * Specify the result of a method call
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef enum {
 	IRIO_success = 0,   	//!< success The driver is working without problems
@@ -142,6 +157,8 @@ typedef enum {
  * Enum Type for IRIO error messages
  *
  * Specify the result of a method call
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef enum {
 	Generic_Error = -NUM_ERRORS,  //!< To be used by upper layers for custom errors in irio_mergeStatus
@@ -183,6 +200,8 @@ typedef enum {
  * Enum Type for RIO Device coupling mode
  *
  * Specify the result of a method call
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef enum {
 	IRIO_coupling_AC = 0, IRIO_coupling_DC, IRIO_coupling_NULL
@@ -193,6 +212,8 @@ typedef enum {
  *
  * Warning and error messages are concatenated in msg in each IRIO API call.
  * code will show the maximum level of message stored (error>warning>success). Code should always contain a valid pointer to allocated memory or NULL.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef struct TStatus {
 	TIRIOStatusCode code; 	//!< Current level of error
@@ -204,6 +225,8 @@ typedef struct TStatus {
  * Type for FPGA Resources. Maintaned for compatibility.
  *
  * Stores whether the resource was found or not and its offset
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef struct TResourcePort {
 	uint8_t found;      //!< Register that indicates if a resource has been found
@@ -222,6 +245,8 @@ typedef struct TResourcePort {
  * @warning Direct access to this structure should be avoided. 
  * Use getters/setters. Variables may be unitialized or null pointers which
  * may lead to unwanted behaviour or even segfaults.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef struct irioDrv_t {
 	/// Part of the name of the bitfile downloaded into the FPGA.
@@ -372,6 +397,8 @@ typedef struct irioDrv_t {
  * Type for cRIO modules on NI9159 chassis
  *
  * Relates cRIO module names and Ids
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef struct cRIOmodule {
 	uint16_t id;     //!< Identificator of each cRIO MODULE

@@ -37,6 +37,8 @@
  * Enum Type for CameraLink supported configurations
  *
  * Specify the result of a method call
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef enum {
 	CL_BASE,  //!< CameraLink Base mode
@@ -49,6 +51,8 @@ typedef enum {
  * Note: Extended mode is not currently supported
  *
  * Specify the result of a method call
+ *
+ * @ingroup IrioCoreCompatible 
  */
 typedef enum {
 	CL_STANDARD,     //!< CameraLink Standard Mapping
@@ -85,6 +89,8 @@ extern "C" {
  * @param[in] configuration Configuration to be used.
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
 		int32_t dvalHigh, int32_t spareHigh, int32_t controlEnable,
@@ -102,6 +108,8 @@ int irio_configCL(irioDrv_t *p_DrvPvt, int32_t fvalHigh, int32_t lvalHigh,
  * @param[in] msg_size Size of the string message
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
 					TStatus *status);
@@ -135,6 +143,8 @@ int irio_sendCLuart(irioDrv_t *p_DrvPvt, const char *msg, int msg_size,
  * @param[out] status	Warning and error messages produced during the execution
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getCLuart(const irioDrv_t *p_DrvPvt, char *data, int *msg_size,
 				   TStatus *status)
@@ -162,6 +172,8 @@ int irio_getCLuart(const irioDrv_t *p_DrvPvt, char *data, int *msg_size,
  * @param[out] status	Warning and error messages produced during the execution
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getCLuartWithBufferSize(const irioDrv_t *p_DrvPvt, int data_size, char *data, int *msg_size, TStatus *status);
 
@@ -175,6 +187,8 @@ int irio_getCLuartWithBufferSize(const irioDrv_t *p_DrvPvt, int data_size, char 
  * @param[out] value  Current value of baud rate. Values from 0 to 7 corresponds respectively to:9.6, 19.2, 38.4, 57.6, 115.2, 230.4, 460.8, and 921.6 (kbps)
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getUARTBaudRate(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
@@ -188,6 +202,8 @@ int irio_getUARTBaudRate(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *sta
  * @param[in] value  Baud rate to set. Values from 0 to 7 corresponds respectively to:9.6, 19.2, 38.4, 57.6, 115.2, 230.4, 460.8, and 921.6 (kbps)
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
 
@@ -201,6 +217,8 @@ int irio_setUARTBaudRate(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] value Current value of UART break indicator
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getUARTBreakIndicator(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
@@ -215,6 +233,8 @@ int irio_getUARTBreakIndicator(const irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] value Current value of UART framing error
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getUARTFramingError(const irioDrv_t *p_DrvPvt, int32_t *value,
 							 TStatus *status);
@@ -233,6 +253,8 @@ int irio_getUARTFrammingError(const irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] value Current value of UART overrun error
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getUARTOverrunError(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);

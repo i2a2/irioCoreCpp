@@ -48,6 +48,8 @@ extern "C" {
  * @param[out] value Current value of the digital input
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -62,6 +64,8 @@ int irio_getDI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status
  * @param[out] value  Current value of the auxiliary digital input
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAuxDI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -76,6 +80,8 @@ int irio_getAuxDI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *sta
  * @param[out] value  Current value of the digital output
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -90,6 +96,8 @@ int irio_getDO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status
  * @param[in] value Value to set. Will be converted to NiFpga_Bool (0=NiFpga_False, other=NiFpga_True)
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -104,6 +112,8 @@ int irio_setDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] value  Current value of the auxiliary digital output
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAuxDO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -118,6 +128,8 @@ int irio_getAuxDO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *sta
  * @param[in] value Value to set. Will be converted to NiFpga_Bool (0=NiFpga_False, other=NiFpga_True)
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -129,6 +141,8 @@ int irio_setAuxDO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumDI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -140,6 +154,8 @@ int irio_getNumDI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumDO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -151,6 +167,8 @@ int irio_getNumDO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAuxDI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -162,6 +180,8 @@ int irio_getNumAuxDI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAuxDO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 

@@ -41,6 +41,8 @@ extern "C" {
  * Initializes status code to success and msg pointer to NULL.
  * @param status status to be initialized
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_initStatus(TStatus* status);
 
@@ -50,6 +52,8 @@ int irio_initStatus(TStatus* status);
  * Free msg and set it to null. Reset status codes to success.
  * @param status status to be reseted
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_resetStatus(TStatus* status);
 
@@ -66,6 +70,8 @@ int irio_resetStatus(TStatus* status);
  * @param[in] format Format of the status message
  * @param[in] ... Status message (according to format)
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_mergeStatus(TStatus *status, TErrorDetailCode code, int printMsg,
 		const char *format, ...);
@@ -78,6 +84,8 @@ int irio_mergeStatus(TStatus *status, TErrorDetailCode code, int printMsg,
  * @param[in] error Error
  * @param[out] str Place were to put the error description. Memory will be allocated inside this method and should be free by the caller.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getErrorString(TErrorDetailCode error, char** str);
 

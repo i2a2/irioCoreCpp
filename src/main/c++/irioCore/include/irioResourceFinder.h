@@ -35,6 +35,8 @@
 
 /** @name Base Strings
  * Base Strings for FPGA Resource names
+ *
+ * @ingroup IrioCoreCompatible 
  */
 ///@{
 #define STRINGNAME_PREFIX "NiFpga_"      //!< Prefix needed to read bitfile and header files

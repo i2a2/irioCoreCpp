@@ -83,6 +83,8 @@ extern "C" {
  * @param[out] p_DrvPvt		Pointer to the driver structure. Will be initialized with the resources found.
  * @param[out] status		Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
 		const char *RIODeviceModel, const char *projectName,
@@ -99,6 +101,8 @@ int irio_initDriver(const char *appCallID, const char *DeviceSerialNumber,
  * @param[in] mode 	0 reset the FPGA. 1 non reset .
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status);
 
@@ -113,6 +117,8 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status);
  * @param[in] value coupling mode:IRIO_coupling_AC(0) AC, IRIO_coupling_DC(1) DC
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
 		TStatus *status);
@@ -124,6 +130,8 @@ int irio_setAICoupling(irioDrv_t *p_DrvPvt, TIRIOCouplingMode value,
  * @param[out] value coupling mode: IRIO_coupling_AC(0) AC, IRIO_coupling_DC(1) DC, IRIO_coupling_NULL (2)
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAICoupling(const irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
 		TStatus *status);
@@ -134,6 +142,8 @@ int irio_getAICoupling(const irioDrv_t *p_DrvPvt, TIRIOCouplingMode *value,
  * @param[out] version Current library version
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getVersion(char *version, const TStatus *status);
 
@@ -155,6 +165,8 @@ int irio_getVersion(char *version, const TStatus *status);
  * @param[in] value	0=Do nothing, 1=Start FPGA if not already started
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
 
@@ -167,6 +179,8 @@ int irio_setFPGAStart(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] value 	Current FPGA status. 0=Not started, 1=Started
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, const TStatus *status);
 
@@ -183,6 +197,8 @@ int irio_getFPGAStart(const irioDrv_t *p_DrvPvt, int32_t *value, const TStatus *
  * @param[out] valueLength Length of the copied string
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value, size_t maxLength,
 		size_t *valueLength, TStatus *status);
@@ -196,6 +212,8 @@ int irio_getFPGAVIVersion(const irioDrv_t *p_DrvPvt, char *value, size_t maxLeng
  * @param[out] value Current value of DevQualityStatus
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
@@ -209,6 +227,8 @@ int irio_getDevQualityStatus(const irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] value Current device temperature
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
@@ -221,6 +241,8 @@ int irio_getDevTemp(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
  * @param[out] value Device profile value
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
@@ -233,6 +255,8 @@ int irio_getDevProfile(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *statu
  * @param[in] value 0=Normal mode, 1=Debug Mode
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
 
@@ -245,6 +269,8 @@ int irio_setDebugMode(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] value Current value of debug mode
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
@@ -257,6 +283,8 @@ int irio_getDebugMode(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status
  * @param[in] value 0=Stop acquisition, 1=Start acquisition
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
 
@@ -269,6 +297,8 @@ int irio_setDAQStartStop(irioDrv_t *p_DrvPvt, int32_t value, TStatus *status);
  * @param[out] value Current acquisition status
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *status);
 
@@ -283,6 +313,8 @@ int irio_getDAQStartStop(const irioDrv_t *p_DrvPvt, int32_t *value, TStatus *sta
  * @param[in] value Value to set
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -298,6 +330,8 @@ int irio_setSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] value Current value of sampling rate
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -310,6 +344,8 @@ int irio_getSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[out] value    Pointer to store the platform type value.
  * @param[out] status   Warning and error messages produced during the execution of this call will be added here.
  * @return         \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
 
@@ -320,6 +356,8 @@ int irio_getPlatformType(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *sta
  * @param[out] value Pointer to a variable where the initDone will be stored.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getInitDone(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status);
 
@@ -332,6 +370,8 @@ int irio_getInitDone(const irioDrv_t *p_DrvPvt, uint8_t *value, TStatus *status)
  * @param[out] value Pointer to store the module connected
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getFlexRIOModule(const irioDrv_t *p_DrvPvt, uint32_t *value,
 						  TStatus *status);
@@ -346,6 +386,8 @@ int irio_getFlexRIOModule(const irioDrv_t *p_DrvPvt, uint32_t *value,
  * @param[out] numModules Number of modules connected to the cRIO board
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getcRIOModules(const irioDrv_t *p_DrvPvt, const uint16_t **modules,
 						size_t *numModules, TStatus *status);
@@ -357,6 +399,8 @@ int irio_getcRIOModules(const irioDrv_t *p_DrvPvt, const uint16_t **modules,
  * @param[out] maxNumDMAs Pointer to store the maximum number of DMAs supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
 							TStatus *status);
@@ -367,6 +411,8 @@ int irio_getMaxNumberOfDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumDMAs,
  * @param[out] maxNumGPUDMAs Pointer to store the maximum number of GPU DMAs supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfGPUDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMAs,
 							   TStatus *status);
@@ -378,6 +424,8 @@ int irio_getMaxNumberOfGPUDMAs(const irioDrv_t *p_DrvPvt, uint16_t *maxNumGPUDMA
  * @param[out] maxAI Pointer to store the maximum number of analog input supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAI,
 						  TStatus *status);
@@ -388,6 +436,8 @@ int irio_getMaxNumberOfAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAI,
  * @param[out] maxAO Pointer to store the maximum number of analog output supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAO,
 						  TStatus *status);
@@ -398,6 +448,8 @@ int irio_getMaxNumberOfAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAO,
  * @param[out] maxDI Pointer to store the maximum number of digital input supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfDI(const irioDrv_t *p_DrvPvt, uint16_t *maxDI,
 						  TStatus *status);
@@ -408,6 +460,8 @@ int irio_getMaxNumberOfDI(const irioDrv_t *p_DrvPvt, uint16_t *maxDI,
  * @param[out] maxDO Pointer to store the maximum number of digital output supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfDO(const irioDrv_t *p_DrvPvt, uint16_t *maxDO,
 						  TStatus *status);
@@ -419,6 +473,8 @@ int irio_getMaxNumberOfDO(const irioDrv_t *p_DrvPvt, uint16_t *maxDO,
  * @param[out] maxAuxAI Pointer to store the maximum number of aux analog input supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfAuxAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
 							 TStatus *status);
@@ -430,6 +486,8 @@ int irio_getMaxNumberOfAuxAI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAI,
  * @param[out] maxAuxAO Pointer to store the maximum number of aux analog outputs supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfAuxAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
 							 TStatus *status);
@@ -441,6 +499,8 @@ int irio_getMaxNumberOfAuxAO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxAO,
  * @param[out] maxAuxDI Pointer to store the maximum number of aux digital input supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfAuxDI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
 							 TStatus *status);
@@ -452,6 +512,8 @@ int irio_getMaxNumberOfAuxDI(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDI,
  * @param[out] maxAuxDO Pointer to store the maximum number of aux digital outputs supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfAuxDO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
 							 TStatus *status);
@@ -463,6 +525,8 @@ int irio_getMaxNumberOfAuxDO(const irioDrv_t *p_DrvPvt, uint16_t *maxAuxDO,
  * @param[out] maxSG Pointer to store the maximum number of signal generators supported by the platform
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxNumberOfSG(const irioDrv_t *p_DrvPvt, uint16_t *maxSG,
 						  TStatus *status);
@@ -475,6 +539,8 @@ int irio_getMaxNumberOfSG(const irioDrv_t *p_DrvPvt, uint16_t *maxSG,
  * @param[out] cvadc Pointer to store the CVADC value.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getCVADC(const irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status);
 
@@ -485,6 +551,8 @@ int irio_getCVADC(const irioDrv_t *p_DrvPvt, double *cvadc, TStatus *status);
  * @param[out] cvdac Pointer to store the CVDAC value.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getCVDAC(const irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status);
 
@@ -495,6 +563,8 @@ int irio_getCVDAC(const irioDrv_t *p_DrvPvt, double *cvdac, TStatus *status);
  * @param[out] maxAOVal Pointer to store the maximum value to be written in an analog output.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxAOValue(const irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *status);
 
@@ -505,6 +575,8 @@ int irio_getMaxAOValue(const irioDrv_t *p_DrvPvt, float *maxAOVal, TStatus *stat
  * @param[out] minAOVal Pointer to store the minimum value to be written in an analog output.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *status);
 
@@ -515,6 +587,8 @@ int irio_getMinAOValue(const irioDrv_t *p_DrvPvt, float *minAOVal, TStatus *stat
  * @param[out] maxSamplingRate Pointer to store the maximum value to be written in an analog output.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMaxSamplingRate(const irioDrv_t *p_DrvPvt, float *maxSamplingRate, TStatus *status);
 
@@ -525,6 +599,8 @@ int irio_getMaxSamplingRate(const irioDrv_t *p_DrvPvt, float *maxSamplingRate, T
  * @param[out] minSamplingRate Pointer to store the minimum value to be written in an analog output.
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getMinSamplingRate(const irioDrv_t *p_DrvPvt, float *minSamplingRate, TStatus *status);
 

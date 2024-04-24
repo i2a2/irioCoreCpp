@@ -65,6 +65,8 @@ extern "C" {
  * of this call will be added here.
  *
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setUpDMAsTtoGPU(irioDrv_t *p_DrvPvt, int depth, TStatus *status);
 
@@ -76,6 +78,8 @@ int irio_setUpDMAsTtoGPU(irioDrv_t *p_DrvPvt, int depth, TStatus *status);
  * @param[in,out] p_DrvPvt 	Pointer to the driver session structure
  * @param[out]    status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_closeDMAsTtoGPU(irioDrv_t *p_DrvPvt, TStatus *status);
 
@@ -87,6 +91,8 @@ int irio_closeDMAsTtoGPU(irioDrv_t *p_DrvPvt, TStatus *status);
  * @param[in,out] p_DrvPvt 	Pointer to the driver session structure
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_cleanDMAsTtoGPU(irioDrv_t *p_DrvPvt, TStatus *status);
 
@@ -102,6 +108,8 @@ int irio_cleanDMAsTtoGPU(irioDrv_t *p_DrvPvt, TStatus *status);
  * @param[in]  buffersize size of the clean buffer.
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_cleanDMATtoGPU(irioDrv_t *p_DrvPvt, int n, uint64_t **cleanbuffer,
 		size_t buffersize, TStatus *status);
@@ -117,6 +125,8 @@ int irio_cleanDMATtoGPU(irioDrv_t *p_DrvPvt, int n, uint64_t **cleanbuffer,
  * @param[in] value Value of the overflow bit from DMAsOverflow register. Non-zero value means overflow.
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoGPUOverflow(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
@@ -132,6 +142,8 @@ int irio_getDMATtoGPUOverflow(const irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] value Pointer where result will be stored
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoGPUSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -149,6 +161,8 @@ int irio_getDMATtoGPUSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *val
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
  *
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDMATtoGPUSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -164,6 +178,8 @@ int irio_setDMATtoGPUSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] value    Current value of the DMA to GPU enable
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoGPUEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -179,6 +195,8 @@ int irio_getDMATtoGPUEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param value Value to set. Will be converted to NiFpga_Bool (0=NiFpga_False, other=NiFpga_True)
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -200,6 +218,8 @@ int irio_setDMATtoGPUEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param status Warning and error messages produced during the execution of this call will be added here.
  * 
  * @return Operation status. @see {TStatusCodes}
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoGPUData(const irioDrv_t *p_DrvPvt, int Nelements, int n,
 		uint64_t **data, int *elementsRead, TStatus *status);
@@ -215,6 +235,8 @@ int irio_getDMATtoGPUData(const irioDrv_t *p_DrvPvt, int Nelements, int n,
  * @param[out] elementsRead number of elements available in the buffer
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoGPUImage(const irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t **data, int *elementsRead, TStatus *status);
@@ -227,6 +249,8 @@ int irio_getDMATtoGPUImage(const irioDrv_t *p_DrvPvt, int imageSize, int n,
  * @param[in] elementstofree number of elements realeased in the buffer
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_releaseDMATtoGPUImage(irioDrv_t *p_DrvPvt, int n, int elementstofree,
 		TStatus *status);

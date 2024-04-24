@@ -48,6 +48,8 @@ extern "C" {
  * @param[out] value  Current value of the analog input
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -62,6 +64,8 @@ int irio_getAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status
  * @param[out] value  Current value of the auxiliary analog input
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAuxAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -76,6 +80,8 @@ int irio_getAuxAI(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *sta
  * @param[out] value  Current value of the auxiliary analog input
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAuxAI_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status);
@@ -91,6 +97,8 @@ int irio_getAuxAI_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
  * @param[out] value  Current value of the analog output
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -105,6 +113,8 @@ int irio_getAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status
  * @param[in] value Value to write
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -119,6 +129,8 @@ int irio_setAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[out] value   Current value of analog output enable
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAOEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -134,6 +146,8 @@ int irio_getAOEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[in] value 0=Disable Analog Output, 1=Enable Analog Output
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -149,6 +163,8 @@ int irio_setAOEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] value  Current value of the auxiliary analog output
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAuxAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *status);
 
@@ -163,6 +179,8 @@ int irio_getAuxAO(const irioDrv_t *p_DrvPvt, int n, int32_t *value, TStatus *sta
  * @param[out] value  Current value of the auxiliary analog output
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getAuxAO_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
 		TStatus *status);
@@ -178,6 +196,8 @@ int irio_getAuxAO_64(const irioDrv_t *p_DrvPvt, int n, int64_t *value,
  * @param[in] value Value to write
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
 
@@ -192,6 +212,8 @@ int irio_setAuxAO(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status);
  * @param[in] value Value to write
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
 		TStatus *status);
@@ -204,6 +226,8 @@ int irio_setAuxAO_64(irioDrv_t *p_DrvPvt, int n, int64_t value,
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -215,6 +239,8 @@ int irio_getNumAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -226,6 +252,8 @@ int irio_getNumAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAuxAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -237,6 +265,8 @@ int irio_getNumAuxAI(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAuxAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -248,6 +278,8 @@ int irio_getNumAuxAO(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAuxAI64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
@@ -259,6 +291,8 @@ int irio_getNumAuxAI64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumAuxAO64(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 

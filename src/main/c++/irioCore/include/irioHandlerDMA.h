@@ -47,6 +47,8 @@ extern "C" {
  * @param[in] p_DrvPvt 	Pointer to the driver session structure
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setUpDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status);
 
@@ -59,6 +61,8 @@ int irio_setUpDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status);
  * @param[in] p_DrvPvt 	Pointer to the driver session structure
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_closeDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status);
 
@@ -71,6 +75,8 @@ int irio_closeDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status);
  * @param[in] p_DrvPvt 	Pointer to the driver session structure
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_cleanDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status);
 
@@ -88,6 +94,8 @@ int irio_cleanDMAsTtoHost(irioDrv_t *p_DrvPvt, TStatus *status);
  * @param[in] buffersize size of the clean buffer.
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_cleanDMATtoHost(irioDrv_t *p_DrvPvt, int n, uint64_t *cleanbuffer,
 		size_t buffersize, TStatus *status);
@@ -103,6 +111,8 @@ int irio_cleanDMATtoHost(irioDrv_t *p_DrvPvt, int n, uint64_t *cleanbuffer,
  * @param[out] value Value of the overflow bit from DMAsOverflow register. Non-zero value means overflow in at least one DMA.
  * @param[out] status	Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHostOverflow(const irioDrv_t *p_DrvPvt, int32_t *value,
 		TStatus *status);
@@ -118,6 +128,8 @@ int irio_getDMATtoHostOverflow(const irioDrv_t *p_DrvPvt, int32_t *value,
  * @param[out] value  Current value of the DMA sampling rate
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHostSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -134,6 +146,8 @@ int irio_getDMATtoHostSamplingRate(const irioDrv_t *p_DrvPvt, int n, int32_t *va
  * @param[in] value Sampling rate to set
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -149,6 +163,8 @@ int irio_setDMATtoHostSamplingRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] value  Current value of the DMA enable
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHostEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 		TStatus *status);
@@ -164,6 +180,8 @@ int irio_getDMATtoHostEnable(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
  * @param[in] value 0=Disable DMA, 1=Enable DMA
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_setDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
 		TStatus *status);
@@ -186,6 +204,8 @@ int irio_setDMATtoHostEnable(irioDrv_t *p_DrvPvt, int n, int32_t value,
  * @param[out] elementsRead number of elements read. Can be 0 or NBlocks
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHostData(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
 		uint64_t *data, int *elementsRead, TStatus *status);
@@ -209,6 +229,8 @@ int irio_getDMATtoHostData(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
  * @param[out] elementsRead number of elements read. Can be 0 or NBlocks
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHostData_timeout(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
 		uint64_t *data, int *elementsRead, uint32_t timeout, TStatus *status);
@@ -234,6 +256,8 @@ int irio_getDMATtoHostData_timeout(const irioDrv_t *p_DrvPvt, int NBlocks, int n
  * @param[out] status 	Warning and error messages produced during the execution
  * 						of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHostImage(const irioDrv_t *p_DrvPvt, int imageSize, int n,
 		uint64_t *data, int *elementsRead, TStatus *status);
@@ -246,6 +270,8 @@ int irio_getDMATtoHostImage(const irioDrv_t *p_DrvPvt, int imageSize, int n,
  * @param[out] Nwords       Numbers of blocks readed
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHOSTBlockNWords(const irioDrv_t *p_DrvPvt, uint16_t *Nwords,
 		TStatus *status);
@@ -257,6 +283,8 @@ int irio_getDMATtoHOSTBlockNWords(const irioDrv_t *p_DrvPvt, uint16_t *Nwords,
  * @param[out] NCh          Channel of the FPGA where user wants to read
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATtoHOSTNCh(const irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *status);
 
@@ -268,6 +296,8 @@ int irio_getDMATtoHOSTNCh(const irioDrv_t *p_DrvPvt, uint16_t *NCh, TStatus *sta
  * @param[out] frameType    Pointer to store the frame type of the DMA specified
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATTtoHostFrameType(const irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *frameType, TStatus *status);
@@ -280,6 +310,8 @@ int irio_getDMATTtoHostFrameType(const irioDrv_t *p_DrvPvt, int n,
  * @param[out] sampleSize    Pointer to store the sample size of the DMA specified
  * @param[out] status Warning and error messages produced during the execution of this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getDMATTtoHostSampleSize(const irioDrv_t *p_DrvPvt, int n,
 								 uint8_t *sampleSize, TStatus *status);
@@ -292,6 +324,8 @@ int irio_getDMATTtoHostSampleSize(const irioDrv_t *p_DrvPvt, int n,
  * @param[out] status   Warning and error messages produced during the execution of
  * 						this call will be added here.
  * @return \ref TIRIOStatusCode result of the execution of this call.
+ *
+ * @ingroup IrioCoreCompatible 
  */
 int irio_getNumDMA(const irioDrv_t *p_DrvPvt, size_t *value, TStatus *status);
 
