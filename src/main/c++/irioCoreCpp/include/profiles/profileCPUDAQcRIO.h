@@ -11,9 +11,7 @@ namespace irio {
  * and the ones specific to cRIO devices.
  *
  * @ingroup Profiles
- * @ingroup ProfilesDAQ
  * @ingroup ProfilesCRIO
- * @ingroup cRIO
  */
 class ProfileCPUDAQcRIO: public ProfileCPUDAQ, public ProfileCRIO {
  public:

@@ -9,7 +9,6 @@ namespace irio {
  * specific to data acquisition functionality.
  *
  * @ingroup Profiles
- * @ingroup ProfilesDAQ
  */
 class ProfileCPUDAQ: virtual public ProfileBase {
  public:

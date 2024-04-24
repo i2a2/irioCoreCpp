@@ -9,9 +9,7 @@ namespace irio {
  * specific to cRIO IO functionality
  * 
  * @ingroup Profiles
- * @ingroup ProfilesIO
  * @ingroup ProfilesCRIO
- * @ingroup cRIO
  * 
 */
 class ProfileIO: public ProfileCRIO {

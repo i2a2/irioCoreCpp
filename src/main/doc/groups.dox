@@ -13,57 +13,20 @@
 @defgroup Terminals 		IRIO Terminals
 @ingroup IRIO
 
-@defgroup DMATerminals 		DMA Terminals
-@ingroup Terminals
-
-@defgroup DMACPUTerminals 	DMA CPU Terminals
-@ingroup DMATerminals
-
-@defgroup DMAGPUTerminals	DMA GPU Terminals
-@ingroup DMATerminals
-
-@defgroup IMAQTerminals     IMAQ Terminals
-@ingroup DMATerminals
-
-@defgroup IMAQCPUTerminals  IMAQ CPU Terminals
-@ingroup IMAQTerminals
-
-@defgroup IMAQGPUTerminals  IMAQ GPU Terminals
-@ingroup IMAQTerminals
-
-
-
-@defgroup FlexRIO 			Specific Classes/Functions to FlexRIO
-@ingroup IRIO
-
-@defgroup cRIO 				Specific Classes/Functions to cRIO
-@ingroup IRIO
-
-@defgroup RSeries 			Specific Classes/Functions to R Series
-@ingroup IRIO
-
 
 
 @defgroup Profiles 			IRIO Profiles
 @ingroup IRIO
 
-@defgroup ProfilesDAQ 		Data Acquisition Profiles
+@defgroup ProfilesCRIO 		Profiles that can be used by cRIO boards
 @ingroup Profiles
 
-@defgroup ProfilesIMAQ 		Image Acquisition Profiles
+@defgroup ProfilesFlexRIO	Profiles that can be used by FlexRIO boards
 @ingroup Profiles
 
-@defgroup ProfilesGPU 		GPU related Acquisition Profiles
+@defgroup ProfilesRSeries	Profiles that can be used by R Series boards
 @ingroup Profiles
 
-@defgroup ProfilesIO 		Point by Point Profiles
-@ingroup Profiles
-
-@defgroup ProfilesFlexRIO	FlexRIO Profiles
-@ingroup Profiles
-
-@defgroup ProfilesCRIO		cRIO Profiles
-@ingroup Profiles
 
 
 @defgroup Modules			Modules types

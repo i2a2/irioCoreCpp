@@ -11,9 +11,7 @@ namespace irio {
  * and the ones specific to FlexRIO devices.
  *
  * @ingroup Profiles
- * @ingroup ProfilesDAQ
  * @ingroup ProfilesFlexRIO
- * @ingroup FlexRIO
  */
 class ProfileCPUDAQFlexRIO: public ProfileCPUDAQ, public ProfileFlexRIO {
  public:

@@ -10,8 +10,6 @@ namespace irio {
  * should not be used by itself.
  *
  * @ingroup Profiles
- * @ingroup ProfilesFlexRIO
- * @ingroup FlexRIO
  */
 class ProfileFlexRIO: virtual public ProfileBase {
  public:

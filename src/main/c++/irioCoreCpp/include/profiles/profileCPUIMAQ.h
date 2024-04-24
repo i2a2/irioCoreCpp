@@ -10,7 +10,6 @@ namespace irio {
  * specific to image acquisition functionality
  * 
  * @ingroup Profiles
- * @ingroup ProfilesIMAQ
  */
 class ProfileCPUIMAQ: virtual public ProfileBase {
  public:

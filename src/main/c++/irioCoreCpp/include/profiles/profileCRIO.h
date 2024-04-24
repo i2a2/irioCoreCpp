@@ -11,8 +11,6 @@ namespace irio {
  * should not be used by itself.
  *
  * @ingroup Profiles
- * @ingroup ProfilesCRIO
- * @ingroup cRIO
  */
 class ProfileCRIO: virtual public ProfileBase {
  public:
