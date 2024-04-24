@@ -28,7 +28,7 @@ info:
 	@printf "Available recipes:\n"
 	@printf "<name recipe>: [<recipes executed as prerequisites>]\n"
 	@printf "\t <description>\n"
-	@printf "\t\t *<defines>: <If defined, hwo they modify the behaviour of the recipe>\n\n"
+	@printf "\t\t *<defines>: <If defined, how they modify the behaviour of the recipe>\n\n"
 	@printf "\t copy:\n"
 	@printf "\t\t Copies $(SOURCE_DIR) into $(COPY_DIR). If it does not exist, the folder will be created\n"
 	@printf "\t clean:\n"
@@ -88,9 +88,8 @@ compile: verify copy
 	@$(MAKE) --no-print-directory -f $(COMPILE_MK) DEBUG=$(COMPILE_DEBUG)
 	@printf "$(BOLD)COMPILE STAGE SUCCESS!$(NC)\n"
 
-debug:
-	@printf "$(BOLD)Compiling with debugging symbols...$(NC)\n"
-	@$(MAKE) compile --no-print-directory Debug="COVERAGE=true" SkipVerify=1
+debug: COMPILE_DEBUG="COVERAGE=true"
+debug: compile
 
 test: compile 
 	@set -e;\
@@ -115,7 +114,7 @@ doc: copy
 	$(MAKE) --no-print-directory -f $(DOCUMENTATION_MK)
 	@printf "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)\n"
 
-package: compile test doc
+package: | compile test doc
 	@printf "$(BOLD)PACKAGING STAGE...$(NC)\n"
 	$(MAKE) -C $(PACKAGE_MK)
 	@printf "$(BOLD)ALL PACKAGES GENERATED!$(NC)\n"
