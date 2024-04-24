@@ -4,3 +4,4 @@
 #include <profiles/profileCPUDAQcRIO.h>
 #include <profiles/profileCPUIMAQFlexRIO.h>
 #include <profiles/profileIO.h>
+#include <profiles/profileCPUDAQRSeries.h>
