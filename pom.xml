@@ -112,7 +112,7 @@
                 				<filepattern>*.cpp</filepattern>
                                 <outputformat>html</outputformat>
                                 <!-- <outputformat>pdf</outputformat> -->
-                                <input>main/c++/doc</input>
+                                <input>main/doc</input>
                                 <input>main/c++/bfp/include</input>
                                 <input>main/c++/irioCoreCpp/include</input>
                                 <imagepath>images</imagepath>
