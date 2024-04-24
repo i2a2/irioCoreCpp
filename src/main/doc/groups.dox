@@ -1,22 +1,23 @@
 /**
 
-@defgroup IRIO 			IRIO
+@defgroup IrioCoreCpp 		    IrioCoreCpp
 
-@defgroup BFP 				Bitfile Parsing
-@ingroup IRIO
+@defgroup IrioCoreCompatible    IrioCore Compatible
 
-@defgroup Platforms			Platforms
-@ingroup IRIO
+
+
+@defgroup BFP 				    Bitfile Parsing
+@ingroup IrioCoreCpp
 
 
 
 @defgroup Terminals 		IRIO Terminals
-@ingroup IRIO
+@ingroup IrioCoreCpp
 
 
 
 @defgroup Profiles 			IRIO Profiles
-@ingroup IRIO
+@ingroup IrioCoreCpp
 
 @defgroup ProfilesCRIO 		Profiles that can be used by cRIO boards
 @ingroup Profiles
@@ -30,7 +31,7 @@
 
 
 @defgroup Modules			Modules types
-@ingroup IRIO
+@ingroup IrioCoreCpp
 
 @defgroup ModulesFlexRIO	Modules specific to FlexRIO
 @ingroup Modules
@@ -43,6 +44,6 @@
 
 
 @defgroup Errors			Error Management
-@ingroup IRIO
+@ingroup IrioCoreCpp
 
 */

@@ -18,7 +18,7 @@ enum class PLATFORM_ID: std::uint8_t{
 /**
  * Generic Platform class. Stores maximum number of resources.
  *
- * @ingroup Platforms
+ * @ingroup IrioCoreCpps
  */
 class Platform {
  public:
@@ -69,7 +69,7 @@ class Platform {
 
 /**
  * Specific implementation for the FlexRIO platform
- * @ingroup Platforms
+ * @ingroup IrioCoreCpps
  */
 class PlatformFlexRIO: public Platform {
  private:
@@ -105,7 +105,7 @@ class PlatformFlexRIO: public Platform {
 
 /**
  * Specific implementation for the cRIO platform
- * @ingroup Platforms
+ * @ingroup IrioCoreCpps
  */
 class PlatformCRIO: public Platform {
  private:
@@ -141,7 +141,7 @@ class PlatformCRIO: public Platform {
 
 /**
  * Specific implementation for the R Series platform
- * @ingroup Platforms
+ * @ingroup IrioCoreCpps
  */
 class PlatformRSeries: public Platform {
  private:

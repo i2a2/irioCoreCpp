@@ -108,7 +108,7 @@ struct GroupInfo {
  * found or not. It provides methods for logging resource incompatibilities and
  * printing the problems found.
  * 
- * @ingroup IRIO
+ * @ingroup IrioCoreCpp
  */
 class ParserManager {
  public:

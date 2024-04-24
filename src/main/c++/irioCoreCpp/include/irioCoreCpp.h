@@ -36,7 +36,7 @@ constexpr char DEFAULT_PARSE_LOG_PATH[] = "/tmp/irio_log/";
  * and downloads it to the selected RIO device. It also provides the user
  * function to access the terminals and perform read/write operations.
  *
- * @ingroup IRIO
+ * @ingroup IrioCoreCpp
  */
 class Irio {
  public:
