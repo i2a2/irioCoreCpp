@@ -85,8 +85,14 @@ verify:
 
 compile: verify copy
 	@printf "$(BOLD)COMPILE STAGE...$(NC)\n"
+	@if ! [ -z $(COMPILE_DEBUG) ] ; then \
+		printf "$(BOLD)$(ORANGE)Compiling with debugging symbols...$(NC)\n"; \
+	fi
 	@$(MAKE) --no-print-directory -f $(COMPILE_MK) DEBUG=$(COMPILE_DEBUG)
 	@printf "$(BOLD)COMPILE STAGE SUCCESS!$(NC)\n"
+	@if ! [ -z $(COMPILE_DEBUG) ] ; then \
+		printf "$(BOLD)$(ORANGE)Compiled with debugging symbols!$(NC)\n"; \
+	fi
 
 debug: COMPILE_DEBUG="COVERAGE=true"
 debug: compile
