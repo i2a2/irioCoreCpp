@@ -115,6 +115,7 @@
                                 <input>main/doc</input>
                                 <input>main/c++/bfp/include</input>
                                 <input>main/c++/irioCoreCpp/include</input>
+                                <input>main/c++/irioCore/include</input>
                                 <imagepath>images</imagepath>
                                 <properties>
                                     <SORT_MEMBER_DOCS>NO</SORT_MEMBER_DOCS> 
