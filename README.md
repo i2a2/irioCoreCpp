@@ -1,7 +1,7 @@
-# irioCore
+# irioCoreCpp
 
 **Table of contents**
-- [irioCore](#iriocore)
+- [irioCoreCpp](#iriocorecpp)
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Compilation](#compilation)
@@ -27,11 +27,8 @@ National Instruments RIO devices are data acquisition devices implemented using 
 There are three RIO devices: FlexRIO, compactRIO and RSeries. Each of these devices has a XILINX FPGA at its core, which can be reconfigured in virtually an infinite number of implementations. This renders it challenging, if not impossible, to entirely abstract the user from the specific implementation being used. While designing the C++ library, efforts were made to avoid possible problems. However, no all cases were to fully covered.
 
 
-
-
-
 # Installation
-The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCore/releases). However, it is also possible to install them [manually](#manual-installation).
+The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCoreCpp/releases). However, it is also possible to install them [manually](#manual-installation).
 
 > **_NOTE_**<br>
 >  
