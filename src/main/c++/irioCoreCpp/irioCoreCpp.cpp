@@ -60,7 +60,7 @@ Irio::Irio(const std::string &bitfilePath,
 		const std::string timestamp = utils::getTimestamp();
 
 		std::string logFilePath =
-			logPath + "/" + baseFilename + "_parse_log_" + timestamp + ".xml";
+			logPath + "/irioCore_" + baseFilename + "_parse_log_" + timestamp + ".xml";
 
 		parserManager.printInfoXML(logFilePath);
 
