@@ -198,7 +198,7 @@ TEST(FlexRIOResources, ResourcesMissing) {
 	getResources(&drv, &res);
 
     st = closeDriver(&drv);
-	ASSERT_NE(st, 0) << "[TEST] Error closing driver";
+	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
 
 /**
