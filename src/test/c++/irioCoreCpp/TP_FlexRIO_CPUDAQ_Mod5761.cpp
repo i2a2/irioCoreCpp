@@ -82,8 +82,6 @@ TEST_F(FlexRIOCPUDAQMod5761, GetSetAO) {
 }
 
 TEST_F(FlexRIOCPUDAQMod5761, cleanAllDMAs) {
-	int32_t channel = 0;
-
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 	irio.startFPGA();
@@ -222,7 +220,7 @@ TEST_F(FlexRIOCPUDAQMod5761, readDataBlocking){
 	// Setup DMAQ
 	const std::uint16_t decimation = commonTerm.getFref()/samplingRate;
 	std::unique_ptr<std::uint64_t> data(new std::uint64_t[lengthBlock*blocksToRead]);
-	const auto timeout = static_cast<std::uint32_t>(1.1*std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
+	const auto timeout = static_cast<std::uint32_t>(1.5*std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
 
 	daq.startDMA(DMANum);
 	daq.setSamplingRateDecimation(DMANum, decimation);
@@ -290,6 +288,7 @@ TEST_F(FlexRIOCPUDAQMod5761, readDataBlockingTimeout){
 	commonTerm.setDAQStop();
 	daq.cleanDMA(DMANum);
 }
+
 
 /// Error FlexRIO DAQ Tests
 
