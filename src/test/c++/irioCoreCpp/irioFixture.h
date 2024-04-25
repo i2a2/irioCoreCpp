@@ -1,16 +1,11 @@
 #pragma once
+
 #include <string>
 #include <stdexcept>
 #include <gtest/gtest.h>
 #include <unordered_map>
 
-std::string getEnv(const std::string& envName){
-	const auto aux = std::getenv(envName.c_str());
-	if(!aux){
-		throw std::runtime_error("Environment variable '" + envName + "' not defined");
-	}
-	return std::string(aux);
-}
+std::string getEnv(const std::string& envName);
 
 class IrioFixture : public ::testing::Test {
 private:
@@ -31,17 +26,9 @@ public:
 	std::string boardType;
 	std::string bitfileName;
 
-	IrioFixture(const std::string &typeBitfile){
-		model = getEnv(ENV_MODEL);
-		serialNumber = getEnv(ENV_SERIAL_NUMBER);
-		boardType = mapFamily.at(model);
-		bitfileName = "NiFpga_" + boardType + "_" + typeBitfile + "_" + model + ".lvbitx";
-	}
+	IrioFixture(const std::string &typeBitfile);
 
-	std::string getBitfilePath(const std::string &folder=""){
-		const std::string auxFolder = folder.empty()?folder:folder+"/";
-		return BASE_PATH_BITFILES + auxFolder + model + "/" + bitfileName;
-	}
+	std::string getBitfilePath(const std::string &folder="");
 };
 
 
