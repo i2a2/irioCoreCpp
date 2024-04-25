@@ -69,10 +69,10 @@ void TerminalsSignalGeneration::setSGAmp(const std::uint32_t n,
 			->setSGAmpImpl(n, value);
 }
 
-void TerminalsSignalGeneration::setSGFreq(const std::uint32_t n,
+void TerminalsSignalGeneration::setSGFreqDecimation(const std::uint32_t n,
 		const std::uint32_t value) const {
 	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)
-			->setSGFreqImpl(n, value);
+			->setSGFreqDecimationImpl(n, value);
 }
 
 void TerminalsSignalGeneration::setSGPhase(const std::uint32_t n,

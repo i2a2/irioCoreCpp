@@ -171,7 +171,7 @@ void TerminalsSignalGenerationImpl::setSGAmpImpl(
 	setValue(m_session, n, value, m_mapAmp_addr, TERMINAL_SGAMP);
 }
 
-void TerminalsSignalGenerationImpl::setSGFreqImpl(
+void TerminalsSignalGenerationImpl::setSGFreqDecimationImpl(
 		const std::uint32_t n, const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapFreq_addr, TERMINAL_SGFREQ);
 }

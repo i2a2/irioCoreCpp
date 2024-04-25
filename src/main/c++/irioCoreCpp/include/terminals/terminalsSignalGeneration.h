@@ -135,15 +135,16 @@ class TerminalsSignalGeneration: public TerminalsBase {
   void setSGAmp(const std::uint32_t n, const std::uint32_t value) const;
 
   /**
-   * Configures the frequency for a specific signal generator
+   * Configures the decimation to apply to a specific signal generator
    *
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
    * @param n			Number of the signal generator
-   * @param value		Frequency to configure
+   * @param value		Decimation to configure
    */
-  void setSGFreq(const std::uint32_t n, const std::uint32_t value) const;
+  void setSGFreqDecimation(const std::uint32_t n,
+						   const std::uint32_t value) const;
 
   /**
    * Configures the phase for a specific signal generator

@@ -37,7 +37,7 @@ int irio_getSGFreq(const irioDrv_t *p_DrvPvt, int n, int32_t *value,
 int irio_setSGFreq(irioDrv_t *p_DrvPvt, int n, int32_t value, TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		getTerminalsSG(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
-			.setSGFreq(n, value);
+			.setSGFreqDecimation(n, value);
 	};
 
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);
