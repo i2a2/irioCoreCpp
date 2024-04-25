@@ -16,7 +16,7 @@ class FlexRIOCPUDAQMod5761 : public IrioFixture {
 
 class FlexRIOCPUDAQMod5761Error : public FlexRIOCPUDAQMod5761 {};
 
-TEST_F(FlexRIOCPUDAQMod5761Error, CheckModule){
+TEST_F(FlexRIOCPUDAQMod5761, CheckModule){
 	const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 
