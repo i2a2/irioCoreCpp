@@ -3,6 +3,7 @@ import argparse
 import subprocess
 import os 
 import re
+import sys
 from xml.dom import minidom
 
 if __name__ != "__main__":
@@ -20,6 +21,10 @@ def searchSerial(device, order):
         return results[max(min(int(order) - 1, len(results) - 1), 0)]
 
 def runCommand(filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
+    if "UART" in filterText:
+        print("\033[91m[TEST] Warning: The UART tests need human interaction \033[00m")
+        Summary = False
+
     failed = None
     passed = None
     command = f"\
@@ -37,55 +42,57 @@ env -S maxCounter={MaxCounter} \
         if not line:
            break
 
-        line = line.rstrip()
+        line = line.rstrip().decode('utf-8')
 
         if not Summary:
-            print(line.decode('utf-8').rstrip())
+            print(line.rstrip())
 
-        failmatch = re.findall(r"\[\s+FAILED\s+\] (\d+) test.*", line.decode('utf-8'))
+        failmatch = re.findall(r"\[\s+FAILED\s+\] (\d+) test.*", line)
         if len(failmatch) > 0:
             failed = int(failmatch[0])
 
-        passmatch = re.findall(r"\[\s+PASSED\s+\] (\d+) test.*", line.decode('utf-8'))
+        passmatch = re.findall(r"\[\s+PASSED\s+\] (\d+) test.*", line)
         if len(passmatch) > 0:
             passed = int(passmatch[0])
 
     process.kill()
     if passed is None:
         passed = 0
-    return (passed, (failed if failed is not None else 0) + passed, (failed == 0) or (failed is None))
+    if failed is None:
+        failed = 0
+    return (passed, failed + passed, failed == 0)
 
 # Parse arguments
 parser = argparse.ArgumentParser(
-    prog="automatize_GT.py",
-    description='Declare environment variables to automatize GoogleTests execution.',
+    prog="run_irioCore.py",
+    description='Execute funcional tests of the C irioCore library',
 )
 
+# Parameters for file-based test plans
+parser.add_argument('-i', '--input-file', help='XML file that contains the test plan', nargs='?')
+parser.add_argument('-o', '--output-file', help='XML file that contains the results of the plan. If a value is not provided, the same file is used', nargs='?')
+parser.add_argument('-s', '--summary',help='Summarize the execution', action='store_true')
+
+# Parameters for command-line based test plans
 parser.add_argument('--RIODevice',help='RIO device model. Use lsrio command to display it. If no serial number is provided, the first device is selected',choices=['7961','7965','7966','7975','9159'], default='7966')
 parser.add_argument('--RIOSerial',help='RIO device serial number. Use $lsrio command to display it')
-# parser.add_argument('--AM',help='Indicate which adapter module is used. It is mandatory that the adapter module match with the RIODevice and RIOSerial used.',choices=['ANALOG','DIG'],default='0')
 parser.add_argument('-d', '--device-number',help='If no RIOSerial is provided and there are multiple devices, select which one to use. Bounded between 0 and the number of devices',default='1')
 parser.add_argument('--iterations',help='Select number of iterations of the tests. Pass a negative number to run indefinitely.',default='1')
-parser.add_argument('-s', '--shuffle',help='Shuffle the test execution', action='store_true')
+parser.add_argument('--shuffle',help='Shuffle the test execution', action='store_true')
 parser.add_argument('-c', '--coupling',help='Coupling mode for mod5761 test. 1 = DC, 0 = AC',choices=['1','0','DC','AC'],default='0')
 parser.add_argument('-v', '--verbose',help='Print all traces', action='store_true')
 parser.add_argument('--verbose-init',help='Print driver startup trace', action='store_true')
 parser.add_argument('--verbose-test',help='Print test traces', action='store_true')
 parser.add_argument('-f', '--filter', help='Filter the text execution', )
 parser.add_argument('-l', '--list', help='List all the tests', action='store_true')
-parser.add_argument('-S', '--summary',help='Summarize the execution', action='store_true')
 parser.add_argument('--max-counter',help='Max counter for the IMAQ tests',default='65536')
-parser.add_argument('-i', '--input-file', help='XML file that contains the test plan', nargs='?')
-parser.add_argument('-o', '--output-file', help='XML file that contains the results of the plan. If a value is not provided, the same file is used', nargs='?')
 
 args = parser.parse_args()
 binary = "test_irioCore"
-path = "/c++/irioCore/"
+path = os.path.dirname(os.path.abspath(sys.argv[0])) + "/c++/irioCore/"
 
 if args.input_file is None:
-    # Parameters
-
-    # Build command
+    # Command-line based test plan
     if args.list:
         command = f"./{binary} --gtest_list_tests"
     else:
@@ -111,10 +118,10 @@ if args.input_file is None:
     if args.verbose or args.verbose_test:
         print(f"Running command: {command}")
 
-    # Runnning tests
-    os.chdir(os.getcwd()+path)
+    os.chdir(path)
     os.system(command)
 else:
+    # File-based test plan
     if not os.path.exists(args.input_file):
         print(f"Could not find the file {args.input_file}")
         exit(-1)
@@ -124,16 +131,13 @@ else:
     originaldir = os.getcwd()
 
     tree = minidom.parse(args.input_file)
-    os.chdir(os.getcwd()+path)
+    os.chdir(path)
 
     for test in tree.getElementsByTagName('test'):
         testName   = test.getElementsByTagName('name')[0].firstChild.data
         filterText = test.getElementsByTagName('TestFilter')[0].firstChild.data
         RIODevice  = test.getElementsByTagName('RIODevice')[0].firstChild.data
         RIOSerial  = test.getElementsByTagName('RIOSerial')[0].firstChild.data
-
-        if "UART" in filterText:
-            print("\033[91m[TEST] Warning: The UART tests need human interaction \033[00m")
 
         try: # Optional argument
             verbose = test.getElementsByTagName('verbose')[0].firstChild.data
@@ -155,8 +159,10 @@ else:
             continue
         
         if summary: 
-            print(f"Running test \"{testName}\" with filter \"{filterText}\"")
+            print(f"Running test \"{testName}\"")
+
         result = runCommand(filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
+
         if summary:
             pass_word = "\033[32mPASS\033[00m"
             fail_word = "\033[91mFAIL\033[00m"
