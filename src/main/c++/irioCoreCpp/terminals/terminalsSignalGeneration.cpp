@@ -81,10 +81,10 @@ void TerminalsSignalGeneration::setSGPhase(const std::uint32_t n,
 			->setSGPhaseImpl(n, value);
 }
 
-void TerminalsSignalGeneration::setSGUpdateRate(const std::uint32_t n,
+void TerminalsSignalGeneration::setSGUpdateRateDecimation(const std::uint32_t n,
 		const std::uint32_t value) const {
 	std::static_pointer_cast<TerminalsSignalGenerationImpl>(m_impl)
-			->setSGUpdateRateImpl(n, value);
+			->setSGUpdateRateDecimationImpl(n, value);
 }
 
 }  // namespace irio

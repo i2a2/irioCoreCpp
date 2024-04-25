@@ -128,9 +128,9 @@ TEST_F(SignalGenerationTests, setSGFreq){
 	EXPECT_NO_THROW(irio.getTerminalsSignalGeneration().setSGFreq(0, 1));
 }
 
-TEST_F(SignalGenerationTests, setSGUpdateRate){
+TEST_F(SignalGenerationTests, setSGUpdateRateDecimation){
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_NO_THROW(irio.getTerminalsSignalGeneration().setSGUpdateRate(0, 1));
+	EXPECT_NO_THROW(irio.getTerminalsSignalGeneration().setSGUpdateRateDecimation(0, 1));
 }
 
 ///////////////////////////////////////////////////////////////

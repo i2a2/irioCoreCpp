@@ -96,7 +96,7 @@ int irio_setSGUpdateRate(irioDrv_t *p_DrvPvt, int n, int32_t value,
 						 TStatus *status) {
 	const auto f = [n, value, p_DrvPvt] {
 		getTerminalsSG(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session)
-			.setSGUpdateRate(n, value);
+			.setSGUpdateRateDecimation(n, value);
 	};
 
 	return setOperationGeneric(f, status, p_DrvPvt->verbosity);

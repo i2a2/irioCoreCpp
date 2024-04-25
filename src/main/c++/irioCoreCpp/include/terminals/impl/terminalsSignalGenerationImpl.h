@@ -45,7 +45,7 @@ class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
 
 	void setSGPhaseImpl(const std::uint32_t n, const std::uint32_t value) const;
 
-	void setSGUpdateRateImpl(const std::uint32_t n,
+	void setSGUpdateRateDecimationImpl(const std::uint32_t n,
 							const std::uint32_t value) const;
 
  private:

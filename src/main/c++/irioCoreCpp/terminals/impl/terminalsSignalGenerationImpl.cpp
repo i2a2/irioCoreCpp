@@ -181,7 +181,7 @@ void TerminalsSignalGenerationImpl::setSGPhaseImpl(
 	setValue(m_session, n, value, m_mapPhase_addr, TERMINAL_SGPHASE);
 }
 
-void TerminalsSignalGenerationImpl::setSGUpdateRateImpl(
+void TerminalsSignalGenerationImpl::setSGUpdateRateDecimationImpl(
 		const std::uint32_t n,
 		const std::uint32_t value) const {
 	setValue(m_session, n, value, m_mapUpdateRate_addr, TERMINAL_SGUPDATERATE);

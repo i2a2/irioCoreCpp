@@ -157,15 +157,18 @@ class TerminalsSignalGeneration: public TerminalsBase {
   void setSGPhase(const std::uint32_t n, const std::uint32_t value) const;
 
   /**
-   * Configures the update rate for a specific signal generator
-   *
+   * Configures the update rate decimation for a specific signal generator
+   * 
+   * The update rate configured can be calculated as Fref/value
+   * 
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    * @throw irio::errors::ResourceNotFoundError Resource specified not found
    *
-   * @param n			Number of the signal generator
-   * @param value		Update rate to configure
+   * @param n			  Number of the signal generator
+   * @param value		Decimation to configure
    */
-  void setSGUpdateRate(const std::uint32_t n, const std::uint32_t value) const;
+  void setSGUpdateRateDecimation(const std::uint32_t n,
+								 const std::uint32_t value) const;
 };
 
 }  // namespace irio
