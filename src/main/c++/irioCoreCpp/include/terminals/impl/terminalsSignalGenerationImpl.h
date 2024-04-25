@@ -41,7 +41,8 @@ class TerminalsSignalGenerationImpl: public TerminalsBaseImpl {
 
 	void setSGAmpImpl(const std::uint32_t n, const std::uint32_t value) const;
 
-	void setSGFreqDecimationImpl(const std::uint32_t n, const std::uint32_t value) const;
+	void setSGFreqDecimationImpl(const std::uint32_t n,
+								 const std::uint32_t value) const;
 
 	void setSGPhaseImpl(const std::uint32_t n, const std::uint32_t value) const;
 
