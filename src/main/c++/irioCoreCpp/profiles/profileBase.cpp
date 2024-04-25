@@ -1,5 +1,6 @@
 #include "profiles/profileBase.h"
 #include "errorsIrio.h"
+#include "utils.h"
 
 namespace irio {
 
@@ -14,7 +15,8 @@ T ProfileBase::getTerminal() const {
 	const auto it = m_mapTerminals.find(std::type_index(typeid(T)));
 	if(it == m_mapTerminals.end()) {
 		throw errors::TerminalNotImplementedError(
-				"Terminal not available for the current profile");
+			"Terminal not available for the current profile (Profile ID: " +
+			std::to_string(utils::enum2underlying(profileID)) + ")");
 	}
 
 	return *static_cast<T*>(it->second.get());
