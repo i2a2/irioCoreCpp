@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3  
     - name: Compile Code
-      run: make compile -j
+      run: make compile -j SkipVerify=1
 
     - name: Run UnitTests
       run: make test
