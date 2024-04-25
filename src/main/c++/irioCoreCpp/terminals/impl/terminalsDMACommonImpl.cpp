@@ -222,6 +222,10 @@ void TerminalsDMACommonImpl::enaDisDMAImpl(const std::uint32_t n,
 }
 
 bool TerminalsDMACommonImpl::getDMAOverflowImpl(const std::uint16_t n) const {
+	if(m_mapDMA.find(n) == m_mapDMA.end()) {
+		const std::string err = std::to_string(n) + " is not a valid DMA ID";
+		throw errors::ResourceNotFoundError(err);
+	}
 	return static_cast<bool>(getAllDMAOverflowsImpl() & (1 << n));
 }
 
