@@ -447,7 +447,7 @@ TEST_F(ErrorCommonTestsAdapter, InitStatusNullptr) {
 TEST_F(ErrorCommonTestsAdapter, IrioNotInitializedError) {
 	int ret;
 
-	ret = irio_closeDriver(&p_DrvPvt, 0, &status);
+	ret = irio_setDAQStartStop(&p_DrvPvt, 0, &status);
 
 	EXPECT_EQ(ret, IRIO_error) << "Expected error when function called before init";
 	EXPECT_EQ(status.code, IRIO_error) << "Invalid error code";
