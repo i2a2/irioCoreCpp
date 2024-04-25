@@ -40,6 +40,8 @@ TEST_F(FlexRIOCPUDAQ, CheckTerminals) {
 		<< "IMAQ terminals found when they should have not";
 	EXPECT_THROW(irio.getTerminalsIO(), errors::TerminalNotImplementedError)
 		<< "IO terminals found when they should have not";
+	EXPECT_THROW(irio.getTerminalsIMAQ(), errors::TerminalNotImplementedError)
+		<< "IMAQ terminals found when they should have not";	
 }
 
 TEST_F(FlexRIOCPUDAQ, GetSetSGSignalType) {
