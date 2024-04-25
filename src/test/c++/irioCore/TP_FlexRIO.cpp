@@ -165,6 +165,41 @@ TEST(FlexRIOResources, ResourcesMAXIO) {
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
+TEST(FlexRIOResources, ResourcesMissing) {
+	irioDrv_t drv;
+
+	// Manual initialization to load a failResources file and test for error instead of success
+    int st = IRIO_success;
+
+    int verbose_init = std::stoi(TestUtilsIRIO::getEnvVar("VerboseInit"));
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    string RIODevice = TestUtilsIRIO::getEnvVar("RIODevice");
+    string RIOSerial = TestUtilsIRIO::getEnvVar("RIOSerial");
+
+    string NIRIOmodel = "PXIe-" + RIODevice + "R";
+    string bitfileName = "FlexRIO_OnlyResources_" + RIODevice;
+    string filePath = "../../resources/failResources/" + RIODevice + "/";
+    string testName = ("Test_" + bitfileName);
+
+    TStatus status;
+    irio_initStatus(&status);
+
+    if (verbose_test) cout << "[TEST] Initializing driver with bitfile \"failResources/" << bitfileName << "\"" << endl;
+    st = irio_initDriver(testName.c_str(), RIOSerial.c_str(),
+                         NIRIOmodel.c_str(), bitfileName.c_str(), "V1.2",
+                         verbose_init, filePath.c_str(), filePath.c_str(), &drv,
+                         &status);
+    if (verbose_test) cout << "[TEST] Driver initialized " << ((st == IRIO_success) ? "successfully (Error)" : "unsuccessfully (Expected)") << endl;
+    EXPECT_NE(st, IRIO_success);
+	logErrors(st, status);
+
+	// Test for resources
+	irioResources_t res;
+	getResources(&drv, &res);
+
+    st = closeDriver(&drv);
+	ASSERT_NE(st, 0) << "[TEST] Error closing driver";
+}
 
 /**
  * TP-IRL-3001 Checking for FlexRIO the irio_setAuxAO, irio_getAuxAI, irio_setAuxDO, 
