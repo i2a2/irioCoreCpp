@@ -11,7 +11,11 @@ using namespace irio;
 
 class FlexRIOCPUDAQ : public IrioFixture {
  public:
-  FlexRIOCPUDAQ() : IrioFixture("CPUDAQ") {}
+  FlexRIOCPUDAQ() : IrioFixture("CPUDAQ") {
+	if(boardType != "FlexRIO") {
+        throw std::runtime_error("Expected a FlexRIO. Got " + boardType);
+    }
+  }
 };
 
 class FlexRIOCPUDAQError : public FlexRIOCPUDAQ {};
@@ -40,8 +44,6 @@ TEST_F(FlexRIOCPUDAQ, CheckTerminals) {
 		<< "IMAQ terminals found when they should have not";
 	EXPECT_THROW(irio.getTerminalsIO(), errors::TerminalNotImplementedError)
 		<< "IO terminals found when they should have not";
-	EXPECT_THROW(irio.getTerminalsIMAQ(), errors::TerminalNotImplementedError)
-		<< "IMAQ terminals found when they should have not";	
 }
 
 TEST_F(FlexRIOCPUDAQ, GetSetSGSignalType) {

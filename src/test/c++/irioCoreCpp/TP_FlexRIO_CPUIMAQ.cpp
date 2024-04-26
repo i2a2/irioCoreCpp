@@ -11,7 +11,11 @@ using namespace irio;
 
 class FlexRIOCPUIMAQ : public IrioFixture {
  public:
-  FlexRIOCPUIMAQ() : IrioFixture("CPUIMAQ") {}
+  FlexRIOCPUIMAQ() : IrioFixture("CPUIMAQ") {
+	if(boardType != "FlexRIO") {
+        throw std::runtime_error("Expected a FlexRIO. Got " + boardType);
+    }
+  }
 };
 
 class FlexRIOCPUIMAQError : public FlexRIOCPUIMAQ {};
@@ -108,16 +112,16 @@ TEST_F(FlexRIOCPUIMAQ, sendUARTMsg) {
     const std::string bitfilePath = getBitfilePath();
 	Irio irio(bitfilePath, serialNumber, "V1.2");
 
+	std::cout << "[TEST] Open the EDTpdv terminal and press enter here."
+			  << std::endl;
+	std::cin.get();
+
 	auto imaq = irio.getTerminalsIMAQ();
 	imaq.configCameraLink(1, 1, 1, 1, 1, 0, CLSignalMapping::STANDARD,
 						  CLMode::FULL);
 
 	irio.startFPGA();
 	imaq.setUARTBaudRate(UARTBaudRates::BR96);
-
-	std::cout << "[TEST] Open the EDTpdv terminal and press enter here."
-			  << std::endl;
-	std::cin.get();
 
 	imaq.sendUARTMsg(charactersToSend);
 	std::cout << "[TEST] Message send. Check EDTpdv terminal application"
