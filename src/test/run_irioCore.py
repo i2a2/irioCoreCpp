@@ -7,7 +7,18 @@ import sys
 from xml.dom import minidom
 
 if __name__ != "__main__":
+    print("This file cannot be used as a module", file=sys.stderr)
     exit(1)
+
+binary = "test_irioCore"
+
+binaryPaths = {
+    "irioCore Unitary": "c++/unittests/irioCore/test_ut_irioCore",
+    "irioCore Functional": "c++/irioCore/test_irioCore",
+    "irioCoreCpp Unitary": "c++/unittests/irioCoreCpp/test_ut_irioCoreCpp",
+    "irioCoreCpp Functional": "c++/irioCoreCpp/test_irioCoreCpp",
+    "BFP": "c++/bfp/test_bfp",
+}
 
 def searchSerial(device, order):
     if device not in ['7961','7965','7966','7975','9159']:
@@ -20,7 +31,10 @@ def searchSerial(device, order):
     else:
         return results[max(min(int(order) - 1, len(results) - 1), 0)]
 
-def runCommand(filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
+def runCommand(binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
+    cwd = os.getcwd()
+    os.chdir(os.path.dirname(binary))
+
     if "UART" in filterText:
         print("\033[91m[TEST] Warning: The UART tests need human interaction \033[00m")
         Summary = False
@@ -34,7 +48,8 @@ env -S VerboseInit={1 if Verbose=='true' else 0} \
 env -S VerboseTest={1 if Verbose=='true' else 0} \
 env -S Coupling={Coupling} \
 env -S maxCounter={MaxCounter} \
-    ./{binary} --gtest_filter={filterText}" 
+    ./{os.path.basename(binary)} --gtest_filter={filterText}" 
+
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, bufsize=1)
     while True:
         line = process.stdout.readline()
@@ -60,6 +75,8 @@ env -S maxCounter={MaxCounter} \
         passed = 0
     if failed is None:
         failed = 0
+
+    os.chdir(cwd)
     return (passed, failed + passed, failed == 0)
 
 # Parse arguments
@@ -88,8 +105,6 @@ parser.add_argument('-l', '--list', help='List all the tests', action='store_tru
 parser.add_argument('--max-counter',help='Max counter for the IMAQ tests',default='65536')
 
 args = parser.parse_args()
-binary = "test_irioCore"
-path = os.path.dirname(os.path.abspath(sys.argv[0])) + "/c++/irioCore/"
 
 if args.input_file is None:
     # Command-line based test plan
@@ -118,7 +133,7 @@ if args.input_file is None:
     if args.verbose or args.verbose_test:
         print(f"Running command: {command}")
 
-    os.chdir(path)
+    os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
     os.system(command)
 else:
     # File-based test plan
@@ -128,16 +143,25 @@ else:
 
     summary = True if args.summary else False
 
-    originaldir = os.getcwd()
-
     tree = minidom.parse(args.input_file)
-    os.chdir(path)
+    targetFile = os.path.abspath(args.output_file if args.output_file is not None else args.input_file)
+
+    os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
     for test in tree.getElementsByTagName('test'):
-        testName   = test.getElementsByTagName('name')[0].firstChild.data
-        filterText = test.getElementsByTagName('TestFilter')[0].firstChild.data
-        RIODevice  = test.getElementsByTagName('RIODevice')[0].firstChild.data
-        RIOSerial  = test.getElementsByTagName('RIOSerial')[0].firstChild.data
+        try:
+            testName   = test.getElementsByTagName('name')[0].firstChild.data
+            filterText = test.getElementsByTagName('TestFilter')[0].firstChild.data
+            RIODevice  = test.getElementsByTagName('RIODevice')[0].firstChild.data
+            RIOSerial  = test.getElementsByTagName('RIOSerial')[0].firstChild.data
+            binary = binaryPaths.get(test.getElementsByTagName('TestType')[0].firstChild.data)
+        except:
+            print("Malformatted test in XML, omitting it")
+            continue
+
+        if binary is None:
+            print("Incorrect test type, omitting test")
+            continue
 
         try: # Optional argument
             verbose = test.getElementsByTagName('verbose')[0].firstChild.data
@@ -161,7 +185,7 @@ else:
         if summary: 
             print(f"Running test \"{testName}\"")
 
-        result = runCommand(filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
+        result = runCommand(binary, filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
 
         if summary:
             pass_word = "\033[32mPASS\033[00m"
@@ -184,7 +208,5 @@ else:
             summaryElement.appendChild(tree.createTextNode("PASS" if result[2] else "FAIL"))
             test.appendChild(summaryElement)
 
-    os.chdir(originaldir)
-    targetFile = args.output_file if args.output_file is not None else args.input_file
     with open(targetFile, 'wt') as fd:
         fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]))
