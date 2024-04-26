@@ -10,8 +10,6 @@ if __name__ != "__main__":
     print("This file cannot be used as a module", file=sys.stderr)
     exit(1)
 
-binary = "test_irioCore"
-
 binaryPaths = {
     "irioCore Unitary": "c++/unittests/irioCore/test_ut_irioCore",
     "irioCore Functional": "c++/irioCore/test_irioCore",
