@@ -1,13 +1,44 @@
+#define CCS_VERSION
+
 #include <gtest/gtest.h>
 #include <irioCoreCpp.h>
 
 #include <chrono>
 #include <iostream>
 #include <random>
+#include <climits>
 
 #include "irioFixture.h"
 
 using namespace irio;
+
+
+double sineCorrelation(const std::vector<double>& signal, int f, int fs) {
+    double max_corr = 0;
+
+    // Generate sine
+    std::vector<double> sine;
+    for (int n = 0; n < fs/f; n++) {
+        sine.push_back(sin(2.0*M_PI*f/fs*n));
+    }
+
+    // Calculate autocorrelation
+    double autocorrelation = 0;
+    for (int n = 0; n < static_cast<int>(sine.size()); n++)
+        autocorrelation += sine[n] * sine[n];
+
+    // Calculate max correlation
+    for (int n = -sine.size(); n < static_cast<int>(signal.size()); n++) {
+        double corr = 0;
+        for (int m = 0; m < static_cast<int>(signal.size()); m++) {
+            if (!((m+n) < 0 || (m+n) >= static_cast<int>(sine.size())))
+                corr += signal[m] * sine[m + n];
+        }
+        if (corr > max_corr) max_corr = corr;
+    }
+
+    return max_corr/autocorrelation;
+}
 
 class FlexRIOCPUDAQMod5761 : public IrioFixture {
    public:
@@ -287,6 +318,73 @@ TEST_F(FlexRIOCPUDAQMod5761, readDataBlockingTimeout){
 	daq.disableDMA(DMANum);
 	commonTerm.setDAQStop();
 	daq.cleanDMA(DMANum);
+}
+
+
+TEST_F(FlexRIOCPUDAQMod5761, readSine) {
+	// Parameters
+	const uint32_t blocksToRead = 1;
+	const uint32_t sampFreq = 500000;
+	const uint32_t dmaID = 0;
+	const uint32_t dmaChannel = 2;
+	const uint32_t sgChannel = 0;
+	const uint32_t sgAmp = 2048;
+	const uint32_t sgSigFreq = 10000;
+	const uint32_t sgUpdRate = 10000000; 
+	const uint32_t ignoreFirstSamples = 10;
+	const uint32_t samplesToCompare = 100;
+	const uint8_t signalType = 1;
+	const uint32_t analogResNum = 0;
+	const double corrThreshold = 0.99;
+
+
+	Irio irio(getBitfilePath(), serialNumber, "V1.2");
+	auto common = irio.getTerminalsCommon();
+	auto analog = irio.getTerminalsAnalog();
+	auto sg = irio.getTerminalsSignalGeneration();
+	auto daq = irio.getTerminalsDAQ();
+
+	irio.startFPGA();
+	common.setDebugMode(false);
+	analog.setAICouplingMode(CouplingMode::AC);
+
+	// Configure signal generator
+	const auto sg_fref = sg.getSGFref(sgChannel);
+	sg.setSGUpdateRateDecimation(sgChannel, sg_fref/sgUpdRate);
+	const auto SGFreq = static_cast<int>(sgSigFreq*(UINT_MAX/static_cast<double>(sgUpdRate)));
+	sg.setSGFreqDecimation(sgChannel, SGFreq);
+	sg.setSGAmp(sgChannel, sgAmp);
+	sg.setSGSignalType(sgChannel, signalType);
+
+	analog.setAOEnable(analogResNum, true);
+
+	// Get Parameters
+	const auto NCh = daq.getNCh(dmaID);
+	const auto BlockNWords = daq.getLengthBlock(dmaID);
+
+	// Setup DMA
+	daq.startDMA(dmaID);
+	daq.setSamplingRateDecimation(dmaID, common.getFref()/sampFreq);
+	daq.enableDMA(dmaID);
+	common.setDAQStart();
+
+	const size_t dataToRead = blocksToRead*BlockNWords; 
+	std::vector<uint64_t> vec(dataToRead);
+	daq.readDataBlocking(dmaID, dataToRead, vec.data(), 5000);
+	uint16_t* data = reinterpret_cast<uint16_t*>(vec.data());
+	
+	// Normalize signal
+	std::vector<double> signal;
+	for (int i = ignoreFirstSamples; i < ignoreFirstSamples + samplesToCompare; ++i) {
+		signal.push_back(static_cast<float>(reinterpret_cast<int16_t*>(data)[(i * NCh) + dmaChannel])/sgAmp);
+	}
+
+	double corrCoef = sineCorrelation(signal, sgSigFreq, sampFreq);
+	EXPECT_GE(corrCoef, corrThreshold);
+
+	daq.disableDMA(dmaID);
+	common.setDAQStop();
+	daq.cleanAllDMAs();
 }
 
 
