@@ -3,8 +3,8 @@ Version:	{VERSION}
 Release:	1%{?dist}
 Summary:	BFP devel
 
-License:	GPL
-URL:		https://github.com/i2a2/irioCore
+License:	GPL-3.0
+URL:		https://github.com/i2a2/irioCoreCpp
 
 Requires: bfp pugixml-devel
 
