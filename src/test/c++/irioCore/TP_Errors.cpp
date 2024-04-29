@@ -79,15 +79,15 @@ TEST(IRIOError, GetErrorString) {
 
     errorCode = BitfileDownload_Error;
     irio_getErrorString(errorCode, &errorString);
-    EXPECT_STREQ("Error occurr downloading the bitfile. Check if bitfile was compiled for the specified target.", errorString);
+    EXPECT_STREQ("Error occurred downloading the bitfile. Check if bitfile was compiled for the specified target.", errorString);
 
     errorCode = InitDone_Error;
     irio_getErrorString(errorCode, &errorString);
-    EXPECT_STREQ("Init done wait ended in timeout. Check if the connected adapter module is the intended and is properly connected.\n Check the initialization logic in of the project.", errorString);
+    EXPECT_STREQ("Init done wait ended in timeout. Check if the connected adapter module is the intended and is properly connected. Check the initialization logic of the project.", errorString);
 
     errorCode = IOModule_Error;
     irio_getErrorString(errorCode, &errorString);
-    EXPECT_STREQ("Connected IO module is not the expected IO Module\n Review bitfile downloaded.", errorString);
+    EXPECT_STREQ("Connected IO module is not the expected IO Module. Review bitfile downloaded.", errorString);
 
     errorCode = NIRIO_API_Error;
     irio_getErrorString(errorCode, &errorString);
