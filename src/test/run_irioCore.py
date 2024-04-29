@@ -4,6 +4,7 @@ import subprocess
 import os 
 import re
 import sys
+import textwrap
 from xml.dom import minidom
 
 if __name__ != "__main__":
@@ -77,21 +78,28 @@ env -S maxCounter={MaxCounter} \
     os.chdir(cwd)
     return (passed, failed + passed, failed == 0)
 
+
 # Parse arguments
 parser = argparse.ArgumentParser(
     prog="run_irioCore.py",
     description='Execute funcional tests of the C irioCore library',
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    epilog=textwrap.dedent("""
+        Examples:
+            python3 run_irioCore.py -i test_plan.xml -o results.xml
+            python3 run_irioCore.py -d 7966 -s 0x123ABC -b c++/irioCore/test_irioCore -v -f "FlexRIO*"
+        """),
 )
 
 # Parameters for file-based test plans
 parser.add_argument('-i', '--input-file', help='XML file that contains the test plan', nargs='?')
 parser.add_argument('-o', '--output-file', help='XML file that contains the results of the plan. If a value is not provided, the same file is used', nargs='?')
-parser.add_argument('-s', '--summary',help='Summarize the execution', action='store_true')
+parser.add_argument('-S', '--summary',help='Summarize the execution', action='store_true')
 
 # Parameters for command-line based test plans
-parser.add_argument('--RIODevice',help='RIO device model. Use lsrio command to display it. If no serial number is provided, the first device is selected',choices=['7961','7965','7966','7975','9159'], default='7966')
-parser.add_argument('--RIOSerial',help='RIO device serial number. Use $lsrio command to display it')
-parser.add_argument('-d', '--device-number',help='If no RIOSerial is provided and there are multiple devices, select which one to use. Bounded between 0 and the number of devices',default='1')
+parser.add_argument('-d', '--RIODevice',help='RIO device model. Use lsrio command to display it. If no serial number is provided, the first device is selected',choices=['7961','7965','7966','7975','9159'], default='7966')
+parser.add_argument('-s', '--RIOSerial',help='RIO device serial number. Use $lsrio command to display it')
+parser.add_argument('--device-number',help='If no RIOSerial is provided and there are multiple devices, select which one to use. Bounded between 0 and the number of devices',default='1')
 parser.add_argument('--iterations',help='Select number of iterations of the tests. Pass a negative number to run indefinitely.',default='1')
 parser.add_argument('--shuffle',help='Shuffle the test execution', action='store_true')
 parser.add_argument('-c', '--coupling',help='Coupling mode for mod5761 test. 1 = DC, 0 = AC',choices=['1','0','DC','AC'],default='0')
@@ -101,23 +109,36 @@ parser.add_argument('--verbose-test',help='Print test traces', action='store_tru
 parser.add_argument('-f', '--filter', help='Filter the text execution', )
 parser.add_argument('-l', '--list', help='List all the tests', action='store_true')
 parser.add_argument('--max-counter',help='Max counter for the IMAQ tests',default='65536')
+parser.add_argument('-b', '--binary', help='Select the test binary to run', required=False)
 
 args = parser.parse_args()
 
+if len(sys.argv)==1:
+    parser.print_usage()
+    sys.exit(1)
+
 if args.input_file is None:
-    # Command-line based test plan
+
+    if args.binary is None:
+        print("Binary is required for command-line based test plans", file=sys.stderr)
+        exit(-1)
+    if not os.path.exists(args.binary):
+        print(f"Could not find binary {args.binary}")
+        exit(-1)
+
+    os.chdir(os.path.dirname(args.binary))
     if args.list:
-        command = f"./{binary} --gtest_list_tests"
+        command = f"./{os.path.basename(args.binary)} --gtest_list_tests"
     else:
         if args.RIOSerial is not None:
             serial = args.RIOSerial
         else:
             serial = searchSerial(args.RIODevice, args.device_number)
 
-        gfilter = (" --gtest_filter=" + args.filter) if args.filter is not None and not args.perf else ""
-        gshuffle = " --gtest_shuffle" if args.shuffle and not args.perf else ""
-        giterations = (" --gtest-repeat=" + args.iterations) if args.iterations != '1' and not args.perf else ""
-        summary = r' | grep -A9999 "Global test environment tear-down"' if args.summary and not args.perf else ""
+        gfilter = (" --gtest_filter=" + args.filter) if args.filter is not None else ""
+        gshuffle = " --gtest_shuffle" if args.shuffle else ""
+        giterations = (" --gtest-repeat=" + args.iterations) if args.iterations != '1' else ""
+        summary = r' 2>&1 | grep -A9999 "Global test environment tear-down"' if args.summary else ""
 
         command = f"\
     env -S RIOSerial={serial} \
@@ -126,12 +147,11 @@ if args.input_file is None:
     env -S VerboseTest={int(args.verbose_test or args.verbose)} \
     env -S Coupling={args.coupling} \
     env -S maxCounter={args.max_counter} \
-    ./{binary}{gfilter}{giterations}{gshuffle}{summary}" 
+    ./{os.path.basename(args.binary)}{gfilter}{giterations}{gshuffle}{summary}" 
 
     if args.verbose or args.verbose_test:
         print(f"Running command: {command}")
 
-    os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
     os.system(command)
 else:
     # File-based test plan
