@@ -27,14 +27,7 @@ using namespace TestUtilsIRIO;
 using std::cout; 
 using std::endl;
 
-/**
- * TP-XXX-XXX1 irioDriver
- * 
- * Test error paths on irioDriver.c file
- * Implemented on:
- * - IRIOError.InitWithNullStatus
- * - IRIOError.InvalidDirs
- */
+// irioDriver.c tests
 TEST(IRIOError, InitWithNullStatus) {
     int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
@@ -44,7 +37,6 @@ TEST(IRIOError, InitWithNullStatus) {
         IRIO_error
     );
 }
-
 TEST(IRIOError, InvalidDirs) {
     irioDrv_t drv;
     TStatus status;
@@ -57,7 +49,22 @@ TEST(IRIOError, InvalidDirs) {
         IRIO_error
     );
 }
+TEST(IRIOError, StartAlredyStarted) {
+    irioDrv_t drv;
+    TStatus status;   
+    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
 
+    int st = initDriver(IRIOProfile::NoModule, &drv);
+	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
+    if (verbose_test) cout << "[TEST] Starting FPGA for the first time (should succeed)" << endl;
+    startFPGA(&drv);
+
+    if (verbose_test) cout << "[TEST] Starting FPGA for the second time (should fail)" << endl;
+    int startStatus = irio_setFPGAStart(&drv,1,&status);
+	TestUtilsIRIO::logErrors(startStatus, status);
+	EXPECT_NE(startStatus, IRIO_success);
+}
+// irioError.c tests
 TEST(IRIOError, GetErrorString) {
     TErrorDetailCode errorCode;
     char* errorString;
@@ -72,15 +79,15 @@ TEST(IRIOError, GetErrorString) {
 
     errorCode = BitfileDownload_Error;
     irio_getErrorString(errorCode, &errorString);
-    EXPECT_STREQ("Error occurr downloading the bitfile. Check if bitfile was compiled for the specified target.", errorString);
+    EXPECT_STREQ("Error occurred downloading the bitfile. Check if bitfile was compiled for the specified target.", errorString);
 
     errorCode = InitDone_Error;
     irio_getErrorString(errorCode, &errorString);
-    EXPECT_STREQ("Init done wait ended in timeout. Check if the connected adapter module is the intended and is properly connected.\n Check the initialization logic in of the project.", errorString);
+    EXPECT_STREQ("Init done wait ended in timeout. Check if the connected adapter module is the intended and is properly connected. Check the initialization logic of the project.", errorString);
 
     errorCode = IOModule_Error;
     irio_getErrorString(errorCode, &errorString);
-    EXPECT_STREQ("Connected IO module is not the expected IO Module\n Review bitfile downloaded.", errorString);
+    EXPECT_STREQ("Connected IO module is not the expected IO Module. Review bitfile downloaded.", errorString);
 
     errorCode = NIRIO_API_Error;
     irio_getErrorString(errorCode, &errorString);

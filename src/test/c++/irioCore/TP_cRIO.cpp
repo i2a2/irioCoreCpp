@@ -83,6 +83,11 @@ TEST(cRIO, IOResources) {
     // 0 SG
 	if (verbose_test) cout << "[TEST] Found " << res.SG << " SGs. Expected 0" << endl;
 	EXPECT_EQ(res.SG, 0);
+	/*TODO: Add samplingRate from cRIO
+    // 1 Sampling Rate
+	if (verbose_test) cout << "[TEST] Found " << res.samplingRate << " sampling rates. Expected 1" << endl;
+	EXPECT_EQ(res.samplingRate, 1);
+	*/
 
     st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Driver closing failed";

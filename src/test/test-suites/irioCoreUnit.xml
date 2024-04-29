@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testplan
+    xmlns="http://www.testLocation.com/test"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.testLocation.com/test ../testSchema.xsd">
+
+    <test>
+        <name>irioCoreUnit</name>
+        <TestType>irioCore Unitary</TestType>
+        <TestFilter>*</TestFilter>
+        <RIODevice>7966</RIODevice>
+        <RIOSerial>0xFFFFFFFF</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>false</verbose>
+    </test>
+
+</testplan>

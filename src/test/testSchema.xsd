@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+    targetNamespace="http://www.testLocation.com/test"
+    xmlns="http://www.testLocation.com/test"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+
+    <xs:simpleType name="RIODeviceType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="7966"/>
+            <xs:enumeration value="7965"/>
+            <xs:enumeration value="7961"/>
+            <xs:enumeration value="9159"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TestTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="irioCore Unitary"/>
+            <xs:enumeration value="irioCore Functional"/>
+            <xs:enumeration value="irioCoreCpp Unitary"/>
+            <xs:enumeration value="irioCoreCpp Functional"/>
+            <xs:enumeration value="BFP"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RIOSerialType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="0x[a-fA-F0-9]{8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="resultsType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d+/\d+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="summaryType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PASS"/>
+            <xs:enumeration value="FAIL"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="couplingType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AC"/>
+            <xs:enumeration value="DC"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="moduleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="noModule" />
+            <xs:enumeration value="NI1483" />
+            <xs:enumeration value="NI5761" />
+            <xs:enumeration value="NI5781" />
+            <xs:enumeration value="NI6581" />
+            <xs:enumeration value="NI5734" />
+            <xs:enumeration value="NI92xx" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="testType">
+        <xs:all>
+            <xs:element name="name"              type="xs:string"/>
+            <xs:element name="TestType"          type="TestTypeType"/>
+            <xs:element name="TestFilter"        type="xs:string"/>
+            <xs:element name="RIODevice"         type="RIODeviceType"/>
+            <xs:element name="RIOSerial"         type="RIOSerialType"/>
+            <xs:element name="RIOModule"         type="moduleType" />
+            <xs:element name="verbose"           type="xs:boolean"     minOccurs="0"/>
+            <xs:element name="coupling"          type="couplingType"   minOccurs="0"/>
+            <xs:element name="maxIMAQiterations" type="xs:unsignedInt" minOccurs="0"/>
+            <xs:element name="results"           type="resultsType"    minOccurs="0"/>
+            <xs:element name="summary"           type="summaryType"    minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:element name="testplan">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="test" type="testType" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>
