@@ -9,10 +9,27 @@ env:
   PACKAGE_DIR: "target/packages/x86_64"
 
 jobs:
+  CheckVersion:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3 
+    - name: Check Makefile version matches tag
+      run: |
+        # Extract version from Makefile
+        MAKEFILE_VERSION=$(grep -oP 'VERSION=\K.*' Makefile)
+        # Extract version from GitHub tag, removing the 'v' prefix
+        GITHUB_VERSION=${GITHUB_REF/refs\/tags\/v/}
+        # Compare versions
+        if [ "$MAKEFILE_VERSION" != "$GITHUB_VERSION" ]; then
+          echo "Error: Version in Makefile ($MAKEFILE_VERSION) does not match GitHub tag ($GITHUB_VERSION)"
+          exit 1
+        fi
+
   Sonar:
+    needs: CheckVersion
     uses: ./.github/workflows/sonar.yml
     secrets: inherit
-
+  
   package:
     needs: Sonar
     runs-on: ubuntu-latest
