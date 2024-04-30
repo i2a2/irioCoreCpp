@@ -13,7 +13,7 @@ std::map<ElemTypes, std::string> t = { { ElemTypes::Bool, "Bool" }, { ElemTypes:
 };
 
 TEST(BFP, Parse) {
-	std::string bitfile = "../../resources/7966/NiFpga_FlexRIO_OnlyResources_7966.lvbitx";
+	std::string bitfile = "../../resources/allRegisterTypes.lvbitx";
 	BFP parsedBitfile(bitfile);
 }
 

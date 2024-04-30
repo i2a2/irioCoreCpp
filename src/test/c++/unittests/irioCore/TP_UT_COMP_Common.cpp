@@ -428,6 +428,17 @@ TEST_F(CommonTestsAdapter, getErrorString) {
 	free(str);
 }
 
+TEST_F(CommonTestsAdapter, mergeStatus) {
+	const auto ret = irio_mergeStatus(&status, TErrorDetailCode::Generic_Error,
+									 false, "Test error");
+	EXPECT_EQ(ret, IRIO_success);
+	EXPECT_EQ(status.code, IRIO_error);
+	EXPECT_EQ(status.detailCode, Generic_Error);
+	EXPECT_STREQ(status.msg, "Test error");
+	irio_mergeStatus(&status, TErrorDetailCode::Generic_Error,
+									 false, "Test error");
+}
+
 /////////////////////////////////////////////////////////////////
 /////// Error Common Tests
 /////////////////////////////////////////////////////////////////
