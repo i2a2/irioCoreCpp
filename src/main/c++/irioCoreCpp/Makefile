@@ -7,11 +7,6 @@ LIBRARIES=bfp niflexrio
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=./include $(TARGET)/includes/bfp
 
-ifndef CODAC_ROOT
-	LIBRARIES+= nisyscfg
-	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
-endif
-
 LIBRARY_DIR=$(TARGET)/lib
 SOURCE_BASE_DIR=.
 SOURCES_DIR=$(SOURCE_BASE_DIR) $(SOURCE_BASE_DIR)/profiles $(SOURCE_BASE_DIR)/terminals $(SOURCE_BASE_DIR)/terminals/impl
@@ -20,7 +15,7 @@ OBJECT_DIR = $(SOURCE_BASE_DIR)/.obj
 SHAREDLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).so
 STATICLIBRARY=$(LIBRARY_DIR)/lib$(LIBNAME).a
 INCLUDES=$(foreach inc,$(INCLUDE_DIRS),-I$(inc))
-LDPATHS=-L$(CODAC_ROOT)/lib $(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,--enable-new-dtags,-rpath,$(libs)) 
+LDPATHS=$(foreach libs,$(LIBRARY_DIRS),-L$(libs) -Wl,--enable-new-dtags,-rpath,$(libs)) 
 LDLIBS=$(foreach libs,$(LIBRARIES),-l$(libs))
 SOURCES=$(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.cpp)) $(foreach dir,$(SOURCES_DIR),$(wildcard $(dir)/*.c))
 OBJECTS=$(addprefix $(OBJECT_DIR)/,$(patsubst %.c, %.o,$(patsubst %.cpp,%.o,$(notdir $(SOURCES)))))
@@ -51,6 +46,8 @@ else
 	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
 	SOURCES_DIR+=$(TARGET)/main/c++/NiFpga_CD
 	HEADERSFILES+=$(wildcard $(TARGET)/main/c++/NiFpga_CD/*.h)
+        LIBRARIES+= nisyscfg
+	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
 endif
 
 VPATH=$(SOURCES_DIR)
