@@ -374,7 +374,7 @@ int irio_closeDriver(irioDrv_t *p_DrvPvt, uint32_t mode, TStatus *status) {
 		IrioInstanceManager::destroyInstance(p_DrvPvt->DeviceSerialNumber,
 											 p_DrvPvt->session);
 		irio_resetStatus(status);
-	} catch (IrioNotInitializedError &e) {
+	} catch (IrioNotInitializedError&) {
 		if (p_DrvPvt->verbosity) {
 			std::cout << "The Irio driver was not initialized. No actions "
 						 "taken during the closing process"
