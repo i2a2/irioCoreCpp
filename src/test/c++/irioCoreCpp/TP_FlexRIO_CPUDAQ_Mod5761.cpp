@@ -375,7 +375,7 @@ TEST_F(FlexRIOCPUDAQMod5761, readSine) {
 	
 	// Normalize signal
 	std::vector<double> signal;
-	for (int i = ignoreFirstSamples; i < ignoreFirstSamples + samplesToCompare; ++i) {
+	for (size_t i = ignoreFirstSamples; i < ignoreFirstSamples + samplesToCompare; ++i) {
 		signal.push_back(static_cast<float>(reinterpret_cast<int16_t*>(data)[(i * NCh) + dmaChannel])/sgAmp);
 	}
 

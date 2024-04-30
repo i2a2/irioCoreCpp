@@ -14,6 +14,8 @@
 #include "platforms.h"
 
 #include "irioDriver.h"
+#include "irioHandlerDMA.h"
+#include "irioHandlerImage.h"
 #include "irioError.h"
 
 using namespace irio;
@@ -699,4 +701,23 @@ TEST_F(ErrorCommonTestsAdapter, UnsupportedProfileError) {
 	EXPECT_EQ(ret, IRIO_error);
 	EXPECT_EQ(status.code, IRIO_error);
 	EXPECT_EQ(status.detailCode, ResourceValueNotValid_Error);
+}
+
+TEST_F(ErrorCommonTestsAdapter, methodCallWhenNoInitDriver) {
+	const auto ret = irio_setUpDMAsTtoHost(&p_DrvPvt, &status);
+	EXPECT_EQ(ret, IRIO_error);
+	EXPECT_EQ(status.code, IRIO_error);
+	EXPECT_EQ(status.detailCode, Generic_Error);
+}
+
+TEST_F(ErrorCommonTestsAdapter, TerminalNotImplemented) {
+	auto ret =
+		irio_initDriver("test", "0", "TestModel", projectName.c_str(), "V9.9",
+						false, nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+	EXPECT_EQ(ret, IRIO_success);
+
+	ret = irio_setUARTBaudRate(&p_DrvPvt, 0, &status);
+	EXPECT_EQ(ret, IRIO_warning);
+	EXPECT_EQ(status.code, IRIO_warning);
+	EXPECT_EQ(status.detailCode, Write_Resource_Warning);
 }
