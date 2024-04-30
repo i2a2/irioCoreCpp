@@ -26,7 +26,6 @@ var NAVTREE =
 [
   [ "IRIO Core Library Module", "index.html", [
     [ "WIP", "index.html#autotoc_md0", null ],
-    [ "Deprecated List", "deprecated.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -50,13 +49,9 @@ var NAVTREE =
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", "globals_dup" ],
-        [ "Functions", "globals_func.html", null ],
+        [ "All", "globals.html", null ],
         [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ],
-        [ "Enumerations", "globals_enum.html", null ],
-        [ "Enumerator", "globals_eval.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Typedefs", "globals_type.html", null ]
       ] ]
     ] ]
   ] ]
@@ -66,9 +61,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classirio_1_1TerminalsDMAIMAQ.html",
-"group__BFP.html#gga8e61078caeb5b085beaef83413234612ac8bd5bedff8ef192d39a962afc0e19ee",
-"irioHandlerAnalog_8h.html#a88beba2428915972a4946a86dd9b811d",
-"namespaceirio.html#ac90c8a6a2b100f3ef18e5b86c533b4c7a16e5adf84fbf911a39df11f49ba43891"
+"group__DMATerminals.html#gadbe365cbf4578743d668f739691a63c2",
+"namespacemembers.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

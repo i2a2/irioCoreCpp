@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['nirio_5fapi_5ferror_1658',['NIRIO_API_Error',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a3d29760c4eaf4e69dd568154c2978ab5',1,'irioDataTypes.h']]],
-  ['nomodule_1659',['NoModule',['../group__Modules.html#gga41ec9f0a62be60927296a43db47175eeaeddf13a7b7618aeb987790c27de76ec2',1,'irio']]],
-  ['none_1660',['None',['../group__Modules.html#ggafe00bccd645ef63845cf3d8563ab6e91a6adf97f83acf6453d4a6a4b1070f3754',1,'irio']]]
+  ['u16_1096',['U16',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612aef9ef3ebca4d2b64b6ec83808bafa5f2',1,'irio::bfp']]],
+  ['u32_1097',['U32',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612ac8bd5bedff8ef192d39a962afc0e19ee',1,'irio::bfp']]],
+  ['u64_1098',['U64',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612a31d65cccd6593e4101db93fb878abcaa',1,'irio::bfp']]],
+  ['u8_1099',['U8',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612a6669348b484e3008dca2bfa8e85e40b5',1,'irio::bfp']]],
+  ['unsupported_1100',['Unsupported',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612ab4080bdf74febf04d578ff105cce9d3f',1,'irio::bfp']]]
 ];

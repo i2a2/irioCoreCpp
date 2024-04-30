@@ -1,20 +1,5 @@
 var searchData=
 [
-  ['i16_1637',['I16',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612abcd774f891b5f9df7099f3ea75dadf8d',1,'irio::bfp']]],
-  ['i32_1638',['I32',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612ad878ea6016bfe01729548bf442de5a8b',1,'irio::bfp']]],
-  ['i64_1639',['I64',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612ae7e62f6928f76df671b5a0379793fab6',1,'irio::bfp']]],
-  ['i8_1640',['I8',['../group__BFP.html#gga8e61078caeb5b085beaef83413234612a5aef4e3ea379fa0eb2bf42d979443902',1,'irio::bfp']]],
-  ['imaq_1641',['IMAQ',['../namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0c024d4a8a29f2d3cdc5066d9ada7d85',1,'irio']]],
-  ['initdone_5ferror_1642',['InitDone_Error',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a40fb39267af4d9417af3b31c82a43d5b',1,'irioDataTypes.h']]],
-  ['io_1643',['IO',['../namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484acf3882f1c43ab22bff0bd9d82d83251b',1,'irio']]],
-  ['iomodule_5ferror_1644',['IOModule_Error',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a887c7de7659552b77f4d07d3c2903796',1,'irioDataTypes.h']]],
-  ['irio_5fcoupling_5fac_1645',['IRIO_coupling_AC',['../irioDataTypes_8h.html#a48b5116647df67e00a1314e3e056cb27ae305d36ce5da7783be0c377de6738a98',1,'irioDataTypes.h']]],
-  ['irio_5fcoupling_5fdc_1646',['IRIO_coupling_DC',['../irioDataTypes_8h.html#a48b5116647df67e00a1314e3e056cb27a361d0701d39dacb3c20efcb04a799789',1,'irioDataTypes.h']]],
-  ['irio_5fcoupling_5fnull_1647',['IRIO_coupling_NULL',['../irioDataTypes_8h.html#a48b5116647df67e00a1314e3e056cb27a5aa01878862c3231633ca4fb7112e084',1,'irioDataTypes.h']]],
-  ['irio_5fcrio_1648',['IRIO_cRIO',['../irioDataTypes_8h.html#ae50be1a612c4a30cc4c6f2263b3739efa28f6bd1729eb144db431b02cc4a59417',1,'irioDataTypes.h']]],
-  ['irio_5ferror_1649',['IRIO_error',['../irioDataTypes_8h.html#a24d6f0824be3a1f63adf4bc13519d2aca4b0df3dddd2e23ffeeb1d508e5632c1a',1,'irioDataTypes.h']]],
-  ['irio_5fflexrio_1650',['IRIO_FlexRIO',['../irioDataTypes_8h.html#ae50be1a612c4a30cc4c6f2263b3739efa463466395b31db16b56c5da12e956d3f',1,'irioDataTypes.h']]],
-  ['irio_5frseries_1651',['IRIO_RSeries',['../irioDataTypes_8h.html#ae50be1a612c4a30cc4c6f2263b3739efa9e51f614a519efde28455f6d7207c896',1,'irioDataTypes.h']]],
-  ['irio_5fsuccess_1652',['IRIO_success',['../irioDataTypes_8h.html#a24d6f0824be3a1f63adf4bc13519d2aca164dbb5b8302abe3a46ee3d2e2188c8a',1,'irioDataTypes.h']]],
-  ['irio_5fwarning_1653',['IRIO_warning',['../irioDataTypes_8h.html#a24d6f0824be3a1f63adf4bc13519d2aca397313dea0a3f7cdc5ba8a9c1b12838a',1,'irioDataTypes.h']]]
+  ['nomodule_1090',['NoModule',['../group__Modules.html#gga41ec9f0a62be60927296a43db47175eeaeddf13a7b7618aeb987790c27de76ec2',1,'irio']]],
+  ['none_1091',['None',['../group__Modules.html#ggafe00bccd645ef63845cf3d8563ab6e91a6adf97f83acf6453d4a6a4b1070f3754',1,'irio']]]
 ];

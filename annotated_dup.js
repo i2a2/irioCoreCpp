@@ -65,11 +65,5 @@ var annotated_dup =
       [ "TerminalsDMAIMAQCPU", "classirio_1_1TerminalsDMAIMAQCPU.html", "classirio_1_1TerminalsDMAIMAQCPU" ],
       [ "TerminalsFlexRIO", "classirio_1_1TerminalsFlexRIO.html", "classirio_1_1TerminalsFlexRIO" ],
       [ "TerminalsSignalGeneration", "classirio_1_1TerminalsSignalGeneration.html", "classirio_1_1TerminalsSignalGeneration" ]
-    ] ],
-    [ "cRIOmodule", "structcRIOmodule.html", "structcRIOmodule" ],
-    [ "imageData_t", "structimageData__t.html", "structimageData__t" ],
-    [ "irioDrv_t", "structirioDrv__t.html", "structirioDrv__t" ],
-    [ "TFifoGPUInfo", "structTFifoGPUInfo.html", "structTFifoGPUInfo" ],
-    [ "TResourcePort", "structTResourcePort.html", "structTResourcePort" ],
-    [ "TStatus", "structTStatus.html", "structTStatus" ]
+    ] ]
 ];

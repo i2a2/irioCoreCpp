@@ -91,19 +91,18 @@ $(document).ready(function(){initNavTree('rioDiscovery_8h_source.html',''); init
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceirio.html">irio</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="group__IRIO.html#ga576618815a87e94956e3cd3c7d538447">   17</a></span>&#160;std::string <a class="code" href="group__IRIO.html#ga576618815a87e94956e3cd3c7d538447">searchRIODevice</a>(<span class="keyword">const</span> std::string serialNumber);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/* </span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * serialNumber should be a reference, but due to the mocking</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * framework the project uses (fff) which is really a C framework,</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * when using reference breaks. So as this function is only called at</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * the beginning when performance is not critical, I&#39;m leaving it</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * as is. fff works great for mocking NiFpga_* calls (as they are C functions),</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * so if any finds a mocking framework that could be used easily for these</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * cases, suggest it please.</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}  <span class="comment">// namespace irio</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/* serialNumber should be a reference, but due to the mocking</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * framework the project uses (fff) which is really a C framework,</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * when using reference breaks. So as this function is only called at</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * the beginning when performance is not critical, I&#39;m leaving it</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * as is. fff works great for mocking NiFpga_* calls (as they are C functions),</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * so if any finds a mocking framework that could be used easily for these</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * cases, suggest it please.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}  <span class="comment">// namespace irio</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="ttc" id="agroup__IRIO_html_ga576618815a87e94956e3cd3c7d538447"><div class="ttname"><a href="group__IRIO.html#ga576618815a87e94956e3cd3c7d538447">irio::searchRIODevice</a></div><div class="ttdeci">std::string searchRIODevice(const std::string serialNumber)</div><div class="ttdoc">Searches for RIO devices and returns its name if any matches the specified serial number.</div></div>
 <div class="ttc" id="anamespaceirio_html"><div class="ttname"><a href="namespaceirio.html">irio</a></div><div class="ttdef"><b>Definition:</b> <a href="bfp_8h_source.html#l00010">bfp.h:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

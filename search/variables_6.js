@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gpu_5fbuff_5fptr_1362',['gpu_buff_ptr',['../structTFifoGPUInfo.html#a0817938360fe219778a97436e76e3e6a',1,'TFifoGPUInfo']]],
-  ['gpu_5fbuff_5fsize_1363',['gpu_buff_size',['../structTFifoGPUInfo.html#a20b6c8cb559818db67183470b9f1a1cd',1,'TFifoGPUInfo']]],
-  ['gpu_5fbuffer_1364',['gpu_buffer',['../structirioDrv__t.html#a881943eac6aae463324f5c7ff3d5c732',1,'irioDrv_t']]]
+  ['name_944',['name',['../classirio_1_1bfp_1_1Resource.html#ab9ad3b75f54725af4785019539a4fb4a',1,'irio::bfp::Resource']]],
+  ['notfound_945',['notFound',['../structirio_1_1GroupInfo.html#ab87cd84321f40384be992ea1f2884513',1,'irio::GroupInfo']]],
+  ['numelem_946',['numElem',['../classirio_1_1bfp_1_1Resource.html#a24d702f4b491abd0cbe824b22971e2dd',1,'irio::bfp::Resource']]]
 ];

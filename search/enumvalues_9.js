@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['medium_1656',['MEDIUM',['../namespaceirio.html#a904a334cfb22ea8219361697a191fbc8ac87f3be66ffc3c0d4249f1c2cc5f3cce',1,'irio']]],
-  ['memoryallocation_5ferror_1657',['MemoryAllocation_Error',['../irioDataTypes_8h.html#a7370b3e2d722b315b309826fa6e1ba73a158bf3c80738fa15c1bd8d3b509b2c9d',1,'irioDataTypes.h']]]
+  ['sg_1094',['SG',['../namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0f177369a3b71275d25ab1b44db9f95f',1,'irio']]],
+  ['standard_1095',['STANDARD',['../namespaceirio.html#a42e39fb9acd443b9945142000c372462a94e94133f4bdc1794c6b647b8ea134d0',1,'irio']]]
 ];
