@@ -42,12 +42,12 @@ ifdef CODAC_ROOT
 	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
 	CFLAGS+= -DCCS_VERSION
 	CCFLAGS+= -DCCS_VERSION
-	LIBRARIES+= nisyscfg
-	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
 else
 	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
 	SOURCES_DIR+=$(TARGET)/main/c++/NiFpga_CD
 	HEADERSFILES+=$(wildcard $(TARGET)/main/c++/NiFpga_CD/*.h)
+        LIBRARIES+= nisyscfg
+	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
 endif
 
 VPATH=$(SOURCES_DIR)
