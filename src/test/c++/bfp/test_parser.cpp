@@ -44,7 +44,7 @@ TEST(BFP, Registers) {
 		EXPECT_EQ(reg.getName(), "AOEnable0") << "Incorrect register's name";
 		EXPECT_EQ(reg.getAddress(), 2) << "Incorrect register's address";
 		EXPECT_EQ(reg.getElemType(), ElemTypes::Bool) << "Incorrect register's element type";
-		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_Control) << "Incorrect register's fpag type";
+		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_Control) << "Incorrect register's fpga type";
 		EXPECT_EQ(reg.getNumElem(), 1) << "Incorrect register's number of elements";
 		EXPECT_FALSE(reg.isArray()) << "Register is an array when it should not be";
 		EXPECT_TRUE(reg.isControl()) << "Register is not a control register when it should";
@@ -55,7 +55,7 @@ TEST(BFP, Registers) {
 		EXPECT_EQ(reg.getName(), "DevTemp") << "Incorrect register's name";
 		EXPECT_EQ(reg.getAddress(), 78) << "Incorrect register's address";
 		EXPECT_EQ(reg.getElemType(), ElemTypes::I16) << "Incorrect register's element type";
-		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_Indicator) << "Incorrect register's fpag type";
+		EXPECT_EQ(reg.getFpgaType(), FpgaTypes::FpgaType_Indicator) << "Incorrect register's fpga type";
 		EXPECT_EQ(reg.getNumElem(), 1) << "Incorrect register's number of elements";
 		EXPECT_FALSE(reg.isArray()) << "Register is an array when it should not be";
 		EXPECT_FALSE(reg.isControl()) << "Register is a control register when it should not be";
