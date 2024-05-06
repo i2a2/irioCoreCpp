@@ -230,24 +230,9 @@ std::vector<std::uint8_t> TerminalsDMAIMAQImpl::recvUARTMsgImpl(
 void TerminalsDMAIMAQImpl::setUARTBaudRateImpl(
 	const UARTBaudRates& baudRate, const std::uint32_t timeout) const {
 	NiFpga_Status status;
-	NiFpga_Bool setBR;
-	std::uint32_t countTimeout = 0;
 
 	// Wait for SetBaudRate = false
-	status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
-	utils::throwIfNotSuccessNiFpga(
-		status, "Error reading " + std::string(TERMINAL_UARTSETBAUDRATE));
-	while (setBR && (timeout == 0 || countTimeout < timeout)) {
-		nanosleep(&sleepTs, nullptr);
-		countTimeout++;
-		status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
-		utils::throwIfNotSuccessNiFpga(
-			status, "Error reading " + std::string(TERMINAL_UARTSETBAUDRATE));
-	}
-
-	if (timeout != 0 && countTimeout >= timeout) {
-		throw errors::CLUARTTimeout();
-	}
+	waitForSetBaudRateFalse(timeout);
 
 	// Set Baud Rate
 	status = NiFpga_WriteU8(m_session, m_baudRate_addr,
@@ -257,6 +242,14 @@ void TerminalsDMAIMAQImpl::setUARTBaudRateImpl(
 	utils::throwIfNotSuccessNiFpga(status, "Error setting baud rate");
 
 	// Wait for SetBaudRate = false to confirm is configured
+	waitForSetBaudRateFalse(timeout);
+}
+
+void TerminalsDMAIMAQImpl::waitForSetBaudRateFalse(
+	const uint32_t timeout) const {
+	NiFpga_Status status;
+	NiFpga_Bool setBR;
+	std::uint32_t countTimeout = 0;
 	status = NiFpga_ReadBool(m_session, m_setBaudRate_addr, &setBR);
 	utils::throwIfNotSuccessNiFpga(
 		status, "Error reading " + std::string(TERMINAL_UARTSETBAUDRATE));

@@ -98,6 +98,8 @@ class TerminalsDMAIMAQImpl : public TerminalsDMACommonImpl {
 
 	void findCLConfig(irio::ParserManager *parserManager);
 
+	void waitForSetBaudRateFalse(const uint32_t timeout) const;
+
 	std::uint32_t m_baudRate_addr;
 	std::uint32_t m_setBaudRate_addr;
 	std::uint32_t m_txReady_addr;
