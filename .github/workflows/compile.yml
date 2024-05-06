@@ -16,7 +16,7 @@ jobs:
   compile_and_test:
     runs-on: ubuntu-latest
     container: 
-      image: ghcr.io/i2a2/iriocore-docker:v1.0
+      image: ghcr.io/i2a2/iriocore-docker:latest
     steps:
     - uses: actions/checkout@v3  
     - name: Compile Code
