@@ -39,6 +39,13 @@ public:
 		setValueForReg(ReadFunctions::NiFpga_ReadU16,
 						bfp.getRegister(TERMINAL_SAMPLINGRATE+std::to_string(0)).getAddress(),
 						fakeDec);
+        auto ret = irio_initDriver("test", "0", "TestModel",
+					projectName.c_str(), "V9.9", false,
+					nullptr, bitfileDir.c_str(), &p_DrvPvt, &status);
+
+		if(ret != IRIO_success) {
+			throw std::runtime_error("Unable to initialize driver");
+		}
 	}
 
 	void SetUp() override {
@@ -70,9 +77,9 @@ TEST_F(CRIOTestsAdapter, getcRIOModules) {
     const auto ret = irio_getcRIOModules(&p_DrvPvt, &values, &numModules, &status);
     EXPECT_EQ(ret, IRIO_success);
     EXPECT_EQ(status.code, IRIO_success);  
-    EXPECT_EQ(numModules, sizeof(insertedIOModulesIDFake)/sizeof(uint16_t));
+    ASSERT_EQ(numModules, sizeof(insertedIOModulesIDFake)/sizeof(uint16_t));
     for(size_t i = 0; i < sizeof(insertedIOModulesIDFake)/sizeof(uint16_t); ++i) {
-        ASSERT_EQ(values[i], insertedIOModulesIDFake[i]);
+        EXPECT_EQ(values[i], insertedIOModulesIDFake[i]);
     }
 }
 
