@@ -169,8 +169,8 @@ size_t readData(const std::string &serialNumber, const std::uint32_t &session,
 int irio_getDMATtoHostData(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
 						   uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, NBlocks, data, elementsRead, p_DrvPvt] {
-		*elementsRead = readData(p_DrvPvt->DeviceSerialNumber,
-								 p_DrvPvt->session, n, NBlocks, data, false);
+		*elementsRead = static_cast<int>(readData(p_DrvPvt->DeviceSerialNumber,
+								 p_DrvPvt->session, n, NBlocks, data, false));
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
@@ -180,9 +180,9 @@ int irio_getDMATtoHostData_timeout(const irioDrv_t *p_DrvPvt, int NBlocks,
 								   int n, uint64_t *data, int *elementsRead,
 								   uint32_t timeout, TStatus *status) {
 	const auto f = [n, NBlocks, data, timeout, elementsRead, p_DrvPvt] {
-		*elementsRead =
-			readData(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session, n,
-					 NBlocks, data, true, timeout);
+		*elementsRead = static_cast<int>(readData(p_DrvPvt->DeviceSerialNumber,
+												  p_DrvPvt->session, n, NBlocks,
+												  data, true, timeout));
 	};
 
 	try {
