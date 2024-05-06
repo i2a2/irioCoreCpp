@@ -12,7 +12,7 @@ jobs:
   CheckVersion:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3 
+    - uses: actions/checkout@v4 
     - name: Check Makefile version matches tag
       run: |
         # Extract version from Makefile
@@ -36,7 +36,7 @@ jobs:
     container: 
       image: ghcr.io/i2a2/iriocore-docker:latest
     steps:
-    - uses: actions/checkout@v3  
+    - uses: actions/checkout@v4  
     - name: Generate RPM packages
       run: | 
         make package -j

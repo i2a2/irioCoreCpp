@@ -18,7 +18,7 @@ jobs:
     container: 
       image: ghcr.io/i2a2/iriocore-docker:latest
     steps:
-    - uses: actions/checkout@v3  
+    - uses: actions/checkout@v4  
     - name: Compile Code
       run: make compile -j SkipVerify=1
 
