@@ -316,7 +316,7 @@ void Irio::selectDevProfile(ParserManager *parserManager) {
 			new ProfileCPUDAQcRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::CRIO_IO:
-		m_profile.reset(new ProfileIO(parserManager, m_session, *m_platform));
+		m_profile.reset(new ProfileIOcRIO(parserManager, m_session, *m_platform));
 		break;
 	case PROFILE_ID::R_DAQ:
           m_profile.reset(

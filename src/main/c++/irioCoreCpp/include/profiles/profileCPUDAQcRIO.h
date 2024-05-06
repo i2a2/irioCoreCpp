@@ -1,7 +1,6 @@
 #pragma once
 
 #include <profiles/profileCPUDAQ.h>
-#include <profiles/profileCRIO.h>
 
 namespace irio {
 
@@ -13,7 +12,7 @@ namespace irio {
  * @ingroup Profiles
  * @ingroup ProfilesCRIO
  */
-class ProfileCPUDAQcRIO: public ProfileCPUDAQ, public ProfileCRIO {
+class ProfileCPUDAQcRIO: public ProfileCPUDAQ {
  public:
 	/**
 	 * Constructor.

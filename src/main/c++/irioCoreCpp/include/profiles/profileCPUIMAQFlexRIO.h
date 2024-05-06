@@ -1,6 +1,5 @@
 #pragma once
 
-#include "profiles/profileFlexRIO.h"
 #include "profiles/profileCPUIMAQ.h"
 
 namespace irio {
@@ -12,7 +11,7 @@ namespace irio {
  * @ingroup Profiles
  * @ingroup ProfilesFlexRIO
  */
-class ProfileCPUIMAQFlexRIO: public ProfileCPUIMAQ, public ProfileFlexRIO {
+class ProfileCPUIMAQFlexRIO: public ProfileCPUIMAQ {
  public:
   /**
    * Manages creating the required terminals for CPU image acquisition in

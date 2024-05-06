@@ -11,7 +11,7 @@ namespace irio {
  * 
  * @ingroup Profiles
  */
-class ProfileCPUIMAQ: virtual public ProfileBase {
+class ProfileCPUIMAQ: public ProfileBase {
  public:
     /**
      * Manages creating the required terminals for CPU image acquisition

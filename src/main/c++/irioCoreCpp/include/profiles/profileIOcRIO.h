@@ -1,6 +1,6 @@
 #pragma once
 
-#include "profiles/profileCRIO.h"
+#include "profiles/profileBase.h"
 
 namespace irio {
 
@@ -12,7 +12,7 @@ namespace irio {
  * @ingroup ProfilesCRIO
  * 
 */
-class ProfileIO: public ProfileCRIO {
+class ProfileIOcRIO: public ProfileBase {
  public:
   /**
    * Profile with the terminals
@@ -25,7 +25,7 @@ class ProfileIO: public ProfileCRIO {
    * @param session			NiFpga_Session to be used in NiFpga related functions
    * @param platform		Platform used
    */
-  ProfileIO(ParserManager *parserManager, const NiFpga_Session &session,
+  ProfileIOcRIO(ParserManager *parserManager, const NiFpga_Session &session,
 			const Platform &platform);
 };
 

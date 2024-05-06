@@ -32,8 +32,6 @@ class ProfileBase {
 	explicit ProfileBase(ParserManager *parserManager,
 		const NiFpga_Session &session, const PROFILE_ID &id);
 
-	virtual ~ProfileBase() = default;
-
 	/**
 	 * Returns the specified terminal if it is present in the current profile
 	 *

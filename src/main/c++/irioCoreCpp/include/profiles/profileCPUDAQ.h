@@ -10,7 +10,7 @@ namespace irio {
  *
  * @ingroup Profiles
  */
-class ProfileCPUDAQ: virtual public ProfileBase {
+class ProfileCPUDAQ: public ProfileBase {
  public:
 	/**
 	 * Manages creating the required terminals for data acquisition functionality.
