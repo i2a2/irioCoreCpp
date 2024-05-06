@@ -154,18 +154,23 @@ int irio_getDMATtoHOSTNCh(const irioDrv_t *p_DrvPvt, uint16_t *NCh,
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
 }
 
+size_t readData(const std::string &serialNumber, const std::uint32_t &session,
+			  const int dmaNum, const int &NBlocks, uint64_t *data,
+			  const bool block, const std::uint32_t timeout = 0) {
+	const auto term = getTerminalsDAQ(serialNumber, session);
+	size_t lengthBlock = term.getLengthBlock(dmaNum);
+	size_t elementsToRead = getElementsToRead(
+		term.getFrameType(dmaNum), NBlocks, term.getLengthBlock(dmaNum));
+
+	return term.readData(dmaNum, elementsToRead, data, block, timeout) /
+		   lengthBlock;
+}
+
 int irio_getDMATtoHostData(const irioDrv_t *p_DrvPvt, int NBlocks, int n,
 						   uint64_t *data, int *elementsRead, TStatus *status) {
 	const auto f = [n, NBlocks, data, elementsRead, p_DrvPvt] {
-		const auto term =
-			getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-
-		size_t lengthBlock = term.getLengthBlock(n);
-		size_t elementsToRead = getElementsToRead(term.getFrameType(n), NBlocks,
-												  term.getLengthBlock(n));
-
-		*elementsRead =
-			term.readDataNonBlocking(n, elementsToRead, data) / lengthBlock;
+		*elementsRead = readData(p_DrvPvt->DeviceSerialNumber,
+								 p_DrvPvt->session, n, NBlocks, data, false);
 	};
 
 	return getOperationGeneric(f, status, p_DrvPvt->verbosity);
@@ -175,15 +180,9 @@ int irio_getDMATtoHostData_timeout(const irioDrv_t *p_DrvPvt, int NBlocks,
 								   int n, uint64_t *data, int *elementsRead,
 								   uint32_t timeout, TStatus *status) {
 	const auto f = [n, NBlocks, data, timeout, elementsRead, p_DrvPvt] {
-		const auto term =
-			getTerminalsDAQ(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session);
-		size_t lengthBlock = term.getLengthBlock(n);
-		size_t elementsToRead = getElementsToRead(term.getFrameType(n), NBlocks,
-												  term.getLengthBlock(n));
-
 		*elementsRead =
-			term.readDataBlocking(n, elementsToRead, data, timeout) /
-			lengthBlock;
+			readData(p_DrvPvt->DeviceSerialNumber, p_DrvPvt->session, n,
+					 NBlocks, data, true, timeout);
 	};
 
 	try {
