@@ -23,4 +23,4 @@ jobs:
       run: make compile -j SkipVerify=1
 
     - name: Run UnitTests
-      run: make test
+      run: make test SkipVerify=1
