@@ -15,6 +15,17 @@
     - [Prerequisites](#prerequisites-2)
     - [Instructions](#instructions-2)
 - [Configure National Instrument package repository](#configure-national-instrument-package-repository)
+- [Run tests](#run-tests)
+  - [Automatic execution](#automatic-execution)
+  - [Manual execution](#manual-execution)
+    - [Unittests](#unittests)
+      - [BFP](#bfp)
+      - [irioCoreCpp](#iriocorecpp-1)
+      - [irioCore (C wrapper)](#iriocore-c-wrapper)
+    - [Functional](#functional)
+      - [Environment Variables](#environment-variables)
+      - [irioCoreCpp](#iriocorecpp-2)
+      - [irioCore (C wrapper)](#iriocore-c-wrapper-1)
 
 
 # Introduction
@@ -141,3 +152,115 @@ In order toaccess and install the requiredpackages ofNationalInstrument,it is re
     >
     > After this step, it may be required to update the repositories to find the NI packages
 
+# Run tests
+The project contains several tests to try to test irioCoreCpp and its C wrapper. It has unit tests, to check each part of the application, as wll as functional tests, to verify the functionality of the entire application. 
+
+There are two ways to execute these tests... ***TODO***
+## Automatic execution
+***TODO***
+
+## Manual execution
+
+### Unittests
+> **_NOTE_**<br>
+>
+> These tests have been implemented using mocking and therefore do not require real RIO boards to run them. 
+
+#### BFP
+Test are in the following folder. Test should be run from this directory.
+```bash
+    target/test/c++/bfp
+```
+To execute all the tests, run:
+```bash
+    ./test_bfp
+```
+To execute specific tests use gtest filter functionality
+```bash
+    ./test_bfp --gtest_filter=<tests to run>
+```
+> **_NOTE_**<br>
+>
+> To list available tests use the parameter `--gtest_list_tests`
+
+#### irioCoreCpp
+Test are in the following folder. Test should be run from this directory.
+```bash
+    target/test/c++/unittests/irioCoreCpp
+```
+To execute all the tests, run:
+```bash
+    ./test_ut_irioCoreCpp
+```
+To execute specific tests use gtest filter functionality
+```bash
+    ./test_ut_irioCoreCpp --gtest_filter=<tests to run>
+```
+> **_NOTE_**<br>
+>
+> To list available tests use the parameter `--gtest_list_tests`
+>
+
+#### irioCore (C wrapper)
+Test are in the following folder. Test should be run from this directory.
+```bash
+    target/test/c++/unittests/irioCore
+```
+To execute all the tests, run:
+```bash
+    ./test_ut_irioCore
+```
+To execute specific tests use gtest filter functionality
+```bash
+    ./test_ut_irioCore --gtest_filter=<tests to run>
+```
+
+> **_NOTE_**<br>
+>
+> To list available tests use the parameter `--gtest_list_tests`
+> 
+### Functional
+#### Environment Variables
+| Variable Name | Description                                                                                | Example  |
+|---------------|--------------------------------------------------------------------------------------------|----------|
+| RIODevice     | Type of RIO device                                                                         | 7966     |
+| RIOSerial     | Serial of the device. Can be obtained by using "lsni -v -e ni-rio"                         | 0177A2AD |
+| VerboseTest   | Print info test messages (not used by irioCoreCpp tests)                                   | 0 or 1   |
+| VerboseInit   | Print info of driver initialization (not used by irioCoreCpp tests)                        | 0 or 1   |
+| maxCounter    | Maximum counter used when acquiring images (only for IMAQ tests where images are acquired) | 65536    |
+
+#### irioCoreCpp
+Test are in the following folder. Test should be run from this folder.
+```bash
+    target/test/c++/irioCoreCpp
+```
+To execute all the tests, run:
+```bash
+    ./test_irioCoreCpp
+```
+To execute specific tests use gtest filter functionality
+```bash
+    ./test_irioCoreCpp --gtest_filter=<tests to run>
+```
+
+> **_NOTE_**<br>
+>
+> To list available tests use the parameter `--gtest_list_tests`
+
+#### irioCore (C wrapper)
+Test are in the following folder. Test should be run from this folder.
+```bash
+    target/test/c++/irioCore
+```
+To execute all the tests, run:
+```bash
+    ./test_irioCore
+```
+To execute specific tests use gtest filter functionality
+```bash
+    ./test_irioCore --gtest_filter=<tests to run>
+```
+
+> **_NOTE_**<br>
+>
+> To list available tests use the parameter `--gtest_list_tests`
