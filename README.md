@@ -51,7 +51,7 @@ The recommended way is to download the appropiate packages from the [release sec
 
 # Compilation
 ## Prerequisites
-The requires packages for compiling the project are:
+The required packages for compiling the project are:
 - pugixml-devel
 - gtest-devel
 - rsync
