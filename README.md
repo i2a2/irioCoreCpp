@@ -157,7 +157,34 @@ The project contains several tests to try to test irioCoreCpp and its C wrapper.
 
 There are two ways to execute these tests... ***TODO***
 ## Automatic execution
-***TODO***
+Tests can be automatically executed with a Python application. The desired tests must be defined on an XML file following the Schema found on `src/test/testSchema.xsd`. Some recommended tests suites can be found on `src/test/test-suites`, but the serial numbers must be changed to the ones in your installation.
+
+A *testplan* is a collection of *tests* to be run. Each test contains the following fields:
+- *name*: Name of the test. Only used for logging.
+- *TestFilter*: GTest filter expression to select the desired tests.
+- *TestType*: Test family to run. One of:
+	- *irioCore Unitary*: Unitary tests of the C library (mocking).
+	- *irioCore Functional*: Functional tests of the C library (real hardware).
+	- *irioCoreCpp Unitary*: Unitary tests of the C++ library (mocking).
+	- *irioCoreCpp Functional*: Functional tests of the C++ library (real hardware).
+	- *BFP*: BitFile Parser tests.
+- *RIODevice*: Model of the RIO device to test. One of: *7966*, *7965*, *7961* or *9159*.
+- *RIOSerial*: Serial number of the device. Format: *0xABCD1234*.        
+- *RIOModule*: Module connected to the device. One of: *noModule*, *NI1483*, *NI5761*, *NI5781*, *NI6581*, *NI5734*, *NI92xx*. 
+- *verbose*: Boolean controlling the test verbosity. Optional, default is *False*.
+- *coupling*: Coupling for signal adquisition. Either *AC* or *DC*. Optional, default is *AC*.
+- *maxIMAQiterations*: Maximum counter for the image test. Optional, default to *65536*.
+- *results*: Field to store the count of passed tests. Should not be written by the user.
+- *summary*: Field to store the string result of the test. Either *PASS* or *FAIL*. Should not be written by the user.
+
+Once the test is defined on the XML file, from the root of the project, run:
+```bash
+    target/test/run_irioCore.py -i <XML file> [-o <Output file>]
+```
+
+If no output file is provided, the tests results will be appended to the input file. If it is provided, the input file is not modified and the input file will be copied to the output file with the results appended.
+
+The test output will be printed as specified on the *verbose* field of the test. If only a final summary is required, use the *-S* flag to supress test output and display a final count only.
 
 ## Manual execution
 
