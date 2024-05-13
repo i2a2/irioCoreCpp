@@ -157,6 +157,8 @@ The project contains several tests to try to test irioCoreCpp and its C wrapper.
 
 There are two ways to execute these tests... ***TODO***
 ## Automatic execution
+
+### XML Test automation
 Tests can be automatically executed with a Python application. The desired tests must be defined on an XML file following the Schema found on `src/test/testSchema.xsd`. Some recommended tests suites can be found on `src/test/test-suites`, but the serial numbers must be changed to the ones in your installation.
 
 A *testplan* is a collection of *tests* to be run. Each test contains the following fields:
@@ -185,6 +187,21 @@ Once the test is defined on the XML file, from the root of the project, run:
 If no output file is provided, the tests results will be appended to the input file. If it is provided, the input file is not modified and the input file will be copied to the output file with the results appended.
 
 The test output will be printed as specified on the *verbose* field of the test. If only a final summary is required, use the *-S* flag to supress test output and display a final count only.
+
+### Python test execution
+
+The same python application can be used to execute tests with custom filters. Use the help of the executable to get the possible arguments for the test:
+```bash
+ run_irioCore.py -h
+```
+> **_NOTE_**<br>
+>
+> If the `--input-file` or `-i` flag is present, the custom run arguments will be ignored and the tests from the XML will be run.
+
+For example, in order to run the functional *FlexRIO* tests from the *irioCore* library on a 7966 with the serial number *0x1234ABCD* with full verbosity, use:
+```bash
+    target/test/run_irioCore.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f "FlexRIO*"
+```
 
 ## Manual execution
 
