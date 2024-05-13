@@ -159,9 +159,32 @@ There are two ways to execute these tests... ***TODO***
 ## Automatic execution
 
 ### XML Test automation
-Tests can be automatically executed with a Python application. The desired tests must be defined on an XML file following the Schema found on `src/test/testSchema.xsd`. Some recommended tests suites can be found on `src/test/test-suites`, but the serial numbers must be changed to the ones in your installation.
+Tests can be automatically executed with a Python application. The desired tests must be defined on an XML file following the Schema found on `src/test/testSchema.xsd`. Some recommended tests suites can be found on `src/test/test-suites`, but the serial numbers must be changed to the ones in your installation. 
 
-A *testplan* is a collection of *tests* to be run. Each test contains the following fields:
+For example, to create a test that runs all the *FlexRIO* tests of the *irioCore Funcional* binary on a *FlexRIO-7966* that has the serial *0x12345678* and no module attached is:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<testplan
+    xmlns="http://www.testLocation.com/test"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.testLocation.com/test ../testSchema.xsd">
+
+    <test>
+        <name>Test</name>
+        <TestFilter>FlexRIO*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>7966</RIODevice>
+        <RIOSerial>0x12345678</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>false</verbose>                                              <!-- Optional -->
+        <coupling>DC</coupling>                                             <!-- Optional -->
+        <maxIMAQiterations>65536</maxIMAQiterations>    <!-- Optional -->
+    </test>
+</testplan>
+```
+
+A *testplan* is a collection of *tests* to be run. The different tests inside will be run independently and the results are reported separetely. Each test contains the following fields:
 - *name*: Name of the test. Only used for logging.
 - *TestFilter*: GTest filter expression to select the desired tests.
 - *TestType*: Test family to run. One of:
