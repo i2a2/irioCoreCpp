@@ -15,7 +15,7 @@
         <RIODevice>7966</RIODevice>
         <RIOSerial>0xFFFFFFFF</RIOSerial>
         <RIOModule>noModule</RIOModule>
-        <verbose>false</verbose>
+        <verbose>true</verbose>
     </test>
     <!--==================== IRIO CORE CPP UNITARY =================== -->
     <test>
@@ -25,7 +25,7 @@
         <RIODevice>7966</RIODevice>
         <RIOSerial>0xFFFFFFFF</RIOSerial>
         <RIOModule>noModule</RIOModule>
-        <verbose>false</verbose>
+        <verbose>true</verbose>
     </test>
     <!--==================== IRIO CORE FUNCTIONAL ==================== -->
     <test>
@@ -238,6 +238,16 @@
         <RIODevice>7966</RIODevice>
         <RIOSerial>0x0177A2AD</RIOSerial>
         <RIOModule>NI1483</RIOModule>
+        <verbose>true</verbose>
+    </test>
+
+    <test>
+        <name>BFP</name>
+        <TestType>BFP</TestType>
+        <TestFilter>*</TestFilter>
+        <RIODevice>7966</RIODevice>
+        <RIOSerial>0xFFFFFFFF</RIOSerial>
+        <RIOModule>noModule</RIOModule>
         <verbose>true</verbose>
     </test>
 
