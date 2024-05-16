@@ -242,5 +242,16 @@ else:
             summaryElement.appendChild(tree.createTextNode("PASS" if passed_bool else "FAIL"))
             test.appendChild(summaryElement)
 
+        failedTestsElement = test.getElementsByTagName("failedTests")
+        if failedTestsElement:
+            failedTestsElement[0].parentNode.removeChild(failedTestsElement[0])
+
+        failedTestsElement = tree.createElement("failedTests")
+        for failed_test in failed_tests:
+            failedTestElement = tree.createElement("testName")
+            failedTestElement.appendChild(tree.createTextNode(failed_test))
+            failedTestsElement.appendChild(failedTestElement)
+        test.appendChild(failedTestsElement)
+
     with open(targetFile, 'wt') as fd:
         fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]))
