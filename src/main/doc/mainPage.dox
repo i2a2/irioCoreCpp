@@ -325,4 +325,15 @@ To execute specific tests use gtest filter functionality
 \note
 To list available tests use the parameter `--gtest_list_tests`
 
+
+\section third_party_libraries Third-Party Libraries
+
+This project makes use of third-party libraries. These include:
+
+- **Fake Function Framework (fff)** 
+  - Used for unittest mocking
+  - https://github.com/meekrosoft/fff
+  - License: MIT License (available [here](https://opensource.org/licenses/MIT))
+
+
 */

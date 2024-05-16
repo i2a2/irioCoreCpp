@@ -28,6 +28,7 @@
       - [Environment Variables](#environment-variables)
       - [irioCoreCpp](#iriocorecpp-2)
       - [irioCore (C wrapper)](#iriocore-c-wrapper-1)
+- [Third-Party Libraries](#third-party-libraries)
 
 
 # Introduction
@@ -335,3 +336,12 @@ To execute specific tests use gtest filter functionality
 > **_NOTE_**<br>
 >
 > To list available tests use the parameter `--gtest_list_tests`
+
+# Third-Party Libraries
+
+This project makes use of third-party libraries. These include:
+
+- **Fake Function Framework (fff)** 
+  - Used for unittest mocking
+  - https://github.com/meekrosoft/fff
+  - License: MIT License (available [here](https://opensource.org/licenses/MIT))
