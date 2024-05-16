@@ -30,7 +30,7 @@ def searchSerial(device, order):
     else:
         return results[max(min(int(order) - 1, len(results) - 1), 0)]
 
-def runCommand(binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
+def runCommand(suiteName, binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
     cwd = os.getcwd()
     os.chdir(os.path.dirname(binary))
 
@@ -49,6 +49,7 @@ env -S Coupling={Coupling} \
 env -S maxCounter={MaxCounter} \
     ./{os.path.basename(binary)} --gtest_filter={filterText}" 
 
+    print('\n' + (' ' + suiteName + ' ').center(80, '='))
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, bufsize=1)
     while True:
         line = process.stdout.readline()
@@ -200,10 +201,7 @@ else:
             print("Malformatted test in XML, omitting it")
             continue
         
-        if summary: 
-            print(f"Running test \"{testName}\"")
-
-        result = runCommand(binary, filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
+        result = runCommand(testName, binary, filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
 
         if summary:
             pass_word = "\033[32mPASS\033[00m"
