@@ -16,8 +16,10 @@
     - [Instructions](#instructions-2)
 - [Configure National Instrument package repository](#configure-national-instrument-package-repository)
 - [Run tests](#run-tests)
-  - [Automatic execution](#automatic-execution)
-  - [Manual execution](#manual-execution)
+  - [Python execution](#python-execution)
+    - [XML Test automation](#xml-test-automation)
+    - [Specific test execution](#specific-test-execution)
+  - [Run GoogleTest manually](#run-googletest-manually)
     - [Unittests](#unittests)
       - [BFP](#bfp)
       - [irioCoreCpp](#iriocorecpp-1)
@@ -155,8 +157,8 @@ In order toaccess and install the requiredpackages ofNationalInstrument,it is re
 # Run tests
 The project contains several tests to try to test irioCoreCpp and its C wrapper. It has unit tests, to check each part of the application, as wll as functional tests, to verify the functionality of the entire application. 
 
-There are two ways to execute these tests... ***TODO***
-## Automatic execution
+There are two ways to execute these tests, thorugh the use of XML and a Python script or running the GoogleTest manually
+## Python execution
 
 ### XML Test automation
 Tests can be automatically executed with a Python application. The desired tests must be defined on an XML file following the Schema found on `src/test/testSchema.xsd`. Some recommended tests suites can be found on `src/test/test-suites`, but the serial numbers must be changed to the ones in your installation. 
@@ -193,12 +195,12 @@ A *testplan* is a collection of *tests* to be run. The different tests inside wi
 	- *irioCoreCpp Unitary*: Unitary tests of the C++ library (mocking).
 	- *irioCoreCpp Functional*: Functional tests of the C++ library (real hardware).
 	- *BFP*: BitFile Parser tests.
-- *RIODevice*: Model of the RIO device to test. One of: *7966*, *7965*, *7961* or *9159*.
-- *RIOSerial*: Serial number of the device. Format: *0xABCD1234*.        
-- *RIOModule*: Module connected to the device. One of: *noModule*, *NI1483*, *NI5761*, *NI5781*, *NI6581*, *NI5734*, *NI92xx*. 
+- *RIODevice*: (Only for functional tests) Model of the RIO device to test. One of: *7966*, *7965*, *7961* or *9159*. 
+- *RIOSerial*: (Only for functional tests) Serial number of the device. Format: *0xABCD1234*.        
+- *RIOModule*: (Only for functional tests) Module connected to the device. One of: *noModule*, *NI1483*, *NI5761*, *NI5781*, *NI6581*, *NI5734*, *NI92xx*. 
 - *verbose*: Boolean controlling the test verbosity. Optional, default is *False*.
-- *coupling*: Coupling for signal adquisition. Either *AC* or *DC*. Optional, default is *AC*.
-- *maxIMAQiterations*: Maximum counter for the image test. Optional, default to *65536*.
+- *coupling*: (Only for functional tests) Coupling for signal adquisition. Either *AC* or *DC*. Optional, default is *AC*.
+- *maxIMAQiterations*: (Only for functional tests) Maximum counter for the image test. Optional, default to *65536*.
 - *results*: Field to store the count of passed tests. Should not be written by the user.
 - *summary*: Field to store the string result of the test. Either *PASS* or *FAIL*. Should not be written by the user.
 
@@ -211,7 +213,7 @@ If no output file is provided, the tests results will be appended to the input f
 
 The test output will be printed as specified on the *verbose* field of the test. If only a final summary is required, use the *-S* flag to supress test output and display a final count only.
 
-### Python test execution
+### Specific test execution
 
 The same python application can be used to execute tests with custom filters. Use the help of the executable to get the possible arguments for the test:
 ```bash
@@ -226,7 +228,7 @@ For example, in order to run the functional *FlexRIO* tests from the *irioCore* 
     target/test/run_irioCore.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f "FlexRIO*"
 ```
 
-## Manual execution
+## Run GoogleTest manually
 
 ### Unittests
 > **_NOTE_**<br>
@@ -288,6 +290,8 @@ To execute specific tests use gtest filter functionality
 > 
 ### Functional
 #### Environment Variables
+Functional test require exporting environment variables.
+
 | Variable Name | Description                                                                                | Example  |
 |---------------|--------------------------------------------------------------------------------------------|----------|
 | RIODevice     | Type of RIO device                                                                         | 7966     |
