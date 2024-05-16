@@ -30,7 +30,7 @@ def searchSerial(device, order):
     else:
         return results[max(min(int(order) - 1, len(results) - 1), 0)]
 
-def runCommand(binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
+def runCommand(suiteName, binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
     cwd = os.getcwd()
     os.chdir(os.path.dirname(binary))
 
@@ -49,7 +49,12 @@ env -S Coupling={Coupling} \
 env -S maxCounter={MaxCounter} \
     ./{os.path.basename(binary)} --gtest_filter={filterText}" 
 
+    print('\n' + (' ' + suiteName + ' ').center(80, '='))
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, bufsize=1)
+
+    fail_matched = False
+    failed_tests = []
+
     while True:
         line = process.stdout.readline()
 
@@ -64,10 +69,14 @@ env -S maxCounter={MaxCounter} \
         failmatch = re.findall(r"\[\s+FAILED\s+\] (\d+) test.*", line)
         if len(failmatch) > 0:
             failed = int(failmatch[0])
+            fail_matched = True
 
         passmatch = re.findall(r"\[\s+PASSED\s+\] (\d+) test.*", line)
         if len(passmatch) > 0:
             passed = int(passmatch[0])
+
+        if fail_matched:
+            failed_tests.append(line)
 
     process.kill()
     if passed is None:
@@ -75,8 +84,14 @@ env -S maxCounter={MaxCounter} \
     if failed is None:
         failed = 0
 
+    filtered_tests = []
+    for s in failed_tests:
+        testMatch = re.match(r"\[  FAILED  \] ([^\d].*)", s)
+        if testMatch is not None:
+            filtered_tests.append(testMatch.groups()[0])
+
     os.chdir(cwd)
-    return (passed, failed + passed, failed == 0)
+    return (passed, failed + passed, failed == 0, filtered_tests)
 
 
 # Parse arguments
@@ -200,31 +215,43 @@ else:
             print("Malformatted test in XML, omitting it")
             continue
         
-        if summary: 
-            print(f"Running test \"{testName}\"")
-
-        result = runCommand(binary, filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
+        (passed_cnt, total_cnt, passed_bool, failed_tests) = runCommand(testName, binary, filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
 
         if summary:
             pass_word = "\033[32mPASS\033[00m"
             fail_word = "\033[91mFAIL\033[00m"
-            print(f"{pass_word if result[2] else fail_word} - {result[0]}/{result[1]}")
+            print(f"{pass_word if passed_bool else fail_word} - Passed {passed_cnt}/{total_cnt}")
+            if (not passed_bool):
+                print("Failed tests:")
+                for failed_test in failed_tests:
+                    print(f"\t{failed_test}")
 
         resultElement = test.getElementsByTagName("results")
         if resultElement:
-            resultElement[0].firstChild.data = f"{result[0]}/{result[1]}";
+            resultElement[0].firstChild.data = f"{passed_cnt}/{total_cnt}";
         else:
             resultElement = tree.createElement("results")
-            resultElement.appendChild(tree.createTextNode(f"{result[0]}/{result[1]}"))
+            resultElement.appendChild(tree.createTextNode(f"{passed_cnt}/{total_cnt}"))
             test.appendChild(resultElement)
 
         summaryElement = test.getElementsByTagName("summary")
         if summaryElement:
-            summaryElement[0].firstChild.data = "PASS" if result[2] else "FAIL"
+            summaryElement[0].firstChild.data = "PASS" if passed_bool else "FAIL"
         else:
             summaryElement = tree.createElement("summary")
-            summaryElement.appendChild(tree.createTextNode("PASS" if result[2] else "FAIL"))
+            summaryElement.appendChild(tree.createTextNode("PASS" if passed_bool else "FAIL"))
             test.appendChild(summaryElement)
+
+        failedTestsElement = test.getElementsByTagName("failedTests")
+        if failedTestsElement:
+            failedTestsElement[0].parentNode.removeChild(failedTestsElement[0])
+
+        failedTestsElement = tree.createElement("failedTests")
+        for failed_test in failed_tests:
+            failedTestElement = tree.createElement("testName")
+            failedTestElement.appendChild(tree.createTextNode(failed_test))
+            failedTestsElement.appendChild(failedTestElement)
+        test.appendChild(failedTestsElement)
 
     with open(targetFile, 'wt') as fd:
         fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]))
