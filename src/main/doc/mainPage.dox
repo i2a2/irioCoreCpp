@@ -199,6 +199,7 @@ Each test contains the following fields:
 - *maxIMAQiterations*: (Only for functional tests) Maximum counter for the image test. Optional, default to *65536*.
 - *results*: Field to store the count of passed tests. Should not be written by the user.
 - *summary*: Field to store the string result of the test. Either *PASS* or *FAIL*. Should not be written by the user.
+- *failedTests*: List of the names of the failed tests. Should not be written by the user.
 
 Once the test is defined on the XML file, from the root of the project, run:
 ```bash
