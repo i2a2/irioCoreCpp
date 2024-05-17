@@ -254,4 +254,4 @@ else:
         test.appendChild(failedTestsElement)
 
     with open(targetFile, 'wt') as fd:
-        fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]))
+        fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]) + '\n')
