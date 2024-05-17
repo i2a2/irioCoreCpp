@@ -29,7 +29,7 @@ using std::endl;
 
 // irioDriver.c tests
 TEST(IRIOError, InitWithNullStatus) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     if (verbose_test) cout << "[TEST] Initializing driver with NULL status. Should fail to start" << endl;
     EXPECT_EQ(
@@ -41,7 +41,7 @@ TEST(IRIOError, InvalidDirs) {
     irioDrv_t drv;
     TStatus status;
     irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     if (verbose_test) cout << "[TEST] Initializing driver with invalid directories. Should fail to start" << endl;
     EXPECT_EQ(
@@ -52,7 +52,7 @@ TEST(IRIOError, InvalidDirs) {
 TEST(IRIOError, StartAlredyStarted) {
     irioDrv_t drv;
     TStatus status;   
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
