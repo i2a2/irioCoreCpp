@@ -297,7 +297,6 @@ void Irio::selectDevProfile(ParserManager *parserManager) {
 			(profile, static_cast<std::uint8_t>(platform));
 	}
 
-	// TODO: Finish
 	switch (it->second) {
 	case PROFILE_ID::FLEXRIO_CPUDAQ:
 		m_profile.reset(
