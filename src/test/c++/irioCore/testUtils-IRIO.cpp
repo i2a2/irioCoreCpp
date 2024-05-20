@@ -75,6 +75,14 @@ string TestUtilsIRIO::getEnvVar(const string& shellVarName) {
     return shellVarValue;
 }
 
+int TestUtilsIRIO::getVerboseEnv(void) {
+    try {
+        return std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    } catch (...) {
+        return 0;
+    }
+}
+
 void TestUtilsIRIO::logErrors(const int ret_status, const TStatus& out_status) {
     if (ret_status == IRIO_success) return;
 
@@ -92,8 +100,14 @@ void TestUtilsIRIO::logErrors(const int ret_status, const TStatus& out_status) {
 int TestUtilsIRIO::initDriver(IRIOProfile profile, irioDrv_t* drv) {
     int st = IRIO_success;
 
-    int verbose_init = std::stoi(TestUtilsIRIO::getEnvVar("VerboseInit"));
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_init = 0;
+    try {
+        verbose_init = std::stoi(TestUtilsIRIO::getEnvVar("VerboseInit"));
+    } catch (...) {
+        verbose_init = 0;
+    }
+
+    int verbose_test = TestUtilsIRIO::getVerboseEnv();
     string RIODevice = TestUtilsIRIO::getEnvVar("RIODevice");
     string RIOSerial = TestUtilsIRIO::getEnvVar("RIOSerial");
 	string FPGAversion = "V1.2";
@@ -141,7 +155,7 @@ int TestUtilsIRIO::closeDriver(irioDrv_t* drv) {
     TStatus status;
     irio_initStatus(&status);
 
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     if (verbose_test) cout << "[TEST] Closing driver" << endl;
     st = irio_closeDriver(drv, 0, &status);
@@ -178,7 +192,7 @@ void TestUtilsIRIO::getResources(irioDrv_t* drv, irioResources_t* res) {
 }
 
 void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Starting FPGA" << endl;
 	TStatus status;
 	irio_initStatus(&status);
@@ -189,7 +203,7 @@ void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
 }
 
 void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 	TStatus status;
 	irio_initStatus(&status);
 
@@ -201,7 +215,7 @@ void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
 }
 
 void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -213,7 +227,7 @@ void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
 }
 
 void TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -226,7 +240,7 @@ void TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {
 
 int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rate) {
 	// Equation applied to set DMATtoHostSamplingRate: Fref/samplingRate=DecimationFactor
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     int st;
     int32_t fref;
     TStatus status;
@@ -251,7 +265,7 @@ int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rat
 }
 
 void TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -263,7 +277,7 @@ void TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
 }
 
 void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -275,7 +289,7 @@ void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) 
 }
 
 void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -287,7 +301,7 @@ void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
 }
 
 std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Reading " << blocksToRead << " blocks of " << wordsPerBlock << " words each from DMA" << dmaN << endl; 
     TStatus status;
     irio_initStatus(&status);
@@ -320,7 +334,7 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dm
 }
 
 std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Reading " << blocksToRead << " blocks of " << wordsPerBlock << " words each from DMA" << dmaN << endl; 
     TStatus status;
     irio_initStatus(&status);
@@ -352,7 +366,7 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv,
 }
 
 uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -367,7 +381,7 @@ uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel) {
 }
 
 double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -382,7 +396,7 @@ double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv) {
 }
 
 void TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -395,7 +409,7 @@ void TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t updat
 }
 
 void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_type) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -408,7 +422,7 @@ void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_ty
 }
 
 void TestUtilsIRIO::SG::setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t fsig) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 	// Equation to apply to obtain freq_desired is:
@@ -422,7 +436,7 @@ void TestUtilsIRIO::SG::setFsig(irioDrv_t* drv, int channel, uint32_t update_rat
 }
 
 void TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
@@ -435,7 +449,7 @@ void TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
 }
 
 void TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 

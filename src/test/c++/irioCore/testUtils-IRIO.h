@@ -23,6 +23,7 @@ const string FRED = "\x1b[31m";  // Foreground color, Red
 void displayTitle(const string& msg, const string& forecolor = FWHT, const string& backcolor = BBLA);
 void logErrors(const int ret_status, const TStatus& out_status);
 string getEnvVar(const string& shellVarName);
+int getVerboseEnv(void);
 double sineCorrelation(const std::vector<double>& vec, int f, int fs);
 std::string escapeSequencesToLiteral(const std::string& str);
 

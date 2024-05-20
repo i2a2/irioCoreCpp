@@ -49,7 +49,7 @@ TEST(cRIO, IOResources) {
     irioDrv_t drv;
     irioResources_t res;
 	int st = 0;
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     st = initDriver(IRIOProfile::IO, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Driver initialization failed";

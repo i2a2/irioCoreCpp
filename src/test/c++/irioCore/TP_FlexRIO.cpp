@@ -43,7 +43,7 @@ using std::endl;
  * - FlexRIOResources.ResourcesMissing
  */
 TEST(FlexRIOResources, ResourcesCPUDAQ) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     irioDrv_t drv;
     int st = initDriver(IRIOProfile::CPUDAQ, &drv);
@@ -88,7 +88,7 @@ TEST(FlexRIOResources, ResourcesCPUDAQ) {
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
 TEST(FlexRIOResources, ResourcesIMAQ) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     irioDrv_t drv;
     int st = initDriver(IRIOProfile::CPUIMAQ, &drv);
@@ -124,7 +124,7 @@ TEST(FlexRIOResources, ResourcesIMAQ) {
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
 TEST(FlexRIOResources, ResourcesMAXIO) {
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     irioDrv_t drv;
     int st = initDriver(IRIOProfile::OnlyResources, &drv);
@@ -172,7 +172,7 @@ TEST(FlexRIOResources, ResourcesMissing) {
     int st = IRIO_success;
 
     int verbose_init = std::stoi(TestUtilsIRIO::getEnvVar("VerboseInit"));
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     string RIODevice = TestUtilsIRIO::getEnvVar("RIODevice");
     string RIOSerial = TestUtilsIRIO::getEnvVar("RIOSerial");
 
@@ -220,7 +220,7 @@ TEST(FlexRIOnoModule, GetSetAuxAIO32) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -268,7 +268,7 @@ TEST(FlexRIOnoModule, GetSetAuxAIO64) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -316,7 +316,7 @@ TEST(FlexRIOnoModule, GetSetAuxDIO) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -388,7 +388,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalType) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -411,7 +411,7 @@ TEST(FlexRIODAQ5761, GetSetEnableAO0) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -439,7 +439,7 @@ TEST(FlexRIODAQ5761, GetSetAO0) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
 	// Initialize random engine
 	int min = 0, max = 2048;
@@ -523,7 +523,7 @@ TEST(FlexRIODAQ5761, CloseDMA) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -544,7 +544,7 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostSamplingRate) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int32_t sampling_rate = 500000; // 50ksps (max 125Msps)
 	if (verbose_test) cout << "[TEST] Sampling rate = " << sampling_rate << endl;
@@ -570,7 +570,7 @@ TEST(FlexRIODAQ5761, GetSetAICoupling) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int32_t sampling_rate = 500000; // 50ksps (max 125Msps)
 	if (verbose_test) cout << "[TEST] Sampling rate = " << sampling_rate << endl;
@@ -605,7 +605,7 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostEnable) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -628,7 +628,7 @@ TEST(FlexRIODAQ5761, GetSetDAQStartStop) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -651,7 +651,7 @@ TEST(FlexRIODAQ5761, GetDMAToHostParameters) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -683,7 +683,7 @@ TEST(FlexRIODAQ5761, GetDMAToHostOverflow) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -707,7 +707,7 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	// Parameters
 	int blocksToRead = 1;
@@ -770,7 +770,7 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	// Parameters
 	int blocksToRead = 1;
@@ -834,7 +834,7 @@ TEST(FlexRIODAQ5761, GetSetSGUpdateRate) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int update_rate = 10000000; // 10 MSps
 	int channel = 0;
@@ -861,7 +861,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalFreq) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int sig_freq = 10000; // 10 kHz
 	int update_rate = 10000000; // 10 MSps
@@ -890,7 +890,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int sig_amp = 4096; // 0.517563 V
 	int channel = 0;
@@ -918,7 +918,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int channel = 0;
 	int phase = 1;
@@ -945,7 +945,7 @@ TEST(FlexRIODAQ5761, GetSGCVADC) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -966,7 +966,7 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	// Parameters
 	int blocksToRead = 1;
@@ -1037,7 +1037,7 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-	int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+	int verbose_test = getVerboseEnv();
 
 	// Parameters
 	int blocksToRead = 1;
@@ -1146,7 +1146,7 @@ TEST(FlexRIODIO6581, GetSetAuxDIO6581) {
 	int auxN = 6; // Test on AuxDIO6
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod6581DIO, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1174,7 +1174,7 @@ TEST(FlexRIODIO6581, GetSetDIO) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod6581DIO, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1272,7 +1272,7 @@ TEST(FlexRIOIMAQ1483, InitConfigCL) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1290,7 +1290,7 @@ TEST(FlexRIOIMAQ1483, InitConfigCLWarning) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1308,7 +1308,7 @@ TEST(FlexRIOIMAQ1483, GetImages) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
     int maxCounter = std::stoi(TestUtilsIRIO::getEnvVar("maxCounter"));
 
 	const int totalImages = 1000;
@@ -1369,7 +1369,7 @@ TEST(FlexRIOUART1483, GetUARTBaudRate) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1397,7 +1397,7 @@ TEST(FlexRIOUART1483, GetUARTBreakIndicator) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1425,7 +1425,7 @@ TEST(FlexRIOUART1483, GetUARTFrammingError) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1453,7 +1453,7 @@ TEST(FlexRIOUART1483, GetUARTOverrunError) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1484,7 +1484,7 @@ TEST(FlexRIOUART1483, SetUARTBaudRate) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1526,7 +1526,7 @@ TEST(FlexRIOUART1483, SendCLUART) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -1571,7 +1571,7 @@ TEST(FlexRIOUART1483, GetCLUART) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";

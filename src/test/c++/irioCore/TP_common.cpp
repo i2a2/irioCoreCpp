@@ -36,7 +36,7 @@ TEST(Common, InitCloseDriver) {
 TEST(Common, StartFPGA) {
     irioDrv_t drv;
     TStatus status;   
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -57,7 +57,7 @@ TEST(Common, GetDevTemp) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -77,7 +77,7 @@ TEST(Common, GetDevTemp) {
 TEST(Common, GetDevQualityStatus) {
     irioDrv_t drv;
     TStatus status;   
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -97,7 +97,7 @@ TEST(Common, GetDevQualityStatus) {
 TEST(Common, GetIRIOVersion) {
     irioDrv_t drv;
     TStatus status;   
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -115,7 +115,7 @@ TEST(Common, GetIRIOVersion) {
 TEST(Common, GetFPGAVIVersion) {
     irioDrv_t drv;
     TStatus status;   
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -136,7 +136,7 @@ TEST(Common, GetFPGAVIVersion) {
 TEST(Common, GetDevProfile) {
     irioDrv_t drv;
     TStatus status;   
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
@@ -157,7 +157,7 @@ TEST(Common, GetSetDebugMode) {
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
-    int verbose_test = std::stoi(TestUtilsIRIO::getEnvVar("VerboseTest"));
+    int verbose_test = getVerboseEnv();
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";

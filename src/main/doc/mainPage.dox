@@ -203,12 +203,10 @@ Each test contains the following fields:
 
 Once the test is defined on the XML file, from the root of the project, run:
 ```bash
-    target/test/run_irioCore.py -i <XML file> [-o <Output file>]
+    target/test/run_irioCore.py -i <XML file> (-a | -o <Output file>)
 ```
 
-If no output file is provided, the tests results will be appended to the
-input file. If it is provided, the input file is not modified and the input
-file will be copied to the output file with the results appended.
+Either `-a` or `-o <Output file>` must be used to select the output destination for the tests. `-a` will append the results to the input file and `-o` will create or rewrite the destination file with the results.
 
 The test output will be printed as specified on the *verbose* field of the
 test. If only a final summary is required, use the *-S* flag to supress

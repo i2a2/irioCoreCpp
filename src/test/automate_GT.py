@@ -107,8 +107,10 @@ parser = argparse.ArgumentParser(
 )
 
 # Parameters for file-based test plans
-parser.add_argument('-i', '--input-file', help='XML file that contains the test plan', nargs='?')
-parser.add_argument('-o', '--output-file', help='XML file that contains the results of the plan. If a value is not provided, the same file is used', nargs='?')
+parser.add_argument('-i', '--input-file', help='XML file that contains the test plan')
+output_group = parser.add_mutually_exclusive_group(required=True)
+output_group.add_argument('-a', '--append-file', help='Append the results to the input file instead of producing a new one. Cannot be used with -o/--output-file', action='store_true')
+output_group.add_argument('-o', '--output-file', help='XML file that contains the results of the plan. Cannot be used with -a/--append-file')
 parser.add_argument('-S', '--summary',help='Summarize the execution', action='store_true')
 
 # Parameters for command-line based test plans
@@ -177,7 +179,7 @@ else:
     summary = True if args.summary else False
 
     tree = minidom.parse(args.input_file)
-    targetFile = os.path.abspath(args.output_file if args.output_file is not None else args.input_file)
+    targetFile = os.path.abspath(args.output_file if not args.append_file else args.input_file)
 
     os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
@@ -246,12 +248,13 @@ else:
         if failedTestsElement:
             failedTestsElement[0].parentNode.removeChild(failedTestsElement[0])
 
-        failedTestsElement = tree.createElement("failedTests")
-        for failed_test in failed_tests:
-            failedTestElement = tree.createElement("testName")
-            failedTestElement.appendChild(tree.createTextNode(failed_test))
-            failedTestsElement.appendChild(failedTestElement)
-        test.appendChild(failedTestsElement)
+        if not passed_bool:
+            failedTestsElement = tree.createElement("failedTests")
+            for failed_test in failed_tests:
+                failedTestElement = tree.createElement("testName")
+                failedTestElement.appendChild(tree.createTextNode(failed_test))
+                failedTestsElement.appendChild(failedTestElement)
+            test.appendChild(failedTestsElement)
 
     with open(targetFile, 'wt') as fd:
-        fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]))
+        fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]) + '\n')
