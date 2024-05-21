@@ -19,7 +19,7 @@ binaryPaths = {
     "BFP": "c++/bfp/test_bfp",
 }
 
-def runCommand(suiteName, binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
+def runCommand(binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False, suiteName=None, shuffle=False, iterations='1', verboseTest=False, verboseInit=False):
     cwd = os.getcwd()
     os.chdir(os.path.dirname(binary))
 
@@ -27,18 +27,23 @@ def runCommand(suiteName, binary, filterText, RIODevice, RIOSerial, Verbose, Cou
         print("\033[91m[TEST] Warning: The UART tests need human interaction \033[00m")
         Summary = False
 
+    gshuffle = " --gtest_shuffle" if shuffle else ""
+    giterations = (" --gtest_repeat=" + iterations) if args.iterations != '1' else ""
+    
     failed = None
     passed = None
     command = f"\
 env -S RIOSerial={RIOSerial} \
 env -S RIODevice={RIODevice} \
-env -S VerboseInit={1 if Verbose=='true' else 0} \
-env -S VerboseTest={1 if Verbose=='true' else 0} \
+env -S VerboseInit={1 if Verbose=='true' or verboseInit else 0} \
+env -S VerboseTest={1 if Verbose=='true' or verboseTest else 0} \
 env -S Coupling={Coupling} \
 env -S maxCounter={MaxCounter} \
-    ./{os.path.basename(binary)} --gtest_filter={filterText}" 
+    ./{os.path.basename(binary)} --gtest_filter={filterText} {giterations} {gshuffle}" 
 
-    print('\n' + (' ' + suiteName + ' ').center(80, '='))
+    if suiteName is not None:
+        print('\n' + (' ' + suiteName + ' ').center(80, '='))
+
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, bufsize=1)
 
     fail_matched = False
@@ -82,6 +87,66 @@ env -S maxCounter={MaxCounter} \
     os.chdir(cwd)
     return (passed, failed + passed, failed == 0, filtered_tests)
 
+def writeCmdXML(binary, filter, device, serial, passed_cnt, total_cnt, passed_bool, failed_tests, output_file):
+    doc = minidom.Document()
+
+    root = doc.createElementNS("http://www.testLocation.com/test", "testplan")
+    root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
+    root.setAttribute("xsi:schemaLocation", "http://www.testLocation.com/test ../testSchema.xsd")
+    doc.appendChild(root)
+
+    test_element = doc.createElement("test")
+
+    name_element = doc.createElement("name")
+    name_text = doc.createTextNode("Command-line test")
+    name_element.appendChild(name_text)
+    test_element.appendChild(name_element)
+
+    test_type_element = doc.createElement("TestType")
+    test_type_text = doc.createTextNode("Custom binary")
+    test_type_element.appendChild(test_type_text)
+    test_element.appendChild(test_type_element)
+
+    binary_element = doc.createElement("Binary")
+    binary_text = doc.createTextNode(os.path.abspath(binary))
+    binary_element.appendChild(binary_text)
+    test_element.appendChild(binary_element)
+
+    test_filter_element = doc.createElement("TestFilter")
+    test_filter_text = doc.createTextNode(filter)
+    test_filter_element.appendChild(test_filter_text)
+    test_element.appendChild(test_filter_element)
+
+    rio_device_element = doc.createElement("RIODevice")
+    rio_device_text = doc.createTextNode(device)
+    rio_device_element.appendChild(rio_device_text)
+    test_element.appendChild(rio_device_element)
+
+    rio_serial_element = doc.createElement("RIOSerial")
+    rio_serial_text = doc.createTextNode(serial)
+    rio_serial_element.appendChild(rio_serial_text)
+    test_element.appendChild(rio_serial_element)
+
+    resultElement = doc.createElement("results")
+    resultElement.appendChild(doc.createTextNode(f"{passed_cnt}/{total_cnt}"))
+    test_element.appendChild(resultElement)
+
+    summaryElement = doc.createElement("summary")
+    summaryElement.appendChild(doc.createTextNode("PASS" if passed_bool else "FAIL"))
+    test_element.appendChild(summaryElement)
+
+    if not passed_bool:
+        failedTestsElement = doc.createElement("failedTests")
+        for failed_test in failed_tests:
+            failedTestElement = doc.createElement("testName")
+            failedTestElement.appendChild(doc.createTextNode(failed_test))
+            failedTestsElement.appendChild(failedTestElement)
+        test_element.appendChild(failedTestsElement)
+
+    root.appendChild(test_element)
+
+    with open(output_file, 'wt') as fd:
+        fd.write("".join([s for s in doc.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]) + '\n')
 
 # Parse arguments
 parser = argparse.ArgumentParser(
@@ -127,38 +192,60 @@ if args.input_file is None:
     if args.binary is None:
         print("Binary is required for command-line based test plans", file=sys.stderr)
         exit(-1)
+
     if not os.path.exists(args.binary):
         print(f"Could not find binary {args.binary}")
         exit(-1)
 
-    os.chdir(os.path.dirname(args.binary))
     if args.list:
-        command = f"./{os.path.basename(args.binary)} --gtest_list_tests"
+        command = f"./{args.binary} --gtest_list_tests"
+        exit(0)
+
+    if args.RIOSerial is not None:
+        serial = args.RIOSerial
     else:
-        if args.RIOSerial is not None:
-            serial = args.RIOSerial
-        else:
-            print("Serial number is required for command-line based test plans", file=sys.stderr)
-            exit(-1)
+        print("Serial number is required for command-line based test plans", file=sys.stderr)
+        exit(-1)
 
-        gfilter = (" --gtest_filter=" + args.filter) if args.filter is not None else ""
-        gshuffle = " --gtest_shuffle" if args.shuffle else ""
-        giterations = (" --gtest-repeat=" + args.iterations) if args.iterations != '1' else ""
-        summary = r' 2>&1 | grep -A9999 "Global test environment tear-down"' if args.summary else ""
+    if args.RIODevice is not None:
+        device = args.RIODevice
+    else:
+        print("Device model is required for command-line based test plans", file=sys.stderr)
+        exit(-1)
 
-        command = f"\
-    env -S RIOSerial={serial} \
-    env -S RIODevice={args.RIODevice} \
-    env -S VerboseInit={int(args.verbose_init or args.verbose)} \
-    env -S VerboseTest={int(args.verbose_test or args.verbose)} \
-    env -S Coupling={args.coupling} \
-    env -S maxCounter={args.max_counter} \
-    ./{os.path.basename(args.binary)}{gfilter}{giterations}{gshuffle}{summary}" 
+    filterText = args.filter if args.filter is not None else "*"
 
-    if args.verbose or args.verbose_test:
-        print(f"Running command: {command}")
+    (passed_cnt, total_cnt, passed_bool, failed_tests) = runCommand(
+        binary      = args.binary,
+        filterText  = filterText,
+        RIODevice   = device,
+        RIOSerial   = serial,
+        Verbose     = args.verbose,
+        Coupling    = args.coupling,
+        MaxCounter  = args.max_counter,
+        Summary     = args.summary,
+        suiteName   = None,
+        shuffle     = args.shuffle,
+        iterations  = args.iterations,
+        verboseTest = args.verbose_test,
+        verboseInit = args.verbose_init
+    )
 
-    os.system(command)
+    if args.summary:
+        pass_word = "\033[32mPASS\033[00m"
+        fail_word = "\033[91mFAIL\033[00m"
+        print(f"{pass_word if passed_bool else fail_word} - Passed {passed_cnt}/{total_cnt}")
+        if (not passed_bool):
+            print("Failed tests:")
+            for failed_test in failed_tests:
+                print(f"\t{failed_test}")
+
+    if args.output_file is not None:
+        writeCmdXML(
+            args.binary, filterText, device, serial, passed_cnt, total_cnt, passed_bool, failed_tests, args.output_file
+        )
+
+
 else:
     # File-based test plan
     if not os.path.exists(args.input_file):
@@ -178,7 +265,7 @@ else:
             filterText = test.getElementsByTagName('TestFilter')[0].firstChild.data
             RIODevice  = test.getElementsByTagName('RIODevice')[0].firstChild.data
             RIOSerial  = test.getElementsByTagName('RIOSerial')[0].firstChild.data
-            binary = binaryPaths.get(test.getElementsByTagName('TestType')[0].firstChild.data)
+            binary = binaryPaths.get(test.getElementsByTagName('TestType')[0].firstChild.data, test.getElementsByTagName('Binary')[0].firstChild.data)
         except:
             print("Malformatted test in XML, omitting it")
             continue
@@ -206,7 +293,17 @@ else:
             print("Malformatted test in XML, omitting it")
             continue
         
-        (passed_cnt, total_cnt, passed_bool, failed_tests) = runCommand(testName, binary, filterText, RIODevice, RIOSerial, verbose, coupling, maxIterations, summary)
+        (passed_cnt, total_cnt, passed_bool, failed_tests) = runCommand(
+            binary      = binary,
+            filterText  = filterText,
+            RIODevice   = RIODevice,
+            RIOSerial   = RIOSerial,
+            Verbose     = verbose,
+            Coupling    = coupling,
+            MaxCounter  = maxIterations,
+            Summary     = summary,
+            suiteName   = testName,
+        )
 
         if summary:
             pass_word = "\033[32mPASS\033[00m"
