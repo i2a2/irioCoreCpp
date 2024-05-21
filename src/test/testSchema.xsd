@@ -21,6 +21,7 @@
             <xs:enumeration value="irioCoreCpp Unitary"/>
             <xs:enumeration value="irioCoreCpp Functional"/>
             <xs:enumeration value="BFP"/>
+            <xs:enumeration value="Custom binary"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -73,9 +74,10 @@
             <xs:element name="name"              type="xs:string"/>
             <xs:element name="TestType"          type="TestTypeType"/>
             <xs:element name="TestFilter"        type="xs:string"/>
+            <xs:element name="Binary"            type="xs:string"       minOccurs="0"/>
             <xs:element name="RIODevice"         type="RIODeviceType"/>
             <xs:element name="RIOSerial"         type="RIOSerialType"/>
-            <xs:element name="RIOModule"         type="moduleType" />
+            <xs:element name="RIOModule"         type="moduleType"      minOccurs="0"/>
             <xs:element name="verbose"           type="xs:boolean"      minOccurs="0"/>
             <xs:element name="coupling"          type="couplingType"    minOccurs="0"/>
             <xs:element name="maxIMAQiterations" type="xs:unsignedInt"  minOccurs="0"/>
