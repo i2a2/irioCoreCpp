@@ -19,17 +19,6 @@ binaryPaths = {
     "BFP": "c++/bfp/test_bfp",
 }
 
-def searchSerial(device, order):
-    if device not in ['7961','7965','7966','7975','9159']:
-        raise Exception("Invalid device type")
-    
-    results = re.findall(f'--Model Name:[^\\n]*{device}[^\\n]*\\n\\s*--Serial Number:\\s*(\\S+)\\n', subprocess.check_output(['lsrio']).decode())
-
-    if len(results) == 0:
-        raise Exception("No devices found")
-    else:
-        return results[max(min(int(order) - 1, len(results) - 1), 0)]
-
 def runCommand(suiteName, binary, filterText, RIODevice, RIOSerial, Verbose, Coupling, MaxCounter, Summary=False):
     cwd = os.getcwd()
     os.chdir(os.path.dirname(binary))
@@ -114,9 +103,8 @@ output_group.add_argument('-o', '--output-file', help='XML file that contains th
 parser.add_argument('-S', '--summary',help='Summarize the execution', action='store_true')
 
 # Parameters for command-line based test plans
-parser.add_argument('-d', '--RIODevice',help='RIO device model. Use lsrio command to display it. If no serial number is provided, the first device is selected',choices=['7961','7965','7966','7975','9159'], default='7966')
-parser.add_argument('-s', '--RIOSerial',help='RIO device serial number. Use $lsrio command to display it')
-parser.add_argument('--device-number',help='If no RIOSerial is provided and there are multiple devices, select which one to use. Bounded between 0 and the number of devices',default='1')
+parser.add_argument('-d', '--RIODevice',help='RIO device model. Use lsrio or lsni command to display it.',choices=['7961','7965','7966','7975','9159'], default='7966')
+parser.add_argument('-s', '--RIOSerial',help='RIO device serial number. Use lsrio or lsni command to display it')
 parser.add_argument('--iterations',help='Select number of iterations of the tests. Pass a negative number to run indefinitely.',default='1')
 parser.add_argument('--shuffle',help='Shuffle the test execution', action='store_true')
 parser.add_argument('-c', '--coupling',help='Coupling mode for mod5761 test. 1 = DC, 0 = AC',choices=['1','0','DC','AC'],default='0')
@@ -150,7 +138,8 @@ if args.input_file is None:
         if args.RIOSerial is not None:
             serial = args.RIOSerial
         else:
-            serial = searchSerial(args.RIODevice, args.device_number)
+            print("Serial number is required for command-line based test plans", file=sys.stderr)
+            exit(-1)
 
         gfilter = (" --gtest_filter=" + args.filter) if args.filter is not None else ""
         gshuffle = " --gtest_shuffle" if args.shuffle else ""
