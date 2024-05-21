@@ -97,7 +97,7 @@ parser = argparse.ArgumentParser(
 
 # Parameters for file-based test plans
 parser.add_argument('-i', '--input-file', help='XML file that contains the test plan')
-output_group = parser.add_mutually_exclusive_group(required=True)
+output_group = parser.add_mutually_exclusive_group(required=False)
 output_group.add_argument('-a', '--append-file', help='Append the results to the input file instead of producing a new one. Cannot be used with -o/--output-file', action='store_true')
 output_group.add_argument('-o', '--output-file', help='XML file that contains the results of the plan. Cannot be used with -a/--append-file')
 parser.add_argument('-S', '--summary',help='Summarize the execution', action='store_true')
