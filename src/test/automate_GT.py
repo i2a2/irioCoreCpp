@@ -265,7 +265,9 @@ else:
             filterText = test.getElementsByTagName('TestFilter')[0].firstChild.data
             RIODevice  = test.getElementsByTagName('RIODevice')[0].firstChild.data
             RIOSerial  = test.getElementsByTagName('RIOSerial')[0].firstChild.data
-            binary = binaryPaths.get(test.getElementsByTagName('TestType')[0].firstChild.data, test.getElementsByTagName('Binary')[0].firstChild.data)
+            binary = binaryPaths.get(test.getElementsByTagName('TestType')[0].firstChild.data, None)
+            if binary is None:
+                binary = test.getElementsByTagName('Binary')[0].firstChild.data
         except:
             print("Malformatted test in XML, omitting it")
             continue
