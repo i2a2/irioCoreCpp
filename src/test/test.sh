@@ -17,6 +17,10 @@ esac
 mkdir -p test-results
 for executable in "$@"; do
     ./automate_GT.py -i $executable -o test-results/$(basename $executable .xml).xml -S
+    if [ $? -ne 0 ]; then
+        echo "$executable failed"
+        exit 1
+    fi
     output_files+=("test-results/$(basename $executable .xml).xml")
 done
 
