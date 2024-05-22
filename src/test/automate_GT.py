@@ -91,8 +91,7 @@ def writeCmdXML(binary, filter, device, serial, passed_cnt, total_cnt, passed_bo
     doc = minidom.Document()
 
     root = doc.createElementNS("http://www.testLocation.com/test", "testplan")
-    root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
-    root.setAttribute("xsi:schemaLocation", "http://www.testLocation.com/test ../testSchema.xsd")
+    root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance") # root.setAttribute("xsi:schemaLocation", "http://www.testLocation.com/test ../testSchema.xsd")
     doc.appendChild(root)
 
     test_element = doc.createElement("test")
