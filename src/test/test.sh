@@ -1,81 +1,31 @@
 #!/bin/bash
 
-failed_tests=()
+output_files=()
 
 if [ $# -eq 0 ]; then
-    set -- test_bfp test_ut_irioCoreCpp test_ut_irioCore
+    set -- test-suites/BFP.xml test-suites/irioCoreUnit.xml test-suites/irioCoreCppUnit.xml
 fi
 
 case "$1" in
 --help|-h)
-    echo "Usage: $0 [test1] [test2] ..."
-    echo "Available tests:"
-    echo " - test_bfp"
-    echo " - test_ut_irioCoreCpp"
-    echo " - test_ut_irioCore"
-    echo " - test_irioCoreCpp"
-    echo " - test_irioCore"
-    echo ""
-    echo "If no test specified, only the test that do not require specific hardware will be run:"
-    echo " - test_bfp"
-    echo " - test_ut_irioCoreCpp"
-    echo " - test_ut_irioCore"
+    echo "Run the given test(s) on XML format and check if they pass"
+    echo "Usage: $0 <TEST1> [TEST2] ..."
     exit 0
     ;;
 esac
 
+mkdir -p test-results
 for executable in "$@"; do
-    case $executable in
-        test_bfp)
-            cd ./c++/bfp
-            if ! ./test_bfp; then
-                echo "test_bfp failed"
-                failed_tests+=("test_bfp")
-            fi
-            cd ../..
-            ;;
-        test_ut_irioCoreCpp)
-            cd ./c++/unittests/irioCoreCpp
-            if ! ./test_ut_irioCoreCpp; then
-                echo "test_ut_irioCoreCpp failed"
-                failed_tests+=("test_ut_irioCoreCpp")
-            fi
-            cd ../../..
-            ;;
-        test_ut_irioCore)
-            cd ./c++/unittests/irioCore
-            if ! ./test_ut_irioCore; then
-                echo "test_ut_irioCore failed"
-                failed_tests+=("test_ut_irioCore")
-            fi
-            cd ../../..
-            ;;
-        test_irioCoreCpp)
-            cd ./c++/irioCoreCpp/
-            if ! ./test_irioCoreCpp; then
-                echo "test_irioCoreCpp failed"
-                failed_tests+=("test_irioCoreCpp")
-            fi
-            cd ../..
-            ;;
-        test_irioCore)
-            cd ./c++/irioCore
-            if ! ./test_irioCore; then
-                echo "test_irioCore failed"
-                failed_tests+=("test_irioCore")
-            fi
-            cd ../..
-            ;;
-        *)
-            echo "Invalid executable name: $executable"
-            ;;
-    esac
+    ./automate_GT.py -i $executable -o test-results/$(basename $executable .xml).xml -S
+    if [ $? -ne 0 ]; then
+        echo "$executable failed"
+        exit 1
+    fi
+    output_files+=("test-results/$(basename $executable .xml).xml")
 done
 
-if [ ${#failed_tests[@]} -gt 0 ]; then
-    echo "The following tests failed:"
-    for executable in "${failed_tests[@]}"; do
-        echo -e "\t$executable"
-    done
-    exit -1
-fi
+for f in $output_files; do
+    if grep -q "<summary>FAIL</summary>" $f; then
+        exit 1
+    fi
+done
