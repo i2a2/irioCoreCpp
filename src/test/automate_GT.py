@@ -264,9 +264,25 @@ else:
     for test in tree.getElementsByTagName('test'):
         try:
             testName   = test.getElementsByTagName('name')[0].firstChild.data
-            filterText = test.getElementsByTagName('TestFilter')[0].firstChild.data
-            RIODevice  = test.getElementsByTagName('RIODevice')[0].firstChild.data
-            RIOSerial  = test.getElementsByTagName('RIOSerial')[0].firstChild.data
+
+            filterTextElements = test.getElementsByTagName('TestFilter')
+            if len(filterTextElements) > 0:
+                filterText = filterTextElements[0].firstChild.data
+            else:
+                filterText = "*"
+
+            RIODeviceElements = test.getElementsByTagName('RIODevice')
+            if len(RIODeviceElements) > 0:
+                RIODevice  = RIODeviceElements[0].firstChild.data
+            else:
+                RIODevice = "7966"
+
+            RIOSerialElements = test.getElementsByTagName('RIOSerial')
+            if len(RIOSerialElements) > 0:
+                RIOSerial = RIOSerialElements[0].firstChild.data
+            else:
+                RIOSerial = "0x00000000"
+
             binary = binaryPaths.get(test.getElementsByTagName('TestType')[0].firstChild.data, None)
             if binary is None:
                 binary = test.getElementsByTagName('Binary')[0].firstChild.data

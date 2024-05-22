@@ -73,10 +73,10 @@
         <xs:all>
             <xs:element name="name"              type="xs:string"/>
             <xs:element name="TestType"          type="TestTypeType"/>
-            <xs:element name="TestFilter"        type="xs:string"/>
+            <xs:element name="TestFilter"        type="xs:string"       minOccurs="0"/>
             <xs:element name="Binary"            type="xs:string"       minOccurs="0"/>
-            <xs:element name="RIODevice"         type="RIODeviceType"/>
-            <xs:element name="RIOSerial"         type="RIOSerialType"/>
+            <xs:element name="RIODevice"         type="RIODeviceType"   minOccurs="0"/>
+            <xs:element name="RIOSerial"         type="RIOSerialType"   minOccurs="0"/>
             <xs:element name="RIOModule"         type="moduleType"      minOccurs="0"/>
             <xs:element name="verbose"           type="xs:boolean"      minOccurs="0"/>
             <xs:element name="coupling"          type="couplingType"    minOccurs="0"/>
