@@ -7,10 +7,6 @@
     <test>
         <name>irioCoreUnit</name>
         <TestType>irioCore Unitary</TestType>
-        <TestFilter>*</TestFilter>
-        <RIODevice>7966</RIODevice>
-        <RIOSerial>0xFFFFFFFF</RIOSerial>
-        <RIOModule>noModule</RIOModule>
         <verbose>false</verbose>
     </test>
 
