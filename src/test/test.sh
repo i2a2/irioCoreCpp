@@ -3,9 +3,7 @@
 output_files=()
 
 if [ $# -eq 0 ]; then
-    echo "Error: No arguments provided"
-    echo "Usage: $0 <TEST1> [TEST2] ..."
-    exit -1
+    set -- test-suites/BFP.xml test-suites/irioCoreUnit.xml test-suites/irioCoreCppUnit.xml
 fi
 
 case "$1" in
