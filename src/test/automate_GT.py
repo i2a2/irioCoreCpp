@@ -254,7 +254,10 @@ else:
     summary = True if args.summary else False
 
     tree = minidom.parse(args.input_file)
-    targetFile = os.path.abspath(args.output_file if not args.append_file else args.input_file)
+    if args.output_file is None and not args.append_file:
+        targetFile = None
+    else:
+        targetFile = os.path.abspath(args.output_file if not args.append_file else args.input_file)
 
     os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
@@ -343,5 +346,6 @@ else:
                 failedTestsElement.appendChild(failedTestElement)
             test.appendChild(failedTestsElement)
 
-    with open(targetFile, 'wt') as fd:
-        fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]) + '\n')
+    if targetFile is not None:
+        with open(targetFile, 'wt') as fd:
+            fd.write("".join([s for s in tree.toprettyxml().strip().splitlines(True) if s.strip("\r\n").strip()]) + '\n')
