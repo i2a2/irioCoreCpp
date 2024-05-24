@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testplan
+    xmlns="http://www.testLocation.com/test"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.testLocation.com/test ../testSchema.xsd">
+
+    <!-- The IMAQ functional tests are grouped together to avoid
+         the need of resetting the image send program -->
+
+    <!--==================== IRIO CORE UNITARY ======================= -->
+    <test>
+        <name>irioCoreUnit</name>
+        <TestType>irioCore Unitary</TestType>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <!--==================== IRIO CORE CPP UNITARY =================== -->
+    <test>
+        <name>irioCoreCppUnit</name>
+        <TestType>irioCoreCpp Unitary</TestType>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <!--======================= BITFILE PARSER ======================= -->
+    <test>
+        <name>BFP</name>
+        <TestType>BFP</TestType>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <!--==================== IRIO CORE FUNCTIONAL ==================== -->
+    <test>
+        <name>Common FlexRIO</name>
+        <TestFilter>Common.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <!-- CRIO not supported yet 
+    <test>
+        <name>Common cRIO</name>
+        <TestFilter>Common.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>9159</RIODevice>
+        <RIOSerial>0x01DC7049</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test> -->
+
+    <test>
+        <name>FlexRIO Resources</name>
+        <TestFilter>FlexRIOResources.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <test>
+        <name>FlexRIO noModule</name>
+        <TestFilter>FlexRIOnoModule.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <test>
+        <name>FlexRIO DAQ</name>
+        <TestFilter>FlexRIODAQ5761.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI5761</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+    <test>
+        <name>FlexRIO DIO</name>
+        <TestFilter>FlexRIODIO6581.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%DIODEVICE%%%</RIODevice>
+        <RIOSerial>%%%DIOSERIAL%%%</RIOSerial>
+        <RIOModule>NI6581</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <!-- CRIO not supported yet 
+    <test>
+        <name>cRIO IO</name>
+        <TestFilter>cRIO.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>9159</RIODevice>
+        <RIOSerial>0x01DC7049</RIOSerial>
+        <RIOModule>NI92xx</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test> -->
+
+    <test>
+        <name>IRIOError</name>
+        <TestFilter>IRIOError.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+
+    <!--==================== IRIO CORE CPP FUNCTIONAL ==================== -->
+    <test>
+        <name>Common Tests</name>
+        <TestFilter>CommonTests.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>Common Tests Resources</name>
+        <TestFilter>CommonTestsResources.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>Common Tests Error</name>
+        <TestFilter>CommonTestsError.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%COMMONDEVICE%%%</RIODevice>
+        <RIOSerial>%%%COMMONSERIAL%%%</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO CPUDAQ Mod6581</name>
+        <TestFilter>FlexRIOCPUDAQMod6581.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI6581</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO CPUDAQ Mod5761</name>
+        <TestFilter>FlexRIOCPUDAQMod5761.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI5761</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO CPUDAQ Mod5761 Error</name>
+        <TestFilter>FlexRIOCPUDAQMod5761Error.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI5761</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO CPUDAQ</name>
+        <TestFilter>FlexRIOCPUDAQ.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI6581</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO CPUDAQ Error</name>
+        <TestFilter>FlexRIOCPUDAQError.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI6581</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <!-- CRIO not supported yet 
+    <test>
+        <name>cRIO IO</name>
+        <TestFilter>CRIOIO.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%CRIODEVICE%%%</RIODevice>
+        <RIOSerial>%%%CRIOSERIAL%%%</RIOSerial>
+        <RIOModule>NI92xx</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test> 
+
+    <test>
+        <name>CRIO CPUDAQ</name>
+        <TestFilter>CRIOCPUDAQ.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%CRIODEVICE%%%</RIODevice>
+        <RIOSerial>%%%CRIOSERIAL%%%</RIOSerial>
+        <RIOModule>NI92xx</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test> -->
+
+    <!--==================== IMAQ AND UART TESTS ==================== -->
+
+    <test>
+        <name>FlexRIO IMAQ</name>
+        <TestFilter>FlexRIOIMAQ1483.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%IMAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%IMAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI1483</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO IMAQ</name>
+        <TestFilter>FlexRIOCPUIMAQ.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>%%%IMAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%IMAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI1483</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+    <test>
+        <name>FlexRIO UART</name>
+        <TestFilter>FlexRIOUART1483.*</TestFilter>
+        <TestType>irioCore Functional</TestType>
+        <RIODevice>%%%IMAQDEVICE%%%</RIODevice>
+        <RIOSerial>%%%IMAQSERIAL%%%</RIOSerial>
+        <RIOModule>NI1483</RIOModule>
+        <verbose>%%%VERBOSE%%%</verbose>
+    </test>
+
+</testplan>
