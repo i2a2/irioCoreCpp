@@ -149,7 +149,7 @@ def writeCmdXML(binary, filter, device, serial, passed_cnt, total_cnt, passed_bo
 
 # Parse arguments
 parser = argparse.ArgumentParser(
-    prog="run_irioCore.py",
+    prog="automate_GT.py",
     description='Execute funcional tests of the C irioCore library',
     formatter_class=argparse.RawDescriptionHelpFormatter,
     epilog=textwrap.dedent("""
