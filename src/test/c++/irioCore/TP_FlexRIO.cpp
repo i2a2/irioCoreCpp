@@ -1111,10 +1111,10 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
  * This test checks the iRIO library functions: irio_setDO, irio_getDI, irio_getDO.
  * 
  * Implemented in:
- * - FlexRIODIO6181.InitClose
- * - FlexRIODIO6181.StartFPGA
- * - FlexRIODIO6181.GetSetAuxDIO6581
- * - FlexRIODIO6181.GetSetDIO
+ * - FlexRIODIO6581.InitClose
+ * - FlexRIODIO6581.StartFPGA
+ * - FlexRIODIO6581.GetSetAuxDIO6581
+ * - FlexRIODIO6581.GetSetDIO
 */
 TEST(FlexRIODIO6581, InitClose) {
     irioDrv_t drv;
