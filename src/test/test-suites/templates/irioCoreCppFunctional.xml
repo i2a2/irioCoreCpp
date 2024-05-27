@@ -49,8 +49,8 @@
         <name>FlexRIO CPUDAQ Mod6581</name>
         <TestFilter>FlexRIOCPUDAQMod6581.*</TestFilter>
         <TestType>irioCoreCpp Functional</TestType>
-        <RIODevice>%%%DAQDEVICE%%%</RIODevice>
-        <RIOSerial>%%%DAQSERIAL%%%</RIOSerial>
+        <RIODevice>%%%DIODEVICE%%%</RIODevice>
+        <RIOSerial>%%%DIOSERIAL%%%</RIOSerial>
         <RIOModule>NI6581</RIOModule>
         <verbose>%%%VERBOSE%%%</verbose>
     </test>
