@@ -167,6 +167,7 @@ Tests can be automatically executed with a Python application. By default, the `
 The functional tests that run on actual hardware must be generated with the `generateFunctional.py` application located in the `target/test/test-suites` folder. This application can be run in two ways:
 - Interactive execution: Execute the application with no serial, device or verbose argument to have it ask the user for each parameter.
 - Parametric execution: Use **all** the serial, device and verbose arguments to automatize the execution. They can be obtained using the `-h` flag.
+
 This application supports the selection of the input and output folders with the `-i` and `-o` flags, but the default behaviour (input from `test-suites/templates` and output to `test-suites`) is recommended.
 
 Custom test suites can also be created following the schema on `target/test/testSchema.xsd`. For example, to create a test that runs all the *FlexRIO* tests of the *irioCore Funcional* binary on a *FlexRIO-7966* that has the serial *0x12345678* and no module attached is:
