@@ -7,7 +7,7 @@
     <test>
         <name>BFP</name>
         <TestType>BFP</TestType>
-        <verbose>true</verbose>
+        <verbose>false</verbose>
     </test>
 
 </testplan>

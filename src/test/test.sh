@@ -3,7 +3,7 @@
 output_files=()
 
 if [ $# -eq 0 ]; then
-    set -- test-suites/BFP.xml test-suites/irioCoreUnit.xml test-suites/irioCoreCppUnit.xml
+    set -- test-suites/irioCoreAllUnit.xml
 fi
 
 case "$1" in

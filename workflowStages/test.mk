@@ -1,6 +1,6 @@
 TEST_FOLDER=$(COPY_DIR)/test
 
-TEST_TO_RUN= test-suites/BFP.xml test-suites/irioCoreUnit.xml test-suites/irioCoreCppUnit.xml 
+TEST_TO_RUN=test-suites/irioCoreAllUnit.xml
 
 ifneq ($(AddTestsFunctionalIrioCore),)
 	TEST_TO_RUN+=test-suites/irioCoreFunctional.xml 
