@@ -44,7 +44,7 @@ env -S maxCounter={MaxCounter} \
     if suiteName is not None:
         print('\n' + (' ' + suiteName + ' ').center(80, '='))
 
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, bufsize=1)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
 
     fail_matched = False
     failed_tests = []
