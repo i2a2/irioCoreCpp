@@ -22,8 +22,5 @@ jobs:
     - name: Compile Code
       run: make compile -j SkipVerify=1
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.6.8' 
     - name: Run UnitTests
       run: make test SkipVerify=1
