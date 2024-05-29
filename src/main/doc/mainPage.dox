@@ -158,7 +158,7 @@ This application supports the selection of the input and output folders with the
 
 Custom test suites can also be created following the schema on `target/test/testSchema.xsd`. For example, to create a test that runs all the *FlexRIO* tests of the *irioCore Funcional* binary on a *FlexRIO-7966* that has the serial *0x12345678* and no module attached is:
 
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <testplan
     xmlns="http://www.testLocation.com/test"
