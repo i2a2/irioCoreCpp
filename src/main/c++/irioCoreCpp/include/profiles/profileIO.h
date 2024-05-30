@@ -1,22 +1,21 @@
 #pragma once
 
-#include "profiles/profileIO.h"
+#include "profiles/profileBase.h"
 
 namespace irio {
 
 /**
  * Profile with the terminals
- * specific to cRIO IO functionality
+ * specific to IO functionality
  * 
  * @ingroup Profiles
- * @ingroup ProfilesCRIO
  * 
 */
-class ProfileIOcRIO: public ProfileIO {
+class ProfileIO: public ProfileBase {
  public:
   /**
    * Profile with the terminals
-   * specific to cRIO IO functionality
+   * specific to IO functionality
    * 
    * @throw irio::errors::NiFpgaError	Error occurred in an FPGA operation
    *
@@ -24,9 +23,10 @@ class ProfileIOcRIO: public ProfileIO {
    *                          and finding its resources
    * @param session			NiFpga_Session to be used in NiFpga related functions
    * @param platform		Platform used
+   * @param id                Profile used
    */
-  ProfileIOcRIO(ParserManager *parserManager, const NiFpga_Session &session,
-			const Platform &platform);
+  ProfileIO(ParserManager *parserManager, const NiFpga_Session &session,
+			const Platform &platform, const PROFILE_ID &id);
 };
 
 }  // namespace irio

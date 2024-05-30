@@ -16,7 +16,8 @@ namespace bfp {
 class Register: public Resource {
  public:
 	/**
-	 * Constructor
+	 * Creates a Register object with its relevant information
+	 * 
 	 * @param _name			Name of the register
 	 * @param _fpgaType		FPGA register type
 	 * @param _elemType		Type of the element of the register
