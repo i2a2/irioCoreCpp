@@ -1,28 +1,56 @@
 name: Documentation
 
 on: 
-  workflow_call: 
+  workflow_call:
+    inputs:
+      publish_doc:
+        description: "Whether to publish to GitHub Pages the documentation or not"
+        type: boolean
+        required: false
+        default: false
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-    generate_and_publish:
-        runs-on: ubuntu-latest
+  generate_doc:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Get Latest Tag
-              uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
-              id: latestTag
+      - name: Install Dependencies
+        run: sudo apt install -y doxygen graphviz
 
-            - name: Install Dependencies
-              run: sudo apt install -y doxygen graphviz
+      - name: Generate Documentation
+        run: make doc
+      
+      - name: Extract Project Name
+        id: extract_project_name
+        run: echo "::set-output name=name::$(echo $GITHUB_REPOSITORY | cut -d / -f 2)"
 
-            - name: Generate Documentation
-              run: make doc
 
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v3
-              with:
-                github_token: ${{ secrets.GITHUB_TOKEN }}
-                publish_dir: ./target/doc/irioCore/html
-                full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
+      - name: Upload doc artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.extract_project_name.outputs.name }}_${{ github.sha }}
+          path: ./target/doc/${{ steps.extract_project_name.outputs.name }}/html
+    
+  publish_doc:
+    runs-on: ubuntu-latest
+    needs: generate_doc
+    if: github.event_name == 'workflow_call' && inputs.publish_doc == true
+    steps:
+      - name: Get Latest Tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
+        id: latestTag
+      
+      - name: Publish
+        if: ${{ github.event_name == 'workflow_call' && github.event.inputs.publish == true }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/doc/irioCore/html
+          full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
