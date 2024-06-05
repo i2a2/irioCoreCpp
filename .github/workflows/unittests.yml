@@ -1,4 +1,4 @@
-name: Compile and Test
+name: Run UnitTests
 
 on:
   workflow_dispatch:
@@ -11,10 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:latest
-    steps:
-    - uses: actions/checkout@v4  
-    - name: Compile Code
-      run: make compile -j SkipVerify=1
-
+    steps:    
+    - uses: ./.github/workflows/compile.yml  
     - name: Run UnitTests
       run: make test SkipVerify=1
