@@ -34,8 +34,8 @@ jobs:
       - name: Upload doc artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.extract_project_name.outputs.name }}_${{ github.sha }}
-          path: ./target/doc/${{ steps.extract_project_name.outputs.name }}/html
+          name: ${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
+          path: ./target/doc/${{ steps.extract_project_name.outputs.PROJECT_NAME }}/html
     
   publish_doc:
     runs-on: ubuntu-latest
