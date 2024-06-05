@@ -24,6 +24,8 @@ endif
 
 all: compile
 
+help: info
+
 info:
 	@printf "Available recipes:\n"
 	@printf "<name recipe>: [<recipes executed as prerequisites>]\n"
