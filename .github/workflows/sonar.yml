@@ -1,9 +1,11 @@
-name: SonarCloud
+name: Sonar
+
 on:
   workflow_call: 
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
+
 jobs:
   build:
     name: Build and analyze
@@ -16,6 +18,7 @@ jobs:
       COVERAGE_BASE_DIR: $BASE_DIR/main/c++
       INPUT_LCOV_FILE: $BASE_DIR/coverage/coverage.info
       OUTPUT_COBERTURA_XML: $BASE_DIR/coverage/coverage.xml
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,15 +26,19 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install sonar-scanner and build-wrapper
         uses: SonarSource/sonarcloud-github-c-cpp@v2
+
       - name: Run build-wrapper
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make clean coverage -j
+
       - name: lcov to cobertura
         run: |
           lcov_cobertura ${{ env.INPUT_LCOV_FILE }} -b ${{ env.COVERAGE_BASE_DIR }} -o ${{ env.OUTPUT_COBERTURA_XML }}
           sed -i 's|<source>[^<]*</source>|<source>.</source>|g' ${{ env.OUTPUT_COBERTURA_XML }}
+
       - name: Extract version
         run: echo "PROJECT_VERSION=$(grep -oP '^export VERSION=\K.*' Makefile)" >> $GITHUB_ENV
+
       - name: Prev sonar-scanner if it is tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -40,10 +47,10 @@ jobs:
         run: |
           echo "TARGET_BRANCH=-Dsonar.branch.target=\"main\"" >> $GITHUB_ENV
           sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.projectVersion=$PROJECT_VERSION -Dsonar.branch.name="${{ github.ref_name }}" $TARGET_BRANCH
+      
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" -Dsonar.qualitygate.wait=true -Dsonar.projectVersion=$PROJECT_VERSION -Dsonar.branch.name="${{ github.ref_name }}" $TARGET_BRANCH 
-
