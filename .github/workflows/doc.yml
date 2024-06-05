@@ -1,28 +1,32 @@
-name: Documentation
+name: doc
 
 on: 
-  workflow_call: 
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-    generate_and_publish:
-        runs-on: ubuntu-latest
+  generate_doc:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Get Latest Tag
-              uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
-              id: latestTag
+      - name: Install Dependencies
+        run: sudo apt install -y doxygen graphviz
 
-            - name: Install Dependencies
-              run: sudo apt install -y doxygen graphviz
+      - name: Generate Documentation
+        run: make doc
+      
+      - name: Extract Project Name
+        id: extract_project_name
+        run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
 
-            - name: Generate Documentation
-              run: make doc
-
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v3
-              with:
-                github_token: ${{ secrets.GITHUB_TOKEN }}
-                publish_dir: ./target/doc/irioCore/html
-                full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
+      - name: Upload doc artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
+          path: ./target/doc/${{ steps.extract_project_name.outputs.PROJECT_NAME }}/html

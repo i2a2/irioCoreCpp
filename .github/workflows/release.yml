@@ -1,0 +1,94 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  PACKAGE_DIR: "target/packages"
+
+jobs:
+  checkVersion:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4 
+    - name: Check Makefile version matches tag
+      run: |
+        # Extract version from Makefile
+        MAKEFILE_VERSION=$(grep -oP 'VERSION=\K.*' Makefile)
+        # Extract version from GitHub tag, removing the 'v' prefix
+        GITHUB_VERSION=${GITHUB_REF/refs\/tags\/v/}
+        # Compare versions
+        if [ "$MAKEFILE_VERSION" != "$GITHUB_VERSION" ]; then
+          echo "Error: Version in Makefile ($MAKEFILE_VERSION) does not match GitHub tag ($GITHUB_VERSION)"
+          exit 1
+        fi
+  
+  verify:
+    needs: checkVersion
+    uses: ./.github/workflows/verify.yml
+  
+  sonar:
+    needs: verify
+    uses: ./.github/workflows/sonar.yml
+    secrets: inherit
+  
+  package:
+    needs: verify
+    uses: ./.github/workflows/package.yml
+
+  doc:
+    needs: verify
+    uses: ./.github/workflows/doc.yml
+
+  publishDocumentation:
+    needs: [package, sonar, doc]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract Project Name
+        id: extract_project_name
+        run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
+        
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
+          path: ./doc
+      
+      - name: Get Latest Tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
+        id: latestTag
+      
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc
+          full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
+
+  generateRelease:
+    needs: publishDocumentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract Project Name
+        id: extract_project_name
+        run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
+
+      - name: Download rpm artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: rpm-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}
+          path: ./${{ env.PACKAGE_DIR }}
+      
+      - name: Download deb artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: deb-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}
+          path: ./${{ env.PACKAGE_DIR }}
+  
+      - name: Generate release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.PACKAGE_DIR }}/*.tar.gz
