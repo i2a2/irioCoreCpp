@@ -1,6 +1,9 @@
 name: Test publish doc
 
 on:
+  push:
+    tags:
+      - "v*.*.*"
   workflow_dispatch:
 
 
