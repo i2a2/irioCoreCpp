@@ -1,37 +1,14 @@
-name: Generate Release
+name: Generate Packages
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+    workflow_call:
+    workflow_dispatch:
 
 env:
-  PACKAGE_DIR: "target/packages/x86_64"
+  PACKAGE_DIR: "target/packages"
 
-jobs:
-  CheckVersion:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4 
-    - name: Check Makefile version matches tag
-      run: |
-        # Extract version from Makefile
-        MAKEFILE_VERSION=$(grep -oP 'VERSION=\K.*' Makefile)
-        # Extract version from GitHub tag, removing the 'v' prefix
-        GITHUB_VERSION=${GITHUB_REF/refs\/tags\/v/}
-        # Compare versions
-        if [ "$MAKEFILE_VERSION" != "$GITHUB_VERSION" ]; then
-          echo "Error: Version in Makefile ($MAKEFILE_VERSION) does not match GitHub tag ($GITHUB_VERSION)"
-          exit 1
-        fi
-
-  Sonar:
-    needs: CheckVersion
-    uses: ./.github/workflows/sonar.yml
-    secrets: inherit
-  
+jobs:  
   package:
-    needs: Sonar
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:latest
@@ -46,18 +23,27 @@ jobs:
       run: |
         alien *.rpm
     
+    - name: Extract Project Name
+      id: extract_project_name
+      run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
+
     - name: Group packages
       working-directory: ${{ env.PACKAGE_DIR }}
       run: |
-        tar -czvf rpm-irioCore-${{ github.ref_name}}.tar.gz *.rpm
-        tar -czvf deb-irioCore-${{ github.ref_name}}.tar.gz *.deb
+        tar -czvf rpm-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}.tar.gz *.rpm
+        tar -czvf deb-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}.tar.gz *.deb
 
-    - name: Generate release
-      uses: softprops/action-gh-release@v2
+    - name: Upload rpm artifacts
+      uses: actions/upload-artifact@v4
       with:
-        files: ${{ env.PACKAGE_DIR }}/*.tar.gz
-
-  Documentation:
-    uses: ./.github/workflows/doc.yml
-    secrets: inherit
-    needs: package
+        name: rpm-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}
+        path: ./${{ env.PACKAGE_DIR }}/rpm-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}.tar.gz
+        if-no-files-found: error
+    
+    - name: Upload deb artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: deb-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}
+        path: ./${{ env.PACKAGE_DIR }}/deb-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}.tar.gz
+        if-no-files-found: error
+    
