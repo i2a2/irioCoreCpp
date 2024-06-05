@@ -42,6 +42,7 @@ jobs:
     needs: generate_doc
     if: inputs.publish_doc == true
     steps:
+      - uses: actions/checkout@v4
       - name: Extract Project Name
         id: extract_project_name
         run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
@@ -49,7 +50,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: ${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
-          path: doc
+          path: ./doc
       
       - name: Get Latest Tag
         uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
@@ -59,5 +60,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: doc
+          publish_dir: ./doc
           full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
