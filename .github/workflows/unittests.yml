@@ -24,6 +24,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: unittestsResults
+          name: unittestsResults_${{ github.sha }}
           path: ./target/test/test-results/*.xml
 
