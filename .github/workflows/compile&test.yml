@@ -1,17 +1,11 @@
-name: Compile and Test Stages
+name: Compile and Test
 
 on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
-    paths:
-      - '**.cpp'
-      - '**.h'
   pull_request:
     branches: [ "main" ]
-    paths:
-      - '**.cpp'
-      - '**.h'
 jobs:
   compile_and_test:
     runs-on: ubuntu-latest
