@@ -13,6 +13,17 @@ jobs:
       image: ghcr.io/i2a2/iriocore-docker:latest
       
     steps:
-    - uses: actions/checkout@v4      
-    - name: Run UnitTests
-      run: make test SkipVerify=1 -j
+      - uses: actions/checkout@v4  
+      - name: Compile Code
+        run: make compile -j SkipVerify=1
+  
+      - name: Run UnitTests
+        run: make test SkipVerify=1
+
+      - name: Upload log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unittestsResults
+          path: ./target/test/test-results/*.xml
+
