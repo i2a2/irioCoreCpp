@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:latest
-    steps:    
+    steps:
+    - uses: actions/checkout@v4      
     - uses: ./.github/workflows/compile.yml  
     - name: Run UnitTests
       run: make test SkipVerify=1
