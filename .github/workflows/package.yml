@@ -14,7 +14,9 @@ jobs:
       image: ghcr.io/i2a2/iriocore-docker:latest
     steps:
     - name: Install Dependencies
-      run: sudo apt install -y doxygen graphviz
+      run: |
+        /usr/bin/crb enable
+        dnf install -y doxygen graphviz --enablerepo=appstream --enablerepo=crb
       
     - uses: actions/checkout@v4  
     - name: Generate RPM packages
