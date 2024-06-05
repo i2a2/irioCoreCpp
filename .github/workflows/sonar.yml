@@ -1,4 +1,4 @@
-name: Sonar
+name: sonar
 
 on:
   workflow_call: 
