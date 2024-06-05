@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4      
     - name: Run UnitTests
-      run: make test SkipVerify=1
+      run: make test SkipVerify=1 -j
