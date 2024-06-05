@@ -1,4 +1,4 @@
-name: Documentation
+name: Generate doc
 
 on: 
   workflow_call:
@@ -29,8 +29,7 @@ jobs:
       
       - name: Extract Project Name
         id: extract_project_name
-        run: echo "::set-output name=name::$(echo $GITHUB_REPOSITORY | cut -d / -f 2)"
-
+        run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
 
       - name: Upload doc artifact
         uses: actions/upload-artifact@v4
