@@ -45,15 +45,16 @@ jobs:
       - name: Extract Project Name
         id: extract_project_name
         run: echo "PROJECT_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)" >> $GITHUB_OUTPUT
-
-      - name: Get Latest Tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
-        id: latestTag
       
       - uses: actions/download-artifact@v4
         with:
           name: ${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
           path: doc
+      
+      - name: Get Latest Tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1.4.0
+        id: latestTag
+      
       - name: Publish
         uses: peaceiris/actions-gh-pages@v3
         with:
