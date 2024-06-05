@@ -15,6 +15,7 @@ jobs:
     steps:
     - name: Install Dependencies
       run: |
+        dnf install -y epel-release --enablerepo=extras
         /usr/bin/crb enable
         dnf install -y doxygen graphviz --enablerepo=appstream --enablerepo=crb
       
