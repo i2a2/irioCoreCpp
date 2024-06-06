@@ -28,6 +28,9 @@ jobs:
   verify:
     uses: ./.github/workflows/verify.yml
   
+  doc:
+    uses: ./.github/workflows/doc.yml
+
   compile:
     uses: ./.github/workflows/compile.yml
   
@@ -41,14 +44,10 @@ jobs:
     secrets: inherit
   
   package:
-    needs: [checkVersion, verify, unittests]
+    needs: compile
     uses: ./.github/workflows/package.yml
 
-  doc:
-    needs: [checkVersion, verify, unittests]
-    uses: ./.github/workflows/doc.yml
-
-  publishDocumentation:
+  publishDoc:
     needs: [package, sonar, doc]
     runs-on: ubuntu-latest
     steps:
@@ -74,7 +73,7 @@ jobs:
           full_commit_message: Generate documentation for ${{ steps.latestTag.outputs.tag }}
 
   generateRelease:
-    needs: publishDocumentation
+    needs: publishDoc
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
