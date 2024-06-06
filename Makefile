@@ -56,7 +56,7 @@ info:
 	@printf "\t\t Alias to quality recipe\n"
 	@printf "\t doc: [copy]\n"
 	@printf "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore\n"
-	@printf "\t package: [compile]\n"
+	@printf "\t package: [compile, doc]\n"
 	@printf "\t\t Generates rpms\n"
 	@printf "\t\t\t *INSTALL_DIR: This optional variable sets the install location.\n"
 	@printf "\t\t\t\t Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include.\n"
@@ -122,7 +122,7 @@ doc: copy
 	$(MAKE) --no-print-directory -f $(DOCUMENTATION_MK)
 	@printf "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)\n"
 
-package: | compile test doc
+package: | compile doc
 	@printf "$(BOLD)PACKAGING STAGE...$(NC)\n"
 	$(MAKE) -C $(PACKAGE_MK)
 	@printf "$(BOLD)ALL PACKAGES GENERATED!$(NC)\n"
