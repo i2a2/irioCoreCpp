@@ -22,7 +22,7 @@ endif
 
 .NOTPARALLEL: copy clean test package verify
 
-all: compile
+all: help
 
 help: info
 
@@ -31,6 +31,8 @@ info:
 	@printf "<name recipe>: [<recipes executed as prerequisites>]\n"
 	@printf "\t <description>\n"
 	@printf "\t\t *<defines>: <If defined, how they modify the behaviour of the recipe>\n\n"
+	@printf "\t help:\n"
+	@printf "\t\t Displays this message with the available recipes and their parameters\n"
 	@printf "\t copy:\n"
 	@printf "\t\t Copies $(SOURCE_DIR) into $(COPY_DIR). If it does not exist, the folder will be created\n"
 	@printf "\t clean:\n"
