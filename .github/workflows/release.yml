@@ -26,20 +26,26 @@ jobs:
         fi
   
   verify:
-    needs: checkVersion
     uses: ./.github/workflows/verify.yml
   
+  compile:
+    uses: ./.github/workflows/compile.yml
+  
+  unittests:
+    needs: compile
+    uses: ./.github/workflows/unittests.yml
+
   sonar:
-    needs: verify
+    needs: [checkVersion, verify, unittests]
     uses: ./.github/workflows/sonar.yml
     secrets: inherit
   
   package:
-    needs: verify
+    needs: [checkVersion, verify, unittests]
     uses: ./.github/workflows/package.yml
 
   doc:
-    needs: verify
+    needs: [checkVersion, verify, unittests]
     uses: ./.github/workflows/doc.yml
 
   publishDocumentation:
