@@ -36,7 +36,7 @@ jobs:
   
   unittests:
     needs: compile
-    uses: ./.github/workflows/unittests.yml
+    uses: ./.github/workflows/test.yml
 
   sonar:
     needs: [checkVersion, verify, unittests]
