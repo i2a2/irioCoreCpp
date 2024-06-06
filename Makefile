@@ -51,7 +51,7 @@ info:
 	@printf "\t\t If no variable defined. Only unittests are run.\n"
 	@printf "\t\t\t *SkipTests: If defined, the test stage is skipped\n"
 	@printf "\t\t\t *AddTestsFunctionalIrioCore: Adds functional irioCore tests\n"
-	@printf "\t\t\t *AddTestsFunctionalIrioCoreCpp: Adds functional irioCore tests\n"
+	@printf "\t\t\t *AddTestsFunctionalIrioCoreCpp: Adds functional irioCoreCpp tests\n"
 	@printf "\t quality: [debug, test]\n"
 	@printf "\t\t Calculates the project's coverage\n"
 	@printf "\t coverage: [quality]\n"
