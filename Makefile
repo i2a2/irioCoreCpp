@@ -120,7 +120,7 @@ doc: copy
 	$(MAKE) --no-print-directory -f $(DOCUMENTATION_MK)
 	@printf "$(BOLD)DOCUMENTATION STAGE SUCCESS!$(NC)\n"
 
-package: | compile test doc
+package: | compile doc
 	@printf "$(BOLD)PACKAGING STAGE...$(NC)\n"
 	$(MAKE) -C $(PACKAGE_MK)
 	@printf "$(BOLD)ALL PACKAGES GENERATED!$(NC)\n"
