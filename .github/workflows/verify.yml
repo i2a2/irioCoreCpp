@@ -1,5 +1,6 @@
-name: Verify Stage
+name: verify
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     branches:

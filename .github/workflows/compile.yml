@@ -1,19 +1,14 @@
-name: Compile and Test Stages
+name: compile
 
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     branches: [ "main" ]
-    paths:
-      - '**.cpp'
-      - '**.h'
   pull_request:
     branches: [ "main" ]
-    paths:
-      - '**.cpp'
-      - '**.h'
 jobs:
-  compile_and_test:
+  compile:
     runs-on: ubuntu-latest
     container: 
       image: ghcr.io/i2a2/iriocore-docker:latest
@@ -21,6 +16,3 @@ jobs:
     - uses: actions/checkout@v4  
     - name: Compile Code
       run: make compile -j SkipVerify=1
-
-    - name: Run UnitTests
-      run: make test SkipVerify=1

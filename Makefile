@@ -22,13 +22,17 @@ endif
 
 .NOTPARALLEL: copy clean test package verify
 
-all: compile
+all: help
+
+help: info
 
 info:
 	@printf "Available recipes:\n"
 	@printf "<name recipe>: [<recipes executed as prerequisites>]\n"
 	@printf "\t <description>\n"
 	@printf "\t\t *<defines>: <If defined, how they modify the behaviour of the recipe>\n\n"
+	@printf "\t help:\n"
+	@printf "\t\t Displays this message with the available recipes and their parameters\n"
 	@printf "\t copy:\n"
 	@printf "\t\t Copies $(SOURCE_DIR) into $(COPY_DIR). If it does not exist, the folder will be created\n"
 	@printf "\t clean:\n"
@@ -47,14 +51,14 @@ info:
 	@printf "\t\t If no variable defined. Only unittests are run.\n"
 	@printf "\t\t\t *SkipTests: If defined, the test stage is skipped\n"
 	@printf "\t\t\t *AddTestsFunctionalIrioCore: Adds functional irioCore tests\n"
-	@printf "\t\t\t *AddTestsFunctionalIrioCoreCpp: Adds functional irioCore tests\n"
+	@printf "\t\t\t *AddTestsFunctionalIrioCoreCpp: Adds functional irioCoreCpp tests\n"
 	@printf "\t quality: [debug, test]\n"
 	@printf "\t\t Calculates the project's coverage\n"
 	@printf "\t coverage: [quality]\n"
 	@printf "\t\t Alias to quality recipe\n"
 	@printf "\t doc: [copy]\n"
 	@printf "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore\n"
-	@printf "\t package: [compile]\n"
+	@printf "\t package: [compile, doc]\n"
 	@printf "\t\t Generates rpms\n"
 	@printf "\t\t\t *INSTALL_DIR: This optional variable sets the install location.\n"
 	@printf "\t\t\t\t Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include.\n"
