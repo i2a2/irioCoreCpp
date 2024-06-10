@@ -46,7 +46,7 @@ else
 	INCLUDE_DIRS+=$(TARGET)/main/c++/NiFpga_CD
 	SOURCES_DIR+=$(TARGET)/main/c++/NiFpga_CD
 	HEADERSFILES+=$(wildcard $(TARGET)/main/c++/NiFpga_CD/*.h)
-        LIBRARIES+= nisyscfg
+    LIBRARIES+= nisyscfg
 	LIBRARY_DIRS+= /usr/lib/x86_64-linux-gnu
 endif
 
