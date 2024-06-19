@@ -56,7 +56,7 @@ namespace SG {
     [[gnu::warn_unused_result]] int setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref);
     [[gnu::warn_unused_result]] int setSignalType(irioDrv_t* drv, int channel, int signal_type);
     [[gnu::warn_unused_result]] int setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t freq);
-    void     setSigAmp(irioDrv_t* drv, int channel, int32_t amp);
+    [[gnu::warn_unused_result]] int setSigAmp(irioDrv_t* drv, int channel, int32_t amp);
     void     setSigPhase(irioDrv_t* drv, int channel, int32_t phase);
     uint32_t getFref(irioDrv_t* drv, int channel, int* error);
     double   getCVDAC(irioDrv_t* drv, int* error);

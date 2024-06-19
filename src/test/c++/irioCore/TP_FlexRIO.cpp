@@ -1020,7 +1020,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	SG::setSigAmp(&drv, channel, sig_amp);
+	st = SG::setSigAmp(&drv, channel, sig_amp);
+	EXPECT_EQ(st, IRIO_success); 
 	
 	int error = 0;
 	double CVDAC = SG::getCVDAC(&drv, &error);
@@ -1134,7 +1135,8 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	st = SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	EXPECT_EQ(st, IRIO_success); 
 
-	SG::setSigAmp(&drv, sg_channel, sg_amp);
+	st = SG::setSigAmp(&drv, sg_channel, sg_amp);
+	EXPECT_EQ(st, IRIO_success); 
 
 	st = SG::setSignalType(&drv, sg_channel, 1); // Sine function
 	EXPECT_EQ(st, IRIO_success); 
@@ -1237,7 +1239,8 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	st = SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	EXPECT_EQ(st, IRIO_success); 
 
-	SG::setSigAmp(&drv, sg_channel, sg_amp);
+	st = SG::setSigAmp(&drv, sg_channel, sg_amp);
+	EXPECT_EQ(st, IRIO_success); 
 
 	st = SG::setSignalType(&drv, sg_channel, 1); // Sine function
 	EXPECT_EQ(st, IRIO_success); 
