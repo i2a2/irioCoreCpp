@@ -43,7 +43,7 @@ typedef struct {
 void getResources(irioDrv_t* drv, irioResources_t* res);
 
 namespace DMAHost {
-    void cleanDMA(irioDrv_t* drv);
+    [[gnu::warn_unused_result]] int cleanDMA(irioDrv_t* drv);
     void setupDMA(irioDrv_t* drv);
     int  setSamplingRate(irioDrv_t* drv, int32_t sampling_rate);
     void setEnable(irioDrv_t* drv, int channel, int enable);

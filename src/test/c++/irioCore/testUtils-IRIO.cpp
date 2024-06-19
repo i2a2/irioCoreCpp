@@ -215,7 +215,7 @@ int TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
 	return st;
 }
 
-void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
+int TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -224,7 +224,7 @@ void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
 	int st = irio_cleanDMAsTtoHost(drv, &status);
 	if (verbose_test) cout << "[TEST] DMAs cleaned " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
 void TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {

@@ -517,7 +517,8 @@ TEST(FlexRIODAQ5761, CleanDMA) {
 	EXPECT_EQ(st, IRIO_success);
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::cleanDMA(&drv);
+	st = DMAHost::cleanDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
@@ -806,7 +807,8 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 
 	DMAHost::setEnable(&drv, 0, 0);
 	DMAHost::setDAQStartStop(&drv, 0);
-	DMAHost::cleanDMA(&drv);
+	st = DMAHost::cleanDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -873,7 +875,8 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 
 	DMAHost::setEnable(&drv, 0, 0);
 	DMAHost::setDAQStartStop(&drv, 0);
-	DMAHost::cleanDMA(&drv);
+	st = DMAHost::cleanDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -1094,7 +1097,8 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 
 	DMAHost::setEnable(&drv, 0, 0);
 	DMAHost::setDAQStartStop(&drv, 0);
-	DMAHost::cleanDMA(&drv);
+	st = DMAHost::cleanDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -1168,7 +1172,8 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 
 	DMAHost::setEnable(&drv, 0, 0);
 	DMAHost::setDAQStartStop(&drv, 0);
-	DMAHost::cleanDMA(&drv);
+	st = DMAHost::cleanDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
