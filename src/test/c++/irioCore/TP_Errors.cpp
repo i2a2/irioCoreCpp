@@ -57,7 +57,9 @@ TEST(IRIOError, StartAlredyStarted) {
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
     if (verbose_test) cout << "[TEST] Starting FPGA for the first time (should succeed)" << endl;
-    startFPGA(&drv);
+    
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
     if (verbose_test) cout << "[TEST] Starting FPGA for the second time (should fail)" << endl;
     int startStatus = irio_setFPGAStart(&drv,1,&status);

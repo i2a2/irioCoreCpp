@@ -224,7 +224,9 @@ TEST(FlexRIOnoModule, GetSetAuxAIO32) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	// Initialize random engine
 	int min = 0, max = 100;
@@ -272,7 +274,9 @@ TEST(FlexRIOnoModule, GetSetAuxAIO64) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	// Initialize random engine
 	int min = 0, max = 100;
@@ -320,7 +324,9 @@ TEST(FlexRIOnoModule, GetSetAuxDIO) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	for (int i = 0; i < 6; ++i) {
 		for (int v: {0, 1}) {
@@ -392,7 +398,9 @@ TEST(FlexRIODAQ5761, GetSetSGSignalType) {
 
     int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	SG::setSignalType(&drv, 0, 0);
@@ -415,7 +423,9 @@ TEST(FlexRIODAQ5761, GetSetEnableAO0) {
 
     int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Setting EnableAO0 to 1" << endl;
 	st = irio_setAOEnable(&drv, 0, 1, &status);
@@ -448,7 +458,9 @@ TEST(FlexRIODAQ5761, GetSetAO0) {
 
     int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	// Enable AO0
@@ -498,7 +510,9 @@ TEST(FlexRIODAQ5761, CleanDMA) {
 
     int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	DMAHost::cleanDMA(&drv);
 
@@ -512,7 +526,9 @@ TEST(FlexRIODAQ5761, SetupDMAToHost) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	DMAHost::setupDMA(&drv);
 
@@ -527,7 +543,9 @@ TEST(FlexRIODAQ5761, CloseDMA) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	DMAHost::setupDMA(&drv);
 
@@ -551,7 +569,9 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostSamplingRate) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	int fref = DMAHost::setSamplingRate(&drv, sampling_rate);
@@ -577,7 +597,9 @@ TEST(FlexRIODAQ5761, GetSetAICoupling) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
     TIRIOCouplingMode coupling = IRIO_coupling_AC;
@@ -609,7 +631,9 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostEnable) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	DMAHost::setEnable(&drv, 0, 1);
@@ -632,7 +656,9 @@ TEST(FlexRIODAQ5761, GetSetDAQStartStop) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	DMAHost::setDAQStartStop(&drv, 1);
@@ -655,7 +681,9 @@ TEST(FlexRIODAQ5761, GetDMAToHostParameters) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	DMAHost::setEnable(&drv, 0, 1);
@@ -687,7 +715,9 @@ TEST(FlexRIODAQ5761, GetDMAToHostOverflow) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	DMAHost::setEnable(&drv, 0, 1);
@@ -717,7 +747,9 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
@@ -780,7 +812,9 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
@@ -841,7 +875,9 @@ TEST(FlexRIODAQ5761, GetSetSGUpdateRate) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	uint32_t fref = SG::getFref(&drv, channel);
@@ -870,7 +906,9 @@ TEST(FlexRIODAQ5761, GetSetSGSignalFreq) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	SG::setFsig(&drv, channel, update_rate, sig_freq);
@@ -897,7 +935,9 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	SG::setSigAmp(&drv, channel, sig_amp);
@@ -925,7 +965,9 @@ TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	SG::setSigPhase(&drv, channel, phase);
@@ -949,7 +991,9 @@ TEST(FlexRIODAQ5761, GetSGCVADC) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 
 	if (verbose_test) cout << "[TEST] Reading SGCVADC" << endl;
@@ -982,7 +1026,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
@@ -1053,7 +1099,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 
 	int st = initDriver(IRIOProfile::Mod5761DAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	setDebugMode(&drv, 0);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
@@ -1128,7 +1176,9 @@ TEST(FlexRIODIO6581, StartFPGA) {
 
     int st = initDriver(IRIOProfile::Mod6581DIO, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	TStatus status;
 	irio_initStatus(&status);
@@ -1150,7 +1200,9 @@ TEST(FlexRIODIO6581, GetSetAuxDIO6581) {
 
     int st = initDriver(IRIOProfile::Mod6581DIO, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	for (int32_t b: {0, 1}) {
 		if (verbose_test) cout << "[TEST] Writing " << b << " to AuxDO" << auxN << endl; 
@@ -1178,7 +1230,9 @@ TEST(FlexRIODIO6581, GetSetDIO) {
 
     int st = initDriver(IRIOProfile::Mod6581DIO, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Writing true to AuxDO6" << endl; 
 	st = irio_setAuxDO(&drv, 6, 1, &status);	
@@ -1255,7 +1309,9 @@ TEST(FlexRIOIMAQ1483, StartFPGA) {
 
     int st = initDriver(IRIOProfile::Mod1483IMAQ, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	TStatus status;
 	irio_initStatus(&status);
@@ -1326,7 +1382,9 @@ TEST(FlexRIOIMAQ1483, GetImages) {
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 	irio_resetStatus(&status);
 
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) {
 		cout << "[TEST] Reading " << totalImages << " images from DMA" << dmaN << ". Images are " << imageWidth << "x" << imageHeight << " pixels and have " << drv.DMATtoHOSTSampleSize[dmaN] << " bits per pixel." << endl;
@@ -1496,7 +1554,8 @@ TEST(FlexRIOUART1483, SetUARTBaudRate) {
 	irio_resetStatus(&status);
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 
-	startFPGA(&drv);
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " sps" << endl;
 	st = irio_setUARTBaudRate(&drv, targetBR, &status);
@@ -1539,7 +1598,9 @@ TEST(FlexRIOUART1483, SendCLUART) {
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 
 	DMAHost::setupDMA(&drv);
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " baud" << endl;
 	st = irio_setUARTBaudRate(&drv, targetBR, &status);
@@ -1584,7 +1645,9 @@ TEST(FlexRIOUART1483, GetCLUART) {
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 
 	DMAHost::setupDMA(&drv);
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Setting UARTBaudRate to " << baudRateConversion[targetBR] << " baud" << endl;
 	st = irio_setUARTBaudRate(&drv, targetBR, &status);

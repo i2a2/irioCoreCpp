@@ -40,7 +40,9 @@ TEST(Common, StartFPGA) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-    startFPGA(&drv);
+    
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
     int32_t start = -1;
     if (verbose_test) cout << "[TEST] Getting FPGAStart" << endl;
@@ -61,7 +63,9 @@ TEST(Common, GetDevTemp) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Reading temperature from device" << endl;
 	int32_t reading = -1;
@@ -81,7 +85,9 @@ TEST(Common, GetDevQualityStatus) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-    startFPGA(&drv);
+    
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
     int quality = -1;
     if (verbose_test) cout << "[TEST] Reading DevQualityStatus" << endl;
@@ -101,7 +107,9 @@ TEST(Common, GetIRIOVersion) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-    startFPGA(&drv);
+    
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
     std::array<char, 7> version;
     st = irio_getVersion(version.data(), &status);
@@ -119,7 +127,9 @@ TEST(Common, GetFPGAVIVersion) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-    startFPGA(&drv);
+    
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
     const int VIVersionLength = 4;
     std::array<char, VIVersionLength> version;
@@ -140,7 +150,9 @@ TEST(Common, GetDevProfile) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-    startFPGA(&drv);
+    
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Reading device profile" << endl;
 	int32_t reading = -1;
@@ -161,7 +173,9 @@ TEST(Common, GetSetDebugMode) {
 
     int st = initDriver(IRIOProfile::NoModule, &drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error initializing driver";
-	startFPGA(&drv);
+	
+	st = startFPGA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	// Setting debug mode
 	setDebugMode(&drv, 0);

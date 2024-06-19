@@ -191,7 +191,7 @@ void TestUtilsIRIO::getResources(irioDrv_t* drv, irioResources_t* res) {
 	res->SG = getResourceCount(&irio_getNumSG, drv);
 }
 
-void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
+int TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
     int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Starting FPGA" << endl;
 	TStatus status;
@@ -199,7 +199,8 @@ void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
 	int startStatus = irio_setFPGAStart(drv,1,&status);
 	TestUtilsIRIO::logErrors(startStatus, status);
     if (verbose_test) cout << "[TEST] FPGA started " << (startStatus ? "unsuccessfully" : "successfully") << endl;
-	EXPECT_EQ(startStatus, IRIO_success);
+    if (startStatus != IRIO_success) cerr << "[TEST] FPGA start failed" << endl;
+    return startStatus;
 }
 
 void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
