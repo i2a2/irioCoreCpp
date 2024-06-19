@@ -679,10 +679,12 @@ TEST(FlexRIODAQ5761, GetSetDAQStartStop) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	DMAHost::setDAQStartStop(&drv, 1);
+	st = DMAHost::setDAQStartStop(&drv, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	int reading = -1;
 	st = irio_getDAQStartStop(&drv, &reading, &status);
@@ -811,7 +813,9 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 1);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 1);
+	
+	st = DMAHost::setDAQStartStop(&drv, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	int positiveTest = 0, negativeTest = 0;
 	error = 0;
@@ -833,9 +837,13 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 0);
+	
+	st = DMAHost::setDAQStartStop(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
+
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -891,7 +899,9 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 1);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 1);
+	
+	st = DMAHost::setDAQStartStop(&drv, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	int positiveTest = 0, negativeTest = 0;
 	error = 0;
@@ -913,9 +923,13 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 0);
+	
+	st = DMAHost::setDAQStartStop(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
+
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -965,6 +979,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalFreq) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
@@ -995,6 +1010,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
@@ -1026,6 +1042,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
@@ -1042,6 +1059,7 @@ TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
+
 TEST(FlexRIODAQ5761, GetSGCVADC) {
 	irioDrv_t drv;
 	TStatus status;
@@ -1127,7 +1145,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 1);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 1);
+	
+	st = DMAHost::setDAQStartStop(&drv, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	error = 0;
 	std::vector<uint64_t> vec = DMAHost::readDMAData(&drv, 0, blocksToRead, BlockNWords, sampling_freq, &error);
@@ -1147,9 +1167,13 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 0);
+	
+	st = DMAHost::setDAQStartStop(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
+
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -1176,10 +1200,11 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
+
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
-	
 	st = setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 	EXPECT_EQ(st, IRIO_success);
 
@@ -1214,7 +1239,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 1);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 1);
+	
+	st = DMAHost::setDAQStartStop(&drv, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	error = 0;
 	std::vector<uint64_t> vec = DMAHost::readDMADataTimeout(&drv, 0, blocksToRead, BlockNWords, sampling_freq, &error);
@@ -1234,9 +1261,13 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	
 	st = DMAHost::setEnable(&drv, 0, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 0);
+	
+	st = DMAHost::setDAQStartStop(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
+
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
+
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
@@ -1480,7 +1511,9 @@ TEST(FlexRIOIMAQ1483, GetImages) {
 
 	st = DMAHost::setEnable(&drv, dmaN, 1);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setDAQStartStop(&drv, 1);
+	
+	st = DMAHost::setDAQStartStop(&drv, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	int imageCount = 0;
 	int readCount = -1;

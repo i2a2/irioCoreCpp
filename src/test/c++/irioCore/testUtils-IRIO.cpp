@@ -289,7 +289,7 @@ int TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
     return st;
 }
 
-void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
+int TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -298,7 +298,7 @@ void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
 	int st = irio_setDAQStartStop(drv, startstop, &status);
 	if (verbose_test) cout << "[TEST] DAQStartStop set " << (st ? "unsuccessfully" : "successfully") << endl;
     TestUtilsIRIO::logErrors(st, status);
-    EXPECT_EQ(st, IRIO_success);
+    return st;
 }
 
 std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq, int* error) {
