@@ -382,16 +382,15 @@ uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel, int* error) {
     return fref;
 }
 
-double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv) {
+double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv, int* error) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
     if (verbose_test) cout << "[TEST] Reading CVDAC of SG" << endl;
     double CVDAC = -1;
-	int st = irio_getSGCVDAC(drv, &CVDAC, &status);
-    logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	*error = irio_getSGCVDAC(drv, &CVDAC, &status);
+    logErrors(*error, status);
 	if (verbose_test) cout << "[TEST] Read CVDAC  = " << std::setprecision(6) << CVDAC << " 1/V" << endl;
 
     return CVDAC;

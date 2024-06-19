@@ -1018,7 +1018,10 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 	EXPECT_EQ(st, IRIO_success);
 
 	SG::setSigAmp(&drv, channel, sig_amp);
-	double CVDAC = SG::getCVDAC(&drv);
+	
+	int error = 0;
+	double CVDAC = SG::getCVDAC(&drv, &error);
+	EXPECT_EQ(error, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGAmp" << channel << " set = " << sig_amp << ", meaning " << std::setprecision(6) << sig_amp/CVDAC << " V" << endl;
 
 	int32_t read = -1;

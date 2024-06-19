@@ -59,7 +59,7 @@ namespace SG {
     void     setSigAmp(irioDrv_t* drv, int channel, int32_t amp);
     void     setSigPhase(irioDrv_t* drv, int channel, int32_t phase);
     uint32_t getFref(irioDrv_t* drv, int channel, int* error);
-    double   getCVDAC(irioDrv_t* drv);
+    double   getCVDAC(irioDrv_t* drv, int* error);
 }  // namespace SG 
 }  // namespace TestUtilsIRIO
 
