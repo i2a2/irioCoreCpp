@@ -178,7 +178,8 @@ TEST(Common, GetSetDebugMode) {
 	EXPECT_EQ(st, IRIO_success);
 
 	// Setting debug mode
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	// Reading debug mode 
 	int mode_read = -1;

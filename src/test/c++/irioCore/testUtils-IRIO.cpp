@@ -203,7 +203,7 @@ int TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
     return startStatus;
 }
 
-void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
+int TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
     int verbose_test = getVerboseEnv();
 	TStatus status;
 	irio_initStatus(&status);
@@ -212,7 +212,7 @@ void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
 	int st = irio_setDebugMode(drv, debug_mode, &status);
 	if (verbose_test) cout << "[TEST] Debug mode set " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
 void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {

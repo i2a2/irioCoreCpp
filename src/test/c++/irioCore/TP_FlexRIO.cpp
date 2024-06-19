@@ -401,7 +401,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalType) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	SG::setSignalType(&drv, 0, 0);
 
@@ -461,7 +462,8 @@ TEST(FlexRIODAQ5761, GetSetAO0) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	// Enable AO0
 	if (verbose_test) cout << "[TEST] Setting EnableAO0 to 1" << endl;
@@ -513,7 +515,8 @@ TEST(FlexRIODAQ5761, CleanDMA) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::cleanDMA(&drv);
 
 	st = closeDriver(&drv);
@@ -529,7 +532,8 @@ TEST(FlexRIODAQ5761, SetupDMAToHost) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setupDMA(&drv);
 
 	st = closeDriver(&drv);
@@ -546,7 +550,8 @@ TEST(FlexRIODAQ5761, CloseDMA) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setupDMA(&drv);
 
 	if (verbose_test) cout << "[TEST] Closing DMAsTtoHost" << endl;
@@ -572,7 +577,8 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostSamplingRate) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	int fref = DMAHost::setSamplingRate(&drv, sampling_rate);
 
@@ -600,7 +606,8 @@ TEST(FlexRIODAQ5761, GetSetAICoupling) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
     TIRIOCouplingMode coupling = IRIO_coupling_AC;
 	setAICoupling(&drv, coupling);
@@ -634,7 +641,8 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostEnable) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	DMAHost::setEnable(&drv, 0, 1);
 
@@ -659,7 +667,8 @@ TEST(FlexRIODAQ5761, GetSetDAQStartStop) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	DMAHost::setDAQStartStop(&drv, 1);
 
@@ -684,7 +693,8 @@ TEST(FlexRIODAQ5761, GetDMAToHostParameters) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	DMAHost::setEnable(&drv, 0, 1);
 
@@ -718,7 +728,8 @@ TEST(FlexRIODAQ5761, GetDMAToHostOverflow) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	DMAHost::setEnable(&drv, 0, 1);
 
@@ -750,7 +761,8 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 	// Enable AO0 and set to 2048 and configure SGSignalType0
@@ -815,7 +827,8 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 
@@ -878,7 +891,8 @@ TEST(FlexRIODAQ5761, GetSetSGUpdateRate) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	uint32_t fref = SG::getFref(&drv, channel);
 	SG::setUpdateRate(&drv, channel, update_rate, fref);
@@ -909,7 +923,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalFreq) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	SG::setFsig(&drv, channel, update_rate, sig_freq);
 
@@ -938,7 +953,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalAmp) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	SG::setSigAmp(&drv, channel, sig_amp);
 	double CVDAC = SG::getCVDAC(&drv);
@@ -968,7 +984,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	SG::setSigPhase(&drv, channel, phase);
 
@@ -994,7 +1011,8 @@ TEST(FlexRIODAQ5761, GetSGCVADC) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Reading SGCVADC" << endl;
 	double read = -1;
@@ -1029,7 +1047,8 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 
@@ -1102,7 +1121,8 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	setDebugMode(&drv, 0);
+	st = setDebugMode(&drv, 0);
+	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
 	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
 
