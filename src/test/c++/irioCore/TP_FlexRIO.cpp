@@ -535,7 +535,8 @@ TEST(FlexRIODAQ5761, SetupDMAToHost) {
 	EXPECT_EQ(st, IRIO_success);
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	st = closeDriver(&drv);
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
@@ -553,7 +554,8 @@ TEST(FlexRIODAQ5761, CloseDMA) {
 	EXPECT_EQ(st, IRIO_success);
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Closing DMAsTtoHost" << endl;
 	st = irio_closeDMAsTtoHost(&drv, &status);
@@ -785,7 +787,8 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	irio_resetStatus(&status);
 
 	// Setup DMA
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setSamplingRate(&drv, sampling_freq);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
@@ -853,7 +856,8 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	irio_resetStatus(&status);
 
 	// Setup DMA
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setSamplingRate(&drv, sampling_freq);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
@@ -1077,7 +1081,8 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	irio_resetStatus(&status);
 
 	// Setup DMA
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setSamplingRate(&drv, sampling_freq);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
@@ -1152,7 +1157,8 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	irio_resetStatus(&status);
 
 	// Setup DMA
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setSamplingRate(&drv, sampling_freq);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
@@ -1622,7 +1628,8 @@ TEST(FlexRIOUART1483, SendCLUART) {
 	irio_resetStatus(&status);
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
@@ -1669,7 +1676,8 @@ TEST(FlexRIOUART1483, GetCLUART) {
 	irio_resetStatus(&status);
 	if (verbose_test) cout << "[TEST] Configuration " << (st ? "unsuccessful" : "successful") << endl;
 
-	DMAHost::setupDMA(&drv);
+	st = DMAHost::setupDMA(&drv);
+	EXPECT_EQ(st, IRIO_success);
 	
 	st = startFPGA(&drv);
 	EXPECT_EQ(st, IRIO_success);
