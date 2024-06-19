@@ -654,7 +654,9 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostEnable) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	int reading = -1;
 	st = irio_getDMATtoHostEnable(&drv, 0, &reading, &status);
@@ -706,7 +708,9 @@ TEST(FlexRIODAQ5761, GetDMAToHostParameters) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	uint16_t BlockNWords = 0;
 	if (verbose_test) cout << "[TEST] Reading DMA to Host BlockNWords" << endl;
@@ -741,7 +745,9 @@ TEST(FlexRIODAQ5761, GetDMAToHostOverflow) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 
 	int32_t overflow = -1;
 	if (verbose_test) cout << "[TEST] Reading DMA to Host Overflow" << endl;
@@ -802,7 +808,9 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	int error = 0;
 	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
 	EXPECT_EQ(error, IRIO_success);
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 1);
 
 	int positiveTest = 0, negativeTest = 0;
@@ -820,7 +828,9 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	EXPECT_EQ(positiveTest, blocksToRead * BlockNWords);
 	EXPECT_EQ(negativeTest, 0);
 
-	DMAHost::setEnable(&drv, 0, 0);
+	
+	st = DMAHost::setEnable(&drv, 0, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 0);
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
@@ -876,7 +886,9 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	int error = 0;
 	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
 	EXPECT_EQ(error, IRIO_success);
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 1);
 
 	int positiveTest = 0, negativeTest = 0;
@@ -894,7 +906,9 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	EXPECT_EQ(positiveTest, blocksToRead * BlockNWords);
 	EXPECT_EQ(negativeTest, 0);
 
-	DMAHost::setEnable(&drv, 0, 0);
+	
+	st = DMAHost::setEnable(&drv, 0, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 0);
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
@@ -1106,7 +1120,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	int error = 0;
 	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
 	EXPECT_EQ(error, IRIO_success);
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 1);
 
 	std::vector<uint64_t> vec = DMAHost::readDMAData(&drv, 0, blocksToRead, BlockNWords, sampling_freq); 
@@ -1122,7 +1138,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	if (verbose_test) cout << "[TEST] Correlation coefficient to a sine: " << corrCoef << endl;
 	EXPECT_GE(corrCoef, corr_threshold);
 
-	DMAHost::setEnable(&drv, 0, 0);
+	
+	st = DMAHost::setEnable(&drv, 0, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 0);
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
@@ -1187,7 +1205,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	int error = 0;
 	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
 	EXPECT_EQ(error, IRIO_success);
-	DMAHost::setEnable(&drv, 0, 1);
+	
+	st = DMAHost::setEnable(&drv, 0, 1);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 1);
 
 	std::vector<uint64_t> vec = DMAHost::readDMADataTimeout(&drv, 0, blocksToRead, BlockNWords, sampling_freq); 
@@ -1203,7 +1223,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	if (verbose_test) cout << "[TEST] Correlation coefficient to a sine: " << corrCoef << endl;
 	EXPECT_GE(corrCoef, corr_threshold);
 
-	DMAHost::setEnable(&drv, 0, 0);
+	
+	st = DMAHost::setEnable(&drv, 0, 0);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 0);
 	st = DMAHost::cleanDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
@@ -1448,7 +1470,8 @@ TEST(FlexRIOIMAQ1483, GetImages) {
 		cout << "[TEST] Reading " << totalImages << " images from DMA" << dmaN << ". Images are " << imageWidth << "x" << imageHeight << " pixels and have " << drv.DMATtoHOSTSampleSize[dmaN] << " bits per pixel." << endl;
 	}
 
-	DMAHost::setEnable(&drv, dmaN, 1);
+	st = DMAHost::setEnable(&drv, dmaN, 1);
+	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 1);
 
 	int imageCount = 0;

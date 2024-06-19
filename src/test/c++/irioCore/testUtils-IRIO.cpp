@@ -277,7 +277,7 @@ int TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
     return st;
 }
 
-void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
+int TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -286,7 +286,7 @@ void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) 
 	int st = irio_setDMATtoHostEnable(drv, channel, enable, &status);
 	if (verbose_test) cout << "[TEST] DMA enable set up " << (st ? "unsuccessfully" : "successfully") << endl;
     TestUtilsIRIO::logErrors(st, status);
-    EXPECT_EQ(st, IRIO_success);
+    return st;
 }
 
 void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
