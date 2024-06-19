@@ -65,6 +65,9 @@ TEST(IRIOError, StartAlredyStarted) {
     int startStatus = irio_setFPGAStart(&drv,1,&status);
 	TestUtilsIRIO::logErrors(startStatus, status);
 	EXPECT_NE(startStatus, IRIO_success);
+
+    st = closeDriver(&drv);
+    ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
 // irioError.c tests
 TEST(IRIOError, GetErrorString) {
