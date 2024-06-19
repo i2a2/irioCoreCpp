@@ -409,7 +409,7 @@ int TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t update
 	return st;
 }
 
-void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_type) {
+int TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_type) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -417,9 +417,9 @@ void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_ty
 	if (verbose_test) cout << "[TEST] Setting SGSignalType" << channel << " to " << signal_type << endl;
 	int st = irio_setSGSignalType(drv, channel, signal_type, &status);
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGSignalType" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	irio_resetStatus(&status);
+    return st;
 }
 
 void TestUtilsIRIO::SG::setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t fsig) {

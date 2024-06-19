@@ -404,7 +404,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalType) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	SG::setSignalType(&drv, 0, 0);
+	st = SG::setSignalType(&drv, 0, 0);
+	EXPECT_EQ(st, IRIO_success); 
 
 	int read = -1;
 	st = irio_getSGSignalType(&drv,0,&read,&status);
@@ -1131,7 +1132,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 
 	SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	SG::setSigAmp(&drv, sg_channel, sg_amp);
-	SG::setSignalType(&drv, sg_channel, 1); // Sine function
+
+	st = SG::setSignalType(&drv, sg_channel, 1); // Sine function
+	EXPECT_EQ(st, IRIO_success); 
 
 	if (verbose_test) cout << "[TEST] Enabling AO0" << endl;
 	st = irio_setAOEnable(&drv, 0, 1, &status);
@@ -1230,7 +1233,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 
 	SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	SG::setSigAmp(&drv, sg_channel, sg_amp);
-	SG::setSignalType(&drv, sg_channel, 1); // Sine function
+
+	st = SG::setSignalType(&drv, sg_channel, 1); // Sine function
+	EXPECT_EQ(st, IRIO_success); 
 
 	if (verbose_test) cout << "[TEST] Enabling AO0" << endl;
 	st = irio_setAOEnable(&drv, 0, 1, &status);
