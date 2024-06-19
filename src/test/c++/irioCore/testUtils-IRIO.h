@@ -31,9 +31,9 @@ std::string escapeSequencesToLiteral(const std::string& str);
 [[gnu::warn_unused_result]] int closeDriver(irioDrv_t* drv);
 int  loadHeaderFile(irioDrv_t* drv, string file_path, TStatus* status);
 void freeHeaderFile(irioDrv_t* drv);
-void startFPGA(irioDrv_t* drv);
-void setDebugMode(irioDrv_t* drv, int debug_mode);
-void setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling);
+[[gnu::warn_unused_result]] int startFPGA(irioDrv_t* drv);
+[[gnu::warn_unused_result]] int setDebugMode(irioDrv_t* drv, int debug_mode);
+[[gnu::warn_unused_result]] int setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling);
 IRIOFamily getIRIOFamily(string device);
 
 typedef struct {
@@ -43,23 +43,23 @@ typedef struct {
 void getResources(irioDrv_t* drv, irioResources_t* res);
 
 namespace DMAHost {
-    void cleanDMA(irioDrv_t* drv);
-    void setupDMA(irioDrv_t* drv);
-    int  setSamplingRate(irioDrv_t* drv, int32_t sampling_rate);
-    void setEnable(irioDrv_t* drv, int channel, int enable);
-    void setDAQStartStop(irioDrv_t* drv, int startstop);
-    std::vector<uint64_t> readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq);
-    std::vector<uint64_t> readDMADataTimeout(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq);
+    [[gnu::warn_unused_result]] int cleanDMA(irioDrv_t* drv);
+    [[gnu::warn_unused_result]] int setupDMA(irioDrv_t* drv);
+    int  setSamplingRate(irioDrv_t* drv, int32_t sampling_rate, int* error);
+    [[gnu::warn_unused_result]] int setEnable(irioDrv_t* drv, int channel, int enable);
+    [[gnu::warn_unused_result]] int setDAQStartStop(irioDrv_t* drv, int startstop);
+    std::vector<uint64_t> readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq, int* error);
+    std::vector<uint64_t> readDMADataTimeout(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq, int* error);
 }  // namespace DMAHost
 
 namespace SG {
-    void     setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref);
-    void     setSignalType(irioDrv_t* drv, int channel, int signal_type);
-    void     setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t freq);
-    void     setSigAmp(irioDrv_t* drv, int channel, int32_t amp);
-    void     setSigPhase(irioDrv_t* drv, int channel, int32_t phase);
-    uint32_t getFref(irioDrv_t* drv, int channel);
-    double   getCVDAC(irioDrv_t* drv);
+    [[gnu::warn_unused_result]] int setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref);
+    [[gnu::warn_unused_result]] int setSignalType(irioDrv_t* drv, int channel, int signal_type);
+    [[gnu::warn_unused_result]] int setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t freq);
+    [[gnu::warn_unused_result]] int setSigAmp(irioDrv_t* drv, int channel, int32_t amp);
+    [[gnu::warn_unused_result]] int setSigPhase(irioDrv_t* drv, int channel, int32_t phase);
+    uint32_t getFref(irioDrv_t* drv, int channel, int* error);
+    double   getCVDAC(irioDrv_t* drv, int* error);
 }  // namespace SG 
 }  // namespace TestUtilsIRIO
 

@@ -191,7 +191,7 @@ void TestUtilsIRIO::getResources(irioDrv_t* drv, irioResources_t* res) {
 	res->SG = getResourceCount(&irio_getNumSG, drv);
 }
 
-void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
+int TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
     int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Starting FPGA" << endl;
 	TStatus status;
@@ -199,10 +199,11 @@ void TestUtilsIRIO::startFPGA(irioDrv_t* drv) {
 	int startStatus = irio_setFPGAStart(drv,1,&status);
 	TestUtilsIRIO::logErrors(startStatus, status);
     if (verbose_test) cout << "[TEST] FPGA started " << (startStatus ? "unsuccessfully" : "successfully") << endl;
-	EXPECT_EQ(startStatus, IRIO_success);
+    if (startStatus != IRIO_success) cerr << "[TEST] FPGA start failed" << endl;
+    return startStatus;
 }
 
-void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
+int TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
     int verbose_test = getVerboseEnv();
 	TStatus status;
 	irio_initStatus(&status);
@@ -211,10 +212,10 @@ void TestUtilsIRIO::setDebugMode(irioDrv_t* drv, int debug_mode) {
 	int st = irio_setDebugMode(drv, debug_mode, &status);
 	if (verbose_test) cout << "[TEST] Debug mode set " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
-void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
+int TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -223,10 +224,10 @@ void TestUtilsIRIO::DMAHost::cleanDMA(irioDrv_t* drv) {
 	int st = irio_cleanDMAsTtoHost(drv, &status);
 	if (verbose_test) cout << "[TEST] DMAs cleaned " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
-void TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {
+int TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -235,36 +236,36 @@ void TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {
 	int st = irio_setUpDMAsTtoHost(drv, &status);
 	if (verbose_test) cout << "[TEST] DMAs set up " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
-int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rate) {
+int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rate, int* error) {
 	// Equation applied to set DMATtoHostSamplingRate: Fref/samplingRate=DecimationFactor
     int verbose_test = getVerboseEnv();
-    int st;
     int32_t fref;
     TStatus status;
     irio_initStatus(&status);
 
-	st = irio_getFref(drv, &fref, &status);
+	*error = irio_getFref(drv, &fref, &status);
 	if (verbose_test) cout << "[TEST] Fref = " << fref << endl;
-	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
-	EXPECT_NE(fref, 0);
+	logErrors(*error, status);
+    if (fref == 0) { 
+        *error |= -1; 
+        return 0;
+    }
 	irio_resetStatus(&status);
 
 	int32_t decimation_factor = fref/sampling_rate;
 	if (verbose_test) cout << "[TEST] Setting decimation factor of DMA0 to Fref/SamplingRate = " << decimation_factor << endl;
-	st = irio_setDMATtoHostSamplingRate(drv, 0, decimation_factor, &status);
-	if (verbose_test) cout << "[TEST] Sampling rate set " << (st ? "unsuccessfully" : "successfully") << endl;
-	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	*error |= irio_setDMATtoHostSamplingRate(drv, 0, decimation_factor, &status);
+	if (verbose_test) cout << "[TEST] Sampling rate set " << (*error ? "unsuccessfully" : "successfully") << endl;
+	logErrors(*error, status);
 	irio_resetStatus(&status);
 
     return fref;
 }
 
-void TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
+int TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -273,10 +274,10 @@ void TestUtilsIRIO::setAICoupling(irioDrv_t* drv, TIRIOCouplingMode coupling) {
     int st = irio_setAICoupling(drv, coupling, &status);
 	if (verbose_test) cout << "[TEST] AI coupling set " << (st ? "unsuccessfully" : "successfully") << endl;
     TestUtilsIRIO::logErrors(st, status);
-    EXPECT_EQ(st, IRIO_success);
+    return st;
 }
 
-void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
+int TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -285,10 +286,10 @@ void TestUtilsIRIO::DMAHost::setEnable(irioDrv_t* drv, int channel, int enable) 
 	int st = irio_setDMATtoHostEnable(drv, channel, enable, &status);
 	if (verbose_test) cout << "[TEST] DMA enable set up " << (st ? "unsuccessfully" : "successfully") << endl;
     TestUtilsIRIO::logErrors(st, status);
-    EXPECT_EQ(st, IRIO_success);
+    return st;
 }
 
-void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
+int TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -297,10 +298,10 @@ void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
 	int st = irio_setDAQStartStop(drv, startstop, &status);
 	if (verbose_test) cout << "[TEST] DAQStartStop set " << (st ? "unsuccessfully" : "successfully") << endl;
     TestUtilsIRIO::logErrors(st, status);
-    EXPECT_EQ(st, IRIO_success);
+    return st;
 }
 
-std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq) {
+std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq, int* error) {
     int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Reading " << blocksToRead << " blocks of " << wordsPerBlock << " words each from DMA" << dmaN << endl; 
     TStatus status;
@@ -316,7 +317,7 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dm
         int st = irio_getDMATtoHostData(drv, blocksToRead, dmaN, dataBuffer.data(), &blocksRead, &status);
         TestUtilsIRIO::logErrors(st, status);
         if (verbose_test) cout << "[TEST] " << blocksRead << " blocks read" << (st ? " unsuccessfully" : " successfully") << endl; 
-        EXPECT_EQ(st, IRIO_success);
+        *error |= st;
         irio_resetStatus(&status);
 
         if (blocksRead == blocksToRead) {
@@ -329,11 +330,12 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dm
         ++tries;
         if (verbose_test) cout << "[TEST] DMA read try " << tries << " failed." << endl; 
     }
-    ADD_FAILURE() << "[ERROR] No blocks read after " << maxTries << " tries"; 
+    cerr << "[ERROR] No blocks read after " << maxTries << " tries"; 
+    *error |= -1;
     return dataBuffer;
 }
 
-std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq) {
+std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq, int* error) {
     int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Reading " << blocksToRead << " blocks of " << wordsPerBlock << " words each from DMA" << dmaN << endl; 
     TStatus status;
@@ -352,7 +354,7 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv,
         int st = irio_getDMATtoHostData_timeout(drv, blocksToRead, dmaN, dataBuffer.data(), &blocksRead, timeout, &status);
         TestUtilsIRIO::logErrors(st, status);
         if (verbose_test) cout << "[TEST] " << blocksRead << " blocks read" << (st ? " unsuccessfully" : " successfully") << endl; 
-        EXPECT_EQ(st, IRIO_success);
+        *error |= st;
         irio_resetStatus(&status);
 
         if (blocksRead == blocksToRead) {
@@ -361,41 +363,40 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv,
         ++tries;
         if (verbose_test) cout << "[TEST] DMA read try " << tries << " failed." << endl; 
     }
-    ADD_FAILURE() << "[ERROR] No blocks read after " << maxTries << " tries"; 
+    cerr << "[ERROR] No blocks read after " << maxTries << " tries"; 
+    *error |= -1;
     return dataBuffer;
 }
 
-uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel) {
+uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel, int* error) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
     if (verbose_test) cout << "[TEST] Reading Fref of SG" << channel << endl;
     uint32_t fref = -1;
-	int st = irio_getSGFref(drv, channel, &fref, &status);
-    logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	*error = irio_getSGFref(drv, channel, &fref, &status);
+    logErrors(*error, status);
 	if (verbose_test) cout << "[TEST] Read SG FRef" << channel << " = " << fref << " Hz" << endl;
 
     return fref;
 }
 
-double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv) {
+double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv, int* error) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
     if (verbose_test) cout << "[TEST] Reading CVDAC of SG" << endl;
     double CVDAC = -1;
-	int st = irio_getSGCVDAC(drv, &CVDAC, &status);
-    logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	*error = irio_getSGCVDAC(drv, &CVDAC, &status);
+    logErrors(*error, status);
 	if (verbose_test) cout << "[TEST] Read CVDAC  = " << std::setprecision(6) << CVDAC << " 1/V" << endl;
 
     return CVDAC;
 }
 
-void TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref) {
+int TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -405,10 +406,10 @@ void TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t updat
 	int st = irio_setSGUpdateRate(drv, channel, fref/update_rate, &status);
     if (verbose_test) cout << "[TEST] SGUpdateRate" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
-void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_type) {
+int TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_type) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -416,12 +417,12 @@ void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_ty
 	if (verbose_test) cout << "[TEST] Setting SGSignalType" << channel << " to " << signal_type << endl;
 	int st = irio_setSGSignalType(drv, channel, signal_type, &status);
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGSignalType" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	irio_resetStatus(&status);
+    return st;
 }
 
-void TestUtilsIRIO::SG::setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t fsig) {
+int TestUtilsIRIO::SG::setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t fsig) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -432,10 +433,10 @@ void TestUtilsIRIO::SG::setFsig(irioDrv_t* drv, int channel, uint32_t update_rat
 	int st = irio_setSGFreq(drv,0,SGFreq,&status);
 	if (verbose_test) cout << "[TEST] SGFreq" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
     logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
-void TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
+int TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -443,12 +444,13 @@ void TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
 	if (verbose_test) cout << "[TEST] Setting SGSignalAmp" << channel << " to " << amp << endl;
 	int st = irio_setSGAmp(drv, channel, amp, &status);
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGSignalAmp" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	irio_resetStatus(&status);
+
+    return st;
 }
 
-void TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) {
+int TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -456,9 +458,9 @@ void TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) 
 	if (verbose_test) cout << "[TEST] Setting SGSignalPhase" << channel << " to " << phase << endl;
 	int st = irio_setSGPhase(drv, channel, phase, &status);
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGSignalPhase" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	irio_resetStatus(&status);
+    return st;
 }
 
 double TestUtilsIRIO::sineCorrelation(const std::vector<double>& signal, int f, int fs) {
