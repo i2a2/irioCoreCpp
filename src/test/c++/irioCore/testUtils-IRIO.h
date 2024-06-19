@@ -53,7 +53,7 @@ namespace DMAHost {
 }  // namespace DMAHost
 
 namespace SG {
-    void     setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref);
+    [[gnu::warn_unused_result]] int setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref);
     void     setSignalType(irioDrv_t* drv, int channel, int signal_type);
     void     setFsig(irioDrv_t* drv, int channel, uint32_t update_rate, uint32_t freq);
     void     setSigAmp(irioDrv_t* drv, int channel, int32_t amp);

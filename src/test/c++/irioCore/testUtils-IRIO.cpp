@@ -396,7 +396,7 @@ double TestUtilsIRIO::SG::getCVDAC(irioDrv_t* drv, int* error) {
     return CVDAC;
 }
 
-void TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref) {
+int TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t update_rate, uint32_t fref) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -406,7 +406,7 @@ void TestUtilsIRIO::SG::setUpdateRate(irioDrv_t* drv, int channel, int32_t updat
 	int st = irio_setSGUpdateRate(drv, channel, fref/update_rate, &status);
     if (verbose_test) cout << "[TEST] SGUpdateRate" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	return st;
 }
 
 void TestUtilsIRIO::SG::setSignalType(irioDrv_t* drv, int channel, int signal_type) {

@@ -954,7 +954,8 @@ TEST(FlexRIODAQ5761, GetSetSGUpdateRate) {
 	uint32_t fref = SG::getFref(&drv, channel, &error);
 	EXPECT_EQ(error, IRIO_success);
 
-	SG::setUpdateRate(&drv, channel, update_rate, fref);
+	st = SG::setUpdateRate(&drv, channel, update_rate, fref);
+	EXPECT_EQ(st, IRIO_success);
 
 	int32_t read = -1;
 	st = irio_getSGUpdateRate(&drv, channel, &read, &status);
@@ -1125,7 +1126,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	int32_t sg_fref = SG::getFref(&drv, sg_channel, &error);
 	EXPECT_EQ(error, IRIO_success);
 
-	SG::setUpdateRate(&drv, sg_channel, sg_updrate, sg_fref);
+	st = SG::setUpdateRate(&drv, sg_channel, sg_updrate, sg_fref);
+	EXPECT_EQ(st, IRIO_success);
+
 	SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	SG::setSigAmp(&drv, sg_channel, sg_amp);
 	SG::setSignalType(&drv, sg_channel, 1); // Sine function
@@ -1222,7 +1225,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	int32_t sg_fref = SG::getFref(&drv, sg_channel, &error);
 	EXPECT_EQ(error, IRIO_success);
 
-	SG::setUpdateRate(&drv, sg_channel, sg_updrate, sg_fref);
+	st = SG::setUpdateRate(&drv, sg_channel, sg_updrate, sg_fref);
+	EXPECT_EQ(st, IRIO_success);
+
 	SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	SG::setSigAmp(&drv, sg_channel, sg_amp);
 	SG::setSignalType(&drv, sg_channel, 1); // Sine function
