@@ -894,7 +894,9 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	DMAHost::setDAQStartStop(&drv, 1);
 
 	int positiveTest = 0, negativeTest = 0;
-	std::vector<uint64_t> vec = DMAHost::readDMADataTimeout(&drv, 0, blocksToRead, BlockNWords, sampling_freq); 
+	error = 0;
+	std::vector<uint64_t> vec = DMAHost::readDMADataTimeout(&drv, 0, blocksToRead, BlockNWords, sampling_freq, &error);
+	EXPECT_EQ(error, IRIO_success); 
 	uint16_t* data = reinterpret_cast<uint16_t*>(vec.data());
 	for (int i = 0; i < blocksToRead * BlockNWords; i++) {
 		if (data[(i * NCh) + channel] == desired_value) {
@@ -1214,7 +1216,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	EXPECT_EQ(st, IRIO_success);
 	DMAHost::setDAQStartStop(&drv, 1);
 
-	std::vector<uint64_t> vec = DMAHost::readDMADataTimeout(&drv, 0, blocksToRead, BlockNWords, sampling_freq); 
+	error = 0;
+	std::vector<uint64_t> vec = DMAHost::readDMADataTimeout(&drv, 0, blocksToRead, BlockNWords, sampling_freq, &error);
+	EXPECT_EQ(error, IRIO_success); 
 	uint16_t* data = reinterpret_cast<uint16_t*>(vec.data());
 	
 	// Normalize signal
