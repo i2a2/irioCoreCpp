@@ -1056,7 +1056,8 @@ TEST(FlexRIODAQ5761, GetSetSGSignalPhase) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	SG::setSigPhase(&drv, channel, phase);
+	st = SG::setSigPhase(&drv, channel, phase);
+	EXPECT_EQ(st, IRIO_success);
 
 	if (verbose_test) cout << "[TEST] Reading SGSignalPhase" << channel << endl;
 	int32_t read = -1;

@@ -450,7 +450,7 @@ int TestUtilsIRIO::SG::setSigAmp(irioDrv_t* drv, int channel, int32_t amp) {
     return st;
 }
 
-void TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) {
+int TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
@@ -458,9 +458,9 @@ void TestUtilsIRIO::SG::setSigPhase(irioDrv_t* drv, int channel, int32_t phase) 
 	if (verbose_test) cout << "[TEST] Setting SGSignalPhase" << channel << " to " << phase << endl;
 	int st = irio_setSGPhase(drv, channel, phase, &status);
 	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
 	if (verbose_test) cout << "[TEST] SGSignalPhase" << channel << " set " << (st ? "unsuccessfully" : "successfully") << endl;
 	irio_resetStatus(&status);
+    return st;
 }
 
 double TestUtilsIRIO::sineCorrelation(const std::vector<double>& signal, int f, int fs) {
