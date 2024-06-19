@@ -950,7 +950,10 @@ TEST(FlexRIODAQ5761, GetSetSGUpdateRate) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	uint32_t fref = SG::getFref(&drv, channel);
+	int error = 0;
+	uint32_t fref = SG::getFref(&drv, channel, &error);
+	EXPECT_EQ(error, IRIO_success);
+
 	SG::setUpdateRate(&drv, channel, update_rate, fref);
 
 	int32_t read = -1;
@@ -1115,7 +1118,10 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	EXPECT_EQ(st, IRIO_success);
 
 	// Configure signal generator
-	int32_t sg_fref = SG::getFref(&drv, sg_channel);
+	int error = 0;
+	int32_t sg_fref = SG::getFref(&drv, sg_channel, &error);
+	EXPECT_EQ(error, IRIO_success);
+
 	SG::setUpdateRate(&drv, sg_channel, sg_updrate, sg_fref);
 	SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	SG::setSigAmp(&drv, sg_channel, sg_amp);
@@ -1139,7 +1145,7 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	st = DMAHost::setupDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
 
-	int error = 0;
+	error = 0;
 	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
 	EXPECT_EQ(error, IRIO_success);
 	
@@ -1209,7 +1215,10 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	EXPECT_EQ(st, IRIO_success);
 
 	// Configure signal generator
-	int32_t sg_fref = SG::getFref(&drv, sg_channel);
+	int error = 0;
+	int32_t sg_fref = SG::getFref(&drv, sg_channel, &error);
+	EXPECT_EQ(error, IRIO_success);
+
 	SG::setUpdateRate(&drv, sg_channel, sg_updrate, sg_fref);
 	SG::setFsig(&drv, sg_channel, sg_updrate, sg_sigfreq);
 	SG::setSigAmp(&drv, sg_channel, sg_amp);
@@ -1233,7 +1242,7 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	st = DMAHost::setupDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
 
-	int error = 0;
+	error = 0;
 	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
 	EXPECT_EQ(error, IRIO_success);
 	

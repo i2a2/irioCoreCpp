@@ -368,16 +368,15 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMADataTimeout(irioDrv_t* drv,
     return dataBuffer;
 }
 
-uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel) {
+uint32_t TestUtilsIRIO::SG::getFref(irioDrv_t* drv, int channel, int* error) {
     int verbose_test = getVerboseEnv();
     TStatus status;
     irio_initStatus(&status);
 
     if (verbose_test) cout << "[TEST] Reading Fref of SG" << channel << endl;
     uint32_t fref = -1;
-	int st = irio_getSGFref(drv, channel, &fref, &status);
-    logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	*error = irio_getSGFref(drv, channel, &fref, &status);
+    logErrors(*error, status);
 	if (verbose_test) cout << "[TEST] Read SG FRef" << channel << " = " << fref << " Hz" << endl;
 
     return fref;
