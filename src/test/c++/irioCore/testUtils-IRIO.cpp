@@ -301,7 +301,7 @@ void TestUtilsIRIO::DMAHost::setDAQStartStop(irioDrv_t* drv, int startstop) {
     EXPECT_EQ(st, IRIO_success);
 }
 
-std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq) {
+std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq, int* error) {
     int verbose_test = getVerboseEnv();
     if (verbose_test) cout << "[TEST] Reading " << blocksToRead << " blocks of " << wordsPerBlock << " words each from DMA" << dmaN << endl; 
     TStatus status;
@@ -317,7 +317,7 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dm
         int st = irio_getDMATtoHostData(drv, blocksToRead, dmaN, dataBuffer.data(), &blocksRead, &status);
         TestUtilsIRIO::logErrors(st, status);
         if (verbose_test) cout << "[TEST] " << blocksRead << " blocks read" << (st ? " unsuccessfully" : " successfully") << endl; 
-        EXPECT_EQ(st, IRIO_success);
+        *error |= st;
         irio_resetStatus(&status);
 
         if (blocksRead == blocksToRead) {
@@ -330,7 +330,8 @@ std::vector<uint64_t> TestUtilsIRIO::DMAHost::readDMAData(irioDrv_t* drv, int dm
         ++tries;
         if (verbose_test) cout << "[TEST] DMA read try " << tries << " failed." << endl; 
     }
-    ADD_FAILURE() << "[ERROR] No blocks read after " << maxTries << " tries"; 
+    cerr << "[ERROR] No blocks read after " << maxTries << " tries"; 
+    *error |= -1;
     return dataBuffer;
 }
 
