@@ -45,7 +45,7 @@ void getResources(irioDrv_t* drv, irioResources_t* res);
 namespace DMAHost {
     [[gnu::warn_unused_result]] int cleanDMA(irioDrv_t* drv);
     [[gnu::warn_unused_result]] int setupDMA(irioDrv_t* drv);
-    int  setSamplingRate(irioDrv_t* drv, int32_t sampling_rate);
+    int  setSamplingRate(irioDrv_t* drv, int32_t sampling_rate, int* error);
     void setEnable(irioDrv_t* drv, int channel, int enable);
     void setDAQStartStop(irioDrv_t* drv, int startstop);
     std::vector<uint64_t> readDMAData(irioDrv_t* drv, int dmaN, int blocksToRead, int wordsPerBlock, int sampling_freq);

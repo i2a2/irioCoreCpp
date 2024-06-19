@@ -583,7 +583,10 @@ TEST(FlexRIODAQ5761, GetSetDMAToHostSamplingRate) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 
-	int fref = DMAHost::setSamplingRate(&drv, sampling_rate);
+
+	int error = 0;
+	int fref = DMAHost::setSamplingRate(&drv, sampling_rate, &error);
+	EXPECT_EQ(error, IRIO_success);
 
 	int32_t reading = -1;
 	st = irio_getDMATtoHostSamplingRate(&drv, 0, &reading, &status);
@@ -789,7 +792,10 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	// Setup DMA
 	st = DMAHost::setupDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setSamplingRate(&drv, sampling_freq);
+
+	int error = 0;
+	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
+	EXPECT_EQ(error, IRIO_success);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
 
@@ -858,7 +864,10 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	// Setup DMA
 	st = DMAHost::setupDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setSamplingRate(&drv, sampling_freq);
+
+	int error = 0;
+	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
+	EXPECT_EQ(error, IRIO_success);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
 
@@ -1083,7 +1092,10 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	// Setup DMA
 	st = DMAHost::setupDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setSamplingRate(&drv, sampling_freq);
+
+	int error = 0;
+	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
+	EXPECT_EQ(error, IRIO_success);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
 
@@ -1159,7 +1171,10 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	// Setup DMA
 	st = DMAHost::setupDMA(&drv);
 	EXPECT_EQ(st, IRIO_success);
-	DMAHost::setSamplingRate(&drv, sampling_freq);
+
+	int error = 0;
+	DMAHost::setSamplingRate(&drv, sampling_freq, &error);
+	EXPECT_EQ(error, IRIO_success);
 	DMAHost::setEnable(&drv, 0, 1);
 	DMAHost::setDAQStartStop(&drv, 1);
 

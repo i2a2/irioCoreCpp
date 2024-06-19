@@ -239,27 +239,27 @@ int TestUtilsIRIO::DMAHost::setupDMA(irioDrv_t* drv) {
 	return st;
 }
 
-int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rate) {
+int TestUtilsIRIO::DMAHost::setSamplingRate(irioDrv_t* drv, int32_t sampling_rate, int* error) {
 	// Equation applied to set DMATtoHostSamplingRate: Fref/samplingRate=DecimationFactor
     int verbose_test = getVerboseEnv();
-    int st;
     int32_t fref;
     TStatus status;
     irio_initStatus(&status);
 
-	st = irio_getFref(drv, &fref, &status);
+	*error = irio_getFref(drv, &fref, &status);
 	if (verbose_test) cout << "[TEST] Fref = " << fref << endl;
-	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
-	EXPECT_NE(fref, 0);
+	logErrors(*error, status);
+    if (fref == 0) { 
+        *error |= -1; 
+        return 0;
+    }
 	irio_resetStatus(&status);
 
 	int32_t decimation_factor = fref/sampling_rate;
 	if (verbose_test) cout << "[TEST] Setting decimation factor of DMA0 to Fref/SamplingRate = " << decimation_factor << endl;
-	st = irio_setDMATtoHostSamplingRate(drv, 0, decimation_factor, &status);
-	if (verbose_test) cout << "[TEST] Sampling rate set " << (st ? "unsuccessfully" : "successfully") << endl;
-	logErrors(st, status);
-	EXPECT_EQ(st, IRIO_success);
+	*error |= irio_setDMATtoHostSamplingRate(drv, 0, decimation_factor, &status);
+	if (verbose_test) cout << "[TEST] Sampling rate set " << (*error ? "unsuccessfully" : "successfully") << endl;
+	logErrors(*error, status);
 	irio_resetStatus(&status);
 
     return fref;
