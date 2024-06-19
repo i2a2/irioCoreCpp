@@ -616,7 +616,9 @@ TEST(FlexRIODAQ5761, GetSetAICoupling) {
 	EXPECT_EQ(st, IRIO_success);
 
     TIRIOCouplingMode coupling = IRIO_coupling_AC;
-	setAICoupling(&drv, coupling);
+	
+	st = setAICoupling(&drv, coupling);
+	EXPECT_EQ(st, IRIO_success);
 	TIRIOCouplingMode reading = IRIO_coupling_NULL;
 	st = irio_getAICoupling(&drv, &reading, &status);
 	if (verbose_test) cout << "[TEST] AI Coupling read = " << static_cast<int>(reading) << (reading == IRIO_coupling_DC ? " (DC)" : " (AC)")<< endl;
@@ -625,7 +627,9 @@ TEST(FlexRIODAQ5761, GetSetAICoupling) {
 	EXPECT_EQ(coupling, reading);
 
     coupling = IRIO_coupling_DC;
-	setAICoupling(&drv, coupling);
+	
+	st = setAICoupling(&drv, coupling);
+	EXPECT_EQ(st, IRIO_success);
 	reading = IRIO_coupling_NULL;
 	st = irio_getAICoupling(&drv, &reading, &status);
 	if (verbose_test) cout << "[TEST] AI Coupling read = " << static_cast<int>(reading) << (reading == IRIO_coupling_DC ? " (DC)" : " (AC)")<< endl;
@@ -770,7 +774,9 @@ TEST(FlexRIODAQ5761, ReadDMADCNoTimeout) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
-	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	
+	st = setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	EXPECT_EQ(st, IRIO_success);
 	// Enable AO0 and set to 2048 and configure SGSignalType0
 	if (verbose_test) cout << "[TEST] Configuring the signal generator to output a DC of 2048" << endl;
 	st  = irio_setSGSignalType(&drv,0,0,&status);
@@ -841,7 +847,9 @@ TEST(FlexRIODAQ5761, ReadDMADCTimeout) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
-	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	
+	st = setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	EXPECT_EQ(st, IRIO_success);
 
 	// Enable AO0 and set to 2048 and configure SGSignalType0
 	if (verbose_test) cout << "[TEST] Configuring the signal generator to output a DC of 2048" << endl;
@@ -1066,7 +1074,9 @@ TEST(FlexRIODAQ5761, ReadDMASineNoTimeout) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
-	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	
+	st = setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	EXPECT_EQ(st, IRIO_success);
 
 	// Configure signal generator
 	int32_t sg_fref = SG::getFref(&drv, sg_channel);
@@ -1145,7 +1155,9 @@ TEST(FlexRIODAQ5761, ReadDMASineTimeout) {
 	st = setDebugMode(&drv, 0);
 	EXPECT_EQ(st, IRIO_success);
 	string couplingStr = TestUtilsIRIO::getEnvVar("Coupling");
-	setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	
+	st = setAICoupling(&drv, static_cast<TIRIOCouplingMode>(couplingStr == "1" || couplingStr == "DC"));
+	EXPECT_EQ(st, IRIO_success);
 
 	// Configure signal generator
 	int32_t sg_fref = SG::getFref(&drv, sg_channel);
