@@ -60,6 +60,7 @@ TEST_F(FlexRIOCPUIMAQ, readImage) {
 	const uint32_t dmaN = 0;
 	const size_t imageWidth = 256;
 	const size_t imageHeight = 256;
+	const std::uint16_t maxTries = 1000;
 	size_t maxCounter;
 
 	const auto aux = std::getenv("maxCounter");
@@ -86,7 +87,8 @@ TEST_F(FlexRIOCPUIMAQ, readImage) {
 	std::uint16_t lastCounter = curCounter;
 	std::unique_ptr<uint64_t[]> buffer(new uint64_t[imageWidth * imageHeight / 8]);
 
-	while(imageCount < totalImages) {
+	std::uint16_t tries = 0;
+	while(imageCount < totalImages && tries < maxTries) {
 		pixelsRead = imaq.readImageNonBlocking(dmaN, imageHeight * imageWidth, buffer.get());
 
 		if(pixelsRead == imageHeight * imageWidth) {
@@ -98,11 +100,13 @@ TEST_F(FlexRIOCPUIMAQ, readImage) {
 			}
 			lastCounter = curCounter;
 			imageCount++;
+			tries=0;
 		} else {
+			tries++;
 			usleep(1000);
 		}
 	}
-
+	EXPECT_LT(tries, maxTries) << "Timeout waiting for images";
 }
 
 TEST_F(FlexRIOCPUIMAQ, sendUARTMsg) {
