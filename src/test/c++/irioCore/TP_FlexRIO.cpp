@@ -1511,6 +1511,7 @@ TEST(FlexRIOIMAQ1483, InitConfigCLWarning) {
 	ASSERT_EQ(st, 0) << "[TEST] Error closing driver";
 }
 TEST(FlexRIOIMAQ1483, GetImages) {
+	const std::uint16_t maxTries = 1000;
     irioDrv_t drv;
 	TStatus status;
 	irio_initStatus(&status);
@@ -1551,7 +1552,8 @@ TEST(FlexRIOIMAQ1483, GetImages) {
 	uint16_t current_counter = 0, last_counter = 0;
 	
 	st = IRIO_success;
-	while (imageCount < totalImages && st == IRIO_success) {
+	std::uint16_t tries = 0;
+	while (imageCount < totalImages && st == IRIO_success && tries < maxTries) {
 		st |= irio_getDMATtoHostImage(&drv, imageHeight * imageWidth, dmaN, buffer.get(), &readCount, &status);
 		logErrors(st, status);
 		EXPECT_EQ(st, IRIO_success);
@@ -1565,10 +1567,13 @@ TEST(FlexRIOIMAQ1483, GetImages) {
 			if (verbose_test) cout << "[TEST] Frame " << std::setw(3) << std::setfill('0') << imageCount << ": Counter = " <<  current_counter << endl;
 			last_counter = current_counter;
 			imageCount++;
+			tries = 0;
 		} else {
+			tries++;
 			usleep(1000);
 		}
 	}
+	EXPECT_LT(tries, maxTries) << "Timeout waiting for images";
 	EXPECT_EQ(st, IRIO_success);
 
     st = closeDriver(&drv);
