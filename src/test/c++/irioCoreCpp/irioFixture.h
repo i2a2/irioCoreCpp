@@ -17,6 +17,7 @@ private:
 		{"7965", "FlexRIO"},
 		{"7961", "FlexRIO"},
 		{"9159", "cRIO"},
+		{"7854", "Rseries"},
 	};
 public:
 	const std::string BASE_PATH_BITFILES = "../../resources/";
