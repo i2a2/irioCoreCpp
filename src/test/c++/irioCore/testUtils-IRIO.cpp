@@ -28,7 +28,8 @@ static const std::map<string, IRIOFamily> familyMap = {
 	{"7966", IRIOFamily::FlexRIO },
 	{"7965", IRIOFamily::FlexRIO },
 	{"7961", IRIOFamily::FlexRIO },
-	{"9159", IRIOFamily::cRIO }
+	{"9159", IRIOFamily::cRIO },
+    {"7854", IRIOFamily::Rseries },
 };
 
 static const std::map<IRIOFamily, std::map<IRIOProfile, string>> bitfiles = {
@@ -44,6 +45,11 @@ static const std::map<IRIOFamily, std::map<IRIOProfile, string>> bitfiles = {
     { IRIOFamily::cRIO, {
         { IRIOProfile::NoModule, "cRIO_PBP" },
         { IRIOProfile::IO,       "cRIOIO_9159" },
+    }},
+    { IRIOFamily::Rseries, {
+        { IRIOProfile::NoModule, "Rseries_NoModule_"},
+        { IRIOProfile::OnlyResources, "Rseries_OnlyResources_"},
+        { IRIOProfile::CPUDAQ, "Rseries_CPUDAQ_"},
     }},
 };
 
@@ -129,6 +135,10 @@ int TestUtilsIRIO::initDriver(IRIOProfile profile, irioDrv_t* drv) {
         case IRIOFamily::cRIO:
             IRIOmodel  = "NI " + RIODevice;
             bitfileName = bitfile_prefix; // In cRIO, the bitfile name does not contain the Device Model
+            break;
+        case IRIOFamily::Rseries:
+            IRIOmodel = "PXI-" + RIODevice;
+            bitfileName = bitfile_prefix + RIODevice;
             break;
         default: case IRIOFamily::NONE:
             cerr << "Invalid RIODevice: " << RIODevice << endl;

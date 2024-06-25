@@ -12,7 +12,7 @@ namespace TestUtilsIRIO {
 
 const string resourcePath = "../../resources/";
 
-enum class IRIOFamily { FlexRIO, cRIO, NONE };
+enum class IRIOFamily { FlexRIO, cRIO, Rseries, NONE };
 enum class IRIOProfile { NoModule, OnlyResources, IO, CPUDAQ, CPUIMAQ, Mod5761DAQ, Mod6581DIO, Mod1483IMAQ };
 const string FWHT = "\x1b[37m";  // Foreground color, White
 const string BBLA = "\x1b[40m";  // Background color, Black
