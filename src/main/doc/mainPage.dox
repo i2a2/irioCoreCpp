@@ -21,7 +21,6 @@ to avoid possible problems. However, no all cases were to fully covered.
 \section main_installation Installation
 The recommended way is to download the appropiate packages from
 the [release section](https://github.com/i2a2/irioCoreCpp/releases).
-However, it is also possible to install them \ref manual_installation "manually".
 
 \attention It is necessary to have the national instrument package repository
 configured to resolve the dependencies appropriately
@@ -55,24 +54,6 @@ make compile
 ```
 This will compile the libraries, unittests, functional tests and examples.
 
-\section manual_installation Manual installation
-\subsection manual_installation_prerequisites Prerequisites
-- Compile succesfully the libraries (See \ref compilation)
-\subsection manual_installation_instructions Instructions
-
-\note
-This section covers how to install the libraries by copying using make install,
-it is recommended installing it as a package if possible
-(See \ref manual_packages "Generating packages manually").
-
-To install the project go to the root folder and execute:
-```
-make install INSTALL_DIR=<INSTALL DIR>
-```
-\note
-`INSTALL_DIR` is the install location. Libraries will be placed in 
-`INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
-
 \section manual_packages Generating packages manually
 \attention
 Package generation will only generate rpm for RHEL distributions.
@@ -89,7 +70,7 @@ To genearte the rpm go to the root folder and execute:
 make package
 ```
 
-This will generate rpm files in `target/packages/x86_64`
+This will generate rpm files in `target/packages/`
 
 \note
 Default installation directories are:
@@ -99,7 +80,7 @@ Default installation directories are:
 It is also possible to set the installation directory for the files once the
  rpm are installed by using the parameter `INSTALL_DIR`
 ```
-make package INSTALL_DIR=<install direcotry>
+make package INSTALL_DIR=<install directory>
 ```
 
 Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.

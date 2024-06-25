@@ -7,13 +7,10 @@
 - [Compilation](#compilation)
   - [Prerequisites](#prerequisites)
   - [Instructions](#instructions)
-- [Manual installation](#manual-installation)
-  - [Prerequisites](#prerequisites-1)
-  - [Instructions](#instructions-1)
 - [Generating packages manually](#generating-packages-manually)
   - [Converting RPM packages to deb](#converting-rpm-packages-to-deb)
-    - [Prerequisites](#prerequisites-2)
-    - [Instructions](#instructions-2)
+    - [Prerequisites](#prerequisites-1)
+    - [Instructions](#instructions-1)
 - [Configure National Instrument package repository](#configure-national-instrument-package-repository)
 - [Run tests](#run-tests)
   - [Python execution](#python-execution)
@@ -42,7 +39,7 @@ There are three RIO devices: FlexRIO, compactRIO and RSeries. Each of these devi
 
 
 # Installation
-The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCoreCpp/releases). However, it is also possible to install them [manually](#manual-installation).
+The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCoreCpp/releases).
 
 > **_NOTE_**<br>
 >  
@@ -79,22 +76,6 @@ make compile
 ```
 This will compile the libraries, unittests, functional tests and examples.
 
-# Manual installation
-## Prerequisites
-- Compile succesfully the libraries (See [compilation](#compilation))
-## Instructions
-> **_NOTE_**<br> 
-> 
-> This section covers how to install the libraries by copying using make install, it is recommended installing it as a package if possible. See [Generating packages manually](#generating-packages-manually) 
-
-To install the project go to the root folder and execute:
-```
-make install INSTALL_DIR=<INSTALL DIR>
-```
-> **_NOTE_**<br> 
-> 
-> `INSTALL_DIR` is the install location. Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
-
 # Generating packages manually
 > **_NOTE_**<br> 
 > 
@@ -109,7 +90,7 @@ To genearte the rpm go to the root folder and execute:
 make package
 ```
 
-This will generate rpm files in `target/packages/x86_64`
+This will generate rpm files in `target/packages/`
 
 > **_NOTE_**<br>
 >
@@ -119,7 +100,7 @@ This will generate rpm files in `target/packages/x86_64`
 
 It is also possible to set the installation directory for the files once the rpm are installed by using the parameter `INSTALL_DIR`
 ```
-make package INSTALL_DIR=<install direcotry>
+make package INSTALL_DIR=<install directory>
 ```
 
 Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
