@@ -7,13 +7,10 @@
 - [Compilation](#compilation)
   - [Prerequisites](#prerequisites)
   - [Instructions](#instructions)
-- [Manual installation](#manual-installation)
-  - [Prerequisites](#prerequisites-1)
-  - [Instructions](#instructions-1)
 - [Generating packages manually](#generating-packages-manually)
   - [Converting RPM packages to deb](#converting-rpm-packages-to-deb)
-    - [Prerequisites](#prerequisites-2)
-    - [Instructions](#instructions-2)
+    - [Prerequisites](#prerequisites-1)
+    - [Instructions](#instructions-1)
 - [Configure National Instrument package repository](#configure-national-instrument-package-repository)
 - [Run tests](#run-tests)
   - [Python execution](#python-execution)
@@ -42,11 +39,11 @@ There are three RIO devices: FlexRIO, compactRIO and RSeries. Each of these devi
 
 
 # Installation
-The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCoreCpp/releases). However, it is also possible to install them [manually](#manual-installation).
+The recommended way is to download the appropiate packages from the [release section](https://github.com/i2a2/irioCoreCpp/releases).
 
 > **_NOTE_**<br>
 >  
-> It is necessary to have the national instrument package repository configured to resolve the dependencies appropriately (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
+> If installing through the rpms, it is necessary to have the national instrument package repository configured to resolve the dependencies appropriately (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
 >
 > Alternatively the following packages could be installed manually:
 > - ni-flexrio-modulario-libs
@@ -54,21 +51,23 @@ The recommended way is to download the appropiate packages from the [release sec
 
 # Compilation
 ## Prerequisites
-The required packages for compiling the project are:
-- pugixml-devel
-- gtest-devel
-- rsync
-- cpplint (python3 module)
-- ni-syscfg-devel 
-- ni-flexrio-modulario-libs-devel
+- The required packages for compiling the project are:
+    - pugixml-devel
+    - gtest-devel
+    - rsync
+    - cpplint (python3 module)
+- If the generation of the documentation is required, it is also necessary to have installed the following packages:
+    - doxygen
+    - graphviz
+- If the system requires the National Instruments drivers for RIO boards, these packages are also required:
+    - ni-syscfg-devel 
+    - ni-flexrio-modulario-libs-devel
 
-> **_NOTE_**<br> 
-> 
-> It is necessary to have the national instrument package repository configured to install the packages related to NI (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
+    > **_NOTE_**<br> 
+    > 
+    > It is necessary to have the national instrument package repository configured to install the packages related to NI (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
 
-If the generation of the documentation is required, it is also necessary to have installed the following packages:
-- doxygen
-- graphviz
+
 
 ## Instructions
 To compile the project go to the root folder and execute:
@@ -76,22 +75,6 @@ To compile the project go to the root folder and execute:
 make compile
 ```
 This will compile the libraries, unittests, functional tests and examples.
-
-# Manual installation
-## Prerequisites
-- Compile succesfully the libraries (See [compilation](#compilation))
-## Instructions
-> **_NOTE_**<br> 
-> 
-> This section covers how to install the libraries by copying using make install, it is recommended installing it as a package if possible. See [Generating packages manually](#generating-packages-manually) 
-
-To install the project go to the root folder and execute:
-```
-make install INSTALL_DIR=<INSTALL DIR>
-```
-> **_NOTE_**<br> 
-> 
-> `INSTALL_DIR` is the install location. Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
 
 # Generating packages manually
 > **_NOTE_**<br> 
@@ -107,7 +90,7 @@ To genearte the rpm go to the root folder and execute:
 make package
 ```
 
-This will generate rpm files in `target/packages/x86_64`
+This will generate rpm files in `target/packages/`
 
 > **_NOTE_**<br>
 >
@@ -117,7 +100,7 @@ This will generate rpm files in `target/packages/x86_64`
 
 It is also possible to set the installation directory for the files once the rpm are installed by using the parameter `INSTALL_DIR`
 ```
-make package INSTALL_DIR=<install direcotry>
+make package INSTALL_DIR=<install directory>
 ```
 
 Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
@@ -216,7 +199,7 @@ A *testplan* is a collection of *tests* to be run. The different tests inside wi
 
 Once the test is defined on the XML file, from the root of the project, run:
 ```bash
-    target/test/run_irioCore.py -i <XML file> [-a | -o <Output file>]
+    target/test/automate_GT.py -i <XML file> [-a | -o <Output file>]
 ```
 
 Either `-a` or `-o <Output file>` can be used to select the output destination for the tests. `-a` will append the results to the input file and `-o` will create or rewrite the destination file with the results.
@@ -227,7 +210,7 @@ The test output will be printed as specified on the *verbose* field of the test.
 
 The same python application can be used to execute tests with custom filters. Use the help of the executable to get the possible arguments for the test:
 ```bash
- run_irioCore.py -h
+ automate_GT.py -h
 ```
 > **_NOTE_**<br>
 >
@@ -237,7 +220,7 @@ A test report can be generated with the `-o <FILE>` argument, and it will be gen
 
 For example, in order to run the functional *FlexRIO* tests from the *irioCore* library on a 7966 with the serial number *0x1234ABCD* with full verbosity and creating a report on *test.xml*, use:
 ```bash
-    target/test/run_irioCore.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f "FlexRIO*" -o "test.xml"
+    target/test/automate_GT.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f "FlexRIO*" -o "test.xml"
 ```
 
 ## Run GoogleTest manually
