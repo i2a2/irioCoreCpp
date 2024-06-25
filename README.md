@@ -216,7 +216,7 @@ A *testplan* is a collection of *tests* to be run. The different tests inside wi
 
 Once the test is defined on the XML file, from the root of the project, run:
 ```bash
-    target/test/run_irioCore.py -i <XML file> [-a | -o <Output file>]
+    target/test/automate_GT.py -i <XML file> [-a | -o <Output file>]
 ```
 
 Either `-a` or `-o <Output file>` can be used to select the output destination for the tests. `-a` will append the results to the input file and `-o` will create or rewrite the destination file with the results.
@@ -227,7 +227,7 @@ The test output will be printed as specified on the *verbose* field of the test.
 
 The same python application can be used to execute tests with custom filters. Use the help of the executable to get the possible arguments for the test:
 ```bash
- run_irioCore.py -h
+ automate_GT.py -h
 ```
 > **_NOTE_**<br>
 >
@@ -237,7 +237,7 @@ A test report can be generated with the `-o <FILE>` argument, and it will be gen
 
 For example, in order to run the functional *FlexRIO* tests from the *irioCore* library on a 7966 with the serial number *0x1234ABCD* with full verbosity and creating a report on *test.xml*, use:
 ```bash
-    target/test/run_irioCore.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f "FlexRIO*" -o "test.xml"
+    target/test/automate_GT.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f "FlexRIO*" -o "test.xml"
 ```
 
 ## Run GoogleTest manually
