@@ -46,7 +46,7 @@ The recommended way is to download the appropiate packages from the [release sec
 
 > **_NOTE_**<br>
 >  
-> It is necessary to have the national instrument package repository configured to resolve the dependencies appropriately (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
+> If installing through the rpms, it is necessary to have the national instrument package repository configured to resolve the dependencies appropriately (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
 >
 > Alternatively the following packages could be installed manually:
 > - ni-flexrio-modulario-libs
@@ -54,21 +54,23 @@ The recommended way is to download the appropiate packages from the [release sec
 
 # Compilation
 ## Prerequisites
-The required packages for compiling the project are:
-- pugixml-devel
-- gtest-devel
-- rsync
-- cpplint (python3 module)
-- ni-syscfg-devel 
-- ni-flexrio-modulario-libs-devel
+- The required packages for compiling the project are:
+    - pugixml-devel
+    - gtest-devel
+    - rsync
+    - cpplint (python3 module)
+- If the generation of the documentation is required, it is also necessary to have installed the following packages:
+    - doxygen
+    - graphviz
+- If the system requires the National Instruments drivers for RIO boards, these packages are also required:
+    - ni-syscfg-devel 
+    - ni-flexrio-modulario-libs-devel
 
-> **_NOTE_**<br> 
-> 
-> It is necessary to have the national instrument package repository configured to install the packages related to NI (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
+    > **_NOTE_**<br> 
+    > 
+    > It is necessary to have the national instrument package repository configured to install the packages related to NI (See [Configure National Instrument package repository](#configure-national-instrument-package-repository)). 
 
-If the generation of the documentation is required, it is also necessary to have installed the following packages:
-- doxygen
-- graphviz
+
 
 ## Instructions
 To compile the project go to the root folder and execute:
