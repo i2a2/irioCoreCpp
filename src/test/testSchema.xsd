@@ -27,7 +27,7 @@
 
     <xs:simpleType name="RIOSerialType">
         <xs:restriction base="xs:string">
-            <xs:pattern value="0x[a-fA-F0-9]{8}"/>
+            <xs:pattern value="(0x)?[a-fA-F0-9]{8}"/>
         </xs:restriction>
     </xs:simpleType>
 

@@ -5,6 +5,9 @@ import argparse
 import re
 import textwrap
 
+serial_regex = r"^(?:0[xX])?[0-9A-Fa-f]{8}$"
+allowed_devices = ["7854", "7966", "7965", "7961", "9159"]
+
 patterns = [ r"%%%COMMONSERIAL%%%", r"%%%COMMONDEVICE%%%", 
              r"%%%DAQSERIAL%%%",    r"%%%DAQDEVICE%%%", 
              r"%%%IMAQSERIAL%%%",   r"%%%IMAQDEVICE%%%", 
@@ -14,6 +17,12 @@ patterns = [ r"%%%COMMONSERIAL%%%", r"%%%COMMONDEVICE%%%",
 tests = [ "Common", "DAQ", "IMAQ", "DIO", 
         #  "CRIO" 
         ] 
+
+def process_serial(serial: str):
+    if serial.lower().startswith("0x"):
+        return "0x" + serial[2:].upper()
+    else:
+        return serial.upper()
 
 if __name__ != "__main__":
     print("This file cannot be used as a module", file=sys.stderr)
@@ -98,15 +107,15 @@ if any(automation_vars):
         serial = automation_vars[2*i]
         dev    = automation_vars[2*i + 1]
 
-        if re.match(r"^0[xX][0-9A-Fa-f]{8}$", serial) is None:
+        if re.match(serial_regex, serial) is None:
             print(f"Error: Invalid {t} serial", file=sys.stderr)
             exit(-1)
 
-        if dev not in ["7966", "7965", "7961", "9159"]:
+        if dev not in allowed_devices:
             print(f"Error: Invalid {t} device", file=sys.stderr)
             exit(-1)
 
-        automation_vars[2*i] = "0x" + serial[2:].upper() # Allow lowercase serial
+        automation_vars[2*i] = process_serial(serial)
 
     if automation_vars[-1].lower() not in ["y", "yes", "true", "1", "n", "false", "0", "no"]:
         print("Error: Invalid verbose value", file=sys.stderr)
@@ -119,14 +128,14 @@ if any(automation_vars):
 else:
     for (i, t) in enumerate(tests):
         dev = ""
-        while dev not in ["7966", "7965", "7961", "9159"]:
-            dev = input(f"Enter the device identifier for the {t} tests [ 7966, 7965, 7961, 9159 ]: ")
+        while dev not in allowed_devices:
+            dev = input(f"Enter the device identifier for the {t} tests {allowed_devices}: ")
 
         serial = ""
-        while re.match(r"^0[xX][0-9A-Fa-f]{8}$", serial) is None:
-            serial = input(f"Enter the serial number for the {t} tests (Format 0x1234ABCD):") 
+        while re.match(serial_regex, serial) is None:
+            serial = input(f"Enter the serial number for the {t} tests: ") 
 
-        subst_dict[patterns[2*i]] = "0x" + serial[2:].upper()
+        subst_dict[patterns[2*i]] = process_serial(serial)
         subst_dict[patterns[2*i + 1]] = dev
         
     subst_dict[patterns[-1]] = "true" if input("Should the tests be verbose? [y/N]:").lower() == "y" else "false"
