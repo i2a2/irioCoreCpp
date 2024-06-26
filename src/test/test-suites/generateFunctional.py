@@ -6,6 +6,8 @@ import re
 import textwrap
 
 serial_regex = r"^(?:0[xX])?[0-9A-Fa-f]{8}$"
+allowed_devices = ["7854", "7966", "7965", "7961", "9159"]
+
 patterns = [ r"%%%COMMONSERIAL%%%", r"%%%COMMONDEVICE%%%", 
              r"%%%DAQSERIAL%%%",    r"%%%DAQDEVICE%%%", 
              r"%%%IMAQSERIAL%%%",   r"%%%IMAQDEVICE%%%", 
@@ -109,7 +111,7 @@ if any(automation_vars):
             print(f"Error: Invalid {t} serial", file=sys.stderr)
             exit(-1)
 
-        if dev not in ["7966", "7965", "7961", "9159"]:
+        if dev not in allowed_devices:
             print(f"Error: Invalid {t} device", file=sys.stderr)
             exit(-1)
 
@@ -126,7 +128,7 @@ if any(automation_vars):
 else:
     for (i, t) in enumerate(tests):
         dev = ""
-        while dev not in ["7966", "7965", "7961", "9159"]:
+        while dev not in allowed_devices:
             dev = input(f"Enter the device identifier for the {t} tests [ 7966, 7965, 7961, 9159 ]: ")
 
         serial = ""
