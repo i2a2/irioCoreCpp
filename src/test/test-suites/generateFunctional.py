@@ -129,11 +129,11 @@ else:
     for (i, t) in enumerate(tests):
         dev = ""
         while dev not in allowed_devices:
-            dev = input(f"Enter the device identifier for the {t} tests [ 7966, 7965, 7961, 9159 ]: ")
+            dev = input(f"Enter the device identifier for the {t} tests {allowed_devices}: ")
 
         serial = ""
         while re.match(serial_regex, serial) is None:
-            serial = input(f"Enter the serial number for the {t} tests (Format 0x1234ABCD):") 
+            serial = input(f"Enter the serial number for the {t} tests: ") 
 
         subst_dict[patterns[2*i]] = process_serial(serial)
         subst_dict[patterns[2*i + 1]] = dev
