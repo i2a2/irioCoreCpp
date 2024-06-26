@@ -228,7 +228,7 @@ TEST_F(RSeriesCPUDAQ, readDataNonBlocking){
 
 	daq.disableDMA(DMANum);
 	commonTerm.setDAQStop();
-	sleep(5);
+	
 	daq.cleanDMA(DMANum);
 
 	std::uint16_t *dataAux = reinterpret_cast<std::uint16_t*>(data.get());
@@ -280,7 +280,7 @@ TEST_F(RSeriesCPUDAQ, readDataNonBlockingNoData){
 
 	daq.disableDMA(DMANum);
 	commonTerm.setDAQStop();
-	sleep(5);
+	
 	daq.cleanDMA(DMANum);
 }
 
@@ -331,7 +331,7 @@ TEST_F(RSeriesCPUDAQ, readDataBlocking){
 
 	daq.disableDMA(DMANum);
 	commonTerm.setDAQStop();
-	sleep(5);
+	
 	daq.cleanDMA(DMANum);
 
 	std::uint16_t *dataAux = reinterpret_cast<std::uint16_t*>(data.get());
@@ -374,7 +374,7 @@ TEST_F(RSeriesCPUDAQ, readDataBlockingTimeout){
 	std::unique_ptr<std::uint64_t> data(new std::uint64_t[lengthBlock*blocksToRead]);
 	const auto timeout = static_cast<std::uint32_t>(std::ceil(lengthBlock*blocksToRead*1000/samplingRate));
 
-	sleep(5);
+	
 	daq.cleanDMA(DMANum);
 
 	daq.startDMA(DMANum);
@@ -386,7 +386,7 @@ TEST_F(RSeriesCPUDAQ, readDataBlockingTimeout){
 
 	daq.disableDMA(DMANum);
 	commonTerm.setDAQStop();
-	sleep(5);
+	
 	daq.cleanDMA(DMANum);
 }
 
