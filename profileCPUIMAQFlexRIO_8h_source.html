@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: profileCPUIMAQFlexRIO.h Source File</title>
+<title>irioCoreCpp Library Module: profileCPUIMAQFlexRIO.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -86,35 +86,29 @@ $(document).ready(function(){initNavTree('profileCPUIMAQFlexRIO_8h_source.html',
 <div class="title">profileCPUIMAQFlexRIO.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="profileCPUIMAQFlexRIO_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="profileFlexRIO_8h.html">profiles/profileFlexRIO.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="profileCPUIMAQ_8h.html">profiles/profileCPUIMAQ.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceirio.html">irio</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classirio_1_1ProfileCPUIMAQFlexRIO.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="classirio_1_1ProfileCPUIMAQFlexRIO.html">ProfileCPUIMAQFlexRIO</a>: <span class="keyword">public</span> <a class="code" href="classirio_1_1ProfileCPUIMAQ.html">ProfileCPUIMAQ</a>, <span class="keyword">public</span> <a class="code" href="classirio_1_1ProfileFlexRIO.html">ProfileFlexRIO</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classirio_1_1ProfileCPUIMAQFlexRIO.html#aadafe927facfd1579ddce02b63ab7305">   21</a></span>&#160;  <a class="code" href="classirio_1_1ProfileCPUIMAQFlexRIO.html#aadafe927facfd1579ddce02b63ab7305">ProfileCPUIMAQFlexRIO</a>(<a class="code" href="classirio_1_1ParserManager.html">ParserManager</a> *parserManager,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                        <span class="keyword">const</span> <a class="code" href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a> &amp;session,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                        <span class="keyword">const</span> <a class="code" href="classirio_1_1Platform.html">Platform</a> &amp;platform);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}  <span class="comment">// namespace irio</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;profiles/profileCPUIMAQ.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>irio {</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classirio_1_1ProfileCPUIMAQFlexRIO.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classirio_1_1ProfileCPUIMAQFlexRIO.html">ProfileCPUIMAQFlexRIO</a>: <span class="keyword">public</span> <a class="code" href="classirio_1_1ProfileCPUIMAQ.html">ProfileCPUIMAQ</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classirio_1_1ProfileCPUIMAQFlexRIO.html#aadafe927facfd1579ddce02b63ab7305">   28</a></span>&#160;  <a class="code" href="classirio_1_1ProfileCPUIMAQFlexRIO.html#aadafe927facfd1579ddce02b63ab7305">ProfileCPUIMAQFlexRIO</a>(<a class="code" href="classirio_1_1ParserManager.html">ParserManager</a> *parserManager,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                        <span class="keyword">const</span> NiFpga_Session &amp;session,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                        <span class="keyword">const</span> <a class="code" href="classirio_1_1Platform.html">Platform</a> &amp;platform);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}  <span class="comment">// namespace irio</span></div>
 <div class="ttc" id="aclassirio_1_1ParserManager_html"><div class="ttname"><a href="classirio_1_1ParserManager.html">irio::ParserManager</a></div><div class="ttdoc">Responsible for managing the parsing of resources for a bitfile.</div><div class="ttdef"><b>Definition:</b> <a href="parserManager_8h_source.html#l00113">parserManager.h:113</a></div></div>
 <div class="ttc" id="aclassirio_1_1Platform_html"><div class="ttname"><a href="classirio_1_1Platform.html">irio::Platform</a></div><div class="ttdoc">Generic Platform class.</div><div class="ttdef"><b>Definition:</b> <a href="platforms_8h_source.html#l00023">platforms.h:23</a></div></div>
-<div class="ttc" id="aclassirio_1_1ProfileCPUIMAQFlexRIO_html"><div class="ttname"><a href="classirio_1_1ProfileCPUIMAQFlexRIO.html">irio::ProfileCPUIMAQFlexRIO</a></div><div class="ttdef"><b>Definition:</b> <a href="profileCPUIMAQFlexRIO_8h_source.html#l00007">profileCPUIMAQFlexRIO.h:7</a></div></div>
+<div class="ttc" id="aclassirio_1_1ProfileCPUIMAQFlexRIO_html"><div class="ttname"><a href="classirio_1_1ProfileCPUIMAQFlexRIO.html">irio::ProfileCPUIMAQFlexRIO</a></div><div class="ttdoc">Profile with the terminals specific to data acquisition functionality and the ones specific to FlexRI...</div><div class="ttdef"><b>Definition:</b> <a href="profileCPUIMAQFlexRIO_8h_source.html#l00014">profileCPUIMAQFlexRIO.h:14</a></div></div>
 <div class="ttc" id="aclassirio_1_1ProfileCPUIMAQFlexRIO_html_aadafe927facfd1579ddce02b63ab7305"><div class="ttname"><a href="classirio_1_1ProfileCPUIMAQFlexRIO.html#aadafe927facfd1579ddce02b63ab7305">irio::ProfileCPUIMAQFlexRIO::ProfileCPUIMAQFlexRIO</a></div><div class="ttdeci">ProfileCPUIMAQFlexRIO(ParserManager *parserManager, const NiFpga_Session &amp;session, const Platform &amp;platform)</div><div class="ttdoc">Manages creating the required terminals for CPU image acquisition in FlexRIO boards.</div></div>
-<div class="ttc" id="aclassirio_1_1ProfileCPUIMAQ_html"><div class="ttname"><a href="classirio_1_1ProfileCPUIMAQ.html">irio::ProfileCPUIMAQ</a></div><div class="ttdef"><b>Definition:</b> <a href="profileCPUIMAQ_8h_source.html#l00007">profileCPUIMAQ.h:7</a></div></div>
-<div class="ttc" id="aclassirio_1_1ProfileFlexRIO_html"><div class="ttname"><a href="classirio_1_1ProfileFlexRIO.html">irio::ProfileFlexRIO</a></div><div class="ttdoc">Profile with the terminals specific to FlexRIO devices.</div><div class="ttdef"><b>Definition:</b> <a href="profileFlexRIO_8h_source.html#l00016">profileFlexRIO.h:16</a></div></div>
-<div class="ttc" id="anamespaceirio_html"><div class="ttname"><a href="namespaceirio.html">irio</a></div><div class="ttdef"><b>Definition:</b> <a href="bfp_8h_source.html#l00010">bfp.h:10</a></div></div>
-<div class="ttc" id="aprofileCPUIMAQ_8h_html"><div class="ttname"><a href="profileCPUIMAQ_8h.html">profileCPUIMAQ.h</a></div></div>
-<div class="ttc" id="aprofileFlexRIO_8h_html"><div class="ttname"><a href="profileFlexRIO_8h.html">profileFlexRIO.h</a></div></div>
-<div class="ttc" id="aterminalsBase_8h_html_a2bcfaa592fb0ccba8e715fbac7f56404"><div class="ttname"><a href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a></div><div class="ttdeci">uint32_t NiFpga_Session</div><div class="ttdef"><b>Definition:</b> <a href="terminalsBase_8h_source.html#l00009">terminalsBase.h:9</a></div></div>
+<div class="ttc" id="aclassirio_1_1ProfileCPUIMAQ_html"><div class="ttname"><a href="classirio_1_1ProfileCPUIMAQ.html">irio::ProfileCPUIMAQ</a></div><div class="ttdoc">Profile with the terminals specific to image acquisition functionality.</div><div class="ttdef"><b>Definition:</b> <a href="profileCPUIMAQ_8h_source.html#l00014">profileCPUIMAQ.h:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_a0b8bf564a7961ebe59b94c5105b13bd.html">irioCoreCpp</a></li><li class="navelem"><a class="el" href="dir_cd034827b11836ebb3ad7ad6bdab8663.html">include</a></li><li class="navelem"><a class="el" href="dir_ffe975955b80131574d99e35a74413ff.html">profiles</a></li><li class="navelem"><a class="el" href="profileCPUIMAQFlexRIO_8h.html">profileCPUIMAQFlexRIO.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2bca091c87127f5da307455ce418719.html">c++</a></li><li class="navelem"><a class="el" href="dir_882a568e20d9cf39243f9875aa1dbba3.html">irioCoreCpp</a></li><li class="navelem"><a class="el" href="dir_2bff09524866fd009d043f403e815fb8.html">include</a></li><li class="navelem"><a class="el" href="dir_2def086ea235a0144c23dbfc3d7cefb2.html">profiles</a></li><li class="navelem"><b>profileCPUIMAQFlexRIO.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

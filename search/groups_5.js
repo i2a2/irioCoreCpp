@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gpu_20related_20acquisition_20profiles_1110',['GPU related Acquisition Profiles',['../group__ProfilesGPU.html',1,'']]]
+  ['r_20series_20profiles_1205',['R Series Profiles',['../group__ProfilesRSeries.html',1,'']]]
 ];

@@ -1,6 +1,5 @@
 var group__Terminals =
 [
-    [ "DMA Terminals", "group__DMATerminals.html", "group__DMATerminals" ],
     [ "TerminalsAnalog", "classirio_1_1TerminalsAnalog.html", [
       [ "TerminalsAnalog", "classirio_1_1TerminalsAnalog.html#add44d902724cb19b93b2f007424d263b", null ],
       [ "getAI", "classirio_1_1TerminalsAnalog.html#aa90c554f8b86f7a57c5d8fa0c8dc10a1", null ],
@@ -43,6 +42,22 @@ var group__Terminals =
       [ "TerminalsBase", "classirio_1_1TerminalsBase.html#ad024180e5576458cbee715e5dc1dcdea", null ],
       [ "m_impl", "classirio_1_1TerminalsBase.html#a0b9f039d3b34da879440637610995ac2", null ]
     ] ],
+    [ "TerminalsCommon", "classirio_1_1TerminalsCommon.html", [
+      [ "TerminalsCommon", "classirio_1_1TerminalsCommon.html#ae0b9c733aa30a5dab28a6f02528a55aa", null ],
+      [ "getDAQStartStop", "classirio_1_1TerminalsCommon.html#a2f7922879ad5cd445b660d69285ed5af", null ],
+      [ "getDebugMode", "classirio_1_1TerminalsCommon.html#ad89b23513b4f995cf828d426d4348e0a", null ],
+      [ "getDevQualityStatus", "classirio_1_1TerminalsCommon.html#a3461f99019eec49a1e60d721747bf740", null ],
+      [ "getDevTemp", "classirio_1_1TerminalsCommon.html#af35254ba70e5f0263eb1e2db9186fda2", null ],
+      [ "getFPGAVIversion", "classirio_1_1TerminalsCommon.html#ad28140105319be4c91b5995a4f74ff29", null ],
+      [ "getFref", "classirio_1_1TerminalsCommon.html#ab383ea60addeba03d66fa8477026ca21", null ],
+      [ "getInitDone", "classirio_1_1TerminalsCommon.html#adacc06eb13c749d07e30196a7d44ddc2", null ],
+      [ "getMaxSamplingRate", "classirio_1_1TerminalsCommon.html#ab7526f12681584f7475ab0ee604e23ba", null ],
+      [ "getMinSamplingRate", "classirio_1_1TerminalsCommon.html#a7f5f596325b3b026a8f8a16680b6bb19", null ],
+      [ "setDAQStart", "classirio_1_1TerminalsCommon.html#aada3dfab139e8c0c17145833a8c31a64", null ],
+      [ "setDAQStartStop", "classirio_1_1TerminalsCommon.html#abaf3dba461bda61be7c0944336539d25", null ],
+      [ "setDAQStop", "classirio_1_1TerminalsCommon.html#ac2479c291b0f2839e3c6988be96d41c1", null ],
+      [ "setDebugMode", "classirio_1_1TerminalsCommon.html#a04cf8d11cc33fe026e13d74372160851", null ]
+    ] ],
     [ "TerminalscRIO", "classirio_1_1TerminalscRIO.html", [
       [ "TerminalscRIO", "classirio_1_1TerminalscRIO.html#af4ffcc40c84e886d18b1c92321a184c1", null ],
       [ "getcRIOModulesOk", "classirio_1_1TerminalscRIO.html#a8f80f3491aa225c56b3b8f6775e3352a", null ],
@@ -61,6 +76,12 @@ var group__Terminals =
       [ "getInsertedIOModuleID", "classirio_1_1TerminalsFlexRIO.html#a36fa833e2ec6dcf5a7c645a50cb667ba", null ],
       [ "getRIOAdapterCorrect", "classirio_1_1TerminalsFlexRIO.html#a0c968f28b18d0d083d266ee96228204f", null ]
     ] ],
+    [ "TerminalsIO", "classirio_1_1TerminalsIO.html", [
+      [ "TerminalsIO", "classirio_1_1TerminalsIO.html#a62cb421ad62d1dd18d1dfc659ed41cf8", null ],
+      [ "getNumIOSamplingRate", "classirio_1_1TerminalsIO.html#a3b9a79c7a879c930731ad6e42f2df71e", null ],
+      [ "getSamplingRateDecimation", "classirio_1_1TerminalsIO.html#abf51b2de43c0402b6c0a1c3e57410317", null ],
+      [ "setSamplingRateDecimation", "classirio_1_1TerminalsIO.html#aa15e91c770cb584a988a9e078e97c07d", null ]
+    ] ],
     [ "TerminalsSignalGeneration", "classirio_1_1TerminalsSignalGeneration.html", [
       [ "TerminalsSignalGeneration", "classirio_1_1TerminalsSignalGeneration.html#a87434bf73d89de5c574a730019b1b37b", null ],
       [ "getSGAmp", "classirio_1_1TerminalsSignalGeneration.html#a937cde9e735c309cf587c290a486f8ce", null ],
@@ -72,9 +93,9 @@ var group__Terminals =
       [ "getSGUpdateRate", "classirio_1_1TerminalsSignalGeneration.html#ab7dbf26df4475fd3cca0f18255cf5e23", null ],
       [ "getVectorSGFrefs", "classirio_1_1TerminalsSignalGeneration.html#a294ee3c0674d3a2cb5dc27d070c4ecd6", null ],
       [ "setSGAmp", "classirio_1_1TerminalsSignalGeneration.html#ad0b5d79dd3c4b0346614aaa583f46887", null ],
-      [ "setSGFreq", "classirio_1_1TerminalsSignalGeneration.html#a9a3a36e842691cf2813355d1fcb10649", null ],
+      [ "setSGFreqDecimation", "classirio_1_1TerminalsSignalGeneration.html#a827fdd3414ca0401eb453fddf9f1fb3b", null ],
       [ "setSGPhase", "classirio_1_1TerminalsSignalGeneration.html#a2e9ef83b1ce4a5ff466409dffc97cca1", null ],
       [ "setSGSignalType", "classirio_1_1TerminalsSignalGeneration.html#a1a1e148e13838aa7a94cc026e71e4146", null ],
-      [ "setSGUpdateRate", "classirio_1_1TerminalsSignalGeneration.html#aeb6c5e920b511fa16b3f1b3932baf4db", null ]
+      [ "setSGUpdateRateDecimation", "classirio_1_1TerminalsSignalGeneration.html#a000bde6f85d806aa5ab7a6c58561d1dc", null ]
     ] ]
 ];

@@ -2,9 +2,11 @@ var hierarchy =
 [
     [ "irio::bfp::BFP", "classirio_1_1bfp_1_1BFP.html", null ],
     [ "irio::ConfigParams", "structirio_1_1ConfigParams.html", null ],
+    [ "cRIOmodule", "structcRIOmodule.html", null ],
     [ "irio::CustomStringComparator", "structirio_1_1CustomStringComparator.html", null ],
     [ "irio::GroupInfo", "structirio_1_1GroupInfo.html", null ],
     [ "irio::Irio", "classirio_1_1Irio.html", null ],
+    [ "irioDrv_t", "structirioDrv__t.html", null ],
     [ "irio::Module", "classirio_1_1Module.html", [
       [ "irio::ModuleNI5734", "classirio_1_1ModuleNI5734.html", null ],
       [ "irio::ModuleNI5761", "classirio_1_1ModuleNI5761.html", null ],
@@ -21,17 +23,14 @@ var hierarchy =
     [ "irio::ProfileBase", "classirio_1_1ProfileBase.html", [
       [ "irio::ProfileCPUDAQ", "classirio_1_1ProfileCPUDAQ.html", [
         [ "irio::ProfileCPUDAQFlexRIO", "classirio_1_1ProfileCPUDAQFlexRIO.html", null ],
+        [ "irio::ProfileCPUDAQRSeries", "classirio_1_1ProfileCPUDAQRSeries.html", null ],
         [ "irio::ProfileCPUDAQcRIO", "classirio_1_1ProfileCPUDAQcRIO.html", null ]
       ] ],
       [ "irio::ProfileCPUIMAQ", "classirio_1_1ProfileCPUIMAQ.html", [
         [ "irio::ProfileCPUIMAQFlexRIO", "classirio_1_1ProfileCPUIMAQFlexRIO.html", null ]
       ] ],
-      [ "irio::ProfileCRIO", "classirio_1_1ProfileCRIO.html", [
-        [ "irio::ProfileCPUDAQcRIO", "classirio_1_1ProfileCPUDAQcRIO.html", null ]
-      ] ],
-      [ "irio::ProfileFlexRIO", "classirio_1_1ProfileFlexRIO.html", [
-        [ "irio::ProfileCPUDAQFlexRIO", "classirio_1_1ProfileCPUDAQFlexRIO.html", null ],
-        [ "irio::ProfileCPUIMAQFlexRIO", "classirio_1_1ProfileCPUIMAQFlexRIO.html", null ]
+      [ "irio::ProfileIO", "classirio_1_1ProfileIO.html", [
+        [ "irio::ProfileIOcRIO", "classirio_1_1ProfileIOcRIO.html", null ]
       ] ]
     ] ],
     [ "irio::bfp::Resource", "classirio_1_1bfp_1_1Resource.html", [
@@ -53,6 +52,7 @@ var hierarchy =
           [ "irio::errors::NiFpgaErrorDownloadingBitfile", "classirio_1_1errors_1_1NiFpgaErrorDownloadingBitfile.html", null ],
           [ "irio::errors::NiFpgaFPGAAlreadyRunning", "classirio_1_1errors_1_1NiFpgaFPGAAlreadyRunning.html", null ]
         ] ],
+        [ "irio::errors::ProfileNotImplementedError", "classirio_1_1errors_1_1ProfileNotImplementedError.html", null ],
         [ "irio::errors::RIODeviceNotFoundError", "classirio_1_1errors_1_1RIODeviceNotFoundError.html", null ],
         [ "irio::errors::RIODiscoveryError", "classirio_1_1errors_1_1RIODiscoveryError.html", null ],
         [ "irio::errors::ResourceNotFoundError", "classirio_1_1errors_1_1ResourceNotFoundError.html", null ],
@@ -66,6 +66,7 @@ var hierarchy =
       [ "irio::TerminalsAnalog", "classirio_1_1TerminalsAnalog.html", null ],
       [ "irio::TerminalsAuxAnalog", "classirio_1_1TerminalsAuxAnalog.html", null ],
       [ "irio::TerminalsAuxDigital", "classirio_1_1TerminalsAuxDigital.html", null ],
+      [ "irio::TerminalsCommon", "classirio_1_1TerminalsCommon.html", null ],
       [ "irio::TerminalsDMACommon", "classirio_1_1TerminalsDMACommon.html", [
         [ "irio::TerminalsDMADAQ", "classirio_1_1TerminalsDMADAQ.html", [
           [ "irio::TerminalsDMADAQCPU", "classirio_1_1TerminalsDMADAQCPU.html", null ]
@@ -76,7 +77,10 @@ var hierarchy =
       ] ],
       [ "irio::TerminalsDigital", "classirio_1_1TerminalsDigital.html", null ],
       [ "irio::TerminalsFlexRIO", "classirio_1_1TerminalsFlexRIO.html", null ],
+      [ "irio::TerminalsIO", "classirio_1_1TerminalsIO.html", null ],
       [ "irio::TerminalsSignalGeneration", "classirio_1_1TerminalsSignalGeneration.html", null ],
       [ "irio::TerminalscRIO", "classirio_1_1TerminalscRIO.html", null ]
-    ] ]
+    ] ],
+    [ "TResourcePort", "structTResourcePort.html", null ],
+    [ "TStatus", "structTStatus.html", null ]
 ];

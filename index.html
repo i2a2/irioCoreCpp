@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: Main Page</title>
+<title>irioCoreCpp Library Module: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -83,11 +83,216 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">IRIO Core Library Module Documentation</div>  </div>
+<div class="title">irioCoreCpp Library Module Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
-WIP</h1>
+<div class="textblock"><h1><a class="anchor" id="main_introduction"></a>
+Introduction</h1>
+<dl class="section note"><dt>Note</dt><dd>This project is a reimplementation of <a href="https://github.com/i2a2/irio-v2">https://github.com/i2a2/irio-v2</a></dd></dl>
+<p>National Instruments RIO devices are data acquisition devices implemented using field-programmable gate arrays (FPGAs). This project aims to facilitate their use by providing a series of classes and methods to simplify the interface with these devices.</p>
+<p>There are three RIO devices: FlexRIO, compactRIO and RSeries. Each of these devices has a XILINX FPGA at its core, which can be reconfigured in virtually an infinite number of implementations. This renders it challenging, if not impossible, to entirely abstract the user from the specific implementation being used. While designing the C++ library, efforts were made to avoid possible problems. However, no all cases were to fully covered.</p>
+<h1><a class="anchor" id="main_installation"></a>
+Installation</h1>
+<p>The recommended way is to download the appropiate packages from the <a href="https://github.com/i2a2/irioCoreCpp/releases">release section</a>.</p>
+<dl class="section attention"><dt>Attention</dt><dd>It is necessary to have the national instrument package repository configured to resolve the dependencies appropriately (See <a class="el" href="index.html#configure_ni_repository">Configure National Instrument package repository</a>). Alternatively the following packages could be installed manually:<ul>
+<li>ni-flexrio-modulario-libs</li>
+<li>ni-syscfg-runtime</li>
+</ul>
+</dd></dl>
+<h1><a class="anchor" id="compilation"></a>
+Compilation</h1>
+<h2><a class="anchor" id="compilation_prerequisites"></a>
+Prerequisites</h2>
+<p>The requires packages for compiling the project are:</p><ul>
+<li>pugixml-devel</li>
+<li>gtest-devel</li>
+<li>rsync</li>
+<li>cpplint (python3 module)</li>
+<li>ni-syscfg-devel</li>
+<li>ni-flexrio-modulario-libs-devel</li>
+</ul>
+<dl class="section attention"><dt>Attention</dt><dd>It is necessary to have the national instrument package repository configured to install the packages related to NI (See <a class="el" href="index.html#configure_ni_repository">Configure National Instrument package repository</a>)</dd></dl>
+<p>If the generation of the documentation is required, it is also necessary to have installed the following packages:</p><ul>
+<li>doxygen</li>
+<li>graphviz</li>
+</ul>
+<h2><a class="anchor" id="compilation_instructions"></a>
+Instructions</h2>
+<p>To compile the project go to the root folder and execute: </p><div class="fragment"><div class="line">make compile</div>
+</div><!-- fragment --><p> This will compile the libraries, unittests, functional tests and examples.</p>
+<h1><a class="anchor" id="manual_packages"></a>
+Generating packages manually</h1>
+<dl class="section attention"><dt>Attention</dt><dd>Package generation will only generate rpm for RHEL distributions. In other distributions it is necessary to install tools for managing rpm (in Debian it is usually the package <code>rpm</code>).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is also possible to convert these rpms into deb with <code>alien</code> (See <a class="el" href="index.html#manual_packages_deb">Converting RPM packages to deb</a>), but this has not been tested throughly.</dd></dl>
+<p>To genearte the rpm go to the root folder and execute: </p><div class="fragment"><div class="line">make package</div>
+</div><!-- fragment --><p>This will generate rpm files in <code>target/packages/</code></p>
+<dl class="section note"><dt>Note</dt><dd>Default installation directories are:<ul>
+<li><code>/usr/local/lib</code> : Libraries</li>
+<li><code>/usr/local/include</code> : Header files</li>
+</ul>
+</dd></dl>
+<p>It is also possible to set the installation directory for the files once the rpm are installed by using the parameter <code>INSTALL_DIR</code> </p><div class="fragment"><div class="line">make <span class="keyword">package </span>INSTALL_DIR=&lt;install directory&gt;</div>
+</div><!-- fragment --><p>Libraries will be placed in <code>INSTALL_DIR/lib</code> and headers in <code>INSTALL_DIR/include</code>. If <code>INSTALL_DIR</code> is not set, it defaults to <code>/usr/local</code>, unless <code>CODAC_ROOT</code> is set, in which case <code>INSTALL_DIR</code> will use the value of <code>CODAC_ROOT</code></p>
+<h2><a class="anchor" id="manual_packages_deb"></a>
+Converting RPM packages to deb</h2>
+<h3><a class="anchor" id="manual_packages_deb_prerequisites"></a>
+Prerequisites</h3>
+<ul>
+<li><a class="el" href="index.html#manual_packages">Packaging</a> is done succesfully.</li>
+<li>Install <code>alien</code> package. </li>
+</ul>
+<h3><a class="anchor" id="manual_packages_deb_instructions"></a>
+Instructions</h3>
+<ol type="1">
+<li>Go to <code>target/packages/x86_64</code></li>
+<li>Run the <code>alien</code> command: ``` sudo alien -c *.rpm ``<code></code></li>
+<li><code>The</code>.deb` packages will be generated in the same folder</li>
+</ol>
+<h1><a class="anchor" id="configure_ni_repository"></a>
+Configure National Instrument package repository</h1>
+<p>In order toaccess and install the required packages of National Instrument, it is recommended to add the pacakge repository. The following list explains how to do this:</p><ol type="1">
+<li><b>Download the NI System Configuration repositories:</b><ul>
+<li>Visit <a href="https://www.ni.com/en/support/downloads/drivers/download.system-configuration.html">NI System Configuration Downloads</a> and download the relevant package.</li>
+</ul>
+</li>
+<li><b>Unzip the contents (.zip file may have different name):</b> ```bash unzip -o NILinuxDeviceDrivers NILinux2023Q4DeviceDrivers.zip ```</li>
+<li><b>Navigate to the extracted folder:</b> ```bash cd NILinuxDeviceDrivers ```</li>
+<li><b>Install the package corresponding to your distribution</b><ul>
+<li>ni-&lt;distribution&gt;-drivers-stream.rpm <dl class="section note"><dt>Note</dt><dd>After this step, it may be required to update the repositories to find the NI packages</dd></dl>
+</li>
+</ul>
+</li>
+</ol>
+<h1><a class="anchor" id="tests"></a>
+Run tests</h1>
+<p>The project contains several tests to try to test irioCoreCpp and its C wrapper. It has unit tests, to check each part of the application, as wll as functional tests, to verify the functionality of the entire application.</p>
+<p>There are two ways to execute these tests, thorugh the use of XML and a Python script or running the GoogleTest manually</p>
+<h2><a class="anchor" id="python_execution"></a>
+Python execution</h2>
+<h3><a class="anchor" id="python_execution_xml"></a>
+XML Test automation</h3>
+<p>Tests can be automatically executed with a Python application. By default, the <code>target/test/test-suites</code> folder contains the unitary tests that do not run on the real hardware.</p>
+<p>The functional tests that run on actual hardware must be generated with the <code>generateFunctional.py</code> application located in the <code>target/test/test-suites</code> folder. This application can be run in two ways:</p><ul>
+<li>Interactive execution: Execute the application with no serial, device or verbose argument to have it ask the user for each parameter.</li>
+<li>Parametric execution: Use <b>all</b> the serial, device and verbose arguments to automatize the execution. They can be obtained using the <code>-h</code> flag.</li>
+</ul>
+<p>This application supports the selection of the input and output folders with the <code>-i</code> and <code>-o</code> flags, but the default behaviour (input from <code>test-suites/templates</code> and output to <code>test-suites</code>) is recommended.</p>
+<p>Custom test suites can also be created following the schema on <code>target/test/testSchema.xsd</code>. For example, to create a test that runs all the <em>FlexRIO</em> tests of the <em>irioCore Funcional</em> binary on a <em>FlexRIO-7966</em> that has the serial <em>0x12345678</em> and no module attached is:</p>
+<div class="fragment"><div class="line">&lt;?xml version=<span class="stringliteral">&quot;1.0&quot;</span> encoding=<span class="stringliteral">&quot;UTF-8&quot;</span>?&gt;</div>
+<div class="line">&lt;testplan</div>
+<div class="line">    xmlns=<span class="stringliteral">&quot;http://www.testLocation.com/test&quot;</span></div>
+<div class="line">    xmlns:xsi=<span class="stringliteral">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></div>
+<div class="line">    xsi:schemaLocation=<span class="stringliteral">&quot;http://www.testLocation.com/test ../testSchema.xsd&quot;</span>&gt;</div>
+<div class="line"> </div>
+<div class="line">    &lt;test&gt;</div>
+<div class="line">        &lt;name&gt;Test&lt;/name&gt;</div>
+<div class="line">        &lt;TestFilter&gt;FlexRIO*&lt;/TestFilter&gt;</div>
+<div class="line">        &lt;TestType&gt;irioCore Functional&lt;/TestType&gt;</div>
+<div class="line">        &lt;RIODevice&gt;7966&lt;/RIODevice&gt;</div>
+<div class="line">        &lt;RIOSerial&gt;0x12345678&lt;/RIOSerial&gt;</div>
+<div class="line">        &lt;RIOModule&gt;noModule&lt;/RIOModule&gt;</div>
+<div class="line">        &lt;verbose&gt;<span class="keyword">false</span>&lt;/verbose&gt; &lt;!-- Optional --&gt;</div>
+<div class="line">        &lt;coupling&gt;<a class="code" href="group__Modules.html#ggafe00bccd645ef63845cf3d8563ab6e91acf75e54791dd1f49f918345fdfe2430b">DC</a>&lt;/coupling&gt;  &lt;!-- Optional --&gt;</div>
+<div class="line">        &lt;maxIMAQiterations&gt;65536&lt;/maxIMAQiterations&gt; &lt;!-- Optional --&gt;</div>
+<div class="line">    &lt;/test&gt;</div>
+<div class="line">&lt;/testplan&gt;</div>
+<div class="ttc" id="agroup__Modules_html_ggafe00bccd645ef63845cf3d8563ab6e91acf75e54791dd1f49f918345fdfe2430b"><div class="ttname"><a href="group__Modules.html#ggafe00bccd645ef63845cf3d8563ab6e91acf75e54791dd1f49f918345fdfe2430b">irio::CouplingMode::DC</a></div><div class="ttdeci">@ DC</div><div class="ttdoc">DC.</div></div>
+</div><!-- fragment --><p>A <em>testplan</em> is a collection of <em>tests</em> to be run. The different tests inside will be run independently and the results are reported separetely. Each test contains the following fields:</p><ul>
+<li><em>name</em>: Name of the test. Only used for logging.</li>
+<li><em>TestFilter</em>: GTest filter expression to select the desired tests. If not present, all the tests will be run.</li>
+<li><em>TestType</em>: Test family to run. One of:<ul>
+<li><em>irioCore Unitary</em>: Unitary tests of the C library (mocking).</li>
+<li><em>irioCore Functional</em>: Functional tests of the C library (real hardware).</li>
+<li><em>irioCoreCpp Unitary</em>: Unitary tests of the C++ library (mocking).</li>
+<li><em>irioCoreCpp Functional</em>: Functional tests of the C++ library (real hardware).</li>
+<li><em>BFP</em>: BitFile Parser tests.</li>
+<li><em>Custom binary</em>: Manually specify the route to the excutable. Requires the optional <em>Binary</em> element.</li>
+</ul>
+</li>
+<li><em>RIODevice</em>: (Only for functional tests) Model of the RIO device to test. One of: <em>7966</em>, <em>7965</em>, <em>7961</em> or <em>9159</em>. If not present, a value of <code>7966</code> is used.</li>
+<li><em>RIOSerial</em>: (Only for functional tests) Serial number of the device. Format: <em>0xABCD1234</em>. If not present, a default value of <code>0x00000000</code> is used.</li>
+<li><em>RIOModule</em>: Module connected to the device. Informative, has no impact on the tests. One of: <em>noModule</em>, <em>NI1483</em>, <em>NI5761</em>, <em>NI5781</em>, <em>NI6581</em>, <em>NI5734</em>, <em>NI92xx</em>.</li>
+<li><em>Binary</em>: Absolute path to the executable to run, if the <em>TestType</em> field is set to <em>CustomBinary</em>.</li>
+<li><em>verbose</em>: Boolean controlling the test verbosity. Optional, default is <em>False</em>.</li>
+<li><em>coupling</em>: (Only for functional tests) Coupling for signal adquisition. Either <em>AC</em> or <em>DC</em>. Optional, default is <em>AC</em>.</li>
+<li><em>maxIMAQiterations</em>: (Only for functional tests) Maximum counter for the image test. Optional, default to <em>65536</em>.</li>
+<li><em>results</em>: Field to store the count of passed tests. Should not be written by the user.</li>
+<li><em>summary</em>: Field to store the string result of the test. Either <em>PASS</em> or <em>FAIL</em>. Should not be written by the user.</li>
+<li><em>failedTests</em>: List of the names of the failed tests. Should not be written by the user.</li>
+</ul>
+<p>Once the test is defined on the XML file, from the root of the project, run: </p><div class="fragment"><div class="line">target/test/automate_GT.py -i &lt;XML file&gt; (-a | -o &lt;Output file&gt;)</div>
+</div><!-- fragment --><p>Either <code>-a</code> or <code>-o &lt;Output file&gt;</code> can be used to select the output destination for the tests. <code>-a</code> will append the results to the input file and <code>-o</code> will create or rewrite the destination file with the results.</p>
+<p>The test output will be printed as specified on the <em>verbose</em> field of the test. If only a final summary is required, use the <em>-S</em> flag to supress test output and display a final count only.</p>
+<h3><a class="anchor" id="python_execution_specifi_test"></a>
+Specific test execution</h3>
+<p>The same python application can be used to execute tests with custom filters. Use the help of the executable to get the possible arguments for the test: </p><div class="fragment"><div class="line">automate_GT.py -h</div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>If the <code>--input-file</code> or <code>-i</code> flag is present, the custom run arguments will be ignored and the tests from the XML will be run.</dd></dl>
+<p>A test report can be generated with the <code>-o &lt;FILE&gt;</code> argument, and it will be generated on the same format as the XML files on the previous section.</p>
+<p>For example, in order to run the functional <em>FlexRIO</em> tests from the <em>irioCore</em> library on a 7966 with the serial number <em>0x1234ABCD</em> with full verbosity and creating a report on <em>test.xml</em>, use: </p><div class="fragment"><div class="line">target/test/automate_GT.py -d 7966 -s 0x1234ABCD -b target/test/c++/irioCore/test_irioCore -v -f &quot;FlexRIO*&quot; -o &quot;test.xml&quot;</div>
+</div><!-- fragment --><h2><a class="anchor" id="tests_manual_execution"></a>
+Run GoogleTest manually</h2>
+<h3><a class="anchor" id="tests_unittests"></a>
+Unittests</h3>
+<dl class="section note"><dt>Note</dt><dd>These tests have been implemented using mocking and therefore do not require real RIO boards to run them.</dd></dl>
+<h4><a class="anchor" id="tests_unittests_bfp"></a>
+BFP</h4>
+<p>Test are in the following folder. Test should be run from this directory. </p><div class="fragment"><div class="line">target/test/c++/bfp</div>
+</div><!-- fragment --><p> To execute all the tests, run: </p><div class="fragment"><div class="line">./test_bfp</div>
+</div><!-- fragment --><p> To execute specific tests use gtest filter functionality </p><div class="fragment"><div class="line">./test_bfp --gtest_filter=&lt;tests to run&gt;</div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>To list available tests use the parameter <code>--gtest_list_tests</code></dd></dl>
+<h4><a class="anchor" id="tests_unittests_irioCoreCpp"></a>
+irioCoreCpp</h4>
+<p>Test are in the following folder. Test should be run from this directory. </p><div class="fragment"><div class="line">target/test/c++/unittests/irioCoreCpp</div>
+</div><!-- fragment --><p> To execute all the tests, run: </p><div class="fragment"><div class="line">./test_ut_irioCoreCpp</div>
+</div><!-- fragment --><p> To execute specific tests use gtest filter functionality </p><div class="fragment"><div class="line">./test_ut_irioCoreCpp --gtest_filter=&lt;tests to run&gt;</div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>To list available tests use the parameter <code>--gtest_list_tests</code></dd></dl>
+<h4><a class="anchor" id="tests_unittests_irioCore"></a>
+irioCore (C wrapper)</h4>
+<p>Test are in the following folder. Test should be run from this directory. </p><div class="fragment"><div class="line">target/test/c++/unittests/irioCore</div>
+</div><!-- fragment --><p> To execute all the tests, run: </p><div class="fragment"><div class="line">./test_ut_irioCore</div>
+</div><!-- fragment --><p> To execute specific tests use gtest filter functionality </p><div class="fragment"><div class="line">./test_ut_irioCore --gtest_filter=&lt;tests to run&gt;</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>To list available tests use the parameter <code>--gtest_list_tests</code></dd></dl>
+<h3><a class="anchor" id="tests_functional"></a>
+Functional</h3>
+<h4><a class="anchor" id="tests_functional_envvar"></a>
+Environment Variables</h4>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Variable Name   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Example    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RIODevice   </td><td class="markdownTableBodyNone">Type of RIO device   </td><td class="markdownTableBodyNone">7966    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">RIOSerial   </td><td class="markdownTableBodyNone">Serial of the device. Can be obtained by using "lsni -v -e ni-rio"   </td><td class="markdownTableBodyNone">0177A2AD    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">VerboseTest   </td><td class="markdownTableBodyNone">Print info test messages (not used by irioCoreCpp tests)   </td><td class="markdownTableBodyNone">0 or 1    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">VerboseInit   </td><td class="markdownTableBodyNone">Print info of driver initialization (not used by irioCoreCpp tests)   </td><td class="markdownTableBodyNone">0 or 1    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">maxCounter   </td><td class="markdownTableBodyNone">Maximum counter used when acquiring images (only for IMAQ tests where images are acquired)   </td><td class="markdownTableBodyNone">65536   </td></tr>
+</table>
+<h4><a class="anchor" id="tests_functional_irioCoreCpp"></a>
+irioCoreCpp</h4>
+<p>Test are in the following folder. Test should be run from this folder. </p><div class="fragment"><div class="line">target/test/c++/irioCoreCpp</div>
+</div><!-- fragment --><p> To execute all the tests, run: </p><div class="fragment"><div class="line">./test_irioCoreCpp</div>
+</div><!-- fragment --><p> To execute specific tests use gtest filter functionality </p><div class="fragment"><div class="line">./test_irioCoreCpp --gtest_filter=&lt;tests to run&gt;</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>To list available tests use the parameter <code>--gtest_list_tests</code></dd></dl>
+<h4><a class="anchor" id="tests_functional_irioCore"></a>
+irioCore (C wrapper)</h4>
+<p>Test are in the following folder. Test should be run from this folder. </p><div class="fragment"><div class="line">target/test/c++/irioCore</div>
+</div><!-- fragment --><p> To execute all the tests, run: </p><div class="fragment"><div class="line">./test_irioCore</div>
+</div><!-- fragment --><p> To execute specific tests use gtest filter functionality </p><div class="fragment"><div class="line">./test_irioCore --gtest_filter=&lt;tests to run&gt;</div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>To list available tests use the parameter <code>--gtest_list_tests</code></dd></dl>
+<h1><a class="anchor" id="third_party_libraries"></a>
+Third-Party Libraries</h1>
+<p>This project makes use of third-party libraries. These include:</p>
+<ul>
+<li><b>Fake Function Framework (fff)</b><ul>
+<li>Used for unittest mocking</li>
+<li><a href="https://github.com/meekrosoft/fff">https://github.com/meekrosoft/fff</a></li>
+<li>License: MIT License (available <a href="https://opensource.org/licenses/MIT">here</a>) </li>
+</ul>
+</li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

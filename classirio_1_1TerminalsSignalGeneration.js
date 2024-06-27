@@ -10,8 +10,8 @@ var classirio_1_1TerminalsSignalGeneration =
     [ "getSGUpdateRate", "classirio_1_1TerminalsSignalGeneration.html#ab7dbf26df4475fd3cca0f18255cf5e23", null ],
     [ "getVectorSGFrefs", "classirio_1_1TerminalsSignalGeneration.html#a294ee3c0674d3a2cb5dc27d070c4ecd6", null ],
     [ "setSGAmp", "classirio_1_1TerminalsSignalGeneration.html#ad0b5d79dd3c4b0346614aaa583f46887", null ],
-    [ "setSGFreq", "classirio_1_1TerminalsSignalGeneration.html#a9a3a36e842691cf2813355d1fcb10649", null ],
+    [ "setSGFreqDecimation", "classirio_1_1TerminalsSignalGeneration.html#a827fdd3414ca0401eb453fddf9f1fb3b", null ],
     [ "setSGPhase", "classirio_1_1TerminalsSignalGeneration.html#a2e9ef83b1ce4a5ff466409dffc97cca1", null ],
     [ "setSGSignalType", "classirio_1_1TerminalsSignalGeneration.html#a1a1e148e13838aa7a94cc026e71e4146", null ],
-    [ "setSGUpdateRate", "classirio_1_1TerminalsSignalGeneration.html#aeb6c5e920b511fa16b3f1b3932baf4db", null ]
+    [ "setSGUpdateRateDecimation", "classirio_1_1TerminalsSignalGeneration.html#a000bde6f85d806aa5ab7a6c58561d1dc", null ]
 ];

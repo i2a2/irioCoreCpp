@@ -1,0 +1,4 @@
+<map id="irio::TerminalsCommon" name="irio::TerminalsCommon">
+<area shape="rect" id="node1" title="Class managing terminals common to all profiles." alt="" coords="5,131,192,399"/>
+<area shape="rect" id="node2" href="$classirio_1_1TerminalsBase.html" title="Base class for all terminals." alt="" coords="25,5,172,83"/>
+</map>

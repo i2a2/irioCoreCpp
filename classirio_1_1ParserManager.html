@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: irio::ParserManager Class Reference</title>
+<title>irioCoreCpp Library Module: irio::ParserManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('classirio_1_1ParserManager.html',''); 
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classirio_1_1ParserManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">irio::ParserManager Class Reference<div class="ingroups"><a class="el" href="group__IRIO.html">IRIO</a></div></div>  </div>
+<div class="title">irio::ParserManager Class Reference<div class="ingroups"><a class="el" href="group__IrioCoreCpp.html">IrioCoreCpp</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -101,61 +101,64 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa7f26a6473a0164b73e04e1b9bcf2f22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#aa7f26a6473a0164b73e04e1b9bcf2f22">ParserManager</a> (const <a class="el" href="classirio_1_1bfp_1_1BFP.html">bfp::BFP</a> &amp;bfp)</td></tr>
 <tr class="memdesc:aa7f26a6473a0164b73e04e1b9bcf2f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classirio_1_1ParserManager.html" title="Responsible for managing the parsing of resources for a bitfile.">ParserManager</a> object with the given BFP object.  <a href="classirio_1_1ParserManager.html#aa7f26a6473a0164b73e04e1b9bcf2f22">More...</a><br /></td></tr>
 <tr class="separator:aa7f26a6473a0164b73e04e1b9bcf2f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a201bf52eb00d99c1a9e6af6ec759eb32"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a201bf52eb00d99c1a9e6af6ec759eb32">findRegister</a> (const std::string &amp;resourceName, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group, <a class="el" href="classirio_1_1bfp_1_1Register.html">bfp::Register</a> *reg, const bool optional=false)</td></tr>
+<tr class="memitem:a201bf52eb00d99c1a9e6af6ec759eb32"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a201bf52eb00d99c1a9e6af6ec759eb32">findRegister</a> (const std::string &amp;resourceName, const GroupResource &amp;group, <a class="el" href="classirio_1_1bfp_1_1Register.html">bfp::Register</a> *reg, const bool optional=false)</td></tr>
 <tr class="memdesc:a201bf52eb00d99c1a9e6af6ec759eb32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a register with the given resource name.  <a href="classirio_1_1ParserManager.html#a201bf52eb00d99c1a9e6af6ec759eb32">More...</a><br /></td></tr>
 <tr class="separator:a201bf52eb00d99c1a9e6af6ec759eb32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdfedbd0615e2d5c0d97c227d6e9c995"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#abdfedbd0615e2d5c0d97c227d6e9c995">findDMA</a> (const std::string &amp;resourceName, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group, <a class="el" href="classirio_1_1bfp_1_1DMA.html">bfp::DMA</a> *dma, const bool optional=false)</td></tr>
+<tr class="memitem:abdfedbd0615e2d5c0d97c227d6e9c995"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#abdfedbd0615e2d5c0d97c227d6e9c995">findDMA</a> (const std::string &amp;resourceName, const GroupResource &amp;group, <a class="el" href="classirio_1_1bfp_1_1DMA.html">bfp::DMA</a> *dma, const bool optional=false)</td></tr>
 <tr class="memdesc:abdfedbd0615e2d5c0d97c227d6e9c995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds a DMA with the given resource name.  <a href="classirio_1_1ParserManager.html#abdfedbd0615e2d5c0d97c227d6e9c995">More...</a><br /></td></tr>
 <tr class="separator:abdfedbd0615e2d5c0d97c227d6e9c995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8214ce60c7ee2f2215b30e61bfaac642"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a8214ce60c7ee2f2215b30e61bfaac642">findRegisterAddress</a> (const std::string &amp;resourceName, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group, std::uint32_t *address, const bool optional=false)</td></tr>
+<tr class="memitem:a8214ce60c7ee2f2215b30e61bfaac642"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a8214ce60c7ee2f2215b30e61bfaac642">findRegisterAddress</a> (const std::string &amp;resourceName, const GroupResource &amp;group, std::uint32_t *address, const bool optional=false)</td></tr>
 <tr class="memdesc:a8214ce60c7ee2f2215b30e61bfaac642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the address of a register with the given resource name.  <a href="classirio_1_1ParserManager.html#a8214ce60c7ee2f2215b30e61bfaac642">More...</a><br /></td></tr>
 <tr class="separator:a8214ce60c7ee2f2215b30e61bfaac642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c5280d405ea8ddc80bd62ed4520293d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a6c5280d405ea8ddc80bd62ed4520293d">findDMANum</a> (const std::string &amp;resourceName, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group, std::uint32_t *address, const bool optional=false)</td></tr>
+<tr class="memitem:a6c5280d405ea8ddc80bd62ed4520293d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a6c5280d405ea8ddc80bd62ed4520293d">findDMANum</a> (const std::string &amp;resourceName, const GroupResource &amp;group, std::uint32_t *address, const bool optional=false)</td></tr>
 <tr class="memdesc:a6c5280d405ea8ddc80bd62ed4520293d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the DMA number of a resource with the given name.  <a href="classirio_1_1ParserManager.html#a6c5280d405ea8ddc80bd62ed4520293d">More...</a><br /></td></tr>
 <tr class="separator:a6c5280d405ea8ddc80bd62ed4520293d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa33d22df671c0590d9085f9e37e6cd53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#aa33d22df671c0590d9085f9e37e6cd53">findRegisterEnumAddress</a> (const std::string &amp;resourceName, std::uint32_t nResource, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group, std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; *mapInsert, const bool optional=false)</td></tr>
+<tr class="memitem:aa33d22df671c0590d9085f9e37e6cd53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#aa33d22df671c0590d9085f9e37e6cd53">findRegisterEnumAddress</a> (const std::string &amp;resourceName, std::uint32_t nResource, const GroupResource &amp;group, std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; *mapInsert, const bool optional=false)</td></tr>
 <tr class="memdesc:aa33d22df671c0590d9085f9e37e6cd53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the address of a register with the given resource name.  <a href="classirio_1_1ParserManager.html#aa33d22df671c0590d9085f9e37e6cd53">More...</a><br /></td></tr>
 <tr class="separator:aa33d22df671c0590d9085f9e37e6cd53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27a5c297dfef93b68ece273c9c916484"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a27a5c297dfef93b68ece273c9c916484">findDMAEnumNum</a> (const std::string &amp;resourceName, std::uint32_t nResource, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group, std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; *mapInsert, const bool optional=false)</td></tr>
+<tr class="memitem:a27a5c297dfef93b68ece273c9c916484"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a27a5c297dfef93b68ece273c9c916484">findDMAEnumNum</a> (const std::string &amp;resourceName, std::uint32_t nResource, const GroupResource &amp;group, std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; *mapInsert, const bool optional=false)</td></tr>
 <tr class="memdesc:a27a5c297dfef93b68ece273c9c916484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the DMA number of a DMA with the given name, The resource follows an enumeration naming convention.  <a href="classirio_1_1ParserManager.html#a27a5c297dfef93b68ece273c9c916484">More...</a><br /></td></tr>
 <tr class="separator:a27a5c297dfef93b68ece273c9c916484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42bf9121269e0f5f47d269b491e5e0f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a42bf9121269e0f5f47d269b491e5e0f5">compareResourcesMap</a> (const std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; &amp;mapA, const std::string &amp;nameTermA, const std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; &amp;mapB, const std::string &amp;nameTermB, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group)</td></tr>
+<tr class="memitem:a42bf9121269e0f5f47d269b491e5e0f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a42bf9121269e0f5f47d269b491e5e0f5">compareResourcesMap</a> (const std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; &amp;mapA, const std::string &amp;nameTermA, const std::unordered_map&lt; std::uint32_t, const std::uint32_t &gt; &amp;mapB, const std::string &amp;nameTermB, const GroupResource &amp;group)</td></tr>
 <tr class="memdesc:a42bf9121269e0f5f47d269b491e5e0f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two resource maps and logs any differences.  <a href="classirio_1_1ParserManager.html#a42bf9121269e0f5f47d269b491e5e0f5">More...</a><br /></td></tr>
 <tr class="separator:a42bf9121269e0f5f47d269b491e5e0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97203f2fcac6d074647d50ffb787d495"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a97203f2fcac6d074647d50ffb787d495">logResourceError</a> (const std::string &amp;resourceName, const std::string &amp;errMsg, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group)</td></tr>
+<tr class="memitem:a97203f2fcac6d074647d50ffb787d495"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a97203f2fcac6d074647d50ffb787d495">logResourceError</a> (const std::string &amp;resourceName, const std::string &amp;errMsg, const GroupResource &amp;group)</td></tr>
 <tr class="memdesc:a97203f2fcac6d074647d50ffb787d495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs an error related to a resource.  <a href="classirio_1_1ParserManager.html#a97203f2fcac6d074647d50ffb787d495">More...</a><br /></td></tr>
 <tr class="separator:a97203f2fcac6d074647d50ffb787d495"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fc858843302840e9ffbae33db8bc2de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a6fc858843302840e9ffbae33db8bc2de">hasErrorOccurred</a> () const</td></tr>
 <tr class="memdesc:a6fc858843302840e9ffbae33db8bc2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an error has occurred during parsing.  <a href="classirio_1_1ParserManager.html#a6fc858843302840e9ffbae33db8bc2de">More...</a><br /></td></tr>
 <tr class="separator:a6fc858843302840e9ffbae33db8bc2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a824498486e8c111cc710680096b67ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a824498486e8c111cc710680096b67ea6">printInfo</a> (std::ostream &amp;os=std::cout) const</td></tr>
-<tr class="memdesc:a824498486e8c111cc710680096b67ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources found, not found and incompatibilities.  <a href="classirio_1_1ParserManager.html#a824498486e8c111cc710680096b67ea6">More...</a><br /></td></tr>
-<tr class="separator:a824498486e8c111cc710680096b67ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6dfd9b3b3ce3986d6fde6091fb9ecd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a8c6dfd9b3b3ce3986d6fde6091fb9ecd">printInfo</a> (std::ostream &amp;os=std::cout, const bool onlyErrors=false) const</td></tr>
+<tr class="memdesc:a8c6dfd9b3b3ce3986d6fde6091fb9ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources found, not found and incompatibilities.  <a href="classirio_1_1ParserManager.html#a8c6dfd9b3b3ce3986d6fde6091fb9ecd">More...</a><br /></td></tr>
+<tr class="separator:a8c6dfd9b3b3ce3986d6fde6091fb9ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae4877f106d82463d0321fc020773691"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#aae4877f106d82463d0321fc020773691">printInfoError</a> (std::ostream &amp;os=std::cerr) const</td></tr>
 <tr class="memdesc:aae4877f106d82463d0321fc020773691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources not found and incompatibilities.  <a href="classirio_1_1ParserManager.html#aae4877f106d82463d0321fc020773691">More...</a><br /></td></tr>
 <tr class="separator:aae4877f106d82463d0321fc020773691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40c97890189c2eb0094c68f602761ef7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a40c97890189c2eb0094c68f602761ef7">printInfoXML</a> (const std::string &amp;filename) const</td></tr>
 <tr class="memdesc:a40c97890189c2eb0094c68f602761ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints resources found, not found and incompatibilities in XML format.  <a href="classirio_1_1ParserManager.html#a40c97890189c2eb0094c68f602761ef7">More...</a><br /></td></tr>
 <tr class="separator:a40c97890189c2eb0094c68f602761ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab28751acb80b278ebfba64b07b0cdb88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#ab28751acb80b278ebfba64b07b0cdb88">logResourceFound</a> (const std::string &amp;resourceName, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group)</td></tr>
+<tr class="memitem:ab28751acb80b278ebfba64b07b0cdb88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#ab28751acb80b278ebfba64b07b0cdb88">logResourceFound</a> (const std::string &amp;resourceName, const GroupResource &amp;group)</td></tr>
 <tr class="memdesc:ab28751acb80b278ebfba64b07b0cdb88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs that a resource has been found.  <a href="classirio_1_1ParserManager.html#ab28751acb80b278ebfba64b07b0cdb88">More...</a><br /></td></tr>
 <tr class="separator:ab28751acb80b278ebfba64b07b0cdb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00d7b30036405b1ac4ac012f683d98d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a00d7b30036405b1ac4ac012f683d98d2">logResourceNotFound</a> (const std::string &amp;resourceName, const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;group)</td></tr>
+<tr class="memitem:a00d7b30036405b1ac4ac012f683d98d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a00d7b30036405b1ac4ac012f683d98d2">logResourceNotFound</a> (const std::string &amp;resourceName, const GroupResource &amp;group)</td></tr>
 <tr class="memdesc:a00d7b30036405b1ac4ac012f683d98d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs that a resource has not been found.  <a href="classirio_1_1ParserManager.html#a00d7b30036405b1ac4ac012f683d98d2">More...</a><br /></td></tr>
 <tr class="separator:a00d7b30036405b1ac4ac012f683d98d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a939458e88840fb16324bcac5c2015e68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classirio_1_1bfp_1_1BFP.html">bfp::BFP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a939458e88840fb16324bcac5c2015e68">m_bfp</a></td></tr>
-<tr class="memdesc:a939458e88840fb16324bcac5c2015e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">The BFP object used by the parser manager.  <a href="classirio_1_1ParserManager.html#a939458e88840fb16324bcac5c2015e68">More...</a><br /></td></tr>
+<tr class="memitem:a939458e88840fb16324bcac5c2015e68"><td class="memItemLeft" align="right" valign="top"><a id="a939458e88840fb16324bcac5c2015e68"></a>
+<a class="el" href="classirio_1_1bfp_1_1BFP.html">bfp::BFP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a939458e88840fb16324bcac5c2015e68">m_bfp</a></td></tr>
+<tr class="memdesc:a939458e88840fb16324bcac5c2015e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">The BFP object used by the parser manager. <br /></td></tr>
 <tr class="separator:a939458e88840fb16324bcac5c2015e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a>, <a class="el" href="structirio_1_1GroupInfo.html">GroupInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a863e50a5e78d4cc6ef54fc6b91c6d6d3">m_groupInfo</a></td></tr>
-<tr class="memdesc:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map to divide information of found resources per group.  <a href="classirio_1_1ParserManager.html#a863e50a5e78d4cc6ef54fc6b91c6d6d3">More...</a><br /></td></tr>
+<tr class="memitem:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="memItemLeft" align="right" valign="top"><a id="a863e50a5e78d4cc6ef54fc6b91c6d6d3"></a>
+std::unordered_map&lt; GroupResource, <a class="el" href="structirio_1_1GroupInfo.html">GroupInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a863e50a5e78d4cc6ef54fc6b91c6d6d3">m_groupInfo</a></td></tr>
+<tr class="memdesc:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map to divide information of found resources per group. <br /></td></tr>
 <tr class="separator:a863e50a5e78d4cc6ef54fc6b91c6d6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a94975f0efc685a905e8e52602d2a9c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">m_error</a></td></tr>
-<tr class="memdesc:a4a94975f0efc685a905e8e52602d2a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if some resource was not found.  <a href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">More...</a><br /></td></tr>
+<tr class="memitem:a4a94975f0efc685a905e8e52602d2a9c"><td class="memItemLeft" align="right" valign="top"><a id="a4a94975f0efc685a905e8e52602d2a9c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">m_error</a> = false</td></tr>
+<tr class="memdesc:a4a94975f0efc685a905e8e52602d2a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if some resource was not found. <br /></td></tr>
 <tr class="separator:a4a94975f0efc685a905e8e52602d2a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ea75d1ac565548e0892cd1dec76fff5"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5">m_group2str</a></td></tr>
+<tr class="memitem:a3ea75d1ac565548e0892cd1dec76fff5"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; GroupResource, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5">m_group2str</a></td></tr>
 <tr class="memdesc:a3ea75d1ac565548e0892cd1dec76fff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert GroupResource to string.  <a href="classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5">More...</a><br /></td></tr>
 <tr class="separator:a3ea75d1ac565548e0892cd1dec76fff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -233,7 +236,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>&#160;</td>
         </tr>
         <tr>
@@ -273,7 +276,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
@@ -331,7 +334,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
@@ -385,7 +388,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
@@ -437,7 +440,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
@@ -489,7 +492,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
@@ -547,7 +550,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>, </td>
         </tr>
         <tr>
@@ -628,7 +631,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>&#160;</td>
         </tr>
         <tr>
@@ -666,7 +669,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>&#160;</td>
         </tr>
         <tr>
@@ -703,7 +706,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a> &amp;&#160;</td>
+          <td class="paramtype">const GroupResource &amp;&#160;</td>
           <td class="paramname"><em>group</em>&#160;</td>
         </tr>
         <tr>
@@ -725,8 +728,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a824498486e8c111cc710680096b67ea6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a824498486e8c111cc710680096b67ea6">&#9670;&nbsp;</a></span>printInfo()</h2>
+<a id="a8c6dfd9b3b3ce3986d6fde6091fb9ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c6dfd9b3b3ce3986d6fde6091fb9ecd">&#9670;&nbsp;</a></span>printInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -735,8 +738,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">void irio::ParserManager::printInfo </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em> = <code>std::cout</code></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>os</em> = <code>std::cout</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>onlyErrors</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -745,6 +758,7 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">os</td><td>The output stream to print the information to. </td></tr>
+    <tr><td class="paramname">onlyErrors</td><td>Only output not found or error. Default: print everything </td></tr>
   </table>
   </dd>
 </dl>
@@ -804,58 +818,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a939458e88840fb16324bcac5c2015e68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a939458e88840fb16324bcac5c2015e68">&#9670;&nbsp;</a></span>m_bfp</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classirio_1_1bfp_1_1BFP.html">bfp::BFP</a> irio::ParserManager::m_bfp</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The BFP object used by the parser manager. </p>
-
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00283">283</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
-
-</div>
-</div>
-<a id="a4a94975f0efc685a905e8e52602d2a9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a94975f0efc685a905e8e52602d2a9c">&#9670;&nbsp;</a></span>m_error</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool irio::ParserManager::m_error</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>True if some resource was not found. </p>
-
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00287">287</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
-
-</div>
-</div>
 <a id="a3ea75d1ac565548e0892cd1dec76fff5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ea75d1ac565548e0892cd1dec76fff5">&#9670;&nbsp;</a></span>m_group2str</h2>
 
@@ -866,7 +828,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::unordered_map&lt;<a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a>, std::string&gt; irio::ParserManager::m_group2str</td>
+          <td class="memname">const std::unordered_map&lt;GroupResource, std::string&gt; irio::ParserManager::m_group2str</td>
         </tr>
       </table>
   </td>
@@ -876,69 +838,27 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ad13bc5b68b2bd9e18f29777db17cc563">GroupResource::Common</a>, <span class="stringliteral">&quot;Common&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0a40e3c91a3a55c9a37428c6d194d0e5">GroupResource::AI</a>, <span class="stringliteral">&quot;AI&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a2c64c5cf613d8b9f4f7f3980d29aca10">GroupResource::AO</a>, <span class="stringliteral">&quot;AO&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a85f242b1c250ac9cf9d90b3f8eb3453a">GroupResource::AuxAI</a>, <span class="stringliteral">&quot;AuxAI&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a39b14ad1866f3504f85ddd28687378d2">GroupResource::AuxAO</a>, <span class="stringliteral">&quot;AuxAO&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484aa1b1c0cd777edd2e5cfcaf8e2e7dcab8">GroupResource::DI</a>, <span class="stringliteral">&quot;DI&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ac23fa9996925b610710d93e28c59a3e2">GroupResource::DO</a>, <span class="stringliteral">&quot;DO&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a4d52971bd272a727d94d6140ddfa3d05">GroupResource::AuxDI</a>, <span class="stringliteral">&quot;AuxDI&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a766b36b099009b39a86a2018def38e7c">GroupResource::AuxDO</a>, <span class="stringliteral">&quot;AuxDO&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a33fd5f6391f2f0cb4c91179d7f521949">GroupResource::DMA</a>, <span class="stringliteral">&quot;DMA&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ab92f47a2a73377ac63b6e958f8caf473">GroupResource::DAQ</a>, <span class="stringliteral">&quot;DAQ&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0c024d4a8a29f2d3cdc5066d9ada7d85">GroupResource::IMAQ</a>, <span class="stringliteral">&quot;IMAQ&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484acf3882f1c43ab22bff0bd9d82d83251b">GroupResource::IO</a>, <span class="stringliteral">&quot;IO&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0f177369a3b71275d25ab1b44db9f95f">GroupResource::SG</a>, <span class="stringliteral">&quot;SG&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a737644e4d62b34f12e34180d8d6c0b09">GroupResource::CRIO</a>, <span class="stringliteral">&quot;CRIO&quot;</span>},</div>
-<div class="line">        {<a class="code" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ae2a1019a22f398c337172f7974327d64">GroupResource::FlexRIO</a>, <span class="stringliteral">&quot;FlexRIO&quot;</span>},</div>
+<div class="line">        {GroupResource::Common, <span class="stringliteral">&quot;Common&quot;</span>},</div>
+<div class="line">        {GroupResource::AI, <span class="stringliteral">&quot;AI&quot;</span>},</div>
+<div class="line">        {GroupResource::AO, <span class="stringliteral">&quot;AO&quot;</span>},</div>
+<div class="line">        {GroupResource::AuxAI, <span class="stringliteral">&quot;AuxAI&quot;</span>},</div>
+<div class="line">        {GroupResource::AuxAO, <span class="stringliteral">&quot;AuxAO&quot;</span>},</div>
+<div class="line">        {GroupResource::DI, <span class="stringliteral">&quot;DI&quot;</span>},</div>
+<div class="line">        {GroupResource::DO, <span class="stringliteral">&quot;DO&quot;</span>},</div>
+<div class="line">        {GroupResource::AuxDI, <span class="stringliteral">&quot;AuxDI&quot;</span>},</div>
+<div class="line">        {GroupResource::AuxDO, <span class="stringliteral">&quot;AuxDO&quot;</span>},</div>
+<div class="line">        {GroupResource::DMA, <span class="stringliteral">&quot;DMA&quot;</span>},</div>
+<div class="line">        {GroupResource::DAQ, <span class="stringliteral">&quot;DAQ&quot;</span>},</div>
+<div class="line">        {GroupResource::IMAQ, <span class="stringliteral">&quot;IMAQ&quot;</span>},</div>
+<div class="line">        {GroupResource::IO, <span class="stringliteral">&quot;IO&quot;</span>},</div>
+<div class="line">        {GroupResource::SG, <span class="stringliteral">&quot;SG&quot;</span>},</div>
+<div class="line">        {GroupResource::CRIO, <span class="stringliteral">&quot;CRIO&quot;</span>},</div>
+<div class="line">        {GroupResource::FlexRIO, <span class="stringliteral">&quot;FlexRIO&quot;</span>},</div>
 <div class="line">    }</div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a0a40e3c91a3a55c9a37428c6d194d0e5"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0a40e3c91a3a55c9a37428c6d194d0e5">irio::GroupResource::AI</a></div><div class="ttdeci">@ AI</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a0c024d4a8a29f2d3cdc5066d9ada7d85"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0c024d4a8a29f2d3cdc5066d9ada7d85">irio::GroupResource::IMAQ</a></div><div class="ttdeci">@ IMAQ</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a0f177369a3b71275d25ab1b44db9f95f"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a0f177369a3b71275d25ab1b44db9f95f">irio::GroupResource::SG</a></div><div class="ttdeci">@ SG</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a2c64c5cf613d8b9f4f7f3980d29aca10"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a2c64c5cf613d8b9f4f7f3980d29aca10">irio::GroupResource::AO</a></div><div class="ttdeci">@ AO</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a33fd5f6391f2f0cb4c91179d7f521949"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a33fd5f6391f2f0cb4c91179d7f521949">irio::GroupResource::DMA</a></div><div class="ttdeci">@ DMA</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a39b14ad1866f3504f85ddd28687378d2"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a39b14ad1866f3504f85ddd28687378d2">irio::GroupResource::AuxAO</a></div><div class="ttdeci">@ AuxAO</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a4d52971bd272a727d94d6140ddfa3d05"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a4d52971bd272a727d94d6140ddfa3d05">irio::GroupResource::AuxDI</a></div><div class="ttdeci">@ AuxDI</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a737644e4d62b34f12e34180d8d6c0b09"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a737644e4d62b34f12e34180d8d6c0b09">irio::GroupResource::CRIO</a></div><div class="ttdeci">@ CRIO</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a766b36b099009b39a86a2018def38e7c"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a766b36b099009b39a86a2018def38e7c">irio::GroupResource::AuxDO</a></div><div class="ttdeci">@ AuxDO</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484a85f242b1c250ac9cf9d90b3f8eb3453a"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484a85f242b1c250ac9cf9d90b3f8eb3453a">irio::GroupResource::AuxAI</a></div><div class="ttdeci">@ AuxAI</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484aa1b1c0cd777edd2e5cfcaf8e2e7dcab8"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484aa1b1c0cd777edd2e5cfcaf8e2e7dcab8">irio::GroupResource::DI</a></div><div class="ttdeci">@ DI</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484ab92f47a2a73377ac63b6e958f8caf473"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ab92f47a2a73377ac63b6e958f8caf473">irio::GroupResource::DAQ</a></div><div class="ttdeci">@ DAQ</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484ac23fa9996925b610710d93e28c59a3e2"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ac23fa9996925b610710d93e28c59a3e2">irio::GroupResource::DO</a></div><div class="ttdeci">@ DO</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484acf3882f1c43ab22bff0bd9d82d83251b"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484acf3882f1c43ab22bff0bd9d82d83251b">irio::GroupResource::IO</a></div><div class="ttdeci">@ IO</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484ad13bc5b68b2bd9e18f29777db17cc563"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ad13bc5b68b2bd9e18f29777db17cc563">irio::GroupResource::Common</a></div><div class="ttdeci">@ Common</div></div>
-<div class="ttc" id="anamespaceirio_html_a1a7a7371e2ea4d974614cdc2e0efd484ae2a1019a22f398c337172f7974327d64"><div class="ttname"><a href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484ae2a1019a22f398c337172f7974327d64">irio::GroupResource::FlexRIO</a></div><div class="ttdeci">@ FlexRIO</div></div>
 </div><!-- fragment -->
 <p>Convert GroupResource to string. </p>
 
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00290">290</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
-
-</div>
-</div>
-<a id="a863e50a5e78d4cc6ef54fc6b91c6d6d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a863e50a5e78d4cc6ef54fc6b91c6d6d3">&#9670;&nbsp;</a></span>m_groupInfo</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484">GroupResource</a>, <a class="el" href="structirio_1_1GroupInfo.html">GroupInfo</a>&gt; irio::ParserManager::m_groupInfo</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Map to divide information of found resources per group. </p>
-
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00285">285</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00293">293</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 
 </div>
 </div>
@@ -950,7 +870,7 @@ Private Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceirio.html">irio</a></li><li class="navelem"><a class="el" href="classirio_1_1ParserManager.html">ParserManager</a></li>
+    <li class="navelem"><b>irio</b></li><li class="navelem"><a class="el" href="classirio_1_1ParserManager.html">ParserManager</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

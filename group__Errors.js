@@ -4,6 +4,9 @@ var group__Errors =
     [ "TerminalNotImplementedError", "classirio_1_1errors_1_1TerminalNotImplementedError.html", [
       [ "TerminalNotImplementedError", "classirio_1_1errors_1_1TerminalNotImplementedError.html#a385d78463fb07c7a261b86977bf14558", null ]
     ] ],
+    [ "ProfileNotImplementedError", "classirio_1_1errors_1_1ProfileNotImplementedError.html", [
+      [ "ProfileNotImplementedError", "classirio_1_1errors_1_1ProfileNotImplementedError.html#aa457eeef66e61adf7efd668819bcf769", null ]
+    ] ],
     [ "ResourceNotFoundError", "classirio_1_1errors_1_1ResourceNotFoundError.html", [
       [ "ResourceNotFoundError", "classirio_1_1errors_1_1ResourceNotFoundError.html#a7010dbaf0ec227a694eeb5e048164e97", null ],
       [ "ResourceNotFoundError", "classirio_1_1errors_1_1ResourceNotFoundError.html#a7ba3b45e10074137cb6bde47d79c82f6", null ]

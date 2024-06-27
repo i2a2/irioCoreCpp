@@ -1,5 +1,5 @@
 <map id="irio::ProfileCPUIMAQ" name="irio::ProfileCPUIMAQ">
-<area shape="rect" id="node1" title=" " alt="" coords="31,189,185,267"/>
-<area shape="rect" id="node3" href="$classirio_1_1ProfileCPUIMAQFlexRIO.html" title=" " alt="" coords="5,315,211,392"/>
-<area shape="rect" id="node2" href="$classirio_1_1ProfileBase.html" title="Base profile class." alt="" coords="37,5,179,141"/>
+<area shape="rect" id="node1" title="Profile with the terminals specific to image acquisition functionality." alt="" coords="31,175,185,252"/>
+<area shape="rect" id="node3" href="$classirio_1_1ProfileCPUIMAQFlexRIO.html" title="Profile with the terminals specific to data acquisition functionality and the ones specific to FlexRI..." alt="" coords="5,300,211,377"/>
+<area shape="rect" id="node2" href="$classirio_1_1ProfileBase.html" title="Base profile class." alt="" coords="37,5,179,127"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flexrio_20profiles_1109',['FlexRIO Profiles',['../group__ProfilesFlexRIO.html',1,'']]]
+  ['modules_20types_1204',['Modules types',['../group__Modules.html',1,'']]]
 ];

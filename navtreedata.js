@@ -24,18 +24,41 @@
 */
 var NAVTREE =
 [
-  [ "IRIO Core Library Module", "index.html", [
-    [ "WIP", "index.html#autotoc_md0", null ],
-    [ "Modules", "modules.html", "modules" ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
+  [ "irioCoreCpp Library Module", "index.html", [
+    [ "Introduction", "index.html#main_introduction", null ],
+    [ "Installation", "index.html#main_installation", null ],
+    [ "Compilation", "index.html#compilation", [
+      [ "Prerequisites", "index.html#compilation_prerequisites", null ],
+      [ "Instructions", "index.html#compilation_instructions", null ]
+    ] ],
+    [ "Generating packages manually", "index.html#manual_packages", [
+      [ "Converting RPM packages to deb", "index.html#manual_packages_deb", [
+        [ "Prerequisites", "index.html#manual_packages_deb_prerequisites", null ],
+        [ "Instructions", "index.html#manual_packages_deb_instructions", null ]
       ] ]
     ] ],
+    [ "Configure National Instrument package repository", "index.html#configure_ni_repository", null ],
+    [ "Run tests", "index.html#tests", [
+      [ "Python execution", "index.html#python_execution", [
+        [ "XML Test automation", "index.html#python_execution_xml", null ],
+        [ "Specific test execution", "index.html#python_execution_specifi_test", null ]
+      ] ],
+      [ "Run GoogleTest manually", "index.html#tests_manual_execution", [
+        [ "Unittests", "index.html#tests_unittests", [
+          [ "BFP", "index.html#tests_unittests_bfp", null ],
+          [ "irioCoreCpp", "index.html#tests_unittests_irioCoreCpp", null ],
+          [ "irioCore (C wrapper)", "index.html#tests_unittests_irioCore", null ]
+        ] ],
+        [ "Functional", "index.html#tests_functional", [
+          [ "Environment Variables", "index.html#tests_functional_envvar", null ],
+          [ "irioCoreCpp", "index.html#tests_functional_irioCoreCpp", null ],
+          [ "irioCore (C wrapper)", "index.html#tests_functional_irioCore", null ]
+        ] ]
+      ] ]
+    ] ],
+    [ "Third-Party Libraries", "index.html#third_party_libraries", null ],
+    [ "Deprecated List", "deprecated.html", null ],
+    [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -47,12 +70,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Typedefs", "globals_type.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
@@ -60,9 +78,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classirio_1_1TerminalsDMAIMAQ.html",
-"group__DMATerminals.html#gadbe365cbf4578743d668f739691a63c2",
-"namespacemembers.html"
+"classirio_1_1TerminalsDMAIMAQ.html#ad16d68d6b7319cb2337d71e54bbde2fc",
+"group__IrioCoreCompatible.html#ga60254249df868598bae9c757c1772eae",
+"structirioDrv__t.html#a7a6aa99e0d98ce70e513008814c12088"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

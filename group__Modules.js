@@ -1,7 +1,7 @@
 var group__Modules =
 [
-    [ "Modules specific to FlexRIO", "group__ModulesFlexRIO.html", "group__ModulesFlexRIO" ],
-    [ "Modules specific to cRIO", "group__ModulesCRIO.html", "group__ModulesCRIO" ],
+    [ "FlexRIO Modules", "group__ModulesFlexRIO.html", "group__ModulesFlexRIO" ],
+    [ "cRIO Modules", "group__ModulesCRIO.html", "group__ModulesCRIO" ],
     [ "Module", "classirio_1_1Module.html", [
       [ "Module", "classirio_1_1Module.html#a853c4d63e021c05d251ebe082e2229de", null ],
       [ "addConfig", "classirio_1_1Module.html#ae28e99e242bc8a57c24c4a18656f8d9b", null ],

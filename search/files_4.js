@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['groups_2edox_607',['groups.dox',['../groups_8dox.html',1,'']]]
-];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['groupresource_1031',['GroupResource',['../namespaceirio.html#a1a7a7371e2ea4d974614cdc2e0efd484',1,'irio']]]
+  ['modulestype_1119',['ModulesType',['../group__Modules.html#ga41ec9f0a62be60927296a43db47175ee',1,'irio']]]
 ];

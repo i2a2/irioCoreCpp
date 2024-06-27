@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: dma.h Source File</title>
+<title>irioCoreCpp Library Module: dma.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -86,14 +86,14 @@ $(document).ready(function(){initNavTree('dma_8h_source.html',''); initResizable
 <div class="title">dma.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="dma_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;pugixml.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8h.html">resource.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;resource.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceirio.html">irio</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>irio {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>bfp {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1DMA.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classirio_1_1bfp_1_1DMA.html">DMA</a>: <span class="keyword">public</span> <a class="code" href="classirio_1_1bfp_1_1Resource.html">Resource</a> {</div>
@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('dma_8h_source.html',''); initResizable
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keyword">const</span> <a class="code" href="group__BFP.html#ga8e61078caeb5b085beaef83413234612">ElemTypes</a> &amp;_elemType, <span class="keyword">const</span> std::uint32_t &amp;_address,</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> &amp;_numElem = 1);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1DMA.html#aeb85298945154d551f33b3591951105a">   33</a></span>&#160;    <a class="code" href="classirio_1_1bfp_1_1DMA.html#aeb85298945154d551f33b3591951105a">DMA</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="classirio_1_1bfp_1_1DMA.html">DMA</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1DMA.html#a22c79a1b79fa3aaa8ab13d61f2ad8d8a">   41</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classirio_1_1bfp_1_1DMA.html">DMA</a> <a class="code" href="classirio_1_1bfp_1_1DMA.html#a22c79a1b79fa3aaa8ab13d61f2ad8d8a">processDMA</a>(<span class="keyword">const</span> pugi::xml_node &amp;dmaNode);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
@@ -126,18 +126,15 @@ $(document).ready(function(){initNavTree('dma_8h_source.html',''); initResizable
 <div class="ttc" id="aclassirio_1_1bfp_1_1DMA_html_ab6f9333afaf818af77f39f05829c2714"><div class="ttname"><a href="classirio_1_1bfp_1_1DMA.html#ab6f9333afaf818af77f39f05829c2714">irio::bfp::DMA::getDMANumber</a></div><div class="ttdeci">std::uint32_t getDMANumber() const</div><div class="ttdoc">Returns the number that identifies this DMA.</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1DMA_html_acef6df1df07cd972650d3769a306a1ba"><div class="ttname"><a href="classirio_1_1bfp_1_1DMA.html#acef6df1df07cd972650d3769a306a1ba">irio::bfp::DMA::isHostToTarget</a></div><div class="ttdeci">bool isHostToTarget() const</div><div class="ttdoc">Returns whether the DMA is Host to Target (HtT) or not.</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1DMA_html_ae296754808fc30cf9976aed25d76b700"><div class="ttname"><a href="classirio_1_1bfp_1_1DMA.html#ae296754808fc30cf9976aed25d76b700">irio::bfp::DMA::m_isTargetToHost</a></div><div class="ttdeci">bool m_isTargetToHost</div><div class="ttdoc">If the DMA is TtH or HtT.</div><div class="ttdef"><b>Definition:</b> <a href="dma_8h_source.html#l00065">dma.h:65</a></div></div>
-<div class="ttc" id="aclassirio_1_1bfp_1_1DMA_html_aeb85298945154d551f33b3591951105a"><div class="ttname"><a href="classirio_1_1bfp_1_1DMA.html#aeb85298945154d551f33b3591951105a">irio::bfp::DMA::DMA</a></div><div class="ttdeci">DMA()=default</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Resource_html"><div class="ttname"><a href="classirio_1_1bfp_1_1Resource.html">irio::bfp::Resource</a></div><div class="ttdoc">Class holding information about one resource (Register or DMA)</div><div class="ttdef"><b>Definition:</b> <a href="resource_8h_source.html#l00016">resource.h:16</a></div></div>
 <div class="ttc" id="agroup__BFP_html_ga8e61078caeb5b085beaef83413234612"><div class="ttname"><a href="group__BFP.html#ga8e61078caeb5b085beaef83413234612">irio::bfp::ElemTypes</a></div><div class="ttdeci">ElemTypes</div><div class="ttdoc">Supported types for the elements of the different Resources in the Bitfile.</div><div class="ttdef"><b>Definition:</b> <a href="elemtypes_8h_source.html#l00013">elemtypes.h:13</a></div></div>
 <div class="ttc" id="agroup__BFP_html_gabeca5fcaba33ed8a6c422547a3b6bb42"><div class="ttname"><a href="group__BFP.html#gabeca5fcaba33ed8a6c422547a3b6bb42">irio::bfp::FpgaTypes</a></div><div class="ttdeci">FpgaTypes</div><div class="ttdoc">Type of Resource possible in the Bitfile.</div><div class="ttdef"><b>Definition:</b> <a href="fpgatypes_8h_source.html#l00011">fpgatypes.h:11</a></div></div>
-<div class="ttc" id="anamespaceirio_html"><div class="ttname"><a href="namespaceirio.html">irio</a></div><div class="ttdef"><b>Definition:</b> <a href="bfp_8h_source.html#l00010">bfp.h:10</a></div></div>
-<div class="ttc" id="aresource_8h_html"><div class="ttname"><a href="resource_8h.html">resource.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_e850c88a483edda50098ec4ab1429998.html">bfp</a></li><li class="navelem"><a class="el" href="dir_e009d25de9f1c4cc273b3cb5c2b4947d.html">include</a></li><li class="navelem"><a class="el" href="dma_8h.html">dma.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2bca091c87127f5da307455ce418719.html">c++</a></li><li class="navelem"><a class="el" href="dir_fe4b444657896ae383212eddba82056d.html">bfp</a></li><li class="navelem"><a class="el" href="dir_8d38439ee148e1317aa523a984017dd3.html">include</a></li><li class="navelem"><b>dma.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

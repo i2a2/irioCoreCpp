@@ -1,0 +1,5 @@
+<map id="irio::ProfileCPUDAQRSeries" name="irio::ProfileCPUDAQRSeries">
+<area shape="rect" id="node1" title="Profile with the terminals specific to data acquisition functionality and to R Series boards." alt="" coords="5,300,203,377"/>
+<area shape="rect" id="node2" href="$classirio_1_1ProfileCPUDAQ.html" title="Profile with the terminals specific to data acquisition functionality." alt="" coords="30,175,178,252"/>
+<area shape="rect" id="node3" href="$classirio_1_1ProfileBase.html" title="Base profile class." alt="" coords="33,5,175,127"/>
+</map>

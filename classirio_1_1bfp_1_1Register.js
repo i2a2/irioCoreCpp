@@ -5,6 +5,7 @@ var classirio_1_1bfp_1_1Register =
     [ "isArray", "classirio_1_1bfp_1_1Register.html#ac72a2fe305b7783c4b1e4a063a64ba42", null ],
     [ "isControl", "classirio_1_1bfp_1_1Register.html#afb61a8a34ba0f489a7bdb07ea8a0d329", null ],
     [ "isIndicator", "classirio_1_1bfp_1_1Register.html#a4c7eeef25e2fc7ddad221eb5c15185d5", null ],
+    [ "processRegister", "classirio_1_1bfp_1_1Register.html#aeeae528069ab648bdc1a9d7dd424030a", null ],
     [ "m_isArray", "classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303", null ],
     [ "m_isControl", "classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c", null ]
 ];

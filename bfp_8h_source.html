@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: bfp.h Source File</title>
+<title>irioCoreCpp Library Module: bfp.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -86,17 +86,17 @@ $(document).ready(function(){initNavTree('bfp_8h_source.html',''); initResizable
 <div class="title">bfp.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="bfp_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="register_8h.html">register.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dma_8h.html">dma.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;register.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;dma.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceirio.html">   10</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceirio.html">irio</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespaceirio_1_1bfp.html">   11</a></span>&#160;<span class="keyword">namespace </span>bfp {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>irio {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>bfp {</div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1BFP.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="classirio_1_1bfp_1_1BFP.html">BFP</a> {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1BFP.html#ab67c2253b86bff4ba65f72b5e9078e8c">   31</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classirio_1_1bfp_1_1BFP.html#ab67c2253b86bff4ba65f72b5e9078e8c">BFP</a>(<span class="keyword">const</span> std::string &amp;bitfile, <span class="keyword">const</span> <span class="keywordtype">bool</span> warnUnsupported = <span class="keyword">true</span>);</div>
@@ -144,15 +144,12 @@ $(document).ready(function(){initNavTree('bfp_8h_source.html',''); initResizable
 <div class="ttc" id="aclassirio_1_1bfp_1_1BFP_html_adfaf0a100681bbe705116a6596b9eec4"><div class="ttname"><a href="classirio_1_1bfp_1_1BFP.html#adfaf0a100681bbe705116a6596b9eec4">irio::bfp::BFP::getDMAs</a></div><div class="ttdeci">std::unordered_map&lt; std::string, DMA &gt; getDMAs() const</div><div class="ttdoc">Get map with all the DMAs parsed, the key if the DMA name (without spaces)</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1DMA_html"><div class="ttname"><a href="classirio_1_1bfp_1_1DMA.html">irio::bfp::DMA</a></div><div class="ttdoc">Class holding information about one DMA.</div><div class="ttdef"><b>Definition:</b> <a href="dma_8h_source.html#l00016">dma.h:16</a></div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Register_html"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html">irio::bfp::Register</a></div><div class="ttdoc">Class holding information about one Register.</div><div class="ttdef"><b>Definition:</b> <a href="register_8h_source.html#l00016">register.h:16</a></div></div>
-<div class="ttc" id="adma_8h_html"><div class="ttname"><a href="dma_8h.html">dma.h</a></div></div>
-<div class="ttc" id="anamespaceirio_html"><div class="ttname"><a href="namespaceirio.html">irio</a></div><div class="ttdef"><b>Definition:</b> <a href="bfp_8h_source.html#l00010">bfp.h:10</a></div></div>
-<div class="ttc" id="aregister_8h_html"><div class="ttname"><a href="register_8h.html">register.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_e850c88a483edda50098ec4ab1429998.html">bfp</a></li><li class="navelem"><a class="el" href="dir_e009d25de9f1c4cc273b3cb5c2b4947d.html">include</a></li><li class="navelem"><a class="el" href="bfp_8h.html">bfp.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2bca091c87127f5da307455ce418719.html">c++</a></li><li class="navelem"><a class="el" href="dir_fe4b444657896ae383212eddba82056d.html">bfp</a></li><li class="navelem"><a class="el" href="dir_8d38439ee148e1317aa523a984017dd3.html">include</a></li><li class="navelem"><b>bfp.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

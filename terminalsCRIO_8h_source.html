@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: terminalsCRIO.h Source File</title>
+<title>irioCoreCpp Library Module: terminalsCRIO.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -86,16 +86,16 @@ $(document).ready(function(){initNavTree('terminalsCRIO_8h_source.html',''); ini
 <div class="title">terminalsCRIO.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="terminalsCRIO_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="terminalsBase_8h.html">terminals/terminalsBase.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;terminals/terminalsBase.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceirio.html">irio</a> {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>irio {</div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classirio_1_1TerminalscRIO.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classirio_1_1TerminalscRIO.html">TerminalscRIO</a>: <span class="keyword">public</span> <a class="code" href="classirio_1_1TerminalsBase.html">TerminalsBase</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classirio_1_1TerminalscRIO.html#af4ffcc40c84e886d18b1c92321a184c1">   25</a></span>&#160;  <a class="code" href="classirio_1_1TerminalscRIO.html#af4ffcc40c84e886d18b1c92321a184c1">TerminalscRIO</a>(<a class="code" href="classirio_1_1ParserManager.html">ParserManager</a> *parserManager, <span class="keyword">const</span> <a class="code" href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a> &amp;session);</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classirio_1_1TerminalscRIO.html#af4ffcc40c84e886d18b1c92321a184c1">   25</a></span>&#160;  <a class="code" href="classirio_1_1TerminalscRIO.html#af4ffcc40c84e886d18b1c92321a184c1">TerminalscRIO</a>(<a class="code" href="classirio_1_1ParserManager.html">ParserManager</a> *parserManager, <span class="keyword">const</span> NiFpga_Session &amp;session);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classirio_1_1TerminalscRIO.html#a8f80f3491aa225c56b3b8f6775e3352a">   34</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1TerminalscRIO.html#a8f80f3491aa225c56b3b8f6775e3352a">getcRIOModulesOk</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
@@ -110,15 +110,12 @@ $(document).ready(function(){initNavTree('terminalsCRIO_8h_source.html',''); ini
 <div class="ttc" id="aclassirio_1_1TerminalscRIO_html_a4930cae8ee2ba292f0bc6344a3dfc75a"><div class="ttname"><a href="classirio_1_1TerminalscRIO.html#a4930cae8ee2ba292f0bc6344a3dfc75a">irio::TerminalscRIO::getInsertedIOModulesID</a></div><div class="ttdeci">std::vector&lt; std::uint16_t &gt; getInsertedIOModulesID() const</div><div class="ttdoc">Returns a vector with all the modules in the cRIO device.</div></div>
 <div class="ttc" id="aclassirio_1_1TerminalscRIO_html_a8f80f3491aa225c56b3b8f6775e3352a"><div class="ttname"><a href="classirio_1_1TerminalscRIO.html#a8f80f3491aa225c56b3b8f6775e3352a">irio::TerminalscRIO::getcRIOModulesOk</a></div><div class="ttdeci">bool getcRIOModulesOk() const</div><div class="ttdoc">Returns whether the modules connected to the cRIO are ok.</div></div>
 <div class="ttc" id="aclassirio_1_1TerminalscRIO_html_af4ffcc40c84e886d18b1c92321a184c1"><div class="ttname"><a href="classirio_1_1TerminalscRIO.html#af4ffcc40c84e886d18b1c92321a184c1">irio::TerminalscRIO::TerminalscRIO</a></div><div class="ttdeci">TerminalscRIO(ParserManager *parserManager, const NiFpga_Session &amp;session)</div><div class="ttdoc">Manages finding the related terminals specific to cRIO devices.</div></div>
-<div class="ttc" id="anamespaceirio_html"><div class="ttname"><a href="namespaceirio.html">irio</a></div><div class="ttdef"><b>Definition:</b> <a href="bfp_8h_source.html#l00010">bfp.h:10</a></div></div>
-<div class="ttc" id="aterminalsBase_8h_html"><div class="ttname"><a href="terminalsBase_8h.html">terminalsBase.h</a></div></div>
-<div class="ttc" id="aterminalsBase_8h_html_a2bcfaa592fb0ccba8e715fbac7f56404"><div class="ttname"><a href="terminalsBase_8h.html#a2bcfaa592fb0ccba8e715fbac7f56404">NiFpga_Session</a></div><div class="ttdeci">uint32_t NiFpga_Session</div><div class="ttdef"><b>Definition:</b> <a href="terminalsBase_8h_source.html#l00009">terminalsBase.h:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_a0b8bf564a7961ebe59b94c5105b13bd.html">irioCoreCpp</a></li><li class="navelem"><a class="el" href="dir_cd034827b11836ebb3ad7ad6bdab8663.html">include</a></li><li class="navelem"><a class="el" href="dir_3eac77aa5b44720c4e655a879deafd5b.html">terminals</a></li><li class="navelem"><a class="el" href="terminalsCRIO_8h.html">terminalsCRIO.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2bca091c87127f5da307455ce418719.html">c++</a></li><li class="navelem"><a class="el" href="dir_882a568e20d9cf39243f9875aa1dbba3.html">irioCoreCpp</a></li><li class="navelem"><a class="el" href="dir_2bff09524866fd009d043f403e815fb8.html">include</a></li><li class="navelem"><a class="el" href="dir_dbf1ef154991451b4e395f926ce17552.html">terminals</a></li><li class="navelem"><b>terminalsCRIO.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

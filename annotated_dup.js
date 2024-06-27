@@ -1,15 +1,16 @@
 var annotated_dup =
 [
-    [ "irio", "namespaceirio.html", [
-      [ "bfp", "namespaceirio_1_1bfp.html", [
+    [ "irio", null, [
+      [ "bfp", null, [
         [ "BFP", "classirio_1_1bfp_1_1BFP.html", "classirio_1_1bfp_1_1BFP" ],
         [ "DMA", "classirio_1_1bfp_1_1DMA.html", "classirio_1_1bfp_1_1DMA" ],
         [ "Register", "classirio_1_1bfp_1_1Register.html", "classirio_1_1bfp_1_1Register" ],
         [ "Resource", "classirio_1_1bfp_1_1Resource.html", "classirio_1_1bfp_1_1Resource" ]
       ] ],
-      [ "errors", "namespaceirio_1_1errors.html", [
+      [ "errors", null, [
         [ "IrioError", "classirio_1_1errors_1_1IrioError.html", null ],
         [ "TerminalNotImplementedError", "classirio_1_1errors_1_1TerminalNotImplementedError.html", "classirio_1_1errors_1_1TerminalNotImplementedError" ],
+        [ "ProfileNotImplementedError", "classirio_1_1errors_1_1ProfileNotImplementedError.html", "classirio_1_1errors_1_1ProfileNotImplementedError" ],
         [ "ResourceNotFoundError", "classirio_1_1errors_1_1ResourceNotFoundError.html", "classirio_1_1errors_1_1ResourceNotFoundError" ],
         [ "FPGAVIVersionMismatchError", "classirio_1_1errors_1_1FPGAVIVersionMismatchError.html", "classirio_1_1errors_1_1FPGAVIVersionMismatchError" ],
         [ "UnsupportedPlatformError", "classirio_1_1errors_1_1UnsupportedPlatformError.html", "classirio_1_1errors_1_1UnsupportedPlatformError" ],
@@ -48,14 +49,16 @@ var annotated_dup =
       [ "ProfileCPUDAQ", "classirio_1_1ProfileCPUDAQ.html", "classirio_1_1ProfileCPUDAQ" ],
       [ "ProfileCPUDAQcRIO", "classirio_1_1ProfileCPUDAQcRIO.html", "classirio_1_1ProfileCPUDAQcRIO" ],
       [ "ProfileCPUDAQFlexRIO", "classirio_1_1ProfileCPUDAQFlexRIO.html", "classirio_1_1ProfileCPUDAQFlexRIO" ],
+      [ "ProfileCPUDAQRSeries", "classirio_1_1ProfileCPUDAQRSeries.html", "classirio_1_1ProfileCPUDAQRSeries" ],
       [ "ProfileCPUIMAQ", "classirio_1_1ProfileCPUIMAQ.html", "classirio_1_1ProfileCPUIMAQ" ],
       [ "ProfileCPUIMAQFlexRIO", "classirio_1_1ProfileCPUIMAQFlexRIO.html", "classirio_1_1ProfileCPUIMAQFlexRIO" ],
-      [ "ProfileCRIO", "classirio_1_1ProfileCRIO.html", "classirio_1_1ProfileCRIO" ],
-      [ "ProfileFlexRIO", "classirio_1_1ProfileFlexRIO.html", "classirio_1_1ProfileFlexRIO" ],
+      [ "ProfileIO", "classirio_1_1ProfileIO.html", "classirio_1_1ProfileIO" ],
+      [ "ProfileIOcRIO", "classirio_1_1ProfileIOcRIO.html", "classirio_1_1ProfileIOcRIO" ],
       [ "TerminalsAnalog", "classirio_1_1TerminalsAnalog.html", "classirio_1_1TerminalsAnalog" ],
       [ "TerminalsAuxAnalog", "classirio_1_1TerminalsAuxAnalog.html", "classirio_1_1TerminalsAuxAnalog" ],
       [ "TerminalsAuxDigital", "classirio_1_1TerminalsAuxDigital.html", "classirio_1_1TerminalsAuxDigital" ],
       [ "TerminalsBase", "classirio_1_1TerminalsBase.html", "classirio_1_1TerminalsBase" ],
+      [ "TerminalsCommon", "classirio_1_1TerminalsCommon.html", "classirio_1_1TerminalsCommon" ],
       [ "TerminalscRIO", "classirio_1_1TerminalscRIO.html", "classirio_1_1TerminalscRIO" ],
       [ "TerminalsDigital", "classirio_1_1TerminalsDigital.html", "classirio_1_1TerminalsDigital" ],
       [ "TerminalsDMACommon", "classirio_1_1TerminalsDMACommon.html", "classirio_1_1TerminalsDMACommon" ],
@@ -64,6 +67,11 @@ var annotated_dup =
       [ "TerminalsDMAIMAQ", "classirio_1_1TerminalsDMAIMAQ.html", "classirio_1_1TerminalsDMAIMAQ" ],
       [ "TerminalsDMAIMAQCPU", "classirio_1_1TerminalsDMAIMAQCPU.html", "classirio_1_1TerminalsDMAIMAQCPU" ],
       [ "TerminalsFlexRIO", "classirio_1_1TerminalsFlexRIO.html", "classirio_1_1TerminalsFlexRIO" ],
+      [ "TerminalsIO", "classirio_1_1TerminalsIO.html", "classirio_1_1TerminalsIO" ],
       [ "TerminalsSignalGeneration", "classirio_1_1TerminalsSignalGeneration.html", "classirio_1_1TerminalsSignalGeneration" ]
-    ] ]
+    ] ],
+    [ "cRIOmodule", "structcRIOmodule.html", "structcRIOmodule" ],
+    [ "irioDrv_t", "structirioDrv__t.html", "structirioDrv__t" ],
+    [ "TResourcePort", "structTResourcePort.html", "structTResourcePort" ],
+    [ "TStatus", "structTStatus.html", "structTStatus" ]
 ];

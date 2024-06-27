@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IRIO Core Library Module: register.h Source File</title>
+<title>irioCoreCpp Library Module: register.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,8 +25,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">IRIO Core Library Module
-   &#160;<span id="projectnumber">1.3.0</span>
+   <div id="projectname">irioCoreCpp Library Module
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -86,59 +86,56 @@ $(document).ready(function(){initNavTree('register_8h_source.html',''); initResi
 <div class="title">register.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="register_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8h.html">resource.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;resource.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;pugixml.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceirio.html">irio</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>irio {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>bfp {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classirio_1_1bfp_1_1Register.html">Register</a>: <span class="keyword">public</span> <a class="code" href="classirio_1_1bfp_1_1Resource.html">Resource</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a68c9f565c518e9107b564a3b832aeb7c">   26</a></span>&#160;    <a class="code" href="classirio_1_1bfp_1_1Register.html#a68c9f565c518e9107b564a3b832aeb7c">Register</a>(<span class="keyword">const</span> std::string &amp;_name, <span class="keyword">const</span> <a class="code" href="group__BFP.html#gabeca5fcaba33ed8a6c422547a3b6bb42">FpgaTypes</a> &amp;_fpgaType,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keyword">const</span> <a class="code" href="group__BFP.html#ga8e61078caeb5b085beaef83413234612">ElemTypes</a> &amp;_elemType, <span class="keyword">const</span> std::uint32_t &amp;_address,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> &amp;_numElem = 1);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a385fb5fe38748640e8f0b5f1bf713ac1">   30</a></span>&#160;    <a class="code" href="classirio_1_1bfp_1_1Register.html#a385fb5fe38748640e8f0b5f1bf713ac1">Register</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#aeeae528069ab648bdc1a9d7dd424030a">   39</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classirio_1_1bfp_1_1Register.html">Register</a> <a class="code" href="classirio_1_1bfp_1_1Register.html#aeeae528069ab648bdc1a9d7dd424030a">processRegister</a>(<span class="keyword">const</span> pugi::xml_node &amp;registerNode,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keyword">const</span> std::uint32_t &amp;baseAddress);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#afb61a8a34ba0f489a7bdb07ea8a0d329">   46</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#afb61a8a34ba0f489a7bdb07ea8a0d329">isControl</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a4c7eeef25e2fc7ddad221eb5c15185d5">   52</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#a4c7eeef25e2fc7ddad221eb5c15185d5">isIndicator</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#ac72a2fe305b7783c4b1e4a063a64ba42">   58</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#ac72a2fe305b7783c4b1e4a063a64ba42">isArray</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c">   62</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c">m_isControl</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303">   64</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303">m_isArray</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}  <span class="comment">// namespace bfp</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}  <span class="comment">// namespace irio</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a68c9f565c518e9107b564a3b832aeb7c">   27</a></span>&#160;    <a class="code" href="classirio_1_1bfp_1_1Register.html#a68c9f565c518e9107b564a3b832aeb7c">Register</a>(<span class="keyword">const</span> std::string &amp;_name, <span class="keyword">const</span> <a class="code" href="group__BFP.html#gabeca5fcaba33ed8a6c422547a3b6bb42">FpgaTypes</a> &amp;_fpgaType,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keyword">const</span> <a class="code" href="group__BFP.html#ga8e61078caeb5b085beaef83413234612">ElemTypes</a> &amp;_elemType, <span class="keyword">const</span> std::uint32_t &amp;_address,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> &amp;_numElem = 1);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="classirio_1_1bfp_1_1Register.html">Register</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#aeeae528069ab648bdc1a9d7dd424030a">   40</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classirio_1_1bfp_1_1Register.html">Register</a> <a class="code" href="classirio_1_1bfp_1_1Register.html#aeeae528069ab648bdc1a9d7dd424030a">processRegister</a>(<span class="keyword">const</span> pugi::xml_node &amp;registerNode,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keyword">const</span> std::uint32_t &amp;baseAddress);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#afb61a8a34ba0f489a7bdb07ea8a0d329">   47</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#afb61a8a34ba0f489a7bdb07ea8a0d329">isControl</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a4c7eeef25e2fc7ddad221eb5c15185d5">   53</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#a4c7eeef25e2fc7ddad221eb5c15185d5">isIndicator</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#ac72a2fe305b7783c4b1e4a063a64ba42">   59</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#ac72a2fe305b7783c4b1e4a063a64ba42">isArray</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c">   63</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c">m_isControl</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303">   65</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303">m_isArray</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}  <span class="comment">// namespace bfp</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}  <span class="comment">// namespace irio</span></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Register_html"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html">irio::bfp::Register</a></div><div class="ttdoc">Class holding information about one Register.</div><div class="ttdef"><b>Definition:</b> <a href="register_8h_source.html#l00016">register.h:16</a></div></div>
-<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_a385fb5fe38748640e8f0b5f1bf713ac1"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#a385fb5fe38748640e8f0b5f1bf713ac1">irio::bfp::Register::Register</a></div><div class="ttdeci">Register()=default</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_a4c7eeef25e2fc7ddad221eb5c15185d5"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#a4c7eeef25e2fc7ddad221eb5c15185d5">irio::bfp::Register::isIndicator</a></div><div class="ttdeci">bool isIndicator() const</div><div class="ttdoc">Returns if the register is an indicator.</div></div>
-<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_a68c9f565c518e9107b564a3b832aeb7c"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#a68c9f565c518e9107b564a3b832aeb7c">irio::bfp::Register::Register</a></div><div class="ttdeci">Register(const std::string &amp;_name, const FpgaTypes &amp;_fpgaType, const ElemTypes &amp;_elemType, const std::uint32_t &amp;_address, const size_t &amp;_numElem=1)</div><div class="ttdoc">Constructor.</div></div>
-<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_a8d7353ece3d8db8ccaddfbd64a1f680c"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c">irio::bfp::Register::m_isControl</a></div><div class="ttdeci">bool m_isControl</div><div class="ttdoc">Indicates whether the register is a control or an indicator.</div><div class="ttdef"><b>Definition:</b> <a href="register_8h_source.html#l00062">register.h:62</a></div></div>
-<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_aa5dc8615925a97b7b8ad68b6f01e2303"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303">irio::bfp::Register::m_isArray</a></div><div class="ttdeci">bool m_isArray</div><div class="ttdoc">Indicates whether the register is an array or not.</div><div class="ttdef"><b>Definition:</b> <a href="register_8h_source.html#l00064">register.h:64</a></div></div>
+<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_a68c9f565c518e9107b564a3b832aeb7c"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#a68c9f565c518e9107b564a3b832aeb7c">irio::bfp::Register::Register</a></div><div class="ttdeci">Register(const std::string &amp;_name, const FpgaTypes &amp;_fpgaType, const ElemTypes &amp;_elemType, const std::uint32_t &amp;_address, const size_t &amp;_numElem=1)</div><div class="ttdoc">Creates a Register object with its relevant information.</div></div>
+<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_a8d7353ece3d8db8ccaddfbd64a1f680c"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#a8d7353ece3d8db8ccaddfbd64a1f680c">irio::bfp::Register::m_isControl</a></div><div class="ttdeci">bool m_isControl</div><div class="ttdoc">Indicates whether the register is a control or an indicator.</div><div class="ttdef"><b>Definition:</b> <a href="register_8h_source.html#l00063">register.h:63</a></div></div>
+<div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_aa5dc8615925a97b7b8ad68b6f01e2303"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#aa5dc8615925a97b7b8ad68b6f01e2303">irio::bfp::Register::m_isArray</a></div><div class="ttdeci">bool m_isArray</div><div class="ttdoc">Indicates whether the register is an array or not.</div><div class="ttdef"><b>Definition:</b> <a href="register_8h_source.html#l00065">register.h:65</a></div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_ac72a2fe305b7783c4b1e4a063a64ba42"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#ac72a2fe305b7783c4b1e4a063a64ba42">irio::bfp::Register::isArray</a></div><div class="ttdeci">bool isArray() const</div><div class="ttdoc">Returns if the register is an array.</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_aeeae528069ab648bdc1a9d7dd424030a"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#aeeae528069ab648bdc1a9d7dd424030a">irio::bfp::Register::processRegister</a></div><div class="ttdeci">static Register processRegister(const pugi::xml_node &amp;registerNode, const std::uint32_t &amp;baseAddress)</div><div class="ttdoc">Creates a Register object from an XML node.</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Register_html_afb61a8a34ba0f489a7bdb07ea8a0d329"><div class="ttname"><a href="classirio_1_1bfp_1_1Register.html#afb61a8a34ba0f489a7bdb07ea8a0d329">irio::bfp::Register::isControl</a></div><div class="ttdeci">bool isControl() const</div><div class="ttdoc">Returns if the register is a control.</div></div>
 <div class="ttc" id="aclassirio_1_1bfp_1_1Resource_html"><div class="ttname"><a href="classirio_1_1bfp_1_1Resource.html">irio::bfp::Resource</a></div><div class="ttdoc">Class holding information about one resource (Register or DMA)</div><div class="ttdef"><b>Definition:</b> <a href="resource_8h_source.html#l00016">resource.h:16</a></div></div>
 <div class="ttc" id="agroup__BFP_html_ga8e61078caeb5b085beaef83413234612"><div class="ttname"><a href="group__BFP.html#ga8e61078caeb5b085beaef83413234612">irio::bfp::ElemTypes</a></div><div class="ttdeci">ElemTypes</div><div class="ttdoc">Supported types for the elements of the different Resources in the Bitfile.</div><div class="ttdef"><b>Definition:</b> <a href="elemtypes_8h_source.html#l00013">elemtypes.h:13</a></div></div>
 <div class="ttc" id="agroup__BFP_html_gabeca5fcaba33ed8a6c422547a3b6bb42"><div class="ttname"><a href="group__BFP.html#gabeca5fcaba33ed8a6c422547a3b6bb42">irio::bfp::FpgaTypes</a></div><div class="ttdeci">FpgaTypes</div><div class="ttdoc">Type of Resource possible in the Bitfile.</div><div class="ttdef"><b>Definition:</b> <a href="fpgatypes_8h_source.html#l00011">fpgatypes.h:11</a></div></div>
-<div class="ttc" id="anamespaceirio_html"><div class="ttname"><a href="namespaceirio.html">irio</a></div><div class="ttdef"><b>Definition:</b> <a href="bfp_8h_source.html#l00010">bfp.h:10</a></div></div>
-<div class="ttc" id="aresource_8h_html"><div class="ttname"><a href="resource_8h.html">resource.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_e850c88a483edda50098ec4ab1429998.html">bfp</a></li><li class="navelem"><a class="el" href="dir_e009d25de9f1c4cc273b3cb5c2b4947d.html">include</a></li><li class="navelem"><a class="el" href="register_8h.html">register.h</a></li>
+    <li class="navelem"><a class="el" href="dir_b2bca091c87127f5da307455ce418719.html">c++</a></li><li class="navelem"><a class="el" href="dir_fe4b444657896ae383212eddba82056d.html">bfp</a></li><li class="navelem"><a class="el" href="dir_8d38439ee148e1317aa523a984017dd3.html">include</a></li><li class="navelem"><b>register.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
