@@ -39,12 +39,12 @@ TEST_F(DigitalTests, TerminalsDigital){
 
 TEST_F(DigitalTests, NumDI){
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getTerminalsDigital().getNumDI(), 2);
+	EXPECT_EQ(irio.getTerminalsDigital().getNumDI(), 28);
 }
 
 TEST_F(DigitalTests, NumDO){
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getTerminalsDigital().getNumDO(), 2);
+	EXPECT_EQ(irio.getTerminalsDigital().getNumDO(), 28);
 }
 
 TEST_F(DigitalTests, getDI){

@@ -59,12 +59,12 @@ TEST_F(AuxAnalogTests, TerminalsAuxAnalog){
 
 TEST_F(AuxAnalogTests, NumAuxAI){
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAI(), 2);
+	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAI(), 16);
 }
 
 TEST_F(AuxAnalogTests, NumAuxAO){
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAO(), 2);
+	EXPECT_EQ(irio.getTerminalsAuxAnalog().getNumAuxAO(), 16);
 }
 
 TEST_F(AuxAnalogTests, getAuxAI){

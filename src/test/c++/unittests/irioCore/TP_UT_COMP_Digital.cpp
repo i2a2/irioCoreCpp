@@ -61,7 +61,7 @@ TEST_F(DigitalTestsAdapter, getNumDI) {
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
-	EXPECT_EQ(num, 2);
+	EXPECT_EQ(num, 28);
 }
 
 TEST_F(DigitalTestsAdapter, getNumDO) {
@@ -70,7 +70,7 @@ TEST_F(DigitalTestsAdapter, getNumDO) {
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
-	EXPECT_EQ(num, 2);
+	EXPECT_EQ(num, 28);
 }
 
 TEST_F(DigitalTestsAdapter, getNumAuxDI) {
@@ -79,7 +79,7 @@ TEST_F(DigitalTestsAdapter, getNumAuxDI) {
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
-	EXPECT_EQ(num, 2);
+	EXPECT_EQ(num, 16);
 }
 
 TEST_F(DigitalTestsAdapter, getNumAuxDO) {
@@ -88,7 +88,7 @@ TEST_F(DigitalTestsAdapter, getNumAuxDO) {
 
 	EXPECT_EQ(status.code, IRIO_success) << status.msg;
 	EXPECT_EQ(ret, IRIO_success);
-	EXPECT_EQ(num, 2);
+	EXPECT_EQ(num, 16);
 }
 
 TEST_F(DigitalTestsAdapter, getDI) {
