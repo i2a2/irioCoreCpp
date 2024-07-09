@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testplan
+    xmlns="http://www.testLocation.com/test"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.testLocation.com/test ../testSchema.xsd">
+
+    <!-- Common tests with both families -->
+    <test>
+        <name>Common Tests</name>
+        <TestFilter>CommonTests.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>7821</RIODevice>
+        <RIOSerial>02271131</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>true</verbose>
+    </test>
+    <test>
+        <name>Common Tests</name>
+        <TestFilter>CommonTestsResources.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>7821</RIODevice>
+        <RIOSerial>02271131</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>true</verbose>
+    </test>
+    <test>
+        <name>Common Tests</name>
+        <TestFilter>CommonTestsError.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>7821</RIODevice>
+        <RIOSerial>02271131</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>true</verbose>
+    </test>
+    <test>
+        <name>Common Tests</name>
+        <TestFilter>RSeriesCPUDAQ.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>7821</RIODevice>
+        <RIOSerial>02271131</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>true</verbose>
+    </test>
+    <test>
+        <name>Common Tests</name>
+        <TestFilter>RSeriesCPUDAQError.*</TestFilter>
+        <TestType>irioCoreCpp Functional</TestType>
+        <RIODevice>7821</RIODevice>
+        <RIOSerial>02271131</RIOSerial>
+        <RIOModule>noModule</RIOModule>
+        <verbose>true</verbose>
+    </test>
+   
+
+</testplan>
