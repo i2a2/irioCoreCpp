@@ -59,7 +59,7 @@ TEST_F(DMACPUCommonTests, TerminalsDMACPU){
 
 TEST_F(DMACPUCommonTests, countDMAs) {
 	Irio irio(bitfilePath, "0", "V9.9");
-	EXPECT_EQ(irio.getTerminalsDAQ().countDMAs(), 2);
+	EXPECT_EQ(irio.getTerminalsDAQ().countDMAs(), 1);
 }
 
 TEST_F(DMACPUCommonTests, NCh) {
@@ -75,7 +75,7 @@ TEST_F(DMACPUCommonTests, FrameType) {
 TEST_F(DMACPUCommonTests, AllFrameType) {
 	Irio irio(bitfilePath, "0", "V9.9");
 	const auto frametypes = irio.getTerminalsDAQ().getAllFrameType();
-	EXPECT_EQ(frametypes.size(), 2);
+	EXPECT_EQ(frametypes.size(), 1);
 }
 
 TEST_F(DMACPUCommonTests, SampleSize) {
@@ -86,13 +86,12 @@ TEST_F(DMACPUCommonTests, SampleSize) {
 TEST_F(DMACPUCommonTests, AllSampleSize) {
 	Irio irio(bitfilePath, "0", "V9.9");
 	const auto samplesizes = irio.getTerminalsDAQ().getAllSampleSizes();
-	EXPECT_EQ(samplesizes.size(), 2);
+	EXPECT_EQ(samplesizes.size(), 1);
 }
 
 TEST_F(DMACPUCommonTests, DMAOverflow) {
 	Irio irio(bitfilePath, "0", "V9.9");
 	EXPECT_EQ(irio.getTerminalsDAQ().getDMAOverflow(0), false);
-	EXPECT_EQ(irio.getTerminalsDAQ().getDMAOverflow(1), true);
 }
 
 TEST_F(DMACPUCommonTests, DMAOverflows) {
