@@ -21,7 +21,8 @@ namespace irio {
 Irio::Irio(const std::string &bitfilePath,
 			   const std::string &RIOSerialNumber,
 			   const std::string &FPGAVIversion,
-			   const bool parseVerbose) {
+			   const bool parseVerbose):
+	m_rioSerialNumber(RIOSerialNumber) {
 	m_resourceName = searchRIODevice(RIOSerialNumber);
 	bfp::BFP bfp(bitfilePath, false);
 
@@ -84,6 +85,10 @@ Irio::~Irio() {
 
 std::uint32_t Irio::getID() const {
 	return m_session;
+}
+
+std::string Irio::getRIOSerial() const {
+	return m_rioSerialNumber;
 }
 
 void Irio::startFPGA(std::uint32_t timeoutMs) const {

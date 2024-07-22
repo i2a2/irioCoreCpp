@@ -110,6 +110,12 @@ TEST_F(CommonTests, getProfileID) {
 	EXPECT_NO_THROW(irio.getProfileID(););
 }
 
+TEST_F(CommonTests, getRIOSerial) {
+	const std::string rioSerial = "123456789";
+	Irio irio(bitfilePath, rioSerial, "V9.9");
+	EXPECT_EQ(rioSerial, irio.getRIOSerial());
+}
+
 TEST_F(CommonTests, closeAttribute) {
 	EXPECT_NO_THROW(
 	Irio irio(bitfilePath, "0", "V9.9");

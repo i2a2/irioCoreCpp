@@ -111,6 +111,13 @@ class Irio {
   PROFILE_ID getProfileID() const;
 
   /**
+   * Returns RIO Serial of the device in use
+   * 
+   * @return RIO Serial of the device in use
+   */
+  std::string getRIOSerial() const;
+
+  /**
    * @brief Sets the attribute used when closing the FPGA session.
    *
    * This function sets the attribute used in the NiFpga_Close function.
@@ -330,6 +337,9 @@ class Irio {
 	 * @throw irio::errors::NiFpgaError					Error occurred in an FPGA operation
 	 */
 	void selectDevProfile(ParserManager *parserManager);
+
+    /// RIO Serial of the device used
+    const std::string m_rioSerialNumber;
 
 	/// Platform of the RIO device
 	std::unique_ptr<Platform> m_platform;
