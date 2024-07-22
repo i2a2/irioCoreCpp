@@ -7,7 +7,9 @@ namespace irio {
  * Holds the found resource name and device model
  */
 struct RIODeviceInfo {
+	/// Resource name. Needed to open session with FPGA
 	std::string resourceName;
+	/// Device Model of RIO board
 	std::string deviceModel;
 };
 
