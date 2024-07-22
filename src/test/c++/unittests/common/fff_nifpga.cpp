@@ -8,7 +8,7 @@ DEFINE_FFF_GLOBALS
 
 
 namespace irio {
-DEFINE_FAKE_VALUE_FUNC(std::string, searchRIODevice, const std::string);
+DEFINE_FAKE_VALUE_FUNC(RIODeviceInfo, searchRIODevice, const std::string);
 }  // namespace irio
 
 

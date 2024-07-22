@@ -23,7 +23,9 @@ Irio::Irio(const std::string &bitfilePath,
 			   const std::string &FPGAVIversion,
 			   const bool parseVerbose):
 	m_rioSerialNumber(RIOSerialNumber) {
-	m_resourceName = searchRIODevice(RIOSerialNumber);
+	const auto rioInfo = searchRIODevice(RIOSerialNumber);
+	m_resourceName = rioInfo.resourceName;
+	m_deviceModel = rioInfo.deviceModel;
 	bfp::BFP bfp(bitfilePath, false);
 
 	initDriver();
@@ -89,6 +91,10 @@ std::uint32_t Irio::getID() const {
 
 std::string Irio::getRIOSerial() const {
 	return m_rioSerialNumber;
+}
+
+std::string Irio::getDeviceModel() const {
+	return m_deviceModel;
 }
 
 void Irio::startFPGA(std::uint32_t timeoutMs) const {

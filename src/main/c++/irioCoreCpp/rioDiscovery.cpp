@@ -1,5 +1,6 @@
 #include <dirent.h>
 #include <vector>
+#include <unordered_map>
 #include <fstream>
 
 #include "rioDiscovery.h"
@@ -12,6 +13,33 @@
 namespace irio {
 
 #ifdef CCS_VERSION
+const std::unordered_map<std::string, std::string> modelMap = {
+	{"0x76260x7626", "NI 9154"},
+	{"0x76270x7627", "NI 9155"},
+	{"0x75390x7539", "NI 9157"},
+	{"0x753A0x753A", "NI 9159"},
+	{"0x73910x7391", "PXI-7842R"},
+	{"0x73E10x73E1", "PXI-7854R"},
+	{"0xC4C40x74D0", "PXIe-7961R"},
+	{"0xC4C40x74E2", "PXIe-7962R"},
+	{"0xC4C40x74E3", "PXIe-7965R"},
+	{"0xC4C40x75CE", "PXIe-7966R"},
+	{"0xC4C40x74F3", "PCIe-5140R"},
+	{"0xC4C40x7553", "PCIe-1473R"},
+	{"0xC4C40x76FB", "PCIe-1473R-LX110"},
+	{"0xC4C40x7570", "PCIe-1474R"},
+	{"0xC4C40x7571", "PCIe-1475R"},
+	{"0xC4C40x7572", "PCIe-1476R"},
+	{"0x77B10x77B1", "NI-7931R"},
+	{"0x77B20x77B2", "NI-7932R"},
+	{"0x77AC0x77AC", "NI-7935R"},
+	{"0xC4C40x76B5", "PXIe-7971R"},
+	{"0xC4C40x76B6", "PXIe-7972R"},
+	{"0xC4C40x76B7", "PXIe-7975R"},
+	{"0xC4C40x7777", "PXIe-7976R"},
+};
+
+
 std::vector<std::string> getListDevices() {
 	static const std::string interfacePath = "/sys/class/nirio";
 
@@ -42,20 +70,33 @@ std::vector<std::string> getListDevices() {
 	return devices;
 }
 
-std::string getRIODeviceCCS(const std::string &serialNumber) {
+RIODeviceInfo getRIODeviceCCS(const std::string &serialNumber) {
 	auto devices = getListDevices();
 	auto it = devices.begin();
-	std::string sn;
-	std::string name = "";
+	std::string auxStr;
+	std::string resourceName = "";
+	std::string deviceHex = "";
+	std::string subDeviceHex = "";
 
-	while (it != devices.end() && name.empty()) {
+	while (it != devices.end() && resourceName.empty()) {
 		std::ifstream snFile(*it + std::string("/nirio_serial_number"));
-		if (snFile.is_open() && getline(snFile, sn) && sn == serialNumber) {
+		if (snFile.is_open() && getline(snFile, auxStr) && auxStr == serialNumber) {
 			auto slashPos = it->rfind('/');
 			auto boardPos = it->rfind('!');
-			name = it->substr(slashPos + 1, boardPos - slashPos - 1);
+			resourceName = it->substr(slashPos + 1, boardPos - slashPos - 1);
 		} else {
 			it++;
+			continue;
+		}
+
+		std::ifstream devFile(*it + std::string("/device/device"));
+		if(devFile.is_open() && getline(devFile, auxStr)) {
+			deviceHex = auxStr;
+		}
+
+		std::ifstream subDevFile(*it + std::string("/device/subsystem_device"));
+		if(subDevFile.is_open() && getline(subDevFile, auxStr)) {
+			subDeviceHex = auxStr;
 		}
 	}
 
@@ -63,7 +104,15 @@ std::string getRIODeviceCCS(const std::string &serialNumber) {
 		throw errors::RIODeviceNotFoundError();
 	}
 
-	return name;
+	RIODeviceInfo ret;
+	const auto modelIt = modelMap.find(deviceHex+subDeviceHex);
+	if(modelIt != modelMap.end()) {
+		ret.deviceModel = modelIt->second;
+	} else {
+		ret.deviceModel = "Unkown Model";
+	}
+	ret.resourceName = resourceName;
+	return ret;
 }
 #else
 
@@ -96,14 +145,21 @@ class NISysCfg{
 	NISysCfg(const NISysCfg&) = delete;
 	NISysCfg& operator=(const NISysCfg&) = delete;
 
-	std::string getDeviceFromSerialNumber(const std::string &serialNumber) {
-		char resourceName[NISYSCFG_SIMPLE_STRING_LENGTH];
-
+	void findDeviceFromSerialNumber(const std::string &serialNumber) {
 		createFilter(NISysCfgFilterPropertySerialNumber, serialNumber.c_str());
 		findResource();
-		getIndexedProperty(NISysCfgIndexedPropertyExpertResourceName, resourceName);
+	}
 
+	std::string getResourceName() const {
+		char resourceName[NISYSCFG_SIMPLE_STRING_LENGTH];
+		getIndexedProperty(NISysCfgIndexedPropertyExpertResourceName, resourceName);
 		return resourceName;
+	}
+
+	std::string getDeviceModel() const {
+		char deviceModel[NISYSCFG_SIMPLE_STRING_LENGTH];
+		getResourceProperty(NISysCfgResourcePropertyProductName, deviceModel);
+		return deviceModel;
 	}
 
  private:
@@ -146,9 +202,16 @@ class NISysCfg{
 	}
 
 	template<typename T>
-	void getIndexedProperty(NISysCfgIndexedProperty property, T* val) {
+	void getIndexedProperty(NISysCfgIndexedProperty property, T* val) const {
 		auto status = NISysCfgGetResourceIndexedProperty(m_resource,
 				property, 0, reinterpret_cast<void*>(val));
+		throwIfNiSysCfgError(status, "");
+	}
+
+	template<typename T>
+	void getResourceProperty(NISysCfgResourceProperty property, T* val) const {
+		auto status = NISysCfgGetResourceProperty(m_resource, property,
+				reinterpret_cast<void*>(val));
 		throwIfNiSysCfgError(status, "");
 	}
 
@@ -158,14 +221,18 @@ class NISysCfg{
 };
 
 
-std::string getRIODevicesNI(const std::string &serialNumber) {
+RIODeviceInfo getRIODevicesNI(const std::string &serialNumber) {
 	NISysCfg syscfg("localhost");
-	return syscfg.getDeviceFromSerialNumber(serialNumber);
+	syscfg.findDeviceFromSerialNumber(serialNumber);
+	RIODeviceInfo ret;
+	ret.deviceModel = syscfg.getDeviceModel();
+	ret.resourceName = syscfg.getResourceName();
+	return ret;
 }
 
 #endif
 
-std::string getRIODeviceAux(const std::string &serialNumber) {
+RIODeviceInfo getRIODeviceAux(const std::string &serialNumber) {
 #ifdef CCS_VERSION
 	return getRIODeviceCCS(serialNumber);
 #else
@@ -173,10 +240,9 @@ std::string getRIODeviceAux(const std::string &serialNumber) {
 #endif
 }
 
-std::string searchRIODevice(const std::string serialNumber) {
+RIODeviceInfo searchRIODevice(const std::string serialNumber) {
 	try {
-		std::string deviceName = getRIODeviceAux(serialNumber);
-		return deviceName;
+		return getRIODeviceAux(serialNumber);
 	} catch (errors::RIODeviceNotFoundError&) {
 		throw errors::RIODeviceNotFoundError(serialNumber);
 	}

@@ -18,7 +18,8 @@ BaseTests::BaseTests(const std::string bitfile, const bool includeSG):
 	FFF_RESET_HISTORY();
 	init_ok_fff_nifpga();
 
-	searchRIODevice_fake.return_val = "MockDevice";
+	searchRIODevice_fake.return_val.deviceModel = "MockModel";
+	searchRIODevice_fake.return_val.resourceName = "MockResource";
 	setValueForReg(ReadArrayFunctions::NiFpga_ReadArrayU8,
 			bfp.getRegister(TERMINAL_FPGAVIVERSION).getAddress(),
 			fpgaVIversionFake, 2);

@@ -9,11 +9,10 @@
 #include <string>
 #include <memory>
 #include "fff.h"
-
-
+#include "rioDiscovery.h"
 
 namespace irio {
-DECLARE_FAKE_VALUE_FUNC(std::string, searchRIODevice, const std::string);
+DECLARE_FAKE_VALUE_FUNC(RIODeviceInfo, searchRIODevice, const std::string);
 }  // namespace irio
 
 ///////////////////////////////////////////////////////////////

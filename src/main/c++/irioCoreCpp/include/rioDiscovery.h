@@ -2,19 +2,28 @@
 #include <string>
 
 namespace irio {
+
+/**
+ * Holds the found resource name and device model
+ */
+struct RIODeviceInfo {
+	std::string resourceName;
+	std::string deviceModel;
+};
+
 /**
  * @ingroup IrioCoreCpp
  *
- * Searches for RIO devices and returns its name if any matches the
- * specified serial number
+ * Searches for a RIO device with the specified serial number.
+ * Returns its resource name and the device model
  *
  * @throw irio::errors::RIODeviceNotFoundError	Not found device with specified serial number
  * @throw irio::errors::RIODiscoveryError			Error while discovering devices
  *
  * @param serialNumber	Serial number to search
- * @return	Name of the RIO device
+ * @return	RIODeviceInfo with the resource name and the device model
  */
-std::string searchRIODevice(const std::string serialNumber);
+RIODeviceInfo searchRIODevice(const std::string serialNumber);
 /* 
  * serialNumber should be a reference, but due to the mocking
  * framework the project uses (fff) which is really a C framework,

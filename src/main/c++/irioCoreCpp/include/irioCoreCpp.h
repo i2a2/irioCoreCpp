@@ -118,6 +118,13 @@ class Irio {
   std::string getRIOSerial() const;
 
   /**
+   * Return the device model of the RIO device in use
+   * 
+   * @return Device model of the RIO device in use
+   */
+  std::string getDeviceModel() const;
+
+  /**
    * @brief Sets the attribute used when closing the FPGA session.
    *
    * This function sets the attribute used in the NiFpga_Close function.
@@ -340,6 +347,9 @@ class Irio {
 
     /// RIO Serial of the device used
     const std::string m_rioSerialNumber;
+
+    /// Device model of the RIO device
+    std::string m_deviceModel;
 
 	/// Platform of the RIO device
 	std::unique_ptr<Platform> m_platform;

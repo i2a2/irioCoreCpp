@@ -116,6 +116,11 @@ TEST_F(CommonTests, getRIOSerial) {
 	EXPECT_EQ(rioSerial, irio.getRIOSerial());
 }
 
+TEST_F(CommonTests, getDeviceModel) {
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_EQ("MockModel", irio.getDeviceModel());
+}
+
 TEST_F(CommonTests, closeAttribute) {
 	EXPECT_NO_THROW(
 	Irio irio(bitfilePath, "0", "V9.9");
