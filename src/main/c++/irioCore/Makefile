@@ -60,9 +60,8 @@ endif
 
 .PHONY: all clean run 
 
-.NOTPARALLEL: copy_includes update_irio_version
-
 all: copy_includes update_irio_version $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
+
 
 update_irio_version:
 	echo "Updating $(FILE_WITH_IRIOVERSION) to version $(VERSION)"
@@ -88,10 +87,10 @@ $(STATICLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
 	$(AR) rcs $@ $^
 	
-$(OBJECT_DIR)/%.o: %.cpp
+$(OBJECT_DIR)/%.o: %.cpp update_irio_version
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 
-$(OBJECT_DIR)/%.o: %.c
+$(OBJECT_DIR)/%.o: %.c update_irio_version
 	mkdir -p $(OBJECT_DIR)
 	$(C) $(CFLAGS) $(INCLUDES) $< -o $@

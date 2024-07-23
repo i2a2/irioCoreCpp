@@ -56,9 +56,8 @@ FILE_WITH_VERSION=./include/irioCoreCppVersion.h
 
 
 .PHONY: all clean run 
-.NOTPARALLEL: copy_includes update_version
 
-all: copy_includes update_version $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
+all: update_version copy_includes $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
 update_version:
 	echo "Updating $(FILE_WITH_VERSION) to version $(VERSION)"
@@ -73,7 +72,7 @@ copy_includes:
 clean:
 	rm -rf "$(SHAREDLIBRARY)" "$(STATICLIBRARY)" "$(OBJECT_DIR)" "$(HTARGETS)"
 
-run: $(SOURCES) $(SHAREDLIBRARY)
+run: $(SOURCES) $(SHAREDLIBRARY) 
 	$(SHAREDLIBRARY)
 
 $(SHAREDLIBRARY): $(OBJECTS)
@@ -84,10 +83,10 @@ $(STATICLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
 	$(AR) rcs $@ $^
 	
-$(OBJECT_DIR)/%.o: %.cpp
+$(OBJECT_DIR)/%.o: %.cpp update_version
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 
-$(OBJECT_DIR)/%.o: %.c
+$(OBJECT_DIR)/%.o: %.c update_version
 	mkdir -p $(OBJECT_DIR)
 	$(C) $(CFLAGS) $(INCLUDES) $< -o $@
