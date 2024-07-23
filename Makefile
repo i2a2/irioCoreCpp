@@ -3,7 +3,7 @@ export RED=\e[0;31m
 export ORANGE=\e[0;33m
 export NC=\e[0m
 
-export VERSION=2.0.0
+export VERSION=2.1.0
 
 export COPY_DIR := target/
 export SOURCE_DIR := src/
