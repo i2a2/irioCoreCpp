@@ -11,6 +11,7 @@ INCLUDES_ALL = $(wildcard $(INCLUDES_BASE_DIR)/*.h)
 EXCLUDE = utils.h
 EXCLUDE += rioDiscovery.h
 EXCLUDE += parserManager.h
+EXCLUDE += irioCoreCppVersion.h
 INCLUDES =  $(patsubst $(TOP_DIR)/$(COPY_DIR)/%,%,$(filter-out $(addprefix $(INCLUDES_BASE_DIR)/,$(EXCLUDE)), $(INCLUDES_ALL)))
 INCLUDES_TERMINALS = $(patsubst $(TOP_DIR)/$(COPY_DIR)/%,%,$(wildcard $(INCLUDES_BASE_DIR)/terminals/*.h))
 

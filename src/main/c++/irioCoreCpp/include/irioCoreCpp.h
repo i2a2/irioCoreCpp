@@ -125,6 +125,13 @@ class Irio {
   std::string getDeviceModel() const;
 
   /**
+   * Return the library version
+   * 
+   * @return Library version
+   */
+  std::string getLibraryVersion() const;
+
+  /**
    * @brief Sets the attribute used when closing the FPGA session.
    *
    * This function sets the attribute used in the NiFpga_Close function.

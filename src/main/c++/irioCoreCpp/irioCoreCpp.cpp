@@ -11,6 +11,7 @@
 #include "rioDiscovery.h"
 #include "errorsIrio.h"
 #include "parserManager.h"
+#include "irioCoreCppVersion.h"
 
 namespace irio {
 
@@ -95,6 +96,10 @@ std::string Irio::getRIOSerial() const {
 
 std::string Irio::getDeviceModel() const {
 	return m_deviceModel;
+}
+
+std::string Irio::getLibraryVersion() const {
+	return IRIOCORECPPVERSION;
 }
 
 void Irio::startFPGA(std::uint32_t timeoutMs) const {

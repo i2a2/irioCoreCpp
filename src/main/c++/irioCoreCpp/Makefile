@@ -52,10 +52,17 @@ endif
 
 VPATH=$(SOURCES_DIR)
 
+FILE_WITH_VERSION=./include/irioCoreCppVersion.h
+
 
 .PHONY: all clean run 
+.NOTPARALLEL: copy_includes update_version
 
-all: copy_includes $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
+all: copy_includes update_version $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
+
+update_version:
+	echo "Updating $(FILE_WITH_VERSION) to version $(VERSION)"
+	sed -i 's/{IRIOVERSIONVALUE}/$(VERSION)/g' $(FILE_WITH_VERSION)
 
 copy_includes:
 	mkdir -p $(TARGET)/includes/

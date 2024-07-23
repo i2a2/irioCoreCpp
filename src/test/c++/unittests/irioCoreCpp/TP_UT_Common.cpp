@@ -121,6 +121,11 @@ TEST_F(CommonTests, getDeviceModel) {
 	EXPECT_EQ("MockModel", irio.getDeviceModel());
 }
 
+TEST_F(CommonTests, getLibraryVersion) {
+	Irio irio(bitfilePath, "0", "V9.9");
+	EXPECT_NO_THROW(irio.getLibraryVersion());
+}
+
 TEST_F(CommonTests, closeAttribute) {
 	EXPECT_NO_THROW(
 	Irio irio(bitfilePath, "0", "V9.9");
