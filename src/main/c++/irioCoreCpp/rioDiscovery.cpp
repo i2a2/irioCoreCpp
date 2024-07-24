@@ -171,6 +171,11 @@ class NISysCfg{
 		throwIfNiSysCfgError(status,
 								"Unable to create NISysCfg filter");
 		status = NISysCfgSetFilterProperty(
+			m_filter, NISysCfgFilterPropertyExpertName,
+			reinterpret_cast<const void *>("NI-RIO"));
+		throwIfNiSysCfgError(status,
+								"Unable to configure NISysCfg filter");
+		status = NISysCfgSetFilterProperty(
 			m_filter, property, reinterpret_cast<const void *>(value));
 		throwIfNiSysCfgError(status,
 								"Unable to configure NISysCfg filter");
