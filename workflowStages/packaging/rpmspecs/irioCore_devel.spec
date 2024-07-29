@@ -20,3 +20,5 @@ Includes header files and the static library for developing applications with it
 
 %files
 {FILES_TO_INCLUDE}
+
+{BUILD_ID_LINKS}

@@ -19,3 +19,5 @@ irioCoreCpp devel
 
 %files
 {FILES_TO_INCLUDE}
+
+{BUILD_ID_LINKS}

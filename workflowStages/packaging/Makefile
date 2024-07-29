@@ -31,9 +31,11 @@ export BASE_DOC_INSTALL_DIR
 
 export TOP_DIR
 
-
 all:
 
 %:
 	@$(foreach mk, $(PACKAGES_MAKEFILES), printf "$(BOLD)Packaging $(mk)...$(NC)\n" && $(MAKE) -f $(mk) $@ &&) :
 	@printf "$(BOLD)Install directory: $(INSTALL_DIR)$(NC)\n"
+	@if ! [ -z $(DEBUG) ] ; then \
+		printf "$(BOLD)$(ORANGE)Generated packages contain debugging symbols!$(NC)\n"; \
+	fi

@@ -19,3 +19,5 @@ C API wrapper of irioCoreCpp
 
 %files
 {FILES_TO_INCLUDE}
+
+{BUILD_ID_LINKS}

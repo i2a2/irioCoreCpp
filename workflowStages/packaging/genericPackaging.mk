@@ -22,6 +22,10 @@ ifndef BASE_DIR
 	BASE_DIR := .
 endif
 
+ifndef DEBUG
+	BUILD_ID=%define _build_id_links none
+endif
+
 ARCH := $(shell uname -m)
 
 INPUT_FILES := $(foreach pair,$(FILES),$(BASE_DIR)/$(word 1,$(subst :, ,$(pair))))
@@ -73,6 +77,7 @@ package: | clean gen_rpmbuild
 	sed -i 's/{VERSION}/$(PACKAGE_VERSION)/g' $(RPM_SPEC_FILE_DEST)
 	sed -i 's/{FILES_TO_INCLUDE}/$(FILES_SPEC_FINAL)/g' $(RPM_SPEC_FILE_DEST)
 	sed -i 's/{NEWLINE}/\n/g' $(RPM_SPEC_FILE_DEST)
+	sed -i 's/{BUILD_ID_LINKS}/$(BUILD_ID)/g' $(RPM_SPEC_FILE_DEST)
 	$(RPM_BUILD_CMD) --define "_rpmdir $(PWD)/$(RPM_OUTPUT_DIR)" --buildroot $(PWD)/$(RPM_BUILD_ROOT) $(RPM_BUILD_OPTIONS) $(RPM_SPEC_FILE_DEST)
 	@if [ -z "$$COPY_OUTPUT_RPM" ]; then\
         mkdir -p $(COPY_OUTPUT_RPM); \

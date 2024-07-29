@@ -16,8 +16,9 @@ DOCUMENTATION_MK = ./workflowStages/documentation.mk
 PACKAGE_MK = ./workflowStages/packaging/
 INSTALL_MK = ./workflowStages/install/
 
-ifdef Debug
+ifeq ($(Debug),1)
 	COMPILE_DEBUG="COVERAGE=true"
+export DEBUG:=1
 endif
 
 .NOTPARALLEL: copy clean test package verify
