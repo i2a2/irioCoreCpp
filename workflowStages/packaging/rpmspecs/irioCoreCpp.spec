@@ -13,9 +13,11 @@ irioCoreCpp
 
 %postun
 /sbin/ldconfig
+unset IRIOCORE_MODULES_PATH
 
 %posttrans
 /sbin/ldconfig
+source /etc/profile.d/irioCore.sh
 
 %files
 {FILES_TO_INCLUDE}

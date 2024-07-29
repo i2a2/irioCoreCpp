@@ -9,9 +9,7 @@ ifndef INSTALL_DIR
 $(warning INSTALL_DIR is not defined. Installation directory by default.)
 ifdef CODAC_ROOT
 	INSTALL_DIR := $(CODAC_ROOT)
-	INSTALL_DIR := $(CODAC_ROOT)
 else
-	INSTALL_DIR := /usr/local
 	INSTALL_DIR := /usr/local
 endif
 endif
@@ -20,6 +18,7 @@ $(info Install directory: $(INSTALL_DIR))
 BASE_LIB_INSTALL_DIR := $(INSTALL_DIR)/lib
 BASE_INC_INSTALL_DIR := $(INSTALL_DIR)/include
 BASE_DOC_INSTALL_DIR := $(INSTALL_DIR)/doc
+BASE_MODULES_INSTALL_DIR := $(INSTALL_DIR)/irioCore/modules
 
 PACKAGE_MK := genericPackaging.mk
 
@@ -28,6 +27,7 @@ export PACKAGE_MK
 export BASE_LIB_INSTALL_DIR
 export BASE_INC_INSTALL_DIR
 export BASE_DOC_INSTALL_DIR
+export BASE_MODULES_INSTALL_DIR
 
 export TOP_DIR
 

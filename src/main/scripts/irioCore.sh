@@ -1,0 +1,3 @@
+if [ -z "$IRIOCORE_MODULES_PATH" ]; then
+    export IRIOCORE_MODULES_PATH="{INSTALL_MODULES_DIR}"
+fi
