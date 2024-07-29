@@ -59,7 +59,7 @@ FILE_WITH_VERSION=./include/irioCoreCppVersion.h
 
 all: update_version copy_includes $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
-update_version:
+update_version: $(FILE_WITH_VERSION)
 	echo "Updating $(FILE_WITH_VERSION) to version $(VERSION)"
 	sed -i 's/{IRIOVERSIONVALUE}/$(VERSION)/g' $(FILE_WITH_VERSION)
 
@@ -83,10 +83,10 @@ $(STATICLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
 	$(AR) rcs $@ $^
 	
-$(OBJECT_DIR)/%.o: %.cpp update_version
+$(OBJECT_DIR)/%.o: %.cpp
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 
-$(OBJECT_DIR)/%.o: %.c update_version
+$(OBJECT_DIR)/%.o: %.c
 	mkdir -p $(OBJECT_DIR)
 	$(C) $(CFLAGS) $(INCLUDES) $< -o $@

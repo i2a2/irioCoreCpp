@@ -63,7 +63,7 @@ endif
 all: copy_includes update_irio_version $(SOURCES) $(SHAREDLIBRARY) $(STATICLIBRARY)
 
 
-update_irio_version:
+update_irio_version: $(FILE_WITH_IRIOVERSION)
 	echo "Updating $(FILE_WITH_IRIOVERSION) to version $(VERSION)"
 	sed -i 's/{IRIOVERSIONVALUE}/$(VERSION)/g' $(FILE_WITH_IRIOVERSION)
 
@@ -87,10 +87,10 @@ $(STATICLIBRARY): $(OBJECTS)
 	mkdir -p $(LIBRARY_DIR)
 	$(AR) rcs $@ $^
 	
-$(OBJECT_DIR)/%.o: %.cpp update_irio_version
+$(OBJECT_DIR)/%.o: %.cpp
 	mkdir -p $(OBJECT_DIR)
 	$(CC) $(CCFLAGS) $(INCLUDES) $< -o $@
 
-$(OBJECT_DIR)/%.o: %.c update_irio_version
+$(OBJECT_DIR)/%.o: %.c
 	mkdir -p $(OBJECT_DIR)
 	$(C) $(CFLAGS) $(INCLUDES) $< -o $@
