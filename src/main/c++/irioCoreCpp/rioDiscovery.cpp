@@ -165,7 +165,7 @@ class NISysCfg{
  private:
 	template<typename T>
 	void createFilter(NISysCfgFilterProperty property, const T* value) {
-		const char[] expertName = "NI-RIO";
+		const std::string expertName = "NI-RIO";
 		NISysCfgCloseHandle(m_filter);
 
 		auto status = NISysCfgCreateFilter(m_session, &m_filter);
@@ -173,7 +173,7 @@ class NISysCfg{
 								"Unable to create NISysCfg filter");
 		status = NISysCfgSetFilterProperty(
 			m_filter, NISysCfgFilterPropertyExpertName,
-			reinterpret_cast<const void *>(expertName));
+			reinterpret_cast<const void *>(expertName.c_str()));
 		throwIfNiSysCfgError(status,
 								"Unable to configure NISysCfg filter");
 		status = NISysCfgSetFilterProperty(
