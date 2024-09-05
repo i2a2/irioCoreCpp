@@ -5,6 +5,29 @@
 #include "errorsIrio.h"
 #include "parserManager.h"
 
+
+namespace {
+	/// Convert GroupResource to string
+	const std::unordered_map<irio::GroupResource, std::string> group2str = {
+		{irio::GroupResource::Common, "Common"},
+		{irio::GroupResource::AI, "AI"},
+		{irio::GroupResource::AO, "AO"},
+		{irio::GroupResource::AuxAI, "AuxAI"},
+		{irio::GroupResource::AuxAO, "AuxAO"},
+		{irio::GroupResource::DI, "DI"},
+		{irio::GroupResource::DO, "DO"},
+		{irio::GroupResource::AuxDI, "AuxDI"},
+		{irio::GroupResource::AuxDO, "AuxDO"},
+		{irio::GroupResource::DMA, "DMA"},
+		{irio::GroupResource::DAQ, "DAQ"},
+		{irio::GroupResource::IMAQ, "IMAQ"},
+		{irio::GroupResource::IO, "IO"},
+		{irio::GroupResource::SG, "SG"},
+		{irio::GroupResource::CRIO, "CRIO"},
+		{irio::GroupResource::FlexRIO, "FlexRIO"},
+	};
+}  // namespace
+
 namespace irio {
 
 ParserManager::ParserManager(const bfp::BFP &bfp) : m_bfp(bfp) {}
@@ -96,7 +119,7 @@ void ParserManager::printInfo(std::ostream &os, const bool onlyErrors) const {
 
 		if ((foundMap->size() && !onlyErrors) || notFoundMap->size() ||
 			errorMap->size()) {
-			os << m_group2str.at(group.first) << ":" << std::endl;
+			os << group2str.at(group.first) << ":" << std::endl;
 		}
 		if (foundMap->size() && !onlyErrors) {
 			os << "\tFound (" << foundMap->size() << " resources):" << std::endl
@@ -118,7 +141,8 @@ void ParserManager::printInfo(std::ostream &os, const bool onlyErrors) const {
 		if (errorMap->size()) {
 			os << "\tError:" << std::endl << "\t\t";
 			for (const auto &error : *errorMap) {
-				os << error.errMsg << std::endl << "\t\t";
+				os << error.first << ": " << error.second
+					<< std::endl << "\t\t";
 			}
 			os << std::endl;
 		}
@@ -146,7 +170,7 @@ void ParserManager::printInfoXML(const std::string& filename) const {
 
 		pugi::xml_node groupNode = root.append_child("Group");
 		groupNode.append_attribute("name") =
-			m_group2str.at(group.first).c_str();
+			group2str.at(group.first).c_str();
 
 		pugi::xml_node foundNode = groupNode.append_child("Found");
 		if (foundMap->size()) {
@@ -171,7 +195,7 @@ void ParserManager::printInfoXML(const std::string& filename) const {
 			errorNode.append_attribute("count") = errorMap->size();
 			for (const auto &error : *errorMap) {
 				pugi::xml_node itemNode = errorNode.append_child("Resource");
-				itemNode.text().set(error.errMsg.c_str());
+				itemNode.text().set(error.second.c_str());
 			}
 		}
 	}
@@ -244,15 +268,6 @@ void ParserManager::compareResourcesMap(
     }
 }
 
-ResourceError::ResourceError(const std::string &resName,
-		const std::string &msg) : resourceName(resName),
-				errMsg(msg) { }
-
-bool ResourceError::operator==(const ResourceError &other) const {
-	 return (resourceName == other.resourceName) &&
-			 (errMsg == other.errMsg);
-}
-
 bool CustomStringComparator::operator()(const std::string &a,
 										const std::string &b) const {
 	if (a.size() == b.size()) {
@@ -261,10 +276,6 @@ bool CustomStringComparator::operator()(const std::string &a,
 	return a.size() < b.size();	 // Otherwise, shorter strings come first
 }
 
-size_t ResourceErrorHash::operator()(const ResourceError &info) const {
-	size_t hash1 = std::hash<std::string>{}(info.resourceName);
-	size_t hash2 = std::hash<std::string>{}(info.errMsg);
-	return hash1 ^ (hash2 << 1);  // Combining hashes
-}
+GroupInfo::GroupInfo() = default;
 
 }  // namespace irio

@@ -11,43 +11,6 @@
 
 namespace irio {
 /**
- * Represents an error that occurred while parsing a resource.
- */
-struct ResourceError {
-	std::string resourceName; /**< Resource name that caused the error. */
-	std::string errMsg; /**< The error message. */
-
-	/**
-	 * Constructs a ResourceError object with the given resource name and error message.
-	 * 
-	 * @param resName The name of the resource that caused the error.
-	 * @param msg The error message.
-	 */
-	ResourceError(const std::string& resName, const std::string& msg);
-
-	/**
-	 * Checks if this ResourceError is equal to another ResourceError.
-	 * 
-	 * @param other The other ResourceError to compare with.
-	 * @return true if the ResourceErrors are equal, false otherwise.
-	 */
-	bool operator==(const ResourceError& other) const;
-};
-
-/**
- * Hash function for the ResourceError struct.
- */
-struct ResourceErrorHash {
-	/**
-	 * Calculates the hash value for a ResourceError object.
-	 * 
-	 * @param info The ResourceError object to calculate the hash for.
-	 * @return The calculated hash value.
-	 */
-	size_t operator()(const ResourceError& info) const;
-};
-
-/**
  * Possible groups of the parsed resources
  */
 enum class GroupResource {
@@ -94,10 +57,10 @@ struct GroupInfo {
 		found; /**< Set of found resources. */
 	std::set<std::string, CustomStringComparator>
 		notFound; /**< Set of not found resources. */
-	std::unordered_set<ResourceError, ResourceErrorHash>
-		error; /**< Set of resource errors. */
+	std::unordered_map<std::string, std::string>
+		error; /**< Map of resource errors. */
 
-	GroupInfo() = default;
+	GroupInfo();
 };
 
 /**
@@ -288,29 +251,6 @@ class ParserManager {
 	std::unordered_map<GroupResource, GroupInfo> m_groupInfo;
 	/// True if some resource was not found
 	bool m_error = false;
-
-	/// Convert GroupResource to string
-	const std::unordered_map<GroupResource, std::string> m_group2str = {
-		{GroupResource::Common, "Common"},
-		{GroupResource::AI, "AI"},
-		{GroupResource::AO, "AO"},
-		{GroupResource::AuxAI, "AuxAI"},
-		{GroupResource::AuxAO, "AuxAO"},
-		{GroupResource::DI, "DI"},
-		{GroupResource::DO, "DO"},
-		{GroupResource::AuxDI, "AuxDI"},
-		{GroupResource::AuxDO, "AuxDO"},
-		{GroupResource::DMA, "DMA"},
-		{GroupResource::DAQ, "DAQ"},
-		{GroupResource::IMAQ, "IMAQ"},
-		{GroupResource::IO, "IO"},
-		{GroupResource::SG, "SG"},
-		{GroupResource::CRIO, "CRIO"},
-		{GroupResource::FlexRIO, "FlexRIO"},
-	};
 };
 
 }  // namespace irio
-
-
-
