@@ -37,8 +37,7 @@ var hierarchy =
       [ "irio::bfp::DMA", "classirio_1_1bfp_1_1DMA.html", null ],
       [ "irio::bfp::Register", "classirio_1_1bfp_1_1Register.html", null ]
     ] ],
-    [ "irio::ResourceError", "structirio_1_1ResourceError.html", null ],
-    [ "irio::ResourceErrorHash", "structirio_1_1ResourceErrorHash.html", null ],
+    [ "irio::RIODeviceInfo", "structirio_1_1RIODeviceInfo.html", null ],
     [ "std::runtime_error", null, [
       [ "irio::errors::IrioError", "classirio_1_1errors_1_1IrioError.html", [
         [ "irio::errors::BFPParseBitfileError", "classirio_1_1errors_1_1BFPParseBitfileError.html", null ],

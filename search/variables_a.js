@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['resourcename_1104',['resourceName',['../structirio_1_1ResourceError.html#a7e0ca97256479016b5ff184778fe2c89',1,'irio::ResourceError']]],
-  ['riodevicemodel_1105',['RIODeviceModel',['../structirioDrv__t.html#a621d6cf09a576fcc20cdef1784032ed3',1,'irioDrv_t']]]
+  ['resourcename_1107',['resourceName',['../structirio_1_1RIODeviceInfo.html#a65b8738cce4cb7690552f7475c793813',1,'irio::RIODeviceInfo']]],
+  ['riodevicemodel_1108',['RIODeviceModel',['../structirioDrv__t.html#a621d6cf09a576fcc20cdef1784032ed3',1,'irioDrv_t']]]
 ];

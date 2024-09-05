@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">irioCoreCpp Library Module
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -121,20 +121,20 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga576618815a87e94956e3cd3c7d538447"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__IrioCoreCpp.html#ga576618815a87e94956e3cd3c7d538447">irio::searchRIODevice</a> (const std::string serialNumber)</td></tr>
-<tr class="memdesc:ga576618815a87e94956e3cd3c7d538447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for RIO devices and returns its name if any matches the specified serial number.  <a href="group__IrioCoreCpp.html#ga576618815a87e94956e3cd3c7d538447">More...</a><br /></td></tr>
-<tr class="separator:ga576618815a87e94956e3cd3c7d538447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga220341eabaefafb7f9e2f742be6b1ff8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structirio_1_1RIODeviceInfo.html">RIODeviceInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__IrioCoreCpp.html#ga220341eabaefafb7f9e2f742be6b1ff8">irio::searchRIODevice</a> (const std::string serialNumber)</td></tr>
+<tr class="memdesc:ga220341eabaefafb7f9e2f742be6b1ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for a RIO device with the specified serial number.  <a href="group__IrioCoreCpp.html#ga220341eabaefafb7f9e2f742be6b1ff8">More...</a><br /></td></tr>
+<tr class="separator:ga220341eabaefafb7f9e2f742be6b1ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga576618815a87e94956e3cd3c7d538447"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga576618815a87e94956e3cd3c7d538447">&#9670;&nbsp;</a></span>searchRIODevice()</h2>
+<a id="ga220341eabaefafb7f9e2f742be6b1ff8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga220341eabaefafb7f9e2f742be6b1ff8">&#9670;&nbsp;</a></span>searchRIODevice()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string irio::searchRIODevice </td>
+          <td class="memname"><a class="el" href="structirio_1_1RIODeviceInfo.html">RIODeviceInfo</a> irio::searchRIODevice </td>
           <td>(</td>
           <td class="paramtype">const std::string&#160;</td>
           <td class="paramname"><em>serialNumber</em></td><td>)</td>
@@ -143,7 +143,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Searches for RIO devices and returns its name if any matches the specified serial number. </p>
+<p>Searches for a RIO device with the specified serial number. </p>
+<p>Returns its resource name and the device model</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classirio_1_1errors_1_1RIODeviceNotFoundError.html" title="Exception when the specified RIO Device is not found.">irio::errors::RIODeviceNotFoundError</a></td><td>Not found device with specified serial number </td></tr>
@@ -157,7 +158,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Name of the RIO device </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structirio_1_1RIODeviceInfo.html" title="Holds the found resource name and device model.">RIODeviceInfo</a> with the resource name and the device model </dd></dl>
 
 </div>
 </div>

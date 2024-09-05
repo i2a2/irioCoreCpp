@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">irioCoreCpp Library Module
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -158,15 +158,12 @@ std::unordered_map&lt; GroupResource, <a class="el" href="structirio_1_1GroupInf
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c">m_error</a> = false</td></tr>
 <tr class="memdesc:a4a94975f0efc685a905e8e52602d2a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if some resource was not found. <br /></td></tr>
 <tr class="separator:a4a94975f0efc685a905e8e52602d2a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ea75d1ac565548e0892cd1dec76fff5"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; GroupResource, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5">m_group2str</a></td></tr>
-<tr class="memdesc:a3ea75d1ac565548e0892cd1dec76fff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert GroupResource to string.  <a href="classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5">More...</a><br /></td></tr>
-<tr class="separator:a3ea75d1ac565548e0892cd1dec76fff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Responsible for managing the parsing of resources for a bitfile. </p>
 <p>The <a class="el" href="classirio_1_1ParserManager.html" title="Responsible for managing the parsing of resources for a bitfile.">ParserManager</a> class provides methods for finding registers, DMAs, register addresses and DMA numbers. It also logs which resources have been found or not. It provides methods for logging resource incompatibilities and printing the problems found. </p>
 
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00113">113</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00076">76</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa7f26a6473a0164b73e04e1b9bcf2f22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa7f26a6473a0164b73e04e1b9bcf2f22">&#9670;&nbsp;</a></span>ParserManager()</h2>
@@ -814,51 +811,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3ea75d1ac565548e0892cd1dec76fff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ea75d1ac565548e0892cd1dec76fff5">&#9670;&nbsp;</a></span>m_group2str</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::unordered_map&lt;GroupResource, std::string&gt; irio::ParserManager::m_group2str</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">        {GroupResource::Common, <span class="stringliteral">&quot;Common&quot;</span>},</div>
-<div class="line">        {GroupResource::AI, <span class="stringliteral">&quot;AI&quot;</span>},</div>
-<div class="line">        {GroupResource::AO, <span class="stringliteral">&quot;AO&quot;</span>},</div>
-<div class="line">        {GroupResource::AuxAI, <span class="stringliteral">&quot;AuxAI&quot;</span>},</div>
-<div class="line">        {GroupResource::AuxAO, <span class="stringliteral">&quot;AuxAO&quot;</span>},</div>
-<div class="line">        {GroupResource::DI, <span class="stringliteral">&quot;DI&quot;</span>},</div>
-<div class="line">        {GroupResource::DO, <span class="stringliteral">&quot;DO&quot;</span>},</div>
-<div class="line">        {GroupResource::AuxDI, <span class="stringliteral">&quot;AuxDI&quot;</span>},</div>
-<div class="line">        {GroupResource::AuxDO, <span class="stringliteral">&quot;AuxDO&quot;</span>},</div>
-<div class="line">        {GroupResource::DMA, <span class="stringliteral">&quot;DMA&quot;</span>},</div>
-<div class="line">        {GroupResource::DAQ, <span class="stringliteral">&quot;DAQ&quot;</span>},</div>
-<div class="line">        {GroupResource::IMAQ, <span class="stringliteral">&quot;IMAQ&quot;</span>},</div>
-<div class="line">        {GroupResource::IO, <span class="stringliteral">&quot;IO&quot;</span>},</div>
-<div class="line">        {GroupResource::SG, <span class="stringliteral">&quot;SG&quot;</span>},</div>
-<div class="line">        {GroupResource::CRIO, <span class="stringliteral">&quot;CRIO&quot;</span>},</div>
-<div class="line">        {GroupResource::FlexRIO, <span class="stringliteral">&quot;FlexRIO&quot;</span>},</div>
-<div class="line">    }</div>
-</div><!-- fragment -->
-<p>Convert GroupResource to string. </p>
-
-<p class="definition">Definition at line <a class="el" href="parserManager_8h_source.html#l00293">293</a> of file <a class="el" href="parserManager_8h_source.html">parserManager.h</a>.</p>
 
 </div>
 </div>

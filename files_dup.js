@@ -8,6 +8,7 @@ var files_dup =
     [ "frameTypes.h", "frameTypes_8h_source.html", null ],
     [ "imaqTypes.h", "imaqTypes_8h_source.html", null ],
     [ "irioCoreCpp.h", "irioCoreCpp_8h_source.html", null ],
+    [ "irioCoreCppVersion.h", "irioCoreCppVersion_8h_source.html", null ],
     [ "irioDataTypes.h", "irioDataTypes_8h_source.html", null ],
     [ "irioDriver.h", "irioDriver_8h_source.html", null ],
     [ "irioError.h", "irioError_8h_source.html", null ],

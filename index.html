@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">irioCoreCpp Library Module
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -131,8 +131,8 @@ Generating packages manually</h1>
 <li><code>/usr/local/include</code> : Header files</li>
 </ul>
 </dd></dl>
-<p>It is also possible to set the installation directory for the files once the rpm are installed by using the parameter <code>INSTALL_DIR</code> </p><div class="fragment"><div class="line">make <span class="keyword">package </span>INSTALL_DIR=&lt;install directory&gt;</div>
-</div><!-- fragment --><p>Libraries will be placed in <code>INSTALL_DIR/lib</code> and headers in <code>INSTALL_DIR/include</code>. If <code>INSTALL_DIR</code> is not set, it defaults to <code>/usr/local</code>, unless <code>CODAC_ROOT</code> is set, in which case <code>INSTALL_DIR</code> will use the value of <code>CODAC_ROOT</code></p>
+<p>It is also possible to set the installation directory for the files once the rpm are installed by using the parameter <code>InstallDir</code> </p><div class="fragment"><div class="line">make <span class="keyword">package </span>InstallDir=&lt;install directory&gt;</div>
+</div><!-- fragment --><p>Libraries will be placed in <code>&lt;InstallDir&gt;/lib</code> and headers in <code>&lt;InstallDir&gt;/include</code>. If <code>InstallDir</code> is not set, it defaults to <code>/usr/local</code>, unless <code>CODAC_ROOT</code> is set, in which case <code>InstallDir</code> will use the value of <code>CODAC_ROOT</code></p>
 <h2><a class="anchor" id="manual_packages_deb"></a>
 Converting RPM packages to deb</h2>
 <h3><a class="anchor" id="manual_packages_deb_prerequisites"></a>

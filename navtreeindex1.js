@@ -1,13 +1,17 @@
 var NAVTREEINDEX1 =
 {
-"classirio_1_1TerminalsDMAIMAQ.html#ad16d68d6b7319cb2337d71e54bbde2fc":[9,0,0,38,0],
-"classirio_1_1TerminalsDMAIMAQ.html#ad23f3e3f9a2d3202262bd4431d9cf838":[9,0,0,38,7],
-"classirio_1_1TerminalsDMAIMAQ.html#ad5b46aa39d3750f130d749760a26cc18":[9,0,0,38,1],
-"classirio_1_1TerminalsDMAIMAQ.html#ad97ea0a73375b31eb41f25cfffa305c9":[9,0,0,38,3],
-"classirio_1_1TerminalsDMAIMAQ.html#aefaa4b6ff02d6065205c412de35afaae":[9,0,0,38,2],
-"classirio_1_1TerminalsDMAIMAQ.html#aff5f08d2163dc82bc99107b0b5eeaa50":[9,0,0,38,10],
-"classirio_1_1TerminalsDMAIMAQCPU.html":[9,0,0,39],
-"classirio_1_1TerminalsDMAIMAQCPU.html#a0310b6b70d54175fdee69fdc5a6f8504":[9,0,0,39,0],
+"classirio_1_1TerminalsDMAIMAQ.html#a964ca3d3c0d7c2f3bc9e0af1a45ed353":[9,0,0,37,5],
+"classirio_1_1TerminalsDMAIMAQ.html#aa7b79b5da97f27b0b91bffe8554e1d75":[9,0,0,37,4],
+"classirio_1_1TerminalsDMAIMAQ.html#aaf783054429cf873aa7c7315389b3789":[9,0,0,37,6],
+"classirio_1_1TerminalsDMAIMAQ.html#ab3e9e9c37f555af2a28505b61b886229":[9,0,0,37,11],
+"classirio_1_1TerminalsDMAIMAQ.html#ad16d68d6b7319cb2337d71e54bbde2fc":[9,0,0,37,0],
+"classirio_1_1TerminalsDMAIMAQ.html#ad23f3e3f9a2d3202262bd4431d9cf838":[9,0,0,37,7],
+"classirio_1_1TerminalsDMAIMAQ.html#ad5b46aa39d3750f130d749760a26cc18":[9,0,0,37,1],
+"classirio_1_1TerminalsDMAIMAQ.html#ad97ea0a73375b31eb41f25cfffa305c9":[9,0,0,37,3],
+"classirio_1_1TerminalsDMAIMAQ.html#aefaa4b6ff02d6065205c412de35afaae":[9,0,0,37,2],
+"classirio_1_1TerminalsDMAIMAQ.html#aff5f08d2163dc82bc99107b0b5eeaa50":[9,0,0,37,10],
+"classirio_1_1TerminalsDMAIMAQCPU.html":[9,0,0,38],
+"classirio_1_1TerminalsDMAIMAQCPU.html#a0310b6b70d54175fdee69fdc5a6f8504":[9,0,0,38,0],
 "classirio_1_1TerminalsDigital.html":[8,0,1,6],
 "classirio_1_1TerminalsDigital.html#a007733b18c31390bff45f5a84b5d5145":[8,0,1,6,0],
 "classirio_1_1TerminalsDigital.html#a33cf4afd6598bd79d64035b4a30ddd53":[8,0,1,6,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "group__IrioCoreCompatible.html#ga4e35033c2f98a37fedd5981d84ee7ca5":[8,1,49],
 "group__IrioCoreCompatible.html#ga4edc3e4d0edb6942409da9f9349ce060":[8,1,110],
 "group__IrioCoreCompatible.html#ga53aa94b56e27723478bfb97a43c576c0":[8,1,5],
-"group__IrioCoreCompatible.html#ga5677f9e78a9d5eedb9943a3cd591d1cf":[8,1,73],
-"group__IrioCoreCompatible.html#ga5a4b3586e173d8a5036d3a033ef58007":[8,1,9],
-"group__IrioCoreCompatible.html#ga5a97e3b155a7254e3184058ecc5378c4":[8,1,83],
-"group__IrioCoreCompatible.html#ga5adc14ac3ed7b7d8838ea83541347f33":[8,1,25],
-"group__IrioCoreCompatible.html#ga5bd63326be3e177783d25b15f2871ca9":[8,1,58]
+"group__IrioCoreCompatible.html#ga5677f9e78a9d5eedb9943a3cd591d1cf":[8,1,73]
 };

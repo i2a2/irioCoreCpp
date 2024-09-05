@@ -17,6 +17,5 @@ var classirio_1_1ParserManager =
     [ "printInfoXML", "classirio_1_1ParserManager.html#a40c97890189c2eb0094c68f602761ef7", null ],
     [ "m_bfp", "classirio_1_1ParserManager.html#a939458e88840fb16324bcac5c2015e68", null ],
     [ "m_error", "classirio_1_1ParserManager.html#a4a94975f0efc685a905e8e52602d2a9c", null ],
-    [ "m_group2str", "classirio_1_1ParserManager.html#a3ea75d1ac565548e0892cd1dec76fff5", null ],
     [ "m_groupInfo", "classirio_1_1ParserManager.html#a863e50a5e78d4cc6ef54fc6b91c6d6d3", null ]
 ];

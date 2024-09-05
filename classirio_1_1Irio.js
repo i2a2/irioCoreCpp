@@ -5,9 +5,12 @@ var classirio_1_1Irio =
     [ "closeSession", "classirio_1_1Irio.html#a0801b025db56fe543cf4e1b0f1486073", null ],
     [ "finalizeDriver", "classirio_1_1Irio.html#a6702d9f7f85f4f73ca3bc6364dd62f3d", null ],
     [ "getCloseAttribute", "classirio_1_1Irio.html#a00110b297bbd9c2828e56a4e51ce38e2", null ],
+    [ "getDeviceModel", "classirio_1_1Irio.html#a71df178d677de42ffc12397f044d1a0a", null ],
     [ "getID", "classirio_1_1Irio.html#a62ff3b7615876091bd01e527f67a1da9", null ],
+    [ "getLibraryVersion", "classirio_1_1Irio.html#ad6c49eba0edb5ac7a293a36b3285d5cc", null ],
     [ "getPlatform", "classirio_1_1Irio.html#a0a2426c799013edf361169f15dfff42f", null ],
     [ "getProfileID", "classirio_1_1Irio.html#a15ca0b9d66ee0c396c9e0e0d2acf4856", null ],
+    [ "getRIOSerial", "classirio_1_1Irio.html#acea79677c9063881165a46909e7b1e20", null ],
     [ "getTerminalsAnalog", "classirio_1_1Irio.html#a12c2e827f12c9f2c450a17ecf971896f", null ],
     [ "getTerminalsAuxAnalog", "classirio_1_1Irio.html#a2f0d9bab60d701fb703f79598944c1de", null ],
     [ "getTerminalsAuxDigital", "classirio_1_1Irio.html#a05758691eb388f62d90f8d4304945261", null ],
@@ -26,8 +29,10 @@ var classirio_1_1Irio =
     [ "setCloseAttribute", "classirio_1_1Irio.html#a8d140b92de658fc78e6931a76bc1001e", null ],
     [ "startFPGA", "classirio_1_1Irio.html#a761d5a15c7b777c9327c0ab3ae97ec5c", null ],
     [ "m_closeAttribute", "classirio_1_1Irio.html#a6838f3bef2bfcb56d235a16e4c750266", null ],
+    [ "m_deviceModel", "classirio_1_1Irio.html#a20eaed06444e9bd232a42791fe07e0c4", null ],
     [ "m_platform", "classirio_1_1Irio.html#a966b4ac6ec8cb0b5c6930feab460dcb9", null ],
     [ "m_profile", "classirio_1_1Irio.html#a1e605696136f0abcb7bc5a11feb42f58", null ],
     [ "m_resourceName", "classirio_1_1Irio.html#a48e38b55a281808eb75f3eb1aae3e88a", null ],
+    [ "m_rioSerialNumber", "classirio_1_1Irio.html#ab425f6d7d117d66768efd437b30b829f", null ],
     [ "m_session", "classirio_1_1Irio.html#a2d3fc9439231c3a7b3c623c6575365c8", null ]
 ];

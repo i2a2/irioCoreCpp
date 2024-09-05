@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">irioCoreCpp Library Module
-   &#160;<span id="projectnumber">2.0.0</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -117,6 +117,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a15ca0b9d66ee0c396c9e0e0d2acf4856"><td class="memItemLeft" align="right" valign="top">PROFILE_ID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a15ca0b9d66ee0c396c9e0e0d2acf4856">getProfileID</a> () const</td></tr>
 <tr class="memdesc:a15ca0b9d66ee0c396c9e0e0d2acf4856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the selected profile's ID.  <a href="classirio_1_1Irio.html#a15ca0b9d66ee0c396c9e0e0d2acf4856">More...</a><br /></td></tr>
 <tr class="separator:a15ca0b9d66ee0c396c9e0e0d2acf4856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea79677c9063881165a46909e7b1e20"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#acea79677c9063881165a46909e7b1e20">getRIOSerial</a> () const</td></tr>
+<tr class="memdesc:acea79677c9063881165a46909e7b1e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns RIO Serial of the device in use.  <a href="classirio_1_1Irio.html#acea79677c9063881165a46909e7b1e20">More...</a><br /></td></tr>
+<tr class="separator:acea79677c9063881165a46909e7b1e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71df178d677de42ffc12397f044d1a0a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a71df178d677de42ffc12397f044d1a0a">getDeviceModel</a> () const</td></tr>
+<tr class="memdesc:a71df178d677de42ffc12397f044d1a0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the device model of the RIO device in use.  <a href="classirio_1_1Irio.html#a71df178d677de42ffc12397f044d1a0a">More...</a><br /></td></tr>
+<tr class="separator:a71df178d677de42ffc12397f044d1a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6c49eba0edb5ac7a293a36b3285d5cc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#ad6c49eba0edb5ac7a293a36b3285d5cc">getLibraryVersion</a> () const</td></tr>
+<tr class="memdesc:ad6c49eba0edb5ac7a293a36b3285d5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the library version.  <a href="classirio_1_1Irio.html#ad6c49eba0edb5ac7a293a36b3285d5cc">More...</a><br /></td></tr>
+<tr class="separator:ad6c49eba0edb5ac7a293a36b3285d5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d140b92de658fc78e6931a76bc1001e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a8d140b92de658fc78e6931a76bc1001e">setCloseAttribute</a> (std::uint32_t attribute)</td></tr>
 <tr class="memdesc:a8d140b92de658fc78e6931a76bc1001e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the attribute used when closing the FPGA session.  <a href="classirio_1_1Irio.html#a8d140b92de658fc78e6931a76bc1001e">More...</a><br /></td></tr>
 <tr class="separator:a8d140b92de658fc78e6931a76bc1001e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,6 +190,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:ab425f6d7d117d66768efd437b30b829f"><td class="memItemLeft" align="right" valign="top"><a id="ab425f6d7d117d66768efd437b30b829f"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#ab425f6d7d117d66768efd437b30b829f">m_rioSerialNumber</a></td></tr>
+<tr class="memdesc:ab425f6d7d117d66768efd437b30b829f"><td class="mdescLeft">&#160;</td><td class="mdescRight">RIO Serial of the device used. <br /></td></tr>
+<tr class="separator:ab425f6d7d117d66768efd437b30b829f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20eaed06444e9bd232a42791fe07e0c4"><td class="memItemLeft" align="right" valign="top"><a id="a20eaed06444e9bd232a42791fe07e0c4"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a20eaed06444e9bd232a42791fe07e0c4">m_deviceModel</a></td></tr>
+<tr class="memdesc:a20eaed06444e9bd232a42791fe07e0c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device model of the RIO device. <br /></td></tr>
+<tr class="separator:a20eaed06444e9bd232a42791fe07e0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a966b4ac6ec8cb0b5c6930feab460dcb9"><td class="memItemLeft" align="right" valign="top"><a id="a966b4ac6ec8cb0b5c6930feab460dcb9"></a>
 std::unique_ptr&lt; <a class="el" href="classirio_1_1Platform.html">Platform</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classirio_1_1Irio.html#a966b4ac6ec8cb0b5c6930feab460dcb9">m_platform</a></td></tr>
 <tr class="memdesc:a966b4ac6ec8cb0b5c6930feab460dcb9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classirio_1_1Platform.html" title="Generic Platform class.">Platform</a> of the RIO device. <br /></td></tr>
@@ -347,6 +364,26 @@ NiFpga_Session&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 
 </div>
 </div>
+<a id="a71df178d677de42ffc12397f044d1a0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71df178d677de42ffc12397f044d1a0a">&#9670;&nbsp;</a></span>getDeviceModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string irio::Irio::getDeviceModel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the device model of the RIO device in use. </p>
+<dl class="section return"><dt>Returns</dt><dd>Device model of the RIO device in use </dd></dl>
+
+</div>
+</div>
 <a id="a62ff3b7615876091bd01e527f67a1da9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62ff3b7615876091bd01e527f67a1da9">&#9670;&nbsp;</a></span>getID()</h2>
 
@@ -364,6 +401,26 @@ NiFpga_Session&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 
 <p>Returns unique identifier. </p>
 <dl class="section return"><dt>Returns</dt><dd>Unique identifier </dd></dl>
+
+</div>
+</div>
+<a id="ad6c49eba0edb5ac7a293a36b3285d5cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c49eba0edb5ac7a293a36b3285d5cc">&#9670;&nbsp;</a></span>getLibraryVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string irio::Irio::getLibraryVersion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the library version. </p>
+<dl class="section return"><dt>Returns</dt><dd>Library version </dd></dl>
 
 </div>
 </div>
@@ -405,6 +462,26 @@ NiFpga_Session&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 
 <p>Returns the selected profile's ID. </p>
 <dl class="section return"><dt>Returns</dt><dd>Profile ID </dd></dl>
+
+</div>
+</div>
+<a id="acea79677c9063881165a46909e7b1e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acea79677c9063881165a46909e7b1e20">&#9670;&nbsp;</a></span>getRIOSerial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string irio::Irio::getRIOSerial </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns RIO Serial of the device in use. </p>
+<dl class="section return"><dt>Returns</dt><dd>RIO Serial of the device in use </dd></dl>
 
 </div>
 </div>
@@ -945,7 +1022,7 @@ NiFpga_Session&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 <p>Attribute to use when closing the session with the RIO device. </p>
 <p>By default is 0 </p>
 
-<p class="definition">Definition at line <a class="el" href="irioCoreCpp_8h_source.html#l00348">348</a> of file <a class="el" href="irioCoreCpp_8h_source.html">irioCoreCpp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="irioCoreCpp_8h_source.html#l00375">375</a> of file <a class="el" href="irioCoreCpp_8h_source.html">irioCoreCpp.h</a>.</p>
 
 </div>
 </div>
