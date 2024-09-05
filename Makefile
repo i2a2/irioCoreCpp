@@ -20,6 +20,10 @@ ifeq ($(Debug),1)
 	COMPILE_DEBUG="COVERAGE=true"
 endif
 
+ifdef InstallDir
+export INSTALL_DIR=$(InstallDir)
+endif
+
 .NOTPARALLEL: copy clean test package verify
 
 all: help
@@ -60,12 +64,12 @@ info:
 	@printf "\t\t Generates Doxygen documentation in $(COPY_DIR)doc/irioCore\n"
 	@printf "\t package: [compile, doc]\n"
 	@printf "\t\t Generates rpms\n"
-	@printf "\t\t\t *INSTALL_DIR: This optional variable sets the install location.\n"
-	@printf "\t\t\t\t Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include.\n"
-	@printf "\t\t\t\t If INSTALL_DIR is not set, it defaults to /usr/local, unless CODAC_ROOT is set, in which case INSTALL_DIR will use the value of CODAC_ROOT.\n"
+	@printf "\t\t\t *InstallDir: This optional variable sets the install location.\n"
+	@printf "\t\t\t\t Libraries will be placed in <InstallDir>/lib and headers in <InstallDir>/include.\n"
+	@printf "\t\t\t\t If InstallDir is not set, it defaults to /usr/local, unless CODAC_ROOT is set, in which case InstallDir will use the value of CODAC_ROOT.\n"
 	@printf "\t install: [compile]\n"
-	@printf "\t\t Copies the libraries and headers to the INSTALL_DIR directory\n"
-	@printf "\t\t\t *INSTALL_DIR: (Required) Install location. Libraries will be placed in INSTALL_DIR/lib and headers in INSTALL_DIR/include.\n"
+	@printf "\t\t Copies the libraries and headers to the InstallDir directory\n"
+	@printf "\t\t\t *InstallDir: (Required) Install location. Libraries will be placed in <InstallDir>/lib and headers in <InstallDir>/include.\n"
 
 copy:
 	@echo "Copying $(SOURCE_DIR) to $(COPY_DIR)..."

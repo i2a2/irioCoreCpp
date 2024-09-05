@@ -98,13 +98,13 @@ This will generate rpm files in `target/packages/`
 > - `/usr/local/lib` : Libraries
 > - `/usr/local/include` : Header files
 
-It is also possible to set the installation directory for the files once the rpm are installed by using the parameter `INSTALL_DIR`
+It is also possible to set the installation directory for the files once the rpm are installed by using the parameter `InstallDir`
 ```
-make package INSTALL_DIR=<install directory>
+make package InstallDir=<install directory>
 ```
 
-Libraries will be placed in `INSTALL_DIR/lib` and headers in `INSTALL_DIR/include`.
-If `INSTALL_DIR` is not set, it defaults to `/usr/local`, unless `CODAC_ROOT` is set, in which case `INSTALL_DIR` will use the value of `CODAC_ROOT`
+Libraries will be placed in `<InstallDir>/lib` and headers in `<InstallDir>/include`.
+If `InstallDir` is not set, it defaults to `/usr/local`, unless `CODAC_ROOT` is set, in which case `InstallDir` will use the value of `CODAC_ROOT`
 
 ## Converting RPM packages to deb
 ### Prerequisites
