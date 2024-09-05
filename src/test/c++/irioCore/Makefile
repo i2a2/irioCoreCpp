@@ -6,7 +6,7 @@ LIBRARIES=gtest pthread irioCore
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=. $(TARGET)/includes/irioCore
 
-ifdef CODAC_ROOT
+ifdef IRIOCORECPP_CCS_VERSION
 	LIBRARIES+=NiFpga 
 	INCLUDE_DIRS+=$(CODAC_ROOT)/include
 	LIBRARY_DIRS+=$(CODAC_ROOT)/lib

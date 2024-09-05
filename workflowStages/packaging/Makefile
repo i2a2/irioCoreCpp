@@ -7,7 +7,7 @@ TOP_DIR=../..
 
 ifndef INSTALL_DIR
 $(warning INSTALL_DIR is not defined. Installation directory by default.)
-ifdef CODAC_ROOT
+ifdef IRIOCORECPP_CCS_VERSION
 	INSTALL_DIR := $(CODAC_ROOT)
 	INSTALL_DIR := $(CODAC_ROOT)
 else

@@ -6,7 +6,7 @@ LIBRARIES=gtest pthread bfp irioCoreCpp
 LIBRARY_DIRS=$(TARGET)/lib
 INCLUDE_DIRS=$(TARGET)/includes/bfp $(TARGET)/includes/irioCoreCpp
 
-ifdef CODAC_ROOT
+ifdef IRIOCORECPP_CCS_VERSION
 	LIBRARIES+=NiFpga
 	INCLUDE_DIRS+=$(CODAC_ROOT)/include
 	LIBRARY_DIRS+=$(CODAC_ROOT)/lib

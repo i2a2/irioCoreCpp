@@ -18,7 +18,6 @@ INSTALL_MK = ./workflowStages/install/
 
 ifeq ($(Debug),1)
 	COMPILE_DEBUG="COVERAGE=true"
-export DEBUG:=1
 endif
 
 .NOTPARALLEL: copy clean test package verify

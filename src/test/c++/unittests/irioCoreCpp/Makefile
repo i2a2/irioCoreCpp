@@ -24,7 +24,7 @@ CFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -O0 -g
 CCFLAGS=-c -Wno-variadic-macros -Wno-class-memaccess -std=c++11 -O0 -g
 LDFLAGS=
 
-ifdef CODAC_ROOT
+ifdef IRIOCORECPP_CCS_VERSION
 	LIBRARIES+=NiFpga 
 	INCLUDE_DIRS+=$(CODAC_ROOT)/include
 	LIBRARY_DIRS+=$(CODAC_ROOT)/lib
