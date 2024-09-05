@@ -173,11 +173,11 @@ class NISysCfg{
 								"Unable to create NISysCfg filter");
 		status = NISysCfgSetFilterProperty(
 			m_filter, NISysCfgFilterPropertyExpertName,
-			reinterpret_cast<const void *>(expertName.c_str()));
+			expertName.c_str());
 		throwIfNiSysCfgError(status,
 								"Unable to configure NISysCfg filter");
 		status = NISysCfgSetFilterProperty(
-			m_filter, property, reinterpret_cast<const void *>(value));
+			m_filter, property, value);
 		throwIfNiSysCfgError(status,
 								"Unable to configure NISysCfg filter");
 	}
@@ -209,19 +209,19 @@ class NISysCfg{
 
 	template<typename T>
 	void getIndexedProperty(NISysCfgIndexedProperty property, T* val) const {
-		auto status = NISysCfgGetResourceIndexedProperty(m_resource,
-				property, 0, reinterpret_cast<void*>(val));
-		throwIfNiSysCfgError(status, "");
-	}
+          auto status =
+              NISysCfgGetResourceIndexedProperty(m_resource, property, 0, val);
+          throwIfNiSysCfgError(status, "");
+        }
 
-	template<typename T>
-	void getResourceProperty(NISysCfgResourceProperty property, T* val) const {
-		auto status = NISysCfgGetResourceProperty(m_resource, property,
-				reinterpret_cast<void*>(val));
-		throwIfNiSysCfgError(status, "");
-	}
+        template <typename T>
+        void getResourceProperty(NISysCfgResourceProperty property,
+                                 T *val) const {
+          auto status = NISysCfgGetResourceProperty(m_resource, property, val);
+          throwIfNiSysCfgError(status, "");
+        }
 
-	NISysCfgSessionHandle m_session;
+        NISysCfgSessionHandle m_session;
 	NISysCfgFilterHandle m_filter;
 	NISysCfgResourceHandle m_resource;
 };
