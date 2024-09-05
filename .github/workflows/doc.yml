@@ -28,5 +28,5 @@ jobs:
       - name: Upload doc artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
+          name: doc_${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.sha }}
           path: ./target/doc/${{ steps.extract_project_name.outputs.PROJECT_NAME }}/html

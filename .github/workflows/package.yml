@@ -42,14 +42,14 @@ jobs:
     - name: Upload rpm artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: rpm-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}
+        name: rpm_${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.ref_name}}
         path: ./${{ env.PACKAGE_DIR }}/rpm-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}.tar.gz
         if-no-files-found: error
     
     - name: Upload deb artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: deb-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}
+        name: deb_${{ steps.extract_project_name.outputs.PROJECT_NAME }}_${{ github.ref_name}}
         path: ./${{ env.PACKAGE_DIR }}/deb-${{ steps.extract_project_name.outputs.PROJECT_NAME }}-${{ github.ref_name}}.tar.gz
         if-no-files-found: error
     
