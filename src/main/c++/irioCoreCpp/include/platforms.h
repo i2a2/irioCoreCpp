@@ -158,7 +158,7 @@ class PlatformRSeries: public Platform {
 	/// Max number of Aux Digital terminals for this platform
 	static const size_t MAX_AUX_DIGITAL = 16;
 	/// Max number of DMAs for this platform
-	static const size_t MAX_DMA = 3;
+	static const size_t MAX_DMA = 16;
 	/// Max number of Signal Generators for this platform
 	static const size_t MAX_SG = 2;
 	/// Max number of modules supported by this platform
