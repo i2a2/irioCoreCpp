@@ -148,15 +148,15 @@ class PlatformRSeries: public Platform {
 	/// Max number of Analog Input terminals for this platform
 	static const size_t MAX_AI = 8;
 	/// Max number of Aux Analog Input terminals for this platform
-	static const size_t MAX_AUX_AI = 16;
+	static const size_t MAX_AUX_AI = 128;
 	/// Max number of Analog Output terminals for this platform
 	static const size_t MAX_AO = 8;
 	/// Max number of Aux Analog Output terminals for this platform
-	static const size_t MAX_AUX_AO = 16;
+	static const size_t MAX_AUX_AO = 128;
 	/// Max number of Digital terminals for this platform
 	static const size_t MAX_DIGITAL = 128;
 	/// Max number of Aux Digital terminals for this platform
-	static const size_t MAX_AUX_DIGITAL = 16;
+	static const size_t MAX_AUX_DIGITAL = 128;
 	/// Max number of DMAs for this platform
 	static const size_t MAX_DMA = 16;
 	/// Max number of Signal Generators for this platform
