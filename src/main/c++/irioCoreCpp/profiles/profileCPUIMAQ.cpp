@@ -1,4 +1,5 @@
 #include "profiles/profileCPUIMAQ.h"
+
 #include "terminals/terminalsDMAIMAQCPU.h"
 
 namespace irio {

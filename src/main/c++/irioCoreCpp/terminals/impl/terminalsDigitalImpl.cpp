@@ -1,6 +1,10 @@
-#include <terminals/impl/terminalsDigitalImpl.h>
-#include <terminals/names/namesTerminalsDigital.h>
-#include <utils.h>
+#include "terminals/impl/terminalsDigitalImpl.h"
+
+#include <string>
+#include <unordered_map>
+
+#include "terminals/names/namesTerminalsDigital.h"
+#include "utils.h"
 
 namespace irio {
 

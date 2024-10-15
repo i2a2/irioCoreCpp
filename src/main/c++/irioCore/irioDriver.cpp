@@ -3,9 +3,14 @@
 #include <stdio.h>
 
 #include <algorithm>
+#include <cstdio>
 #include <cstring>
 #include <functional>
 #include <iostream>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "errorsIrio.h"
 #include "irioError.h"

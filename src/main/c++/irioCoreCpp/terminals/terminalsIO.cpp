@@ -1,6 +1,7 @@
+#include "terminals/terminalsIO.h"
+
 #include <memory>
 
-#include "terminals/terminalsIO.h"
 #include "terminals/impl/terminalsIOImpl.h"
 
 namespace irio {

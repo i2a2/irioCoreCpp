@@ -1,7 +1,12 @@
-#include <terminals/impl/terminalsDMACommonImpl.h>
-#include <errorsIrio.h>
-#include <utils.h>
+#include "terminals/impl/terminalsDMACommonImpl.h"
+
 #include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include "errorsIrio.h"
+#include "utils.h"
 
 namespace irio {
 

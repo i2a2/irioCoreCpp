@@ -1,5 +1,6 @@
-#include <profiles/profileCPUDAQ.h>
-#include <terminals/terminalsDMADAQCPU.h>
+#include "profiles/profileCPUDAQ.h"
+
+#include "terminals/terminalsDMADAQCPU.h"
 
 namespace irio {
 

@@ -1,7 +1,9 @@
+#include "terminals/terminalsSignalGeneration.h"
+
 #include <memory>
+#include <vector>
 
 #include "terminals/impl/terminalsSignalGenerationImpl.h"
-#include "terminals/terminalsSignalGeneration.h"
 
 namespace irio {
 

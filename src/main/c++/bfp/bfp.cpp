@@ -1,8 +1,11 @@
-#include <iostream>
+#include "bfp.h"
+
 #include <algorithm>
+#include <iostream>
+#include <unordered_map>
+#include <string>
 #include <pugixml.hpp>
 
-#include "bfp.h"
 #include "errorsIrio.h"
 
 namespace irio {

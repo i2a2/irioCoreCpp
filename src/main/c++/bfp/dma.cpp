@@ -1,5 +1,7 @@
 #include "dma.h"
 
+#include <string>
+
 namespace irio {
 namespace bfp {
 

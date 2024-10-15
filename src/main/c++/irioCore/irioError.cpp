@@ -6,8 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <cstdio>
 #include <iostream>
 #include <memory>
+#include <string>
 #include <unordered_map>
 
 std::unordered_map<TStatus *, std::unique_ptr<char>> statusMap;

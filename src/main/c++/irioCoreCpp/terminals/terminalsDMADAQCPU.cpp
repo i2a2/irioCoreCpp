@@ -1,7 +1,10 @@
 #include "terminals/terminalsDMADAQCPU.h"
+
+#include <memory>
+
+#include "terminals/impl/terminalsDMADAQImpl.h"
 #include "terminals/names/namesTerminalsDMACPUCommon.h"
 #include "terminals/names/namesTerminalsDMADAQCPU.h"
-#include "terminals/impl/terminalsDMADAQImpl.h"
 
 namespace irio {
 

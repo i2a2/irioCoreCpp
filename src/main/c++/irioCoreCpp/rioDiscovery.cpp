@@ -1,14 +1,18 @@
-#include <dirent.h>
-#include <vector>
-#include <unordered_map>
-#include <fstream>
-
 #include "rioDiscovery.h"
-#include "errorsIrio.h"
+
+#include <dirent.h>
 
 #ifndef CCS_VERSION
 #include <nisyscfg/nisyscfg.h>
 #endif
+
+#include <fstream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include "errorsIrio.h"
+
 
 namespace irio {
 

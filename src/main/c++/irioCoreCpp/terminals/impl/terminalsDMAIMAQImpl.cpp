@@ -1,9 +1,14 @@
+#include "terminals/impl/terminalsDMAIMAQImpl.h"
+
 #include <unistd.h>
 
-#include "terminals/impl/terminalsDMAIMAQImpl.h"
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include "errorsIrio.h"
 #include "terminals/names/namesTerminalsDMAIMAQ.h"
 #include "utils.h"
-#include "errorsIrio.h"
 
 namespace irio {
 

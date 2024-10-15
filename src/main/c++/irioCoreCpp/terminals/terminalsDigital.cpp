@@ -1,6 +1,8 @@
-#include <terminals/terminalsDigital.h>
-#include <terminals/impl/terminalsDigitalImpl.h>
+#include "terminals/terminalsDigital.h"
+
 #include <memory>
+
+#include "terminals/impl/terminalsDigitalImpl.h"
 
 namespace irio {
 

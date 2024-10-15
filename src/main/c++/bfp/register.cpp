@@ -1,5 +1,7 @@
 #include "register.h"
+
 #include <exception>
+#include <string>
 
 namespace irio {
 namespace bfp {

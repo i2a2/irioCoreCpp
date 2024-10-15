@@ -1,4 +1,7 @@
 #include "terminals/terminalsFlexRIO.h"
+
+#include <memory>
+
 #include "terminals/impl/terminalsFlexRIOImpl.h"
 
 namespace irio {

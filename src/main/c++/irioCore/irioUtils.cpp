@@ -1,5 +1,7 @@
 #include "irioUtils.h"
 
+#include <string>
+
 using irio::PROFILE_ID;
 
 irio::TerminalsAnalog getTerminalsAnalog(const std::string &rioSerial,

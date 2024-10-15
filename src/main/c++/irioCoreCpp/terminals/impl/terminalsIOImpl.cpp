@@ -1,4 +1,7 @@
 #include "terminals/impl/terminalsIOImpl.h"
+
+#include <string>
+
 #include "terminals/names/namesTerminalsIO.h"
 #include "utils.h"
 

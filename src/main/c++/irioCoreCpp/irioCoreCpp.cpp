@@ -1,17 +1,21 @@
-#include <math.h>
-#include <limits>
+#include "irioCoreCpp.h"
+
 #include <NiFpga.h>
+#include <math.h>
+
+#include <iostream>
+#include <limits>
+#include <string>
+#include <unordered_map>
 
 #include "bfp.h"
-
-#include "irioCoreCpp.h"
-#include "terminals/names/namesTerminalsCommon.h"
-#include "utils.h"
+#include "errorsIrio.h"
+#include "irioCoreCppVersion.h"
+#include "parserManager.h"
 #include "profiles/profiles.h"
 #include "rioDiscovery.h"
-#include "errorsIrio.h"
-#include "parserManager.h"
-#include "irioCoreCppVersion.h"
+#include "terminals/names/namesTerminalsCommon.h"
+#include "utils.h"
 
 namespace irio {
 
@@ -233,18 +237,18 @@ void Irio::initDriver() const {
 }
 
 void Irio::openSession(const std::string &bitfilePath,
-					 const std::string &signature) {
-	const auto status = NiFpga_Open(bitfilePath.c_str(),
-			signature.c_str(), m_resourceName.c_str(),
-			NiFpga_OpenAttribute_NoRun, &m_session);
+                       const std::string &signature) {
+  const auto status = NiFpga_Open(bitfilePath.c_str(), signature.c_str(),
+                                  m_resourceName.c_str(),
+                                  NiFpga_OpenAttribute_NoRun, &m_session);
 
-	if (NiFpga_IsError(status)) {
-		const std::string err = "Error downloading bitfile to FPGA. " +
-								std::string("(Code: ") +
-								std::to_string(status) + std::string(")");
+  if (NiFpga_IsError(status)) {
+    const std::string err = "Error downloading bitfile to FPGA. " +
+                            std::string("(Code: ") + std::to_string(status) +
+                            std::string(")");
 
-		throw irio::errors::NiFpgaErrorDownloadingBitfile(err);
-	}
+    throw irio::errors::NiFpgaErrorDownloadingBitfile(err);
+  }
 }
 
 void Irio::searchPlatform(ParserManager *parserManager) {

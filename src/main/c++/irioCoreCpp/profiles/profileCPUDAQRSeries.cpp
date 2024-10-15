@@ -1,4 +1,5 @@
 #include "profiles/profileCPUDAQRSeries.h"
+
 #include "profilesTypes.h"
 
 namespace irio {

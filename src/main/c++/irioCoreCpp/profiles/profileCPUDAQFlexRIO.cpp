@@ -1,6 +1,6 @@
-#include <profiles/profileCPUDAQFlexRIO.h>
-#include <terminals/terminalsFlexRIO.h>
+#include "profiles/profileCPUDAQFlexRIO.h"
 
+#include "terminals/terminalsFlexRIO.h"
 
 namespace irio {
 

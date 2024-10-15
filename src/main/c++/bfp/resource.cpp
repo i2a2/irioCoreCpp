@@ -1,5 +1,7 @@
 #include "resource.h"
 
+#include <string>
+
 namespace irio {
 namespace bfp {
 

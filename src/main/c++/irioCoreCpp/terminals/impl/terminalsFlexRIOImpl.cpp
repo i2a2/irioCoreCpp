@@ -1,4 +1,7 @@
 #include "terminals/impl/terminalsFlexRIOImpl.h"
+
+#include <string>
+
 #include "terminals/names/namesTerminalsFlexRIO.h"
 #include "utils.h"
 

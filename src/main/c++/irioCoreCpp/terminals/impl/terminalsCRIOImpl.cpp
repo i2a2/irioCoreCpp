@@ -1,4 +1,8 @@
 #include "terminals/impl/terminalsCRIOImpl.h"
+
+#include <string>
+#include <vector>
+
 #include "terminals/names/namesTerminalsCRIO.h"
 #include "utils.h"
 

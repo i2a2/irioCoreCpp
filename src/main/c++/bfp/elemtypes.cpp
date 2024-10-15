@@ -1,5 +1,7 @@
 #include "elemtypes.h"
 
+#include <string>
+
 namespace irio {
 namespace bfp {
 

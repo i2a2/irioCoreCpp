@@ -1,6 +1,9 @@
-#include <terminals/impl/terminalsAuxAnalogImpl.h>
-#include <terminals/names/namesTerminalsAuxAnalog.h>
-#include <utils.h>
+#include "terminals/impl/terminalsAuxAnalogImpl.h"
+
+#include <string>
+
+#include "terminals/names/namesTerminalsAuxAnalog.h"
+#include "utils.h"
 
 namespace irio {
 

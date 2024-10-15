@@ -1,7 +1,13 @@
 #include "terminals/impl/terminalsSignalGenerationImpl.h"
+
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+#include "errorsIrio.h"
 #include "terminals/names/namesTerminalsSignalGeneration.h"
 #include "utils.h"
-#include "errorsIrio.h"
 
 namespace irio {
 

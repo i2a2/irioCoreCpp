@@ -1,6 +1,9 @@
-#include <terminals/impl/terminalsDMADAQImpl.h>
-#include <utils.h>
-#include <errorsIrio.h>
+#include "terminals/impl/terminalsDMADAQImpl.h"
+
+#include <string>
+
+#include "errorsIrio.h"
+#include "utils.h"
 
 namespace irio {
 

@@ -1,5 +1,7 @@
 #include "terminals/terminalsDMAIMAQ.h"
 
+#include <vector>
+
 #include "terminals/impl/terminalsDMAIMAQImpl.h"
 
 namespace irio {

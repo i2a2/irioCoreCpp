@@ -1,6 +1,8 @@
-#include <limits>
-
 #include "terminals/impl/terminalsCommonImpl.h"
+
+#include <limits>
+#include <string>
+
 #include "terminals/names/namesTerminalsCommon.h"
 #include "utils.h"
 

@@ -1,5 +1,6 @@
-#include <profiles/profileCPUDAQcRIO.h>
-#include <terminals/terminalsCRIO.h>
+#include "profiles/profileCPUDAQcRIO.h"
+
+#include "terminals/terminalsCRIO.h"
 
 namespace irio {
 

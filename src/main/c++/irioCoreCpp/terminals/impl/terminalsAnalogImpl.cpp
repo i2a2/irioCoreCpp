@@ -1,8 +1,13 @@
-#include <terminals/impl/terminalsAnalogImpl.h>
-#include <terminals/names/namesTerminalsAnalog.h>
-#include <utils.h>
-#include <errorsIrio.h>
+#include "terminals/impl/terminalsAnalogImpl.h"
+
 #include <niflexrio.h>
+
+#include <string>
+#include <unordered_map>
+
+#include "errorsIrio.h"
+#include "terminals/names/namesTerminalsAnalog.h"
+#include "utils.h"
 
 namespace irio {
 

@@ -1,4 +1,7 @@
 #include "profiles/profileBase.h"
+
+#include <memory>
+
 #include "errorsIrio.h"
 #include "utils.h"
 

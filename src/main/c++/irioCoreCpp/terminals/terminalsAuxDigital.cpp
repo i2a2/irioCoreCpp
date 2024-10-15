@@ -1,6 +1,8 @@
-#include <terminals/terminalsAuxDigital.h>
-#include <terminals/impl/terminalsAuxDigitalImpl.h>
+#include "terminals/terminalsAuxDigital.h"
+
 #include <memory>
+
+#include "terminals/impl/terminalsAuxDigitalImpl.h"
 
 namespace irio {
 

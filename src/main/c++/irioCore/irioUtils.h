@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <functional>
+#include <string>
 
 #include "irioDataTypes.h"
 #include "irioError.h"

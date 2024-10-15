@@ -1,6 +1,8 @@
-#include <memory>
-
 #include "terminals/terminalsCommon.h"
+
+#include <memory>
+#include <string>
+
 #include "terminals/impl/terminalsCommonImpl.h"
 
 namespace irio {

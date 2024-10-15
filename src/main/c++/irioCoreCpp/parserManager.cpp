@@ -1,10 +1,13 @@
+#include "parserManager.h"
+
 #include <sys/stat.h>
+
 #include <iostream>
+#include <unordered_map>
+#include <string>
 #include <pugixml.hpp>
 
 #include "errorsIrio.h"
-#include "parserManager.h"
-
 
 namespace {
 	/// Convert GroupResource to string

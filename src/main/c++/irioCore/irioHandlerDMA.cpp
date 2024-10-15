@@ -1,5 +1,7 @@
 #include "irioHandlerDMA.h"
 
+#include <string>
+
 #include "irioError.h"
 #include "irioInstanceManager.h"
 #include "irioUtils.h"
