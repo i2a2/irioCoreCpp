@@ -31,7 +31,23 @@ ARCH := $(shell uname -m)
 INPUT_FILES := $(foreach pair,$(FILES),$(BASE_DIR)/$(word 1,$(subst :, ,$(pair))))
 OUTPUT_FILES := $(foreach pair,$(FILES),$(word 2,$(subst :, ,$(pair))))
 
-FILES_SPEC_FINAL := $(shell echo "$(OUTPUT_FILES)" | sed 's/\//\\\//g' | sed 's/ /\{NEWLINE\}/g')
+# Function to generate all intermediate directories for a given path
+define generate_intermediate_dirs
+$(eval current_path := )\
+$(foreach dir,$(subst /, ,$(1)),\
+    $(eval current_path := $(current_path)/$(dir))\
+    $(current_path))
+endef
+# Generate all intermediate directories for each file in OUTPUT_FILES
+AUX_DIRS := $(sort $(foreach file,$(OUTPUT_FILES),$(call generate_intermediate_dirs,$(dir $(file)))))
+ALL_DIRS := $(foreach dir,$(AUX_DIRS),"%dir{SPACE}$(strip $(dir))")
+
+# Combine ALL_DIRS and OUTPUT_FILES for FILES_SPEC_FINAL
+FILES_SPEC_FINAL := $(shell echo "$(ALL_DIRS) $(OUTPUT_FILES)" | sed 's/\//\\\//g' | sed 's/ /\{NEWLINE\}/g')
+
+
+
+# FILES_SPEC_FINAL := $(shell echo "$(OUTPUT_FILES)" | sed 's/\//\\\//g' | sed 's/ /\{NEWLINE\}/g')
 
 
 ifneq ($(words $(INPUT_FILES)),$(words $(OUTPUT_FILES)))
@@ -71,13 +87,14 @@ gen_rpmbuild:
 	@mkdir -p $(RPM_SPECS_DIR)
 
 package: | clean gen_rpmbuild
-	$(foreach i,$(shell seq 1 $(words $(FILES))), $(call copy_files_to_buildroot,$(word $(i),$(INPUT_FILES)),$(word $(i),$(OUTPUT_FILES))))
-	cp $(RPM_SPEC_FILE_ORIG) $(RPM_SPEC_FILE_DEST)
-	sed -i 's/{PACKAGE_NAME}/$(PACKAGE_NAME)/g' $(RPM_SPEC_FILE_DEST)
-	sed -i 's/{VERSION}/$(PACKAGE_VERSION)/g' $(RPM_SPEC_FILE_DEST)
-	sed -i 's/{FILES_TO_INCLUDE}/$(FILES_SPEC_FINAL)/g' $(RPM_SPEC_FILE_DEST)
-	sed -i 's/{NEWLINE}/\n/g' $(RPM_SPEC_FILE_DEST)
-	sed -i 's/{BUILD_ID_LINKS}/$(BUILD_ID)/g' $(RPM_SPEC_FILE_DEST)
+	@$(foreach i,$(shell seq 1 $(words $(FILES))), $(call copy_files_to_buildroot,$(word $(i),$(INPUT_FILES)),$(word $(i),$(OUTPUT_FILES))))
+	@cp $(RPM_SPEC_FILE_ORIG) $(RPM_SPEC_FILE_DEST)
+	@sed -i 's/{PACKAGE_NAME}/$(PACKAGE_NAME)/g' $(RPM_SPEC_FILE_DEST)
+	@sed -i 's/{VERSION}/$(PACKAGE_VERSION)/g' $(RPM_SPEC_FILE_DEST)
+	@sed -i 's/{FILES_TO_INCLUDE}/$(FILES_SPEC_FINAL)/g' $(RPM_SPEC_FILE_DEST)
+	@sed -i 's/{SPACE}/ /g' $(RPM_SPEC_FILE_DEST)
+	@sed -i 's/{NEWLINE}/\n/g' $(RPM_SPEC_FILE_DEST)
+	@sed -i 's/{BUILD_ID_LINKS}/$(BUILD_ID)/g' $(RPM_SPEC_FILE_DEST)
 	$(RPM_BUILD_CMD) --define "_rpmdir $(PWD)/$(RPM_OUTPUT_DIR)" --buildroot $(PWD)/$(RPM_BUILD_ROOT) $(RPM_BUILD_OPTIONS) $(RPM_SPEC_FILE_DEST)
 	@if [ -z "$$COPY_OUTPUT_RPM" ]; then\
         mkdir -p $(COPY_OUTPUT_RPM); \
