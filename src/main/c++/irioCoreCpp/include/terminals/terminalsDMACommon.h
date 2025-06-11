@@ -10,6 +10,9 @@ namespace irio {
 
 class TerminalsDMACommonImpl;
 
+/**
+ * Default depth for DMA. In number of elements.
+ */
 const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;  // TODO: Why this number?
 
 /**
