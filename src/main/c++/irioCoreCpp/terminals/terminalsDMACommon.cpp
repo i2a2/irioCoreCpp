@@ -19,7 +19,7 @@ std::uint16_t TerminalsDMACommon::getNCh(const std::uint32_t n) const {
 			->getNChImpl(n);
 }
 
-void TerminalsDMACommon::startDMA(const std::uint32_t n, 
+void TerminalsDMACommon::startDMA(const std::uint32_t n,
 			const size_t depth) const {
 	std::static_pointer_cast<TerminalsDMACommonImpl>(m_impl)
 			->startDMAImpl(n, depth);

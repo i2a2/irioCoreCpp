@@ -106,7 +106,7 @@ void TerminalsDMACommonImpl::startDMACommon(const std::uint32_t &dma,
 		const size_t depth) const {
 	auto status = NiFpga_ConfigureFifo(m_session, dma, depth);
 	utils::throwIfNotSuccessNiFpga(status,
-			"Error configuring " + m_nameTermDMA + std::to_string(dma) 
+			"Error configuring " + m_nameTermDMA + std::to_string(dma)
 			+ " with depth " + std::to_string(depth));
 	status = NiFpga_StartFifo(m_session, dma);
 	utils::throwIfNotSuccessNiFpga(status,
