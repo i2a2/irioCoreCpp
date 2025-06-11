@@ -10,6 +10,8 @@ namespace irio {
 
 class TerminalsDMACommonImpl;
 
+const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;  // TODO: Why this number?
+
 /**
  * Class managing the terminals common to all other
  * terminals that use DMAs in the RIO device
@@ -103,16 +105,19 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n DMA group to configure and start
+	 * @param depth DMA depth to configure DMA
 	 */
-	void startDMA(const std::uint32_t n) const;
+	void startDMA(const std::uint32_t n,
+			const size_t depth = SIZE_HOST_DMAS_DEFAULT) const;
 
 	/**
 	 * Configures and starts all DMAs in the FPGA
 	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
+	 * @param depth DMA depth to configure all DMAs
 	 */
-	void startAllDMAs() const;
+	void startAllDMAs(const size_t depth = SIZE_HOST_DMAS_DEFAULT) const;
 
 	/**
 	 * Stops the specified DMA group
