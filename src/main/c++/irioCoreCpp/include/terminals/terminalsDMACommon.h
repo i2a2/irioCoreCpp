@@ -11,11 +11,6 @@ namespace irio {
 class TerminalsDMACommonImpl;
 
 /**
- * Default depth for DMA. In number of elements.
- */
-const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;  // TODO: Why this number?
-
-/**
  * Class managing the terminals common to all other
  * terminals that use DMAs in the RIO device
  *
@@ -292,5 +287,10 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * @return Number of found DMAs
 	 */
 	size_t countDMAs() const;
+
+	/**
+	* Default depth for DMA. In number of elements.
+	*/
+	static const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;  // TODO: Why this number?
 };
 }  // namespace irio
