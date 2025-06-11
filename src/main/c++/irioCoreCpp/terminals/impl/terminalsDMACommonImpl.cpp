@@ -168,7 +168,7 @@ void TerminalsDMACommonImpl::cleanDMACommon(const std::uint32_t &dma) const {
 			"Error reading " + m_nameTermDMA + std::to_string(dma));
 
 	// TODO: Find better way?
-	static const size_t sizeCleanBuffer = SIZE_HOST_DMAS;
+	static const size_t sizeCleanBuffer = 2048000;
 	std::unique_ptr<std::uint64_t> buffer(new std::uint64_t[sizeCleanBuffer]);
 
 	size_t elementsToRead;
