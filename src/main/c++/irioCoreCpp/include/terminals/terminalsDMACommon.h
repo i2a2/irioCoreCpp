@@ -291,6 +291,7 @@ class TerminalsDMACommon: public TerminalsBase{
 	/**
 	* Default depth for DMA. In number of elements.
 	*/
-	static const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;  // TODO: Why this number?
+	static const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;
+	// TODO: Why this number?
 };
 }  // namespace irio
