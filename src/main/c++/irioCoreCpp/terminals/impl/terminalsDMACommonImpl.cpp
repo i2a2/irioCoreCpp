@@ -102,31 +102,33 @@ std::uint16_t TerminalsDMACommonImpl::getNChImpl(const std::uint32_t n) const {
 	return m_nCh.at(n);
 }
 
-void TerminalsDMACommonImpl::startDMACommon(const std::uint32_t &dma) const {
-	// TODO: For the moment, do the same as in the old lib, reserve a lot of space
-	auto status = NiFpga_ConfigureFifo(m_session, dma, SIZE_HOST_DMAS);
+void TerminalsDMACommonImpl::startDMACommon(const std::uint32_t &dma,
+		const size_t depth) const {
+	auto status = NiFpga_ConfigureFifo(m_session, dma, depth);
 	utils::throwIfNotSuccessNiFpga(status,
-			"Error configuring " + m_nameTermDMA + std::to_string(dma));
+			"Error configuring " + m_nameTermDMA + std::to_string(dma)
+			+ " with depth " + std::to_string(depth));
 	status = NiFpga_StartFifo(m_session, dma);
 	utils::throwIfNotSuccessNiFpga(status,
 			"Error starting " + m_nameTermDMA + std::to_string(dma));
 }
 
-void TerminalsDMACommonImpl::startDMAImpl(const std::uint32_t n) const {
+void TerminalsDMACommonImpl::startDMAImpl(const std::uint32_t n,
+		const size_t depth) const {
 	const auto it = m_mapDMA.find(n);
 	if (it == m_mapDMA.end()) {
 		const std::string err = std::to_string(n) + " is not a valid DMA";
 		throw errors::ResourceNotFoundError(err);
 	}
 
-	startDMACommon(it->second);
+	startDMACommon(it->second, depth);
 
 	cleanDMACommon(n);
 }
 
-void TerminalsDMACommonImpl::startAllDMAsImpl() const {
+void TerminalsDMACommonImpl::startAllDMAsImpl(const size_t depth) const {
 	for (const auto &values : m_mapDMA) {
-		startDMACommon(values.second);
+		startDMACommon(values.second, depth);
 	}
 
 	cleanAllDMAsImpl();
@@ -166,7 +168,7 @@ void TerminalsDMACommonImpl::cleanDMACommon(const std::uint32_t &dma) const {
 			"Error reading " + m_nameTermDMA + std::to_string(dma));
 
 	// TODO: Find better way?
-	static const size_t sizeCleanBuffer = SIZE_HOST_DMAS;
+	static const size_t sizeCleanBuffer = 2048000;
 	std::unique_ptr<std::uint64_t> buffer(new std::uint64_t[sizeCleanBuffer]);
 
 	size_t elementsToRead;

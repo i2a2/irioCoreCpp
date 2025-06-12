@@ -103,16 +103,19 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
 	 * @param n DMA group to configure and start
+	 * @param depth DMA depth to configure DMA
 	 */
-	void startDMA(const std::uint32_t n) const;
+	void startDMA(const std::uint32_t n,
+			const size_t depth = SIZE_HOST_DMAS_DEFAULT) const;
 
 	/**
 	 * Configures and starts all DMAs in the FPGA
 	 *
 	 * @throw irio::errors::NiFpgaError Error occurred in an FPGA operation
 	 *
+	 * @param depth DMA depth to configure all DMAs
 	 */
-	void startAllDMAs() const;
+	void startAllDMAs(const size_t depth = SIZE_HOST_DMAS_DEFAULT) const;
 
 	/**
 	 * Stops the specified DMA group
@@ -284,5 +287,11 @@ class TerminalsDMACommon: public TerminalsBase{
 	 * @return Number of found DMAs
 	 */
 	size_t countDMAs() const;
+
+	/**
+	* Default depth for DMA. In number of elements.
+	*/
+	static const size_t SIZE_HOST_DMAS_DEFAULT = 2048000;
+	// TODO: Why this number?
 };
 }  // namespace irio
